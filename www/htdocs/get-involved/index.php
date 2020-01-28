@@ -4,13 +4,13 @@
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	include $_SERVER["DOCUMENT_ROOT"] . "/get-involved/headers/headers.php"; 	
-	
-	
+	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 	
+
 	/* User is logged */
 	if ( $MenuLogin == "logged") {
 ?>
 <div class="main">
+	
 
 	<P>
 		This is the Home Menu when logged with information about the program and some stats.
@@ -39,6 +39,7 @@
 ?>
 
 <div class="main">
+	<CENTER>
 	<P CLASS="BckGrndCenter">I WANT TO</P>
 
 	<DIV>
@@ -67,11 +68,12 @@
 	</P>
 
 	<P>
-		<B>The time commitment is about 40 hours a year.</B>
+		<B>The time commitment is about 32 hours a year.</B>
 	</P>
-
+	
+	</CENTER>
 </div>
 
 <?php } ?>
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/get-involved/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>

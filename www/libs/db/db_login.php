@@ -11,6 +11,55 @@ class login extends queries {
 	 	$this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
+  function RegisterUser($Username, $Email, $Password, $Type) {
+  	
+  	if ( empty ($Username) || empty ($Email) || empty ($Password)) return 0;
+  	
+  	$hashtable = hash("md5", PrintRandomText(40));
+  	
+  	// Save the entry to keep track.
+  	$this->SaveInscriptionRecord($Email, $Username, $Type);
+  	
+  	// Check Username and Email.
+  	$sql = "SELECT * FROM SystemUser WHERE SystemUser_email = :Email OR SystemUser_username = :Username";
+		$sql_vars = array('Email' => $Email, 'Username' => $Username);
+		$ret = $this->_return_multiple($sql,  $sql_vars);
+		
+		if (! empty($ret)) {
+			if ($ret[0][SystemUser_email] == $Email || $ret[1][SystemUser_email] == $Email) { $error["EMAIL"] = 1; }
+			if ($ret[0][SystemUser_username] == $Username || $ret[1][SystemUser_username] == $Username) { $error["USERNAME"] = 1; }
+			return $error;
+		}
+		
+		if ( empty($ret)) {
+			$ret = $this->AddEmailUsernamePassword($Email, $Username, $Password, $hashtable);		
+			if ( empty ($ret["SystemUser_ID"])) {
+				return "Problem saving the Email";
+			}
+		}
+		
+		$sql = "SELECT * FROM SystemUser WHERE SystemUser_ID = :ID";
+		$sql_vars = array('ID' => $ret["SystemUser_ID"]);
+		$ret = $this->_return_simple($sql,  $sql_vars);
+
+		return $ret;	  	
+  }
+
+	function SaveInscriptionRecord ($Email, $Username, $Type = "Other") {
+		$sql = "INSERT INTO SystemUserVoter SET SystemUserVoter_Username = :Username, " .
+						"SystemUserVoter_Email = :Email, SystemUserVoter_action = :Type, " . 
+						"SystemUserVoter_Date = NOW(), SystemUserVoter_IP = :IP";
+		$sql_vars = array('Email' => $Email, 'Username' => $Username, 'Type' => $Type, 'IP' => $_SERVER['REMOTE_ADDR']);
+		$this->_return_nothing($sql,  $sql_vars);
+	}
+						
+  
+  function RegisterEmail($email) {
+  	$sql = "";
+  	
+  	return 0;
+  }
+  
 	function CheckEmail($email) {
 		$sql = "SELECT * FROM SystemUser WHERE SystemUser_email = :Email";
 		$sql_vars = array(':Email' => $email);											
@@ -91,6 +140,27 @@ class login extends queries {
 		return $this->_return_nothing($sql,  $sql_vars);
 	}
 	
+	function AddEmailUsernamePassword($Email, $Username, $Password, $hashtable = "") {
+		$HashPass = password_hash($Password, PASSWORD_DEFAULT);
+		
+		$sql = "INSERT INTO SystemUser SET SystemUser_username = :username, " . 
+						"SystemUser_password = :password, SystemUser_email = :Email";
+		$sql_vars = array(':username' => $Username, ':password' => $HashPass, 
+											'Email' => $Email);
+		
+		if ( ! empty ($hashtable)) {
+			$sql .= ", SystemUser_emaillinkid = :Hash ";
+			$sql_vars["Hash"] = $hashtable;
+		}		
+		
+		$this->_return_nothing($sql,  $sql_vars);
+
+		$sql = "SELECT LAST_INSERT_ID() as SystemUser_ID";
+		return $this->_return_simple($sql);
+	
+	}
+	
+	
 	function UpdateUsernamePassword($SystemUser_ID, $username, $password, $hashtable = "") {
 		
 		$HashPass = password_hash($password, PASSWORD_DEFAULT);
@@ -114,9 +184,29 @@ class login extends queries {
 	}
 	
 	function UpdateHash($SystemEmail, $HashLink) {
-		$sql = "UPDATE SystemUser SET SystemUser_emaillinkid = :Hash WHERE SystemUser_email = :Email";
-		$sql_vars = array(':Email' => $SystemEmail, ':Hash' => $HashLink);
+		
+		if ( $HashLink == "null") {
+			$sql = "UPDATE SystemUser SET SystemUser_emaillinkid = null WHERE SystemUser_email = :Email";
+			$sql_vars = array(':Email' => $SystemEmail);
+		} else {
+			$sql = "UPDATE SystemUser SET SystemUser_emaillinkid = :Hash WHERE SystemUser_email = :Email";
+			$sql_vars = array(':Email' => $SystemEmail, ':Hash' => $HashLink);
+		}
+		
 		return $this->_return_nothing($sql,  $sql_vars);
+	}
+	
+	function FindFromEmailHashkey($SystemEmail, $HashLink) {
+		$sql = "SELECT * FROM SystemUser WHERE SystemUser_emaillinkid = :Hash AND SystemUser_email = :Email";
+		$sql_vars = array(':Email' => $SystemEmail, ':Hash' => $HashLink);
+		$ret = $this->_return_simple($sql,  $sql_vars);
+		
+		if ( ! empty ($ret)) {
+			$HashLink = "null";
+			$this->UpdateHash($SystemEmail, $HashLink);
+		}
+		
+		return $ret;		
 	}
 	
 	function VerifyAccount($SystemUser_ID) {
@@ -136,6 +226,12 @@ class login extends queries {
 		return $this->_return_simple($sql, $sql_vars);				
 	}
 	
+	function FindLocalRawVoter($RawVoterID) {
+		$slq = "SELECT * FROM Raw_Voter WHERE Raw_Voter_ID = :ID";
+		$sql_vars = array("Raw_Voter_ID" => $RawVoterID);
+		return $this->_return_simple($sql, $sql_vars);
+	}
+	
 	function FindLocalRawVoterFromDatedFile($RawVoterID, $DatedFiles) {
 		$sql = "SELECT * FROM NYSVoters.Raw_Voter " . 
 						"LEFT JOIN Raw_Voter_Dates ON (Raw_Voter.Raw_Voter_Dates_ID = Raw_Voter_Dates.Raw_Voter_Dates_ID) " . 
@@ -151,7 +247,10 @@ class login extends queries {
 	} 
 	
 	function CheckUsernamePassword($Username, $Password) {
-		$sql = "SELECT * FROM SystemUser WHERE SystemUser_username = :Username";
+		$sql = "SELECT * FROM SystemUser " . 
+						"LEFT JOIN Raw_Voter ON (Raw_Voter.Raw_Voter_ID = SystemUser.Raw_Voter_ID) " .
+						"WHERE SystemUser_username = :Username";
+		
 		$sql_vars = array("Username" => $Username);
 		$result = $this->_return_simple($sql, $sql_vars);	
 		$ResultPasswordCheck = password_verify ($Password , $result["SystemUser_password"]);

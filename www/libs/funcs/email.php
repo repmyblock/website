@@ -9,7 +9,7 @@ function SendPetitionEmail2($to, $emailsubject, $message, $k) {
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
 	$emailsubject = "RepMyBlock Email verification";
                  
-	$linktoverify = $FrontEndWebsite . "/get-involved/login/verify.php?hashkey=" . $hashtable . "&username=" . $_POST["username"];       
+	$linktoverify = $FrontEndWebsite . "/get-involved/login/verify.php?hashkey=" . $hashtable . "&username=" . $username;       
                            
   $message = "Please verify your email address by following this link: $linktoverify\n";
  	$htmlmessage = '<HTML><CENTER>Rep My Block</CENTER><BR>' .
@@ -65,49 +65,328 @@ function SendNominationEmail($to, $emailsubject, $message, $CanCominationID) {
 
 function SendForgotLogin($to, $hashtable) {
 	
-		include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	$TextTime = time ();
 	$FromAddress = "infos@RepMyBlock.NYC";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
-  $emailsubject = "Password Recovery Email.";
+	$emailsubject= "=?utf-8?b?".base64_encode("Password Recovery Email.")."?=";
 	
-	$linktoverify = $FrontEndWebsite . "/get-involved/login/recover/?hashkey=" . $hashtable;       
 
-	//$handleLogo = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/pics/email/RepMyBlock.png");	
-	//attach[0] = base64_encode($handleLogo);
-	//$message = "\n\n" . $LinkToAcceptance . "\n";
+	$BotArray["sendemail"] =  $to;
+
+  $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
+	$linktoverify = $FrontEndWebsite . "/login/forgotpwd/recover/?hashkey=" . $hashtable;       
 	
-	$html_message = "<HTML>" . 
-		"<HEAD>" . 
-		"<TITLE>Rep My Block.</TITLE>" . 
-		"</HEAD>" . 
-		"<BODY style=line-height: 1;background: #fff;font:21px;font-family:Arial,Helvetica,sans-serif;\">" . 
-		"<img src=\"" . $FrontEndWebsite . "/pics/email/RepMyBlock.png\" align=\"LEFT\">" . 
-		"<DIV>" . 
-		"<FONT style=\"font-size: 24px;color:#16317D;\">Rep My Block</FONT><BR>" . 
-		"<FONT style=\"font-size: 14px;color:#16317D;\">Represent Community By Running For County Committee</FONT>" . 
-		"</DIV>" . 
-		"<P>" .
-		"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>Hello,</FONT><BR>" . 
-		"</P>" . 
+	$WelcomeLine = "Hello";
+	
+	$message = 
+		"Content-Transfer-Encoding: base64\n" .
+		"Content-Type: text/plain; charset=utf-8\n\n" . 
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+					"\n" . $WelcomeLine . ",\n\n" . 
+					"You can recover your password by clicking on this link: " .
+					$linktoverify . "\n\n" .
+					
+					"Once you validate your email, you can share this email with your friends interested to know more.\n" . 
+					"This message was sent to: " . $BotArray["sendemail"] . "\n"
+				)
+			)
+		) . 
+	"\n";
 
-		"<P>" .
-		"<FONT style=\"color:#16317D;font-size: 12px;font-weight: normal;\">Here is the link to recover your password.</FONT><BR>" . 
-		"</P>" . 
-
-		"<P>" .
-		"<FONT style=\"color:#16317D;font-size: 12px;font-weight: bold;\"><A HREF=\"" . $linktoverify . "\">Verify my email address</A></FONT><BR>" . 
-		"</P>" . 
+	$html_message = 
+		"Content-Transfer-Encoding: base64\n" .
+		//"Content-Transfer-Encoding: utf-8\n" .
+		"Content-Type: text/html; charset=utf-8\n\n" .	
 		
-		"</HTML>";
+		chunk_split (
+			base64_encode(
+				utf8_encode(
 		
-	$msg = "Hello,\n" . 
-					"Attached is the email to recoved your password.\n" . 
-					"Verify your email by clicking here: " . $linktoverify . "\n\n";
-
-		final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $html_message);
+					TopEmail() . 
+					
+					"<P>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>" . $WelcomeLine .",</FONT><BR>\n" .
+					"</P>\n" .
+		
+					"<P>\n" .
+					"You can recover your password by clicking on this link:<BR> " .
+					"</P>\n" .
+		
+							 
+					// SUBURBAN BUTTON GROUP START 
+							"<center>" .
+							"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" align=\"center\" " . 
+							       "class=\"responsive-table\" style=\"max-width: 100%\">\n" .
+							 
+							  "<tr>\n" . 
+							    "<td align=\"center\" style=\"padding:5px\" class=\"responsive-table\">\n" . 
+							
+					// START BUTTON
+										"<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"360\" height=\"59\" class=\"responsive-table\">\n" . 
+										  "<tr>\n" . 
+										    "<td class=\"responsive-table-button blue-red\" bgcolor=\"#EE2E62\" width=\"360\" height=\"59\" " . 
+										      "style=\"-webkit-border-radius:4px;border-radius:4px;border:1px solid #00007f;" . 
+										      "border-bottom:4px solid #EE2E62;min-width:360px; max-width:360px;\" " . 
+										      "align=\"center\">\n" . 
+													  "<a class=\"mobile-font-22 blue-btn\" height=\"59\" href=\"" . $linktoverify . "\" target=\"_blank\" " . 
+												  	"style=\"padding:13px;display:block;font-size:26px;font-family:Avenir,Arial,sans-serif;font-weight:700;" .
+													  "font-style:normal;color:#ffffff;letter-spacing:0em;text-decoration:none;line-height:33px;\">Recover my password</a>\n" . 
+										    "</td>\n" . 
+										  "</tr>\n" . 
+										"</table>\n" . 
+					//  END BUTTON
+		
+									"</td>\n" . 
+								"</tr>\n" . 
+							
+							"</table>" .
+							"</center>\n" . 
+					// SUBURBAN BUTTON GROUP END -->\n" .
+				 
+		
+		
+					AddCountiesSpecials($infoarray["County"], $infoarray["Party"]) . 
+				
+			/*
+					"<div>" . 
+			   	"<!--[if mso]>" . 
+			    "<v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" . $linktoverify  . "\" style=\"height:36px;v-text-anchor:middle;\" strokecolor=\"#EE2E62\" fillcolor=\"#EE2E62\">" . 
+			    "<w:anchorlock/>" . 
+			   	"<center style=\"color:#ffffff;font-family:Helvetica, Arial,sans-serif;font-size:16px;\">Verify my email address</center>" . 
+			   	"</v:roundrect>" . 
+			  	"<![endif]-->" . 
+			  	"<a href=\"" . $linktoverify  . "\" style=\"padding: 8px 12px;background-color:#EE2E62;font-weight: bold;border:1px solid #EB7035;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:20px;line-height:44px;text-align:center;text-decoration:none;-webkit-text-size-adjust:none;mso-hide:all;\">Verify my email address</a>" . 
+			 		" </div>" . 
+			*/
+		
+					"<P><BR>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\">Once you validate your email, " . 
+					"you can share this email with your friends interested to know more.</FONT><BR>\n" . 
+					"</P>\n" .
+		
+					BottomEmail($BotArray)
+				)
+			)
+		) . 
+	"\n";
+	
+	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $html_message);	
+		
 }
 
+
+function SendForgotUsername($to, $hashtable) {
+	
+	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+	$TextTime = time ();
+	$FromAddress = "infos@RepMyBlock.NYC";
+  $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
+	$emailsubject= "=?utf-8?b?".base64_encode("Username Recovery Email.")."?=";
+	
+
+	$linktoverify = $FrontEndWebsite . "/login/forgotuser/recover/?hashkey=" . $hashtable .
+									"&email=" . rawurlencode($to);       
+
+	$BotArray["sendemail"] = $to;
+  $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
+	
+	$WelcomeLine = "Hello";
+	
+	$message = 
+		"Content-Transfer-Encoding: base64\n" .
+		"Content-Type: text/plain; charset=utf-8\n\n" . 
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+					"\n" . $WelcomeLine . ",\n\n" . 
+					"You can recover your username by clicking on this link: " .
+					$linktoverify . "\n\n" .
+					
+					"Once you validate your email, you can share this email with your friends interested to know more.\n" . 
+					"This message was sent to: " . $BotArray["sendemail"] . "\n"
+				)
+			)
+		) . 
+	"\n";
+
+	$html_message = 
+		"Content-Transfer-Encoding: base64\n" .
+		//"Content-Transfer-Encoding: utf-8\n" .
+		"Content-Type: text/html; charset=utf-8\n\n" .	
+		
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+		
+					TopEmail() . 
+					
+					"<P>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>" . $WelcomeLine .",</FONT><BR>\n" .
+					"</P>\n" .
+		
+					"<P>\n" .
+					"You can recover your username by clicking on this link:<BR> " .
+					"</P>\n" .
+		
+							 
+					// SUBURBAN BUTTON GROUP START 
+							"<center>" .
+							"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" align=\"center\" " . 
+							       "class=\"responsive-table\" style=\"max-width: 100%\">\n" .
+							 
+							  "<tr>\n" . 
+							    "<td align=\"center\" style=\"padding:5px\" class=\"responsive-table\">\n" . 
+							
+					// START BUTTON
+										"<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"360\" height=\"59\" class=\"responsive-table\">\n" . 
+										  "<tr>\n" . 
+										    "<td class=\"responsive-table-button blue-red\" bgcolor=\"#EE2E62\" width=\"360\" height=\"59\" " . 
+										      "style=\"-webkit-border-radius:4px;border-radius:4px;border:1px solid #00007f;" . 
+										      "border-bottom:4px solid #EE2E62;min-width:360px; max-width:360px;\" " . 
+										      "align=\"center\">\n" . 
+													  "<a class=\"mobile-font-22 blue-btn\" height=\"59\" href=\"" . $linktoverify . "\" target=\"_blank\" " . 
+												  	"style=\"padding:13px;display:block;font-size:26px;font-family:Avenir,Arial,sans-serif;font-weight:700;" .
+													  "font-style:normal;color:#ffffff;letter-spacing:0em;text-decoration:none;line-height:33px;\">Recover my username</a>\n" . 
+										    "</td>\n" . 
+										  "</tr>\n" . 
+										"</table>\n" . 
+					//  END BUTTON
+		
+									"</td>\n" . 
+								"</tr>\n" . 
+							
+							"</table>" .
+							"</center>\n" . 
+					// SUBURBAN BUTTON GROUP END -->\n" .
+				 
+		
+		
+					AddCountiesSpecials($infoarray["County"], $infoarray["Party"]) . 
+				
+			/*
+					"<div>" . 
+			   	"<!--[if mso]>" . 
+			    "<v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" . $linktoverify  . "\" style=\"height:36px;v-text-anchor:middle;\" strokecolor=\"#EE2E62\" fillcolor=\"#EE2E62\">" . 
+			    "<w:anchorlock/>" . 
+			   	"<center style=\"color:#ffffff;font-family:Helvetica, Arial,sans-serif;font-size:16px;\">Verify my email address</center>" . 
+			   	"</v:roundrect>" . 
+			  	"<![endif]-->" . 
+			  	"<a href=\"" . $linktoverify  . "\" style=\"padding: 8px 12px;background-color:#EE2E62;font-weight: bold;border:1px solid #EB7035;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:20px;line-height:44px;text-align:center;text-decoration:none;-webkit-text-size-adjust:none;mso-hide:all;\">Verify my email address</a>" . 
+			 		" </div>" . 
+			*/
+		
+					"<P><BR>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\">Once you validate your email, " . 
+					"you can share this email with your friends interested to know more.</FONT><BR>\n" . 
+					"</P>\n" .
+		
+					BottomEmail($BotArray)
+				)
+			)
+		) . 
+	"\n";
+	
+	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $html_message);	
+		
+}
+
+function SendChangeEmail($to, $hashtable, $username, $infoarray = "") {	
+	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+	
+	#$TextTime = time ();
+	$FromAddress = "infos@RepMyBlock.NYC";
+  $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
+  $emailsubject= "=?utf-8?b?".base64_encode("Verify your email address after changing it on Rep My Block.")."?=";
+
+	$BotArray["sendemail"] =  $to;
+
+  $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
+	$linktoverify = $FrontEndWebsite . "/register/verify/?hashkey=" . $hashtable . "&username=" . $username;       
+	
+	$WelcomeLine = "Hello";
+	if ( ! empty ($infoarray["FirstName"])) {
+		$WelcomeLine .= " " . $infoarray["FirstName"];
+	}
+	
+	$message = 
+		"Content-Transfer-Encoding: base64\n" .
+		"Content-Type: text/plain; charset=utf-8\n\n" . 
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+					"\n" . $WelcomeLine . ",\n\n" . 
+					"Before you can use that new email account, we need to verify your new email address.\n\n"  .
+					"Please verify your email address by clicking on this link: " .
+					$linktoverify . "\n\n" .
+					
+					"This message was sent to: " . $BotArray["sendemail"] . "\n"
+				)
+			)
+		) . 
+	"\n";
+
+	$html_message = 
+		"Content-Transfer-Encoding: base64\n" .
+		//"Content-Transfer-Encoding: utf-8\n" .
+		"Content-Type: text/html; charset=utf-8\n\n" .	
+		
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+		
+					TopEmail() . 
+					
+					"<P>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>" . $WelcomeLine .",</FONT><BR>\n" .
+					"</P>\n" .
+		
+					"<P>\n" .
+					"Before you can use that new email account, we need to verify your new email address.<BR>\n" .
+					"</P>\n" .
+									 
+					// SUBURBAN BUTTON GROUP START 
+							"<center>" .
+							"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" align=\"center\" " . 
+							       "class=\"responsive-table\" style=\"max-width: 100%\">\n" .
+							 
+							  "<tr>\n" . 
+							    "<td align=\"center\" style=\"padding:5px\" class=\"responsive-table\">\n" . 
+							
+					// START BUTTON
+										"<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"360\" height=\"59\" class=\"responsive-table\">\n" . 
+										  "<tr>\n" . 
+										    "<td class=\"responsive-table-button blue-red\" bgcolor=\"#EE2E62\" width=\"360\" height=\"59\" " . 
+										      "style=\"-webkit-border-radius:4px;border-radius:4px;border:1px solid #00007f;" . 
+										      "border-bottom:4px solid #EE2E62;min-width:360px; max-width:360px;\" " . 
+										      "align=\"center\">\n" . 
+													  "<a class=\"mobile-font-22 blue-btn\" height=\"59\" href=\"" . $linktoverify . "\" target=\"_blank\" " . 
+												  	"style=\"padding:13px;display:block;font-size:26px;font-family:Avenir,Arial,sans-serif;font-weight:700;" .
+													  "font-style:normal;color:#ffffff;letter-spacing:0em;text-decoration:none;line-height:33px;\">Verify my email address</a>\n" . 
+										    "</td>\n" . 
+										  "</tr>\n" . 
+										"</table>\n" . 
+					//  END BUTTON
+		
+									"</td>\n" . 
+								"</tr>\n" . 
+							
+							"</table>" .
+							"</center>\n" . 
+					// SUBURBAN BUTTON GROUP END -->\n" .
+				 
+		
+					BottomEmail($BotArray)
+				)
+			)
+		) . 
+	"\n";
+	
+	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $html_message);	
+	
+}
 
 
 
@@ -122,7 +401,12 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
 	$BotArray["sendemail"] =  $to;
 
   $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
-	$linktoverify = $FrontEndWebsite . "/get-involved/login/verify/?hashkey=" . $hashtable . "&username=" . $_POST["username"];       
+	$linktoverify = $FrontEndWebsite . "/register/verify/?hashkey=" . $hashtable . "&username=" . $username;       
+	
+	$WelcomeLine = "Welcome";
+	if ( ! empty ($infoarray["FirstName"])) {
+		$WelcomeLine .= " " . $infoarray["FirstName"];
+	}
 	
 	$message = 
 		"Content-Transfer-Encoding: base64\n" .
@@ -130,7 +414,7 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
 		chunk_split (
 			base64_encode(
 				utf8_encode(
-					"\nWelcome " . $infoarray["FirstName"] . ",\n\n" . 
+					"\n" . $WelcomeLine . ",\n\n" . 
 					"Before you can activate your account, we need to verify your email address.\n\n"  .
 					"Please verify your email address by clicking on this link: " .
 					$linktoverify . "\n\n" .
@@ -154,7 +438,7 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
 					TopEmail() . 
 					
 					"<P>\n" .
-					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>Welcome " . $infoarray["FirstName"] .",</FONT><BR>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>" . $WelcomeLine .",</FONT><BR>\n" .
 					"</P>\n" .
 		
 					"<P>\n" .
@@ -195,9 +479,7 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
 		
 		
 					AddCountiesSpecials($infoarray["County"], $infoarray["Party"]) . 
-				 
-
-		
+				
 			/*
 					"<div>" . 
 			   	"<!--[if mso]>" . 
@@ -215,9 +497,6 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
 					"you can share this email with your friends interested to know more.</FONT><BR>\n" . 
 					"</P>\n" .
 		
-				
-		
-					
 					BottomEmail($BotArray)
 				)
 			)
@@ -742,109 +1021,118 @@ function MimeFooter_RepMyBlock($boundary, $id = "CID__Footer_Logo__CID") {
 		"\n\n";
 }
 
+
+// The logo is a base 64 logo.
+// Find a website that transform binary to base 64.
 function Logo_RepMyBlock() {
 		
-	return 
-		"iVBORw0KGgoAAAANSUhEUgAAAFwAAABGCAYAAABBovOlAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAcoUlEQVR42u1cB3hU5dLeJHQ" . 
-		"REJDeQieBEJrK7xUUC3K96lXpoCGhIxpCgBAIASlRilIExYaCoihcFBDkImKF+yMIUlR6EZFkd7ObbMpmW95/Zk7Z3bBJFvASfX" . 
-		"72eeY5m92Ts+e85/1m3plvvmNwmQ24YUGayQCntg1gvI/THELbULJyZBXJKpNV0L833ADS33TgAoGq7SNbDdgwFdxy6mc++xu9p" . 
-		"n1uuAFsIJb6AhrqA2jY5QxnQDMMcGjgmkLJKsOR2RJOax+4bGPhyh6sf2f4/8xUf1DDVAsNzFIGNUP7/GY6Rm04LZ3hyhoMV04y" . 
-		"3HkL4LZ/Ao/rGAo9GWS5KCyEvNz5K+V/Xebyf23ASwL1ckB9LSTgsPeCWg4OUx04M5sRS3sKS925Cwm4N+BxfAmP+yKByYC6oWJ" . 
-		"62YvB9ngK6I2TGP6kHJuPa/irD39/X+oFNSCgvsOfWcrD3hINZ9ajcOekEKDvwFOwER7nQWJoNhjN4gD1IushcF2q0Q2QvwsJbG" . 
-		"VbWFggI4F/01WWLqXEIa8Oe39f6vWjxbFU2KluBVRzXQK1C1zWu4llT9GwX0SA0rB3fEFD/4SAIZgVh6UgrgHqVM2lg+prCqu9W" . 
-		"96HXx73JRotlfRrMpQF0L5gu4oFNXDE10CV9zREnZnNiUG9yJc+Tr50ArH0TQL0G2LpAbrY30tlqAAjALqLMNUfxCt9acfwFHyh" . 
-		"qxRHWaoUHexAEV9jqjGMTrIqgRqlAGobSb70OQpOGwjUw+QeT6HQZQVdG0UmukiXYBdw2EMA8DXPNYNaPNjsUpyydeemqf47TK7" . 
-		"JUBbs9gXYQb7UQUPfZelOwz6WWJpEQ38J3AU7iKVnCMR0wspOYxOKuVGqY2WWerJt9L/Oy4b99Xgpv+eS9y7bcIVA5rDrzHA/nx" . 
-		"2qDLOcWQRKJvnTLNp6rghUT34+POlmuE5eQMHO/ch7cytyZq+G7ZllsD42A+auo+H+zajs6/Hger48nkJRKQy6M7Otcq2mkP8Cw" . 
-		"/0SBx+AxVXQD6aTZYTK1mGsTyeUV/KJZ9ngPnMRzh9Pwr5pN3IXb4Bt0qvIip0Py4NJMHccAVPLITCFD4axUX+Y6veFqelAmBr2" . 
-		"g6X3FPKfCsM9hdcXcCVg0u+6TcTqKl4RcC0MdxZVGr6gCrBqSptJZiPLJ3OQOenzAgMRebmwwJWeDufh03B8cwj5730uLM0etQj" . 
-		"WfrOQ2XMCzO1iYGoyAKbGAxRQCUxTk4EwtxoKc8QwZHaIQ2bUcGQS+JnRZF1Gy77ZCSuUm+Z0XVd3ork0udGObYRBiAgAxzXXUj" . 
-		"SwGVQLWS4ZAel2KaDyewbZcSkUBUeqwf51feStD0fO4ihkJ94N68AUYmkyMm8fKyw1NiB2EqACKgFsJtaaWz+JzPYqoFEjFFDZ+" . 
-		"H2H4fKdOTJWNxPdAGE9HSNv+ceKL3W6rjPY7E4cSsAkGcrEc6kB03W1DNeHCB/ESqBeKAf7vprI39oUuavawjanK7JG3wvLPx6H" . 
-		"+W/Exo7E0vBRMNYfRwwlgBuPoaFPgLYgaxOjgOoLpthwhb1FQNVM+1z+VzUGnP/PSDfMseeocvFu93VmOCsUl2xZ+8vI54BpvEa" . 
-		"GS2KRbUDBoeowRz9FQ58Y1lQFtRGB2nQ0ATqSWDqChj4B0oHAiSZAOqomgCqgmgOAGgjQkqzo/2sBs9Bzvf23xnJQwGyjZpgh11" . 
-		"aeFYZfovfkPmwzusNY52kCjoYzmQ5q1DAFZLb2ipkj43wsVoDOjIwLGtRSjW6gqcUQWB+ZLq6k0FN43RWKN8O8SH67ul/AvCrA+" . 
-		"R+F3eS3Hb9WQGa3IcRu9qfDVHbFXQaswsA/EFhf8x0NHQnwxv2R/fTSMguY7E6UDHOLVw6avPhdFcMdl0KE3bmvR4hPziQfrQAb" . 
-		"+98BtSRXohr7byPFgEukUGyvbKLzc8Npd8Ll9sh71sa+gU35vDhzw+32ePelv/2+d3v3KVpT0RSKO2+potS4hm66Sob7peDWEFI" . 
-		"ZT5DCGKm4k8j/IouLZbfGcIoftC0g9+Vq0g84crqEhOSPzTq1Y3r/dqsBs68+6aAFzKtiuCOdtnYDKZLGojbMZc3uiFgYaZsTGY" . 
-		"M32o/D9A7xSHt+E9Je2Yl5y3bg+RWfY9UHe3DuQqZf3WTlu99hzpLtSFv+Oea9vEPf8v5zX/oMb9L/8L4ZZhvSlv0b85Yr+2j7r" . 
-		"Vj1NXbtPu6tKxZhujOz3WUB84oA150/Ae4kwK3DepNeHk3BkSRfmbA7VswYyWAPw4+RI1ApOgXlOqUiNHwiDE0mIKxZgpih4bOo" . 
-		"23E6vt17SsDY9+N5+uwZhDWdgPLNJ6Ic7a9sE1C51WQYqo1C6qKtAuWilV/AcPNIVGyZiFDaP7RpguwbRsfnY0yc/YkEZjeZwm5" . 
-		"iuesUBcxqRWaXrsalsE/KMcD+Q01yJcOJYf4y7rqzm373Em09EU8hkZhdvtMMNIxKRp1O09Hotpmo2SEZtTtOQ5M7ZiGkSTxGTl" . 
-		"kngIxOWocKBFqT22fhpraTcXPbKahKdnO7KajYIhENuqXCkpUHO8WA6D4LUKN9Mup1SUEtOtatdON434Z0/Nr0vnpkEtKN2ao7U" . 
-		"UsJBVuVhMdnIuTqGM7uxE1SMIWkIAdLYrdo7PZlYJGK384i+5VY3ix6GmoQAHUIlF27T+D8b5mybX7nbAGd2fvia7uQnWOXG1KT" . 
-		"bgzfkNfW7sbGzw5hw9YfZbv+04P46j8nBcDPdv2MSsTs6pFTEf3gfOz54Sz2HjyH1Be30Y2aIsdt1WMurNl5esKjBMwX9ZKsr/8" . 
-		"OGnBvoGQpWBHmrkNhbjtcYbYqBa832Oy70+l9IbF7YfvxKN91FioTqE/Gr9EDmNPpRtPuswjcaajSchIu/G7FK2u+FTdzU5spiJ" . 
-		"n4Xokp+oBx78gICCH3sfDVnfp3H28/hEqtJsnNiJ24VinDshLSSrJZD3sVivEqXYpIQSdJwZWRuhQ0lRG7RQZqCoXkYMeOU1Gd3" . 
-		"MnNbSZj154TcvGnzpnQd/Qq1CB2GhrHY3zKegEx6v75wthbyE10/+di9HlyJXoPfRX/iH0d9z62BB8Ty1n2/XTikoyCWlGKSzJl" . 
-		"5giYP9PnbXrOQ+3o6bip9SR8T4zXpKMmC52WKH0O02W6QsD9pWAoLA+wFByhSsHYPzZTDJbdkcxuSt8jYrC2/ViEEdj1aXg3JN/" . 
-		"b5aFF6PL3heRjU1GlNbGTwO5BQNoLnMLMEAp89bumilthX8w+m9kaSqxnH37mV7MAm7LgU3FDdTuloMVdc/Do8Ddw/+AV4qL4Zn" . 
-		"HAnPrCZi+79YB5zL8kezVB05EeokjBLSQFG41WpGBEbJmxm1mdQTe6gLb3Rk1GZVIndQiY8m2TUJ5AqhaRJMzkADeMhnxOrl3Ae" . 
-		"HDIqwJuXQL7FjWg3krv63edgZtIqSTN3ST7mS25aN1zLgXLqajbOUVGiSgTuil8Ayu1mIhJ6r6c/Hh8Eh5PwU41YKol2SthuM7u" . 
-		"dKXcao3pLUUpCZZlJAXNIgVjYScp+Hn7UQJ2bQKlSdtJGNR/Ce7s/zJqEgNZUbS8a7bUU/h14MivqEYMZqAbEsBHj/2O3y5Zxa/" . 
-		"/dikLv9OWbwyD9t7GfaJqGtB+HFgb0Whp9j/P4baHX8S45A8pqJ64LOlRZvTJteTNC5jwBM1w+SeWgvtqiitRpOCwMkl0NNAzaO" . 
-		"ukYDkwaiJuip6Bil1mYl7TOODwcXxx5DeUJ7DYbbDL+JIUBwMxeuqHEuQqkAuZ+vyWEmrZhXhg0ArV3UzEK6u/hY2UjTUrX4Kw9" . 
-		"tLSeu+ksRYw/+nT8naFgOvs9hiQPfVOCpZjpApoiigDZaJqfiNtc+mGH6RE5xYKXDXJlTTuMBVnu4yBx5KNDGseWpCfZVfBwXI5" . 
-		"ZYR5+Q7cSvuyC2HG9hqwHP3HvI1HR7yBx0e9iUcpYA59erX4+R9oJFShYFhTDZaZ1ly/m8JAuz1Fayja33YKmB1VZocExNRQWlV" . 
-		"QJhjOkRTs/CTM7eL0MmuZsJt8NktBELsnqIlOhc6piG8zDoV9JqNABeXvMStJ9k2WgBiTsBYr3vlGpF29LjMEeP6OmV6BGMx62l" . 
-		"BzDKamKT55xOQPJKvkgJnw3EY9KBbX9ONXknWdJL9dPkAPY5AMFylIiU7Oig4w1R9XplVBrUCVTew+TTe8ZUfKKCnZaUAg7m88C" . 
-		"I6k1+BQAVn61lekuxNFtXBi0vGB+QI0+2L+rPHtM9GY2MsMrkf+P7r3fHEbRpMNLbo/J1klB9Yff7qgJDLu4jutFNOafnZ4A6bR" . 
-		"EDzD/aSgJQSZ9/aDqYUqBSPiyojhikuxkF0k+zlyOE7QeZyOHgVLvceR9852fQ7TQXaOMs2L6VlStDp93izB8fxFC2WginHAZOP" . 
-		"3nMbzi12PfE/7/Z6R7eOfPQH9vbdC6JSpHnfuNK//vhLAWcroVcHNTUgKjoE5KkbPLMvEnfjIQguBn0PnYWPGd4iDscVQOL49rA" . 
-		"DOdXCXO6jJXi9gHhQ4XHoN3Nuw5WUz+3f+3pZbIC7mMoZLwOynAh4WMGAWz3C1UMWAW4f2kblKveZdZmDH+pUSTFJLIbDbEhE6j" . 
-		"YQr0yYgTEjdIBqaJRxvP//mmMg3h8p8BmhY4lq0uXueJEhdHloo9ZROfRai2z9eRCtKcjbvOCL/U+BwyjEnz9uE9ve/QBnmXAwZ" . 
-		"vxo5eQV6d6yyhfSDc9NPSQEzIODiSrgOkEtScG8tcSVmdfpMfHdkXJky3HeGXlL8FkOQ+fdkufhT502UpCSJpKseMVWSHC7F8ks" . 
-		"Db/Hru2CoP14SIwPJx3tItx89/jtlmUmS6Bjqjcdr7+3WZ4jSXt4hAZeTHo4HWibqnRFSJhw8rnMEdkiAduogGC7uxEVSMOlvPn" . 
-		"WT2D8F0H4tER1HSD+LZfJKufjUBVtQjoDh0qxkkBRQeQJBcwu795/BTZTuc/bIgZP3ff+T/QIeg8nZKgO76LUvZP816/eiMgVfv" . 
-		"oGtiN0cF/zB9s0w1TnMEgLm5YBrgTKLQD9TmYYqScG2vi0Ifx7A5XwI8Ix6T6Bg1WfIcnnQ5s7npM7B9Y9biK1c98ghn8uptzU7" . 
-		"H5G90qT2zTeC92vdY46UVvl+sDvRaiSr1v0vDhy9gKokH6vRSGE188vJdLUC6fKLAZ5ChxIwc1L8umSDBlyXgi9HwVhfqXmXVVU" . 
-		"wGL9+qelA4Ng5vLPlIEIaPSuTBww4s/J/HlsiwZBfQ55dI+zlukmDLqkyezNF1d4MXp8nXxVNziDHJLyHDvfPl/oJy8ZDv1zU9b" . 
-		"g2nebHcAmYA/QuWZcpCMD92ogtobDc11dN5Yf9OdnNQZP7DjnNt+agR//lktBwFZBdRsWWk/DYiDcFmNff34NQ8tf8HRtrch4Bx" . 
-		"06l6+CNm/6RANyga6qUb7kAVpsYv2ffGYXZujLxn0CGBE67sh5Im8M0B8lwh1qkytvYFMZGygTxn5Xd5g7DkUHsdj2Vhi+/O47K" . 
-		"rRJluovVCbsHQ51xMi95+pwJN9F3DPIDQ16R9J4zySdGvyWgOdQRsHDlF8J6Tox436qU3m/f9ZMPs9UO6iLLSgolw/yV/HY5b3Z" . 
-		"ZGsN1ZmtScNBD0gvIdZM/G7u9TT8jkF73cbjnrMbglH+hEqXi7EZ4Jr5TnwUIJV88Y9E2PBz7Ogw1RmPCzH/h4WGvq2n9RHy6U+" . 
-		"k9zLcrVb4PN/8AA7mkRhRMWd2s2/SDzmxv+1rhZV2y4r/tH+nNmg5TycVAgx+780gK/qc2gT1S2tbKLo0vXaGYKOHJbTEYh+e+j" . 
-		"5o90lCNGNn5wQXY9uVPMpHAioOVRVizCeg14GUBmGdoWP51Ic3tVDW5xt5nZmwQoHnq7ZG4171gC4cDge3TJZv7XLFTapcBrrFb" . 
-		"C5bZk+6CqYHWTRVXjMWWrXERq90woNNwJMeuQMUO06RtYQG5hT37TsPQ4BnxxVz7rkasP3XWiNjE9wVQmUwmLc5AaYkQp/hc+2Z" . 
-		"Xwt9v3PajVASlHFsYeA2QR2uL4JuW/YSaYYYEx3CHJgXPVlI6YZnZpE6kITOgxfm0FV9/M0cNh4V9ePRItL4tFbU6z0BNaVew4Q" . 
-		"NyBayvecIgpOGzeO/jfVIr4YSIgymrFK6xaIDza/k730jA5FER0et5qakUV0MpWjuXOUxzY3UO0xAcwx1aJ+yc22CsOgHm5qOUr" . 
-		"qomAazpWJiaKE2T2sqE62v9cYl+19W4L+Y2iYOh1RQYbh2LAWPfFiDiZ22kv8cRy8dj8NOr5bPxpEA4iBrqPS09KdqMPgNqy7Uj" . 
-		"gtJ8ziYNtcZKDPAtyZa0LNBbkq0SVMAUwJVVuUo3LPebWOPuR9bYe5A1plcAuxeWUXchc9RAWMetgGXsYljGLdHNOm4psscvlYV" . 
-		"NmvFn2vdZZDay7Ksw7Xh8/CzaFoxfgunPvo0h5CoGjXoL335/WkB8+e2v0Z/kILcvZFGywzqc6ytDSYcPHLMKB49cEDDt6vqf4y" . 
-		"QNB415G0+R9h5IN41VTdFmzsCAq00/9g9UVoeKO3Gag2C4tlZSWzYi63HsRYw+c1JQBY0EYCPK+hVsO2bRCuCVLh8pdVmJvg6zn" . 
-		"K5USvXh+nNA1IWpRdenu8gKLoXCk23Aoe9bIWXBTsxbuk2G39yl22U7f8Xn2PDJfpjNOWpDupKVvbvhe8xc8ClmLNuBzS9RZrdo" . 
-		"HWyL1yPvpY/I1pdsizcgd8E65FPqrjTYk+5lALls6vbosHPNe9lbX2HI+DXoTRljnyGvYhgxlntGxD2o02IcPGfM3yKNmbPpnC3" . 
-		"WPEn7+cUdVSwj5yz9NxJmf4xjpzNKXHLoncPsrS4rCS2xhhKQ4SWZnVSMh9j/SMwQGOpOQ5XWCSgfPlE0rRgFnfKN48Ufnv3VLC" . 
-		"d66oxRikUVuKEyPBEfz/oAjmYDcIkXTnEMCMJnGxv2hZETnN+MCrO4cVIFu4DcwswXt6EBBUMuMvEkMevsyq25z2QCapA8ZBeiV" . 
-		"f7iybUYao+V5s5uDy3Sk54PiCisUFjdcCXxBSIPB1TfieLAAdNNQIcH7JINujwbyOzE+kJyN/t210fVNrPQ6LYU1CQpxjULzty4" . 
-		"rMkFoUbcNEmg7/jqZzmxRGIKzyvyxC030RS6XDD3iIe53TBZ4mfWlvsVY1ycyuw8StZe2td/pSQZqrJgdnJplYMdF5h44ldpylS" . 
-		"qgeF3zpbMcdZL2wQcViYypUbnyTWVDVsPynGmzNtEWeVkUSltSbd/t/eUH6iB2a0FzCP+AdN8jYD7shsOA4aO70vsSSMQ40UNnC" . 
-		"AG8/TVrJc+E4bXI3nGlmGyIdOSK1qYpRbLtLUb9ipAUQCUZYEk76SmXYLe1pcBNugH25SVSqJCgGfb8nHXE0tFM/MNb/m3OVi9f" . 
-		"q9U9JaQa6lMepv7Ugy3jMbkuZ/I7y5b9bWcB5Mjqvd8OsdsDBz3jrQ1Myl69ntZptY0BVPSOny9JGvfoM5hKsu6/xCGFzC7bQYc" . 
-		"+fFWOtlUYutUtPjbbIny2otPnJMKHo6arHqe/CRneVzob3/fC8jNUZps8t/fKTXsTNLQpbU5a9+beL1mzwlw2h1emdc4Xm5mo26" . 
-		"pOHkmQz8X9ufh3Z/D7Y+8hIcGrZDRxstE7nj0JVSjLJNdTsyEd3FPv2XS7MPtEGOTP9Tdi+/0XPHuRM1Sc2frATMY/x0UwwvSFW" . 
-		"UyduojNOzmka+bgqgH5iN+5r+kpeAOurDKNCRrRk7F+Gkfwe1StW2vNGEZg77kza+UAMMrj09dlEzR7MPuUpcC0vuM8MHAyQv48" . 
-		"uB5VAxXJhnCmibgw80H9DlHbW4y22b3a9rZ+d1xKVjx6NNalbkiWD0iSdySN3P0lOpOfAOm09pLfYJQaKkJT1B9KQV0EA+x++zx" . 
-		"6tJ8XidaKeyHNZsoSQIHHz7xSi0nISlts35CPFPCqwuYgeHdZ4m/5WDnUS/E8lCyMjUWxFpMkzbRUPdx2FdvR5/4tahC7ot/l+v" . 
-		"dbjWIetQlglqA9O1oHfLMagns7OI4OHKvIL/nugkHT6e66CqY9T/egJkPZ2YrfZYnGHdSKsPz2Xd7DJg2936EhacR6FPQ7p403D" . 
-		"dgOXoPfkXadpWbkCwTtpxa88Uz63nVAAei5Oc3ewtBUrsAcua8C2O9JxT/zFNlJTGcV6fR+1xyK/vvS0LVbrPQsLMyFfba2j0+3" . 
-		"auBWxnOUIxht1ZHbeDk4lVbugZ2Jfx549tn4ay6/scdxJpOPWA6D5AbKe/NYa4laOpdV5R9Gs9XRpPbudt/JjF5IvYeOKf/+Doa" . 
-		"zloNgn0pT2dt3fWTuBEevqxOuE9bWaZHoLiUoViwY58ETlmFXNqSFXWlQ3b7WJxuHYMmHZNRi6fQiKUcJB3kOjT/u47k3bQXtmA" . 
-		"G6f6lb3wpKn0mBXSD2mtYg1wIl115QkJKsbfNFCn5jbr2x+V2B/UcFCVgblYrhKF6HeWaGC7sdhqwYMldBOoLNPwSEEdptO+PD3" . 
-		"lmjfjBCqTHn6ZAxi+Wf1UoMPGFjJn2UZHGR6WLyWPNkdYGc9uYoNfyZJA5I2PwWMdEVOw0A7XJtZ08a/RblVCRbj4rFEPVEXhtz" . 
-		"XfyW9zawDee25h5hRq/Ptl+WHw6175Zxmq1b44/JbsUtWmTb05Okj7DE2zALL5NwqQ8diM7vQK5igQaeqkU4SfJEg2e0V60cqfU" . 
-		"jKtFTBH9y6VNo9mGHw6fR5VWidIqxmqG+z569luKHiTh7h24HJ1JjiWnbZKZEstTaZL88OphbWl4sRY5TBrwCyOfwsIO46Wf8Bb" . 
-		"S3CzlFr36BQaTj65O51KXfjesaTwSZm4QeD7ccoCk4wRpW2M7/5uZboIbR49fpGtKlsph+eYJSH1xq5yT2+VSn39VgnkUt+i03q" . 
-		"8+HS702l2KnZWJ24Blb9xB8ut5SiS4eZ1PjqVfPAz1nqWAmUCyKhHt7p6P/Yd/lwscPP5duuBEcjGppFB4IjeZ5OIUYl2SbENp/" . 
-		"/98r7gk29JNMNbtC3OHkTC1i1Va6Ioz+t5I2zxKmPa0G4WbZZVaMgW/ifR74+m8Euk3pspvJ87eAo/y3DDcN3glKrdJIheXSKPz" . 
-		"Q52n2TYnJWoz5RzLhU/C4yPfVksApT+4QOnI4oDZWg+YrmsBnAW8m9htM1ZAtz7P0EWlEoO59WAaGnZNIX8+A216pKJn/8XE9q2" . 
-		"wZnH7QD5+OXEa9aJpv87TyH+zTaf/SyGbLv9To+0kAoNLo7kkD7PhPHoUplaDKQGKk4lq/UEIgSyKbkiHWGUWKioG7dumkA+eT0" . 
-		"C+gPItFqBu9AzcN2gJtn/5vRyfIMX+Q8fJ7SShYbcUGZ3ffX+EgMqCx51FktGK7o8sRC0ahTVoZNzzxGJiN32nfs/PLAxkHreFQ" . 
-		"LdRwNwjD0BzldAle0UuhQHPuVgOvxyqg+M/1cbxo75WC6Zz9ei62hIlIuG2NIcjMxzm8w3x86GaOHH01iL7K/bL4VrIy2hGzAhX" . 
-		"rTkKjtRQ7HAN7/sSLP/ILfD8VA0HdjfCunVRWLM6Gus/jqCkrD7d8zYUjdvBbmxKw7050s81oPOpheNHauP0L3XkHLXfdtE5/3q" . 
-		"yHp1TbRyjczv9861wmH3PrSRrQQA38O+w+iNUCoMO0uDIvtwKLcqj7vIvaU+5VD4rbn8xm8/j87QTzb5y42e0INcgpQbdbEpGzK" . 
-		"5Q6/r1O5+sy4txsPqfbzAFvMseCmy68gdDGEp6YqbDGNiUfZRnOTm1rRqtSzLex+9/jIYrNpccKwT2DMUKMkJ8GiiLPx/tc80cv" . 
-		"tdnuvz70uxqQTf8lR/yW9zff2a78cD2G4DfAPyG3QD8r2v/B9VUHt8EFQd1AAAAAElFTkSuQmCC";
+	return
+		"iVBORw0KGgoAAAANSUhEUgAAAGMAAABHCAIAAACcZG7iAAAACXBIWXMAAC4jAAAuIwF4pT92AAAd9ElEQVR42uVcB3gUVdeeEAg" .
+		"RaYLUJCRA+m4KIZQgVkBARFAIYChpJEiHkATSwUSRJihSFCwoKAoiovAhRWkqIkUQRZQqCMnO7Gaz2WyZsvu/d+7sZkkDvl/i9/" .
+		"1/nvMMy8zN7tx333Pue865E0bk3P6fGlv5WuDcRc5T5JrI1lBkGUHD8CWMUEyOPF6zDPP/ARQBM2cJNAKnmMi5C1xD2RrIVwk01" .
+		"GRcmvK6MKFslGDMFy3bBWMh8Po/hxSdtmIyRgplGsnWsHJMJS6evLaLoB8olM8WTetF63eSeEOy2Wx2OzWhPBvkYv7LmeKCCEv9" .
+		"CMcGMiIwAMSIVSjDuvFcR760r2BIFSpeEy17ROGyJFkpKK4/Nptgs1klm8CXPoRfZP5rmKIcHX7EMqLiShQXShn3qq7EMjzXmtd" .
+		"1F8qeF4wviebtkvCLJBmcfHECZLOJMjSC/MImn5FwlMQSnmsl/ufHKYqII+4qIYZSRmBrCDEC14zXhgr64YIxWzRvEvkTkshi4g" .
+		"ocLoSx2wS7jIsC162Mwv8lCVdtovWA/LYezH/geiQ4X7C3upLT3Sop05DX+gqlTwiG6ULFGtF6UBKvSRJflTIyLg7KSOT/1X+qo" .
+		"GWzSzaeMK3iVaEELtyE+c+IMkqgESpxaUgwqopLA15LQ8xEoWKFaNktChclyezqRI55Ol1JklGoDsttfsggcArhHCsg4ZRnPSDl" .
+		"iKlOOFjqRLe4UhVceHrkWvC6CHm1ni+at4r8GZukp9O0ubiRvWqIcXibzV4dwzv8ofBKNpHXBZNbYt2Z+owyLri416Rimgm6EEE" .
+		"/TCjPEs0bJf64JGpqCjGSExe7zea49O/AUSdSIgnnwgWebYSvsD6Up1ArLu4858OXPioYJgumN0Trfkm4YqthtZYcoVcJMXaHL9" .
+		"mrRpi/Eywbgh3Qsnwmh3P3e4aUq/xzqhhte6E0RihLECqWipZdkvB7rSEGdylaoWNsgmgTRbskVcaOf9eb7srvbCScW4mgKs/iS" .
+		"TjHOnvPOEVhAnGE8nTR/InIn5JEna3KWkyWYtEmABQLOUpijbcOnESLVRKlOwzGfxNcJJzz+gFyOHf/+5CSNaFYGbbldweV9CMU" .
+		"1gAURBVCE4BitktWGYEqEoacEsqM1ss3TEd/MW49ULZiS2n6Gm1sARtXKFp4e70g5XRtSSqDmneuRcz/Ogwxrkk5Uc8aN77ETSh" .
+		"2528yovl74k12oQZQRFFg9ZZzVyv2nyh//6uylzfqJi/nns1j+07TqBM0XeI0PrGsdyzrO5ptOxxgEbglSaofpMB0EJk/xrOVao" .
+		"b5N1IKBREYEClpoJhGFgSljFjOiCZgxIi2IZQmYoWZv6YxHz9v/PyIYfX20ux1uoSF3OBMtucLmpB4TefnNT6jWJ9RnN8Yzn+sN" .
+		"niCVp2oDU/SRiRrIydqu6eyfqNLs96S9Y1YP5xSNKdpLdxCXq/J9Jm7CT0EC5p2iTpGNDCSiZGsjMQzopURjOSS9aKn+ccHKr7s" .
+		"ZFgXrF+Yo5u5Whubzz46UxORpOnqoIlPbCUoqgQFFFh4MheWxKkTOVWCfJQtcqLGO9aw5nMyB16oJ++jmtOQKCuphvKU75hTlWu" .
+		"ZlhHKGP56I8svTU0H2xo/7mxYEa7PfEg34Unt4OFsr+dZVQLbZSLrm8p2Gsf5jea6xmmDxlciApoooCRSULQq8kKrTiAA4b/ktW" .
+		"LkfESyxnd0xc6jxPsIp+opSOGH10XKSDW4e07Bv0oZsEY7bhD38Gg2cjwbkMx2SmW9X2B9JnF+qZz/RC4oCTPXhgGXeG0EmadWo" .
+		"Ylj/jIWVRCpxQiztGGJmsBxljMX5bS+frxPksPoDZ5tQslxV0jJS36xG7zMsDJM03YKF5zIhToRkQ0vwjA3BQhO7fAgNT1JuXMn" .
+		"AFUSCvTkQuLZ6El8iU52CuleI6W4HtGcu3k5SN0FUmSoUjyEtnbn+o/gApO4sHjKCzJ5lQsoqoS7gqNOpOS3DRjLDcoUBdGhPOs" .
+		"hnMua01gklxAa3R2nCEYglIUxbu6i6ZQK+tCgq71npoAOz+08Rpe0iEoEpb5WvVri8q+z1lJjCcFWy2m74yuQOUWKNiT9JJqzoR" .
+		"ME5k7zEgiCMkYbO4TtnEIIRR3q3oFFw3x4MgREaf47EknqBUmuocBEEYKh0hOpXzqvVppUycIaBkhYIYhCUyoHVB4rmtPCa/1oE" .
+		"nbHSNFVr8RNNDKmve1Z/+QaF6l7wSk4NRuRXOodK3zwVR3r1G090hWvWgZILmDJ4Vw4hzxMdAnnt0eqklBGRpf6BOtHCHVPMVIW" .
+		"BFVCiSrRoo7/NDS17zNLn56wZvCE1YPJcc1T8WvGzdywafsxESpf1qJ7D5/rO2LFkMQ3yYB4xQbJg4ckrPnzhhYQrH7/0EPPLR+" .
+		"SuJaex3F4yrqMos9+Of+XK1iSJBDNaf7Ime7dDVIQB+WM+YdWrCqecxCKUyfca7A0qgSjKv7JiAxGldU8KOM+WGBG05DM+4MzPA" .
+		"PTGe/p85fvpEQYlvwW4zW9uWpus9BKa6mex3Sa+VT8WniY3mAK7feye+fZ+PUmwXiHTAxoEpSBMx175P524aaMkeQIUjahPM1ZQ" .
+		"rgjpJR6gCwOoC0hJrmICffa7xwwJZpC478Km9Q0Mrd999w23XI6xRR0ipnfOjzrwchsr575LdTzug1ejKmdOvtnS/Xc9tF5ON8s" .
+		"NLN56NzmKhwzMaBhl9m7D/wCKDdsPdo4YI5XrwKMaReV3aYbGdmue65PzHyguWrDQYzhaQIgBzeh9OG755SsNi3nm7BR4yCg7nk" .
+		"gdyBVokqwqOLjw9OaROc3DUp/KmHNlWscbN+R3/xi5gM4MGLQhNWY4YyCrUDhgfCssCdf2bn/7M6vie2CffPL/iO/Waw8xsDdgC" .
+		"CoFDv57Z/PXTv1y59L39oPNDv2yG/UNe3jL06QIgtxZDlISSzPPUjrnK5Q3IZTVBwYFkey3pO04ZRQ9zqWJxK/C40/pk5pF5ndv" .
+		"ke+R9e0L/f/TKOvyWz1jZnfvntew86zwZRyo7lDdC7Y0dh/zvuf/lBjwD5+5mqzkMwOPfIx5uvvztOTJ36+el/AnLZRufj16zd1" .
+		"yuKotK0OynXOBlRC3gYp2oCkWZ71Tw/usVguMJlTx2tV95ZNcq5DYrmkmjAnfJZn9/yWIZkDxq6i0wNBUuZ+2CQ4A56lHvAyL4g" .
+		"r3zsgx5p8sGx6/pbcJV/kLP4if9mXaS9u27rrpJUXZNJt8fCfg8A0cJzyPjg/LPlNvAnIOCnrI5yhK4OjbbWCv1Vz1skpuWxAI1" .
+		"T5umCNr6I27ymhaMKMDKZMFX9BndwlMuvBqNwWqnl9nl3+QtbHiXM29Rq2DCEZjtY0JOPIjxcw4YiBiwABAhkoQyO9Z8AcOCbTc" .
+		"drne04Dgr+KS337IDzl3B+S+WzKutUbDixc9dUTY1a2DJv3QFiWX5/5f/6lJWJNlNc+pW31vKOEcDukBIVTcmtb56YdMpykvur4" .
+		"+onlxapEUTVhSdi0Rt3yOnTLgaO1DMsCKTz804Baq/Bs7175X+wjzrhjzxlEGWCEGARmYQz8iyyLHaY9GvsanfzKdw806pLWITo" .
+		"Pw1qFZ8lQpiNgYXC7qJyDR3/HGNFRd5bVqMjrQgWH992eU0qEMjMVn/tAQ2nlLK8e1KaipNSJUZFzm0fltonIBlMQehFQvHqR9S" .
+		"7qqcWOsCKBI7gKNRAz/NWXVu4ufG130crdC1ftgQMePPoH9bLew5ZBPeDXATTQuS8wHYwDRs+lrv/19xuK3ykylratLvNsY2eJ6" .
+		"XacclWb4weyfqnOfPjepi+y2uRVEzaETfHsltsWaqBXwY49p787fqHviOXwO5BLPWBhhckCFpz8+SrEASIU3G3fkXM1KvivDv4K" .
+		"loFQbSKzM17avnDV3qVv7ftw+4/nLxXTMSItTtio5pSDlOVz4dYSQq1IOWGC2jQdbMMGJSlSUy651QOh9KqE/hEZLaJym4RkJo5" .
+		"YRqe0YPkud7/ZkFFNgtIpLpOzNwOj1hHZkYMW/X6p5OIV9oJsl65y5y+WGCssGDNm6rv3BaUjkEElVMFRJBmf5Mz1ZKSsRHMac5" .
+		"2a83acYh2JnokpnfEIUZs0lqsS7r2GSrSq4ndCbXbD4p3Xwj/tm6mrMCPMas+hc56Bc7x7FUAcLF67D7TC6g4Z2SYyB7QCgh175" .
+		"MEQwhCMHnruVYuFv3iVbR2RBUWKX9n8+XHgYrbw8DWBpMU2Z/fQpbgAiWAn+82qac7aOQW1aWDMJ1uwsiJ31KHqQZcnmFXxIyLS" .
+		"PbrlefYoeMpvsvmVTZI8D1ZX7tO7AN7XwG927OR3Vrz9NeMzE8oA61dL2eQX87DGQZdDSQKI7EU7oL8RxYIeKzKUm5y5dE3JsrN" .
+		"tZeC1Xo6tjnUiVZm+8Iw+vxfbKVVLwVIn3GslBXFgUMUfV08MjpgX0i3LJzp3q+8E20d74SGSLIuQFWNRD+n3UvchS3oOXYr5q/" .
+		"q/jGwutL9i+G+XvgsQqsGZsnLTY6NeC37iJZ/e+ZAFTsXkKGDZXYsQ8kvatjrOaxyFJq52pJRdbho3QcdYL3hyPeO4kETu3ucuT" .
+		"k7BwW+oE6+ok/5UJV0LS+a6xpm+JWpAhNMIItS5vqzCUG4GCjA4IIIRzGA0lxlM9CQyYeJfoghH0+mNUPAwmvriCLejhS2H91WW" .
+		"bhxtq7eo64lVmpg1coq/2YCkL6+HaZzpiyqx3sDSEdlJgro+NJ4NT7JeumH7m2q+NdWknP7obFslk9o525AK75qRElz6VPyNhty" .
+		"AEVyAnL7UF6cqZTo8EcfAceyjMwVDBWZRwhlGTXlneMr6EZPeHpKw9sxv14m3yJEe8zxz7vrQpDdx6ZnktxLSPtj+1U9PJ745as" .
+		"q7yIHWf/QtaUbxJISDl1guh6esGxy/ZlrexzLXqpSIJbId1KVtVRunGKfaLH8/gPVNUYrlqsT6RErBKyyR6/y8dtR8Xl7Il6//m" .
+		"mk/FcK6cUA6suWz5/8iC5WIHwnOGP30EsZ3FtQW03ZK3PT3Tpy5ynhNbxYyl2kzheZ08ESMR8KIRaBhlzSsmD+evmKTS8wO16M7" .
+		"X//i2fvFauKgGqecDXg9o312KElfwuLroXJQs4UnsT6jSme9AY+wmK3AArlehx6kAuX/yIus1kDKSXK3ZmruJ1jsoB4gFCCdvj1" .
+		"+UVtqhIAgijQwPWXuRzQkIXOGBIVSR4A/9cs1qqeo4JQLwrSEsIevRR+4IEUxounLLi9NZyeh/gGYSDcsIlnjNVK37BNMYNuXJ2" .
+		"hy1zYqBxoyashiOb4TFkBtu/vNgmICBLiEnEaSV73Qfi+1ishuHDAHegLDXnvnm0ZdZj/YLadtVPb3Jy5VroPOFo6NkE4wFtVYQ" .
+		"qjOKRkpE6NL7u9Um9w/QiiZUxrvkeVbSSlyaPwasANwtO+ee19QxpOOysm5Cze9euRBowNB0A3MAiIy14SHR65ArgdXjZvx3r++" .
+		"OQtZD53VLCSD1j95p1xwQkXDuf5ZpW1VK1Jspdo0fd+KDU76p9jkLLzgWOw3Rjp76eTFkqZB6aAM/A5ggVwTZn8Ah4JE6Pvciib" .
+		"ByHVz20J/hmd1fXhBCVtGfQ3h3zOAoBP0GPRUAUQpcuytu0458mGbq/p0aE4rr+1M21ZCLXVNRnASyszo5/aB2vxnCcXJHfabqg" .
+		"S73jC9cFujLmntuuciTUEkcu88O73oM0xv9oJPG/jNwhkYriJOz1rwqVwRJX6E16CYXGbJho7HIvD+1h9c2eS69VwJ58L5yrYV6" .
+		"1Ybp2RClTGWn5s6i+XcP+J0DonA+o81DEy/crHYO6YAEad9dG582vvgFLKTD7Yd23f4HFI5QBA34105zOc0V2X+9Os1IGCRl7lX" .
+		"1+0HpsRho/MQ5le/f8jZULA55Kayd9JmVyrC5k9qrEndyilH+lK2MMqZvmhV/wxSpPYSlnTTZ5R98rJX1n/t0WU2qeqOX718/X4" .
+		"Pf9JWWPrmvshBi5gO02YUbJmW/wnCNvTBUwlryEZaES5Epo1IDyixIHoGzFmwfFclmxzO5txkSvcIk+1G5RnV21bVkEL6QovlfU" .
+		"dzCFLqfzBIEfnGhSfr/EaXzFoZMfL11mHz3Hxnbdp+7KWVu0Eor175yOzuC0zvPWzZmXPX4JK017Dly5O0uSLI0iEpfSNOItgHP" .
+		"FoIhUkLLLZq+z+cghOn+dLHlRICVztS/DV3pC+kWK6kL/8Qm5RiXmKxOlEIGf/OwDyP7vkPhmUhJCN+x6d9gHAOb2odmXN/cMbv" .
+		"l0ogRxGq4HoRA1/BAKeSvHSVbReVAwThgJkvb5f9rpZdVw5nlCStwLVxtK3q8j43XtNAO2SYUixXJ9RkifVmGlWCQZ3QPyy9eY+" .
+		"CRp1nzynchsk8Nvp1SASvXgUI1Ws3HsYsgx8vQqgCfM5SASVU0eu7cbJjz/wWqrlIdBQE7VX3dzs2foiy5vyWaE7HY5O1IiXZGe" .
+		"OmriAUqRwEJXFByTVZAhc0vh6sJHC8OXDsl8EpnmpScmoWmnnuj5uYasgTLyGbQdYSO/lt2hNmfGZgQJvI7Kt/aWkaiKPRaA56v" .
+		"AihDashrXNKjvpvzXvKlLbV6+SRY66uICVzqtxNl9yPjRzP9RnDxTwP08pGXvemNoaNSeRipnF9pnB9pjlsqsOmubxwXppW08jb" .
+		"WczUkpipppgpLzyU5fXYyz498uB0mFOxRh82YGGH6DykNcVsGcLziEnrELBxZmreJ05CYeY79p5u1z1H1X8hlsutu046OsO26kF" .
+		"KeaREaVuN5Wupnd+KVDHZ8Mtfbmy93Ji/1ayXiPFX7reXnbAbzfbyCnKUzVZuspaWC3qjWFYhlhltBpO9Qr5UYZYMFfJJpxklnK" .
+		"ywyMe6TDSSYTgid9OXVej0FTS5pdSgwofiQgYYTDq9EXmy6/SRMOO3YGW4nzqrLi5tK0lpW7Fut0FK2URexXTkKOjIpoSK0hF6E" .
+		"28wmcpMFgPMTI6iyx58EjVtEuZVbrHiKFQjuojx5Sax3HwHZhKB+K0/CNIHj/7xxb6f9xw6d+UaV+UqEj2D0aQ3VCCuu54vLTOa" .
+		"zBYNV4YB1cFSVj2iOa/wbGOxprZVDRHd8WSv3Dp2POVLf82scR8wZlbnvi+HPlEY2q8IFvxEYdDjhXCEKTmbb2r0dMUZPfUdvz4" .
+		"FSCkGjF1JVyLnnjjr5ZuamKksrM+029jDM0pUCaWLN4uO3Uwbtx3r9/xKrGXI3Tz806CPHozIylv6JRhGawkbPzvWPjon/MmFnX" .
+		"rn7f/2HG23ICV8JHZF8OOFuDRo/BsXr5aQhqckVY3mytNWXzjqnHTDfV2cqqmHzDLm4gZ2C7PlE5Wb34I2kfOahpCcE9ZcNe+B8" .
+		"GyIQKbdlKSMjfiww8cu0JoG4z3jtbe/qWzzy5MxrNrOtnuW7JoNHk+26tdi5GrIBLbzGOMPpEn1x6WSAXFvNPZPQ67bgnxiVsce" .
+		"+bRsAGG165uz5FNEEWuihz/pCXcfsoR2rkC9Tr3z7w/JZHxmPpe6XsMZatyW57LzNd+hOd3qkAi19JBp5ROKtLTB4yOT7g9Z0Cp" .
+		"8rnrAwoHjVvWPe8P/kUKIOtw3EtSRL5CVKG76exDQSGIhC8H5yl1beGHluaezuK5x8j79OtUGBnSN0wzNwRse++lyp95Q2OnQAc" .
+		"1CMrsNWtTj6aVY6ciOp94FSFByluzAmx/64Q+oUKR+wE6WDkQikJ6zCt9rRv6yL52tPXuVnoxyc6RtxesHOTlVt9XcGbWUuNkrm" .
+		"N07/ZsEze8QDbGXfvTkJfopWFPAoE4x87FOb//qp2s3dA+EzQNwUHrZi3dUVn8E8kCn6buzGv+x2rDEOsqnSukiIrm44wjrhn9d" .
+		"4gydepK9CK0js4HXp7tOQWdbrPwLWZvxiWSnXesXCmQUkjM24RvCsMDHiq7d1GJAIzn7adMtmzayRKW5UHUzqK2yhGDktT40nN8" .
+		"1UkrfATmz3u3p8eObhr54f/CcCbM/oJ+BmwaP4BG4xSflzTrT8j6h6rl99xyEW6e0scmrUmnmWvLoUHgSfWahDqS40HhN5ETrdU" .
+		"2/hLWNu87BGyI8/Xj6ipMUG7Z+HznoFfA3Ze6Hp3+9frNE3yE6t21UDvK+oUlvIjds4EfS5p7PLPtJrmoKro8jVXmitPJpqxM82" .
+		"0C8XSyvlVOEUCbm8H7f5qp8EApf42OjXo9P2xg3Y0PPoUvpFsrHR79+o1gPoxu9AFxK5oeV+0bk8CmUVSCQIwA5q061NtnDk4q9" .
+		"Ym0Zq9d99mODTjN8es9HprJk7V55z5RSAzCZraKLJli8Zq9HV7LnAGA9GJHdPJTsUYDTHT11ie7dcNbq7DVJBInWOU1v34mSqtb" .
+		"v45SqnlV2vdGpoz2DFnSIzkJuhUwCqheBAxg1U819LnUdXWVeXLGLbvTC+VNn/3QmX6SXCcX82WGNd6w2PKnOlFvZoa9FVrz1oH" .
+		"r48pahmS3D5kGU01YdDXi0SYc353kBq16FyRo5aFEL9by23XLAPlAJ3xYMi+O2f/1ENppX9kHreNrKJhhSlK1S3F1yCu4KQtkMz" .
+		"E/ft2+pxmfntArP6vzQAqQIAY8UyttJc+WCdM7pc9chCwMfLWwVng0ER0xaLz8q5XhmQ95qo5u4hPUdDb7UVhTkHI98FHeNE5/K" .
+		"fO/9A40D0xGzgT6kQFUPcpnnjr1nIBroUoig3r57LtmH2COPpoG0c1XHHnSXp62ilbbVXcUpurvMUkwIlZI2vHFAUQt1eszwV7H" .
+		"QslpDCWd4ZfUefGlII9w7zzp2+jK0jJvvTPzXo2vankO/CoKyRYK3kocRrFduagBEaHzd1S4CYkRyiddIccmHIzM3e8rJLd1yBx" .
+		"bB9SiP9h4+t//b87sP/IplEVN9JulN6JUO8pagtBe3bd5xHIILiyC+s8T0jbKAkGx22+2etrrJs02r73y9DVJUQ1k1blIZ89vJN" .
+		"u2istpHk8R90/YfnR+QvWgH0X6kPl2ETKL3sGVwOhpQq99N2ZrtrE8sUKij0Ox8OEYXOE576IzqmVdbkl1hOVi8bpToXT+X6TSD" .
+		"KLg2L2zdefLKda55aCYtq0/J/RgDfv3jBu6kffc83AwCaN3PPtjoLkVSQthfd9uqFk7JEYoQysLMyhnSOBC+Nhd5KUQApy3HzS1" .
+		"7az/uBgxivKdDOn916FfaaIPqS0rfuHHb0Q1bvvtg29FN239Yv/nI5SslhhF5GsgodV07G5SOcde48tiCayV6+B2+BrgSNFHBqz" .
+		"uxkmIVm56/pUlQhm+fBcAFqx6mmla4zYP0tfJahc+7cEUD6iFtRohoFZGNWAHFgKyQFshttf0pBLmEIFS8ItTZtqq1iwVC2cqYv" .
+		"35v7tNzLlbotlFZvjH5yAkCH13g0xt3n/ZA+FzGa2rqPELv/nGvNw/N6NgjR14cMxsHzGrsP9szcDbjPdWnX9GNr49rg8dyEdCT" .
+		"CdrajVztlqTxGWFav8MoiV1icltHzJN31pNyHSCD4m0SBPWfzXhPezZlrdmM5NnQ9eH57bpn4/yISW/JubMA6z1sScuwzA49ctp" .
+		"2m3f2/DWytIi8/MdLajLJSkJ62XO0bXUnYuoWpGj6kpE/mOmwqLk6v0nIAs+ggsYB+R4BBR7+UMbzO/ZcVLTyCGDa+fVlxhuL4I" .
+		"vQpU2C50NztVAXNlcXPhBe1NA3e8uh6/bCrTceGMMFTuK6TKzDWBx9kzTBk82Xy2Uv2894IXGZ/2AkFpP81hF5LcLm3xe0oGVY4" .
+		"dxX9lmshA/L3/6B6ZCJD2J8s3fsuwTWWOWM/OmkjYxPFjnvPW/Lrt/l1aDuPR12QduVhvM7WfhuQQpZT/lfHmNS454YlTJ4bNKg" .
+		"scmD4pIGxiUNnZCcPHvGmvcWX/tzp91+XOK/W7B0Qd9h454aN3FQXLJiY5MHj01+fGR8SkYabzhQmvJ86YindaOfKR31TOno2m3" .
+		"MMN3Qgfr8qaLwvWg+bDUfLlpeENZvUqfemd49M/36pEcPTp2ZN+fU6S3y534rWr+dnp356HMTBoxOHDdtusl4ECd5yxHc0rI1C/" .
+		"sOH/dMQipu7KNPV0nCd7z5MK7WYFYyXrR8KrAN625b1Y6U7ICglV1g7LzjCBMZu102PVN+jeGLGXu5fJKOcTX5DAaQPwEgMCJPj" .
+		"lLtRgeIFvIrSFOtxeRTzCUex454fbO3y88/thW1DcjnVsifiwEl5LXzxuifR6RmN8rnrfKxTPmDiQhDzr8kU/knZeTx5JICU10V" .
+		"YVf7H/a8eTosw+BCAAAAAElFTkSuQmCC";
+	
 }
 
 

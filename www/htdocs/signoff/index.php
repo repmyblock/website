@@ -1,4 +1,12 @@
-<HTML>
+<?php	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";  
+  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 
+?>			
 
-<H1>Signoff</H1>
-<A HREF="/maps">Go back to log in</A>
+<P>
+	<CENTER><H1>Signed Off</H1></CENTER>
+</P>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>

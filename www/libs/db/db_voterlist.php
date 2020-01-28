@@ -70,7 +70,7 @@ class voterlist extends queries {
 		return $this->_return_multiple($sql,  $sql_vars);
 	}
 	
-	function PrepDisctictCCVoters($Candidate_ID, $System_ID, $DatedFiles, $ElectDistr,	$AssemblyDistr) {
+	function PrepDisctictCCVoters($Candidate_ID, $System_ID, $DatedFiles, $ElectDistr, $AssemblyDistr) {
 	 	$sql = "INSERT INTO CandidatePetitionSet SET SystemUser_ID = :System_ID, CandidatePetitionSet_TimeStamp = NOW();";
     $sql_vars = array(':System_ID' => $System_ID);   
     $this->_return_nothing($sql, $sql_vars);
@@ -82,7 +82,7 @@ class voterlist extends queries {
     $sql_vars = array(':CandidatePetitionSetID' => $result["CandidatePetitionSetID"], ':CandidateID' => $Candidate_ID);   
     $this->_return_nothing($sql, $sql_vars);
      
- 		$var = $this->FindRawVoterbyADED($DatedFiles, $ElectDistr,	$AssemblyDistr, "DEM", 1, 1);
+ 		$var = $this->FindRawVoterbyADED($DatedFiles, $ElectDistr, $AssemblyDistr, "DEM", 1, 1);
     
     // This is the 
     $Counter = 0;
@@ -307,6 +307,7 @@ class voterlist extends queries {
 	function GetPetitionsForCandidate($CandidateID, $RegParty = null, $Status = null) {
 		$sql = "SELECT * FROM CandidatePetition " .
 						"LEFT JOIN VotersIndexes ON (CandidatePetition.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " .
+						"LEFT JOIN Raw_Voter_20191210 ON (VotersIndexes_UniqNYSVoterID = Raw_Voter_UniqNYSVoterID) " .
 		//			"LEFT JOIN Raw_Voter_TrnsTable ON (Raw_Voter_TrnsTable.VotersIndexes_ID =  CandidatePetition.VotersIndexes_ID AND Raw_Voter_TrnsTable.Raw_Voter_Dates_ID =  CandidatePetition.Raw_Voter_Dates_ID) " .
 		//			"LEFT JOIN Raw_Voter ON (Raw_Voter.Raw_Voter_ID =  Raw_Voter_TrnsTable.Raw_Voter_ID) " .
 		//			"LEFT JOIN DataHouse ON (DataHouse.DataHouse_ID = Raw_Voter_TrnsTable.DataHouse_ID ) " . 

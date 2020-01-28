@@ -1,3 +1,6 @@
+<HR>
+<?= "&nbsp;" . DecryptURL($k);?>
+<HR>
 		<div class="footer">
 			<P CLASS="footerclass1">
 				<DIV CLASS="FooterTitle">REP MY BLOCK</DIV>

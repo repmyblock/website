@@ -37,10 +37,7 @@ $DEBUG["TimeDifference"] = time() - $URIEncryptedString["LastTimeUser"];
 $TimerToLoggoff = 36000000;
 
 if ( (time() - $URIEncryptedString["LastTimeUser"] ) > $TimerToLoggoff  && ! empty ($URIEncryptedString)) { 
-	//require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php"; 
-	//$r = new login();  
-	//$r->LogOffPerson($CustomerInfo["CustomerLogin_RandomKey"]);
-	header ("Location: /signoff");
+	goto_signoff();
 	exit();
 }
 
@@ -181,8 +178,12 @@ function PrintDebugArray($ArrayToPrint, $Title = "") {
 	if ( ! empty ($Title)) {
 		echo "<HR ALIGN=LEFT WIDTH=40%>";
 	}
-	
-	
 }
+
+function goto_signoff() {
+	header ("Location: /signoff");
+	exit();
+}
+
 
 ?>
