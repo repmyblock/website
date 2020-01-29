@@ -1,5 +1,6 @@
 <?php
 	// echo "<B>Decrypted Line:</B> " .  $_SERVER['DOCUMENT_URI'] .  "<UL>$Decrypted_k</UL>";
+	if ( preg_match('/Mobile/', $_SERVER['HTTP_USER_AGENT'])) { $MobileDisplay = true; }
 	if ( ! empty ($k) && $SystemUser_ID > 0 ) { $MenuLogin = "logged"; }
 	$imgtoshow = "RepMyBlock.png";
 	
@@ -18,10 +19,16 @@
 		<link rel="shortcut icon" href="/pics/favicon/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="/pics/icons/css/all.min.css" >		
 		<link rel="stylesheet" type="text/css" href="/font/montserrat.css">
-		<link rel="stylesheet" type="text/css" href="/css/RepMyBlock.css">		
-		<link rel="stylesheet" type="text/css" href="/css/FrameWorks.css">		
 		<link rel="stylesheet" type="text/css" href="/css/Primer.css">		
 	  <link rel="dns-prefetch" href="https://www.repmyblock.nyc">
+
+<?php	if ($MobileDisplay == true) { ?>
+		<!--- Mobile Check --->
+		<link rel="stylesheet" type="text/css" href="/css/Mobile-RepMyBlock.css" />		
+<?php 	} else { ?>
+		<!--- Not Mobile Check --->
+		<link rel="stylesheet" type="text/css" href="/css/RepMyBlock.css" />		
+<?php } ?>		<link rel="stylesheet" type="text/css" href="/css/FrameWorks.css">		
 	</HEAD>
 	
   <body class="logged-in env-production emoji-size-boost min-width-lg page-account">
@@ -32,9 +39,9 @@
 		  <div class="header-right">
   	  	<a href="/contact">CONTACT</a>
 		  	<?php if ( $MenuLogin == "logged") { ?>
-					 <a href="/signoff/?k=<?= $k ?>" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">LOGOUT</a>
+					 <a href="/signoff/?k=<?= $k ?>" class="login right<?php if ($BigMenu == "profile") { echo " active"; } ?>">LOGOUT</a>
 				<?php } else { ?>
-		    	<a href="/login">LOGIN</a>
+		    	<a href="/login" class="login">LOGIN</a>
 		    <?php } ?>
 		  </DIV>
 		</DIV> 
