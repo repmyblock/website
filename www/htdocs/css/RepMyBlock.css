@@ -5,6 +5,16 @@ div {font-family: 'Montserrat', sans-serif;color:#16317D!important;}
 
 a {text-decoration: none;}
 
+p.f80 {font-size:16px; font-weight: 600;}
+p.f60 {font-size:14px; font-weight: 500; padding: 30px 5px;}
+p.f40 {font-size:12px; padding: 30px 5px;}
+
+div.f80 {font-size:16px; font-weight: 600;}
+div.f60 {font-size:14px; font-weight: 500; padding: 30px 5px;}
+div.f40 {font-size:12px; padding: 30px 5px;}
+
+
+
 .btn {border: 2px solid black;background-color: white;color: black;padding: 14px 28px;font-size: 16px;cursor: pointer;}
 a.btn {-webkit-appearance: button;-moz-appearance: button;appearance: button;text-decoration: none;color: initial;}
 
@@ -109,6 +119,6 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 .action-nominate a:hover  img {height:0;width:0;padding:50px;}
 
 .register input[type=text], select, textarea {font-size: 40px;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
-.register input[type=password], select, textarea {font-size: 40px;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
+.register input[type=email], select, textarea {font-size: 40px;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
 .register input[type=submit] {font-size: 40px;background-color: #EE2E62;color: white;padding: 12px 20px;border: none;cursor: pointer;}
 .register input[type=submit]:hover {font-size: 40px;background-color: #EE2E62;color: #16317D;}

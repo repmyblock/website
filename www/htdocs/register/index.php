@@ -44,6 +44,9 @@
 	}
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 
+	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
+	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
+	
 ?>
 <div class="row">
 	<div class="main">
@@ -65,16 +68,19 @@
 ?>
 
 <P>
+	<DIV CLASS="right f80">Register</DIV>
+	
+	
 	<FORM METHOD="POST" ACTION="">					
 		<INPUT TYPE="hidden" NAME="login" VALUE="password" CHECKED>	
 		<P CLASS="f80">
-			Email: 
-			<INPUT type="email" autocorrect="off" autocapitalize="none" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>">				
+			<DIV CLASS="f80">Email:</DIV> 
+			<DIV><INPUT CLASS="" type="<?= $TypeEmail ?>" autocorrect="off" autocapitalize="none" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
 		</P>
 			
 		<P CLASS="f80">
-			Username:
-			<INPUT type="username" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>">
+			<DIV CLASS="f80">Username:</DIV>
+			<DIV><INPUT CLASS="" type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>"></DIV>
 		</P>
 		
 		<P CLASS="f40">
@@ -83,17 +89,17 @@
 		</P>
 		
 		<P CLASS="f80">
-			Password:
-			<INPUT TYPE="password" NAME="password" PLACEHOLDER="password"  VALUE="<?= $_POST["password"] ?>">
+			<DIV CLASS="f80">Password:</DIV>
+			<DIV><INPUT CLASS="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE="<?= $_POST["password"] ?>"><DIV>
 		</P>
 		
 		<P CLASS="f80">
-			Verify Password:
-			<INPUT TYPE="password" NAME="verifypassword" PLACEHOLDER=" verify password"  VALUE="<?= $_POST["password"] ?>">
+			<DIV CLASS="f80">Verify Password:</DIV>
+			<DIV><INPUT CLASS="" TYPE="password" NAME="verifypassword" PLACEHOLDER=" verify password"  VALUE="<?= $_POST["password"] ?>"></DIV>
 		</P>
 	
 		<P>
-			<INPUT TYPE="Submit" NAME="SaveInfo" VALUE="Register">
+			<DIV><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Register"></DIV>
 		</P>
 		
 		<P CLASS="f40">

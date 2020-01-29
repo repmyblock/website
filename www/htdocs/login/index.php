@@ -35,28 +35,31 @@
 	}
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	
+	if ( $MobileDisplay == true ) { $TypeUsername = "username";
+	} else { $TypeUsername  = "text"; }
 ?>
 
 <div class="row">
 	<div class="main">
-		<H1>Log In</H1>
-
+		<div class="register">
+				
+		<DIV CLASS="right f80">Login</DIV>
+	
 		<?php if (! empty ($error_msg)) {
-			echo "<P>" . $error_msg . "</P>";	
+			echo "<P CLASS=\"f80\">" . $error_msg . "</P>";	
 		} ?>
 		
-		
-
 		<P>
 			<FORM METHOD="POST" ACTION="">
 					<P CLASS="f80">
 						Username:
-						<INPUT TYPE="username" NAME="username"  autocorrect="off" autocapitalize="none" VALUE="<?= $_POST["username"] ?>" placeholder="Username">
+						<INPUT TYPE="<?= $TypeUsername ?>" NAME="username"  autocorrect="off" autocapitalize="none" VALUE="<?= $_POST["username"] ?>" placeholder="Username">
 					<P>
 						
 					<P CLASS="f80">
 						Password: 
-						<INPUT TYPE="password" NAME="password" placeholder="Password"
+						<INPUT TYPE="password" NAME="password" placeholder="Password">
 					</P>
 					
 					<P>
@@ -65,7 +68,7 @@
 			</FORM>
 		</P>
 		
-		</DIV>
+	
 		
 		<P CLASS="f60">
 			<A HREF="/login/forgotpwd">I forgot my password</A>
@@ -78,6 +81,7 @@
 		<P CLASS="f60">
 			<A HREF="/register">Register</A>
 		</P>
+			</DIV>
 
 	</DIV>
 </DIV>

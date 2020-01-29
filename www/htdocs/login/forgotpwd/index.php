@@ -7,18 +7,21 @@
 
 	$r = new login();
 
-	if ( ! empty ($_POST["signin"])) {
-		
-		$hashtable = hash(md5, PrintRandomText(40));
-		$r->UpdateHash($_POST["email"], $hashtable);
-		$result = $r->CheckEmail($_POST["email"]);
-		
-		SendForgotLogin($_POST["email"],  $hashtable, $result["SystemUser_username"]);
-		header("Location: sentpasswd/");
-		
-		exit();
-	}
-					
+	if ( ! empty ($_POST)) {
+		if ( ! empty ($_POST["email"])) {
+			
+			$hashtable = hash(md5, PrintRandomText(40));
+			$r->UpdateHash($_POST["email"], $hashtable);
+			$result = $r->CheckEmail($_POST["email"]);
+			
+			SendForgotLogin($_POST["email"],  $hashtable, $result["SystemUser_username"]);
+			header("Location: sentpasswd/");
+			
+			exit();
+		} else {
+			$EmptyEmail = true;
+		}
+	}						
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 ?>
 
@@ -26,24 +29,43 @@
 
 <div class="row">
 	<div class="main">
-		<P>
-			<FONT SIZE=+2>Please enter the email address you registered with:</FONT>
-		</P>
-		<P>
-			<FORM METHOD="POST" ACTION="">
-				<TABLE>
-					<TR><TD>Email:</TD><TD><INPUT TYPE="text" NAME="email" VALUE="" SIZE=30></TD></TR>
-					<TR><TD>&nbsp;</TD><TD><INPUT TYPE="Submit" NAME="signin" VALUE="Send me a link to reset my password"></TD></TR>
-				</TABLE>
-			</FORM>
-		</P>
+		<div class="register">		
+		<FORM METHOD="POST" ACTION="">					
+			
+			<DIV CLASS="right f80">Forgot Password</DIV>
+
+			<?php 			
+			if ($EmptyEmail == true) {
+				echo "<P CLASS=\"f60\">";
+				echo "<B><FONT COLOR=BROWN>The email address is empty.</FONT></B><BR>";
+				echo "</P>";
+			}
+			?>
+
+			
+
+			<P CLASS="f60 justify">
+				We will send you a link to the email address you 
+				registered so you can reset your password.
+			</P>
 	
+		<P CLASS="f80">
+			<DIV CLASS="f80">Email:</DIV> 
+			<DIV><INPUT CLASS="" type="email" autocorrect="off" autocapitalize="none" NAME="email" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
+		</P>
+				
 		<P>
-			If you don't receive an email in the next few hours, please sent an email to <B>passwordissues@repmyblock.nyc</B>
+			<INPUT TYPE="Submit" NAME="signin" VALUE="Reset my password">
+		</P>
+				
+			</FORM>
+		
+		<P CLASS="f60 justify">
+			If you don't receive a link in the next few hours, send an 
+			email to passwordissues@repmyblock.nyc.
 		</P>
 		
-
-</DIV>
+	</DIV>
 </DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
