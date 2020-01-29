@@ -4,10 +4,12 @@
 ?>
 <div class="row">
 	<div class="main">
-		<H3>We sent an email with the instruction on how to retreive your username</H3>
+		<P CLASS="f80">
+			We sent an email with the instructions on how to retreive your username</H3>
+		</P>
 		
-		<p>
-			<FONT SIZE=+2><A HREF="/login/">Click here to the login page.</FONT></A>
+		<p CLASS="f80">
+			<A HREF="/login/">Click here to the login page.</A>
 		</P>
 	
 	

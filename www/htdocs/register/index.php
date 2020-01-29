@@ -7,7 +7,8 @@
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";	
 	
 		$r = new login();	
-		$result = $r->RegisterUser($_POST["username"], $_POST["emailaddress"], $_POST["password"], "Register");
+		$result = $r->RegisterUser(trim($_POST["username"]), trim($_POST["emailaddress"]), 
+																trim($_POST["password"]), "Register");
 																
 		if ( empty ($result["USERNAME"]) && empty ($result["EMAIL"])) {
 		
@@ -51,47 +52,62 @@
 <?php
 
 	if ($result["USERNAME"] == 1) {
+		echo "<P CLASS=\"f60\">";
 		echo "<B><FONT COLOR=BROWN>The USERNAME " . $_POST["username"] . " already exist</FONT></B><BR>";
+		echo "</P>";
 	}
 	
 	if ($result["EMAIL"] == 1) {
+		echo "<P CLASS=\"f60\">";
 		echo "<B><FONT COLOR=BROWN>The EMAIL " . $_POST["emailaddress"] . " already exist</FONT></B><BR>";
+		echo "</P>";
 	}
 ?>
 
-		<P>
-				<FORM METHOD="POST" ACTION="">
-					
-					<INPUT TYPE="hidden" NAME="login" VALUE="password" CHECKED>	
-					Email:		
-					<INPUT TYPE="text" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>">				
-					
-					<BR>
-					
-					Username:
-					<INPUT TYPE="text" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>">				
-					Choose a username that contains only letters and numbers, or
-					use your email address.
-					
-					<BR>
-					
-					Password:
-					<INPUT TYPE="text" NAME="password" PLACEHOLDER="password"  VALUE="<?= $_POST["password"] ?>">							
-					Your password is secure and you're all set!
-					
-					<BR>
-					<INPUT TYPE="Submit" NAME="SaveInfo" VALUE="Continue">
-					<BR>
-					By clicking the "Get Started!" button, you are creating a 
-					RepMyBlock account, and you agree to RepMyBlock's 
-					<A HREF="/text/terms">Terms of Use</A> and 
-					<A HREF="/text/privacy">Privacy Policy.</A>
-					
-					
-				</FORM>
-			</P>
+<P>
+	<FORM METHOD="POST" ACTION="">					
+		<INPUT TYPE="hidden" NAME="login" VALUE="password" CHECKED>	
+		<P CLASS="f80">
+			Email: 
+			<INPUT type="email" autocorrect="off" autocapitalize="none" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>">				
+		</P>
 			
-			<P>
+		<P CLASS="f80">
+			Username:
+			<INPUT type="username" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>">
+		</P>
+		
+		<P CLASS="f40">
+			Choose a username that contains only letters and numbers, or
+			use your email address.
+		</P>
+		
+		<P CLASS="f80">
+			Password:
+			<INPUT TYPE="password" NAME="password" PLACEHOLDER="password"  VALUE="<?= $_POST["password"] ?>">
+		</P>
+		
+		<P CLASS="f80">
+			Verify Password:
+			<INPUT TYPE="password" NAME="verifypassword" PLACEHOLDER=" verify password"  VALUE="<?= $_POST["password"] ?>">
+		</P>
+	
+		<P>
+			<INPUT TYPE="Submit" NAME="SaveInfo" VALUE="Register">
+		</P>
+		
+		<P CLASS="f40">
+			By clicking the "Register" button, you are creating a 
+			RepMyBlock account, and you agree to RepMyBlock's 
+			<A HREF="/text/terms">Terms of Use</A> and 
+			<A HREF="/text/privacy">Privacy Policy.</A>
+		</P>
+
+</FORM>
+</P>
+
+<?php /*
+<P>
 			
 						<FONT SIZE=+2><A HREF="/login">Login</A></FONT>
 
@@ -100,6 +116,9 @@
 				<A HREF="facebook.php?k=<?= $k ?>" class="btn">facebook</A>
 				<A HREF="googleid.php?k=<?= $k ?>" class="btn">googleID</A>
 			</P>
+
+*/ ?>			
+			
 		</DIV>
 	</div>
 </div>
