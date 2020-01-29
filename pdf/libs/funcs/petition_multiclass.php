@@ -16,7 +16,7 @@ class PDF extends FPDF {
 			$this->SetFont('Arial','B',50);
     	$this->SetTextColor(255,192,203);
    		$this->RotatedText(35,190, $this->Watermark, 45);
-   		$this->RotatedText(40,210, "Election will be held in 2019", 45);
+   		$this->RotatedText(40,210, "Election will be held in 2020", 45);
    		$this->SetTextColor(0,0,0);
 		}
 		
@@ -47,7 +47,67 @@ class PDF extends FPDF {
 		$YLocation_new = $Top_Corner_Y = $this->GetY() - 1.5;   
 	
  		$this->SetY($Top_Corner_Y);
-  	 
+ 		
+ 		
+ 		### Just to get a blank petition
+ 		if ( $this->NumberOfCandidates == 0) {
+ 			
+ 		 	$MyTop = $YLocation = $this->GetY();
+    			
+    	// This is the heading of the petition.
+	  	$this->Line($this->Line_Left, $YLocation - 0.1,  $this->Line_Right, $YLocation - 0.1); 
+	    $this->SetFont('Arial','B',8);
+	    $this->SetXY($this->Col1, $YLocation );
+	    $this->MultiCell($this->SizeCol1, 4, "NAME" . strtoupper($this->PluralCandidates) . " OF CANDIDATE" . strtoupper($this->PluralCandidates), 0, 'C');
+	    $this->SetXY($this->Col2, $YLocation );
+	    $this->MultiCell($this->SizeCol2, 4, $this->RunningForHeading["party"], 0, 'C');
+  	 	$this->SetXY($this->Col3, $YLocation );
+  	 	$this->MultiCell($this->SizeCol3, 4, "PLACE" . strtoupper($this->PluralCandidates) . " OF RESIDENCE", 0, 'C');
+    	$this->SetFont('Arial','',8);
+    	$Prev_PartyPosition = $this->PositionType[$i];
+  		$YLocation = $this->GetY() + 0.5;
+	    			
+	    // This are the empty stuff.
+	    $this->Line($this->Line_Left, $YLocation - 0.1, $this->Line_Right, $YLocation - 0.1); 
+ 			
+     	$this->SetFont('Arial','B',11);
+ 			$this->SetXY($this->Col1, $YLocation + 0.3 );
+			$this->MultiCell($this->SizeCol1, 3.5, $this->Candidate[$i], 0, 'C', 0);
+  		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
+	
+			$this->SetFont('Arial','', 9);   	   		
+			$this->SetXY($this->Col2, $YLocation );
+  		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
+									
+			$this->SetXY($this->Col3, $YLocation );
+  		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
+
+									
+			$YLocation = $YLocation_new + 4.7;   
+			$this->Line($this->Line_Left, $YLocation - 0.1, $this->Line_Right, $YLocation - 0.1); 
+			
+		 	$this->SetY($YLocation);	
+		 	
+		 	// Here I need to put the pieces.
+		 	$this->Line($this->Line_Left, $MyTop - 0.1, $this->Line_Left, $YLocation - 0.1); 
+		 	$this->Line($this->Line_Col1, $MyTop - 0.1, $this->Line_Col1, $YLocation - 0.1); 
+		 	$this->Line($this->Line_Col2, $MyTop - 0.1, $this->Line_Col2, $YLocation - 0.1); 
+		 	$this->Line($this->Line_Right, $MyTop - 0.1, $this->Line_Right, $YLocation - 0.1); 
+		 	
+			/*
+ 	   	$this->SetFont('Times','I',7);
+ 	   	$this->SetXY($this->Line_Left + 0.5, $YLocation );
+	    $this->MultiCell(0, 2.8, 
+	    	"I do hereby appoint " . $this->Appointments[$i] . " all of whom are enrolled voters of the " . $this->party . 
+	    	" Party, as a committee to fill vacancies in accordance with the provisions of the Election Law.", 0);
+	    */
+	    
+	    $YLocation = $this->GetY() - 1.5 ;
+	    $Botton_Corner_Y = $this->GetY();
+ 		}
+ 		
+
+ 		
     for ($i = 0; $i < $this->NumberOfCandidates; $i++) {
     			
     	$MyTop = $YLocation = $this->GetY();
@@ -69,7 +129,7 @@ class PDF extends FPDF {
 	    	$Prev_PartyPosition = $this->PositionType[$i];
 
     		$YLocation = $this->GetY() + 0.5;
-	    }
+	    }    
 	    			
 	    $this->Line($this->Line_Left, $YLocation - 0.1, $this->Line_Right, $YLocation - 0.1); 
  			
@@ -87,30 +147,37 @@ class PDF extends FPDF {
   		$this->MultiCell($this->SizeCol3, 3.5, $this->Residence[$i], 0, 'C', 0);
   		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
 
+			   	 		
+
 									
 			$YLocation = $YLocation_new + 0.7;   
 			$this->Line($this->Line_Left, $YLocation - 0.1, $this->Line_Right, $YLocation - 0.1); 
 			
 		 	$this->SetY($YLocation);	
 		 	
+		 
 		 	// Here I need to put the pieces.
 		 	$this->Line($this->Line_Left, $MyTop - 0.1, $this->Line_Left, $YLocation - 0.1); 
 		 	$this->Line($this->Line_Col1, $MyTop - 0.1, $this->Line_Col1, $YLocation - 0.1); 
 		 	$this->Line($this->Line_Col2, $MyTop - 0.1, $this->Line_Col2, $YLocation - 0.1); 
 		 	$this->Line($this->Line_Right, $MyTop - 0.1, $this->Line_Right, $YLocation - 0.1); 
 		 	
-			
- 	   	$this->SetFont('Times','I',7);
- 	   	$this->SetXY($this->Line_Left + 0.5, $YLocation );
-	    $this->MultiCell(0, 2.8, 
-	    	"I do hereby appoint " . $this->Appointments[$i] . " all of whom are enrolled voters of the " . $this->party . 
-	    	" Party, as a committee to fill vacancies in accordance with the provisions of the Election Law.", 0);
+			if ( count ($this->Appointments) > 0 ) {
+	 	   	$this->SetFont('Times','I',7);
+ 		   	$this->SetXY($this->Line_Left + 0.5, $YLocation );
+	  	  $this->MultiCell(0, 2.8, 
+	    		"I do hereby appoint " . $this->Appointments[$i] . " all of whom are enrolled voters of the " . $this->party . 
+	    		" Party, as a committee to fill vacancies in accordance with the provisions of the Election Law.", 0);
+	    }
+	    
+	    
+		 	
 	    
 	    $YLocation = $this->GetY() - 1.5 ;
-	    
 	    $Botton_Corner_Y = $this->GetY();
-
    	}
+   	
+
    	
    	$this->Ln(2);  	 
    	$this->SetX($this->Line_Left);
@@ -137,6 +204,8 @@ class PDF extends FPDF {
  		$this->Line(120, $YLocation, 120, $this->BottonPt);
  		$this->Line(190, $YLocation, 190, $this->BottonPt);
  		$this->Line($this->Line_Right, $YLocation, $this->Line_Right, $this->BottonPt);
+    
+    	
     
 	}
 

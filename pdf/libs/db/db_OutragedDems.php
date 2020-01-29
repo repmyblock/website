@@ -52,7 +52,7 @@ class OutragedDems extends queries {
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
 						"WHERE CandidatePetitionSet.SystemUser_ID = :SystemUserID AND Candidate_Status = :Status " .
 						"ORDER BY CandidateElection_DisplayOrder, CanPetitionSet.Candidate_ID";
-		$sql_vars = array("SystemUserID" => $SystemUserID, "Status" => $Status);				
+		$sql_vars = array("SystemUserID" => $SystemUserID, "Status" => $Status);	
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
