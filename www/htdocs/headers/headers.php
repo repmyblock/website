@@ -1,6 +1,7 @@
 <?php
 	// echo "<B>Decrypted Line:</B> " .  $_SERVER['DOCUMENT_URI'] .  "<UL>$Decrypted_k</UL>";
 	if ( preg_match('/Mobile/', $_SERVER['HTTP_USER_AGENT'])) { $MobileDisplay = true; }
+	//$MobileDisplay = true; 
 	if ( ! empty ($k) && $SystemUser_ID > 0 ) { $MenuLogin = "logged"; }
 	$imgtoshow = "RepMyBlock.png";
 	

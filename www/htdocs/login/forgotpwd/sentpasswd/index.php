@@ -4,19 +4,23 @@
 				
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 ?>
-<div class="row">
-	<div class="main">
-		<P>
-			<FONT SIZE=+2><B>We sent you an email with a link</B></FONT>
-		</P>
+<DIV class="main">
 
-		<P>
-			If you don't receive an email in the next few hours, please sent an email to <B>passwordissues@outrageddems.nyc</B>
+	<DIV CLASS="right f80">Forgot Password</DIV>
+
+	<DIV>
+		<P CLASS="f60 justify">
+			We sent you an email with a link.
 		</P>
-		
+	</DIV>
 	
+	<DIV>
+		<P CLASS="f40">
+			If you don't receive an email in the next few hours, 
+			please sent an email to passwordissues@repmyblock.nyc
+		</P>
 	</DIV>
 </DIV>
-		
-
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
+
+

@@ -59,6 +59,13 @@
 					</div>
 					
 					<div id="voters">
+						
+						
+						<A HREF="input/?k=<?= $k ?>">
+						<p><button type="submit" class="btn btn-primary">Select another Voter Card.</button></p>
+						</A>
+							
+						
 						<div class="list-group-item filtered">
 							
 						
@@ -114,23 +121,46 @@
 							<BR>
 						</div>
 
-						<A HREF="input/?k=<?= $k ?>">Select another voter card.</A>
-						<p><button type="submit" class="btn btn-primary">Select another Voter Card.</button></p>
-						
-							
 					 	<DIV class="panels">
 							<div class="list-group-item">	
 								<?php  
-										echo "<PRE>";
-										print_r($rmbvoters);
-										echo "</PRE>";
+								
+											echo "<BR>";
+									echo "<B>RMBVOTERS</B><BR>";
+									if ( ! empty ($rmbvoters )) {
+										foreach ($rmbvoters as $index => $var) {
 										
-										echo "INDEX";
-										echo "<PRE>";
-										print_r($rmbvoteridx);
-										echo "</PRE>";
+											print "INDEX: $index<BR>";
+											
+											if ( ! empty ($var)) {
+												foreach ($var as $index2 => $vor) {
+													if ( ! empty ($vor)) {
+														
+														print "VAR: $var : $vor : $index2<BR>";
+													}
+												}
+											}
+										}
+									}
+									
+									echo "<BR>";
+									echo "<B>RMBVOTERIDX</B><BR>";
+									if ( ! empty ($rmbvoters )) {
+										foreach ($rmbvoteridx as $index => $var) {
 										
-										
+											print "INDEX: $index<BR>";
+											
+											if ( ! empty ($var)) {
+												foreach ($var as $index2 => $vor) {
+													if ( ! empty ($vor)) {
+														
+														print "VAR: $index2 : $vor<BR>";
+													}
+												}
+											}
+										}
+									}
+									
 										
 								?>
 				

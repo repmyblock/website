@@ -7,7 +7,6 @@
 	$r = new login();
 	
 	// Check that the hash code exist.
-
 	if ( ! empty ($_GET["username"])) { $username = $_GET["username"]; }
 	if ( ! empty ($_GET["hashkey"])) {	$hashkey = $_GET["hashkey"]; }	
 	if ( ! empty ($_POST["username"])) { $username = $_POST["username"]; }
@@ -34,26 +33,33 @@
 	}
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	if ( $MobileDisplay == true ) { $TypeUsername = "username";
+	} else { $TypeUsername = "text"; }
+
 ?>
-<div class="row">
-	<div class="main">
-	<H1>Select a new password</H1>
 
-	<?php if (! empty ($error_msg)) {
-		echo "<P>" . $error_msg . "</P>";	
-	} ?>
+<DIV class="main">
+	
+	<FORM METHOD="POST" ACTION="">
+	<INPUT TYPE="hidden" NAME="hashkey" VALUE="<?= $hashkey ?>">	
+	
+	<DIV CLASS="right f80">Forgot Password</DIV>
 
-	<P>
-		<FORM METHOD="POST" ACTION="">
-		<INPUT TYPE="hidden" NAME="hashkey" VALUE="<?= $hashkey ?>">		
-			<TABLE>
-				<TR><TD>Username:</TD><TD><INPUT TYPE="text" NAME="username" VALUE="" SIZE=30></TD></TR>
-				<TR><TD>&nbsp;</TD><TD><INPUT TYPE="Submit" NAME="signin" VALUE="Register Password"></TD></TR>
-			</TABLE>
-		</FORM>
+	<P CLASS="f60 justify">
+		After you type your username you
+		will be able to choose a new password.
 	</P>
 	
-</DIV>
+	<P CLASS="f80">
+		<DIV CLASS="f80">Username:</DIV> 
+		<DIV><INPUT CLASS="" type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE=""><DIV>
+	</P>
+
+	<P>
+		<INPUT TYPE="Submit" NAME="signin" VALUE="Reset my password">
+	</P>
+	</FORM>
+
 </DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>

@@ -6,20 +6,17 @@
   require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_voterlist.php";  
+	// require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_voterlist.php";  
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
   
   if (empty ($SystemUser_ID)) { goto_signoff(); }
-
-
 	$rmb = new repmyblock();
 
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
 	
-	$r = new voterlist();
-	$result = $r->GetPetitionsForCandidate(1);
-
+	$r = new repmyblock();
+	$result = $r->GetPetitionsForCandidate($DatedFiles, 0, $SystemUser_ID);
 	
 	if ( ! empty ($result)) {
 		foreach ($result as $var) {
@@ -41,37 +38,12 @@
 			$Counter[$MyAddressToUse]++;			
 		}	
 	}
+	
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	if ($MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
 
-<style>
- /* Style the buttons that are used to open and close the accordion panel */
-.accordeonbutton {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 3px;
-  /* width: 100%; */
-  text-align: left;
-  border: none;
-  outline: none;
-  transition: 0.4s;
-}
 
-/* Add a background color to the button if it is clicked on 
-(add the .active class with JS), and when you move the mouse over it (hover) */
-.accordeonbutton:hover {
-  background-color: #ccc;
-}
-
-/* Style the accordion panel. Note: hidden by default */
-.panels {
-  /* padding: 0 18px; */
-  /* background-color: white; */
- 	display: none;
- 	overflow: hidden;
-} 
-</style>
 
 <div class="row">
   <div class="main">
@@ -79,7 +51,7 @@
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
 
 
-<div class="col-9 float-left">
+<div class="<?= $Cols ?> float-left">
 	
 	<div class="Subhead">
   	<h2 class="Subhead-heading">Voters</h2>
@@ -96,7 +68,7 @@
 	<div class="Box">
   	<div class="Box-header pl-0">
     	<div class="table-list-filters d-flex">
-  			<div class="table-list-header-toggle states flex-justify-start pl-3">First Name Last Name Address</div>
+  			<div class="table-list-header-toggle states flex-justify-start pl-3">Building Addresses</div>
   		</div>
     </div>
     
@@ -110,16 +82,21 @@
 			if ( ! empty ($Electors)) {
 				foreach ($Electors as $Address => $Elector) {
 					if ( ! empty ($Address)) { ?>
-						<div class="list-group-item filtered">
-							<INPUT TYPE="checkbox" NAME="SelectAllAddresses" VALUE="<?= $Address ?>">&nbsp;&nbsp;
+						<div class="list-group-item filtered f60 hundred">
+							
+							<A CLASS="pad40" HREF="open/?k=<?= $k ?>"><i class="fas fa-folder handle"></i></A>							
+							
+							
+							<?php /* INPUT TYPE="checkbox" NAME="SelectAllAddresses" VALUE="<?= $Address ?>">&nbsp;&nbsp;
 							<button class="accordeonbutton" id="<?= $Counter++ ?>">Open</button>	
+							*/ ?>
 							<span><B><?= $Address ?></B></span>  	          			
 						</div>
-							
+<?php /*							
 					 <DIV class="panels">
 <?php				foreach ($Elector as $Elect) {
 					 		if (! empty ($Elect)) { ?>
-								<div class="list-group-item"><?php
+								<div class="list-group-item f60"><?php
 									?>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-arrows-alt handle"></i>&nbsp;&nbsp;<?php
 									?><INPUT TYPE="checkbox" NAME="CreateID[]" VALUE="<?= $Elect["Elector_ID"] ?>">&nbsp;&nbsp;<?php
 									?><svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg><?php
@@ -131,6 +108,9 @@
 <?php					}	 
 						} ?>
 						</DIV>
+						*/ ?>
+						
+						
 <?php			}
 				}
 			} ?>
@@ -163,27 +143,13 @@
 		animation: 150,
 		// handle: '.handle', // handle's class
 		ghostClass: 'blue-background-class',
-		filter: '.filtered'
+		//filter: '.filtered'
 	});
 	
-	var acc = document.getElementsByClassName("accordeonbutton");
-	var i;
+	
+	console.log("Console ... \n");
+	
 
-	for (i = 0; i < acc.length; i++) {
-		acc[i].addEventListener("click", function() {
-		  /* Toggle between adding and removing the "active" class,
-		  to highlight the button that controls the panel */
-		  // this.classList.toggle("active");
-		
-		  /* Toggle between hiding and showing the active panel */
-		  var panel = document.getElementsByClassName("panels");
-		  if (panel[this.id].style.display === "block") {
-		    panel[this.id].style.display = "none";
-		  } else {
-		    panel[this.id].style.display = "block";
-		  }
-		});
-	}
 
 </script>
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>

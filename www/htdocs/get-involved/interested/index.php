@@ -7,7 +7,7 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 	
 
 	/* User is logged */
-	
+
 ?>
 
 

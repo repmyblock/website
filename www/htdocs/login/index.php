@@ -40,50 +40,48 @@
 	} else { $TypeUsername  = "text"; }
 ?>
 
-<div class="row">
-	<div class="main">
-		<div class="register">
-				
-		<DIV CLASS="right f80">Login</DIV>
+<div class="main">
+
+	<DIV CLASS="right f80">Login</DIV>
+
+	<?php if (! empty ($error_msg)) {
+		echo "<P CLASS=\"f80\">" . $error_msg . "</P>";	
+	} ?>
 	
-		<?php if (! empty ($error_msg)) {
-			echo "<P CLASS=\"f80\">" . $error_msg . "</P>";	
-		} ?>
-		
-		<P>
-			<FORM METHOD="POST" ACTION="">
-					<P CLASS="f80">
-						Username:
-						<INPUT TYPE="<?= $TypeUsername ?>" NAME="username"  autocorrect="off" autocapitalize="none" VALUE="<?= $_POST["username"] ?>" placeholder="Username">
-					<P>
-						
-					<P CLASS="f80">
-						Password: 
-						<INPUT TYPE="password" NAME="password" placeholder="Password">
-					</P>
+	<P>
+		<FORM METHOD="POST" ACTION="">
+				<P CLASS="f80">
+					Username:
+					<INPUT TYPE="<?= $TypeUsername ?>" NAME="username"  autocorrect="off" autocapitalize="none" VALUE="<?= $_POST["username"] ?>" placeholder="Username">
+				<P>
 					
-					<P>
-						<INPUT TYPE="Submit" NAME="signin" VALUE="Log In">
-					</P>
-			</FORM>
-		</P>
-		
+				<P CLASS="f80">
+					Password: 
+					<INPUT TYPE="password" NAME="password" placeholder="Password">
+				</P>
+				
+				<P>
+					<INPUT TYPE="Submit" NAME="signin" VALUE="Log In">
+				</P>
+		</FORM>
+	</P>
 	
-		
-		<P CLASS="f60">
-			<A HREF="/login/forgotpwd">I forgot my password</A>
-		</P>
-		
-		<P CLASS="f60">
-			<A HREF="/login/forgotuser">I forgot my username</A>
-		</P>
-		
-		<P CLASS="f60">
-			<A HREF="/register">Register</A>
-		</P>
-			</DIV>
 
-	</DIV>
+	
+	<P CLASS="f60">
+		<A HREF="/login/forgotpwd">I forgot my password</A>
+	</P>
+	
+	<P CLASS="f60">
+		<A HREF="/login/forgotuser">I forgot my username</A>
+	</P>
+	
+	<P CLASS="f60">
+		<A HREF="/register">Register</A>
+	</P>
+		</DIV>
+
 </DIV>
-
+	
+	
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>

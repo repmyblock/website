@@ -16,7 +16,7 @@
 			// We need to encrypt the password here.
 			
 			// Check that the password match.
-			if ($_POST["password"] == $_POST["verifpassword"]) {
+			if ($_POST["password"] == $_POST["verifypassword"]) {
 																
 				if (strlen($_POST["password"]) < 8) {
 		    	$ErrorMessage = "<FONT COLOR=RED><B>Password too short!<BR>Password must at least 8 characters!</B></FONT>";
@@ -39,7 +39,7 @@
 					exit();
 				}
 			} else {
-				$ErrorMessage = "<FONT COLOR=RED><B>The password don't match, please verify that they do.</B></FONT>";
+				$ErrorMessage = "The password don't match, please verify that they do.";
 			}
 			
 			
@@ -54,25 +54,38 @@
 	}
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";		
-?>
-<div class="row">
-	<div class="main">
-		<H3>Select a new password</H3>
 
+?>
+<DIV class="main">
+		
+	<DIV CLASS="right f80">Forgot Password</DIV>
+
+	<FORM METHOD="POST" ACTION="">	
+		<INPUT TYPE="hidden" NAME="login" VALUE="password" CHECKED>	
+			
 		<?php if (! empty ($ErrorMessage)) { 
-			echo "<P>" . $ErrorMessage . "</P>";
+			echo "<P CLASS=\"f60\"><FONT COLOR=RED>" . $ErrorMessage . "</FONT></P>";
 		} ?>
 		
-		<P>
-			<FORM METHOD="POST" ACTION="">
-				<TABLE>
-					<TR><TD>Password:</TD><TD> <INPUT TYPE="password" NAME="password" SIZE=30></TD></TR>
-					<TR><TD>Verify password:</TD><TD> <INPUT TYPE="password" NAME="verifpassword" SIZE=30></TD></TR>
-					<TR><TD>&nbsp;</TD><TD><INPUT TYPE="Submit" NAME="SaveInfo" VALUE="Select a new password"></TD></TR>
-				</TABLE>
-			</FORM>
+		<P CLASS="f60">
+			Choose a password that contains only letters and numbers.
 		</P>
-	</DIV>
+		
+		<P CLASS="f80">
+			<DIV CLASS="f80">Password:</DIV>
+			<DIV><INPUT CLASS="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE=""><DIV>
+		</P>
+		
+		<P CLASS="f80">
+			<DIV CLASS="f80">Verify Password:</DIV>
+			<DIV><INPUT CLASS="" TYPE="password" NAME="verifypassword" PLACEHOLDER="verify password"  VALUE=""></DIV>
+		</P>
+	
+		<P>
+			<DIV><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Change Password"></DIV>
+		</P>
+
+	</FORM>
 </DIV>
 			
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>

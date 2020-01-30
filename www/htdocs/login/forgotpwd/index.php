@@ -3,18 +3,19 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";
   require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";
 
 	$r = new login();
 
 	if ( ! empty ($_POST)) {
-		if ( ! empty ($_POST["email"])) {
-			
+		if ( ! empty ($_POST["username"])) {
+
 			$hashtable = hash(md5, PrintRandomText(40));
-			$r->UpdateHash($_POST["email"], $hashtable);
-			$result = $r->CheckEmail($_POST["email"]);
-			
-			SendForgotLogin($_POST["email"],  $hashtable, $result["SystemUser_username"]);
+			$r->UpdateUsernameHash($_POST["username"], $hashtable);
+
+			require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";	
+			$result = $r->CheckUsername($_POST["username"]);
+
+			SendForgotLogin($result["SystemUser_email"],  $hashtable, $result["SystemUser_username"]);
 			header("Location: sentpasswd/");
 			
 			exit();
@@ -22,50 +23,45 @@
 			$EmptyEmail = true;
 		}
 	}						
+	
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	if ( $MobileDisplay == true ) { $TypeUsername = "username";
+	} else { $TypeUsername = "text"; }
 ?>
 
+<div class="main">
+	
+	<FORM METHOD="POST" ACTION="">
+		<DIV CLASS="right f80">Forgot Password</DIV>
 
-
-<div class="row">
-	<div class="main">
-		<div class="register">		
-		<FORM METHOD="POST" ACTION="">					
-			
-			<DIV CLASS="right f80">Forgot Password</DIV>
-
-			<?php 			
-			if ($EmptyEmail == true) {
-				echo "<P CLASS=\"f60\">";
-				echo "<B><FONT COLOR=BROWN>The email address is empty.</FONT></B><BR>";
-				echo "</P>";
-			}
-			?>
-
-			
-
-			<P CLASS="f60 justify">
-				We will send you a link to the email address you 
-				registered so you can reset your password.
-			</P>
+		<?php 			
+		if ($EmptyEmail == true) {
+			echo "<P CLASS=\"f60\">";
+			echo "<B><FONT COLOR=BROWN>The email address is empty.</FONT></B><BR>";
+			echo "</P>";
+		}
+		?>
+	
+		<P CLASS="f60 justify">
+			We will send you a link to the email address you 
+			registered so you can reset your password.
+		</P>
 	
 		<P CLASS="f80">
-			<DIV CLASS="f80">Email:</DIV> 
-			<DIV><INPUT CLASS="" type="email" autocorrect="off" autocapitalize="none" NAME="email" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
+			<DIV CLASS="f80">Username:</DIV> 
+			<DIV><INPUT type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>"><DIV>
 		</P>
-				
+
 		<P>
 			<INPUT TYPE="Submit" NAME="signin" VALUE="Reset my password">
 		</P>
-				
-			</FORM>
-		
+
 		<P CLASS="f60 justify">
 			If you don't receive a link in the next few hours, send an 
 			email to passwordissues@repmyblock.nyc.
 		</P>
-		
-	</DIV>
+
+	</FORM>
 </DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>

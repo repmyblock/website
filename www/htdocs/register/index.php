@@ -48,31 +48,28 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 	
 ?>
-<div class="row">
-	<div class="main">
-		<div class="register">
+<DIV class="main">
 		
-<?php
-
-	if ($result["USERNAME"] == 1) {
-		echo "<P CLASS=\"f60\">";
-		echo "<B><FONT COLOR=BROWN>The USERNAME " . $_POST["username"] . " already exist</FONT></B><BR>";
-		echo "</P>";
-	}
-	
-	if ($result["EMAIL"] == 1) {
-		echo "<P CLASS=\"f60\">";
-		echo "<B><FONT COLOR=BROWN>The EMAIL " . $_POST["emailaddress"] . " already exist</FONT></B><BR>";
-		echo "</P>";
-	}
-?>
-
-<P>
 	<DIV CLASS="right f80">Register</DIV>
-	
-	
-	<FORM METHOD="POST" ACTION="">					
+
+	<FORM METHOD="POST" ACTION="">	
 		<INPUT TYPE="hidden" NAME="login" VALUE="password" CHECKED>	
+			
+		<?php
+		
+			if ($result["USERNAME"] == 1) {
+				echo "<P CLASS=\"f60\">";
+				echo "<B><FONT COLOR=BROWN>The USERNAME " . $_POST["username"] . " already exist</FONT></B><BR>";
+				echo "</P>";
+			}
+			
+			if ($result["EMAIL"] == 1) {
+				echo "<P CLASS=\"f60\">";
+				echo "<B><FONT COLOR=BROWN>The EMAIL " . $_POST["emailaddress"] . " already exist</FONT></B><BR>";
+				echo "</P>";
+			}
+		?>
+		
 		<P CLASS="f80">
 			<DIV CLASS="f80">Email:</DIV> 
 			<DIV><INPUT CLASS="" type="<?= $TypeEmail ?>" autocorrect="off" autocapitalize="none" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
@@ -109,24 +106,7 @@
 			<A HREF="/text/privacy">Privacy Policy.</A>
 		</P>
 
-</FORM>
-</P>
-
-<?php /*
-<P>
-			
-						<FONT SIZE=+2><A HREF="/login">Login</A></FONT>
-
-					
-			<P>
-				<A HREF="facebook.php?k=<?= $k ?>" class="btn">facebook</A>
-				<A HREF="googleid.php?k=<?= $k ?>" class="btn">googleID</A>
-			</P>
-
-*/ ?>			
-			
-		</DIV>
-	</div>
-</div>
+	</FORM>
+</DIV>
 		
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/get-involved/headers/footer.php"; ?>
