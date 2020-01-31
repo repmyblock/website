@@ -10,11 +10,14 @@
     <a class="<?php if ( $Menu == "messages" ) { echo "selected "; } ?>mobilemenu" href="/lgd/messages/?k=<?= $k ?>">Messages</a>
     <a class="<?php if ( $Menu == "downloads" ) { echo "selected "; } ?>mobilemenu" href="/lgd/downloads/?k=<?= $k ?>">Downloads</a>
   </nav>
+  
+  <BR>
 
-  <nav class="" aria-label="Profile">
+  <nav class="mobilemenu" aria-label="Profile">
   	<a class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?>" href="/lgd/profile/?k=<?= $k ?>">Personal Profile</a>  
   </nav>
 
+<?php /*
   <nav class="" aria-label="Other Candidates">
   	<h3 class="">Other Candidates</h3>
     <a class="d-flex flex-items-center" href="/special/?k=<?= $k ?>"><img class="avatar" src="https://avatars1.githubusercontent.com/u/56751304?s=40&amp;v=4" width="20" height="20" alt="@repmyblock" />
@@ -27,6 +30,9 @@
     </a>
   </nav>
 </div>
+*/ ?>
+
+
 <?php } else { ?>
 <div class="col-3 float-left pr-4">
   <nav class="menu position-relative" aria-label="Personal settings" data-pjax>
