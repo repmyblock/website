@@ -43,6 +43,8 @@
   <nav class="menu" aria-label="Profile">
   	<a class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?>menu-item" href="/lgd/profile/?k=<?= $k ?>">Personal Profile</a>  
   </nav>
+  
+<?php /*
 
   <nav class="menu" aria-label="Other Candidates" data-pjax>
   	<h3 class="menu-heading">Other Candidates</h3>
@@ -55,5 +57,8 @@
       <span class="pl-2 flex-auto css-truncate css-truncate-target" style="max-width: 170px" title="walkthecounty">Andrew Yang</span>
     </a>
   </nav>
+*/ ?>  
+  
+  
 </div>
 <?php } ?>
