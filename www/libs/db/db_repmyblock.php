@@ -1,4 +1,4 @@
-<?php
+<?php	  	
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/mysql/queries.php";
 global $DB;
 
@@ -8,7 +8,7 @@ class RepMyBlock extends queries {
 	  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
 	  $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
 	  $DebugInfo["Flag"] = $debug;
-	  	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
+	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
   function FindPersonUser($SystemUserID) {
@@ -234,6 +234,61 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql, $sql_vars);		
 	}
 	
+	function GetPetitionsForCandidate($DatedFiles, $CandidateID = 0, $SystemUserID = 0) {
+
+		if ( $CandidateID == 0 && $SystemUserID == 0) return 0;
+		
+		$sql = "SELECT * FROM Candidate " .
+						"LEFT JOIN CandidatePetition ON (CandidatePetition.Candidate_ID = Candidate.Candidate_ID) " .
+		//				"LEFT JOIN VotersIndexes ON (CandidatePetition.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " .
+						"LEFT JOIN Raw_Voter_" . $DatedFiles . " ON (Raw_Voter_" . $DatedFiles . ".Raw_Voter_ID = CandidatePetition.Raw_Voter_DatedTable_ID) " .
+		//			"LEFT JOIN Raw_Voter_TrnsTable ON (Raw_Voter_TrnsTable.VotersIndexes_ID =  CandidatePetition.VotersIndexes_ID AND Raw_Voter_TrnsTable.Raw_Voter_Dates_ID =  CandidatePetition.Raw_Voter_Dates_ID) " .
+		//			"LEFT JOIN Raw_Voter ON (Raw_Voter.Raw_Voter_ID =  Raw_Voter_TrnsTable.Raw_Voter_ID) " .
+		//			"LEFT JOIN DataHouse ON (DataHouse.DataHouse_ID = Raw_Voter_TrnsTable.DataHouse_ID ) " . 
+		//			"LEFT JOIN DataAddress ON (DataHouse.DataAddress_ID = DataAddress.DataAddress_ID) " . 
+		//			"LEFT JOIN DataStreet ON (DataAddress.DataStreet_ID = DataStreet.DataStreet_ID) " . 
+		//			"LEFT JOIN Cordinate ON (DataAddress.Cordinate_ID = Cordinate.Cordinate_ID) " .
+						"WHERE " ;
+						
+		
+		if ( $CandidateID > 0 ) {
+			$sql .= "Candidate_ID = :CandidateID";
+			$sql_vars["CandidateID"] = $CandidateID;
+			if ( $SystemUserID > 0 ) { $sql .= " AND "; }
+		}
+		
+		if ( $SystemUserID > 0 ) {
+			$sql .= "SystemUser_ID = :SystemUserID";
+			$sql_vars["SystemUserID"] = $SystemUserID;
+		}
+											
+		//	if ( ! empty ($Status)) {
+		//		$sql .= " AND Raw_Voter_Status = :Status";
+		//		$sql_vars["Status"] = $Status;
+		//	} 
+			
+		//	if ( ! empty ($RegParty)) {
+		//		$sql .= " AND Raw_Voter_RegParty = :Party";
+		//		$sql_vars["Party"] = $RegParty;
+		//	}
+		
+		$sql .= "	ORDER BY CandidatePetition_Order";
+		
+		// echo "SQL: $sql<BR>";
+		// echo "<PRE>" . print_r($sql_vars, 1) . "</PRE>";
+		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	function GetPetitionSignNames($SystemID, $DateID) {
+		$sql = "SELECT * FROM Candidate LEFT JOIN CandidatePetition " .
+						"ON (Candidate.Candidate_ID = CandidatePetition.Candidate_ID) " .
+						"WHERE SystemUser_ID = :SystemUserID AND " . 
+						"CandidatePetition.Raw_Voter_Dates_ID = :DateID";
+		$sql_vars = array(":SystemUserID" => $SystemID, ":DateID" => $DateID);
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
 	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED) {
 		$sql = "UPDATE SystemUser SET " .
 						"Raw_Voter_ID = :RawVoterID, Raw_Voter_UniqNYSVoterID = :NYSVoterID, " .
@@ -245,6 +300,133 @@ class RepMyBlock extends queries {
 		return $this->_return_nothing($sql, $sql_vars);				
 	}
 	
+	function FindRawVoterbyADED($DatedFiles, $EDist, $ADist, $Party = "", $Active = 1, $order = 0) {
+		
+		$TableVoter = "Raw_Voter_" . $DatedFiles;
+		$sql = "SELECT * FROM " . $TableVoter . " WHERE " . 
+						"Raw_Voter_AssemblyDistr = :AssDist AND Raw_Voter_ElectDistr = :ElectDist ";
+		$sql_vars = array('AssDist' => $ADist, 'ElectDist' => $EDist);				
+		
+		if ( $Active == 1) {
+			$sql .= "AND Raw_Voter_Status = 'ACTIVE' ";
+		}
+		
+		if ( ! empty ($Party)) {
+			$sql .= "AND Raw_Voter_EnrollPolParty = :Party ";
+			$sql_vars[":Party"] = $Party;
+		}
+		
+		if ( $order > 0) {
+			$sql .= "ORDER BY Raw_Voter_ResStreetName, Raw_Voter_ResHouseNumber, Raw_Voter_ResApartment";
+		}
+		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	function PrepDisctictVoterRoll($CandidateID, $RawVoterID, $DatedFiles, $DatedFilesID, $InfoArray) {
+	
+		$var = $this->FindRawVoterbyADED($DatedFiles, $InfoArray["ElectDistr"],	$InfoArray["AssemblyDistr"],  $InfoArray["Party"], 1, 1);
+		
+    // This is the 
+    $Counter = 0;
+    if ( ! empty ($var)) {
+	    foreach ($var as $vor) {
+				if (! empty ($vor)) {
+					$FullName = $this->DB_ReturnFullName($vor);
+     	   	$Address_Line1 = $this->DB_ReturnAddressLine1($vor);
+     	  	$Address_Line2 = $this->DB_ReturnAddressLine2($vor);
+        
+    			// This is awfull but we need to go trought the list to find the VotersIndexes_ID
+       		$VoterIndexesID = $this->GetVotersIndexesIDfromNYSCode($vor["Raw_Voter_UniqNYSVoterID"]);
+
+					$sql = "INSERT INTO CandidatePetition SET " .
+									"Candidate_ID = :CandidateID, " .
+									"CandidatePetition_Order = :Counter, " . 
+									"VotersIndexes_ID = :VotersIndexesID, " .
+									"Raw_Voter_DatedTable_ID = :RawVoterID, " .
+									"Raw_Voter_Dates_ID = :RawVoterDatesID, " .
+									"CandidatePetition_VoterFullName = :VoterFullName, " .
+									"CandidatePetition_VoterResidenceLine1 = :Address1, " .
+					 				"CandidatePetition_VoterResidenceLine2 = :Address2, " .
+									"CandidatePetition_VoterResidenceLine3 = :Address3, " .
+									"CandidatePetition_VoterCounty = :County";
+					
+					$sql_vars = array(":CandidateID" => $CandidateID,
+															":Counter" => $Counter++, 
+															":RawVoterID" => $vor["Raw_Voter_ID"],
+															":VotersIndexesID" => $VoterIndexesID["VotersIndexes_ID"], 
+															":RawVoterDatesID" => $DatedFilesID,
+															":VoterFullName" => $this->DB_ReturnFullName($vor),
+															":Address1" => $this->DB_ReturnAddressLine1($vor),
+											 				":Address2" => $this->DB_ReturnAddressLine2($vor),
+															":Address3" => "",
+															":County" => $this->DB_WorkCounty($vor["Raw_Voter_CountyCode"]));
+								    
+					$this->_return_nothing($sql, $sql_vars); 	
+				}
+    	}
+    }	
+    
+    return $Counter;
+	}
+
+	function UpdateCandidateCounterForVoter($Candidate_ID, $Counter) {
+		$sql = "UPDATE Candidate SET Candidate_StatsVoters = :Counter WHERE Candidate_ID = :CandidateID";
+		$sql_vars = array("Counter" => $Counter, "CandidateID" => $Candidate_ID);
+		return $this->_return_nothing($sql, $sql_vars);
+	}
+	
+	function UpdateElectionCounterForVoter($Election_ID, $Counter) {
+		$sql = "UPDATE CandidateElection SET CandidateElection_CountVoter = :Counter WHERE CandidateElection_ID = :CandidateElection_ID";
+		$sql_vars = array("Counter" => $Counter, "CandidateElection_ID" => $Election_ID);
+		return $this->_return_nothing($sql, $sql_vars);
+	}		
+	
+	
+	// This will need to be changed later.
+	function GetVotersIndexesIDfromNYSCode($NYSCode) {
+		$sql = "SELECT * FROM VotersIndexes WHERE VotersIndexes_UniqNYSVoterID = :NYSCode ORDER BY VotersIndexes_ID LIMIT 1";
+		$sql_vars = array("NYSCode" => $NYSCode);
+		return $this->_return_simple($sql, $sql_vars);
+	}
+	
+	function GetCountyFromNYSCodes($CountyCode) {
+		$sql = "SELECT * FROM DataCounty WHERE DataCounty_ID = :CountyCode";
+		$sql_vars = array("CountyCode" => $CountyCode);
+		return $this->_return_simple($sql, $sql_vars);
+	}
+	
+	function DB_WorkCounty($CountyID) {
+		$County = $this->GetCountyFromNYSCodes($CountyID);
+		return $County["DataCounty_Name"];	
+	}
+
+	function DB_ReturnAddressLine1($vor) {
+		$Address_Line1 = "";
+		if ( ! empty ($vor["Raw_Voter_ResHouseNumber"])) { $Address_Line1 .= $vor["Raw_Voter_ResHouseNumber"] . " "; }		
+		if ( ! empty ($vor["Raw_Voter_ResFracAddress"])) { $Address_Line1 .= $vor["Raw_Voter_ResFracAddress"] . " "; }		
+		if ( ! empty ($vor["Raw_Voter_ResPreStreet"])) { $Address_Line1 .= $vor["Raw_Voter_ResPreStreet"] . " "; }		
+		$Address_Line1 .= $vor["Raw_Voter_ResStreetName"] . " ";
+		if ( ! empty ($vor["Raw_Voter_ResPostStDir"])) { $Address_Line1 .= $vor["Raw_Voter_ResPostStDir"] . " "; }		
+		if ( ! empty ($vor["Raw_Voter_ResApartment"])) { $Address_Line1 .= "- Apt. " . $vor["Raw_Voter_ResApartment"]; }
+		$Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
+		return $Address_Line1;
+  }
+  
+  function DB_ReturnAddressLine2($vor) {
+  	$Address_Line2 = $vor["Raw_Voter_ResCity"] . ", NY " . $vor["Raw_Voter_ResZip"];
+    return $Address_Line2;
+  }
+	
+	function DB_ReturnFullName($vor) {
+		$FullName = $vor["Raw_Voter_FirstName"] . " ";
+		if ( ! empty ($vor["Raw_Voter_MiddleName"])) { $FullName .= substr($vor["Raw_Voter_MiddleName"], 0, 1) . ". "; }
+		$FullName .= $vor["Raw_Voter_LastName"] ." ";
+		if ( ! empty ($vor["Raw_Voter_Suffix"])) { $FullName .= $vor["Raw_Voter_Suffix"]; }				
+		$FullName = ucwords(strtolower($FullName));
+		return $FullName;
+	}	
+
 	/* This is for the search of the $VI in the other file */
 	function SearchVotersIndexesDB($ArrIndexes, $DatedFiles) {
 

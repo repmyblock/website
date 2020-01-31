@@ -7,9 +7,9 @@
   require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
-  
+		
   if (empty ($SystemUser_ID)) { goto_signoff(); }
-	$rmb = new repmyblock();
+	$rmb = new RepMyBlock();
 	$rmbperson = $rmb->FindPersonUser($SystemUser_ID);
 
 	if ( $VerifVoter == 1 && $rmbperson["Raw_Voter_ID"] > 0 ) { $VerifVoter = 0; }

@@ -13,14 +13,25 @@ if ( ! empty ($CandidateLogic)) {
 																				$CandidateLogic["ElectDistr"]);
 						$ElectionInfo = $rmb->GetElectionInfo_NewYork_CountyCommittee($CandidateLogic["EnrollPolParty"],
 																																					$CandidateLogic["Gender"], $EDAD);	
-						
 						// If it's empty we can add the candidate
 						if ( empty ($ElectionInfo[0]["Candidate_ID"])) {
-							$rmb->InsertCandidate_NewYork_CountyCommittee(
+							$Candidate_ID = $rmb->InsertCandidate_NewYork_CountyCommittee(
 														$SystemUser_ID, $CandidateLogic["Voter_ID"], $DatedFiles,
 														$DatedFilesID, $ElectionInfo[0]["CandidateElection_ID"], $EDAD, 
 														$CandidateLogic["EnrollPolParty"], $CandidateLogic["PetitionName"],
 														$CandidateLogic["PetitionAddress"]);
+						
+						
+							// Now we need to add the voter list for this person
+							$InfoArray["Election"] = "CC";
+							$InfoArray["ElectDistr"] = $CandidateLogic["ElectDistr"];
+					    $InfoArray["AssemblyDistr"] = $CandidateLogic["AssemblyDistr"];
+							$InfoArray["Party"] = $CandidateLogic["EnrollPolParty"];    
+							$Counter = $rmb->PrepDisctictVoterRoll($Candidate_ID, $CandidateLogic["Voter_ID"], $DatedFiles, $DatedFilesID, $InfoArray);
+							$rmb->UpdateCandidateCounterForVoter($Candidate_ID, $Counter);
+							if ( $ElectionInfo[0]["Elections_ID"] > 0 ) {
+								$rmb->UpdateElectionCounterForVoter($ElectionInfo[0]["Elections_ID"], $Counter);
+							}
 						}
 						
 						break;

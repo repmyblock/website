@@ -5,14 +5,19 @@ div {font-family: 'Montserrat', sans-serif;color:#16317D!important;}
 
 a {text-decoration: none;}
 
-p.f80 {font-size:16px; font-weight: 600;}
-p.f60 {font-size:14px; font-weight: 500; padding: 30px 5px;}
+p.f80bold {font-size:26px; font-weight: 600;}
+p.f80 {font-size:18px; font-weight: 600;}
+p.f60 {font-size:14px; font-weight: 500;}
 p.f40 {font-size:12px; padding: 30px 5px;}
 
-div.f80 {font-size:16px; font-weight: 600;}
-div.f60 {font-size:14px; font-weight: 500; padding: 30px 5px;}
+div.f80bold {font-size:26px; font-weight: 600;}
+div.f80 {font-size:18px; font-weight: 600;}
+div.f60 {font-size:14px; font-weight: 500;}
 div.f40 {font-size:12px; padding: 30px 5px;}
 
+/* .right {text-align:right;} */
+.center {text-align:center;}
+/*.justify {text-align:justify;}*/
 
 
 .btn {border: 2px solid black;background-color: white;color: black;padding: 14px 28px;font-size: 16px;cursor: pointer;}
@@ -97,9 +102,9 @@ clip-path: polygon(24% 15%, 100% 0, 83% 100%, 0% 100%);
 /* @media screen and (max-width: 200px) {.row {flex-direction: column;}} */
 /* @media screen and (max-width: 100px) {.navbar a {float: none;width: 100%;}} */
 
-input[type=text], select, textarea {padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
-input[type=password], select, textarea {padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
-input[type=submit] {background-color: #EE2E62;color: white;padding: 12px 20px;border: none;cursor: pointer;}
+input[type=text], select, textarea {padding: 8px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
+input[type=password], select, textarea {padding: 8px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
+input[type=submit] {background-color: #EE2E62;color: white;padding: 8px 20px;border: none;cursor: pointer;}
 input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 
 .container {border-radius: 5px;background-color: #f2f2f2;padding: 20px;} 

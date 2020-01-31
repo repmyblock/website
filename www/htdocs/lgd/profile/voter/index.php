@@ -14,12 +14,10 @@
 
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
-	$rmbvoters = $rmb->SearchVotersBySingleIndex($VotersIndexes_ID, $DatedFiles);
+	$rmbvoters = $rmb->SearchVotersBySingleIndex($VotersIndexes_ID, $DatedFiles);	
 		
 	if ( empty ($VotersIndexes_ID )) {
-		include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
-		echo "We did not find the Voter ID information. We Return";
-		include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";
+		header("Location: input/?k=" . $k);
 		exit();
 	} 
 	

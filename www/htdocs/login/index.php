@@ -42,7 +42,7 @@
 
 <div class="main">
 
-	<DIV CLASS="right f80">Login</DIV>
+	<DIV CLASS="right f80bold">Login</DIV>
 
 	<?php if (! empty ($error_msg)) {
 		echo "<P CLASS=\"f80\">" . $error_msg . "</P>";	

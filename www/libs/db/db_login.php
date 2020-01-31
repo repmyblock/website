@@ -196,6 +196,19 @@ class login extends queries {
 		return $this->_return_nothing($sql,  $sql_vars);
 	}
 	
+	function UpdateUsernameHash($SystemUsername, $HashLink) {
+		
+		if ( $HashLink == "null") {
+			$sql = "UPDATE SystemUser SET SystemUser_emaillinkid = null WHERE SystemUser_username = :Username";
+			$sql_vars = array(':Username' => $SystemUsername);
+		} else {
+			$sql = "UPDATE SystemUser SET SystemUser_emaillinkid = :Hash WHERE SystemUser_username = :Username";
+			$sql_vars = array(':Username' => $SystemUsername, ':Hash' => $HashLink);
+		}
+		
+		return $this->_return_nothing($sql,  $sql_vars);
+	}
+	
 	function FindFromEmailHashkey($SystemEmail, $HashLink) {
 		$sql = "SELECT * FROM SystemUser WHERE SystemUser_emaillinkid = :Hash AND SystemUser_email = :Email";
 		$sql_vars = array(':Email' => $SystemEmail, ':Hash' => $HashLink);

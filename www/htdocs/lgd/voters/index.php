@@ -2,21 +2,23 @@
 	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
 	$Menu = "voters";
 	$BigMenu = "represent";	
-
+	
   require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	// require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_voterlist.php";  
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
-  
   if (empty ($SystemUser_ID)) { goto_signoff(); }
-	$rmb = new repmyblock();
 
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
+
+	$rmb = new RepMyBlock();	
+	$result = $rmb->GetPetitionsForCandidate($DatedFiles, 0, $SystemUser_ID);
 	
-	$r = new repmyblock();
-	$result = $r->GetPetitionsForCandidate($DatedFiles, 0, $SystemUser_ID);
+	echo "<PRE>";
+	print_r($result);
+	echo "</PRE>";
 	
 	if ( ! empty ($result)) {
 		foreach ($result as $var) {
@@ -35,9 +37,13 @@
 				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_Address"] = "Apt " . $var["Raw_Voter_ResApartment"];
 				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Full_Elector_Address"] = $var["Raw_Voter_ResHouseNumber"] . " " . $var["Raw_Voter_ResStreetName"];
 			}			
-			$Counter[$MyAddressToUse]++;			
+			
+			$Counter[$MyAddressToUse]++;
 		}	
 	}
+	
+	
+	
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 	if ($MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }

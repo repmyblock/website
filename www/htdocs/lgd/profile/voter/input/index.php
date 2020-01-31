@@ -36,7 +36,7 @@
 		
 		switch(count($result)) {
 			case 0:
-				echo "Did not find anything\n";
+				//echo "Did not find anything\n";
 				$error_msg = "Did not find this voter.";
 				break;			
 			

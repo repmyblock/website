@@ -45,6 +45,8 @@ class RMB_newyork extends RepMyBlock {
 		$sql = "INSERT INTO CanPetitionSet SET CandidatePetitionSet_ID = :CandidatePetitionSetID, Candidate_ID = :CandidateID";
 		$sql_vars = array("CandidatePetitionSetID" => $CandidatePetitionSet_ID, "CandidateID" => $Candidate_ID);
 		$this->_return_nothing($sql, $sql_vars);
+		
+		return $Candidate_ID;
 	}	
 }
 

@@ -1,6 +1,5 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/mysql/mysql.php";
-
 class queries {
 
   function queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo) {
@@ -19,7 +18,7 @@ class queries {
 	// I am using Mysql PDO instead of the PHP Mysql 
 	// That has been deprecated.
 	// 04/05/2014 - Theo
-	
+		
   function _return_multiple($SQL, $SQL_Vars = "") {
 		$result = $this->DB->query($SQL, $SQL_Vars, 1, $this->DebugInfo);
 	  return $this->_compress_result($result); 
