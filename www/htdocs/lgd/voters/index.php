@@ -16,10 +16,6 @@
 	$rmb = new RepMyBlock();	
 	$result = $rmb->GetPetitionsForCandidate($DatedFiles, 0, $SystemUser_ID);
 	
-	echo "<PRE>";
-	print_r($result);
-	echo "</PRE>";
-	
 	if ( ! empty ($result)) {
 		foreach ($result as $var) {
 			if ( ! empty ($var)) {
