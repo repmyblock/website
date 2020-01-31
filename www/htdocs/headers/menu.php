@@ -13,8 +13,8 @@
   
   <BR>
 
-  <nav class="mobilemenu" aria-label="Profile">
-  	<a class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?>" href="/lgd/profile/?k=<?= $k ?>">Personal Profile</a>  
+  <nav class="mobilemenu" aria-label="">
+  	<a class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?>mobilemenu" href="/lgd/profile/?k=<?= $k ?>">Personal Profile</a>  
   </nav>
 
 <?php /*

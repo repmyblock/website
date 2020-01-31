@@ -59,12 +59,12 @@
 	}
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
 ?>
 
-<div class="row">
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
-  		<div class="col-9 float-left">
+  		<div class="<?= $Cols ?> float-left">
     
 			  <!-- Public Profile -->
 			  <div class="Subhead mt-0 mb-0">
@@ -81,9 +81,9 @@
   
 				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
 					<div class="UnderlineNav-body">
-						<a href="/lgd/profile/?k=<?= $k ?>" class="UnderlineNav-item">Public Profile</a>
-						<a href="/lgd/profile/voter/?k=<?= $k ?>" class="UnderlineNav-item selected">Voter Profile</a>
-						<a href="/lgd/profile/candidate/?k=<?= $k ?>" class="UnderlineNav-item">Candidate Profile</a>
+						<a href="/lgd/profile/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Public Profile</a>
+						<a href="/lgd/profile/voter/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item selected">Voter Profile</a>
+						<a href="/lgd/profile/candidate/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Candidate Profile</a>
 					</div>
 				</nav>
 
@@ -112,7 +112,7 @@
 								<dt><label for="user_profile_email">Date of Birth</label></dt>	
 								<dl class="form-group col-1 d-inline-block">
 									<dd>
-										<input class="form-control" type="text" name="Day" id="" Placeholder="Day">
+										<input class="form-control" type="text" name="Day" id="" Placeholder="Day"<?= $SizeField ?>>
 									</DD>
 								</DL>  
 							
@@ -138,7 +138,7 @@
 			
 								<dl class="form-group col-1  d-inline-block">      
 									<DD>
-										<input class="form-control" type="text" Placeholder="Year" name="Year" id="">
+										<input class="form-control" type="text" Placeholder="Year" name="Year" id=""<?= $SizeField ?>>
 									<dd>
 								</dl>
 			
@@ -153,6 +153,6 @@
 			</div>		
 		</div>
 	</div>
-</DIV>
+
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>

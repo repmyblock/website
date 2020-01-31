@@ -124,7 +124,7 @@
 </div>
 </DIV>
 </DIV>
-</DIV>
+
 
 
 <script async type="text/javascript" src="/external/Sortable/Sortable.js"></script>    

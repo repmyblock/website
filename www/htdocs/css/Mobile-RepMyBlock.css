@@ -146,6 +146,15 @@ input[type=password], select, textarea {font-size: 60px; font-weight: 400;paddin
 input[type=submit] {font-size: 60px; font-weight: 600;background-color: #EE2E62;color: white;padding: 12px 20px;border: none;cursor: pointer;width:100%}
 input[type=submit]:hover {font-size: 60px; font-weight: 600;background-color: #EE2E62;color: #16317D;width:100%}
 
+input[type=checkbox] { 
+	-ms-transform: scale(3); /* IE */
+  -moz-transform: scale(3); /* FF */
+  -webkit-transform: scale(3); /* Safari and Chrome */
+  -o-transform: scale(3); /* Opera */
+  transform: scale(3);
+  padding: 0px;
+}
+
 .container {border-radius: 5px;background-color: #f2f2f2;padding: 20px;} 
 .district img {border: 1px solid #ddd;border-radius: 4px;padding: 5px;width: 150px;}
 .district img:hover {box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);}

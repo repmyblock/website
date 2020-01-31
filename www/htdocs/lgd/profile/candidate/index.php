@@ -37,12 +37,12 @@
 	}
 				
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
 
-<div class="row">
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
-  		<div class="col-9 float-left">
+  		<div class="<?= $Cols ?> float-left">
     
 			  <!-- Public Profile -->
 			  <div class="Subhead mt-0 mb-0">
@@ -59,9 +59,9 @@
   
 				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
 					<div class="UnderlineNav-body">
-						<a href="/lgd/profile/?k=<?= $k ?>" class="UnderlineNav-item">Public Profile</a>
-						<a href="/lgd/profile/voter/?k=<?= $k ?>" class="UnderlineNav-item">Voter Profile</a>
-						<a href="/lgd/profile/candidate/?k=<?= $k ?>" class="UnderlineNav-item selected">Candidate Profile</a>
+						<a href="/lgd/profile/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Public Profile</a>
+						<a href="/lgd/profile/voter/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Voter Profile</a>
+						<a href="/lgd/profile/candidate/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item selected">Candidate Profile</a>
 					</div>
 				</nav>
 
@@ -98,49 +98,45 @@
 } 
 </style>
 
-<div class="row">
+
   <div class="main">
 
-	<FORM ACTION="" METHOD="POST">
-	<div class="Box">
-  	<div class="Box-header pl-0">
-    	<div class="table-list-filters d-flex">
-  			<div class="table-list-header-toggle states flex-justify-start pl-3">Open positions to run for in the <?= $Party ?> Party</div>
-  		</div>
-    </div>
+		<FORM ACTION="" METHOD="POST">
+		<div class="Box">
+	  	<div class="Box-header pl-0">
+	    	<div class="table-list-filters d-flex">
+	  			<div class="table-list-header-toggle states flex-justify-start pl-3">Open positions to run for in the <?= $Party ?> Party</div>
+	  		</div>
+	    </div>
     
-    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
-      We don't know your district <a href="/voter">create one</a>?
-    </div>
-
-		<div id="voters" >
-
-			
+	    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
+	      We don't know your district <a href="/voter">create one</a>?
+	    </div>
+	    	
 <?php 			
 			$Counter = 0;
 			if ( ! empty ($Position)) {
 				foreach ($Position as $PartyPosition => $Positions) {
 					if ( ! empty ($PartyPosition)) { ?>
 						
-						<div class="list-group-item filtered">
-							<button class="accordeonbutton" id="<?= $Counter++ ?>">Open</button>	
-							<span><B><?= $PartyPosition ?></B></span>  
-							
-						
-								          			
+						<div class="list-group-item filtered f60">
+							<span><B>&nbsp;&nbsp;<?= $PartyPosition ?></B></span>  
+							<BR>
+							<DIV CLASS="f40"><FONT COLOR="BROWN">At this time only County Committee works. The other positions
+						are not ready. <I>(The select position button is at the bottom of this page.)</I></A></DIV>		          			
 						</div>
 							
 					 <DIV class="panels">
-					 	
-					 	
 <?php				
 						foreach ($Positions as $Pos => $Explain) {
-							
 					 		if (! empty ($Pos)) { ?>
 								<div class="list-group-item">
-									<INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Pos ?>">&nbsp;&nbsp;
-									<B><?= $Pos ?></B><BR>
-									<?= $Explain ?><BR>
+									<BR>
+									<DIV CLASS="f60">
+										<INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Pos ?>">&nbsp;&nbsp;
+										<B><?= $Pos ?></B>
+									</DIV><BR>
+									<DIV CLASS="f40"><?= $Explain ?></DIV><BR>
 								</div>			
 <?php					}	  }
 						} ?>
@@ -152,22 +148,12 @@
 		
 	 
 		</div>
-		
-	
-		
-	</div>
 		<BR>
 		<p><button type="submit" class="btn btn-primary">Run for the selected positions</button></p>
 </div>
 </FORM>
-
-</DIV>
-
-		
-			</div>		
-		</div>
 	</div>
-</DIV>
+
 
 <script>
 	// Default SortableJS

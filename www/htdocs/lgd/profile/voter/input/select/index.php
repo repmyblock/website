@@ -37,12 +37,12 @@
 	}
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
 
-<div class="row">
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
-  		<div class="col-9 float-left">
+  		<div class="<?= $Cols ?> float-left">
     
 			  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 			
@@ -62,9 +62,9 @@
      
 				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
 					<div class="UnderlineNav-body">
-						<a href="/lgd/profile/?k=<?= $k ?>" class="UnderlineNav-item selected">Public Profile</a>
-						<a href="/lgd/profile/voter/?k=<?= $k ?>" class="UnderlineNav-item">Voter Profile</a>
-						<a href="/lgd/profile/candidate/?k=<?= $k ?>" class="UnderlineNav-item">Candidate Profile</a>
+						<a href="/lgd/profile/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item selected">Public Profile</a>
+						<a href="/lgd/profile/voter/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Voter Profile</a>
+						<a href="/lgd/profile/candidate/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Candidate Profile</a>
 					</div>
 				</nav>
 
@@ -138,6 +138,5 @@
 			</div>		
 		</div>
 	</div>
-</DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>
