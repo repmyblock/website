@@ -1,6 +1,5 @@
 <?php
 	//date_default_timezone_set('America/New_York'); 
-	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";		
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";

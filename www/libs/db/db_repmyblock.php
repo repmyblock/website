@@ -350,12 +350,14 @@ class RepMyBlock extends queries {
 	function PrepDisctictVoterRoll($CandidateID, $RawVoterID, $DatedFiles, $DatedFilesID, $InfoArray) {
 	
 		$var = $this->FindRawVoterbyADED($DatedFiles, $InfoArray["ElectDistr"],	$InfoArray["AssemblyDistr"],  $InfoArray["Party"], 1, 1);
+		$TodayDay = date_create(date("Y-m-d"));
 		
     // This is the 
     $Counter = 0;
 		$SqlString = "INSERT INTO CandidatePetition " .
 									"(Candidate_ID, CandidatePetition_Order, VotersIndexes_ID, Raw_Voter_DatedTable_ID, Raw_Voter_Dates_ID," .
-									"CandidatePetition_VoterFullName, CandidatePetition_VoterResidenceLine1, CandidatePetition_VoterResidenceLine2, " .
+									"CandidatePetition_VoterFullName, Raw_Voter_Gender, CandidatePetition_Age, " . 
+									"CandidatePetition_VoterResidenceLine1, CandidatePetition_VoterResidenceLine2, " .
 									"CandidatePetition_VoterResidenceLine3, CandidatePetition_VoterCounty, DataStreet_ID, Raw_Voter_ResHouseNumber, " .
 									"Raw_Voter_ResFracAddress, Raw_Voter_ResPreStreet, Raw_Voter_ResStreetName, Raw_Voter_ResPostStDir, " . 
 									"Raw_Voter_ResApartment, Raw_Voter_Status) " .
@@ -364,7 +366,6 @@ class RepMyBlock extends queries {
     if ( ! empty ($var)) {
 	    foreach ($var as $vor) {
 				if (! empty ($vor)) {
-					
 					if ( ! empty ($sql)) { $sql .= ","; }
 					
 					$FullName = $this->DB_ReturnFullName($vor);
@@ -373,10 +374,14 @@ class RepMyBlock extends queries {
         
     			// This is awfull but we need to go trought the list to find the VotersIndexes_ID
        		$VoterIndexesID = $this->GetVotersIndexesIDfromNYSCode($vor["Raw_Voter_UniqNYSVoterID"]);
-       	   
+     			$VoterAge = date_diff(date_create($vor["Raw_Voter_DOB"]), $TodayDay)->format("%Y");       		
+       		if ( $VoterAge < 1 || $VoterAge > 150) { $VoterAge = 0; }
+       		
 					$sql .= "(" . $this->_QuoteString($CandidateID) . "," . $this->_QuoteString($Counter++) . "," . $this->_QuoteString($vor["Raw_Voter_ID"]) . "," . 
 									$this->_QuoteString($VoterIndexesID["VotersIndexes_ID"]) . "," . $this->_QuoteString($DatedFilesID) . "," . 
-									$this->_QuoteString($this->DB_ReturnFullName($vor)) . "," . $this->_QuoteString($this->DB_ReturnAddressLine1($vor)) . "," . 
+									$this->_QuoteString($this->DB_ReturnFullName($vor)) . "," . 
+									$this->_QuoteString($vor["Raw_Voter_Gender"]) . "," . $this->_QuoteString($VoterAge) . "," . 									
+									$this->_QuoteString($this->DB_ReturnAddressLine1($vor)) . "," . 
 									$this->_QuoteString($this->DB_ReturnAddressLine2($vor)) . "," . "null," . 
 									$this->_QuoteString($this->DB_WorkCounty($vor["Raw_Voter_CountyCode"])) . "," . $this->_QuoteString($vor["DataStreet_ID"]) . "," . 
 					 				$this->_QuoteString($vor["Raw_Voter_ResHouseNumber"]) . "," . $this->_QuoteString($vor["Raw_Voter_ResFracAddress"]) . "," . 

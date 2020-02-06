@@ -23,36 +23,42 @@ class PDF extends FPDF {
    		$this->SetTextColor(0,0,0);
 		}
 		
-    $this->SetFont('Arial','B',12);
-    $this->Cell(0,0, "Rep My Block",0,0,'R');
+    $this->SetFont('Arial','B',24);
+    $this->SetXY(33, 8.5);
+    $this->Cell(0,0, "Rep My Block",0,0,'L');
     $this->Ln(5);
-		$this->Cell(0,0, "Voter List Prepared for " . $this->county . ' County',0,0,'R');
-    $this->Ln(3);    
-     			
-  	$MyTop = $YLocation = $this->GetY();
-
-   	$this->SetFont('Arial','B',11);
-		$this->SetXY($this->Col3, $YLocation + 0.3 );
-		$this->MultiCell($this->SizeCol1, 3.5, $this->Candidate[$i], 0, 'C', 0);
-		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
-
-		$this->SetFont('Arial','', 9);   	   		
-		$this->SetXY($this->Col3, $YLocation );
-		$this->MultiCell($this->SizeCol3, 3.5, $this->Residence[$i], 0, 'C', 0);
-		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); } 	
+    $this->SetFont('Arial','',12);
+		$this->Cell(0,0, "Walking list prepared for the candidate " . $this->Text_CandidateName,0,0,'R');
+    $this->Ln(11);    
+    $this->SetFont('Arial','',8);
+    $this->SetXY(51,16);
+    $this->MultiCell(160,3, "Running for " . $this->Text_PosPetText . " on " . $this->Text_ElectionDate, 0, 'R', 0);
+    $this->SetXY(155, 6);
+    $this->SetFont('Arial','UB',8);
+    $this->Write(0, "List prepared on ");
+    $this->SetFont('Arial','U',8);
+    $this->Write(0, $this->Text_PubDate);
+    $this->Ln(22);  			
+			
 	}
 
 	// Page footer
 	function Footer()	{
 		
-		$this->SetY(-10);
-   	$YLocation = $this->GetY() - 1.9;
+		$this->SetY(-5);
+   	$YLocation = $this->GetY() - 2.1;
 		$this->Line($this->Line_Left, $YLocation, $this->Line_Right, $YLocation);
+
+		$BoxWide = ($this->Line_Right / 3) - 1.2;
+		$this->SetFont('Arial','',8);
+		$this->Cell($BoxWide, 0, $this->LeftText, 0, 0, 'L');	
 	
 		$this->SetFont('Arial','B',8);
-		$this->Cell(0,0, "Page", 0, 1, 'C');		
+		$this->Cell($BoxWide, 0,'Page ' . $this->PageNo(). ' of {nb}',0,0,'C');	
 		
-
+		$this->SetFont('Arial','',8);	
+		$this->Cell($BoxWide, 0, $this->RightText, 0, 0, 'R');	
+			
 	}
 	
 	function Rotate($angle,$x=-1,$y=-1) {
