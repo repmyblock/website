@@ -2,16 +2,18 @@
 <IMG SRC="QCC4ALL.jpg" width=100>
 
 <P>
-
-<FONT SIZE=+2>
-<B>
-	This page will be accessible on February 6<SUP>th</SUP>, 2020.
-</B>
+<B>Update:</B> February 6<SUP>th</SUP>, 2020 at 3:18 am.<BR>
+<FONT SIZE=+2>	
+	<B>
+		This page was supposed to be accessible on February 6<SUP>th</SUP>, 2020 but we are running behind schedule.
+	</B>
 </FONT>
 <BR>
 
 <P>
-	&nbsp;
+	<UL>
+	<IMG SRC="WalkSheet.png" HEIGHT=600>
+	</UL>
 </P>
 
 <FONT SIZE=+3>

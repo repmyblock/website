@@ -40,35 +40,6 @@
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
 
-  <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
-  		<div class="<?= $Cols ?> float-left">
-    
-			  <!-- Public Profile -->
-			  <div class="Subhead mt-0 mb-0">
-			    <h2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</h2>
-			  </div>
-     
-<?php 
-				if ($VerifEmail == true) { 
-					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
-				} else if ($VerifVoter == true) {
-					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
-				} 
-?>		
-  
-				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
-					<div class="UnderlineNav-body">
-						<a href="/lgd/profile/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Public Profile</a>
-						<a href="/lgd/profile/voter/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Voter Profile</a>
-						<a href="/lgd/profile/candidate/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item selected">Candidate Profile</a>
-					</div>
-				</nav>
-
-			  <div class="clearfix gutter d-flex flex-shrink-0">
-	
-	
-
 <style>
  /* Style the buttons that are used to open and close the accordion panel */
 .accordeonbutton {
@@ -100,6 +71,38 @@
 
 <div class="row">
   <div class="main">
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
+  		<div class="<?= $Cols ?> float-left">
+    
+			  <!-- Public Profile -->
+			  <div class="Subhead mt-0 mb-0">
+			    <h2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</h2>
+			  </div>
+     
+<?php 
+				if ($VerifEmail == true) { 
+					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
+				} else if ($VerifVoter == true) {
+					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
+				} 
+?>		
+  
+				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
+					<div class="UnderlineNav-body">
+						<a href="/lgd/profile/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Public Profile</a>
+						<a href="/lgd/profile/voter/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Voter Profile</a>
+						<a href="/lgd/profile/candidate/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item selected">Candidate Profile</a>
+					</div>
+				</nav>
+
+			  <div class="clearfix gutter d-flex flex-shrink-0">
+	
+	
+
+
+
+
+  
 
 	<div class="Box">
   	<div class="Box-header pl-0">
@@ -121,7 +124,7 @@
 			</div>		
 		</div>
 	</div>
-
+</DIV>
 
 <script>
 	// Default SortableJS

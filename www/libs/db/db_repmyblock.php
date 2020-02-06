@@ -199,7 +199,14 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
-	
+	function GetPetitionsSumary($SystemUser_ID) {
+		$sql = "SELECT count(*) as CandidateTotal, count(CandidatePetition_SignedDate) as CandidateSigned " .
+						"FROM Candidate LEFT JOIN CandidatePetition ON (Candidate.Candidate_ID = CandidatePetition.Candidate_ID) " .
+						"WHERE SystemUser_ID = :SystemUserID";
+		$sql_vars = array("SystemUserID" => $SystemUser_ID);
+	 	return $ret = $this->_return_simple($sql, $sql_vars);	 
+	}
+
 	function ListCandidateNominatedForPetition($SystemUserID) {
 		$sql = "SELECT * FROM CanNomination " .
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = CanNomination.CandidateElection_ID) " .
@@ -238,19 +245,32 @@ class RepMyBlock extends queries {
 
 		if ( $CandidateID == 0 && $SystemUserID == 0) return 0;
 		
-		$sql = "SELECT * FROM Candidate " .
+		$sql = "SELECT Candidate.Candidate_ID, Candidate.SystemUser_ID, Candidate.CandidateElection_ID, Candidate.Candidate_Party, " . 
+						"Candidate.Candidate_DisplayMap, Candidate.Candidate_DispName, Candidate.Candidate_DispResidence, Candidate.CandidateAptment_ID, " . 
+						"Candidate.Candidate_StatementPicFileName, Candidate.Candidate_StatementWebsite, Candidate.Candidate_StatementEmail, " . 
+						"Candidate.Candidate_StatementTwitter, Candidate.Candidate_StatementPhoneNumber, Candidate.Candidate_StatementText, " . 
+						"Candidate.CandidateElection_DBTable, Candidate.CandidateElection_DBTableValue, Candidate.Candidate_StatsVoters, " . 
+						"Candidate.Candidate_Status, Candidate.Candidate_NominatedBy, CandidatePetition.CandidatePetition_ID, CandidatePetition.Candidate_ID, " . 
+						"CandidatePetition.FollowUp_ID, CandidatePetition.CandidatePetition_Order, " . 
+						"CandidatePetition.Raw_Voter_DatedTable_ID, CandidatePetition.Raw_Voter_Dates_ID, " . 
+						"CandidatePetition.VotersIndexes_ID, CandidatePetition.CandidatePetition_VoterFullName, " . 
+						"CandidatePetition.CandidatePetition_VoterResidenceLine1, CandidatePetition.CandidatePetition_VoterResidenceLine2, " . 
+						"CandidatePetition.CandidatePetition_VoterResidenceLine3, CandidatePetition.CandidatePetition_VoterCounty, CandidatePetition.DataStreet_ID, " . 
+						"CandidatePetition.Raw_Voter_ResHouseNumber, CandidatePetition.Raw_Voter_ResFracAddress, " . 
+						"CandidatePetition.Raw_Voter_ResPreStreet, CandidatePetition.Raw_Voter_ResStreetName, CandidatePetition.Raw_Voter_ResPostStDir, " . 
+						"CandidatePetition.Raw_Voter_ResApartment, CandidatePetition.Raw_Voter_Status, CandidatePetition.CandidatePetition_SignedDate " . 
+						"FROM Candidate " .
 						"LEFT JOIN CandidatePetition ON (CandidatePetition.Candidate_ID = Candidate.Candidate_ID) " .
-		//				"LEFT JOIN VotersIndexes ON (CandidatePetition.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " .
-						"LEFT JOIN Raw_Voter_" . $DatedFiles . " ON (Raw_Voter_" . $DatedFiles . ".Raw_Voter_ID = CandidatePetition.Raw_Voter_DatedTable_ID) " .
-		//			"LEFT JOIN Raw_Voter_TrnsTable ON (Raw_Voter_TrnsTable.VotersIndexes_ID =  CandidatePetition.VotersIndexes_ID AND Raw_Voter_TrnsTable.Raw_Voter_Dates_ID =  CandidatePetition.Raw_Voter_Dates_ID) " .
-		//			"LEFT JOIN Raw_Voter ON (Raw_Voter.Raw_Voter_ID =  Raw_Voter_TrnsTable.Raw_Voter_ID) " .
-		//			"LEFT JOIN DataHouse ON (DataHouse.DataHouse_ID = Raw_Voter_TrnsTable.DataHouse_ID ) " . 
-		//			"LEFT JOIN DataAddress ON (DataHouse.DataAddress_ID = DataAddress.DataAddress_ID) " . 
-		//			"LEFT JOIN DataStreet ON (DataAddress.DataStreet_ID = DataStreet.DataStreet_ID) " . 
-		//			"LEFT JOIN Cordinate ON (DataAddress.Cordinate_ID = Cordinate.Cordinate_ID) " .
+						// "LEFT JOIN VotersIndexes ON (CandidatePetition.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " .
+						// "LEFT JOIN Raw_Voter_" . $DatedFiles . " ON (Raw_Voter_" . $DatedFiles . ".Raw_Voter_ID = CandidatePetition.Raw_Voter_DatedTable_ID) " .
+						// "LEFT JOIN Raw_Voter_TrnsTable ON (Raw_Voter_TrnsTable.VotersIndexes_ID =  CandidatePetition.VotersIndexes_ID AND Raw_Voter_TrnsTable.Raw_Voter_Dates_ID =  CandidatePetition.Raw_Voter_Dates_ID) " .
+						// "LEFT JOIN Raw_Voter ON (Raw_Voter.Raw_Voter_ID =  Raw_Voter_TrnsTable.Raw_Voter_ID) " .
+						// "LEFT JOIN DataHouse ON (DataHouse.DataHouse_ID = Raw_Voter_TrnsTable.DataHouse_ID ) " . 
+						// "LEFT JOIN DataAddress ON (DataHouse.DataAddress_ID = DataAddress.DataAddress_ID) " . 
+						// "LEFT JOIN DataStreet ON (DataAddress.DataStreet_ID = DataStreet.DataStreet_ID) " . 
+						// "LEFT JOIN Cordinate ON (DataAddress.Cordinate_ID = Cordinate.Cordinate_ID) " .
 						"WHERE " ;
 						
-		
 		if ( $CandidateID > 0 ) {
 			$sql .= "Candidate_ID = :CandidateID";
 			$sql_vars["CandidateID"] = $CandidateID;
@@ -296,19 +316,23 @@ class RepMyBlock extends queries {
 						"WHERE SystemUser_ID = :ID ";
 		$sql_vars = array("RawVoterID" => $RawVoterID, "NYSVoterID" => $UniqNYSVoterID,
 											"EDAD" => $ADED, "ID" => $SystemUser_ID);
-		
 		return $this->_return_nothing($sql, $sql_vars);				
 	}
 	
 	function FindRawVoterbyADED($DatedFiles, $EDist, $ADist, $Party = "", $Active = 1, $order = 0) {
 		
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " WHERE " . 
+		$sql = "SELECT * FROM " . $TableVoter . 
+						// " LEFT JOIN DataStreet ON (DataStreet.DataStreet_Name = Raw_Voter_ResStreetName) " .
+						" WHERE " . 
 						"Raw_Voter_AssemblyDistr = :AssDist AND Raw_Voter_ElectDistr = :ElectDist ";
+					//	"LEFT JOIN Raw_Voter_" . $DatedFiles . " ON (Raw_Voter_ID = Raw_Voter_DatedTable_ID) " .
+					//	"LEFT JOIN DataStreet ON (DataStreet.DataStreet_Name = Raw_Voter_ResStreetName)";
+						
 		$sql_vars = array('AssDist' => $ADist, 'ElectDist' => $EDist);				
 		
 		if ( $Active == 1) {
-			$sql .= "AND Raw_Voter_Status = 'ACTIVE' ";
+			$sql .= "AND (Raw_Voter_Status = 'ACTIVE' OR Raw_Voter_Status = 'INACTIVE') ";
 		}
 		
 		if ( ! empty ($Party)) {
@@ -319,7 +343,7 @@ class RepMyBlock extends queries {
 		if ( $order > 0) {
 			$sql .= "ORDER BY Raw_Voter_ResStreetName, Raw_Voter_ResHouseNumber, Raw_Voter_ResApartment";
 		}
-		
+
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
@@ -329,44 +353,54 @@ class RepMyBlock extends queries {
 		
     // This is the 
     $Counter = 0;
+		$SqlString = "INSERT INTO CandidatePetition " .
+									"(Candidate_ID, CandidatePetition_Order, VotersIndexes_ID, Raw_Voter_DatedTable_ID, Raw_Voter_Dates_ID," .
+									"CandidatePetition_VoterFullName, CandidatePetition_VoterResidenceLine1, CandidatePetition_VoterResidenceLine2, " .
+									"CandidatePetition_VoterResidenceLine3, CandidatePetition_VoterCounty, DataStreet_ID, Raw_Voter_ResHouseNumber, " .
+									"Raw_Voter_ResFracAddress, Raw_Voter_ResPreStreet, Raw_Voter_ResStreetName, Raw_Voter_ResPostStDir, " . 
+									"Raw_Voter_ResApartment, Raw_Voter_Status) " .
+									"VALUES ";
+    
     if ( ! empty ($var)) {
 	    foreach ($var as $vor) {
 				if (! empty ($vor)) {
+					
+					if ( ! empty ($sql)) { $sql .= ","; }
+					
 					$FullName = $this->DB_ReturnFullName($vor);
      	   	$Address_Line1 = $this->DB_ReturnAddressLine1($vor);
      	  	$Address_Line2 = $this->DB_ReturnAddressLine2($vor);
         
     			// This is awfull but we need to go trought the list to find the VotersIndexes_ID
        		$VoterIndexesID = $this->GetVotersIndexesIDfromNYSCode($vor["Raw_Voter_UniqNYSVoterID"]);
-
-					$sql = "INSERT INTO CandidatePetition SET " .
-									"Candidate_ID = :CandidateID, " .
-									"CandidatePetition_Order = :Counter, " . 
-									"VotersIndexes_ID = :VotersIndexesID, " .
-									"Raw_Voter_DatedTable_ID = :RawVoterID, " .
-									"Raw_Voter_Dates_ID = :RawVoterDatesID, " .
-									"CandidatePetition_VoterFullName = :VoterFullName, " .
-									"CandidatePetition_VoterResidenceLine1 = :Address1, " .
-					 				"CandidatePetition_VoterResidenceLine2 = :Address2, " .
-									"CandidatePetition_VoterResidenceLine3 = :Address3, " .
-									"CandidatePetition_VoterCounty = :County";
+       	   
+					$sql .= "(" . $this->_QuoteString($CandidateID) . "," . $this->_QuoteString($Counter++) . "," . $this->_QuoteString($vor["Raw_Voter_ID"]) . "," . 
+									$this->_QuoteString($VoterIndexesID["VotersIndexes_ID"]) . "," . $this->_QuoteString($DatedFilesID) . "," . 
+									$this->_QuoteString($this->DB_ReturnFullName($vor)) . "," . $this->_QuoteString($this->DB_ReturnAddressLine1($vor)) . "," . 
+									$this->_QuoteString($this->DB_ReturnAddressLine2($vor)) . "," . "null," . 
+									$this->_QuoteString($this->DB_WorkCounty($vor["Raw_Voter_CountyCode"])) . "," . $this->_QuoteString($vor["DataStreet_ID"]) . "," . 
+					 				$this->_QuoteString($vor["Raw_Voter_ResHouseNumber"]) . "," . $this->_QuoteString($vor["Raw_Voter_ResFracAddress"]) . "," . 
+					 				$this->_QuoteString($vor["Raw_Voter_ResPreStreet"]) . "," . $this->_QuoteString($vor["Raw_Voter_ResStreetName"]) . "," . 
+									$this->_QuoteString($vor["Raw_Voter_ResPostStDir"]) . "," . $this->_QuoteString($vor["Raw_Voter_ResApartment"]) . "," . 
+									$this->_QuoteString($vor["Raw_Voter_Status"]) . ")";
 					
-					$sql_vars = array(":CandidateID" => $CandidateID,
-															":Counter" => $Counter++, 
-															":RawVoterID" => $vor["Raw_Voter_ID"],
-															":VotersIndexesID" => $VoterIndexesID["VotersIndexes_ID"], 
-															":RawVoterDatesID" => $DatedFilesID,
-															":VoterFullName" => $this->DB_ReturnFullName($vor),
-															":Address1" => $this->DB_ReturnAddressLine1($vor),
-											 				":Address2" => $this->DB_ReturnAddressLine2($vor),
-															":Address3" => "",
-															":County" => $this->DB_WorkCounty($vor["Raw_Voter_CountyCode"]));
-								    
-					$this->_return_nothing($sql, $sql_vars); 	
+					if (($Counter % 10000) == 0) {
+						if ( ! empty ($sql)) {
+							$sql = $SqlString . $sql;
+							$this->_return_nothing($sql); 	      
+						  $sql = "";
+						}
+					} 					
 				}
+				
     	}
     }	
     
+    if ( ! empty ($sql)) {
+			$sql = $SqlString . $sql;
+    	$this->_return_nothing($sql); 	    
+		}
+		
     return $Counter;
 	}
 

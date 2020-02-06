@@ -34,32 +34,33 @@
 	<FORM METHOD="POST" ACTION="">
 		<DIV CLASS="right f80">Forgot Password</DIV>
 
-		<?php 			
-		if ($EmptyEmail == true) {
-			echo "<P CLASS=\"f60\">";
-			echo "<B><FONT COLOR=BROWN>The email address is empty.</FONT></B><BR>";
-			echo "</P>";
-		}
-		?>
-	
-		<P CLASS="f60 justify">
-			We will send you a link to the email address you 
-			registered so you can reset your password.
-		</P>
-	
-		<P CLASS="f80">
-			<DIV CLASS="f80">Username:</DIV> 
-			<DIV><INPUT type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>"><DIV>
-		</P>
+			<?php 			
+			if ($EmptyEmail == true) {
+				echo "<P CLASS=\"f60\">";
+				echo "<B><FONT COLOR=BROWN>The email address is empty.</FONT></B><BR>";
+				echo "</P>";
+			}
+			?>
+		
+			<P CLASS="f60 justify">
+				We will send you a link to the email address you 
+				registered so you can reset your password.
+			</P>
+		
+			<P CLASS="f80">
+				<DIV CLASS="f80">Username:</DIV> 
+				<DIV><INPUT type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>"><DIV>
+			</P>
 
-		<P>
-			<INPUT TYPE="Submit" NAME="signin" VALUE="Reset my password">
-		</P>
+			<P>
+				<INPUT TYPE="Submit" NAME="signin" VALUE="Reset my password">
+			</P>
 
-		<P CLASS="f60 justify">
-			If you don't receive a link in the next few hours, send an 
-			email to passwordissues@repmyblock.nyc.
-		</P>
+			<P CLASS="f60 justify">
+				If you don't receive a link in the next few hours, send an 
+				email to passwordissues@repmyblock.nyc.
+			</P>
+		</DIV>
 
 	</FORM>
 </DIV>

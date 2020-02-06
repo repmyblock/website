@@ -30,6 +30,13 @@ class queries {
     return $result[0]; 
   }
   
+  function _QuoteString($string) {
+  	if (is_numeric($string)) {
+  		if ( $string == "0" ) {	return "'0'";	} 
+  	} else if ( empty ($string) ) { return "null"; }
+	 	return $this->DB->QuoteString(trim($string));
+ 	}
+  
   function _return_nothing($SQL, $SQL_Vars = "") {
   	$this->DB->query($SQL, $SQL_Vars, 0, $this->DebugInfo);
     return;

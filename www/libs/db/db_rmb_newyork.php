@@ -22,7 +22,7 @@ class RMB_newyork extends RepMyBlock {
 																										$PetitionName, $PetitionAddress) {
 		$sql = "INSERT INTO Candidate SET " .
 							"SystemUser_ID = :SystemUserID, Raw_Voter_ID = :RawVoterID, Raw_Voter_DatedTable_ID = :DateFiles, " .
-							"Raw_Voter_Dates_ID = :DateID, CandidateElection_ID = :CandidateElectionID, CandidateElection_Party = :Party, " .
+							"Raw_Voter_Dates_ID = :DateID, CandidateElection_ID = :CandidateElectionID, Candidate_Party = :Party, " .
 							"Candidate_DispName = :FullName, Candidate_DispResidence = :Address, CandidateElection_DBTable = 'EDAD', " . 
 							"CandidateElection_DBTableValue = :EDAD, Candidate_Status = 'published'";
 		$sql_vars = array("SystemUserID" => $SystemUser_ID, "RawVoterID" => $Voter_ID, "DateFiles" => $DatedFiles,

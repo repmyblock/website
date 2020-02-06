@@ -20,6 +20,7 @@ class db {
 			exit();
 			// Put a nagios trigger here
 			exit();
+			
     } else {
 	    // $this->connect_id = mysql_connect($host, $user, $password); - Deprecated
 	    try {     
@@ -41,7 +42,6 @@ class db {
 					$time_end = microtime(true);	  	
 			  }
 			  
-			
 				error_log("PDO Timing: " . ($time_end - $time_start));	
 				  
 				$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -63,6 +63,10 @@ class db {
 			}
 		}
   }
+  
+  function QuoteString($string) {
+  	return $this->pdo->quote($string);
+ 	}
     
   function query($sql = "", $sql_vars = "", $return = 0, $DebugInfo = "") { 		
  		unset ($event_rows);
@@ -138,6 +142,8 @@ class db {
     	
     }
  	}
+ 	
+ 	
  	
  	function SaveError ($Error, $sql, $sql_vars, $DebugInfo) {
  		

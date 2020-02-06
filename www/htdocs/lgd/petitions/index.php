@@ -56,10 +56,18 @@
 						</div>
 			    </div>
 			    
-			<?php if ( empty ($Petitions)) { ?>    
+			    
+			<?php if ( $VerifVoter == false) { 
+				if ( empty ($Petitions)) { ?>    
 			    <div class="Box-body text-center py-6 js-collaborated-repos-empty">
 			      You have not yet setup your petitions 
 			    	<a href="setup/?k=<?= $k ?>">you can setup it up here.</a>
+			    </div>
+			<?php } 
+				} else { ?>
+			    <div class="Box-body text-center py-6 js-collaborated-repos-empty">
+			      Before you can setup your petitions 
+			    	<a href=/lgd/profile/voter/?k=<?= $k ?>">you need to verify your voter information.</a>
 			    </div>
 			<?php } ?>
 			
@@ -88,10 +96,5 @@
 		</div>
 	</DIV>
 </DIV>
-</DIV>
-
-
-
-
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>

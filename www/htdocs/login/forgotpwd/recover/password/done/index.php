@@ -13,6 +13,7 @@
 		<p CLASS="f60">
 			<A HREF="/login/">Click here to the login page.</A>
 		</P>
-
+	</DIV>
+	
 </DIV>
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>

@@ -35,11 +35,11 @@
 			}
 		}
 	}
-				
+			
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
-
+<div class="row">
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
   		<div class="<?= $Cols ?> float-left">
@@ -122,8 +122,11 @@
 						<div class="list-group-item filtered f60">
 							<span><B>&nbsp;&nbsp;<?= $PartyPosition ?></B></span>  
 							<BR>
-							<DIV CLASS="f40"><FONT COLOR="BROWN">At this time only County Committee works. The other positions
-						are not ready. <I>(The select position button is at the bottom of this page.)</I></A></DIV>		          			
+							<DIV CLASS="f40">
+								<FONT COLOR="BROWN">At this time only County Committee works. The other positions are not ready. 
+								<I>(The select position button is at the bottom of this page.)</I>
+								</FONT>
+							</DIV>		          			
 						</div>
 							
 					 <DIV class="panels">
@@ -152,8 +155,10 @@
 		<p><button type="submit" class="btn btn-primary">Run for the selected positions</button></p>
 </div>
 </FORM>
-	</div>
-
+</div>
+</DIV>
+</DIV>
+</DIV>
 
 <script>
 	// Default SortableJS

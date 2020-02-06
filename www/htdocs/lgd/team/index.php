@@ -39,28 +39,17 @@
 			include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
 		} 
 	?>          
-          
+ 
+  <dl class="form-group">
+  	<dt><label for="user_profile_email">Team building</label></dt>
+    <dd class="d-inline-block">       	
+   		<A HREF="">Send me a petition by email that I can foward.</A><BR>
+   		<A HREF="/lgd/voters/?k=<?= $k ?>">Send a petition to a verified voter.</A><BR>
+    </dd>
+  </dl>
     
-   <dl class="form-group">
-            <dt><label for="user_profile_email">Public email</label></dt>
-            <dd class="d-inline-block">
-              <div>
-                  <select class="form-select form-select" name="user[profile_email]" id="user_profile_email"><option value="">Select a verified email to display</option>
-										<option value="github@theochino.com">github@theochino.com</option></select>
-                  <p class="note">You can manage verified 
-                    email addresses in your <a href="/settings/emails">email settings</a>.
-                  </p>
-              </div>
-            </dd>
-          </dl>
-       
 			
-			<P>
-				Once you collect the  <?= $NumberOfSignatures ?> plus a few more, you need to wait until April 1<sup>st</sup> to take them
-				to the board of elections. <B>Just follow the 
-			<A HREF="<?= $FrontEndWeb ?>/where-to-file/prepare-to-file-your-petition-to-the-board-of-elections.html">instruction posted on the FAQ</A>.</B>
-			</P>
-
+		
 
      
   

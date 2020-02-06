@@ -77,6 +77,18 @@ class OutragedDems extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
+	function DB_ReturnAddressLine1($vor) {
+		$Address_Line1 = "";
+		if ( ! empty ($vor["Raw_Voter_ResHouseNumber"])) { $Address_Line1 .= $vor["Raw_Voter_ResHouseNumber"] . " "; }		
+		if ( ! empty ($vor["Raw_Voter_ResFracAddress"])) { $Address_Line1 .= $vor["Raw_Voter_ResFracAddress"] . " "; }		
+		if ( ! empty ($vor["Raw_Voter_ResPreStreet"])) { $Address_Line1 .= $vor["Raw_Voter_ResPreStreet"] . " "; }		
+		$Address_Line1 .= $vor["Raw_Voter_ResStreetName"] . " ";
+		if ( ! empty ($vor["Raw_Voter_ResPostStDir"])) { $Address_Line1 .= $vor["Raw_Voter_ResPostStDir"] . " "; }		
+		//if ( ! empty ($vor["Raw_Voter_ResApartment"])) { $Address_Line1 .= "- Apt. " . $vor["Raw_Voter_ResApartment"]; }
+		$Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
+		return $Address_Line1;
+  }
+	
 }
 
 ?>

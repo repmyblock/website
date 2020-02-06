@@ -60,32 +60,34 @@
 		
 	<DIV CLASS="right f80">Forgot Password</DIV>
 
-	<FORM METHOD="POST" ACTION="">	
-		<INPUT TYPE="hidden" NAME="login" VALUE="password" CHECKED>	
+		<FORM METHOD="POST" ACTION="">	
+			<INPUT TYPE="hidden" NAME="login" VALUE="password" CHECKED>	
+				
+			<?php if (! empty ($ErrorMessage)) { 
+				echo "<P CLASS=\"f60\"><FONT COLOR=RED>" . $ErrorMessage . "</FONT></P>";
+			} ?>
 			
-		<?php if (! empty ($ErrorMessage)) { 
-			echo "<P CLASS=\"f60\"><FONT COLOR=RED>" . $ErrorMessage . "</FONT></P>";
-		} ?>
+			<P CLASS="f60">
+				Choose a password that contains only letters and numbers.
+			</P>
+			
+			<P CLASS="f80">
+				<DIV CLASS="f80">Password:</DIV>
+				<DIV><INPUT CLASS="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE=""><DIV>
+			</P>
+			
+			<P CLASS="f80">
+				<DIV CLASS="f80">Verify Password:</DIV>
+				<DIV><INPUT CLASS="" TYPE="password" NAME="verifypassword" PLACEHOLDER="verify password"  VALUE=""></DIV>
+			</P>
 		
-		<P CLASS="f60">
-			Choose a password that contains only letters and numbers.
-		</P>
-		
-		<P CLASS="f80">
-			<DIV CLASS="f80">Password:</DIV>
-			<DIV><INPUT CLASS="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE=""><DIV>
-		</P>
-		
-		<P CLASS="f80">
-			<DIV CLASS="f80">Verify Password:</DIV>
-			<DIV><INPUT CLASS="" TYPE="password" NAME="verifypassword" PLACEHOLDER="verify password"  VALUE=""></DIV>
-		</P>
-	
-		<P>
-			<DIV><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Change Password"></DIV>
-		</P>
+			<P>
+				<DIV><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Change Password"></DIV>
+			</P>
 
-	</FORM>
+		</FORM>
+	
+	</DIV>
 </DIV>
 			
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>

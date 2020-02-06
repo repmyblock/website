@@ -11,6 +11,9 @@ class PDF extends FPDF {
 	 
 	// Page header
 	function Header()	{
+		
+		// The Logo
+		$this->Image('../pics/RepMyBlock.png', 5, 5, 0);
 
 		if (! empty ($this->Watermark)) {
 			$this->SetFont('Arial','B',50);
@@ -21,9 +24,9 @@ class PDF extends FPDF {
 		}
 		
     $this->SetFont('Arial','B',12);
-    $this->Cell(0,0, "Rep My Block",0,0,'C');
-    $this->Ln(4);
-		$this->Cell(0,0, "Voter List Prepared for " . $this->county . ' County',0,0,'C');
+    $this->Cell(0,0, "Rep My Block",0,0,'R');
+    $this->Ln(5);
+		$this->Cell(0,0, "Voter List Prepared for " . $this->county . ' County',0,0,'R');
     $this->Ln(3);    
      			
   	$MyTop = $YLocation = $this->GetY();

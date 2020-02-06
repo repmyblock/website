@@ -123,7 +123,7 @@
 							<div class="list-group-item">	
 								<?php  
 								
-											echo "<BR>";
+									echo "<BR>";
 									echo "<B>RMBVOTERS</B><BR>";
 									if ( ! empty ($rmbvoters )) {
 										foreach ($rmbvoters as $index => $var) {

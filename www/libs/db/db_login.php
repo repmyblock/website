@@ -144,7 +144,7 @@ class login extends queries {
 		$HashPass = password_hash($Password, PASSWORD_DEFAULT);
 		
 		$sql = "INSERT INTO SystemUser SET SystemUser_username = :username, " . 
-						"SystemUser_password = :password, SystemUser_email = :Email";
+						"SystemUser_password = :password, SystemUser_email = :Email, SystemUser_createtime = NOW()";
 		$sql_vars = array(':username' => $Username, ':password' => $HashPass, 
 											'Email' => $Email);
 		
@@ -269,6 +269,10 @@ class login extends queries {
 		$ResultPasswordCheck = password_verify ($Password , $result["SystemUser_password"]);
 		
 		if ( $ResultPasswordCheck == 1) {
+			// Update Login Time
+			$sql = "INSERT INTO SystemUserLastLogin SET SystemUser_ID = :ID, SystemUserLastLogin  = NOW()";
+			$sql_vars = array("ID" => $result["SystemUser_ID"]);
+			$this->_return_nothing($sql, $sql_vars);
 			return $result;
 		}
 		return null;

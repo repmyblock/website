@@ -15,28 +15,38 @@
 
 	if ( ! empty ($_POST["username"])) {
 		$result = $r->CheckUsername($_POST["username"]);
+		if ( $result["SystemUser_emailverified"] == "no") {		
+			if ($_POST["hashkey"] == $result["SystemUser_emaillinkid"]) {
 				
-		if ($_POST["hashkey"] == $result["SystemUser_emaillinkid"]) {
-			
-			$URLToEncrypt = "SystemUser_ID=" . $result["SystemUser_ID"] . 
-											"&password=" . $result["SystemUser_password"] .
-											"&systemuserid=" . $result["SystemUser_ID"] .
-											"&hashkey=" . $_POST["hashkey"] . 
-											"&username=" . $_POST["username"];
-			// The reason for no else is that the code supposed to go away.
-			header("Location: /register/verify/verifypassword/?k=" . EncryptURL($URLToEncrypt));
-			exit();
+				$URLToEncrypt = "SystemUser_ID=" . $result["SystemUser_ID"] . 
+												"&password=" . $result["SystemUser_password"] .
+												"&systemuserid=" . $result["SystemUser_ID"] .
+												"&hashkey=" . $_POST["hashkey"] . 
+												"&username=" . $_POST["username"];
+				// The reason for no else is that the code supposed to go away.
+				header("Location: /register/verify/verifypassword/?k=" . EncryptURL($URLToEncrypt));
+				exit();
+			} else {
+				$error_msg = "<FONT COLOR=RED><B>The information did not match our records</B></FONT>";	
+			}
+		} else {
+					
+					// This is to redirect to another screen in case.
+					
+					$URLToEncrypt = "SystemUser_ID=" . $result["SystemUser_ID"] . 
+												"&password=" . $result["SystemUser_password"] .
+												"&systemuserid=" . $result["SystemUser_ID"] .
+												"&hashkey=" . $_POST["hashkey"] . 
+												"&username=" . $_POST["username"];
+				// The reason for no else is that the code supposed to go away.
+				header("Location: /register/verify/verifypassword/?k=" . EncryptURL($URLToEncrypt));
+				exit();		
 		}
-						
-		$error_msg = "<FONT COLOR=RED><B>The information did not match our records</B></FONT>";	
 	}
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 ?>
-<div class="row">
-	<div class="main">
-		
-
+<div class="main">
 	<H1>Verify the email address</H1>
 
 	<?php if (! empty ($error_msg)) {
@@ -52,11 +62,10 @@
 			</TABLE>
 		</FORM>
 	</P>
-	
+
 	<P>
-		<FONT SIZE=+2><A HREF="/forgotpwd/">I forgot my password</A></FONT><BR>
+		<FONT SIZE=+2><A HREF="/login/forgotpwd">I forgot my password</A></FONT><BR>
 	</P>
-	</DIV>
 </DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>

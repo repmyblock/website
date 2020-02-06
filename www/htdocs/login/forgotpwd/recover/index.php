@@ -41,23 +41,25 @@
 <DIV class="main">
 	
 	<FORM METHOD="POST" ACTION="">
-	<INPUT TYPE="hidden" NAME="hashkey" VALUE="<?= $hashkey ?>">	
-	
-	<DIV CLASS="right f80">Forgot Password</DIV>
+		<INPUT TYPE="hidden" NAME="hashkey" VALUE="<?= $hashkey ?>">	
+		
+		<DIV CLASS="right f80">Forgot Password</DIV>
 
-	<P CLASS="f60 justify">
-		After you type your username you
-		will be able to choose a new password.
-	</P>
-	
-	<P CLASS="f80">
-		<DIV CLASS="f80">Username:</DIV> 
-		<DIV><INPUT CLASS="" type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE=""><DIV>
-	</P>
+			<P CLASS="f60 justify">
+				After you type your username you
+				will be able to choose a new password.
+			</P>
+			
+			<P CLASS="f80">
+				<DIV CLASS="f80">Username:</DIV> 
+				<DIV><INPUT CLASS="" type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE=""><DIV>
+			</P>
 
-	<P>
-		<INPUT TYPE="Submit" NAME="signin" VALUE="Reset my password">
-	</P>
+			<P>
+				<INPUT TYPE="Submit" NAME="signin" VALUE="Reset my password">
+			</P>
+		</DIV>
+		
 	</FORM>
 
 </DIV>

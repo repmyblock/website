@@ -13,6 +13,8 @@
 
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
+	
+	$NumberOfMessages = 0;
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 ?>
@@ -48,12 +50,14 @@
   </div>
 </div>
 
+</DIV>
+	<?php if ($NumberOfMessages == 0) { ?>
+		<div class="Box-body text-center py-6 js-collaborated-repos-empty" >
+     You don't have any messages.
     </div>
-    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
-      We don't know your district <a href="/voter">create one</a>?
-    </div>
+	<?php } ?>
 
-    
+<?php /*    
 
       <div class="js-collaborated-repos">
 
@@ -91,6 +95,8 @@
 
               
             </div>
+<?php */ ?>
+            
       </div>
 
   </div>

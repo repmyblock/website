@@ -37,16 +37,18 @@
 			$Counter[$MyAddressToUse]++;
 		}	
 	}
-
-			
+	
+	
+	
+	
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 	if ($MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
 
+
+
 <div class="row">
   <div class="main">
-
-
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
 
@@ -72,24 +74,18 @@
   		</div>
     </div>
     
-    <?php if ( $VerifVoter == true) {  ?>
-			    <div class="Box-body text-center py-6 js-collaborated-repos-empty">
-			      Before you can organise your voter list, 
-			    	<a href=/lgd/profile/voter/?k=<?= $k ?>">you need to verify your voter information</a> so we can figure which list to list.
-			    </div>
-			<?php } ?>
-    
-  
-		<div id="voters" >
-			
-			
-<?php
+    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
+      We don't know your district <a href="/voter">create one</a>?
+    </div>
 
+		<div id="voters" >
+<?php
 			$Counter = 0;
 			if ( ! empty ($Electors)) {
 				foreach ($Electors as $Address => $Elector) {
 					if ( ! empty ($Address)) { ?>
 						<div class="list-group-item filtered f60 hundred">
+							
 							<A CLASS="pad40" HREF="open/?k=<?= $k ?>"><i class="fas fa-folder handle"></i></A>							
 							
 							
