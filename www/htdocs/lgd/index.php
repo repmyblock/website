@@ -36,11 +36,6 @@
 	$PersonEmail     = $rmbperson["SystemUser_Email"];
 
 	$DayToGo = intval(($LastDayPetiton - time()) / 86400);
-
-	//date_diff(, date_create('today'))->d;
-		
-	
-	
 	
 	/* Define the elements of the menu */
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	

@@ -7,51 +7,52 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/voterlist.php';
 
 	$r = new OutragedDems();
-	$result = $r->ListCandidatePetition($SystemUser_ID, "published");
-	$result = $result[0];
-	$voters = $r->ListVoterCandidate($result["Candidate_ID"]);
-
-	$Today = date("Ymd_Hi");
-	$OutputFilename = "WalkSheet_" . $result["CandidateElection_DBTable"] . $result["CandidateElection_DBTableValue"] . "_" . $Today . ".pdf";
-	/*
-		echo "<PRE>";
-		print_r($result);
-		exit();
-	*/
+	$RawVoter = $r->FindRawVoterbyID($RawDatedFiles, $Raw_Voter_ID);
 	
-	if (! empty ($voters)) {
-		foreach ($voters as $person) {
-			if ( ! empty ($person)) {
-				$FixedAddress = preg_replace('!\s+!', ' ', $person["Raw_Voter_ResStreetName"] );
-				$FixedApt = preg_replace('!\s+!', '', $person["Raw_Voter_ResApartment"] );
-				$Address[$FixedAddress][$person["Raw_Voter_ResHouseNumber"]]["PrintAddress"] = ucwords(strtolower(trim($r->DB_ReturnAddressLine1($person))));
-				$Address[$FixedAddress][$person["Raw_Voter_ResHouseNumber"]][$FixedApt][$person["Raw_Voter_Status"]][$person["CandidatePetition_ID"]] =	$person["CandidatePetition_VoterFullName"];
-				
-				// The reason for this is that the CandidatePetition_ID is unique enough.
-				$Age[$person["CandidatePetition_ID"]] = $person["CandidatePetition_Age"];
-        $Gender[$person["CandidatePetition_ID"]] = $person["Raw_Voter_Gender"];
+	$RawVoter = $RawVoter[0];
+	$Result = $r->FindRawVoterbyADED($RawDatedFiles, $RawVoter["Raw_Voter_ElectDistr"], $RawVoter["Raw_Voter_AssemblyDistr"], 1);
+	
+	$TodayDay = date_create(date("Y-m-d"));
+	
+	if (! empty ($Result)) {
+		foreach ($Result as $var) {
+			if ( ! empty ($var)) {
+				if ( $var["Raw_Voter_Status"] == "ACTIVE" || $var["Raw_Voter_Status"] == "INACTIVE") {
+					$VoterAge = date_diff(date_create($var["Raw_Voter_DOB"]), $TodayDay)->format("%Y");       		
+	       	if ( $VoterAge < 1 || $VoterAge > 150) { $VoterAge = 0; }
+				  
+				  $FixedAddress = preg_replace('!\s+!', ' ', $var["Raw_Voter_ResStreetName"] );
+					$FixedApt = preg_replace('!\s+!', '', $var["Raw_Voter_ResApartment"] );
+					$Address[$FixedAddress][$var["Raw_Voter_ResHouseNumber"]]["PrintAddress"] = ucwords(strtolower(trim($r->DB_ReturnAddressLine1($var))));
+					$Address[$FixedAddress][$var["Raw_Voter_ResHouseNumber"]][$FixedApt][$var["Raw_Voter_Status"]][$var["Raw_Voter_ID"]] =	$r->DB_ReturnFullName($var);
+					
+					// The reason for this is that the CandidatePetition_ID is unique enough.
+					$Age[$var["Raw_Voter_ID"]] = $VoterAge;
+	        $Gender[$var["Raw_Voter_ID"]] = $var["Raw_Voter_Gender"];
+			  }
 			}
 		}
 	}
-	
-	
-	
+
+	$Today = date("Ymd_Hi");
+	$EDAD = sprintf("%'.02d%'.03d",$RawVoter["Raw_Voter_AssemblyDistr"], $RawVoter["Raw_Voter_ElectDistr"]);
+	$OutputFilename = "WalkSheet_RAW_EDAD" . $EDAD . "_" . $Today . ".pdf";
 	
 	$PageSize = "letter";
 	$pdf = new PDF('P','mm', $PageSize);
 	
 	$pdf->Text_PubDate = date("M j, Y \a\\t g:i a");
-	$pdf->Text_CandidateName = $result["Candidate_DispName"];
+	$pdf->Text_CandidateName = $r->DB_ReturnFullName($RawVoter);
 	$pdf->Text_ElectionDate = $ElectionDate;
 	$pdf->Text_PosType = $result["CandidateElection_PositionType"];
-  $pdf->Text_Party = $result["CandidateElection_Party"];
+  $pdf->Text_Party = $RawVoter["Raw_Voter_EnrollPolParty"];
   $pdf->Text_PosText = $result["CandidateElection_Text"];
  	$pdf->Text_PosPetText = $result["CandidateElection_PetitionText"];
-  $pdf->Text_DistricType = $result["CandidateElection_DBTable"];
-  $pdf->Text_DistricHeading = $result["CandidateElection_DBTableValue"];
-  $pdf->Text_PetitionSetID = $result["CandidatePetitionSet_ID"];
+  $pdf->Text_DistricType = "EDAD";
+  $pdf->Text_DistricHeading = $EDAD;
+  $pdf->Text_PetitionSetID = $RawVoter["Raw_Voter_ID"];
   
-  $pdf->LeftText = $pdf->Text_Party . " SetID:" . $result["CandidatePetitionSet_ID"];
+  $pdf->LeftText = $pdf->Text_Party . " Manual Request: " . $RawVoter["Raw_Voter_ID"];
 	$pdf->RightText =  $pdf->Text_DistricType . ":" . $pdf->Text_DistricHeading;
 	
 	// Insert the logo:

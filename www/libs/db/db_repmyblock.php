@@ -70,10 +70,10 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
-	function SearchVoter_Dated_DB($DatedFiles, $FirstName, $LastName, $DOB) {
+	function SearchVoter_Dated_DB($DatedFiles, $FirstName, $LastName, $DOB = "") {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_LastName = :LastName AND Raw_Voter_FirstName = :FirstName AND Raw_Voter_DOB = :DOB";
-		$sql_vars = array('FirstName' => $FirstName, 'LastName' => $LastName, 'DOB' => $DOB);							
+		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_LastName = :LastName AND Raw_Voter_FirstName = :FirstName"; // AND Raw_Voter_DOB = :DOB";
+		$sql_vars = array('FirstName' => $FirstName, 'LastName' => $LastName);							 // 'DOB' => $DOB
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 

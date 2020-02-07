@@ -45,12 +45,11 @@
 <?php
 		$NewKEncrypt = EncryptURL($Decrypted_k . "&Candidate_ID=" . $result[0]["Candidate_ID"]);
 ?>	
-
 		<P>
 			<FONT SIZE=+2>
 				Download a 
 				<A TARGET="BLANKPETITION" HREF="<?= $FrontEndPDF ?>/multipetitions/?k=<?= $NewKEncrypt ?>">blank petition</A>
-				<A TARGET="BLANKPETITION" HREF="<?= $FrontEndPDF ?>/multipetitions/?k=<?= $NewKEncrypt ?>"><i class="fa fa-download" aria-hidden="true"></i></A> and
+				<A TARGET="BLANKPETITION" HREF="<?= $FrontEndPDF ?>/multipetitions/?k=<?= $NewKEncrypt ?>"><i class="fa fa-download" aria-hidden="true"></i></A> and a
 				<A TARGET="BLANKPETITION" HREF="<?= $FrontEndPDF ?>/voterlist/?k=<?= $NewKEncrypt ?>">list of voters</A>
 				<A TARGET="BLANKPETITION" HREF="<?= $FrontEndPDF ?>/voterlist/?k=<?= $NewKEncrypt ?>"><i class="fa fa-download" aria-hidden="true"></i></A>
 			</FONT>

@@ -14,15 +14,20 @@ class OutragedDems extends queries {
      
 	function FindRawVoterbyID($DatedFiles, $VoterID) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM :TableVoter WHERE Raw_Voter_ID = :VoterID";	
-		$sql_vars = array('TableVoter' => $TableVoter, 'VoterID' => $VoterID);											
+		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_ID = :VoterID";	
+		$sql_vars = array('VoterID' => $VoterID);											
 		return $this->_return_multiple($sql,  $sql_vars);
 	}
 	
-	function FindRawVoterbyADED($DatedFiles, $EDDist, $ADDist) {
+	function FindRawVoterbyADED($DatedFiles, $EDDist, $ADDist, $order = 0) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_AssemblyDistr = :AssDist AND Raw_Voter_ElectDistr = :EleDist";	
-		$sql_vars = array('AssDist' => $ADDist, 'EleDist' => $EDDist);							
+		$sql_vars = array('AssDist' => $ADDist, 'EleDist' => $EDDist);		
+		
+		if ( $order > 0) {
+			$sql .= " ORDER BY Raw_Voter_ResStreetName, Raw_Voter_ResHouseNumber, Raw_Voter_ResApartment";
+		}
+							
 		return $this->_return_multiple($sql,  $sql_vars);
 	}
 	
@@ -76,7 +81,12 @@ class OutragedDems extends queries {
 		$sql_vars = array("CandidateID" => $Candidate_ID);				
 		return $this->_return_multiple($sql, $sql_vars);
 	}
-	
+  
+  function DB_WorkCounty($CountyID) {
+		$County = $this->GetCountyFromNYSCodes($CountyID);
+		return $County["DataCounty_Name"];	
+	}
+
 	function DB_ReturnAddressLine1($vor) {
 		$Address_Line1 = "";
 		if ( ! empty ($vor["Raw_Voter_ResHouseNumber"])) { $Address_Line1 .= $vor["Raw_Voter_ResHouseNumber"] . " "; }		
@@ -88,6 +98,20 @@ class OutragedDems extends queries {
 		$Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
 		return $Address_Line1;
   }
+  
+  function DB_ReturnAddressLine2($vor) {
+  	$Address_Line2 = $vor["Raw_Voter_ResCity"] . ", NY " . $vor["Raw_Voter_ResZip"];
+    return $Address_Line2;
+  }
+	
+	function DB_ReturnFullName($vor) {
+		$FullName = $vor["Raw_Voter_FirstName"] . " ";
+		if ( ! empty ($vor["Raw_Voter_MiddleName"])) { $FullName .= substr($vor["Raw_Voter_MiddleName"], 0, 1) . ". "; }
+		$FullName .= $vor["Raw_Voter_LastName"] ." ";
+		if ( ! empty ($vor["Raw_Voter_Suffix"])) { $FullName .= $vor["Raw_Voter_Suffix"]; }				
+		$FullName = ucwords(strtolower($FullName));
+		return $FullName;
+	}	
 	
 }
 

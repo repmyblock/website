@@ -33,7 +33,6 @@ if ( ! empty ($k)) {
 $DEBUG["TimePassed"] = $URIEncryptedString["LastTimeUser"];
 $DEBUG["TimeFromSystem"] = time();
 $DEBUG["TimeDifference"] = time() - $URIEncryptedString["LastTimeUser"];
-
 $TimerToLoggoff = 36000000;
 
 if ( (time() - $URIEncryptedString["LastTimeUser"] ) > $TimerToLoggoff  && ! empty ($URIEncryptedString)) { 
@@ -58,6 +57,7 @@ function EncryptURL($string = "") {
   openssl_get_publickey($PubKey);
    
   $MyString = "LastTimeUser=" . time();
+    
   if ( ! empty ($string)) {
   	$MyString .= "&" . $string;
   }
@@ -121,7 +121,6 @@ function CreateThePassword ($Password) {
 	$CharsSeed .= time();
 	$CharsSeed .= substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 7)), 0, 4);
 	$CharsSeed = substr(md5($CharsSeed), 0, 16);
-	
 	return crypt($Password, '$6$rounds=5000$' . $CharsSeed . '$');
 }
 

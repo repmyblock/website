@@ -55,7 +55,8 @@
 	$PersonBio       = $rmbperson["SystemUserProfile_bio"];
 	$PersonURL       = $rmbperson["SystemUserProfile_URL"];
 	$PersonLocation  = $rmbperson["SystemUserProfile_Location"];
-	
+	if ( ! empty($SystemAdmin)) { $NewEncryptFile .= "&SystemAdmin=" . $SystemAdmin; }
+
 	if ( $VerifVoter == 1) { $NewEncryptFile .= "&VerifVoter=1"; }
 	if ( $VerifEmail == 1) { $NewEncryptFile .= "&VerifEmail=1"; }
 	if ( ! empty($PersonFirstName)) { $NewEncryptFile .= "&FirstName=" . $PersonFirstName; }

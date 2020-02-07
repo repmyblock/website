@@ -47,8 +47,6 @@
 		  </DIV>
 		</DIV> 
 		
-
-
 <?php $NewKToEncrypt = EncryptURL("SystemUser_ID=" . $SystemUser_ID); ?>
 
 <?php /*

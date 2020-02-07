@@ -5,6 +5,7 @@
 	 
   require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 
@@ -13,6 +14,14 @@
 
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
+	
+	if (!empty($_POST)) {		
+		$EncryptURL = $Decrypted_k . "&Query_FirstName=" . urlencode($_POST["FirstName"]) . "&Query_LastName=" . urlencode($_POST["LastName"]);
+		header("Location: voterlist/?k=" . EncryptURL($EncryptURL));		
+		exit();
+		
+	}
+	
 
 				
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
@@ -26,36 +35,65 @@
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
 
 
-<div class="col-9 float-left">
+		<div class="col-9 float-left">
 
-	<div class="Subhead">
-  	<h2 class="Subhead-heading">Team</h2>
-	</div>
-	
-	<?php 
-		if ($VerifEmail == true) { 
-			include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
-		} else if ($VerifVoter == true) {
-			include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
-		} 
-	?>          
- 
-  <dl class="form-group">
-  	<dt><label for="user_profile_email">Team building</label></dt>
-    <dd class="d-inline-block">       	
-   		<A HREF="">Send me a petition by email that I can foward</A><BR>
-   		<A HREF="/lgd/voters/?k=<?= $k ?>">Send a petition to a verified voter</A><BR>
-   	 
-	<?php	if ( $SystemAdmin == $FullAdminRights && ! empty ($FullAdminRights)) { ?>
-  		<A HREF="/lgd/team/admin/?k=<?= $k ?>">Admin Screen</A><BR>	
-  <?php	} ?>
-   		
-   		
-    </dd>
-  </dl>
-    
+			<div class="Subhead">
+		  	<h2 class="Subhead-heading">Admin</h2>
+			</div>
 			
-		
+			<?php 
+				if ($VerifEmail == true) { 
+					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
+				} else if ($VerifVoter == true) {
+					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
+				} 
+			?>          
+		 
+		  <dl class="form-group">
+		  	<dt><label for="user_profile_email">Admin</label></dt>
+		    <dd class="d-inline-block">       	
+		   		<A HREF="/lgd/team/admin/users/?k=<?= $k ?>">Manage users</A><BR>
+		   		<A HREF="/lgd/voters/?k=<?= $k ?>">Send a petition to a verified voter</A><BR>
+		   	 
+			<?php	if ( $SystemAdmin == $FullAdminRights && ! empty ($FullAdminRights)) { ?>
+		  		<A HREF="/lgd/team/admin/?k=<?= $k ?>">Admin Screen</A><BR>	
+		  <?php	} ?>
+		   		
+		   		
+		    </dd>
+		  </dl>
+		    
+			<div class="clearfix gutter d-flex flex-shrink-0">
+				<div class="col-16">
+				  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
+						<div>
+							<dl class="form-group col-3 d-inline-block"> 
+								<dt><label for="user_profile_name">First Name</label><DT>
+								<dd>
+									<input class="form-control" type="text" Placeholder="First" name="FirstName" VALUE=Theo id="user_profile_name">
+								</dd>
+							</dl>
+
+							<dl class="form-group col-3 d-inline-block"> 
+								<dt><label for="user_profile_name">Last Name</label><DT>
+								<dd>
+									<input class="form-control" type="text" Placeholder="Last" name="LastName" VALUE=Chino id="user_profile_name">
+								</dd>
+							</dl>
+							
+							<dl class="form-group col-3 d-inline-block"> 
+								<dd>
+									<button type="submit" class="btn btn-primary">Search Voter Registration</button>
+								</dd>
+							</dl>
+						</div>
+					</form> 
+
+				</div>
+			</div>
+		</div>
+	</DIV>
+</div>	
 
      
   

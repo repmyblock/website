@@ -13,6 +13,7 @@
 		
 		if ( ! empty ($resultPass)) {											
 			$URLToEncrypt = "SystemUser_ID=" . $resultPass["SystemUser_ID"];
+			if ( ! empty ($resultPass["SystemUser_Priv"])) { $URLToEncrypt .= "&SystemAdmin=" . $resultPass["SystemUser_Priv"]; }
 			if ( empty ($resultPass["Raw_Voter_ID"])) { $URLToEncrypt .= "&VerifVoter=1"; }
 			if ( $resultPass["SystemUser_emailverified"] == 'no') { $URLToEncrypt .= "&VerifEmail=1"; }
 			if ( ! empty($resultPass["SystemUser_FirstName"])) { $URLToEncrypt .= "&FirstName=" . $resultPass["SystemUser_FirstName"]; }
