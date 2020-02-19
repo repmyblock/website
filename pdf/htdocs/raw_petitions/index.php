@@ -7,11 +7,42 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/petition_multiclass.php';
 	
 	$r = new OutragedDems();
-	$result = $r->ListCandidatePetition($SystemUser_ID, "published");
+	$result = $r->FindRawVoterbyID($RawDatedFiles, $Raw_Voter_ID);
 	
-	echo $Decrypt_k . "<BR>";
+	/* 
+
+            [Raw_Voter_ID] => 1547321
+            [Raw_Voter_LastName] => CHINO
+            [Raw_Voter_FirstName] => THEO
+            [Raw_Voter_MiddleName] => BRUCE
+            [Raw_Voter_Suffix] => 
+            [Raw_Voter_ResHouseNumber] => 640
+            [Raw_Voter_ResFracAddress] => 
+            [Raw_Voter_ResApartment] => 10B
+            [Raw_Voter_ResPreStreet] => 
+            [Raw_Voter_ResStreetName] => RIVERSIDE DRIVE 
+            [Raw_Voter_ResPostStDir] => 
+            [Raw_Voter_ResCity] => NEW YORK
+            [Raw_Voter_ResZip] => 10031
+            [Raw_Voter_ResZip4] => 1003
+         
+            [Raw_Voter_DOB] => 19720819
+            [Raw_Voter_Gender] => M
+            [Raw_Voter_EnrollPolParty] => DEM
+         
+            [Raw_Voter_OtherParty] => 
+            [Raw_Voter_CountyCode] => 31
+            [Raw_Voter_ElectDistr] => 2
+            [Raw_Voter_LegisDistr] => 0
+            [Raw_Voter_TownCity] => NEW YORK
+            [Raw_Voter_Ward] => 
+            [Raw_Voter_CongressDistr] => 13
+            [Raw_Voter_SenateDistr] => 31
+            [Raw_Voter_AssemblyDistr] => 71
+         
+            [Raw_Voter_Status] => ACTIVE
+              */
 	
-	exit();
 	
 	if ( ! empty ($result)) {
 		foreach ($result as $var) {
