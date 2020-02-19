@@ -69,15 +69,15 @@
 
 		
 		<P CLASS="f60">
-			<A HREF="/login/forgotpwd">I forgot my password</A>
+			<A HREF="/login/forgotpwd/">I forgot my password</A>
 		</P>
 		
 		<P CLASS="f60">
-			<A HREF="/login/forgotuser">I forgot my username</A>
+			<A HREF="/login/forgotuser/">I forgot my username</A>
 		</P>
 		
 		<P CLASS="f60">
-			<A HREF="/register">Register</A>
+			<A HREF="/register/">Register</A>
 		</P>
 
 	</DIV>

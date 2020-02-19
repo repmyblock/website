@@ -19,7 +19,7 @@
 <?php if ( $MenuLogin == "logged") { ?>
 				  <a href="/get-involved/profile/?k=<?= $NewKToEncrypt ?>" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
 <?php } else { ?>							
-					<A HREF="/get-involved/login/">LOGIN</A>
+					<A HREF="/login/">LOGIN</A>
 <?php } ?>  
 				</DIV>
 				<DIV CLASS="FooterSocial">

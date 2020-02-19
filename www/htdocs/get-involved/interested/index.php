@@ -26,7 +26,7 @@
 		</P>
 	</DIV>
 	
-	<P CLASS="f80 center"><A HREF="/register">Register on the Rep My Block website</A></P>
+	<P CLASS="f80 center"><A HREF="/register/">Register on the Rep My Block website</A></P>
 
 	<button class="accordion2">The First Step</button>
 	<div class="panel2">
@@ -57,7 +57,7 @@
 	</P>
 
 	
-		<P CLASS="f80 center"><A HREF="/register">Register on the Rep My Block website</A></P>
+		<P CLASS="f80 center"><A HREF="/register/">Register on the Rep My Block website</A></P>
 	
 	</DIV>
 
@@ -78,7 +78,7 @@
 			your registration automatically on the Rep My Block website.</B>
 		</P>
 			
-		<P CLASS="f80 center"><A HREF="/register">Register on the Rep My Block website</A></P>
+		<P CLASS="f80 center"><A HREF="/register/">Register on the Rep My Block website</A></P>
 		</DIV>
 
 
@@ -102,7 +102,7 @@
 		that is organized by streets.
 	</P>	
 
-	<P CLASS="f80 center"><A HREF="/register">Register on the Rep My Block website</A></H2></CENTER></P>
+	<P CLASS="f80 center"><A HREF="/register/">Register on the Rep My Block website</A></H2></CENTER></P>
 	</DIV>
 
 
@@ -126,7 +126,7 @@
 	 <iframe width="560" height="240" src="https://www.youtube.com/embed/9GfIm72Ksz0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</P>
 	
-	<P CLASS="f80 center"><A HREF="/register">Register on the Rep My Block website</A></P>
+	<P CLASS="f80 center"><A HREF="/register/">Register on the Rep My Block website</A></P>
 
 	
 		</DIV>
@@ -150,7 +150,7 @@
 		need to do is to staple your petition together and drop them at a drop off location. 
 	</P>
 
-	<P CLASS="f80 center"><A HREF="/register">Register on the Rep My Block website</A></P>
+	<P CLASS="f80 center"><A HREF="/register/">Register on the Rep My Block website</A></P>
 	
 		</DIV>
 
@@ -179,7 +179,7 @@
 	 <iframe width="560" height="240" src="https://www.youtube.com/embed/WXRd6lF3Ix4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</P>
 	
-	<P CLASS="f80 center"><A HREF="/register">Register on the Rep My Block website</A></P>
+	<P CLASS="f80 center"><A HREF="/register/">Register on the Rep My Block website</A></P>
 		</DIV>
 
 
@@ -218,7 +218,7 @@
 	 <iframe width="560" height="240" src="https://www.youtube.com/embed/wPDC_XeTbc4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</P>
 	
-	<P CLASS="f80 center"><A HREF="/register">Register on the Rep My Block website</A></P>
+	<P CLASS="f80 center"><A HREF="/register/">Register on the Rep My Block website</A></P>
 	
 
 </div>
