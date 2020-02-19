@@ -1,6 +1,3 @@
-<HR>
-<?= "&nbsp;" . DecryptURL($k);?>
-<HR>
 		<div class="footer">
 			<P CLASS="footerclass1">
 				<DIV CLASS="FooterTitle">REP MY BLOCK</DIV>
@@ -17,7 +14,7 @@
 					<A HREF="/get-involved/interested/">REPRESENT</A>
 					<A HREF="/get-involved/propose/">NOMINATE</A>
 <?php } ?>  
-					<A HREF="/where-to-file/prepare-to-file-your-petition-to-the-board-of-elections.html">HOWTO</A>
+					<A HREF="/howto/">HOWTO</A>
 					<A HREF="/contact/">CONTACT</A>
 <?php if ( $MenuLogin == "logged") { ?>
 				  <a href="/get-involved/profile/?k=<?= $NewKToEncrypt ?>" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>

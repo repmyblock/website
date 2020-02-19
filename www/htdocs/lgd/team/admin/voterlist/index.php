@@ -8,6 +8,39 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
+	
+	if ( ! empty ($_POST)) {
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
+
+		echo "<PRE>";
+		print_r($_POST);
+		echo "</PRE>";
+
+		$to = "theo@theochino.com";
+		$emailsubject = time() . " - Your sample Democratic party petition and walk sheet.";
+		$message = "Attached is the walk list for ";
+		$EDAD = "43340";
+		
+		$Data["Dear"] = "";
+		$Data["TotalSignatures"] = "";
+		$Data["FullAddress"]  = "";
+		$Data["FullAddressLine2"] = "";
+		$Data["ASSEMDISTR"] = "";
+		$Data["ELECTDISTR"] = "";
+		$Data["NumberVoters"] = "";
+		$Data["PartyName"] = "";
+		$Data["TotalSignatures"] = "";
+		$Data["PartyNamePlural"] = "";
+					
+		if ( ! empty ($_POST)) {
+			foreach ($_POST as $key => $value) {
+				if ( ! empty ($value)) {			
+					SendWalkList($value, $emailsubject, $message, $EDAD, $key, $Data);		
+					$EmailSend = "<FONT COLOR=GREEN>Sucess! Email sent to $value</FONT>";
+				}
+			}
+		}
+	}
 
   if (empty ($SystemUser_ID)) { goto_signoff(); }
 	$rmb = new repmyblock();
@@ -35,7 +68,7 @@
 				</div>
 			
 	
-						
+						 <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 						<div class="list-group-item filtered f60 hundred">
 							<span><B>Raw Voter List</B></span>  	          			
 						</div>
@@ -68,15 +101,19 @@
 									Ward: <?= $var["Raw_Voter_Ward"] ?>
 									Congress: <?= $var["Raw_Voter_CongressDistr"] ?>
 									Senate: <?= $var["Raw_Voter_SenateDistr"] ?>
-									Status<?= $var["Raw_Voter_Status"] ?><BR>
+									Status: <?= $var["Raw_Voter_Status"] ?><BR>
 									
-									<span class="ml-1"><?= $Elect["Elector_Address"] ?></span> 
+									<?php $MySpecialK = EncryptURL("Raw_Voter_ID=" . $var["Raw_Voter_ID"] . "&RawDatedFiles=" .  $DatedFiles . "&ED=" . $var["Raw_Voter_ElectDistr"] . "&AD=" . $var["Raw_Voter_AssemblyDistr"]); ?>
 									<svg class="octicon octicon-repo mr-1" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
-									Download <a class="mr-1" href="<?= $FrontEndPDF ?>/raw_voterlist/?k=<?= EncryptURL("Raw_Voter_ID=" . $var["Raw_Voter_ID"] . "&RawDatedFiles=" .  $DatedFiles) ?>">Walking 
-									List</a> <a class="mr-1" href="<?= $FrontEndPDF ?>/raw_petitions/?k=<?= EncryptURL("Raw_Voter_ID=" . $var["Raw_Voter_ID"] . "&RawDatedFiles=" .  $DatedFiles) ?>">Petition</a>
-								</div>			
+									Download <a class="mr-1" href="<?= $FrontEndPDF ?>/raw_voterlist/?k=<?= $MySpecialK ?>">Walking 
+									List</a> <a class="mr-1" href="<?= $FrontEndPDF ?>/raw_petitions/?k=<?= $MySpecialK ?>">Petition</a>
+									<BR>
+									<?php if ( ! empty ($EmailSend)) { echo $EmailSend . "<BR>"; } ?>
+									Email: 	<input class="form-control" type="text" Placeholder="Email Address" value="" name="<?= $MySpecialK ?>" id="">
+										<button type="submit" value="<?= $MySpecialK ?>" class="btn btn-primary">Email Walking List</button>
 								
-								
+									</div>
+									
 			<?php	}	 
 				} 
 
@@ -85,7 +122,7 @@
 						
 						</DIV>
 
- 
+</FORM>
 </DIV>
 </DIV>
 </DIV>

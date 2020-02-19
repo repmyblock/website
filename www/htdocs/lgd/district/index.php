@@ -14,12 +14,6 @@
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
 
-	
-	
-	$CommitteeMembers = "Vacant";
-	$DistrictLeaders = "Theo Chino (M) Maria Something (F)";
-	$AssemblyPart = "B";
-	
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 ?>
 <div class="row">
@@ -30,6 +24,15 @@
 				<div class="Subhead">
 					<h2 class="Subhead-heading">District</h2>
 				</div>
+				
+				
+				<H1>This page is not ready yet.</H1>
+				
+				<DIV>
+					There is supposed to be a map of the district.
+				</DIV>
+
+<?php /*
 
 				<?php 
 					if ($VerifEmail == true) { 
@@ -83,7 +86,10 @@
 				   
 				</DIV>
 			</DIV>
+				*/ ?>
 		</DIV>
+	
+		
 	</DIV>
 </DIV>
 

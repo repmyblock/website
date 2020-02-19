@@ -98,8 +98,9 @@
 } 
 </style>
 
-
+<div class="row">
   <div class="main">
+
 
 		<FORM ACTION="" METHOD="POST">
 		<div class="Box">
@@ -117,33 +118,34 @@
 			$Counter = 0;
 			if ( ! empty ($Position)) {
 				foreach ($Position as $PartyPosition => $Positions) {
-					if ( ! empty ($PartyPosition)) { ?>
-						
+					if ( ! empty ($PartyPosition)) {
+?>
+					
 						<div class="list-group-item filtered f60">
-							<span><B>&nbsp;&nbsp;<?= $PartyPosition ?></B></span>  
-							<BR>
+								
+							<span><B>&nbsp;&nbsp;<?= ucfirst($PartyPosition) ?></B></span>  
+							
 							<DIV CLASS="f40">
 								<FONT COLOR="BROWN">At this time only County Committee works. The other positions are not ready. 
 								<I>(The select position button is at the bottom of this page.)</I>
 								</FONT>
 							</DIV>		          			
-						</div>
+						</div>					
 							
-					 <DIV class="panels">
+					
 <?php				
 						foreach ($Positions as $Pos => $Explain) {
 					 		if (! empty ($Pos)) { ?>
 								<div class="list-group-item">
-									<BR>
 									<DIV CLASS="f60">
-										<INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Pos ?>">&nbsp;&nbsp;
-										<B><?= $Pos ?></B>
-									</DIV><BR>
-									<DIV CLASS="f40"><?= $Explain ?></DIV><BR>
+										<?php if ($Pos == "County Committee") { ?>
+										<INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Pos ?>"><?php } ?>&nbsp;&nbsp;<B><?= $Pos ?></B>
+									</DIV>
+									<DIV CLASS="f40"><?= $Explain ?></DIV>
 								</div>			
 <?php					}	  }
 						} ?>
-						</DIV>
+					
 <?php		
 				}
 			} ?>
@@ -159,35 +161,7 @@
 </DIV>
 </DIV>
 </DIV>
+</DIV>
 
-<script>
-	// Default SortableJS
-	//import Sortable from 'sortablejs';
-
-	// Core SortableJS (without default plugins)
-	// import Sortable from 'sortablejs/modular/sortable.core.esm.js';
-
-	// Complete SortableJS (with all plugins)
-	// import Sortable from 'sortablejs/modular/sortable.complete.esm.js';
-	
-	var acc = document.getElementsByClassName("accordeonbutton");
-	var i;
-
-	for (i = 0; i < acc.length; i++) {
-		acc[i].addEventListener("click", function() {
-		  /* Toggle between adding and removing the "active" class,
-		  to highlight the button that controls the panel */
-		  // this.classList.toggle("active");
-		
-		  /* Toggle between hiding and showing the active panel */
-		  var panel = document.getElementsByClassName("panels");
-		  if (panel[this.id].style.display === "block") {
-		    panel[this.id].style.display = "none";
-		  } else {
-		    panel[this.id].style.display = "block";
-		  }
-		});
-	}
-</SCRIPT>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>

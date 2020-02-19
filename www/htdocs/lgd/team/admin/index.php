@@ -16,14 +16,13 @@
 	$Party = NewYork_PrintParty($UserParty);
 	
 	if (!empty($_POST)) {		
-		$EncryptURL = $Decrypted_k . "&Query_FirstName=" . urlencode($_POST["FirstName"]) . "&Query_LastName=" . urlencode($_POST["LastName"]);
+		$EncryptURL = $Decrypted_k . "&Query_FirstName=" . urlencode($_POST["FirstName"]) . 
+									"&Query_LastName=" . urlencode($_POST["LastName"]) .
+									"&AD=" . urlencode($_POST["AD"]) . "&ED=" . urlencode($_POST["ED"]);
 		header("Location: voterlist/?k=" . EncryptURL($EncryptURL));		
 		exit();
-		
 	}
-	
 
-				
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 ?>
 
@@ -48,38 +47,45 @@
 					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
 				} 
 			?>          
-		 
-		  <dl class="form-group">
-		  	<dt><label for="user_profile_email">Admin</label></dt>
-		    <dd class="d-inline-block">       	
-		   		<A HREF="/lgd/team/admin/users/?k=<?= $k ?>">Manage users</A><BR>
-		   		<A HREF="/lgd/voters/?k=<?= $k ?>">Send a petition to a verified voter</A><BR>
-		   	 
-			<?php	if ( $SystemAdmin == $FullAdminRights && ! empty ($FullAdminRights)) { ?>
-		  		<A HREF="/lgd/team/admin/?k=<?= $k ?>">Admin Screen</A><BR>	
-		  <?php	} ?>
-		   		
-		   		
-		    </dd>
-		  </dl>
+		
 		    
-			<div class="clearfix gutter d-flex flex-shrink-0">
+<div class="clearfix gutter d-flex flex-shrink-0">
 				<div class="col-16">
 				  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 						<div>
 							<dl class="form-group col-3 d-inline-block"> 
 								<dt><label for="user_profile_name">First Name</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="First" name="FirstName" VALUE=Theo id="user_profile_name">
+									<input class="form-control" type="text" Placeholder="First" name="FirstName" VALUE="" id="">
 								</dd>
 							</dl>
 
 							<dl class="form-group col-3 d-inline-block"> 
 								<dt><label for="user_profile_name">Last Name</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="Last" name="LastName" VALUE=Chino id="user_profile_name">
+									<input class="form-control" type="text" Placeholder="Last" name="LastName" VALUE="" id="">
 								</dd>
 							</dl>
+							
+							</div>
+								<div>
+							
+							<dl class="form-group col-3 d-inline-block"> 
+								<dt><label for="user_profile_name">Assembly District</label><DT>
+								<dd>
+									<input class="form-control" type="text" Placeholder="Assembly District" name="AD" VALUE="" id="">
+								</dd>
+							</dl>
+
+							<dl class="form-group col-3 d-inline-block"> 
+								<dt><label for="user_profile_name">Electoral District</label><DT>
+								<dd>
+									<input class="form-control" type="text" Placeholder="Electoral District" name="ED" VALUE="" id="">
+								</dd>
+							</dl>
+							
+								</div>
+								<div>
 							
 							<dl class="form-group col-3 d-inline-block"> 
 								<dd>
@@ -89,67 +95,12 @@
 						</div>
 					</form> 
 
+
 				</div>
 			</div>
 		</div>
 	</DIV>
 </div>	
-
-     
-  
-		
-
-			
-		
-		
-<?php /*
-		<h2>List of voters in your area.</H2>	
-		
-	
-		<P>
-			<FONT SIZE=+2><A HREF="/get-involved/target/?k=<?= $k ?>">Create a petition set with the voters you want to target</A></FONT><BR>		
-		</P>
-		
-		<h2>This is a list of petition set created</h2>
-		
-		<P>
-		
-		<?php 
-			if ( ! empty ($result) ) {
-				foreach ($result as $var) {
-					if ( ! empty ($var)) {
-						$NewKEncrypt = EncryptURL($NewK . "&CandidatePetitionSet_ID=" . $var["CandidatePetitionSet_ID"] . 
-																											   "&Candidate_ID=" . $var["Candidate_ID"] );
-		?>				
-						<A HREF="/get-involved/list/printpetitionset/?k=<?= $NewKEncrypt ?>">Petition set created 
-							on <?= PrintShortDate($var["CandidatePetitionSet_TimeStamp"]) ?> at 
-							<?= PrintShortTime($var["CandidatePetitionSet_TimeStamp"]) ?></A>
-						<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/petitions/?k=<?= $NewKEncrypt ?>"><i class="fa fa-download"></i></A> 
-						<A HREF="/get-involved/list/emailpetition/?k=<?= $NewKEncrypt  ?>"><i class="fa fa-share"></i></A>																													
-						<BR>
-		<?php
-					}
-				}
-			}
-		?>
-
-		</P>				
-		
-		<P>
-			<FONT SIZE=+2><A HREF="managesignedvoters.php?k=<?= $k ?>">Manage your signed voters</A></FONT>
-		</P>
-		
-		
-		<P>
-			<FONT SIZE=+2><A HREF="">Candidates running in your district.</A></FONT>
-		</P>
-		
-		<UL>
-			* None.
-		</UL>
-
-		*/ ?>
-
 
 </DIV>
 </DIV>

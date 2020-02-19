@@ -49,6 +49,13 @@
 					} 
 				?> 
 			
+			<H1>This page is not ready yet.</H1>
+				
+				<DIV>
+					There is supposed to be a list of custom made petitions.
+				</DIV>
+
+<?php /*			
 			  <div class="Box">
 					<div class="Box-header pl-0">
 						<div class="table-list-filters d-flex">
@@ -93,6 +100,8 @@
 			
 				</div>
 			</div>
+			*/ ?>
+			
 		</div>
 	</DIV>
 </DIV>

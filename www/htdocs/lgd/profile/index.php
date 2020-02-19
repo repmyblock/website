@@ -74,7 +74,7 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
-
+<div class="row">
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
   		<div class="<?= $Cols ?> float-left">
@@ -160,10 +160,12 @@
 						</div>
 					</form>    
 				</div>
+			</DIV>
+		</DIV>
+	</DIV>
+</DIV>
+		
 
-			</div>
-		</div>
-	</div>
 
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>

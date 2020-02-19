@@ -34,6 +34,14 @@
 		if ($VerifVoter == 1) { $EncryptURL .= "&VerifVoter=1"; }
 		if ($VerifEmail == 1) { $EncryptURL .= "&VerifEmail=1"; }
 		
+		/*
+		print "RESULT: ";
+		echo "<PRE>";
+		print_r($result);
+		echo "</PRE>";
+		exit();
+		*/
+		
 		switch(count($result)) {
 			case 0:
 				//echo "Did not find anything\n";
@@ -61,7 +69,7 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
 ?>
-
+<div class="row">
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
   		<div class="<?= $Cols ?> float-left">

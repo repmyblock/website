@@ -118,33 +118,20 @@
 	}
 ?>
 		
-		
-		
-	<div class="Box">
-  	<div class="Box-header pl-0">
-    	<div class="table-list-filters d-flex">
-  			<div class="table-list-header-toggle states flex-justify-start pl-3">Open positions to run for in the <?= $Party ?> Party</div>
-  		</div>
-    </div>
-    
-    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
-      We don't know your district <a href="/voter">create one</a>?
-    </div>
+		<div class="Box">
+	  	<div class="Box-header pl-0">
+	    	<div class="table-list-filters d-flex">
+	  			<div class="table-list-header-toggle states flex-justify-start pl-3">Open positions to run for in the <?= $Party ?> Party</div>
+	  		</div>
+	    </div>
+	    
+	    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
+	      We don't know your district <a href="/voter">create one</a>?
+	    </div>
 
-		<div id="voters" >
-
-				
-						<div class="list-group-item filtered">
-							<button class="accordeonbutton" id="<?= $Counter++ ?>">Open</button>	
-							<span><B><?= $PartyPosition ?></B></span>  
-							
-						
-								          			
-						</div>
-							
-					 <DIV class="panels">
-					 	
-					 	
+		</DiV>
+								
+		<DIV class="list-group-item ">
 <?php
 				if ( ! empty ($result)) {
 					foreach ($result as $index => $var) { 
@@ -182,71 +169,46 @@
 						<INPUT TYPE="hidden" NAME="PetitionAddress" VALUE="<?= $PetitionFullAddress ?>">
 
 
-
-<?php				print " INDEX: $index<BR>";
-						if ( ! empty ($var)) {
-							foreach ($var as $index2 => $vor) {
-								if ( ! empty ($vor)) {
-									print "Result: $index2 $vor<BR>";
-								}
-							}
-						}
-					}
-				}
-?>
+		
+						<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
+						<?= $result[$index]["Raw_Voter_ID"] ?> - <?= $result[$index]["Raw_Voter_UniqNYSVoterID"] ?><BR>
+						<B>Last Name:</B> <?= $result[$index]["Raw_Voter_LastName"] ?> <B>First Name:</B> <?= $result[$index]["Raw_Voter_FirstName"] ?>	<B>Middle Name:</B> <?= $result[$index]["Raw_Voter_MiddleName"] ?> 
+						<?php if ( !empty ($result[$index]["Raw_Voter_Suffix"])) { echo "<B>Suffix:</B>" . $result[$index]["Raw_Voter_Suffix"]; } ?><BR>
+						<?= $result[$index]["Raw_Voter_ResHouseNumber"] ?>
+						<?= $result[$index]["Raw_Voter_ResFracAddress"] ?>
+						<?= $result[$index]["Raw_Voter_ResPreStreet"] ?>
+						<?= $result[$index]["Raw_Voter_ResStreetName"] ?>
+						<?= $result[$index]["Raw_Voter_ResPostStDir"] ?><BR>
+						<?= $result[$index]["Raw_Voter_ResApartment"] ?><BR>
+						<?= $result[$index]["Raw_Voter_ResCity"] ?>,
+						<?= $result[$index]["Raw_Voter_ResZip"] ?> - <?= $result[$index]["Raw_Voter_ResZip4"] ?><BR>
+						<?= $result[$index]["Raw_Voter_DOB"] ?> - <?= $result[$index]["Raw_Voter_Gender"] ?> - <?= $result[$index]["Raw_Voter_EnrollPolParty"] ?><BR>
+						<B>County:</B> <?= $result[$index]["Raw_Voter_CountyCode"] ?> 
+						<B>AD:</B> <?= $result[$index]["Raw_Voter_AssemblyDistr"] ?>
+						<B>ED:</B> <?= $result[$index]["Raw_Voter_ElectDistr"] ?>
+						<B>Legist:</B> <?= $result[$index]["Raw_Voter_LegisDistr"] ?>
+						<B>Town:</B> <?= $result[$index]["Raw_Voter_TownCity"] ?>
+						<B>Ward:</B> <?= $result[$index]["Raw_Voter_Ward"] ?>
+						<B>Congress:</B> <?= $result[$index]["Raw_Voter_CongressDistr"] ?>
+						<B>Senate:</B> <?= $result[$index]["Raw_Voter_SenateDistr"] ?><BR>
+						<B>Status:</B> <?= $result[$index]["Raw_Voter_Status"] ?> - <B>Last Time Voted:</B> <?= $result[$index]["Raw_Voter_LastDateVoted"] ?>
 						
+					<?php } } ?>
 													
-								</div>			
-						</DIV>
-	 
-		
-	 
+		<DIV>
+			<p><button type="submit" class="btn btn-primary">Run for the selected positions</button></p>
 		</div>
-		
-	
-		
-	</div>
-		<BR>
-		<p><button type="submit" class="btn btn-primary">Run for the selected positions</button></p>
-</div>
+										
+							
+		 
+			</div>
+		</div>
+		 
 </FORM>
 
-</DIV>
-
-		
-			</div>		
-		</div>
-	</div>
+	</DIV>
+</DIV>	
 
 
-<script>
-	// Default SortableJS
-	//import Sortable from 'sortablejs';
-
-	// Core SortableJS (without default plugins)
-	// import Sortable from 'sortablejs/modular/sortable.core.esm.js';
-
-	// Complete SortableJS (with all plugins)
-	// import Sortable from 'sortablejs/modular/sortable.complete.esm.js';
-	
-	var acc = document.getElementsByClassName("accordeonbutton");
-	var i;
-
-	for (i = 0; i < acc.length; i++) {
-		acc[i].addEventListener("click", function() {
-		  /* Toggle between adding and removing the "active" class,
-		  to highlight the button that controls the panel */
-		  // this.classList.toggle("active");
-		
-		  /* Toggle between hiding and showing the active panel */
-		  var panel = document.getElementsByClassName("panels");
-		  if (panel[this.id].style.display === "block") {
-		    panel[this.id].style.display = "none";
-		  } else {
-		    panel[this.id].style.display = "block";
-		  }
-		});
-	}
-</SCRIPT>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>

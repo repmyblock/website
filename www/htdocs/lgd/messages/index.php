@@ -21,9 +21,7 @@
 
 <div class="row">
   <div class="main">
-
-
-
+  	
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
 
 
@@ -41,6 +39,16 @@
 			include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
 		} 
 	?>
+	
+	<H1>This page is not ready yet.</H1>
+				
+				<DIV>
+					There is supposed to be a way to messages other Rep My Block candidates so you can 
+					create teams.
+				</DIV>
+	
+	
+<?php /*
 	
   <div class="Box">
       <div class="Box-header pl-0">
@@ -95,12 +103,13 @@
 
               
             </div>
-<?php */ ?>
+
             
       </div>
 
   </div>
 </div>
+<?php */ ?>
 </DIV>
 </DIV>
 </DIV>

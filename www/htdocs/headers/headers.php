@@ -1,9 +1,11 @@
 <?php
+	error_reporting(E_ERROR | E_PARSE);
 	// echo "<B>Decrypted Line:</B> " .  $_SERVER['DOCUMENT_URI'] .  "<UL>$Decrypted_k</UL>";
 	if ( preg_match('/Mobile/', $_SERVER['HTTP_USER_AGENT'])) { $MobileDisplay = true; }
 	//$MobileDisplay = true; 
 	if ( ! empty ($k) && $SystemUser_ID > 0 ) { $MenuLogin = "logged"; }
-	$imgtoshow = "RepMyBlock.png";
+	
+	if ( empty ($imgtoshow )) {	$imgtoshow = "/pics/RepMyBlock.png";	}
 	
 ?><!DOCTYPE html>
 <html lang="en-US" prefix="og: http://ogp.me/ns#" class="no-js">
@@ -35,19 +37,23 @@
   <body class="logged-in env-production emoji-size-boost min-width-lg page-account">
 		<DIV class="header">
 			<div class="header-left">
-			  <a href="/" class="logo"><IMG SRC="/pics/RepMyBlock.png" class="header-logo"></a>
+			  <a href="/" class="logo"><IMG SRC="<?= $imgtoshow ?>" class="header-logo"></a>
 			</DIV>
 		  <div class="header-right">
-  	  	<a class="login" href="/contact">CONTACT</a>
+  	  	<a class="login" href="/contact/">CONTACT</a>
 		  	<?php if ( $MenuLogin == "logged") { ?>
 					 <a href="/signoff/?k=<?= $k ?>" class="login right<?php if ($BigMenu == "profile") { echo " active"; } ?>">LOGOUT</a>
 				<?php } else { ?>
-		    	<a href="/login" class="login">LOGIN</a>
+		    	<a href="/login/" class="login">LOGIN</a>
 		    <?php } ?>
 		  </DIV>
 		</DIV> 
 		
-<?php $NewKToEncrypt = EncryptURL("SystemUser_ID=" . $SystemUser_ID); ?>
+<?php 
+	if ( ! empty($SystemUser_ID)) {
+		$NewKToEncrypt = EncryptURL("SystemUser_ID=" . $SystemUser_ID); 
+	}
+?>
 
 <?php /*
 <nav class="d-flex" aria-label="Global">
