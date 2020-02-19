@@ -39,24 +39,24 @@
 	
 	$rmbvoters = $rmb->SearchVotersBySingleIndex($VotersIndexes_ID, $DatedFiles);
 	
-	
+	/*
 		print "RESULT: ";
 		echo "<PRE>";
 		print_r($rmbvoters);
 		echo "</PRE>";
-
+*/
 
 	
 	if (! empty ($rmbvoters["Raw_Voter_UniqNYSVoterID"])) {
 		$rmbvoteridx = $rmb->SearchLocalRawDBbyNYSID($rmbvoters["Raw_Voter_UniqNYSVoterID"]);
 	
 	
-	
+	/*
 		print "RESULT: ";
 		echo "<PRE>";
 		print_r($rmbvoteridx);
 		echo "</PRE>";
-	
+	*/
 	
 		if ( ! empty ($rmbvoteridx)) {
 			foreach ($rmbvoteridx as $var) {
