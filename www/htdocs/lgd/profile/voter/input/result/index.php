@@ -70,7 +70,7 @@
 	}
 	
 	
-		exit();
+	
 
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
