@@ -130,7 +130,7 @@
 							</dl>
 							
 							<dl class="form-group">
-								<dt><label for="user_profile_bio">Bio - Please write any notes for the Organizers.</label></dt>
+								<dt><label for="user_profile_bio">Bio - Please write any notes to the organizers.</label></dt>
 								<dd class="user-profile-bio-field-container js-length-limited-input-container">
 									<textarea class="form-control user-profile-bio-field js-length-limited-input" placeholder="Tell us a little bit about yourself" data-input-max-length="160" data-warning-text="{{remaining}} remaining" name="profile_bio" id="user_profile_bio"><?= $PersonBio ?></textarea>
 									<p class="js-length-limited-input-warning user-profile-bio-message d-none"></p>
