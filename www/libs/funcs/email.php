@@ -1,7 +1,6 @@
 <?php
 // Petition Email.
 
-
 function SendPetitionEmail2($to, $emailsubject, $message, $k) {
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	$TextTime = time ();
@@ -27,7 +26,7 @@ function SendPetitionEmail($to, $emailsubject, $message, $k) {
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
 
 	$attach[0]["type"] = "application/pdf";
-	$attach[0]["title"] = "Petition.pdf";
+	$attach[0]["title"] = "WalkSheet_Email_EDAD_" . $EDAD . "_" . date("Ymd_Hi") . ".pdf";
 	$attach[0]["body"] =  stream_get_contents(fopen($FrontEndPDF . "/petitions_blkwit/?k=" . $k, 'r'));
 	
 	$message .= "\n\n" . $LinkToAcceptance . "\n";
@@ -39,6 +38,69 @@ function SendPetitionEmail($to, $emailsubject, $message, $k) {
 									"</HTML>";
 	
 	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $htmlmessage);
+}
+
+function SendWalkList($to, $emailsubject, $InsideText, $EDAD, $k, $data) {
+	include_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/invite_email.php";	
+	$TextTime = time ();
+	
+	
+	$attach[0]["type"] = "application/pdf";
+	$attach[0]["title"] = "WalkSheet_Email_EDAD_" . $EDAD . "_" . date("Ymd_Hi") . ".pdf";
+	$attach[0]["body"] =  stream_get_contents(fopen($FrontEndPDF . "/raw_voterlist/?k=" . $k, 'r'));
+	
+		
+	$TextTime = time ();
+	$FromAddress = "infos@RepMyBlock.NYC";
+  $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
+	$emailsubject= "=?utf-8?b?".base64_encode($emailsubject)."?=";
+	
+	$BotArray["sendemail"] =  $to;
+
+  $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
+	$linktoverify = $FrontEndPDF . "/raw_voterlist/?k=" . $k;       
+	
+	$WelcomeLine = "Hello";
+	
+	$message = 
+		"Content-Transfer-Encoding: base64\n" .
+		"Content-Type: text/plain; charset=utf-8\n\n" . 
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+					"\n" . $WelcomeLine . ",\n\n" . $InsideText . "\n\n"
+				)
+			)
+		) . 
+	"\n";
+
+	$html_message = 
+		"Content-Transfer-Encoding: base64\n" .
+		//"Content-Transfer-Encoding: utf-8\n" .
+		"Content-Type: text/html; charset=utf-8\n\n" .	
+		
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+		
+					TopEmail() . 
+					
+					"<P>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>" . $WelcomeLine .",</FONT><BR>\n" .
+					"</P>\n" .
+		
+					ReturnEmailHTML($data) .
+		
+					BottomEmail($BotArray)
+				)
+			)
+		) . 
+	"\n";
+	
+	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $html_message);	
+	
+	
 }
 
 
@@ -953,7 +1015,7 @@ function final_send_mail($fullfrom, $from, $emailaddress, $emailsubject, $messag
 	        $msg .= "--" . $mime_boundary_start . "\n";
 
 	        // sometimes i have to send MS Word, use 'msword' instead of 'pdf'
-	        $msg .= "Content-Type: " . $attach["type"] . "; name=\"" . $attach["title"] . "\"n";
+	        $msg .= "Content-Type: " . $attach["type"] . "; name=\"" . $attach["title"] . "\"\n";
 	        $msg .= "Content-Transfer-Encoding: base64"."\n";
 
 	        // !! This line needs TWO end of lines !! IMPORTANT !!

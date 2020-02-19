@@ -115,7 +115,7 @@ class RepMyBlock extends queries {
 	function ListElectedPositions($state) {
 		$sql = "SELECT * FROM CandidatePositions " . 
 						"WHERE CandidatePositions_State = :State " . 
-						"ORDER BY CandidatePositions_State";
+						"ORDER BY CandidatePositions_Order";
 		$sql_vars = array('State' => $state);
 		return $this->_return_multiple($sql, $sql_vars);
 	}

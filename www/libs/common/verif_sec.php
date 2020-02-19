@@ -20,7 +20,7 @@ if ( ! empty ($_GET["id"])) {
 }
 
 if ( ! empty ($k)) {
-	$Decrypted_k = DecryptURL ( $k );
+	$Decrypted_k = DecryptURL ( $k );	
 	parse_str ( $Decrypted_k, $URIEncryptedString);
   parse_str ( $Decrypted_k );
 
@@ -71,7 +71,7 @@ function EncryptURL($string = "") {
   $blockct = intval( $SizeMessage / $BlockSize )  + 1;
   if (( $SizeMessage % $BlockSize ) == 0 ) {
   	$blockct--;
-  }
+  }  
   
   for ($loop = 0; $loop < $blockct; $loop++) {
     $blocktext = substr($MyString, $loop * $BlockSize, $BlockSize);    
@@ -101,6 +101,7 @@ function DecryptURL ( $sealed ) {
   
   for ($loop=0;$loop < $blockct;$loop++) {
     $blocktext = substr($encpayload, $loop * $BlockSize,  $BlockSize);
+    
     if ( openssl_private_decrypt($blocktext, $decblocktext, $PrivKey) != 1) {
     	while ($msg = openssl_error_string()) {
     		echo $msg . "<br />\n";
