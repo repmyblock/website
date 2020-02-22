@@ -9,67 +9,26 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 	
-	if ( ! empty ($_POST)) {
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
-
-		echo "<PRE>";
-		print_r($_POST);
-		echo "</PRE>";
-
-		$to = "theo@theochino.com";
-		$emailsubject = time() . " - Your sample Democratic party petition and walk sheet.";
-		$message = "Attached is the walk list for ";
-		$EDAD = "43340";
-		
-		$Data["Dear"] = "";
-		$Data["TotalSignatures"] = "";
-		$Data["FullAddress"]  = "";
-		$Data["FullAddressLine2"] = "";
-		$Data["ASSEMDISTR"] = "";
-		$Data["ELECTDISTR"] = "";
-		$Data["NumberVoters"] = "";
-		$Data["PartyName"] = "";
-		$Data["TotalSignatures"] = "";
-		$Data["PartyNamePlural"] = "";
-					
-		if ( ! empty ($_POST)) {
-			foreach ($_POST as $key => $value) {
-				if ( ! empty ($value)) {			
-					SendWalkList($value, $emailsubject, $message, $EDAD, $key, $Data);		
-					$EmailSend = "<FONT COLOR=GREEN>Sucess! Email sent to $value</FONT>";
-				}
-			}
-		}
-	}
-
   if (empty ($SystemUser_ID)) { goto_signoff(); }
 	$rmb = new repmyblock();
 
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
 	
-	if ( ! empty($Query_FirstName) || ! empty ($Query_LastName)) {		
-		$Result = $rmb->SearchVoter_Dated_DB($DatedFiles, $DatedFilesID, $Query_FirstName, $Query_LastName);
-		
-	} else {
-		
-		//print "resultPass: " . "<PRE>" . print_r($resultPass) . "</PRE>";
-		//exit();
-		
-		if (! empty ($AD)) {	
-			if ( empty ($ED)) {
-				header("Location: byad/?k=" . $k);	
-				exit();
-						
-			} else {
-				$Result = $rmb->SearchByAD_Dated_DB($DatedFiles, $DatedFilesID, $AD, $ED);			
-			}
-		} else {
-			echo "The Assembly District cannot be empty, please go back to the previous screen";
-			exit();
-		}
-	}
+	//print "resultPass: " . "<PRE>" . print_r($resultPass) . "</PRE>";
+	//exit();
 	
+	if (! empty ($AD)) {	
+		if ( empty ($ED)) {
+			$Result = $rmb->SearchByAD_Dated_DB($DatedFiles, $DatedFilesID, $AD);			
+		} 
+	}
+
+	print "<PRE>";
+	print_r($Result);
+	print "</PRE>";
+
+
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 ?>
 
