@@ -18,7 +18,8 @@
 	if (!empty($_POST)) {		
 		$EncryptURL = $Decrypted_k . "&Query_FirstName=" . urlencode($_POST["FirstName"]) . 
 									"&Query_LastName=" . urlencode($_POST["LastName"]) .
-									"&AD=" . urlencode($_POST["AD"]) . "&ED=" . urlencode($_POST["ED"]);
+									"&AD=" . urlencode($_POST["AD"]) . "&ED=" . urlencode($_POST["ED"]) . 
+									"&PARTY=" . urlencode($_POST["Party"]);
 		header("Location: voterlist/?k=" . EncryptURL($EncryptURL));		
 		exit();
 	}
@@ -82,9 +83,23 @@
 								<dd>
 									<input class="form-control" type="text" Placeholder="Electoral District" name="ED" VALUE="" id="">
 								</dd>
-							</dl>
-							
+							</dl>					
 								</div>
+								
+							<div>
+							
+							<dl class="form-group col-3 d-inline-block"> 
+								<dt><label for="user_profile_name">Party (Enter the 3 letters, DEM,REP)</label><DT>
+								<dd>
+									<input class="form-control" type="text" Placeholder="3 Letters party name" name="Party" VALUE="" id="">
+								</dd>
+							</dl>
+
+								</div>
+								
+								
+								
+								
 								<div>
 							
 							<dl class="form-group col-3 d-inline-block"> 

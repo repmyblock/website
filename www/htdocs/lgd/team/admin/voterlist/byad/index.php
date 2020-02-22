@@ -24,11 +24,6 @@
 		} 
 	}
 
-	print "<PRE>";
-	print_r($Result);
-	print "</PRE>";
-
-
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
 ?>
 
@@ -48,8 +43,9 @@
 							
 					 <DIV class="panels">
 				<?php
-		 if ( ! empty ($Result)) {
-				foreach ($Result as $var) {
+				
+				$var = $result[0];
+		
 					if ( ! empty ($var)) { ?>
 						
 					 			
@@ -88,9 +84,7 @@
 									</div>
 									
 			<?php	}	 
-				} 
-
-	}?>
+			?>
 						
 						
 						</DIV>

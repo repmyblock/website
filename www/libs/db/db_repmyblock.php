@@ -78,11 +78,12 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
-	function SearchByAD_Dated_DB($DatedFiles, $DatedFilesID, $AD, $ED = NULL) { 
+	function SearchByAD_Dated_DB($DatedFiles, $DatedFilesID, $PARTY, $AD, $ED = NULL) { 
 		$this->SaveVoterRequest("AD: " . $AD, "ED: " . $ED, NULL, $DatedFilesID, NULL, NULL, $_SERVER['REMOTE_ADDR'] );		
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_AssemblyDistr = :AD";
-		$sql_vars = array('AD' => $AD);
+		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_EnrollPolParty = :Party AND " . 
+					"Raw_Voter_AssemblyDistr = :AD";
+		$sql_vars = array('AD' => $AD, 'Party' => $PARTY);
 		if ( ! empty ($ED)) {
 			$sql .= " AND Raw_Voter_ElectDistr = :ED";
 			$sql_vars["ED"] = $ED;
