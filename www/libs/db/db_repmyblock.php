@@ -70,12 +70,28 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
-	function SearchVoter_Dated_DB($DatedFiles, $FirstName, $LastName, $DOB = "") {
+	function SearchVoter_Dated_DB($DatedFiles, $DatedFilesID, $FirstName, $LastName, $DOB = "") {
+		$this->SaveVoterRequest($FirstName, $LastName, $DOB, $DatedFilesID, NULL, NULL, $_SERVER['REMOTE_ADDR'] );		
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_LastName = :LastName AND Raw_Voter_FirstName = :FirstName"; // AND Raw_Voter_DOB = :DOB";
-		$sql_vars = array('FirstName' => $FirstName, 'LastName' => $LastName);							 // 'DOB' => $DOB
+		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_LastName = :LastName AND Raw_Voter_FirstName = :FirstName";
+		$sql_vars = array('FirstName' => $FirstName, 'LastName' => $LastName);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
+
+	function SearchByAD_Dated_DB($DatedFiles, $DatedFilesID, $AD, $ED = NULL) { 
+		$this->SaveVoterRequest("AD: " . $AD, "ED: " . $ED, NULL, $DatedFilesID, NULL, NULL, $_SERVER['REMOTE_ADDR'] );		
+		$TableVoter = "Raw_Voter_" . $DatedFiles;
+		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_AssemblyDistr = :AD";
+		$sql_vars = array('AD' => $AD);
+		if ( ! empty ($ED)) {
+			$sql .= " AND Raw_Voter_ElectDistr = :ED";
+			$sql_vars["ED"] = $ED;
+		} else {
+			$sql .= " GROUP BY Raw_Voter_ElectDistr";
+		}
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+
 
 	function SaveVoterRequest($FirstName, $LastName, $DateOfBirth, $DatedFilesID, $Email, $UniqNYSVoterID, $IP) {
 		$sql = "INSERT INTO SaveVoterRequest SET SaveVoterRequest_FirstName = :FirstName, " .
