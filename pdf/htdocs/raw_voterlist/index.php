@@ -8,9 +8,27 @@
 
 	$r = new OutragedDems();
 	$RawVoter = $r->FindRawVoterbyID($RawDatedFiles, $Raw_Voter_ID);
-	
 	$RawVoter = $RawVoter[0];
-	$Result = $r->FindRawVoterbyADED($RawDatedFiles, $RawVoter["Raw_Voter_ElectDistr"], $RawVoter["Raw_Voter_AssemblyDistr"], 1);
+	
+	if ( ! empty ($URIEncryptedString["Raw_Voter_EnrollPolParty"])){
+		$MyED = $URIEncryptedString["ED"];
+		$MyAD = $URIEncryptedString["AD"];
+		$MyParty = $URIEncryptedString["Raw_Voter_EnrollPolParty"];
+		$MyRawDatedFiles = $URIEncryptedString["RawDatedFiles"];
+	} else {
+		$MyED = $RawVoter["Raw_Voter_ElectDistr"];
+		$MyAD = $RawVoter["Raw_Voter_AssemblyDistr"];
+		$MyParty = $RawVoter["Raw_Voter_EnrollPolParty"];
+		$MyRawDatedFiles = $RawDatedFiles;
+	}
+	
+	$Result = $r->FindRawVoterbyADED($MyRawDatedFiles, $MyED, $MyAD, $MyParty, 1);	
+	
+	/*
+	echo "<PRE>";
+	print_r( $Result);
+	echo "</PRE>";
+	*/
 	
 	$TodayDay = date_create(date("Y-m-d"));
 	
@@ -35,7 +53,7 @@
 	}
 
 	$Today = date("Ymd_Hi");
-	$EDAD = sprintf("%'.02d%'.03d",$RawVoter["Raw_Voter_AssemblyDistr"], $RawVoter["Raw_Voter_ElectDistr"]);
+	$EDAD = sprintf("%'.02d%'.03d",$Result[0]["Raw_Voter_AssemblyDistr"], $Result[0]["Raw_Voter_ElectDistr"]);
 	$OutputFilename = "WalkSheet_RAW_EDAD" . $EDAD . "_" . $Today . ".pdf";
 	
 	$PageSize = "letter";
@@ -45,7 +63,7 @@
 	$pdf->Text_CandidateName = $r->DB_ReturnFullName($RawVoter);
 	$pdf->Text_ElectionDate = $ElectionDate;
 	$pdf->Text_PosType = $result["CandidateElection_PositionType"];
-  $pdf->Text_Party = $RawVoter["Raw_Voter_EnrollPolParty"];
+  $pdf->Text_Party = $Result[0]["Raw_Voter_EnrollPolParty"];
   $pdf->Text_PosText = $result["CandidateElection_Text"];
  	$pdf->Text_PosPetText = $result["CandidateElection_PetitionText"];
   $pdf->Text_DistricType = "EDAD";

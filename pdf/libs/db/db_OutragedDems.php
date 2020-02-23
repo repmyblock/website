@@ -19,16 +19,21 @@ class OutragedDems extends queries {
 		return $this->_return_multiple($sql,  $sql_vars);
 	}
 	
-	function FindRawVoterbyADED($DatedFiles, $EDDist, $ADDist, $order = 0) {
+	function FindRawVoterbyADED($DatedFiles, $EDDist, $ADDist, $Party, $order = 0) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_AssemblyDistr = :AssDist AND Raw_Voter_ElectDistr = :EleDist";	
-		$sql_vars = array('AssDist' => $ADDist, 'EleDist' => $EDDist);		
+		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_AssemblyDistr = :AssDist AND Raw_Voter_EnrollPolParty = :Party";	
+		$sql_vars = array('AssDist' => $ADDist, 'Party' => $Party);		
+		
+		if ( ! empty ($EDDist)) {
+			$sql .= " AND Raw_Voter_ElectDistr = :EleDist";
+			$sql_vars["EleDist"] = $EDDist;		
+		}		
 		
 		if ( $order > 0) {
 			$sql .= " ORDER BY Raw_Voter_ResStreetName, Raw_Voter_ResHouseNumber, Raw_Voter_ResApartment";
 		}
-							
-		return $this->_return_multiple($sql,  $sql_vars);
+			
+		return $this->_return_multiple($sql,  $sql_vars);		
 	}
 	
 	function CandidatePetition($PetitionSetID) {

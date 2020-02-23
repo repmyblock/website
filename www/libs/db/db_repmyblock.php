@@ -70,17 +70,32 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
-	function SearchVoter_Dated_DB($DatedFiles, $DatedFilesID, $FirstName, $LastName, $DOB = "") {
-		$this->SaveVoterRequest($FirstName, $LastName, $DOB, $DatedFilesID, NULL, NULL, $_SERVER['REMOTE_ADDR'] );		
+	function SearchVoter_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $FirstName, $LastName, $DOB = "") {
+		$this->SaveVoterRequest($FirstName, $LastName, $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_LastName = :LastName AND Raw_Voter_FirstName = :FirstName";
 		$sql_vars = array('FirstName' => $FirstName, 'LastName' => $LastName);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
-	function SearchByAD_Dated_DB($DatedFiles, $DatedFilesID, $PARTY, $AD, $ED = NULL) { 
-		$this->SaveVoterRequest("AD: " . $AD, "ED: " . $ED, NULL, $DatedFilesID, NULL, NULL, $_SERVER['REMOTE_ADDR'] );		
+	function ReturnGroupAD_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $PARTY, $AD) { 
+		$this->SaveVoterRequest("AD: " . $AD, "GROUP", $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
+		$sql = "SELECT COUNT(*) AS Count, Raw_Voter_EnrollPolParty, Raw_Voter_AssemblyDistr, Raw_Voter_ElectDistr FROM " . $TableVoter . 
+					 " WHERE Raw_Voter_AssemblyDistr = :AD AND Raw_Voter_EnrollPolParty = :Party" . 
+					 " AND (Raw_Voter_Status = 'ACTIVE' OR Raw_Voter_Status = 'INACTIVE')" .
+					 " GROUP BY Raw_Voter_AssemblyDistr, Raw_Voter_ElectDistr ";
+	 	$sql .= " ORDER BY CAST(Raw_Voter_ElectDistr AS unsigned) ASC";
+		
+		$sql_vars = array('AD' => $AD, 'Party' => $PARTY);
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+
+	function SearchByAD_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $PARTY, $AD, $ED = NULL) { 
+		$this->SaveVoterRequest("AD: " . $AD, "ED: " . $ED, NULL, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
+		$TableVoter = "Raw_Voter_" . $DatedFiles;
+		
+		// Need to move party so I can have an empty request for the general.
 		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_EnrollPolParty = :Party AND " . 
 					"Raw_Voter_AssemblyDistr = :AD";
 		$sql_vars = array('AD' => $AD, 'Party' => $PARTY);
@@ -90,6 +105,7 @@ class RepMyBlock extends queries {
 		} else {
 			$sql .= " GROUP BY Raw_Voter_ElectDistr";
 		}
+		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
