@@ -7,8 +7,41 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/petition_multiclass.php';
 	
 	$r = new OutragedDems();
-	$result = $r->ListCandidatePetition($SystemUser_ID, "published");
 	
+
+	$PageSize = "letter";
+	$pdf = new PDF('P','mm', $PageSize);
+		
+
+	$Variable = "demo-single";
+	switch ($Variable) {
+		
+	  case 'person';
+	  	$result = $r->ListCandidatePetition($SystemUser_ID, "published");
+			break;
+	
+		case 'demo-single':
+			$result[0]["CanPetitionSet_ID"] = 1;
+			$result[0]["CandidateElection_Number"] = 1;
+			$result[0]["CandidateElection_PositionType"] = "demo";
+			$result[0]["Candidate_DispName"] = "Your name here";
+			$result[0]["CandidateElection_PetitionText"] = "The election type here";
+			$result[0]["Candidate_DispResidence"] = "Your address here";
+			$result[0]["CandidateWitness_FullName"] = "Committee to replace here";
+			$result[0]["CandidateWitness_Residence"] = "Address of committee person";
+			$result[0]["CandidatePetition_VoterCounty"] = "A COUNTY NAME";
+			$result[0]["CandidateParty"] = "Democratic";
+			$pdf->Watermark = "Demo Petition / Not Valid";
+			break;
+	}
+	
+	$pdf->county = $result[0]["CandidatePetition_VoterCounty"];
+	$pdf->party = $result[0]["CandidateParty"];
+	$pdf->ElectionDate = $ElectionDate;
+	
+	
+	
+
 	if ( ! empty ($result)) {
 		foreach ($result as $var) {
 			if (! empty ($var)) {
@@ -24,23 +57,14 @@
 			}
 		}
 	}
-
-	$PageSize = "letter";
-	$pdf = new PDF('P','mm', $PageSize);
-
-	//if (
-	//		$result[0]["CandidatePetition_VoterCounty"] == "New York" || 
-	//		$result[0]["CandidatePetition_VoterCounty"] == "Richmond"
-	//	) {
-		$pdf->Watermark = "Demo Petition / Not Valid";
-	//}
-
+	
 	$Counter = 1;
 	$TotalCandidates = 0;
 	
 	$i = 0;
 	if ( ! empty ($PetitionData)) {
 		foreach ( $PetitionData as $var => $key) {
+				
 					
 			if ( ! empty ($var)) {
 				if ( is_array($key)) {
@@ -68,9 +92,7 @@
 	}
 	
 	$pdf->NumberOfCandidates = $TotalCandidates;
-	$pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
-	$pdf->party = "Democratic";
-	$pdf->ElectionDate = $ElectionDate;
+
 	
 	if ($pdf->NumberOfCandidates > 1) { 
 		$pdf->PluralCandidates = "s"; 
@@ -82,6 +104,8 @@
 
 	$pdf->RunningForHeading["electoral"] = "PUBLIC OFFICE" . strtoupper($pdf->PluralCandidates);
 	$pdf->RunningForHeading["party"] = "PARTY POSITION" . strtoupper($pdf->PluralCandidates);
+	$pdf->RunningForHeading["demo"] = "A PARTY POSITION OR A PUBLIC OFFICE" . strtoupper($pdf->PluralCandidates);
+
 
 	$pdf->CandidateNomination = "nomination of such party for public office";
 	// Add or the if both.	
@@ -91,7 +115,6 @@
 	
 	$pdf->WitnessName = "________________________________________"; 
 	$pdf->WitnessResidence = "_______________________________________________________"; 
-	
 	
 	$pdf->TodayDateText = "Date: " . date("F _________ , Y"); 
 	$pdf->TodayDateText = "Date: February _______ , 2020";
