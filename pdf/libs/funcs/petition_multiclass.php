@@ -1,7 +1,10 @@
 <?php
-require($_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/fpdf181/fpdf.php');
 
-class PDF extends FPDF {
+#require($_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/fpdf181/fpdf.php');
+require $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
+
+#class PDF extends FPDF {
+class PDF_Multi extends PDF_Code128 {
 	
 	var $angle=0;
 	var $Col1 = 6; var $Col2 = 61; var $Col3 = 150;
@@ -19,6 +22,30 @@ class PDF extends FPDF {
    		$this->RotatedText(40,210, "Election will be held in 2020", 45);
    		$this->SetTextColor(0,0,0);
 		}
+		
+		$this->SetFont('Arial','',10);
+
+		//A set
+/*		$code='CODE 128';
+		$this->Code128(50,20,$code,80,10);
+		$this->SetXY(50,45);
+		$this->Write(5,'A set: "'.$code.'"');
+
+		//B set
+		$code='Code 128';
+		$this->Code128(50,70,$code,80,10);
+		$this->SetXY(50,95);
+		$this->Write(5,'B set: "'.$code.'"');
+
+		//C set
+		$code='12345678901234567890';
+		$this->Code128(50,120,$code,110,10);
+		$this->SetXY(50,145);
+		$this->Write(5,'C set: "'.$code.'"');*/
+
+		
+
+				
 		
     $this->SetFont('Arial','B',12);
     $this->Cell(0,0, strtoupper($this->party) . " PARTY",0,0,'C');
@@ -204,7 +231,8 @@ class PDF extends FPDF {
  		$this->Line(120, $YLocation, 120, $this->BottonPt);
  		$this->Line(190, $YLocation, 190, $this->BottonPt);
  		$this->Line($this->Line_Right, $YLocation, $this->Line_Right, $this->BottonPt);
-    
+    $this->Line($this->Line_Left, $this->BottonPt, $this->Line_Right, $this->BottonPt);
+
     	
     
 	}
@@ -212,23 +240,55 @@ class PDF extends FPDF {
 	// Page footer
 	function Footer()	{
 		
-		$this->SetY(-37);
+		$this->SetY(-44);
    	$YLocation = $this->GetY() - 1.9;
-		$this->Line($this->Line_Left, $YLocation, $this->Line_Right, $YLocation);
-	
-		$this->SetFont('Arial','B',8);
+		
+		if ( empty ($this->WitnessName)) {
+			$EmptyWitnessName = true;
+			$this->WitnessName = "_______________________________________________"; 
+		}
+		
+		if ( empty ($this->WitnessResidence)) {
+			$EmptyWitnessResidence = true;
+			$this->WitnessResidence = "__________________________________________________________, New York"; 
+		}
+
+		$this->SetFont('Arial','B',10);
 		$this->Cell(0,0, "STATEMENT OF WITNESS", 0, 1, 'C');		
-		$this->SetFont('Arial','',8);
+		$this->SetFont('Arial','',10);
 		$this->Ln(1);
-		$this->MultiCell(0, 3.8, 
+		$this->MultiCell(0, 4.2, 
 			"I, " . $this->WitnessName . " state: I am a duly qualified voter of the State of New York and am an " . 
-			"enrolled voter of the Democratic Party. I now reside at " . $this->WitnessResidence . ". Each " . 
+			"enrolled voter of the " . $this->party . " Party. I now reside at " . $this->WitnessResidence . ". Each " . 
 			"of the individuals whose names are subscribed to this petition sheet " . 
 			"containing ____ signatures, subscribed the same in my presence on the dates above indicated " . 
 			"and identified himself or herself to be the individual who signed this sheet. I understand that this " .
 			"statement will be accepted for all purposes as the equivalent of an affidavit and, " .
 			"if it contains a material false statement, shall subject me to the " . 
 			"same penalties as if I had been duly sworn.", 0, 'L', 0);
+			
+			
+		$this->SetFont('Arial','I',8);
+		$this->SetTextColor(200);
+
+		if ( $EmptyWitnessName == true) {
+			$this->SetXY( 8,  $YLocation + 5 );
+			$this->Write(0, 'Name of witness');
+		}
+
+		if ( $EmptyWitnessResidence == true) {
+			$this->SetXY( 92,  $YLocation + 9 );
+			$this->Write(0, 'Residence address, also post office if not identical');
+		}
+
+		$this->SetFont('Arial','I',14);
+		$this->SetXY( 124,  $YLocation + 30 );
+		$this->Write(0, 'Signature of witness');
+		
+		$this->SetFont('Arial','',8);
+		$this->SetTextColor(0);
+		
+		
 			
 		$this->SetY(-14);
 		$this->SetFont('Arial','B',13);
@@ -248,7 +308,11 @@ class PDF extends FPDF {
 		$this->SetXY(160, -7 );
 		$this->SetFont('Arial','',13);
 		$this->Cell(0, 0,	"SHEET No. ______ ");
-
+	
+		//A,C,B sets
+		if (! empty ($this->BarCode)) {
+			$this->Code128(6,0, $this->BarCode, 50,10);
+		}
 	}
 	
 	function Rotate($angle,$x=-1,$y=-1) {

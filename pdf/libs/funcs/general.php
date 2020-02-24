@@ -43,7 +43,24 @@ function PrintRandomText($length = 9) {
 
 function PrintShortDate($Date) {
 	if ( ! empty ($Date)) {
-		return date("d M Y", strtotime( $Date ));
+		return date("F jS, Y", strtotime( $Date ));
+	}
+}
+
+function NewYork_PrintPartyAdjective($Party) {
+	switch($Party) {
+		case 'DEM': return "Democratic"; break;
+		case 'REP': return "Republican"; break;
+		case 'BLK': return "No party"; break;
+		case 'CON': return "Conservatives"; break;
+		case 'IND': return "Independence Party"; break;
+		case 'WOR': return "Working Families"; break;
+		case 'GRE': return "Green"; break;
+		case 'LBT': return "Libertarian"; break;
+		case 'OTH': return "Other"; break;
+		case 'WEP': return "Women\'s Equality Party"; break;
+		case 'REF': return "Reform"; break;
+		case 'SAM': return "SAM"; break;
 	}
 }
 ?>

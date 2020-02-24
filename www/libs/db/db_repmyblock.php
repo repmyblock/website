@@ -70,7 +70,7 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
-	function SearchVoter_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $FirstName, $LastName, $DOB = "") {
+	function SearchVoter_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $FirstName, $LastName, $DOB = NULL) {
 		$this->SaveVoterRequest($FirstName, $LastName, $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_LastName = :LastName AND Raw_Voter_FirstName = :FirstName";

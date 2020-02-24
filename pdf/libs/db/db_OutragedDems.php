@@ -36,6 +36,19 @@ class OutragedDems extends queries {
 		return $this->_return_multiple($sql,  $sql_vars);		
 	}
 	
+	function ListCandidatePetitionSet($CanPetitionSet_ID) {
+		$sql = "SELECT * FROM CanPetitionSet " .
+						"LEFT JOIN Candidate ON (CanPetitionSet.Candidate_ID = Candidate.Candidate_ID) " . 
+						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = CanPetitionSet.DataCounty_ID) " .
+						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
+						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+						"LEFT JOIN CanWitnessSet ON (CanWitnessSet.Candidate_ID = Candidate.Candidate_ID) " .
+						"LEFT JOIN CandidateWitness ON (CandidateWitness.CandidateWitness_ID = CanWitnessSet.CandidateWitness_ID) " .
+						"WHERE CanPetitionSet.CanPetitionSet_ID = :CandPetitionSetID ";
+		$sql_vars = array("CandPetitionSetID" => $CanPetitionSet_ID);
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
 	function CandidatePetition($PetitionSetID) {
 		$sql = "SELECT * FROM PetitionSet " .
 						"LEFT JOIN CandidatePetitionSet ON (PetitionSet.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " . 

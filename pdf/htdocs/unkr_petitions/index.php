@@ -5,59 +5,13 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/petition_multiclass.php';
-	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
-
+	
 	$r = new OutragedDems();
+	$result = $r->ListCandidatePetition($SystemUser_ID, "published");
 	
-	$PageSize = "letter";
-	$pdf = new PDF_Multi('P','mm', $PageSize);
-	//$pdf = new PDF('P','mm', $PageSize);
+	echo $Decrypt_k . "<BR>";
 	
-	$Variable = "demo-single";
-	$CanPetitionSet_ID = trim($_GET["petid"]);
-	if (is_numeric($CanPetitionSet_ID)) {
-		$Variable = "petid";
-	}
-	
-	switch ($Variable) {
-		
-	  case 'person';
-	  	$result = $r->ListCandidatePetition($SystemUser_ID, "published");
-			break;
-			
-		case 'petid';
-			$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
-			
-			if ( ! empty ($result)) {
-				$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
-				$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
-				$pdf->BarCode = $result[0]["CanPetitionSet_ID"];
-				$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
-			}
-			//echo "<PRE>";
-			//print_r($result);
-			
-			if ( $result[0]["Candidate_Status"] == "published") break;
-			
-		case 'demo-single':
-			$result[0]["CanPetitionSet_ID"] = 1;
-			$result[0]["CandidateElection_Number"] = 1;
-			$result[0]["CandidateElection_PositionType"] = "demo";
-			$result[0]["Candidate_DispName"] = "Your name here";
-			$result[0]["CandidateElection_PetitionText"] = "The election type here";
-			$result[0]["Candidate_DispResidence"] = "Your address here";
-			$result[0]["CandidateWitness_FullName"] = "Committee to replace here";
-			$result[0]["CandidateWitness_Residence"] = "Address of committee person";
-			$result[0]["CandidatePetition_VoterCounty"] = "A COUNTY NAME";
-			$result[0]["CandidateParty"] = "Democratic";
-			$pdf->Watermark = "Demo Petition / Not Valid";
-			$pdf->BarCode = "Demo Petition";
-			break;
-	}
-	
-	$pdf->county = $result[0]["CandidatePetition_VoterCounty"];
-	$pdf->party = $result[0]["CandidateParty"];
-	$pdf->ElectionDate = $ElectionDate;
+	exit();
 	
 	if ( ! empty ($result)) {
 		foreach ($result as $var) {
@@ -74,15 +28,23 @@
 			}
 		}
 	}
-	
-	
+
+	$PageSize = "letter";
+	$pdf = new PDF('P','mm', $PageSize);
+
+	//if (
+	//		$result[0]["CandidatePetition_VoterCounty"] == "New York" || 
+	//		$result[0]["CandidatePetition_VoterCounty"] == "Richmond"
+	//	) {
+		$pdf->Watermark = "Demo Petition / Not Valid";
+	//}
+
 	$Counter = 1;
 	$TotalCandidates = 0;
 	
 	$i = 0;
 	if ( ! empty ($PetitionData)) {
 		foreach ( $PetitionData as $var => $key) {
-				
 					
 			if ( ! empty ($var)) {
 				if ( is_array($key)) {
@@ -110,7 +72,9 @@
 	}
 	
 	$pdf->NumberOfCandidates = $TotalCandidates;
-
+	$pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
+	$pdf->party = "Democratic";
+	$pdf->ElectionDate = $ElectionDate;
 	
 	if ($pdf->NumberOfCandidates > 1) { 
 		$pdf->PluralCandidates = "s"; 
@@ -122,8 +86,6 @@
 
 	$pdf->RunningForHeading["electoral"] = "PUBLIC OFFICE" . strtoupper($pdf->PluralCandidates);
 	$pdf->RunningForHeading["party"] = "PARTY POSITION" . strtoupper($pdf->PluralCandidates);
-	$pdf->RunningForHeading["demo"] = "A PARTY POSITION OR A PUBLIC OFFICE" . strtoupper($pdf->PluralCandidates);
-
 
 	$pdf->CandidateNomination = "nomination of such party for public office";
 	// Add or the if both.	
@@ -131,10 +93,9 @@
 
 	// Need to fix that.
 	
+	$pdf->WitnessName = "________________________________________"; 
+	$pdf->WitnessResidence = "_______________________________________________________"; 
 	
-	
-	//$pdf->WitnessName = "________________________________________"; 
-	//$pdf->WitnessResidence = "_______________________________________________________"; 
 	
 	$pdf->TodayDateText = "Date: " . date("F _________ , Y"); 
 	$pdf->TodayDateText = "Date: February _______ , 2020";
@@ -145,12 +106,8 @@
 	$pdf->County = "__________________"; 
 	
 	if ( $PageSize == "letter") {
-		$NumberOfLines = 13 - $pdf->NumberOfCandidates;
+		$NumberOfLines = 14 - $pdf->NumberOfCandidates;
 		$pdf->BottonPt = 240.4;
-		
-		$pdf->BottonPt = 232;
-		
-		
 	} else if ( $PageSize = "legal") {
 		$NumberOfLines = 23;
 		$pdf->BottonPt = 236;
@@ -198,45 +155,22 @@
 		}	
 	}
 	
-	
 	while ( $Counter <= $NumberOfLines) {
-
 		$Counter++;
-		$YLocation = $pdf->GetY();
 		
-		// Above line.	
+		$YLocation = $pdf->GetY();
+		error_log("Y LOCALTION Lastline: " . $YLocation);
+			
 		$pdf->Line($pdf->Line_Left, $YLocation + 2, $pdf->Line_Right, $YLocation + 2);
+		error_log("Lastline: " . ($YLocation+2));
 		
 		$YLocation += 13;
 		$pdf->SetXY($pdf->Line_Left, $YLocation - 4);
-		
-		$pdf->Line($pdf->Line_Left + 36, $YLocation - 1.5, $pdf->Line_Right - 91, $YLocation - 1.5);
-		
-		$pdf->SetTextColor(220);
-
-		$pdf->SetFont('Arial','I',20);
-		$pdf->SetXY( 72,  $YLocation - 6);
-		$pdf->Write(0, 'Sign here');
-		
-		$pdf->SetTextColor(190);
-
-		$pdf->SetFont('Arial','I',8);		
-		$pdf->SetXY( 41,  $YLocation + 0.8);
-		$pdf->Write(0, "Print your name here");
-
-		$pdf->SetFont('Arial','',8);
-		$pdf->SetTextColor(0);
-		
-		$pdf->SetXY( 6,  $YLocation - 4 );
   	$pdf->SetFont('Arial', '', 10);
-		$pdf->Cell(38, 0, $Counter . ". ___ / ___ / " . date("Y"), 0, 0, 'L', 0);
+		$pdf->Cell(38, 0, $Counter . ". ___ / ___ / " . date("Y"), 0, 0, 'L', 0);	
+		
 		$pdf->SetXY($pdf->Line_Left, $YLocation);	
-		
-		$pdf->SetY($YLocation+0.8);	
-		
-		
 	}
-
 	
 	
 	$pdf->Output("I", "RepMyBlock-Petitions.pdf");
