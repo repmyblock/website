@@ -53,12 +53,12 @@ function NewYork_PrintPartyAdjective($Party) {
 		case 'REP': return "Republican"; break;
 		case 'BLK': return "No party"; break;
 		case 'CON': return "Conservatives"; break;
-		case 'IND': return "Independence Party"; break;
+		case 'IND': return "Independence"; break;
 		case 'WOR': return "Working Families"; break;
 		case 'GRE': return "Green"; break;
 		case 'LBT': return "Libertarian"; break;
 		case 'OTH': return "Other"; break;
-		case 'WEP': return "Women\'s Equality Party"; break;
+		case 'WEP': return "Women\'s Equality"; break;
 		case 'REF': return "Reform"; break;
 		case 'SAM': return "SAM"; break;
 	}
