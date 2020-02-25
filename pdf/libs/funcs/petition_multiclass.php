@@ -186,9 +186,6 @@ class PDF_Multi extends PDF_Code128 {
 	    		" Party, as a committee to fill vacancies in accordance with the provisions of the Election Law.", 0);
 	    }
 	    
-	    
-		 	
-	    
 	    $YLocation = $this->GetY() - 1.5 ;
 	    $Botton_Corner_Y = $this->GetY();
    	}
@@ -221,8 +218,6 @@ class PDF_Multi extends PDF_Code128 {
  		$this->Line(190, $YLocation, 190, $this->BottonPt);
  		$this->Line($this->Line_Right, $YLocation, $this->Line_Right, $this->BottonPt);
     $this->Line($this->Line_Left, $this->BottonPt, $this->Line_Right, $this->BottonPt);
-
-    	
     
 	}
 
@@ -276,9 +271,7 @@ class PDF_Multi extends PDF_Code128 {
 		
 		$this->SetFont('Arial','',8);
 		$this->SetTextColor(0);
-		
-		
-			
+
 		$this->SetY(-14);
 		$this->SetFont('Arial','B',13);
 		$this->Cell(0,0,	$this->TodayDateText);
@@ -303,15 +296,18 @@ class PDF_Multi extends PDF_Code128 {
 			$this->Code128(6,0, $this->BarCode, 50,10);
 		}
 		
-		
 		if (! empty ($this->DemoPrint)) {		
-			$this->SetFont('Arial','B',20);
+			$this->SetFont('Arial','B',19);
 			$this->SetTextColor(255,0,0);
 			$this->SetXY(40, 50);
 			$this->Link(40, 50, 80, 30, "https://repmyblock.nyc/get-involved/interested/");
  	   	$this->MultiCell(80, 7, "We'll provide you the list of " . $this->party . 
- 	   									" voters to ask for signatures."
- 	   									, 0, 'C');
+				 	   									" voters to ask for signatures.", 0, 'C');
+
+			$this->SetTextColor(0,0,255);
+			$this->SetXY(120, 132.5);
+			$this->Link(120, 130, 70, 25, "https://repmyblock.nyc/get-involved/interested/");
+ 	   	$this->MultiCell(70, 7.2, "Petitioning starts February 25, 2020 until March 30, 2020", 0, 'C'); 	   									
  	   }
 		
 	}
