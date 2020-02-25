@@ -63,7 +63,7 @@
 			$result[0]["Candidate_DispResidence"] = "Your address here";
 			// $result[0]["CandidateWitness_FullName"] = "Committee to replace here";
 			// $result[0]["CandidateWitness_Residence"] = "Address of committee person";
-			$result[0]["CandidatePetition_VoterCounty"] = "Nane of Your";
+			$result[0]["CandidatePetition_VoterCounty"] = "Bronx, Queens or Kings";
 			$result[0]["CandidateParty"] = "Democratic";
 			$pdf->Watermark = "Demo Petition / Not Valid";
 			$pdf->BarCode = "Demo Petition";

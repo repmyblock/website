@@ -28,11 +28,9 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetXY(125, 1);
 			$this->SetFont('Arial', 'B', 15);
 			$this->SetTextColor(0,0,255);
-    	//$pdf->SetStyle('U',true);
 			$this->Link(125, 1, 90, 10, "https://repmyblock.nyc/get-involved/interested/");
  	   	$this->MultiCell(90, 5, "Click here for more information on how to participate.", 0, 'R');
- 	   //$pdf->SetStyle('U',false);
- 	   	$this->SetTextColor(0);
+ 	   	$this->SetTextColor(0); 	   	
  	   	$this->SetXY($this->Col1, $YLocation);
 		}
 		
@@ -304,6 +302,18 @@ class PDF_Multi extends PDF_Code128 {
 		if (! empty ($this->BarCode)) {
 			$this->Code128(6,0, $this->BarCode, 50,10);
 		}
+		
+		
+		if (! empty ($this->DemoPrint)) {		
+			$this->SetFont('Arial','B',20);
+			$this->SetTextColor(255,0,0);
+			$this->SetXY(40, 50);
+			$this->Link(40, 50, 80, 30, "https://repmyblock.nyc/get-involved/interested/");
+ 	   	$this->MultiCell(80, 7, "We'll provide you the list of " . $this->party . 
+ 	   									" voters to ask for signatures."
+ 	   									, 0, 'C');
+ 	   }
+		
 	}
 	
 	function Rotate($angle,$x=-1,$y=-1) {
