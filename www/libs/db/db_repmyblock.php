@@ -58,6 +58,17 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
+	function VoterRanCandidate($RawVoterID, $DatedFiles) {
+		$TableVoter = "Raw_Voter_" . $DatedFiles;
+		$sql = "SELECT * FROM " . $TableVoter . " " .
+						"LEFT JOIN Candidate ON (Candidate.Raw_Voter_ID = " . $TableVoter . ".Raw_Voter_ID AND Raw_Voter_DatedTable_ID = :DatedFiles) " .
+						"LEFT JOIN CanPetitionSet ON (CanPetitionSet.Candidate_ID = Candidate.Candidate_ID) " .
+						"WHERE " . 
+						$TableVoter . ".Raw_Voter_ID = :RawVoterID";
+		$sql_vars = array('DatedFiles' => $DatedFiles, 'RawVoterID' => $RawVoterID);			
+		return $this->_return_multiple($sql, $sql_vars);		
+	}
+	
 	function SearchCandidateInArea($DatedFiles, $RawVoterID) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM " . $TableVoter . " " .
@@ -78,16 +89,23 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
-	function ReturnGroupAD_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $PARTY, $AD) { 
+	function ReturnGroupAD_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $PARTY, $AD, $ED = NULL) { 
 		$this->SaveVoterRequest("AD: " . $AD, "GROUP", $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
+
+		$sql_vars = array('AD' => $AD, 'Party' => $PARTY);
 		$sql = "SELECT COUNT(*) AS Count, Raw_Voter_EnrollPolParty, Raw_Voter_AssemblyDistr, Raw_Voter_ElectDistr FROM " . $TableVoter . 
-					 " WHERE Raw_Voter_AssemblyDistr = :AD AND Raw_Voter_EnrollPolParty = :Party" . 
-					 " AND (Raw_Voter_Status = 'ACTIVE' OR Raw_Voter_Status = 'INACTIVE')" .
+					 " WHERE Raw_Voter_AssemblyDistr = :AD AND Raw_Voter_EnrollPolParty = :Party" ;
+		if ( ! empty ($ED)) {
+			$sql .= " AND Raw_Voter_ElectDistr = :ED";
+			$sql_vars["ED"] = $ED;
+		}			 
+					 
+		$sql .= " AND (Raw_Voter_Status = 'ACTIVE' OR Raw_Voter_Status = 'INACTIVE')" .
 					 " GROUP BY Raw_Voter_AssemblyDistr, Raw_Voter_ElectDistr ";
 	 	$sql .= " ORDER BY CAST(Raw_Voter_ElectDistr AS unsigned) ASC";
+	 	
 		
-		$sql_vars = array('AD' => $AD, 'Party' => $PARTY);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
@@ -185,11 +203,56 @@ class RepMyBlock extends queries {
 					
 		return $this->_return_multiple($sql);
 	}
+	
+	function CandidateElection($DBTable, $DBTableValue , $FromDate) {
+		$sql = 	"SELECT * FROM NYSVoters.CandidateElection " .
+						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+						"WHERE Elections_Date > :FromDate AND CandidateElection_DBTable = :DBTable AND " . 
+						"CandidateElection_DBTableValue = :DBValue";
+				
+		$sql_vars = array('FromDate' => $FromDate, 'DBTable' => $DBTable, 'DBValue' => $DBTableValue);						
+		return $this->_return_multiple($sql, $sql_vars);
+	}
 
 	function ListCandidateNomination($SystemUserID) {
 		$sql = "SELECT * FROM CanNomination WHERE SystemUser_ID = :SystemUserID";
 		$sql_vars = array('SystemUserID' => $SystemUserID);
-		return $this->_return_multiple($sql, $sql_vars);
+		
+	}
+	
+	function InsertCandidateSet($Candidate_ID, $CandidatePetitionSet_ID, $CanPetitionSet_Party, $DataCounty_ID) {
+		$sql = "INSERT INTO CanPetitionSet SET " .
+						"CandidatePetitionSet_ID = :CanPetSetID, Candidate_ID = :CandidateID, " .
+						"DataCounty_ID = :CountyID, CanPetitionSet_Party = :Party";
+		$sql_vars = array("CanPetSetID" => $CandidatePetitionSet_ID, "CandidateID" => $Candidate_ID, 
+											"CountyID" => $DataCounty_ID, "Party" => $CanPetitionSet_Party);			
+		$this->_return_nothing($sql, $sql_vars);
+		
+		$sql = "SELECT LAST_INSERT_ID() as CanPetitionSet_ID";
+		return $this->_return_simple($sql);
+	}
+	
+	function InsertCandidate($SystemUserID, $UniqNYSVoterID, $RawVoterID, $RawDatedTable, 
+														$RawDatedID, $CandidateElectionID, $Party, $DisplayName,
+														$Address, $DBTable, $DBValue,	$StatsVoters, $Status) {
+															
+		$sql = "INSERT INTO Candidate SET SystemUser_ID = :SystemUserID, Candidate_UniqNYSVoterID = :UniqNYSVoterID, " .
+						"Raw_Voter_ID = :RawVoterID, Raw_Voter_DatedTable_ID = :RawDatedTable, Raw_Voter_Dates_ID = :RawDatedID, " .
+						"CandidateElection_ID = :CandidateElectionID, Candidate_Party = :Party, Candidate_DispName = :DisplayName, " .
+						"Candidate_DispResidence = :Address, CandidateElection_DBTable = :DBTable, " .
+						"CandidateElection_DBTableValue = :DBValue, Candidate_StatsVoters = :StatsVoters,  Candidate_Status = :Status";
+						
+		$sql_vars = array("SystemUserID" => $SystemUserID, "UniqNYSVoterID" => $UniqNYSVoterID, 
+											"RawVoterID" => $RawVoterID, "RawDatedTable" => $RawDatedTable, 
+											"RawDatedID" => $RawDatedID, "CandidateElectionID" => $CandidateElectionID, 
+											"Party" => $Party, "DisplayName" =>  $DisplayName, 
+											"Address" => $Address, "DBTable" => $DBTable, "DBValue" => $DBValue, 
+											"StatsVoters" => $StatsVoters, "Status" => $Status);
+		
+		$this->_return_nothing($sql, $sql_vars);
+		
+		$sql = "SELECT LAST_INSERT_ID() as Candidate_ID";
+		return $this->_return_simple($sql);
 	}
 	
 	function CandidateNomination($SystemUserID, $ElectionID, $CandidateID) {
@@ -258,7 +321,22 @@ class RepMyBlock extends queries {
 						"SystemUserOldEmail_Timestamp = NOW()";
 		$sql_vars = array("SystemUserID" => $SystemUserID, "OldEmail" => $OldEmail,
 											"OldStatus" => $OldStatus, "NewEmail" => $NewEmail);
-		return $this->_return_nothing($sql, $sql_vars);
+		
+	}
+	
+	function InsertCandidatePetitionSet($System_ID = NULL) {
+		
+		$sql = "INSERT INTO CandidatePetitionSet SET CandidatePetitionSet_TimeStamp = NOW()";
+		$sql_vars = array('CanSetID' => $CandidatePetitionSet_ID);
+		
+		if ( ! empty ($System_ID)) {
+			$sql .= ", SystemUser_ID = :SystemID";
+			$sql_vars["SystemID"] =  $System_ID;
+		}
+		$this->_return_nothing($sql, $sql_vars);
+		
+		$sql = "SELECT LAST_INSERT_ID() as CandidatePetitionSet_ID";
+		return $this->_return_simple($sql);
 	}
 	
 	function SearchVotersBySingleIndex($SingleIndex, $DatedFiles) {
@@ -380,7 +458,7 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	function PrepDisctictVoterRoll($CandidateID, $RawVoterID, $DatedFiles, $DatedFilesID, $InfoArray) {
+	function PrepDisctictVoterRoll($CandidateID, $DatedFiles, $DatedFilesID, $InfoArray) {
 	
 		$var = $this->FindRawVoterbyADED($DatedFiles, $InfoArray["ElectDistr"],	$InfoArray["AssemblyDistr"],  $InfoArray["Party"], 1, 1);
 		$TodayDay = date_create(date("Y-m-d"));
@@ -389,7 +467,7 @@ class RepMyBlock extends queries {
     $Counter = 0;
 		$SqlString = "INSERT INTO CandidatePetition " .
 									"(Candidate_ID, CandidatePetition_Order, VotersIndexes_ID, Raw_Voter_DatedTable_ID, Raw_Voter_Dates_ID," .
-									"CandidatePetition_VoterFullName, Raw_Voter_Gender, CandidatePetition_Age, " . 
+									"CandidatePetition_VoterFullName, Raw_Voter_Gender, CandidatePetition_Age, CandidatePetition_Party, " . 
 									"CandidatePetition_VoterResidenceLine1, CandidatePetition_VoterResidenceLine2, " .
 									"CandidatePetition_VoterResidenceLine3, CandidatePetition_VoterCounty, DataStreet_ID, Raw_Voter_ResHouseNumber, " .
 									"Raw_Voter_ResFracAddress, Raw_Voter_ResPreStreet, Raw_Voter_ResStreetName, Raw_Voter_ResPostStDir, " . 
@@ -413,7 +491,7 @@ class RepMyBlock extends queries {
 					$sql .= "(" . $this->_QuoteString($CandidateID) . "," . $this->_QuoteString($Counter++) . "," . $this->_QuoteString($vor["Raw_Voter_ID"]) . "," . 
 									$this->_QuoteString($VoterIndexesID["VotersIndexes_ID"]) . "," . $this->_QuoteString($DatedFilesID) . "," . 
 									$this->_QuoteString($this->DB_ReturnFullName($vor)) . "," . 
-									$this->_QuoteString($vor["Raw_Voter_Gender"]) . "," . $this->_QuoteString($VoterAge) . "," . 									
+									$this->_QuoteString($vor["Raw_Voter_Gender"]) . "," . $this->_QuoteString($VoterAge) . "," . $this->_QuoteString($vor["Raw_Voter_EnrollPolParty"]) . "," .								
 									$this->_QuoteString($this->DB_ReturnAddressLine1($vor)) . "," . 
 									$this->_QuoteString($this->DB_ReturnAddressLine2($vor)) . "," . "null," . 
 									$this->_QuoteString($this->DB_WorkCounty($vor["Raw_Voter_CountyCode"])) . "," . $this->_QuoteString($vor["DataStreet_ID"]) . "," . 
