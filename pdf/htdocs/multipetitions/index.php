@@ -27,16 +27,12 @@
 			
 		case 'petid';
 			$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
-			
 			if ( ! empty ($result)) {
 				$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
 				$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
 				$pdf->BarCode = $result[0]["CanPetitionSet_ID"];
 				$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
 			}
-			//echo "<PRE>";
-			//print_r($result);
-			
 			if ( $result[0]["Candidate_Status"] == "published") break;
 			
 		case 'demo-single':
@@ -91,8 +87,7 @@
 			}
 		}
 	}
-	
-	
+
 	$Counter = 1;
 	$TotalCandidates = 0;
 	

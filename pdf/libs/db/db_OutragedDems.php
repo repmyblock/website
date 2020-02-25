@@ -44,6 +44,7 @@ class OutragedDems extends queries {
 						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN CanWitnessSet ON (CanWitnessSet.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CandidateWitness ON (CandidateWitness.CandidateWitness_ID = CanWitnessSet.CandidateWitness_ID) " .
+						"LEFT JOIN CandidatePetitionSet ON (CandidatePetitionSet.CandidatePetitionSet_ID = CanPetitionSet.CandidatePetitionSet_ID) " .
 						"WHERE CanPetitionSet.CanPetitionSet_ID = :CandPetitionSetID ";
 		$sql_vars = array("CandPetitionSetID" => $CanPetitionSet_ID);
 		return $this->_return_multiple($sql, $sql_vars);

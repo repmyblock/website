@@ -7,7 +7,12 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/voterlist.php';
 
 	$r = new OutragedDems();
-	$result = $r->ListCandidatePetition($SystemUser_ID, "published");
+	
+	if ( ! empty ($CanPetitionSet_ID)) {
+		$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);		
+	} else {
+		$result = $r->ListCandidatePetition($SystemUser_ID, "published");
+	}
 	$result = $result[0];
 	$voters = $r->ListVoterCandidate($result["Candidate_ID"]);
 
@@ -34,9 +39,6 @@
 		}
 	}
 	
-	
-	
-	
 	$PageSize = "letter";
 	$pdf = new PDF('P','mm', $PageSize);
 	
@@ -50,7 +52,7 @@
   $pdf->Text_DistricType = $result["CandidateElection_DBTable"];
   $pdf->Text_DistricHeading = $result["CandidateElection_DBTableValue"];
   $pdf->Text_PetitionSetID = $result["CandidatePetitionSet_ID"];
-  
+   
   $pdf->LeftText = $pdf->Text_Party . " SetID:" . $result["CandidatePetitionSet_ID"];
 	$pdf->RightText =  $pdf->Text_DistricType . ":" . $pdf->Text_DistricHeading;
 	

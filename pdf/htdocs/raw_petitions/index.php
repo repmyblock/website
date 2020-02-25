@@ -5,44 +5,10 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/petition_multiclass.php';
+	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
 	
 	$r = new OutragedDems();
 	$result = $r->FindRawVoterbyID($RawDatedFiles, $Raw_Voter_ID);
-	
-	/* 
-
-            [Raw_Voter_ID] => 1547321
-            [Raw_Voter_LastName] => CHINO
-            [Raw_Voter_FirstName] => THEO
-            [Raw_Voter_MiddleName] => BRUCE
-            [Raw_Voter_Suffix] => 
-            [Raw_Voter_ResHouseNumber] => 640
-            [Raw_Voter_ResFracAddress] => 
-            [Raw_Voter_ResApartment] => 10B
-            [Raw_Voter_ResPreStreet] => 
-            [Raw_Voter_ResStreetName] => RIVERSIDE DRIVE 
-            [Raw_Voter_ResPostStDir] => 
-            [Raw_Voter_ResCity] => NEW YORK
-            [Raw_Voter_ResZip] => 10031
-            [Raw_Voter_ResZip4] => 1003
-         
-            [Raw_Voter_DOB] => 19720819
-            [Raw_Voter_Gender] => M
-            [Raw_Voter_EnrollPolParty] => DEM
-         
-            [Raw_Voter_OtherParty] => 
-            [Raw_Voter_CountyCode] => 31
-            [Raw_Voter_ElectDistr] => 2
-            [Raw_Voter_LegisDistr] => 0
-            [Raw_Voter_TownCity] => NEW YORK
-            [Raw_Voter_Ward] => 
-            [Raw_Voter_CongressDistr] => 13
-            [Raw_Voter_SenateDistr] => 31
-            [Raw_Voter_AssemblyDistr] => 71
-         
-            [Raw_Voter_Status] => ACTIVE
-              */
-	
 	
 	if ( ! empty ($result)) {
 		foreach ($result as $var) {
@@ -61,7 +27,8 @@
 	}
 
 	$PageSize = "letter";
-	$pdf = new PDF('P','mm', $PageSize);
+//	$pdf = new PDF('P','mm', $PageSize);
+	$pdf = new PDF_Multi('P','mm', $PageSize);
 
 	//if (
 	//		$result[0]["CandidatePetition_VoterCounty"] == "New York" || 
@@ -137,7 +104,7 @@
 	$pdf->County = "__________________"; 
 	
 	if ( $PageSize == "letter") {
-		$NumberOfLines = 14 - $pdf->NumberOfCandidates;
+		$NumberOfLines = 13 - $pdf->NumberOfCandidates;
 		$pdf->BottonPt = 240.4;
 	} else if ( $PageSize = "legal") {
 		$NumberOfLines = 23;
