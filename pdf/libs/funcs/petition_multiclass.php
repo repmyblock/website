@@ -14,7 +14,8 @@ class PDF_Multi extends PDF_Code128 {
 	 
 	// Page header
 	function Header()	{
-
+		$YLocation = $this->GetY();
+		
 		if (! empty ($this->Watermark)) {
 			$this->SetFont('Arial','B',50);
     	$this->SetTextColor(255,192,203);
@@ -22,30 +23,20 @@ class PDF_Multi extends PDF_Code128 {
    		$this->RotatedText(40,210, "Election will be held in 2020", 45);
    		$this->SetTextColor(0,0,0);
 		}
+
+		if (! empty ($this->DemoPrint)) {		
+			$this->SetXY(125, 1);
+			$this->SetFont('Arial', 'B', 15);
+			$this->SetTextColor(0,0,255);
+    	//$pdf->SetStyle('U',true);
+			$this->Link(125, 1, 90, 10, "https://repmyblock.nyc/get-involved/interested/");
+ 	   	$this->MultiCell(90, 5, "Click here for more information on how to participate.", 0, 'R');
+ 	   //$pdf->SetStyle('U',false);
+ 	   	$this->SetTextColor(0);
+ 	   	$this->SetXY($this->Col1, $YLocation);
+		}
 		
 		$this->SetFont('Arial','',10);
-
-		//A set
-/*		$code='CODE 128';
-		$this->Code128(50,20,$code,80,10);
-		$this->SetXY(50,45);
-		$this->Write(5,'A set: "'.$code.'"');
-
-		//B set
-		$code='Code 128';
-		$this->Code128(50,70,$code,80,10);
-		$this->SetXY(50,95);
-		$this->Write(5,'B set: "'.$code.'"');
-
-		//C set
-		$code='12345678901234567890';
-		$this->Code128(50,120,$code,110,10);
-		$this->SetXY(50,145);
-		$this->Write(5,'C set: "'.$code.'"');*/
-
-		
-
-				
 		
     $this->SetFont('Arial','B',12);
     $this->Cell(0,0, strtoupper($this->party) . " PARTY",0,0,'C');

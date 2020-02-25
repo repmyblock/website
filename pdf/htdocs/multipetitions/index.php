@@ -13,7 +13,7 @@
 	$pdf = new PDF_Multi('P','mm', $PageSize);
 	//$pdf = new PDF('P','mm', $PageSize);
 	
-	$Variable = "demo-single";
+	$Variable = "demo-CC";
 	$CanPetitionSet_ID = trim($_GET["petid"]);
 	if (is_numeric($CanPetitionSet_ID)) {
 		$Variable = "petid";
@@ -53,6 +53,23 @@
 			$pdf->Watermark = "Demo Petition / Not Valid";
 			$pdf->BarCode = "Demo Petition";
 			break;
+		
+		case 'demo-CC':
+			$result[0]["CanPetitionSet_ID"] = 1;
+			$result[0]["CandidateElection_Number"] = 1;
+			$result[0]["CandidateElection_PositionType"] = "party";
+			$result[0]["Candidate_DispName"] = "Your name here\n";
+			$result[0]["CandidateElection_PetitionText"] = "Member of the Democratic Party County Committee from the XXth election district in the XXth assembly district Your County, New York State";
+			$result[0]["Candidate_DispResidence"] = "Your address here";
+			// $result[0]["CandidateWitness_FullName"] = "Committee to replace here";
+			// $result[0]["CandidateWitness_Residence"] = "Address of committee person";
+			$result[0]["CandidatePetition_VoterCounty"] = "Nane of Your";
+			$result[0]["CandidateParty"] = "Democratic";
+			$pdf->Watermark = "Demo Petition / Not Valid";
+			$pdf->BarCode = "Demo Petition";
+			$pdf->DemoPrint = "true";
+			break;
+			
 	}
 	
 	$pdf->county = $result[0]["CandidatePetition_VoterCounty"];
@@ -130,9 +147,6 @@
  	$pdf->CandidateNomination .= " or for election to a party position of such party.";
 
 	// Need to fix that.
-	
-	
-	
 	//$pdf->WitnessName = "________________________________________"; 
 	//$pdf->WitnessResidence = "_______________________________________________________"; 
 	
