@@ -162,7 +162,6 @@
 				foreach ($ResultElections as $varelection) {
 					if ( ! empty ($varelection)) { 
 						
-						print "<PRE>" . print_r($varelection, 1) . "</PRE>";
 						
 						if ($EnrollVoterParty  == $varelection["CandidateElection_Party"] ) {
 							
