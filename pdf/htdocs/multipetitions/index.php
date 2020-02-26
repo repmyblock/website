@@ -31,7 +31,7 @@
 	  	$result = $r->ListCandidatePetition($SystemUser_ID, "published");
 	  	if ( ! empty ($result)) {
 	  		
-	  		print "<PRE>" . print_r($result, 1) . "</PRE>";
+	  		//print "<PRE>" . print_r($result, 1) . "</PRE>";
 	  		
 				$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
 				$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
