@@ -164,7 +164,7 @@
 						
 						if ($EnrollVoterParty  == $varelection["$varelection"] ) {
 							
-						if ( empty ($varelection["CandidateElection_Sex"]) || ((! empty ($varelection["CandidateElection_Sex"])) && ( $EnrollVoterSex == $varelection["CandidateElection_Sex"] ))) {
+						if ( (empty ($varelection["CandidateElection_Sex"])) || ( $EnrollVoterSex == $varelection["CandidateElection_Sex"] ) {
 						
 							
 						
