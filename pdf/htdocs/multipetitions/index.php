@@ -29,6 +29,15 @@
 		
 	  case 'person';
 	  	$result = $r->ListCandidatePetition($SystemUser_ID, "published");
+	  	if ( ! empty ($result)) {
+				$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
+				$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
+				$pdf->BarCode = "S" . $result[0]["CandidatePetitionSet_ID"];
+				$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
+			}
+			
+			if ( $result[0]["Candidate_Status"] == "published") break;
+			goto democc;
 			break;
 			
 		case 'setid';
