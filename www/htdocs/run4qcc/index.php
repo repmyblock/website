@@ -8,11 +8,15 @@
 <P>
 
 <FOnT COLOR=BLUE>
+<P>
 Register on the RepMyBlock website at <A HREF="https://repmyblock.nyc/register/">https://repmyblock.nyc/register</A> 
-to download your Walk Sheet. <I>If you are running in another Electoral District, please use the BIO section of the 
-profile to write down the Assembly District and the Election District you are representing and we'll email you the correct one.
-</FOnT>
+to download your Walk Sheet. 
+</P>
 
+<P>
+<I>If you are running in another Electoral District, please use the BIO section of the 
+profile to write down the Assembly District and the Election District you are representing and we'll email you the correct one.
+</I>
 </P>
 </FONT>
 
