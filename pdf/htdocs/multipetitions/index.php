@@ -13,17 +13,16 @@
 	$pdf = new PDF_Multi('P','mm', $PageSize);
 	//$pdf = new PDF('P','mm', $PageSize);
 	
-	$Variable = "demo-CC";
 	$CanPetitionSet_ID = trim($_GET["petid"]);
 	$CandidatePetitionSet_ID = trim($_GET["setid"]);
 	
 	
-	if (is_numeric($CanPetitionSet_ID)) {
-		$Variable = "petid";
-	}
-	
-	if (is_numeric($CandidatePetitionSet_ID)) {
-		$Variable = "setid";
+	if ( ! empty ($Variable)) {
+		$Variable = "demo-CC";
+		if (is_numeric($Candidate_ID)) { $Variable = "person"; }
+		if (is_numeric($SystemUser_ID)) { $Variable = "person"; }
+		if (is_numeric($CanPetitionSet_ID)) { $Variable = "petid"; }
+		if (is_numeric($CandidatePetitionSet_ID)) { $Variable = "setid"; }
 	}
 	
 	switch ($Variable) {
