@@ -88,6 +88,15 @@ class RepMyBlock extends queries {
 		$sql_vars = array('FirstName' => $FirstName, 'LastName' => $LastName);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
+	
+	function SearchVoter_Dated_NYSBOEID($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $NYSBOEID) {
+		$this->SaveVoterRequest("NYS BOE ID", $NYSBOEID, $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
+		$TableVoter = "Raw_Voter_" . $DatedFiles;
+		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_UniqNYSVoterID = :NYSBOEID";
+		$sql_vars = array('NYSBOEID' => $NYSBOEID);
+		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
 
 	function ReturnGroupAD_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $PARTY, $AD, $ED = NULL) { 
 		$this->SaveVoterRequest("AD: " . $AD, "GROUP", $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		

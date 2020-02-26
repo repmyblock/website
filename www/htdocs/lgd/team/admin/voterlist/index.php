@@ -12,9 +12,9 @@
 	if ( ! empty ($_POST)) {
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
 
-		echo "<PRE>";
-		print_r($_POST);
-		echo "</PRE>";
+	//	echo "<PRE>";
+	//	print_r($_POST);
+	//	echo "</PRE>";
 
 		$to = "theo@theochino.com";
 		$emailsubject = time() . " - Your sample Democratic party petition and walk sheet.";
@@ -48,7 +48,12 @@
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
 	
-	if ( ! empty($Query_FirstName) || ! empty ($Query_LastName)) {		
+	if ( ! empty ($NYSBOEID)) {
+	
+		$Result = $rmb->SearchVoter_Dated_NYSBOEID($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, $DatedFilesID, $NYSBOEID);
+	
+		
+	} else	if ( ! empty($Query_FirstName) || ! empty ($Query_LastName)) {		
 		$Result = $rmb->SearchVoter_Dated_DB($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, $DatedFilesID, $Query_FirstName, $Query_LastName);
 		
 	} else {
