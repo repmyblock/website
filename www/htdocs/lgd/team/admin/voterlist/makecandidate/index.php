@@ -164,7 +164,7 @@
 						
 						print "<PRE>" . print_r($varelection, 1) . "</PRE>";
 						
-						if ($EnrollVoterParty  == $varelection["varelection"] ) {
+						if ($EnrollVoterParty  == $varelection["CandidateElection_Party"] ) {
 							
 		
 							
