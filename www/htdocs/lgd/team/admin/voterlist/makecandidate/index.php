@@ -89,10 +89,18 @@
 				<?php
 		 if ( ! empty ($Result)) {
 				foreach ($Result as $var) {
-					if ( ! empty ($var)) { ?>
+					if ( ! empty ($var)) { 
+						
+						$EnrollVoterParty = $var["Raw_Voter_EnrollPolParty"];
+						
+						if ( $var["Raw_Voter_Gender"] == "M") {	$EnrollVoterSex = "male"; }
+						else if ( $var["Raw_Voter_Gender"] == "F") {	$EnrollVoterSex = "female"; }
+						else { $EnrollVoterSex = "other"; }
+						
+						?>
 						
 						
-						
+								
            
 					 			
 								<div class="list-group-item f60">
@@ -152,7 +160,15 @@
 										<?php
 										 if ( ! empty ($ResultElections)) {
 				foreach ($ResultElections as $varelection) {
-					if ( ! empty ($varelection)) { ?>
+					if ( ! empty ($varelection)) { 
+						
+						if ($EnrollVoterParty  == $varelection["$varelection"] ) {
+							
+						if ( ! empty ($varelection["CandidateElection_Sex"]) || ( $EnrollVoterSex == $varelection["CandidateElection_Sex"] )) {
+						
+							
+						
+						?>
 						
 						
 					
@@ -177,6 +193,8 @@
 									</DIV>
           <?php } 
         }
+        					} }
+
       }
       ?>
       
