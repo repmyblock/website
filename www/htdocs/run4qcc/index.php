@@ -2,21 +2,15 @@
 <IMG SRC="QCC4ALL.jpg" width=100>
 
 <P>
-<B>Update:</B> February 19<SUP>th</SUP>, 2020 at 1:48 pm.<BR>
+<B>Update:</B> February 26<SUP>th</SUP>, 2020 at 1:48 am.<BR>
 <FONT SIZE=+2>	
-	<B>
-		This page was supposed to be accessible on February 6<SUP>th</SUP>, 2020 but we are running way behind schedule.
-	</B>
-<BR>
-
+	
 <P>
 
 <FOnT COLOR=BLUE>
-You can register on the RepMyBlock website at <A HREF="https://repmyblock.nyc/register/">https://repmyblock.nyc/register</A> 
-and fill in the Profile. 
-<BR>
-<BR>
-In the BIO section write dow the Assembly District and the Election District you are representing and we'll email you the walk sheet.
+Register on the RepMyBlock website at <A HREF="https://repmyblock.nyc/register/">https://repmyblock.nyc/register</A> 
+to download your Walk Sheet. <I>If you are running in another Electoral District, please use the BIO section of the 
+profile to write down the Assembly District and the Election District you are representing and we'll email you the correct one.
 </FOnT>
 
 </P>
@@ -24,8 +18,7 @@ In the BIO section write dow the Assembly District and the Election District you
 
 <FONT SIZE=+1>
 	
-Meanwhile you can register friends to run for County Committee on 
-their page:
+Meanwhile you can register friends to run for County Committee on their page:
 
 
 <A HREF="http://tinyurl.com/Run4QCC">http://tinyurl.com/Run4QCC</A>
