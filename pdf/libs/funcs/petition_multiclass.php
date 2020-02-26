@@ -15,6 +15,7 @@ class PDF_Multi extends PDF_Code128 {
 	// Page header
 	function Header()	{
 		$YLocation = $this->GetY();
+		$this->SetTextColor(0);
 		
 		if (! empty ($this->Watermark)) {
 			$this->SetFont('Arial','B',50);
@@ -122,12 +123,11 @@ class PDF_Multi extends PDF_Code128 {
 	    $Botton_Corner_Y = $this->GetY();
  		}
  		
-
- 		
     for ($i = 0; $i < $this->NumberOfCandidates; $i++) {
-    			
-    	$MyTop = $YLocation = $this->GetY();
-    			
+    	$MyTop = $YLocation = $this->GetY();	 
+    	
+    	//$YLocation += 1;
+   
  			if ($this->PositionType[$i] != $Prev_PartyPosition) {
 		  	$this->Line($this->Line_Left, $YLocation - 0.1,  $this->Line_Right, $YLocation - 0.1); 
 
@@ -143,10 +143,9 @@ class PDF_Multi extends PDF_Code128 {
 
 	    	$this->SetFont('Arial','',8);
 	    	$Prev_PartyPosition = $this->PositionType[$i];
-
     		$YLocation = $this->GetY() + 0.5;
 	    }    
-	    			
+	    	    			
 	    $this->Line($this->Line_Left, $YLocation - 0.1, $this->Line_Right, $YLocation - 0.1); 
  			
      	$this->SetFont('Arial','B',11);
@@ -162,35 +161,31 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetXY($this->Col3, $YLocation );
   		$this->MultiCell($this->SizeCol3, 3.5, $this->Residence[$i], 0, 'C', 0);
   		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
-
-			   	 		
-
 									
 			$YLocation = $YLocation_new + 0.7;   
 			$this->Line($this->Line_Left, $YLocation - 0.1, $this->Line_Right, $YLocation - 0.1); 
-			
 		 	$this->SetY($YLocation);	
-		 	
-		 
+
 		 	// Here I need to put the pieces.
 		 	$this->Line($this->Line_Left, $MyTop - 0.1, $this->Line_Left, $YLocation - 0.1); 
 		 	$this->Line($this->Line_Col1, $MyTop - 0.1, $this->Line_Col1, $YLocation - 0.1); 
 		 	$this->Line($this->Line_Col2, $MyTop - 0.1, $this->Line_Col2, $YLocation - 0.1); 
 		 	$this->Line($this->Line_Right, $MyTop - 0.1, $this->Line_Right, $YLocation - 0.1); 
 		 	
-			if ( count ($this->Appointments) > 0 ) {
+			if (! empty ($this->Appointments[$i])) {
 	 	   	$this->SetFont('Times','I',7);
  		   	$this->SetXY($this->Line_Left + 0.5, $YLocation );
 	  	  $this->MultiCell(0, 2.8, 
 	    		"I do hereby appoint " . $this->Appointments[$i] . " all of whom are enrolled voters of the " . $this->party . 
 	    		" Party, as a committee to fill vacancies in accordance with the provisions of the Election Law.", 0);
-	    }
+	    } 
+	    
+	    if ( $this->PositionType[$i+1] != $Prev_PartyPosition ) $this->ln(1);
 	    
 	    $YLocation = $this->GetY() - 1.5 ;
 	    $Botton_Corner_Y = $this->GetY();
+	    
    	}
-   	
-
    	
    	$this->Ln(2);  	 
    	$this->SetX($this->Line_Left);
@@ -205,6 +200,8 @@ class PDF_Multi extends PDF_Code128 {
 		$this->Cell(74, 8, "Residence", 0, 0, 'C', 0);
 		$this->Cell(20, 8, "County", 0, 0, 'C', 0);
 		$this->Ln(4.5);
+   
+   	$this->YLocation = $this->GetY();
    
    	$YLocation = $this->GetY() - 3.5;
    	$this->Line($this->Line_Left, $YLocation, $this->Line_Right, $YLocation);
@@ -223,7 +220,7 @@ class PDF_Multi extends PDF_Code128 {
 
 	// Page footer
 	function Footer()	{
-		
+		$this->SetTextColor(0);
 		$this->SetY(-44);
    	$YLocation = $this->GetY() - 1.9;
 		
@@ -250,8 +247,7 @@ class PDF_Multi extends PDF_Code128 {
 			"statement will be accepted for all purposes as the equivalent of an affidavit and, " .
 			"if it contains a material false statement, shall subject me to the " . 
 			"same penalties as if I had been duly sworn.", 0, 'L', 0);
-			
-			
+		
 		$this->SetFont('Arial','I',8);
 		$this->SetTextColor(200);
 
@@ -310,6 +306,7 @@ class PDF_Multi extends PDF_Code128 {
  	   	$this->MultiCell(70, 7.2, "Petitioning starts February 25, 2020 until March 30, 2020", 0, 'C'); 	   									
  	   }
 		
+		$this->SetTextColor(0);
 	}
 	
 	function Rotate($angle,$x=-1,$y=-1) {

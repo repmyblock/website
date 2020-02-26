@@ -15,8 +15,15 @@
 	
 	$Variable = "demo-CC";
 	$CanPetitionSet_ID = trim($_GET["petid"]);
+	$CandidatePetitionSet_ID = trim($_GET["setid"]);
+	
+	
 	if (is_numeric($CanPetitionSet_ID)) {
 		$Variable = "petid";
+	}
+	
+	if (is_numeric($CandidatePetitionSet_ID)) {
+		$Variable = "setid";
 	}
 	
 	switch ($Variable) {
@@ -25,6 +32,19 @@
 	  	$result = $r->ListCandidatePetition($SystemUser_ID, "published");
 			break;
 			
+		case 'setid';
+			$result = $r->ListPetitionSet($CandidatePetitionSet_ID);
+			if ( ! empty ($result)) {
+				$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
+				$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
+				$pdf->BarCode = "S" . $result[0]["CandidatePetitionSet_ID"];
+				$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
+			}
+			
+			if ( $result[0]["Candidate_Status"] == "published") break;
+			goto democc;
+			break;
+								
 		case 'petid';
 			$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
 			if ( ! empty ($result)) {
@@ -36,6 +56,7 @@
 			if ( $result[0]["Candidate_Status"] == "published") break;
 			
 		case 'demo-single':
+			demosingle:
 			$result[0]["CanPetitionSet_ID"] = 1;
 			$result[0]["CandidateElection_Number"] = 1;
 			$result[0]["CandidateElection_PositionType"] = "demo";
@@ -51,6 +72,7 @@
 			break;
 		
 		case 'demo-CC':
+			democc:
 			$result[0]["CanPetitionSet_ID"] = 1;
 			$result[0]["CandidateElection_Number"] = 1;
 			$result[0]["CandidateElection_PositionType"] = "party";
@@ -154,11 +176,11 @@
 	$pdf->County = "__________________"; 
 	
 	if ( $PageSize == "letter") {
-		$NumberOfLines = 13 - $pdf->NumberOfCandidates;
+		$NumberOfLines = 12 - $pdf->NumberOfCandidates;
 		$pdf->BottonPt = 240.4;
 		
 		$pdf->BottonPt = 232;
-		
+		$Botton =  216.9;
 		
 	} else if ( $PageSize = "legal") {
 		$NumberOfLines = 23;
@@ -185,7 +207,7 @@
 
   	$pdf->SetFont('Arial', '', 10);
   	$pdf->SetY($YLocation - 13);
-		$pdf->Cell(38, 0, $Counter . ". ___ / ___ / " . date("Y"), 0, 0, 'L', 0);	
+		$pdf->Cell(38, 0, $Counter  . ". ___ / ___ / " . date("Y"), 0, 0, 'L', 0);	
 		
 		$pdf->SetX(195);
 		$pdf->Cell(38, 0, $County[$i], 0, 0, 'L', 0);
@@ -207,9 +229,11 @@
 		}	
 	}
 	
-	
-	while ( $Counter <= $NumberOfLines) {
+	// This is the last 
+	// $pdf->YLocation 
 
+	$done = 1;	
+	while ( $done == 1) {
 		$Counter++;
 		$YLocation = $pdf->GetY();
 		
@@ -231,22 +255,24 @@
 
 		$pdf->SetFont('Arial','I',8);		
 		$pdf->SetXY( 41,  $YLocation + 0.8);
-		$pdf->Write(0, "Print your name here");
+		$pdf->Write(0, "Print your name here:");
 
 		$pdf->SetFont('Arial','',8);
 		$pdf->SetTextColor(0);
 		
 		$pdf->SetXY( 6,  $YLocation - 4 );
   	$pdf->SetFont('Arial', '', 10);
-		$pdf->Cell(38, 0, $Counter . ". ___ / ___ / " . date("Y"), 0, 0, 'L', 0);
-		$pdf->SetXY($pdf->Line_Left, $YLocation);	
-		
+		$pdf->Cell(38, 0, $Counter . ". ___ / ___ / ". date("Y"), 0, 0, 'L', 0);
+
 		$pdf->SetY($YLocation+0.8);	
-		
+			
+		if ($pdf->GetY() > 218) {
+			$done = 0;
+		} else {
+			$pdf->SetXY($pdf->Line_Left, $YLocation);				
+		}
 		
 	}
-
-	
 	
 	$pdf->Output("I", "RepMyBlock-Petitions.pdf");
 
