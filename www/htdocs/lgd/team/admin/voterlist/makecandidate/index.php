@@ -149,8 +149,6 @@
 									<?php if ( ! empty ($EmailSend)) { echo $EmailSend . "<BR>"; } ?>
 									</div>
 									
-													<PRE><?= print_r($ResultElections) ?></PRE>
-									
 										<?php
 										 if ( ! empty ($ResultElections)) {
 				foreach ($ResultElections as $varelection) {
