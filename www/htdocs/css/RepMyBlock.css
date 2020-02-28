@@ -18,7 +18,7 @@ div.f40 {font-size:12px; padding: 30px 5px;}
 /* .right {text-align:right;} */
 .center {text-align:center;}
 /*.justify {text-align:justify;}*/
-
+.MediaCenter {text-align:center;}
 
 .btn {border: 2px solid black;background-color: white;color: black;padding: 14px 28px;font-size: 16px;cursor: pointer;}
 a.btn {-webkit-appearance: button;-moz-appearance: button;appearance: button;text-decoration: none;color: initial;}
