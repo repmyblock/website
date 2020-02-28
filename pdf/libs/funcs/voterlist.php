@@ -48,8 +48,8 @@ class PDF extends FPDF {
 		$this->SetY(-9);
    	$YLocation = $this->GetY() + 1.1;		
 		$this->SetFont('Arial','',8);
-   	$this->Write(0, "The voters listed in red are inactive in the voter roll. You can collect the " .
-										"signature but don't count it toward the signature threshold.");
+   	$this->Write(0, "The voters listed in red are inactive in the voter roll. " .
+										"You can collect the signature, but don't count them toward the signature threshold. ");
    	$this->Ln(3.9); 
 		$this->Line($this->Line_Left, $YLocation + 0.8, $this->Line_Right, $YLocation + 0.8);
 		//$this->SetX($this->Line_Left);
