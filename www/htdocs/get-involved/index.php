@@ -43,8 +43,8 @@
 	<P CLASS="BckGrndCenter">I WANT TO</P>
 
 	<DIV>
-		<A class="action-runfor" HREF="interested" CLASS="RunCC"><img class="action-runfor" src="/pics/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
-		<A class="action-nominate" HREF="propose" CLASS="NomCandidate"><img class="action-nominate" src="/pics/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
+		<A class="action-runfor" HREF="interested/" CLASS="RunCC"><img class="action-runfor" src="/pics/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
+		<A class="action-nominate" HREF="propose/" CLASS="NomCandidate"><img class="action-nominate" src="/pics/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
 	</DIV>
 <?php /*
 	<P CLASS="BlueBox">
