@@ -1,5 +1,4 @@
 <?php
-
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/mysql/queries.php";
 global $DB;
 
@@ -11,7 +10,25 @@ class OutragedDems extends queries {
 	  $DebugInfo["Flag"] = $debug;
 	  	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
+  
+  function UpdateCandidatePetitionHash($NYS, $Candidate_LocalHash) {
+  	$sql = "UPDATE Candidate SET Candidate_LocalHash = NULL " .
+  					"WHERE Candidate_UniqNYSVoterID = :NYS AND Candidate_LocalHash = :LocalHash";
+  	$sql_vars = array('NYS' => $NYS, 'LocalHash' => $Candidate_LocalHash);											
+		return $this->_return_multiple($sql,  $sql_vars);
+	}
      
+  function ListCandidatePetitionByHash($NYS, $Candidate_LocalHash) { 	
+		$sql = "SELECT * FROM Candidate " . 
+						"LEFT JOIN CandidatePetition ON (CandidatePetition.Candidate_ID = Candidate.Candidate_ID) " .
+						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
+						"LEFT JOIN Raw_Voter_Dates ON (Raw_Voter_Dates.Raw_Voter_Dates_ID = Candidate.Raw_Voter_Dates_ID) " .
+						"WHERE Candidate_UniqNYSVoterID = :NYS AND Candidate_LocalHash = :LocalHash";
+		
+		$sql_vars = array('NYS' => $NYS, 'LocalHash' => $Candidate_LocalHash);											
+		return $this->_return_multiple($sql,  $sql_vars);
+	}
+	
 	function FindRawVoterbyID($DatedFiles, $VoterID) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_ID = :VoterID";	
