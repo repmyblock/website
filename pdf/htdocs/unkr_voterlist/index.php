@@ -21,8 +21,7 @@
 		header("Location: " . $FrontEndPDF . "/multipetitions/");
 		exit();
 	}
-	
-	// print "<PRE>" . print_r($Result, 1) . "</PRE>";
+
 	$TodayDay = date_create(date("Y-m-d"));
 	
 	if (! empty ($Result)) {
@@ -33,11 +32,11 @@
 				  $FixedAddress = preg_replace('!\s+!', ' ', $var["Raw_Voter_ResStreetName"] );
 					$FixedApt = preg_replace('!\s+!', '', $var["Raw_Voter_ResApartment"] );
 					$Address[$FixedAddress][$var["Raw_Voter_ResHouseNumber"]]["PrintAddress"] = ucwords(strtolower(trim($r->DB_ReturnAddressLine1($var))));
-					$Address[$FixedAddress][$var["Raw_Voter_ResHouseNumber"]][$FixedApt][$var["Raw_Voter_Status"]][$var["Raw_Voter_ID"]] =	$var["CandidatePetition_VoterFullName"];
+					$Address[$FixedAddress][$var["Raw_Voter_ResHouseNumber"]][$FixedApt][$var["Raw_Voter_Status"]][$var["VotersIndexes_ID"]] =	$var["CandidatePetition_VoterFullName"];
 					
 					// The reason for this is that the CandidatePetition_ID is unique enough.
-					$Age[$var["Raw_Voter_ID"]] = $var["CandidatePetition_Age"];
-	        $Gender[$var["Raw_Voter_ID"]] = $var["Raw_Voter_Gender"];
+					$Age[$var["VotersIndexes_ID"]] = $var["CandidatePetition_Age"];
+	        $Gender[$var["VotersIndexes_ID"]] = $var["Raw_Voter_Gender"];
 			  }
 			}
 		}
