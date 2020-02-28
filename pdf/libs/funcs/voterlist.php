@@ -45,12 +45,15 @@ class PDF extends FPDF {
 	// Page footer
 	function Footer()	{
 		
-		$this->SetY(-5);
-   	$YLocation = $this->GetY() - 2.1;
-		$this->Line($this->Line_Left, $YLocation, $this->Line_Right, $YLocation);
-
-		$BoxWide = ($this->Line_Right / 3) - 1.2;
+		$this->SetY(-9);
+   	$YLocation = $this->GetY() + 1.1;		
 		$this->SetFont('Arial','',8);
+   	$this->Write(0, "The voters listed in red are inactive in the voter roll. You can collect the " .
+										"signature but don't count it toward the signature threshold.");
+   	$this->Ln(3.9); 
+		$this->Line($this->Line_Left, $YLocation + 0.8, $this->Line_Right, $YLocation + 0.8);
+		//$this->SetX($this->Line_Left);
+		$BoxWide = ($this->Line_Right / 3) - 1.2;
 		$this->Cell($BoxWide, 0, $this->LeftText, 0, 0, 'L');	
 	
 		$this->SetFont('Arial','B',8);
