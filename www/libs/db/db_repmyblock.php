@@ -179,6 +179,11 @@ class RepMyBlock extends queries {
 		$sql_vars = array('State' => $state);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
+	
+	function ListCandidatePetitions() {
+		$sql = "SELECT * FROM CandidatePetitionSet";
+		return $this->_return_multiple($sql);
+	}
 
 	function SearchVoterDBbyNYSID($ID, $DatedFiles) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
