@@ -49,7 +49,6 @@
 				} 
 			?>          
 				
-				<A HREF="petitioncombine/?k=<?= $k ?>">Combine candidates into a single petition.</A>
 	
 		    
 				<div class="clearfix gutter d-flex flex-shrink-0">
