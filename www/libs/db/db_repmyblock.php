@@ -475,8 +475,9 @@ class RepMyBlock extends queries {
 	
 	
 	function OtherCandidateCoupled($Party) {
-		$sql = "SELECT * FROM Candidate WHERE CandidateElection_DBTable = :DBTable AND Candidate_Party = :Party";
-		$sql_vars = array("DBTable" => "congress", "Party" => $Party);
+		$sql = "SELECT * FROM Candidate WHERE CandidateElection_DBTable != :DBTable AND CandidateElection_DBTable != :DBTable2 " . 
+						"AND CandidateElection_DBTable IS NOT NULL AND Candidate_Party = :Party";
+		$sql_vars = array("DBTable" => "EDAD", "DBTable2" => "BROKEN", "Party" => $Party);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 

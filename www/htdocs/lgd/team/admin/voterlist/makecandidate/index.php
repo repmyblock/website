@@ -309,7 +309,7 @@
 													foreach($CoupledCanidates as $vor) {
 														if ( ! empty ($vor)) {
 															?>
-																<OPTION VALUE="<?= $vor["Candidate_ID"]; ?>"><?= $vor["Candidate_DispName"]; ?> - (District: <?= $vor["CandidateElection_DBTableValue"] ?>)</OPTION>
+																<OPTION VALUE="<?= $vor["Candidate_ID"]; ?>"><?= $vor["Candidate_DispName"]; ?> - (<?= $vor["CandidateElection_DBTable"] ?> - District: <?= $vor["CandidateElection_DBTableValue"] ?>)</OPTION>
 															<?php
 														}
 													}	
