@@ -35,7 +35,7 @@ if ( ! empty ($result)) {
 			?>
 
 		
-					<A TARGET=NewPetitions HREF="<?= $FrontEndPDF ?>/multipetitions/?setid=<?= $var["CandidatePetitionSet_ID"] ?>">Petition ID <?= $var["CandidatePetitionSet_ID"] ?></A>
+					<A TARGET=NewPetitions HREF="<?= $FrontEndPDF ?>/multipetitions/?setid=<?= $var["CandidatePetitionSet_ID"] ?>">Petition #<?= $var["CandidatePetitionSet_ID"] ?></A>
 			
 			
 			<?php
