@@ -302,7 +302,7 @@
 										<INPUT TYPE="checkbox" NAME="DBTableValue" VALUE="<?= $varelection["CandidateElection_DBTableValue"] ?>"> <?= $varelection["CandidateElection_DBTableValue"] ?><BR>
 										<BR>
 										<SELECT NAME="CandidateNameID">
-										<OPTION VALUE="&nbsp;">&nbsp;</OPTION>
+										<OPTION VALUE="&nbsp;">Select a candidate to co-petition</OPTION>
 														
 											<?php 
 												if (! empty ($CoupledCanidates)) {
