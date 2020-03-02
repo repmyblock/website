@@ -38,7 +38,7 @@
 		<div class="col-9 float-left">
 
 			<div class="Subhead">
-		  	<h2 class="Subhead-heading">Voter Lookup</h2>
+		  	<h2 class="Subhead-heading">Admin</h2>
 			</div>
 			
 			<?php 
@@ -48,9 +48,9 @@
 					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
 				} 
 			?>          
-				
-				<A HREF="petitioncombine/?k=<?= $k ?>">Combine candidates into a single petition.</A>
-	
+		
+		<A HREF="petitioncombine/?k=<?= $k ?>">Create a petition combination</A>
+		
 		    
 				<div class="clearfix gutter d-flex flex-shrink-0">
 									

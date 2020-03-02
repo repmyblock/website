@@ -469,9 +469,17 @@ class RepMyBlock extends queries {
 		if ( $order > 0) {
 			$sql .= "ORDER BY Raw_Voter_ResStreetName, Raw_Voter_ResHouseNumber, Raw_Voter_ResApartment";
 		}
-
+		return $this->_return_multiple($sql, $sql_vars);
+		
+	}
+	
+	
+	function OtherCandidateCoupled($Party) {
+		$sql = "SELECT * FROM Candidate WHERE CandidateElection_DBTable = :DBTable AND Candidate_Party = :Party";
+		$sql_vars = array("DBTable" => "congress", "Party" => $Party);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
+
 	
 	function PrepDisctictVoterRoll($CandidateID, $DatedFiles, $DatedFilesID, $InfoArray) {
 	
