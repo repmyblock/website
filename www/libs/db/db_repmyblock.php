@@ -181,7 +181,7 @@ class RepMyBlock extends queries {
 	}
 	
 	function ListCandidatePetitions($Date) {
-		$sql = "SELECT * FROM CandidatePetitionSet WHERE CandidatePetitionSet_TimeStamp > :Date ORDER BY CandidatePetitionSet DESC";
+		$sql = "SELECT * FROM CandidatePetitionSet WHERE CandidatePetitionSet_TimeStamp > :Date ORDER BY CandidatePetitionSet_ID DESC";
 		$sql_vars = array('Date' => $Date);
 		return $this->_return_multiple($sql, $sql_vars);
 	}

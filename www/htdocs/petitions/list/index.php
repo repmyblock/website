@@ -22,24 +22,36 @@
 			<h1 CLASS="intro">List of Available Petitions</H1>
 		</P>
 		
+		<P CLASS="f60">
+				<B>
+					<UL>
 		<?php
+		$Counter = 0;
+			
 if ( ! empty ($result)) {
 	foreach ($result as $var) {
 		if ( ! empty ($var)) {
+			$Counter++;
 			?>
 
-		<P CLASS="f60">
-			<B>
-				<A TARGET=NewPetitions HREF="<?= $FrontEndPDF ?>/multipetitions/?setid=<?= $var["CandidatePetitionSet_ID"] ?>">Petition ID <?= $var["CandidatePetitionSet_ID"] ?></A><BR>
-			</B>
-		</P>
 		
-		<?php
+					<A TARGET=NewPetitions HREF="<?= $FrontEndPDF ?>/multipetitions/?setid=<?= $var["CandidatePetitionSet_ID"] ?>">Petition ID <?= $var["CandidatePetitionSet_ID"] ?></A>
+			
+			
+			<?php
+			
+			if ( ($Counter % 5) == 0) {
+				print "<BR>";
+			}
+		
+		
 		}
 	}
 }
 ?>
-
+</UL>
+	</B>
+			</P>
 	</DIV>
 	</DIV>
 </div>
