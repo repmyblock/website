@@ -9,16 +9,16 @@
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 	
 	$r = new repmyblock();
-	$result = $r->ListCandidatePetitions();
-	/* User is logged */
-	
+	$result = $r->ListCandidatePetitions("2020-02-24 00:00:00");
 ?>
 
 
 
 <div class="main">
 	<div class="row">
-		<div class="register">				<P>
+		<div class="register">			
+			
+		<P>
 			<h1 CLASS="intro">List of Available Petitions</H1>
 		</P>
 		

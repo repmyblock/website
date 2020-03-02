@@ -180,9 +180,10 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	function ListCandidatePetitions() {
-		$sql = "SELECT * FROM CandidatePetitionSet";
-		return $this->_return_multiple($sql);
+	function ListCandidatePetitions($Date) {
+		$sql = "SELECT * FROM CandidatePetitionSet WHERE CandidatePetitionSet_TimeStamp > :Date ORDER BY CandidatePetitionSet DESC";
+		$sql_vars = array('Date' => $Date);
+		return $this->_return_multiple($sql, $sql_vars);
 	}
 
 	function SearchVoterDBbyNYSID($ID, $DatedFiles) {
