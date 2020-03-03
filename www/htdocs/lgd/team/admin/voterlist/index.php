@@ -153,7 +153,12 @@
 					</TR>
 					<TR ALIGN=CENTER>
 						<TD style="padding:0px 10px;"><?= PrintShortDate($var["Raw_Voter_DOB"]); ?></TD>
-						<TD style="padding:0px 10px;">&nbsp;</TD>
+						<TD style="padding:0px 10px;">	<?php
+										$dob = new DateTime($var["Raw_Voter_DOB"]);
+	 									$now = new DateTime();
+	 									$difference = $now->diff($dob);
+	 									echo $difference->y;				
+									?>
 						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_Gender"] ?></TD>
 						<TD style="padding:0px 10px;"><?= NewYork_PrintParty($var["Raw_Voter_EnrollPolParty"]) ?></TD>
 					</TR>
