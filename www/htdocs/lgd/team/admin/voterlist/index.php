@@ -56,35 +56,9 @@
 																					$URIEncryptedString["Query_PARTY"], $URIEncryptedString["Query_AD"], 
 																					$URIEncryptedString["Query_ED"], $URIEncryptedString["Query_Congress"] );	
 	} else {
-		if (! empty ($Query_AD)) {	
-			if ( empty ($Query_ED)) {
+		if (! empty ($Query_AD) || ! ($Query_ED)) {	
 				header("Location: byad/?k=" . $k);	
 				exit();
-						
-			} else {
-				// Ugly Hack to remove one day
-				$Result = $rmb->SearchByAD_Dated_DB($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, $DatedFilesID, 
-																						$URIEncryptedString["Query_PARTY"], $URIEncryptedString["Query_AD"], 
-																						$URIEncryptedString["Query_ED"]);	
-				$EmptyResultSet = $Result[0];
-				$Result = array();
-				$Result[0] = $EmptyResultSet;		
-				$Result[0]["Raw_Voter_LastName"] = "UGLY HACK TO GET THE WALK LIST.";
-				$Result[0]["Raw_Voter_ResHouseNumber"]= "";
-				$Result[0]["Raw_Voter_ResFracAddress"] = "";
-				$Result[0]["Raw_Voter_ResPreStreet"] = "";
-				$Result[0]["Raw_Voter_ResStreetName"] = "";
-				$Result[0]["Raw_Voter_ResPostStDir"] = "";
-				$Result[0]["Raw_Voter_ResApartment"]= "";
-				$Result[0]["Raw_Voter_ResCity"]= "";
-				$Result[0]["Raw_Voter_ResZip"] = "";
-				$Result[0]["Raw_Voter_ResZip4"] = "";
-				$Result[0]["Raw_Voter_DOB"] = "";
-				$Result[0]["Raw_Voter_Gender"] = "";
-				$Result[0]["Raw_Voter_FirstName"] = "";
-				$Result[0]["Raw_Voter_MiddleName"] = "";
-				$Result[0]["Raw_Voter_Suffix"] = "";
-			}
 		} else {	
 			$ErrorMsg = "There is an error, a field is empty";
 		}

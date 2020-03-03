@@ -49,7 +49,7 @@
 	<?php	if ( $SystemAdmin == $FullAdminRights && ! empty ($FullAdminRights)) { ?>
 	<BR>
   		<A HREF="/lgd/team/admin/?k=<?= $k ?>">Admin Screen</A><BR>	
-  		<A HREF="/lgd/team/admin/track/?k=<?= $k ?>">Track Petitions</A><BR>	
+  		<?php /* <A HREF="/lgd/team/admin/track/?k=<?= $k ?>">Track Petitions</A><BR>	 */ ?>
   <?php	} ?>
    		
    		
