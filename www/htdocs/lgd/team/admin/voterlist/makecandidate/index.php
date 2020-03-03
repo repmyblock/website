@@ -14,23 +14,78 @@
 	$rmb = new repmyblock();
 	
 	if ( ! empty ($_POST)) {
-		// echo "<PRE>" . print_r($_POST, 1) . "</PRE>";
+	
+		
+		/*
+		
+		echo "<PRE>" . print_r($_POST, 1) . "<BR>";
+		exit();
+	
+		[rawvoterid] => 2157509
+    [UniqNYSVoterID] => NY000000000050251106
+    [DatedFiles] => 20200203
+    [DatedFilesID] => 22
+    [EnrollPolParty] => DEM
+    [FullName] => Alexandria Ocasio-cortez 
+    [Address1] => 1525 UNIONPORT ROAD - Apt. 4D
+    [Address2] => BRONX, NY 10462
+    [County] => 03
+    [] => 57
+    [AD] => 87
+    [candidateelection] => 10010
+    [NewED] => 057
+    [CandidateNameID] => 
+    [candidateDBTable] => EDAD
+
+		
+		
+    [rawvoterid] => 31466
+    [UniqNYSVoterID] => NY000000000035760967
+    [DatedFiles] => 20200203
+    [DatedFilesID] => 22
+    [EnrollPolParty] => DEM
+    [FullName] => Carmen G. Ocasio 
+    [Address1] => 1748 DECATUR STREET - Apt. 1R
+    [Address2] => RIDGEWOOD, NY 11385
+    [County] => 41
+    [ED] => 8
+    [AD] => 38
+    [candidateelection] => 13470
+    [ChangeED] => 008
+    [NewED] => 35
+    [CandidateNameID] => 124
+    [candidateDBTable] => EDAD
+    		*/
+		
+		if ( ! empty ($_POST["NewED"]) && is_numeric($_POST["NewED"]) && ! empty ($_POST["ChangeED"])) {
+			$EDAD = sprintf('%02d%03d', $_POST["AD"], $_POST["NewED"]);			
+		} else {
+			$EDAD = sprintf('%02d%03d', $_POST["AD"], $_POST["ED"]);		
+		}
+
+		
 		//function PrepDisctictVoterRoll($CandidateID, $RawVoterID, $DatedFiles, $DatedFilesID, $InfoArray) {
 			
 		
 		$DisplayName = $_POST["FirstName"] . " " . $_POST["MiddleName"] . " " . $_POST["LastName"] . " " . $_POST["Suffix"];
 		$Address = $_POST["ResHouseNumber"] . " " . $_POST["ResFracAddress"] . " " . $_POST["ResPreStreet"] . " " . 
-		$_POST["ResStreetName"] . " " . $_POST["ResPostStDir"] . " " . $_POST["ResApartment"] . " " . 
-		$_POST["ResCity"] . ", NY " . $_POST["ResZip"];
+								$_POST["ResStreetName"] . " " . $_POST["ResPostStDir"] . " " . $_POST["ResApartment"] . " " . 
+								$_POST["ResCity"] . ", NY " . $_POST["ResZip"];
 		
 		$CanID = $rmb->InsertCandidate(NULL, $_POST["UniqNYSVoterID"], $_POST["rawvoterid"], $_POST["DatedFiles"], 
 															$_POST["DatedFilesID"], $_POST["candidateelection"], $_POST["EnrollPolParty"], $_POST["FullName"],
-															$_POST["Address1"] . "\n" . $_POST["Address2"], $_POST["candidateDBTable"], $_POST["DBTableValue"],	NULL, "published");	
+															$_POST["Address1"] . "\n" . $_POST["Address2"], "EDAD", $EDAD,	NULL, "published");	
 		$CandidatePetitionSet = $rmb->InsertCandidatePetitionSet();
 
-		$CanPetSet = $rmb->InsertCandidateSet($CanID["Candidate_ID"], $CandidatePetitionSet["CandidatePetitionSet_ID"], $_POST["EnrollPolParty"], $_POST["County"]);
+		$CanPetSet = $rmb->InsertCandidateSet($CanID["Candidate_ID"], $CandidatePetitionSet["CandidatePetitionSet_ID"], 
+																					$_POST["EnrollPolParty"], $_POST["County"]);
 		
-		$InfoArray["ElectDistr"] = $_POST["ED"];
+		if ( ! empty ($_POST["NewED"]) && is_numeric($_POST["NewED"]) && ! empty ($_POST["ChangeED"])) {
+			$InfoArray["ElectDistr"] = $_POST["NewED"];
+		} else {
+			$InfoArray["ElectDistr"] = $_POST["ED"];
+		}
+			
 		$InfoArray["AssemblyDistr"] = $_POST["AD"];
 		$InfoArray["Party"] = $_POST["EnrollPolParty"];
 		
@@ -106,13 +161,18 @@
 						else if ( $var["Raw_Voter_Gender"] == "F") {	$EnrollVoterSex = "female"; }
 						else { $EnrollVoterSex = "other"; }
 						
+						preg_match('/^NY0+(.*)/', $var["Raw_Voter_UniqNYSVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
+						$UniqVoterID = "NY" . $UniqMatches[1][0];
 						?>
+						
+						
+						
 								<div class="list-group-item f60">
 									<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
-									<?= $var["Raw_Voter_ID"] ?> Status: <FONT COLOR=BROWN><?= $var["Raw_Voter_Status"] ?></FONT>
+									<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $var["Raw_Voter_Status"] ?></FONT>
 									<BR>
 						
-									<B><?= $ResultStats[0]["Count"] ?></B> registered <?= NewYork_PrintParty($ResultStats[0][Raw_Voter_EnrollPolParty]) ?>,
+									<B><?= $ResultStats[0]["Count"] ?></B> registered <?= NewYork_PrintParty($ResultStats[0][Raw_Voter_EnrollPolParty]) ?> - 
 									<B><FONT COLOR=BROWN><?= intval(($ResultStats[0][Count]) * $SignaturesRequired) + 1 ?></FONT></B> required signatures.<BR>
 									
 									<BR>
@@ -144,7 +204,7 @@
 										<TD style="padding:0px 10px;"><?= $var["Raw_Voter_AssemblyDistr"] ?></TD>
 										<TD style="padding:0px 10px;"><?= $var["Raw_Voter_ElectDistr"] ?></TD>
 										<TD style="padding:0px 10px;"><?= $var["Raw_Voter_CongressDistr"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $var["Raw_Voter_CountyCode"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $var["DataCounty_Name"] ?></TD>
 									</TR>
 								</TABLE>
 								
@@ -156,15 +216,19 @@
 							
 									</TR>
 									<TR>
-										<TD style="padding:0px 10px;">		<?php if (! empty ($var["Raw_Voter_ResHouseNumber"])) echo $var["Raw_Voter_ResHouseNumber"]; ?>
-									<?php if (! empty ($var["Raw_Voter_ResFracAddress"]))  echo $var["Raw_Voter_ResFracAddress"]; ?>
-									<?php if (! empty ($var["Raw_Voter_ResPreStreet"])) echo $var["Raw_Voter_ResPreStreet"]; ?>
-									<?php if (! empty ($var["Raw_Voter_ResStreetName"])) echo $var["Raw_Voter_ResStreetName"]; ?>
-									<?php if (! empty ($var["Raw_Voter_ResPostStDir"])) echo $var["Raw_Voter_ResPostStDir"] . "<BR>"; ?>
-									<?php if (! empty ($var["Raw_Voter_ResApartment"])) echo $var["Raw_Voter_ResApartment"] . "<BR>"; ?>
-									<BR>
-									<?= $var["Raw_Voter_ResCity"] ?>, NY
-									<?= $var["Raw_Voter_ResZip"] ?> - <?= $var["Raw_Voter_ResZip4"] ?><BR></TD>
+										<TD style="padding:0px 10px;">		
+											<?php if (! empty ($var["Raw_Voter_ResHouseNumber"])) echo $var["Raw_Voter_ResHouseNumber"]; ?>
+											<?php if (! empty ($var["Raw_Voter_ResFracAddress"]))  echo $var["Raw_Voter_ResFracAddress"]; ?>
+											<?php if (! empty ($var["Raw_Voter_ResPreStreet"])) echo $var["Raw_Voter_ResPreStreet"]; ?>
+											<?php if (! empty ($var["Raw_Voter_ResStreetName"])) echo $var["Raw_Voter_ResStreetName"]; ?>
+											<?php if (! empty ($var["Raw_Voter_ResPostStDir"])) echo $var["Raw_Voter_ResPostStDir"]; ?>
+											<?php if (! empty ($var["Raw_Voter_ResApartment"])) echo " - Apt " . $var["Raw_Voter_ResApartment"]; ?>
+											<BR>
+											<?= $var["Raw_Voter_ResCity"] ?>, NY
+												<?= $var["Raw_Voter_ResZip"] ?>
+											<?php if (! empty ($var["Raw_Voter_ResZip4"])) echo " - " . $var["Raw_Voter_ResZip4"]; ?>
+											<BR>
+										</TD>
 									</TR>
 								</TABLE>
 								<BR>
@@ -283,26 +347,49 @@
 									
 										<TABLE BORDER=1>
 									<TR>
-										<TD style="padding:0px 10px;">Election</TD>
+										<TD style="padding:0px 10px;">Election<BR><BR>
+												<FONT COLOR="BROWN">I HAVE MOVED THE BOTTON TO MAKE A CANDIDATE HERE</B></FONT><BR>
+			                   &darr;
+											</TD>
 									</TR>
 									<TR>
-										<TD style="padding:0px 10px;"><FONT SIZE=+1><?= $varelection["CandidateElection_Text"] ?></FONT></TD>
+										<TD style="padding:0px 10px;">
+											
+										
+											<INPUT TYPE="checkbox" NAME="candidateelection" VALUE="<?= $varelection["CandidateElection_ID"] ?>">
+								&nbsp;
+											<FONT SIZE=+1><?= $varelection["CandidateElection_Text"] ?></FONT></TD>
 									</TR>
 									
 									<TR >
 										<TD style="padding:0px 10px;"><?= $varelection["CandidateElection_PetitionText"] ?></TD>
 									</TR>
 								</TABLE>
-							
-									
+								
+						
+									<?php 
+										if ( $varelection["CandidateElection_DBTable"] == "EDAD") {
+											preg_match('/(\d{2})(\d{3})/', $varelection["CandidateElection_DBTableValue"], $Assembly, PREG_OFFSET_CAPTURE);
+											$AD = $Assembly[1][0];
+											$ED = $Assembly[2][0];
+										}
+									?>	
+																	
 									<BR>
-									<FONT SIZE=+1>Select the four checkboxes:</FONT><BR>
-										<INPUT TYPE="checkbox" NAME="candidateelection" VALUE="<?= $varelection["CandidateElection_ID"] ?>"> <B><?= $varelection["CandidateElection_Text"] ?><BR>
-										<INPUT TYPE="checkbox" NAME="candidateDBTable" VALUE="<?= $varelection["CandidateElection_DBTable"] ?>"> District: <?= $varelection["CandidateElection_DBTable"] ?><BR>
-										<INPUT TYPE="checkbox" NAME="DBTableValue" VALUE="<?= $varelection["CandidateElection_DBTableValue"] ?>"> <?= $varelection["CandidateElection_DBTableValue"] ?><BR>
-										<BR>
-										<SELECT NAME="CandidateNameID">
-										<OPTION VALUE="&nbsp;">Select a candidate to co-petition</OPTION>
+									<FONT SIZE=+1>If you need to move this person to another ED, check the box and type the ED:</FONT>	
+										<TABLE BORDER=1>
+									<TR>
+										<TH style="padding:0px 10px;">Check the box to change the ED</TH>
+										<TH style="padding:0px 10px;">Assembly District</TH>
+										<TH style="padding:0px 10px;">Election District</TH>
+										<TH style="padding:0px 10px;">Candidate to co-petition</TH>
+									</TR>
+									<TR ALIGN=CENTER>
+										<TD style="padding:0px 10px;"><?php /* INPUT TYPE="checkbox" NAME="ChangeED" VALUE="<?= $ED ?>"> */ ?>Button Temporarilly Removed</TD>
+										<TD style="padding:0px 10px;"><?= $AD ?></TD>
+										<TD style="padding:0px 10px;"><INPUT TYPE="text" NAME="NewED" VALUE="<?= $ED ?>" SIZE="3"></TD>
+										<TD style="padding:0px 10px;"><SELECT NAME="CandidateNameID">
+										<OPTION VALUE="">Select a candidate to co-petition</OPTION>
 														
 											<?php 
 												if (! empty ($CoupledCanidates)) {
@@ -315,7 +402,19 @@
 													}	
 												}
 												?>
-												</SELECT>
+												</SELECT></TD>
+									 </B><BR>
+									
+									</TR>
+								</TABLE>
+									
+														
+											<INPUT TYPE="HIDDEN" NAME="candidateDBTable" VALUE="<?= $varelection["CandidateElection_DBTable"] ?>"> 
+											
+								
+											
+										<BR>
+										
 																
 			
           <?php } 
@@ -323,11 +422,22 @@
         					} }
 
       }
-      ?>
-      
+      	$TheNewK = EncryptURL(	
+					"SystemUser_ID=" . $URIEncryptedString["SystemUser_ID"]. 
+					"&SystemAdmin=" .  $URIEncryptedString["SystemAdmin"] . 
+					"&FirstName=" . $URIEncryptedString["FirstName"] . 
+					"&LastName=" . $URIEncryptedString["LastName"] . 
+					"&UniqNYSVoterID=" . $URIEncryptedString["UniqNYSVoterID"]. 
+					"&UserParty=" . $URIEncryptedString["UserParty"]. 
+					"&MenuDescription=" . $URIEncryptedString["MenuDescription"]
+				); ?>
+			
+    
+     
       	<?php if ( count($ResultElections) > 0) { ?>
 								
-									<button type="submit" class="btn btn-primary">Attach this voter to candidate</button>
+									<button type="submit" class="btn btn-primary">Create the Candidate Petition</button><BR> <BR>
+									<B><A HREF="/lgd/team/admin/?k=<?= $TheNewK ?>">Look for a new voter</A></B>
 								
 								<?php } ?>
 									

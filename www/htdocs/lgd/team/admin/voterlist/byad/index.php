@@ -17,9 +17,9 @@
 	
 	// print "resultPass: " . "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
 	
-	if (! empty ($AD)) {	
-		if ( empty ($ED)) {
-			$Result = $rmb->ReturnGroupAD_Dated_DB($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, $DatedFilesID, $PARTY, $AD);			
+	if (! empty ($Query_AD)) {	
+		if ( empty ($Query_ED)) {
+			$Result = $rmb->ReturnGroupAD_Dated_DB($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, $DatedFilesID, $Query_PARTY, $Query_AD);			
 			// print "resultPass: " . "<PRE>" . print_r($Result, 1) . "</PRE>";
 		} 
 	}

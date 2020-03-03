@@ -21,8 +21,8 @@
 		</P>
 		
 		<P CLASS="f60">
-				<B>
-					<UL>
+			<B>
+				<UL>
 		<?php
 		$Counter = 0;
 			
