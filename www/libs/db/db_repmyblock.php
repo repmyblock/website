@@ -37,6 +37,7 @@ class RepMyBlock extends queries {
 		$sql_vars = array(':Email' => $email);											
 		return $this->_return_simple($sql,  $sql_vars);
 	}
+	
 
 	function SearchVoterDBbyID($DatedFiles, $RawVoterID) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
@@ -61,6 +62,7 @@ class RepMyBlock extends queries {
 	function VoterRanCandidate($RawVoterID, $DatedFiles) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM " . $TableVoter . " " .
+						"LEFT JOIN DataCounty ON ( Raw_Voter_CountyCode = DataCounty.DataCounty_ID) " . 
 						"LEFT JOIN Candidate ON (Candidate.Raw_Voter_ID = " . $TableVoter . ".Raw_Voter_ID AND Raw_Voter_DatedTable_ID = :DatedFiles) " .
 						"LEFT JOIN CanPetitionSet ON (CanPetitionSet.Candidate_ID = Candidate.Candidate_ID) " .
 						"WHERE " . 
@@ -80,19 +82,55 @@ class RepMyBlock extends queries {
 		$sql_vars = array('RawVoterID' => $RawVoterID);									
 		return $this->_return_multiple($sql, $sql_vars);
 	}
-
-	function SearchVoter_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $FirstName, $LastName, $DOB = NULL) {
+	
+	
+	function SearchVoter_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $FirstName, $LastName, $DOB = NULL, 
+																$zip = NULL, $countyid = NULL, $Party = NULL, $AD = NULL, $ED = NULL, $Congress = NULL) {
 		$this->SaveVoterRequest($FirstName, $LastName, $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_LastName = :LastName AND Raw_Voter_FirstName = :FirstName";
-		$sql_vars = array('FirstName' => $FirstName, 'LastName' => $LastName);
+		$sql = "SELECT * FROM " . $TableVoter . " " . 
+						"LEFT JOIN DataCounty ON ( Raw_Voter_CountyCode = DataCounty.DataCounty_ID) " . 
+						"WHERE Raw_Voter_LastName = :LastName ";						
+		$sql_vars = array('LastName' => $LastName);
+
+		if ( ! empty ($FirstName)) { $sql .= " AND Raw_Voter_FirstName = :FirstName"; $sql_vars["FirstName"] = $FirstName; }		
+		if ( ! empty ($zip)) { $sql .= " AND Raw_Voter_ResZip = :ZIP"; $sql_vars["ZIP"] = $zip;	}
+		if ( ! empty ($AD)) {	$sql .= " AND Raw_Voter_AssemblyDistr = :AD";	$sql_vars["AD"] = $AD; }
+		if ( ! empty ($ED)) {	$sql .= " AND Raw_Voter_ElectDistr = :ED"; $sql_vars["ED"] = $ED; }
+		if ( ! empty ($Congress)) {	$sql .= " AND Raw_Voter_CongressDistr = :Congress";	$sql_vars["Congress"] = $Congress;	}
+		if ( ! empty ($Party)) { $sql .= " AND Raw_Voter_EnrollPolParty = :Party"; $sql_vars["Party"] = $Party;	}
+		
+		if ( ! empty ($countyid)) {
+			switch ($countyid) {
+				case 'BQK':
+					$sql .= " AND (Raw_Voter_CountyCode = \"03\" || Raw_Voter_CountyCode = \"41\" || Raw_Voter_CountyCode = \"24\")";
+					break;
+					
+				case 'NYC':
+					$sql .= " AND (Raw_Voter_CountyCode = \"43\" || Raw_Voter_CountyCode = \"31\")";
+					break;
+
+				case 'OUTSIDE':
+					$sql .= " AND Raw_Voter_CountyCode != \"03\" && Raw_Voter_CountyCode != \"41\" && Raw_Voter_CountyCode != \"24\"" .
+									" AND Raw_Voter_CountyCode != \"43\" || Raw_Voter_CountyCode != \"31\"";
+					break;
+				
+				default:
+					$sql .= " AND Raw_Voter_CountyCode = :CountyCode";
+					$sql_vars["CountyCode"] = $countyid;
+					break;				
+			}
+		}
+		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
 	function SearchVoter_Dated_NYSBOEID($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $NYSBOEID) {
 		$this->SaveVoterRequest("NYS BOE ID", $NYSBOEID, $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_UniqNYSVoterID = :NYSBOEID";
+		$sql = "SELECT * FROM " . $TableVoter . " " .
+						"LEFT JOIN DataCounty ON ( Raw_Voter_CountyCode = DataCounty.DataCounty_ID) " . 
+						"WHERE Raw_Voter_UniqNYSVoterID = :NYSBOEID";
 		$sql_vars = array('NYSBOEID' => $NYSBOEID);
 		
 		return $this->_return_multiple($sql, $sql_vars);
@@ -103,8 +141,9 @@ class RepMyBlock extends queries {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 
 		$sql_vars = array('AD' => $AD, 'Party' => $PARTY);
-		$sql = "SELECT COUNT(*) AS Count, Raw_Voter_EnrollPolParty, Raw_Voter_AssemblyDistr, Raw_Voter_ElectDistr FROM " . $TableVoter . 
-					 " WHERE Raw_Voter_AssemblyDistr = :AD AND Raw_Voter_EnrollPolParty = :Party" ;
+		$sql = "SELECT COUNT(*) AS Count, Raw_Voter_EnrollPolParty, Raw_Voter_AssemblyDistr, Raw_Voter_ElectDistr " . 
+						"FROM " . $TableVoter . " " . 
+					 	"WHERE Raw_Voter_AssemblyDistr = :AD AND Raw_Voter_EnrollPolParty = :Party" ;
 		if ( ! empty ($ED)) {
 			$sql .= " AND Raw_Voter_ElectDistr = :ED";
 			$sql_vars["ED"] = $ED;
@@ -114,7 +153,6 @@ class RepMyBlock extends queries {
 					 " GROUP BY Raw_Voter_AssemblyDistr, Raw_Voter_ElectDistr ";
 	 	$sql .= " ORDER BY CAST(Raw_Voter_ElectDistr AS unsigned) ASC";
 	 	
-		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
