@@ -42,7 +42,16 @@
 	$PageSize = "letter";
 	$pdf = new PDF('P','mm', $PageSize);
 	
-	$pdf->Text_PubDate = date("M j, Y \a\\t g:i a");
+	$RestOfLine = "";
+	$pdf->Text_PubDate_XLoc = 153;
+	if ( $result["CandidateElection_DBTable"] = "EDAD") {
+		preg_match('/(\d\d)(\d\d\d)/', $result["CandidateElection_DBTableValue"], $Keywords);
+		$RestOfLine = " AD: " . intval($Keywords[1]) . " ED: " . intval($Keywords[2]);
+		$pdf->Text_PubDate_XLoc = 133;
+	}
+		
+	
+	$pdf->Text_PubDate = date("M j, Y \a\\t g:i a") . $RestOfLine;
 	$pdf->Text_CandidateName = $result["Candidate_DispName"];
 	$pdf->Text_ElectionDate = $ElectionDate;
 	$pdf->Text_PosType = $result["CandidateElection_PositionType"];

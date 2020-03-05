@@ -33,7 +33,7 @@ class PDF extends FPDF {
     $this->SetFont('Arial','',8);
     $this->SetXY(51,16);
     $this->MultiCell(160,3, "Running for " . $this->Text_PosPetText . " on " . $this->Text_ElectionDate, 0, 'R', 0);
-    $this->SetXY(153, 6);
+    $this->SetXY($this->Text_PubDate_XLoc, 6);
     $this->SetFont('Arial','UB',8);
     $this->Write(0, "List prepared on ");
     $this->SetFont('Arial','U',8);

@@ -59,7 +59,14 @@
 	$PageSize = "letter";
 	$pdf = new PDF('P','mm', $PageSize);
 	
-	$pdf->Text_PubDate = date("M j, Y \a\\t g:i a");
+	$RestOfLine = "";
+	$pdf->Text_PubDate_XLoc = 153;
+	if ( ! empty ($Result[0]["Raw_Voter_ElectDistr"]) ) {
+		$RestOfLine = " AD: " . intval($Result[0]["Raw_Voter_AssemblyDistr"]) . " ED: " . intval($Result[0]["Raw_Voter_ElectDistr"]);
+		$pdf->Text_PubDate_XLoc = 133;
+	}
+	
+	$pdf->Text_PubDate = date("M j, Y \a\\t g:i a") . $RestOfLine;
 	$pdf->Text_CandidateName = $r->DB_ReturnFullName($RawVoter);
 	$pdf->Text_ElectionDate = $ElectionDate;
 	$pdf->Text_PosType = $result["CandidateElection_PositionType"];
