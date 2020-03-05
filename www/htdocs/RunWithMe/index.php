@@ -9,11 +9,11 @@
 	<DIV CLASS="right f80">Run With Me</DIV>
 
 			<P>
-				<A HREF="register/">Register to download your petition and your walk sheet</A>
+				<FONT SIZE=+1><B><A HREF="register/">Register to download your petition and your walk sheet</A></B></FONT>
 			</P>
 			
 				<P>
-				<FONT SIZE=+1>Paperboy Prince is running for Congress in the 7<sup>th</sup> Congressional District and you can 
+				Paperboy Prince is running for Congress in the 7<sup>th</sup> Congressional District and you can 
 			access his website at <a href="https://paperboyprince.com/volunteer">https://paperboyprince.com/volunteer</a>	</FONT>
 			</P>
 			
