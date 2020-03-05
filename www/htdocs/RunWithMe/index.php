@@ -13,8 +13,8 @@
 			</P>
 			
 				<P>
-				Paperboy Prince is running for Congress in the 7<sup>th</sup> Congressional District and you can 
-				access his website at <a href="https://paperboyprince.com/volunteer">https://paperboyprince.com/volunteer</a>	
+				<FONT SIZE=+1>Paperboy Prince is running for Congress in the 7<sup>th</sup> Congressional District and you can 
+			access his website at <a href="https://paperboyprince.com/volunteer">https://paperboyprince.com/volunteer</a>	</FONT>
 			</P>
 			
 			<blockquote class="instagram-media" data-instgrm-captioned 
