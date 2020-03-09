@@ -14,7 +14,6 @@ $pdf = new PDF_Multi('P','mm', $PageSize);
 //$pdf = new PDF('P','mm', $PageSize);
 
 $CanPetitionSet_ID = trim($_GET["petid"]);
-// $pdf->XonDesign = "X";	
 // $pdf->DateEvent = $ElectionDateShort;
 // $pdf->Election = "PRIMARY";
 
@@ -26,6 +25,7 @@ if (is_numeric($CanPetitionSet_ID)) {
 		$result = $result[0];
 		$pdf->BarCode = $result["CanPetitionSet_ID"] . "000000";
 		
+		$pdf->XonDesign = "X";	
 		preg_match("/(.*)\n(.*)/", $result["Candidate_DispResidence"], $matches);
 		$pdf->AddressLine1 = $matches[1];
 		$pdf->AddressLine2 = $matches[2];
