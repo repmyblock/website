@@ -156,6 +156,11 @@ class OutragedDems extends queries {
   	$Address_Line2 = $vor["Raw_Voter_ResCity"] . ", NY " . $vor["Raw_Voter_ResZip"];
     return $Address_Line2;
   }
+  
+  function DB_ReturnAddressCity($vor) {
+  	return ucwords(strtolower(trim($this->DB_ReturnAddressLine1($vor) . "(" . $vor["Raw_Voter_ResCity"] . " Zip:" . $vor["Raw_Voter_ResZip"] . ")")));
+  }
+  
 	
 	function DB_ReturnFullName($vor) {
 		$FullName = $vor["Raw_Voter_FirstName"] . " ";
