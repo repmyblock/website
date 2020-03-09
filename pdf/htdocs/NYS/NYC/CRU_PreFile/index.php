@@ -7,38 +7,48 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/CRU_PreFileForm.php';
 require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
 
-$r = new OutragedDems();
+
 
 $PageSize = "letter";
 $pdf = new PDF_Multi('P','mm', $PageSize);
 //$pdf = new PDF('P','mm', $PageSize);
 
-$HasData = 1;
-if ( $HasData == 1) {
-	$pdf->Election = "PRIMARY";
-//	$pdf->PartyName = "Democratic";
+$CanPetitionSet_ID = trim($_GET["petid"]);
+// $pdf->XonDesign = "X";	
+// $pdf->DateEvent = $ElectionDateShort;
+// $pdf->Election = "PRIMARY";
 
-	$pdf->XonDesign = "X";
-//	$pdf->XonIndepend = "X";
-//	$pdf->XonOpportunity = "X";
+if (is_numeric($CanPetitionSet_ID)) { 
+	$r = new OutragedDems();
+	$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
 
-//	$pdf->TotalBX= "1";
-//	$pdf->TotalNY= "12";
-//	$pdf->TotalKG= "14";
-//	$pdf->TotalQN= "15";
-//	$pdf->TotalRC= "99";
-//	$pdf->Total= "1";
+	if ( ! empty ($result)) {
+		$result = $result[0];
+		$pdf->BarCode = $result["CanPetitionSet_ID"] . "000000";
+		
+		preg_match("/(.*)\n(.*)/", $result["Candidate_DispResidence"], $matches);
+		$pdf->AddressLine1 = $matches[1];
+		$pdf->AddressLine2 = $matches[2];
+		
+		$pdf->Election = strtoupper($result["Elections_Type"]);
+    $pdf->PrintName = $result["Candidate_DispName"];
+    $pdf->Representing = "Self";
+    $pdf->PartyName = NewYork_PrintPartyAdjective($result["CanPetitionSet_Party"]);
+   
 
-//	$pdf->PrintName = "Theo Chino";
-//	$pdf->AddressLine1 = "640 Riverside Drive - 10B";
-//	$pdf->AddressLine2 = "New York, NY 10031";
-//	$pdf->Representing = "Self";
-
-	//$pdf->PetWithoutID = "X";
-	$pdf->DateEvent = "06 / 23 / 2020";
+		switch ($result["DataCounty_Name"]) {
+	 		case 'Queens': $pdf->TotalQN = 1; $pdf->Total += $pdf->TotalQN; break;
+	 		case 'Bronx': $pdf->TotalBX = 1; $pdf->Total += $pdf->TotalBX; break;
+	 		case 'Kings': $pdf->TotalKG = 1; $pdf->Total += $pdf->TotalKG; break;
+	 		case 'Richmond': $pdf->TotalRC = 1;	$pdf->Total += $pdf->TotalRC;	break;
+	 		case 'New York': $pdf->TotalNY = 1;	$pdf->Total += $pdf->TotalNY;	break;
+	 	}
+	 	
+	 	$pdf->DateEvent = PrintThreeDigits($result["Elections_Date"]);
+	}
 }
 
-$Petition_FileName = "PreAssignedID.pdf";
+$Petition_FileName = "NYCCRU_PreAssignedID_Form.pdf";
 
 $pdf->AliasNbPages();
 $pdf->SetTopMargin(8);
@@ -46,10 +56,6 @@ $pdf->SetLeftMargin(5);
 $pdf->SetRightMargin(5);
 $pdf->SetAutoPageBreak(1, 38);
 $pdf->AddPage();
-
-
-
-
 
 $pdf->Output("I", $Petition_FileName);
 

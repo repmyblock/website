@@ -47,6 +47,12 @@ function PrintShortDate($Date) {
 	}
 }
 
+function PrintThreeDigits($Date) {
+	if ( ! empty ($Date)) {
+		return date("m/d/Y", strtotime( $Date ));
+	}
+}
+
 function NewYork_PrintPartyAdjective($Party) {
 	switch($Party) {
 		case 'DEM': return "Democratic"; break;
