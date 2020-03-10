@@ -501,10 +501,10 @@ class RepMyBlock extends queries {
 	
 	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED) {
 		$sql = "UPDATE SystemUser SET " .
-						"Raw_Voter_ID = :RawVoterID, Raw_Voter_UniqNYSVoterID = :NYSVoterID, " .
+						" Raw_Voter_UniqNYSVoterID = :NYSVoterID, " .
 						"SystemUser_EDAD = :EDAD " .
 						"WHERE SystemUser_ID = :ID ";
-		$sql_vars = array("RawVoterID" => $RawVoterID, "NYSVoterID" => $UniqNYSVoterID,
+		$sql_vars = array("NYSVoterID" => $UniqNYSVoterID,
 											"EDAD" => $ADED, "ID" => $SystemUser_ID);
 		return $this->_return_nothing($sql, $sql_vars);				
 	}
