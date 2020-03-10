@@ -107,7 +107,8 @@ $pdf->ElectionDate = $ElectionDate;
 
 $Petition_FileName = "";
 if ( ! empty ($result[0]["Candidate_UniqNYSVoterID"])) {
-	$Petition_FileName .= $result[0]["Candidate_UniqNYSVoterID"] . "_";
+	preg_match('/^NY0+(.*)/', $result[0]["Candidate_UniqNYSVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
+	$Petition_FileName .= "NY" . $UniqMatches[1][0] . "_";
 }
 
 $Petition_FileName .= "Petition";
