@@ -44,7 +44,7 @@
 <div class="row">
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
-			<div class="col-9 float-left">
+			<div class="<?= $DIVCol ?> float-left">
 
 				<div class="Subhead">
 			  	<h2 class="Subhead-heading">Voter Lookup</h2>
@@ -61,10 +61,9 @@
 			<?php if (! empty ($ErrorMsg)) {
 		    	
 		    	echo "<FONT COLOR=BROWN SIZE=+1><B>" . $URIEncryptedString["ErrorMsg"] . "</B></FONT>";
-		    	
+		    	echo "<BR><BR>";	
 		    } ?>
 				
-				<BR><BR>
 				
 				<B><FONT COLOR="BROWN">Some query combination are not possible.</FONT></B><BR>
 				Try them but if you get a page that says: <I><B>"The Assembly District cannot be empty"</B></I>, 
@@ -72,18 +71,18 @@
 				    
 				<div class="clearfix gutter d-flex flex-shrink-0">
 									
-				<div class="col-16">
+				<div class="col-12">
 				  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 						<div>
-							<dl class="form-group col-3 d-inline-block"> 
-								<dt><label for="user_profile_name">First Name</label><DT>
+							<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">First Name</label><DT>
 								<dd>
 									<input class="form-control" type="text" Placeholder="First" name="FirstName" VALUE="<?= $FormFieldFirstName ?>" id="">
 								</dd>
 							</dl>
 
-							<dl class="form-group col-3 d-inline-block"> 
-								<dt><label for="user_profile_name">Last Name</label><DT>
+							<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">Last Name</label><DT>
 								<dd>
 									<input class="form-control" type="text" Placeholder="Last" name="LastName" VALUE="<?= $FormFieldLastName ?>" id="">
 								</dd>
@@ -94,17 +93,17 @@
 						
 								<div>
 							
-							<dl class="form-group col-3 d-inline-block"> 
-								<dt><label for="user_profile_name">Zipcode</label><DT>
+							<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">Zipcode</label><DT>
 								<dd>
 									<input class="form-control" type="text" Placeholder="Zipcode" name="ZIP" VALUE="<?= $FormFieldZIP ?>" id="">
 								</dd>
 							</dl>
 							
-								<dl class="form-group col-3 d-inline-block"> 
-								<dt><label for="user_profile_name">County</label><DT>
+								<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">County</label><DT>
 								<dd>
-									<SELECT NAME="COUNTY">
+									<SELECT CLASS="mobilebig" NAME="COUNTY">
 									<OPTION VALUE="">Whole State</OPTION>
 									<OPTION VALUE="NYC"<?php if ($FormFieldCounty == "NYC") { echo " SELECTED"; } ?>>New York City</OPTION>
 									<OPTION VALUE="BQK"<?php if ($FormFieldCounty == "BQK" || empty ($FormFieldCounty)) { echo " SELECTED"; } ?>>Bronx, Queens, and Kings</OPTION>
@@ -121,17 +120,17 @@
 						</DIV>
 
 					<DIV>
-							<dl class="form-group col-3 d-inline-block"> 
-								<dt><label for="user_profile_name">NYS BOE ID</label><DT>
+							<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">NYS BOE ID</label><DT>
 								<dd>
 									<input class="form-control" type="text" Placeholder="NYS Uniq ID" name="UniqNYS" VALUE="<?= $FormFieldNYSBOEID ?>" id="">
 								</dd>
 							</dl>
 				
-							<dl class="form-group col-3 d-inline-block"> 
-								<dt><label for="user_profile_name">Party</label><DT>
+							<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">Party</label><DT>
 								<dd>
-									<SELECT NAME="Party">
+									<SELECT  CLASS="mobilebig" NAME="Party">
 										<OPTION VALUE="">All</OPTION>
 										<OPTION VALUE="DEM"<?php if ($FormFieldParty == "DEM") { echo " SELECTED"; } ?>>Democratic</OPTION>
 										<OPTION VALUE="REP"<?php if ($FormFieldParty == "REP") { echo " SELECTED"; } ?>>Republican</OPTION>
@@ -151,15 +150,15 @@
 						</div>
 
 						<div>						
-							<dl class="form-group col-3 d-inline-block"> 
-								<dt><label for="user_profile_name">Assembly District</label><DT>
+							<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">Assembly District</label><DT>
 								<dd>
 									<input class="form-control" type="text" Placeholder="Assembly District" name="AD" VALUE="<?= $RetReturnAD ?>" id="">
 								</dd>
 							</dl>
 
-							<dl class="form-group col-3 d-inline-block"> 
-								<dt><label for="user_profile_name">Electoral District</label><DT>
+							<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">Electoral District</label><DT>
 								<dd>
 									<input class="form-control" type="text" Placeholder="Electoral District" name="ED" VALUE="<?= $RetReturnED ?>" id="">
 								</dd>
@@ -167,8 +166,8 @@
 						</div>
 								
 						<div>
-							<dl class="form-group col-3 d-inline-block"> 
-								<dt><label for="user_profile_name">Congressional District</label><DT>
+							<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">Congressional District</label><DT>
 								<dd>
 									<input class="form-control" type="text" Placeholder="Congressional District" name="Congress" VALUE="<?= $FormFieldCongress ?>" id="">
 								</dd>
@@ -176,9 +175,9 @@
 						</div>
 
 						<div>						
-							<dl class="form-group col-3 d-inline-block"> 
+							<dl class="form-group col-12 d-inline-block"> 
 								<dd>
-									<button type="submit" class="btn btn-primary">Search Voter Registration</button>
+									<button type="submit" class="btn btn-primary mobilemenu">Search Voter Registration</button>
 								</dd>
 							</dl>
 						</div>

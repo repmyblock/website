@@ -43,12 +43,13 @@
   <dl class="form-group">
   	<dt><label for="user_profile_email">Team building</label></dt>
     <dd class="d-inline-block">       	
+    	<?php /*
    		<A HREF="">Send me a petition by email that I can foward</A><BR>
-   		<A HREF="/lgd/voters/?k=<?= $k ?>">Send a petition to a verified voter</A><BR>
-   	 
+   		<A HREF="/lgd/voters/?k=<?= $k ?> mobilemenu">Send a petition to a verified voter</A><BR>
+   	  */ ?>
 	<?php	if ( $SystemAdmin == $FullAdminRights && ! empty ($FullAdminRights)) { ?>
 	<BR>
-  		<A HREF="/lgd/team/admin/?k=<?= $k ?>">Admin Screen</A><BR>	
+  		<A HREF="/lgd/team/admin/?k=<?= $k ?>" class="mobilemenu">Admin Screen</A><BR>	
   		<?php /* <A HREF="/lgd/team/admin/track/?k=<?= $k ?>">Track Petitions</A><BR>	 */ ?>
   <?php	} ?>
    		

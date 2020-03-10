@@ -4,6 +4,7 @@
 if ( ! empty ($CandidateLogic)) {
 	// I need to create the candidate list
 
+
 	if ( ! empty ($CandidateLogic["Position"])) {
 		foreach ($CandidateLogic["Position"] as $index => $var) {
 			if ( ! empty ($var)) {				
@@ -27,13 +28,12 @@ if ( ! empty ($CandidateLogic)) {
 							$InfoArray["ElectDistr"] = $CandidateLogic["ElectDistr"];
 					    $InfoArray["AssemblyDistr"] = $CandidateLogic["AssemblyDistr"];
 							$InfoArray["Party"] = $CandidateLogic["EnrollPolParty"];    
-							$Counter = $rmb->PrepDisctictVoterRoll($Candidate_ID, $CandidateLogic["Voter_ID"], $DatedFiles, $DatedFilesID, $InfoArray);
+							$Counter = $rmb->PrepDisctictVoterRoll($Candidate_ID, $DatedFiles, $DatedFilesID, $InfoArray);
 							$rmb->UpdateCandidateCounterForVoter($Candidate_ID, $Counter);
 							if ( $ElectionInfo[0]["Elections_ID"] > 0 ) {
 								$rmb->UpdateElectionCounterForVoter($ElectionInfo[0]["Elections_ID"], $Counter);
 							}
 						}
-						
 						break;
 						
 					default:

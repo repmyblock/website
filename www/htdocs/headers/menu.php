@@ -1,5 +1,8 @@
-<?php	if ($MobileDisplay == true) { ?>
-<div class="">
+<?php /* This contains a group for each ... Mobile and Non Mobile */ ?>
+<?php	if ($MobileDisplay == true) { 
+	$DIVCol="col-12";
+	?>
+<div class="justifymobile">
   <nav class="mobilemenu" aria-label="">
     <h3 class="mobilemenu"><?= $MenuDescription ?></h3>
     <a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>mobilemenu" href="/lgd/?k=<?= $k ?>">Summary</a>
@@ -9,11 +12,6 @@
     <a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?>mobilemenu" href="/lgd/team/?k=<?= $k ?>">Team</a>
     <a class="<?php if ( $Menu == "messages" ) { echo "selected "; } ?>mobilemenu" href="/lgd/messages/?k=<?= $k ?>">Messages</a>
     <a class="<?php if ( $Menu == "downloads" ) { echo "selected "; } ?>mobilemenu" href="/lgd/downloads/?k=<?= $k ?>">Downloads</a>
-  </nav>
-  
-  <BR>
-
-  <nav class="mobilemenu" aria-label="">
   	<a class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?>mobilemenu" href="/lgd/profile/?k=<?= $k ?>">Personal Profile</a>  
   </nav>
 
@@ -33,7 +31,9 @@
 */ ?>
 
 
-<?php } else { ?>
+<?php } else { 
+	$DIVCol="col-9";
+	?>
 <div class="col-3 float-left pr-4">
   <nav class="menu position-relative" aria-label="Personal settings" data-pjax>
     <h3 class="menu-heading"><?= $MenuDescription ?></h3>

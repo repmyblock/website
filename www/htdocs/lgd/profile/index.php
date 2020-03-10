@@ -76,6 +76,7 @@
 ?>
 <div class="row">
   <div class="main">
+  	
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
   		<div class="<?= $Cols ?> float-left">
 	    

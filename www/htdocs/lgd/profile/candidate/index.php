@@ -118,32 +118,27 @@
 			$Counter = 0;
 			if ( ! empty ($Position)) {
 				foreach ($Position as $PartyPosition => $Positions) {
-					if ( ! empty ($PartyPosition)) {
+					//if ( ! empty ($PartyPosition)) {
+						if ( $PartyPosition == "party") {
 ?>
 					
 						<div class="list-group-item filtered f60">
 								
-							<span><B>&nbsp;&nbsp;<?= ucfirst($PartyPosition) ?></B></span>  
-							
-							<DIV CLASS="f40">
-								<FONT COLOR="BROWN">At this time only County Committee works. The other positions are not ready. 
-								<I>(The select position button is at the bottom of this page.)</I>
-								</FONT>
-							</DIV>		          			
+							<span><B><?= ucfirst($PartyPosition) ?></B></span>  
+							     			
 						</div>					
 							
 					
 <?php				
 						foreach ($Positions as $Pos => $Explain) {
-					 		if (! empty ($Pos)) { ?>
-								<div class="list-group-item">
-									<DIV CLASS="f60">
-										<?php if ($Pos == "County Committee") { ?>
-										<INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Pos ?>"><?php } ?>&nbsp;&nbsp;<B><?= $Pos ?></B>
-									</DIV>
+					 		// if (! empty ($Pos)) { 
+					 		if ($Pos == "County Committee") { ?>
+								<div class="list-group-item f60">
+										<INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Pos ?>">&nbsp;&nbsp;<B><?= $Pos ?></B>
 									<DIV CLASS="f40"><?= $Explain ?></DIV>
 								</div>			
-<?php					}	  }
+<?php					}	  
+}
 						} ?>
 					
 <?php		

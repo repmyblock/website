@@ -20,12 +20,17 @@ a.p40 {padding: 104px  204px 104px;}
 .center {text-align:center;}
 .justify {text-align:justify;}
 
+div.justifymobile {text-align: justify;text-justify: inter-word;justify-content: flex-end;}
+
 
 h1.intro {font-size: 90px;font-weight: 900;}
 h3.intro {font-size: 80px;font-weight: 700;}
 
 a.mobilemenu {font-size:60px; font-weight: 500;}
 h3.mobilemenu {font-size: 80px;font-weight: 700;}
+
+a.bigmobile {font-size:80px; font-weight:500;}
+dt.mobilemenu {font-size:40px; font-weight: 500;}
 
 
 /* Style the buttons that are used to open and close the accordion panel */
@@ -59,8 +64,10 @@ h3.mobilemenu {font-size: 80px;font-weight: 700;}
 
 a {text-decoration: none;}
 
+/*
 .btn {border: 2px solid black;background-color: white;color: black;padding: 14px 28px;font-size: 16px;cursor: pointer;}
 a.btn {-webkit-appearance: button;-moz-appearance: button;appearance: button;text-decoration: none;color: initial;}
+*/
 
 .success {border-color: #4CAF50;color: #EE2E62;}
 .success:hover {background-color: #4CAF50;color: white;}
@@ -140,10 +147,10 @@ a.login { font-size: 80px;font-weight: 500; padding: 0px 10px 0px 10px}
 /* @media screen and (max-width: 200px) {.row {flex-direction: column;}} */
 /* @media screen and (max-width: 100px) {.navbar a {float: none;width: 100%;}} */
 
-input[type=text], select, textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;width:100%}
-input[type=username], select, textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;width:100%}
-input[type=email], select, textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;width:100%}
-input[type=password], select, textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;width:100%}
+input[type=text],  textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;width:100%}
+input[type=username],  textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;width:100%}
+input[type=email],  textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;width:100%}
+input[type=password],  textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;width:100%}
 input[type=submit] {font-size: 60px; font-weight: 600;background-color: #EE2E62;color: white;padding: 12px 20px;border: none;cursor: pointer;width:100%}
 input[type=submit]:hover {font-size: 60px; font-weight: 600;background-color: #EE2E62;color: #16317D;width:100%}
 
@@ -155,6 +162,14 @@ input[type=checkbox] {
   transform: scale(3);
   padding: 0px;
 }
+
+select.mobilebig {font-size: 40px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 10px;margin-bottom: 10px;resize: vertical;width:100%}
+select.mobilebig:focus {font-size: 40px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 10px;margin-bottom: 10px;resize: vertical;width:100%}
+
+
+button.mobilebig[type=submit] {font-size: 60px; font-weight: 600;background-color: #EE2E62;color: white;padding: 12px 20px;border: none;cursor: pointer;width:100%}
+input.mobilebig[type=submit]:hover {font-size: 60px; font-weight: 600;background-color: #EE2E62;color: #16317D;width:100%}
+
 
 .container {border-radius: 5px;background-color: #f2f2f2;padding: 20px;} 
 .district img {border: 1px solid #ddd;border-radius: 4px;padding: 5px;width: 150px;}

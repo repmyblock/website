@@ -59,6 +59,34 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
+	function SearchVoterTableDB($FirstName, $LastName, $DOB, $DatedFiles = "", $Status = "") {
+
+		$this->SaveVoterRequest($FirstName, $LastName, $DOB, NULL, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
+		$TableVoter = "Raw_Voter_" . $DatedFiles;
+		
+		$CompressedFirstName = preg_replace("/[^a-zA-Z]+/", "", $FirstName);
+		$CompressedLastName = preg_replace("/[^a-zA-Z]+/", "", $LastName);
+		
+		$sql = "SELECT * FROM VotersIndexes " .
+						"LEFT JOIN VotersFirstName ON (VotersFirstName.VotersFirstName_ID = VotersIndexes.VotersFirstName_ID ) " . 
+						"LEFT JOIN VotersLastName ON (VotersLastName.VotersLastName_ID = VotersIndexes.VotersLastName_ID ) " .
+						"LEFT JOIN " . $TableVoter  . " ON (" . $TableVoter . ".Raw_Voter_UniqNYSVoterID = VotersIndexes.VotersIndexes_UniqNYSVoterID) " . 
+						"WHERE VotersFirstName_Compress = :FirstName AND " . 
+						"VotersLastName_Compress = :LastName " . #AND Raw_Voter_Dates_ID = :TableID " .
+						"AND VotersIndexes_DOB = :DOB"; // AND Raw_Voter_Status = :Status"
+						;
+		$sql_vars = array('FirstName' => $CompressedFirstName,
+											'LastName' => $CompressedLastName,
+											'DOB' => $DOB);
+											// 'Status' => $Status); 
+											//,'TableID' => $TableID);
+											
+		echo "SQL: $sql<BR>";
+		echo "<PRE>" . print_r($sql_vars, 1) . "</PRE>";
+		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
 	function VoterRanCandidate($RawVoterID, $DatedFiles) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM " . $TableVoter . " " .

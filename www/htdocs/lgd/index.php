@@ -1,13 +1,14 @@
 <?php
+
 	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
 	$Menu = "summary";
 	$BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
   require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
-		
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";	
+	require $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
+	
   if (empty ($SystemUser_ID)) { goto_signoff(); }
 	$rmb = new RepMyBlock();
 	$rmbperson = $rmb->FindPersonUser($SystemUser_ID);
@@ -54,6 +55,15 @@
 				<div class="Subhead">
 			  	<h2 class="Subhead-heading">Summary</h2>
 				</div>
+				
+				<P>
+					The website is not fully completed but once you verify your voter registration status
+					and your email address, we'll email you a 
+					<A HREF="https://repmyblock.nyc/petitions">personalized petition.</A>	
+					
+					<A HREF="https://drive.google.com/drive/folders/1CLpq48zFPQbHCeMN_3IKHVM65xejA354">CC Sunlight Website</A>
+				</P>
+				
 
 	<?php 
 				if ($VerifEmail == true) { 

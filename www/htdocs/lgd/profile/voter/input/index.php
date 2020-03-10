@@ -28,19 +28,13 @@
 		$DBLastName = $_POST["LastName"];
 		$DOB = $Year . "-" . $_POST["Month"] . "-" . $_POST["Day"];
 		
-	 	$result = $rmb->SearchVoterDB($DBFirstName, $DBLastName, $DOB);
+		
+	 	$result = $rmb->SearchVoterTableDB($DBFirstName, $DBLastName, $DOB, $DatedFiles);
 		$EncryptURL = "SystemUser_ID=" . $SystemUser_ID . 
 									"&FirstName=" . $FirstName . "&LastName=" . $LastName;
 		if ($VerifVoter == 1) { $EncryptURL .= "&VerifVoter=1"; }
 		if ($VerifEmail == 1) { $EncryptURL .= "&VerifEmail=1"; }
 		
-		/*
-		print "RESULT: ";
-		echo "<PRE>";
-		print_r($result);
-		echo "</PRE>";
-		exit();
-		*/
 		
 		switch(count($result)) {
 			case 0:
