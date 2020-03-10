@@ -59,9 +59,11 @@
 				<P>
 					The website is not fully completed but once you verify your voter registration status
 					and your email address, we'll email you a 
-					<A HREF="https://repmyblock.nyc/petitions">personalized petition.</A>	
+					<A TARGET="Example Petition" HREF="https://repmyblock.nyc/petitions">personalized petition.</A>	
 					
-					<A HREF="https://drive.google.com/drive/folders/1CLpq48zFPQbHCeMN_3IKHVM65xejA354">CC Sunlight Website</A>
+					The <A TARGET="CCSUN" HREF="https://CCSunlight.org">CC Sunlight Project</A> has put together a very
+					good Run Kit. You can download 
+					<A TARGET="CCSUN"HREF="https://drive.google.com/drive/folders/1CLpq48zFPQbHCeMN_3IKHVM65xejA354">from here.</A>
 				</P>
 				
 
