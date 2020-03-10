@@ -81,9 +81,7 @@ class RepMyBlock extends queries {
 											// 'Status' => $Status); 
 											//,'TableID' => $TableID);
 											
-		echo "SQL: $sql<BR>";
-		echo "<PRE>" . print_r($sql_vars, 1) . "</PRE>";
-		
+	
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
