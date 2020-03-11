@@ -44,14 +44,16 @@
 
 <?php
 		$NewKEncrypt = EncryptURL($Decrypted_k . "&Candidate_ID=" . $result[0]["Candidate_ID"]);
+		
+		
 ?>	
 		<P>
 			<FONT SIZE=+2>
 				Download a 
-				<A TARGET="BLANKPETITION" HREF="<?= $FrontEndPDF ?>/multipetitions/?k=<?= $NewKEncrypt ?>">blank petition</A>
-				<A TARGET="BLANKPETITION" HREF="<?= $FrontEndPDF ?>/multipetitions/?k=<?= $NewKEncrypt ?>"><i class="fa fa-download" aria-hidden="true"></i></A> and a
-				<A TARGET="BLANKPETITION" HREF="<?= $FrontEndPDF ?>/voterlist/?k=<?= $NewKEncrypt ?>">list of voters</A>
-				<A TARGET="BLANKPETITION" HREF="<?= $FrontEndPDF ?>/voterlist/?k=<?= $NewKEncrypt ?>"><i class="fa fa-download" aria-hidden="true"></i></A>
+				<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/multipetitions/?k=<?= $NewKEncrypt ?>">blank petition</A>
+				<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/multipetitions/?k=<?= $NewKEncrypt ?>"><i class="fa fa-download" aria-hidden="true"></i></A> and a
+				<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/voterlist/?k=<?= $NewKEncrypt ?>">list of voters</A>
+				<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/voterlist/?k=<?= $NewKEncrypt ?>"><i class="fa fa-download" aria-hidden="true"></i></A>
 			</FONT>
 			<BR>for <?= $result[0]["Candidate_ID"] ?>
 				 
@@ -62,9 +64,13 @@
 			<P>
 				Once you collect the  <?= $NumberOfSignatures ?> plus a few more, you need to wait until April 1<sup>st</sup> to take them
 				to the board of elections. <B>Just follow the 
-			<A HREF="<?= $FrontEndWeb ?>/where-to-file/prepare-to-file-your-petition-to-the-board-of-elections.html">instruction posted on the FAQ</A>.</B>
+			<A HREF="<?= $FrontEndWeb ?>/howto">instruction posted on the FAQ</A>.</B>
 			</P>
 
+			<P>
+				<B>Download : <A TARGET="BLANKPETITION3" HREF="<?= $FrontEndPDF ?>/NYS/NYC/CRU_PreFile/?petid=<?= $result[0]["CandidatePetitionSet_ID"] ?>">the Petition-Pre Assigned form</A></B> and 
+				mail it to the Candidate Record Unit of the Board of Election.
+			</P>
 
       
 

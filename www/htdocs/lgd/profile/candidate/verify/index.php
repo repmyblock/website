@@ -45,7 +45,7 @@
 										
 										
 		
-		header("Location: /lgd/profile/candidate/done/?k=<?= $k ?>");
+		header("Location: /lgd/profile/candidate/done/?k=" . $k);
 		exit();
 		
 	}

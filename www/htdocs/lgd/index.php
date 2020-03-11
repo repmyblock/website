@@ -57,10 +57,28 @@
 				</div>
 				
 				<P>
-					The website is not fully completed but once you verify your voter registration status
+					<FONT COLOR=BROWN><B>Instructions:</B></FONT>
+				</P>
+				
+				<P>
+					<B>The website is not fully completed</B> but once you verify your voter registration status
 					and your email address, we'll email you a 
 					<A TARGET="Example Petition" HREF="https://repmyblock.nyc/petitions">personalized petition.</A>	
+				</P>
 					
+				<P>
+					<B>Go to the <A HREF="/lgd/profile/voter/?k=<?= $k ?>">Voter Profile</A></B> and find your voter 
+					registration card. Once you selected your voter registration card, <B>click on
+				the <A HREF="/lgd/profile/candidate/?k=<?= $k ?>">Candidate Profile</A></B> and select County Committee.
+				</P>
+				
+				<P>
+					<B>Once you have completed the menu</B>, your petition, Walk Sheet and CRU forms will be
+					in the <A HREF="/lgd/downloads/?k=<?= $k ?>">Download</A> screen.
+					
+				</P>
+					
+				<P>
 					The <A TARGET="CCSUN" HREF="https://CCSunlight.org">CC Sunlight Project</A> has put together a very
 					good Run Kit. You can download 
 					<A TARGET="CCSUN"HREF="https://drive.google.com/drive/folders/1CLpq48zFPQbHCeMN_3IKHVM65xejA354">from here.</A>

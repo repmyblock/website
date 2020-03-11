@@ -98,34 +98,5 @@
 	</div>
 </DIV>
 
-<script>
-	// Default SortableJS
-	//import Sortable from 'sortablejs';
-
-	// Core SortableJS (without default plugins)
-	// import Sortable from 'sortablejs/modular/sortable.core.esm.js';
-
-	// Complete SortableJS (with all plugins)
-	// import Sortable from 'sortablejs/modular/sortable.complete.esm.js';
-	
-	var acc = document.getElementsByClassName("accordeonbutton");
-	var i;
-
-	for (i = 0; i < acc.length; i++) {
-		acc[i].addEventListener("click", function() {
-		  /* Toggle between adding and removing the "active" class,
-		  to highlight the button that controls the panel */
-		  // this.classList.toggle("active");
-		
-		  /* Toggle between hiding and showing the active panel */
-		  var panel = document.getElementsByClassName("panels");
-		  if (panel[this.id].style.display === "block") {
-		    panel[this.id].style.display = "none";
-		  } else {
-		    panel[this.id].style.display = "block";
-		  }
-		});
-	}
-</SCRIPT>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>

@@ -271,7 +271,9 @@ class RepMyBlock extends queries {
 	}
 	
 	function ListCandidateInformation($SystemUserID) {
-		$sql = "SELECT * FROM Candidate WHERE SystemUser_ID = :SystemUserID";
+		$sql = "SELECT * FROM Candidate " . 
+						"LEFT JOIN CanPetitionSet ON (Candidate.Candidate_ID = CanPetitionSet.Candidate_ID) " . 
+						"WHERE SystemUser_ID = :SystemUserID";
 		$sql_vars = array('SystemUserID' => $SystemUserID);
 		return $this->_return_multiple($sql, $sql_vars);
 	}

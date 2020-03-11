@@ -19,7 +19,7 @@ class RMB_newyork extends RepMyBlock {
 	
 	function InsertCandidate_NewYork_CountyCommittee($SystemUser_ID, $Voter_ID, $DatedFiles, $DatedFilesID, 
 																										$CandidateElection_ID, $EDAD, $EnrollPolParty, 
-																										$PetitionName, $PetitionAddress) {
+																										$PetitionName, $PetitionAddress, $CountyCode) {
 		$sql = "INSERT INTO Candidate SET " .
 							"SystemUser_ID = :SystemUserID, Raw_Voter_ID = :RawVoterID, Raw_Voter_DatedTable_ID = :DateFiles, " .
 							"Raw_Voter_Dates_ID = :DateID, CandidateElection_ID = :CandidateElectionID, Candidate_Party = :Party, " .
@@ -42,8 +42,10 @@ class RMB_newyork extends RepMyBlock {
 		$ret = $this->_return_simple($sql);
 		$CandidatePetitionSet_ID = $ret["CandidatePetitionSet_ID"];
 		
-		$sql = "INSERT INTO CanPetitionSet SET CandidatePetitionSet_ID = :CandidatePetitionSetID, Candidate_ID = :CandidateID";
-		$sql_vars = array("CandidatePetitionSetID" => $CandidatePetitionSet_ID, "CandidateID" => $Candidate_ID);
+		$sql = "INSERT INTO CanPetitionSet SET CandidatePetitionSet_ID = :CandidatePetitionSetID, Candidate_ID = :CandidateID, " .
+						"DataCounty_ID = :DataCounty, CanPetitionSet_Party = :Party";
+		$sql_vars = array("CandidatePetitionSetID" => $CandidatePetitionSet_ID, "CandidateID" => $Candidate_ID, 
+											"DataCounty" => $CountyCode, "Party" => $EnrollPolParty);
 		$this->_return_nothing($sql, $sql_vars);
 		
 		return $Candidate_ID;
