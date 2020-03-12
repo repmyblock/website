@@ -30,13 +30,10 @@
 		<BR>
 		 <I>(If you have used the RepMyBlock system, <A HREF="/login"><B>log into your account</B></A> to download a custom pre-filed one.)</I>
 		</P>
-
 		
 		<P>
 			<IMG SRC="BOECalendar.png">
 		</P>
-
-
 	</DIV>
 	</DIV>
 </div>
