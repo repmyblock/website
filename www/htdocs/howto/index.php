@@ -25,7 +25,7 @@
 			<B>You do not need to drop your petitions before March 30<SUP>th</SUP>.</B>
 		<BR>
 			Before you drop your petitions, you will need to apply for a Pre Assigned ID Number by 
-			<B><A HREF="<?= $FrontEndPDF ?>/NYS/NYC/CRU_PreFile" TARGET="CRU">completing the Petition Pre Assigned Identification Number Application</A></B>
+			<B><A HREF="<?= $FrontEndPDF ?>/NYS/NYC/CRU_PreFile/" TARGET="CRU">completing the Petition Pre Assigned Identification Number Application</A></B>
 			and mailing it to the Candidate Record Unit at the Board of Election.
 		<BR>
 		 <I>(If you have used the RepMyBlock system, <A HREF="/login"><B>log into your account</B></A> to download a custom pre-filed one.)</I>
