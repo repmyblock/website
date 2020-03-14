@@ -29,7 +29,7 @@
 if ( ! empty ($result)) {
 	foreach ($result as $var) {
 		if ( ! empty ($var)) {
-			if ( $var["published"] == "published") {
+			if ( $var["Candidate_Status"] == "published") {
 				
 			$Counter++;
 			?>
