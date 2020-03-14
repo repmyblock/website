@@ -248,6 +248,8 @@ class RepMyBlock extends queries {
 		$sql = "SELECT * FROM CandidatePetitionSet " . 
 						"LEFT JOIN CanPetitionSet ON (CanPetitionSet.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
 						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CanPetitionSet.Candidate_ID) " .
+						"LEFT JOIN DataCounty ON (CanPetitionSet.DataCounty_ID = DataCounty.DataCounty_ID) " .
+						"LEFT JOIN CandidatePositions ON (CandidatePositions.CandidateElection_DBTable = Candidate.CandidateElection_DBTable) " .
 						"WHERE CandidatePetitionSet_TimeStamp > :Date " . 
 						"ORDER BY CandidatePetitionSet.CandidatePetitionSet_ID DESC";
 		$sql_vars = array('Date' => $Date);
