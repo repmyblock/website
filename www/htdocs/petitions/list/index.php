@@ -10,6 +10,20 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 	
 	$r = new repmyblock();
 	$result = $r->ListCandidatePetitions("2020-02-24 00:00:00");
+	
+	if ( ! empty ($result)) {
+		foreach ($result as $var) {
+			if ( ! empty ($var)) {
+				if ( $var["Candidate_Status"] == "published") {
+					$NewResult[$var["DataCounty_Name"]][NewYork_PrintPartyAdjective($var["CanPetitionSet_Party"])][$var["CandidatePetitionSet_ID"]]
+										[$var["CandidatePositions_Name"]][$var["CandidateElection_DBTableValue"]] 
+						= $var["Candidate_DispName"];
+				}
+			}	
+		}
+	}	
+	
+	
 ?>
 
 <div class="main">
@@ -26,33 +40,31 @@
 		<?php
 		$Counter = 0;
 
-if ( ! empty ($result)) {
-	foreach ($result as $var) {
-		if ( ! empty ($var)) {
-			if ( $var["Candidate_Status"] == "published") {
-				
-			$Counter++;
-			?>
-
-				
-			<?= $var["Candidate_Party"]; ?>
-			<A TARGET=NewPetitions HREF="<?= $FrontEndPDF ?>/multipetitions/?setid=<?= $var["CandidatePetitionSet_ID"] ?>"><?= $var["Candidate_DispName"] ?></A>
-			<?= $var["CandidateElection_DBTable"] ?>
-			<?= $var["CandidateElection_DBTableValue"] ?><BR>
-	
+		if ( ! empty ($NewResult)) {
+			foreach ($NewResult as $County => $VarAftCty) {
+				if ( ! empty ($County)) { 
+					print "<h2><U>" . $County . " County</U></H2>\n";
+						foreach ($VarAftCty as $Party => $VarAftParty) {
+							print "<h3>" . $Party . " Party</H3>\n";
+								foreach ($VarAftParty as $IDGroup => $VarAftID) {
+								echo "<H5>";
+									foreach ($VarAftID as $Position => $VarAftPosition) {
+										foreach ($VarAftPosition as $Candidate ) {					
+					?>
+										<A TARGET=NewPetitions HREF="<?= $FrontEndPDF ?>/multipetitions/?setid=<?= $IDGroup ?>"><?= $Candidate ?></A> <I>(<?= $Position ?>)</I>
 			
-			
-			<?php
-			
-			//if ( ($Counter % 5) == 0) {
-			//	print "<BR>";
-			//}
-}		
-		
+					<?php
+								}	
+							}
+							echo "</H5>";
+						
+						}
+						echo "<BR>";
+					}
+				}
+			}
 		}
-	}
-}
-?>
+		?>
 </UL>
 	</B>
 			</P>
