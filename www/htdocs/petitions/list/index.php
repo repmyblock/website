@@ -29,6 +29,8 @@
 if ( ! empty ($result)) {
 	foreach ($result as $var) {
 		if ( ! empty ($var)) {
+			if ( $var["published"] == "published") {
+				
 			$Counter++;
 			?>
 
@@ -42,10 +44,10 @@ if ( ! empty ($result)) {
 			
 			<?php
 			
-			if ( ($Counter % 5) == 0) {
-				print "<BR>";
-			}
-		
+			//if ( ($Counter % 5) == 0) {
+			//	print "<BR>";
+			//}
+}		
 		
 		}
 	}
