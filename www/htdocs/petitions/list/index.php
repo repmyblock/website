@@ -25,15 +25,19 @@
 				<UL>
 		<?php
 		$Counter = 0;
-			
+
 if ( ! empty ($result)) {
 	foreach ($result as $var) {
 		if ( ! empty ($var)) {
 			$Counter++;
 			?>
 
-		
-					<A TARGET=NewPetitions HREF="<?= $FrontEndPDF ?>/multipetitions/?setid=<?= $var["CandidatePetitionSet_ID"] ?>">Petition #<?= $var["CandidatePetitionSet_ID"] ?></A>
+				
+			<?= $var["Candidate_Party"]; ?>
+			<A TARGET=NewPetitions HREF="<?= $FrontEndPDF ?>/multipetitions/?setid=<?= $var["CandidatePetitionSet_ID"] ?>"><?= $var["Candidate_DispName"] ?></A>
+			<?= $var["CandidateElection_DBTable"] ?>
+			<?= $var["CandidateElection_DBTableValue"] ?><BR>
+	
 			
 			
 			<?php

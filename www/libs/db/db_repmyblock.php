@@ -245,7 +245,11 @@ class RepMyBlock extends queries {
 	}
 	
 	function ListCandidatePetitions($Date) {
-		$sql = "SELECT * FROM CandidatePetitionSet WHERE CandidatePetitionSet_TimeStamp > :Date ORDER BY CandidatePetitionSet_ID DESC";
+		$sql = "SELECT * FROM CandidatePetitionSet " . 
+						"LEFT JOIN CanPetitionSet ON (CanPetitionSet.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
+						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CanPetitionSet.Candidate_ID) " .
+						"WHERE CandidatePetitionSet_TimeStamp > :Date " . 
+						"ORDER BY CandidatePetitionSet.CandidatePetitionSet_ID DESC";
 		$sql_vars = array('Date' => $Date);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
