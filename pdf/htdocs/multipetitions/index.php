@@ -15,7 +15,7 @@ $pdf = new PDF_Multi('P','mm', $PageSize);
 
 $CanPetitionSet_ID = trim($_GET["petid"]);
 $CandidatePetitionSet_ID = trim($_GET["setid"]);
-$WaterMarkVoid = trim($GET["Watermark"]);
+$WaterMarkVoid = trim($_GET["Watermark"]);
 
 $WritenSignatureMonth = "March";
 $Variable = "demo-CC";
