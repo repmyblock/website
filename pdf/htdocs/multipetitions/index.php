@@ -25,7 +25,7 @@ if (is_numeric($CandidatePetitionSet_ID)) { $Variable = "setid"; }
 	
 if (is_numeric($Candidate_ID)) { $Variable = "person"; }
 if (is_numeric($SystemUser_ID)) { $Variable = "person"; }
-if ( $WaterMarkVoid == 'yes') { $pdf->Watermark = 1; }
+if ( $WaterMarkVoid == 'yes') { $pdf->Watermark = "VOID - Do not use"; }
 
 switch ($Variable) {
 	
