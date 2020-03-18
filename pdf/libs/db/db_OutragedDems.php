@@ -29,6 +29,18 @@ class OutragedDems extends queries {
 		return $this->_return_multiple($sql,  $sql_vars);
 	}
 	
+	function GetListAddresses($DatedFiles, $ResHouseNumber, $ResStreetName, $ResZip, $ResApt = NULL) {
+		$TableVoter = "Raw_Voter_" . $DatedFiles;
+
+		$sql = "SELECT * FROM " . $TableVoter . " WHERE " . 
+						"Raw_Voter_ResHouseNumber = :Number AND " .
+						"Raw_Voter_ResStreetName = :Name AND " .
+						"Raw_Voter_ResZip = :ZIP";
+		$sql_vars = array("Number" => $ResHouseNumber, "Name" => $ResStreetName, "ZIP" => $ResZip);	 					
+		return $this->_return_multiple($sql,  $sql_vars); 	
+	}
+
+	
 	function FindRawVoterbyID($DatedFiles, $VoterID) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_ID = :VoterID";	
@@ -148,6 +160,18 @@ class OutragedDems extends queries {
 		$Address_Line1 .= $vor["Raw_Voter_ResStreetName"] . " ";
 		if ( ! empty ($vor["Raw_Voter_ResPostStDir"])) { $Address_Line1 .= $vor["Raw_Voter_ResPostStDir"] . " "; }		
 		//if ( ! empty ($vor["Raw_Voter_ResApartment"])) { $Address_Line1 .= "- Apt. " . $vor["Raw_Voter_ResApartment"]; }
+		$Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
+		return $Address_Line1;
+  }
+  
+  function DB_ReturnAddressLine1Apt($vor) {
+		$Address_Line1 = "";
+		if ( ! empty ($vor["Raw_Voter_ResHouseNumber"])) { $Address_Line1 .= $vor["Raw_Voter_ResHouseNumber"] . " "; }		
+		if ( ! empty ($vor["Raw_Voter_ResFracAddress"])) { $Address_Line1 .= $vor["Raw_Voter_ResFracAddress"] . " "; }		
+		if ( ! empty ($vor["Raw_Voter_ResPreStreet"])) { $Address_Line1 .= $vor["Raw_Voter_ResPreStreet"] . " "; }		
+		$Address_Line1 .= $vor["Raw_Voter_ResStreetName"] . " ";
+		if ( ! empty ($vor["Raw_Voter_ResPostStDir"])) { $Address_Line1 .= $vor["Raw_Voter_ResPostStDir"] . " "; }		
+		if ( ! empty ($vor["Raw_Voter_ResApartment"])) { $Address_Line1 .= "- Apt. " . $vor["Raw_Voter_ResApartment"]; }
 		$Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
 		return $Address_Line1;
   }

@@ -17,13 +17,22 @@ $CanPetitionSet_ID = trim($_GET["petid"]);
 // $pdf->DateEvent = $ElectionDateShort;
 // $pdf->Election = "PRIMARY";
 
+$pdf->XonDesign = "X";	
+$pdf->Total = 1;
+$pdf->Election = "PRIMARY";
+$pdf->DateEvent = "06/23/2020";
+$pdf->PartyName = "DEMOCRATIC";
+
 if (is_numeric($CanPetitionSet_ID)) { 
 	$r = new OutragedDems();
 	$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
+	
+
+	
 
 	if ( ! empty ($result)) {
 		$result = $result[0];
-		$pdf->BarCode = $result["CanPetitionSet_ID"] . "000000";
+		$pdf->BarCode = $result["CanPetitionSet_ID"] . "#000000";
 		
 		$pdf->XonDesign = "X";	
 		preg_match("/(.*)\n(.*)/", $result["Candidate_DispResidence"], $matches);
