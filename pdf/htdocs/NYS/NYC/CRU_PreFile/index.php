@@ -26,9 +26,6 @@ $pdf->PartyName = "DEMOCRATIC";
 if (is_numeric($CanPetitionSet_ID)) { 
 	$r = new OutragedDems();
 	$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
-	
-
-	
 
 	if ( ! empty ($result)) {
 		$result = $result[0];
@@ -44,8 +41,8 @@ if (is_numeric($CanPetitionSet_ID)) {
     $pdf->Representing = "Self";
     $pdf->PartyName = NewYork_PrintPartyAdjective($result["CanPetitionSet_Party"]);
    
-
-		switch ($result["DataCounty_Name"]) {
+		$pdf->Total = 0;
+		switch ($result["DataCounty_Name"]) {			
 	 		case 'Queens': $pdf->TotalQN = 1; $pdf->Total += $pdf->TotalQN; break;
 	 		case 'Bronx': $pdf->TotalBX = 1; $pdf->Total += $pdf->TotalBX; break;
 	 		case 'Kings': $pdf->TotalKG = 1; $pdf->Total += $pdf->TotalKG; break;
