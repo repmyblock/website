@@ -28,7 +28,7 @@
 		
 		<p>
 			
-			<FONT SIZE=+2><B>Wenesday, May 13, 2020</B></FONT>
+			<FONT SIZE=+2><B>Wednesday, May 13, 2020</B></FONT>
 			
 			
 		
