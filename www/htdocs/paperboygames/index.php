@@ -11,8 +11,8 @@
 			<BR>
 			
 	<P>
-		The Paperboy Games is a mix of artistery and political debates where every candidate is given a
-		chance to debate publicly their oponent.
+		The Paperboy Games is a mix of artistry and political debates where every candidate is given a
+		chance to debate publicly their opponent.
 	</P>
 			
 	<P>
