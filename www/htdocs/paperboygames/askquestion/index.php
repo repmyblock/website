@@ -20,7 +20,7 @@
 
 
 	$imgtoshow = "/RunWithMe/RunWithMe.png";
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 
+	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers_paperboygames.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 		
