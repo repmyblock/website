@@ -60,7 +60,7 @@ clip-path: polygon(24% 15%, 100% 0, 83% 100%, 0% 100%);
 
 .main {-ms-flex: 70%; /* IE10 */flex: 70%;background-color: white;padding: 10px  20px 10px;}
 .fakeimg {background-color: #aaa;width: 100%;padding: 20px;}
-.footer {padding: 20px;text-align: center;background-image: url("/pics/background/BackGround-FFF79D.jpg");}
+.footer {padding: 20px;text-align: center;background-image: url("/images/background/BackGround-FFF79D.jpg");}
 
 .textleft {text-align: left;}
 
@@ -77,7 +77,7 @@ clip-path: polygon(24% 15%, 100% 0, 83% 100%, 0% 100%);
 .BckGrndCenter{color:#16317D!important;font-size: 18px;font-weight: 700;}
 .BckGrndElement{padding: 10px  20px 10px;}
 .BlueBox{padding: 10px 20px 10px;font-size: 18px;}
-.BckGrndElement{font-size: 20px;font-weight: 700;background-image: url("/pics/background/BackGround-FFF79D.jpg");}
+.BckGrndElement{font-size: 20px;font-weight: 700;background-image: url("/images/background/BackGround-FFF79D.jpg");}
 .FooterTitle{font-size: 18px;font-weight: 700;font-style: italic;}
 .FooterInfo{font-size: 12px;font-weight: 400;padding: -55px  20px 10px;}
 .FooterLinks{font-size: 12px;font-weight: 700; word-spacing: 15px;}
@@ -118,9 +118,9 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 
 .right-disclaimer {text-align: center;}
 
-.action-runfor a img {   background:url(/pics/options/RunForRev.png);box-sizing:content-box;}
+.action-runfor a img {   background:url(/images/options/RunForRev.png);box-sizing:content-box;}
 .action-runfor a:hover  img {height:0;width:0;padding:50px;}
-.action-nominate a img {   background:url(/pics/options/NominateRev.png);box-sizing:content-box;}
+.action-nominate a img {   background:url(/images/options/NominateRev.png);box-sizing:content-box;}
 .action-nominate a:hover  img {height:0;width:0;padding:50px;}
 
 .register input[type=text], select, textarea {font-size: 40px;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}

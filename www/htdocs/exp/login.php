@@ -27,7 +27,9 @@
 				$URLToEncrypt .= "&MenuDescription=" . urlencode($District);
 			}
 			
-			header("Location: /lgd/?k=" . EncryptURL($URLToEncrypt));
+			// header("Location: /lgd/?k=" . EncryptURL($URLToEncrypt));
+			header("Location: /logged/" . rawurlencode(EncryptURL($URLToEncrypt)) . "/index");
+			
 			exit();
 			// The reason for no else is that the code supposed to go away.
 		}

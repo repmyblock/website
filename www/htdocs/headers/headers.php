@@ -5,7 +5,7 @@
 	//$MobileDisplay = true; 
 	if ( ! empty ($k) && $SystemUser_ID > 0 ) { $MenuLogin = "logged"; }
 	
-	if ( empty ($imgtoshow )) {	$imgtoshow = "/pics/RepMyBlock.png";	}
+	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png";	}
 	
 ?><!DOCTYPE html>
 <html lang="en-US" prefix="og: http://ogp.me/ns#" class="no-js">
@@ -18,9 +18,9 @@
 		<meta name="twitter:image" content="https://static.repmyblock.nyc/pics/paste/PoliticalMachineKeepEngagementLow.jpg" />
 		<meta name="twitter:creator" content="@RepMyBlock" />
 		<TITLE>Rep My Block - Represent My Block - Nominate A Candidate</TITLE>
-		<link rel="icon" href="/pics/favicon/favicon.ico" type="image/x-icon">
-		<link rel="shortcut icon" href="/pics/favicon/favicon.ico" type="image/x-icon">
-		<link rel="stylesheet" type="text/css" href="/pics/icons/css/all.min.css" >		
+		<link rel="icon" href="/images/favicon/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="/images/icons/css/all.min.css" >		
 		<link rel="stylesheet" type="text/css" href="/font/montserrat.css">
 		<link rel="stylesheet" type="text/css" href="/css/Primer.css">		
 	  <link rel="dns-prefetch" href="https://www.repmyblock.nyc">
