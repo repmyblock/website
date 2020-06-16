@@ -1,7 +1,7 @@
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 <DIV class="main">
 	<DIV CLASS="right f80">Forgot Password</DIV>
@@ -21,6 +21,6 @@
 		
 	</DIV>
 </DIV>
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
 
 

@@ -14,7 +14,7 @@
 		$result = $r->CheckEmail($_POST["email"]);
 		
 		SendForgotUsername($_POST["email"],  $hashtable);
-		header("Location: sent/");
+		header("Location: sentusername");
 		
 		exit();
 	}

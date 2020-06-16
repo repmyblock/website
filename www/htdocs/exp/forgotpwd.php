@@ -16,7 +16,7 @@
 			$result = $r->CheckUsername($_POST["username"]);
 
 			SendForgotLogin($result["SystemUser_email"],  $hashtable, $result["SystemUser_username"]);
-			header("Location: sentpasswd/");
+			header("Location: sentpasswd");
 			
 			exit();
 		} else {
