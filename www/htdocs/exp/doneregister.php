@@ -1,6 +1,6 @@
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";		
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";		
 ?>
 <div class="row">
 	<div class="main">
@@ -9,11 +9,11 @@
 		</P>
 		
 		<p CLASS="f80">
-			<A HREF="/login/">Click here to the login page.</A>
+			<A HREF="/exp/<?= $middleuri ?>/login">Click here to the login page.</A>
 		</P>
 	
 	
 	</DIV>
 </DIV>
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

@@ -16,8 +16,8 @@
 			SendWelcomeEmail($result["SystemUser_email"], $result["SystemUser_emaillinkid"], 
 											$result["SystemUser_username"], $infoarray = ""); 
 	
-			header("Location: done/?k=" . EncryptURL($URLToEncrypt));
-			exit();
+			header("Location: /exp/" . EncryptURL($URLToEncrypt) . "/doneregister");
+			
 	
 			exit();
 
