@@ -24,7 +24,7 @@
 		}
 	}						
 	
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true ) { $TypeUsername = "username";
 	} else { $TypeUsername = "text"; }
 ?>
@@ -65,4 +65,4 @@
 	</FORM>
 </DIV>
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

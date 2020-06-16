@@ -1,4 +1,6 @@
 <?php
+	$middleuri = "website";
+	
 	error_reporting(E_ERROR | E_PARSE);
 	// echo "<B>Decrypted Line:</B> " .  $_SERVER['DOCUMENT_URI'] .  "<UL>$Decrypted_k</UL>";
 	if ( preg_match('/Mobile/', $_SERVER['HTTP_USER_AGENT'])) { $MobileDisplay = true; }
@@ -21,7 +23,7 @@
 		<link rel="icon" href="/images/favicon/favicon.ico" type="image/x-icon">
 		<link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="/images/icons/css/all.min.css" >		
-		<link rel="stylesheet" type="text/css" href="/font/montserrat.css">
+		<link rel="stylesheet" type="text/css" href="/css/font_montserrat.css">
 		<link rel="stylesheet" type="text/css" href="/css/Primer.css">		
 	  <link rel="dns-prefetch" href="https://www.repmyblock.nyc">
 
@@ -40,11 +42,11 @@
 			  <a href="/" class="logo"><IMG SRC="<?= $imgtoshow ?>" class="header-logo"></a>
 			</DIV>
 		  <div class="header-right">
-  	  	<a class="login" href="/contact/">CONTACT</a>
+  	  	<a class="login" href="/exp/<?= $middleuri ?>/contact">CONTACT</a>
 		  	<?php if ( $MenuLogin == "logged") { ?>
-					 <a href="/signoff/?k=<?= $k ?>" class="login right<?php if ($BigMenu == "profile") { echo " active"; } ?>">LOGOUT</a>
+					 <a href="/lgd/<?= $middleuri ?>/signoff" class="login right<?php if ($BigMenu == "profile") { echo " active"; } ?>">LOGOUT</a>
 				<?php } else { ?>
-		    	<a href="/login/" class="login">LOGIN</a>
+		    	<a href="/exp/<?= $middleuri ?>/login" class="login">LOGIN</a>
 		    <?php } ?>
 		  </DIV>
 		</DIV> 
@@ -68,14 +70,14 @@
 
 <div class="navbar">
 <?php if ( $MenuLogin == "logged") { ?>
-  <a href="/lgd/profile/?k=<?= $NewKToEncrypt ?>" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
-<?php /*  <a href="/get-involved/nominate/?k=<?= $NewKToEncrypt ?>"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
-  <a href="/lgd/voters/?k=<?= $NewKToEncrypt ?>"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="/about/?k=<?= $NewKToEncrypt ?>"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="/lgd/<?= $middleuri ?>/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
+<?php /*  <a href="/exp/<?= $middleuri ?>/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
+  <a href="/lgd/<?= $middleuri ?>/voters"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
+  <a href="/exp/<?= $middleuri ?>/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
 <?php } else { ?>
-  <a href="/howto/" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
-<?php /*    <a href="/get-involved/propose"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
-  <a href="/get-involved/interested/"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="/about/"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="/exp/<?= $middleuri ?>/howto" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
+<?php /*    <a href="/exp/<?= $middleuri ?>/propose"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
+  <a href="/exp/<?= $middleuri ?>/interested"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
+  <a href="/exp/<?= $middleuri ?>/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
 <?php } ?> 
 </div>

@@ -37,7 +37,7 @@
 		$error_msg = "<FONT COLOR=RED><B>The information did not match our records</B></FONT>";	
 	}
 	
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	
 	if ( $MobileDisplay == true ) { $TypeUsername = "username";
 	} else { $TypeUsername  = "text"; }
@@ -71,19 +71,19 @@
 
 		
 		<P CLASS="f60">
-			<A HREF="/login/forgotpwd/">I forgot my password</A>
+			<A HREF="/exp/<?= $middleuri ?>/forgotpwd">I forgot my password</A>
 		</P>
 		
 		<P CLASS="f60">
-			<A HREF="/login/forgotuser/">I forgot my username</A>
+			<A HREF="/exp/<?= $middleuri ?>/forgotuser">I forgot my username</A>
 		</P>
 		
 		<P CLASS="f60">
-			<A HREF="/register/">Register</A>
+			<A HREF="/exp/<?= $middleuri ?>/register">Register</A>
 		</P>
 
 	</DIV>
 </DIV>
 	
 	
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

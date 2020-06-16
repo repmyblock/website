@@ -4,7 +4,7 @@
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 	
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
 
 	/* User is logged */
 	
@@ -28,15 +28,15 @@
 			<B><A HREF="<?= $FrontEndPDF ?>/NYS/NYC/CRU_PreFile/" TARGET="CRU">completing the Petition Pre Assigned Identification Number Application</A></B>
 			and mailing it to the Candidate Record Unit at the Board of Election.
 		<BR>
-		 <I>(If you have used the RepMyBlock system, <A HREF="/login"><B>log into your account</B></A> to download a custom pre-filed one.)</I>
+		 <I>(If you have used the RepMyBlock system, <A HREF="/exp/<?= $middleuri ?>/login"><B>log into your account</B></A> to download a custom pre-filed one.)</I>
 		</P>
 		
 		<P>
-			<IMG SRC="BOECalendar.png">
+			<IMG SRC="/images/BOECalendar.png">
 		</P>
 	</DIV>
 	</DIV>
 </div>
 
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

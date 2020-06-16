@@ -1,3 +1,5 @@
+
+
 		<div class="footer">
 			<P CLASS="footerclass1">
 				<DIV CLASS="FooterTitle">REP MY BLOCK</DIV>
@@ -6,20 +8,20 @@
 			<P CLASS="footerclass2">
 				<DIV CLASS="FooterLinks">
 <?php if ( $MenuLogin == "logged") { ?>
-  <a href="/about/?k=<?= $NewKToEncrypt ?>"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
-  <a href="/get-involved/list/?k=<?= $NewKToEncrypt ?>"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="/get-involved/nominate/?k=<?= $NewKToEncrypt ?>"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a>
+  <a href="/exp/<?= $middleuri ?>/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="/exp/<?= $middleuri ?>/list"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
+  <a href="/exp/<?= $middleuri ?>/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a>
 <?php } else { ?>							
-					<A HREF="/about/">ABOUT</A>
-					<A HREF="/get-involved/interested/">REPRESENT</A>
-					<A HREF="/get-involved/propose/">NOMINATE</A>
+					<A HREF="/exp/<?= $middleuri ?>/about">ABOUT</A>
+					<A HREF="/exp/<?= $middleuri ?>/interested">REPRESENT</A>
+					<A HREF="/exp/<?= $middleuri ?>/propose">NOMINATE</A>
 <?php } ?>  
-					<A HREF="/howto/">HOWTO</A>
-					<A HREF="/contact/">CONTACT</A>
+					<A HREF="/exp/<?= $middleuri ?>/howto">HOWTO</A>
+					<A HREF="/exp/<?= $middleuri ?>/contact">CONTACT</A>
 <?php if ( $MenuLogin == "logged") { ?>
-				  <a href="/get-involved/profile/?k=<?= $NewKToEncrypt ?>" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
+				  <a href="/exp/<?= $middleuri ?>/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
 <?php } else { ?>							
-					<A HREF="/login/">LOGIN</A>
+					<A HREF="/exp/<?= $middleuri ?>/login">LOGIN</A>
 <?php } ?>  
 				</DIV>
 				<DIV CLASS="FooterSocial">

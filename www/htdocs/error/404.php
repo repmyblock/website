@@ -1,7 +1,7 @@
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 	
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
 ?>
 
 <P><BR><BR></P>
@@ -15,5 +15,5 @@
 	information is missing.</P>	
 </CENTER>
 <?php
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; 
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; 
 ?>

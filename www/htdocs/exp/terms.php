@@ -4,7 +4,7 @@
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 	
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
 
 	/* User is logged */
 	
@@ -34,10 +34,10 @@
 		</P>
 	</DIV>
 	
-	<P CLASS="f80 center"><A HREF="/register">Register on the Rep My Block website</A></P>
+	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>
 
 
 </div>
 
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

@@ -43,7 +43,7 @@
 		}
 	}
 
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 	
@@ -102,11 +102,11 @@
 		<P CLASS="f40">
 			By clicking the "Register" button, you are creating a 
 			RepMyBlock account, and you agree to RepMyBlock's 
-			<A HREF="/text/terms">Terms of Use</A> and 
-			<A HREF="/text/privacy">Privacy Policy.</A>
+			<A HREF="/exp/<?= $middleuri ?>/terms">Terms of Use</A> and 
+			<A HREF="/exp/<?= $middleuri ?>/privacy">Privacy Policy.</A>
 		</P>
 
 	</FORM>
 </DIV>
 		
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/get-involved/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

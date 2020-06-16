@@ -1,4 +1,10 @@
 <?php 
+	/***************************
+	* File: getinvolved.php
+	* Purpose: Get Involved page
+	* Author: Theo Chino
+	*/
+
 	$BigMenu = "home";
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	
