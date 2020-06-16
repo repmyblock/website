@@ -1,6 +1,6 @@
 <?php
-	$imgtoshow = "/nypd/pba.png";
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 
+	$imgtoshow = "/brand/nypd/pba.png";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 	
@@ -29,7 +29,7 @@ If you are an NYPD officer in a position to run for one of the leadership PBA po
 			</P>
 			
 				<P>
-				<FONT SIZE=+1><B><A HREF="register/">Register and someone will contact you.</A></B></FONT>
+				<FONT SIZE=+1><B><A HREF="register">Register and someone will contact you.</A></B></FONT>
 			</P>
 			
 		
@@ -37,4 +37,4 @@ If you are an NYPD officer in a position to run for one of the leadership PBA po
 	</FORM>
 </DIV>
 		
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

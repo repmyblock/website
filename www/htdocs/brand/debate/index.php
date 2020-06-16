@@ -1,6 +1,6 @@
 <?php
-	$imgtoshow = "/RunWithMe/RunWithMe.png";
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php"; 
+	$imgtoshow = "/brand/RunWithMe/RunWithMe.png";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 	
@@ -35,4 +35,4 @@
 	</FORM>
 </DIV>
 		
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
