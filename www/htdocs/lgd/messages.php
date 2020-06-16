@@ -16,13 +16,13 @@
 	
 	$NumberOfMessages = 0;
 
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
 <div class="row">
   <div class="main">
   	
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 
 
 <div class="col-9 float-left">
@@ -34,9 +34,9 @@
 	
 	<?php 
 		if ($VerifEmail == true) { 
-			include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
+			include $_SERVER["DOCUMENT_ROOT"] . "/common/warnings_emailverif.php";
 		} else if ($VerifVoter == true) {
-			include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
+			include $_SERVER["DOCUMENT_ROOT"] . "/common/warnings_voterinfo.php";
 		} 
 	?>
 	
@@ -118,4 +118,4 @@
 
 
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

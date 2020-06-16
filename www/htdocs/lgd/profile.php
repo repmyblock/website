@@ -71,13 +71,13 @@
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
 		
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
 <div class="row">
   <div class="main">
   	
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
   		<div class="<?= $Cols ?> float-left">
 	    
 			  <!-- Public Profile -->
@@ -87,9 +87,9 @@
 			     
 				<?php 
 					if ($VerifEmail == true) { 
-						include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
+						include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
 					} else if ($VerifVoter == true) {
-						include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
+						include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
 					} 
 				?>		  
 
@@ -169,4 +169,4 @@
 
 
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

@@ -28,12 +28,12 @@
 	$Petitions[2]["Signed"] = 114;
 	$Petitions[2]["Total"] = 232;	
 */				
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
 <div class="row">
   <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 			<div class="col-9 float-left">
     
 
@@ -43,9 +43,9 @@
 				
 				<?php 
 					if ($VerifEmail == true) { 
-						include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
+						include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
 					} else if ($VerifVoter == true) {
-						include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
+						include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
 					} 
 				?> 
 			
@@ -106,4 +106,4 @@
 	</DIV>
 </DIV>
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

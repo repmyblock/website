@@ -39,7 +39,7 @@
 	}
 
 			
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ($MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
 
@@ -48,7 +48,7 @@
 
 
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 
 
 <div class="<?= $Cols ?> float-left">
@@ -59,9 +59,9 @@
 
 	<?php 
 		if ($VerifEmail == true) { 
-			include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
+			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
 		} else if ($VerifVoter == true) {
-			include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
+			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
 		} 
 	?>
 
@@ -75,7 +75,7 @@
     <?php if ( $VerifVoter == true) {  ?>
 			    <div class="Box-body text-center py-6 js-collaborated-repos-empty">
 			      Before you can organise your voter list, 
-			    	<a href=/lgd/profile/voter/?k=<?= $k ?>">you need to verify your voter information</a> so we can figure which list to list.
+			    	<a href=/lgd/<?= $k ?>/profilevoter">you need to verify your voter information</a> so we can figure which list to list.
 			    </div>
 			<?php } ?>
     
@@ -158,4 +158,4 @@
 
 
 </script>
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

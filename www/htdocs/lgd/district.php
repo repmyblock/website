@@ -14,11 +14,11 @@
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
 
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 <div class="row">
 	<div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 			<div class="col-9 float-left">
 
 				<div class="Subhead">
@@ -99,4 +99,4 @@
 
 
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

@@ -15,7 +15,7 @@
 	$Party = NewYork_PrintParty($UserParty);
 	$result = $rmb->ListCandidateInformation($SystemUser_ID);
 				
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
 <div class="row">
@@ -23,7 +23,7 @@
 
 
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 
 
 <div class="col-9 float-left">
@@ -34,9 +34,9 @@
 	
 	<?php 
 		if ($VerifEmail == true) { 
-			include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
+			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
 		} else if ($VerifVoter == true) {
-			include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
+			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
 		} 
 	?>          
          
@@ -91,4 +91,4 @@
 
 
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

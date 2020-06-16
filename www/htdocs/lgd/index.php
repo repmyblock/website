@@ -66,14 +66,14 @@
 				</P>
 					
 				<P>
-					<B>Go to the <A HREF="/logged/<?= $k ?>/profile/voter">Voter Profile</A></B> and find your voter 
+					<B>Go to the <A HREF="/lgd/<?= $k ?>/profile/voter">Voter Profile</A></B> and find your voter 
 					registration card. Once you selected your voter registration card, <B>click on
-				the <A HREF="/logged/<?= $k ?>/profile/candidate">Candidate Profile</A></B> and select County Committee.
+				the <A HREF="/lgd/<?= $k ?>/profile/candidate">Candidate Profile</A></B> and select County Committee.
 				</P>
 				
 				<P>
 					<B>Once you have completed the menu</B>, your petition, Walk Sheet and CRU forms will be
-					in the <A HREF="/logged/<?= $k ?>/downloads/">Download</A> screen.
+					in the <A HREF="/lgd/<?= $k ?>/downloads/">Download</A> screen.
 					
 				</P>
 					
