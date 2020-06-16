@@ -83,7 +83,7 @@ function EncryptURL($string = "") {
     $encpayload .= $encblocktext;
   }
   
-  return(rawurlencode(base64_encode (pack ("Na*", $blockct, $encpayload))));
+  return rawurlencode(base64_encode(pack ("Na*", $blockct, $encpayload)));
 }
 
 function DecryptURL ( $sealed ) {
@@ -106,7 +106,7 @@ function DecryptURL ( $sealed ) {
     	while ($msg = openssl_error_string()) {
     		echo $msg . "<br />\n";
     	}
-			header("Location: /error/?crd=1");
+			//header("Location: /error/?crd=1");
 			exit();
     }
     $finaltext .= $decblocktext;
