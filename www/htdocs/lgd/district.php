@@ -1,7 +1,7 @@
 <?php 
 	$BigMenu = "home";
 	$Menu = "district";
-	if ( ! empty ($k)) { $MenuLogin = "logged"; }
+	$MapShow = true;
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
@@ -13,9 +13,15 @@
 
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
+	
+	$LongLat = "[-73.8710, 40.6928]"; $Zoom = 11;
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
+
+
+
+
 <div class="row">
 	<div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
@@ -24,21 +30,12 @@
 				<div class="Subhead">
 					<h2 class="Subhead-heading">District</h2>
 				</div>
-				
-				
-				<H1>This page is not ready yet.</H1>
-				
-				<DIV>
-					There is supposed to be a map of the district.
-				</DIV>
-
-<?php /*
-
+			
 				<?php 
 					if ($VerifEmail == true) { 
-						include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
+						include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
 					} else if ($VerifVoter == true) {
-						include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
+						include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
 						$LongLat = "[-73.8710, 40.6928]"; $Zoom = 11;
 					} 
 				?>	 
@@ -59,34 +56,29 @@
 				</DIV>
 				<?php } ?>
 
-				    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/css/ol.css" type="text/css">
-				  <style>
-				    .map {
-				      height: 400px;
-				      width: 100%;
-				    }
-				  </style>
-				  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/build/ol.js"></script>
 
-				  <div id="map" class="map"></div>
-				  <script type="text/javascript">
-				    var map = new ol.Map({
-				      target: 'map',
-				      layers: [
-				        new ol.layer.Tile({
-				          source: new ol.source.OSM()
-				        })
-				      ],
-				      view: new ol.View({
-				        center: ol.proj.fromLonLat(<?= $LongLat ?>),
-				        zoom: <?= $Zoom ?>
-				      })
-				    });
-				  </script>
+				
+	<div id="map" class="map"></div>
+    <script type="text/javascript">
+      var map = new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+        ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat(<?= $LongLat ?>),
+          zoom: <?= $Zoom ?>
+        })
+      });
+    </script>
+				   
+				    
 				   
 				</DIV>
 			</DIV>
-				*/ ?>
+				
 		</DIV>
 	
 		

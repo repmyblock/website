@@ -40,15 +40,6 @@
 		} 
 	?>
 	
-	<H1>This page is not ready yet.</H1>
-				
-				<DIV>
-					There is supposed to be a way to messages other Rep My Block candidates so you can 
-					create teams.
-				</DIV>
-	
-	
-<?php /*
 	
   <div class="Box">
       <div class="Box-header pl-0">
@@ -65,7 +56,7 @@
     </div>
 	<?php } ?>
 
-<?php /*    
+    
 
       <div class="js-collaborated-repos">
 
@@ -109,7 +100,7 @@
 
   </div>
 </div>
-<?php */ ?>
+
 </DIV>
 </DIV>
 </DIV>

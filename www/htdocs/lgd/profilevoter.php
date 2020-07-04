@@ -1,5 +1,4 @@
 <?php
-	if ( ! empty ($k)) { $MenuLogin = "logged"; }  
 	$Menu = "profile";  
 	$BigMenu = "represent";	
 
@@ -17,19 +16,19 @@
 	$rmbvoters = $rmb->SearchVotersBySingleIndex($VotersIndexes_ID, $DatedFiles);	
 		
 	if ( empty ($VotersIndexes_ID )) {
-		header("Location: input/?k=" . $k);
+		header("Location: " . $k . "/input");
 		exit();
 	} 
 	
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
 
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
 <div class="row">
   <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
   		<div class="<?= $Cols ?> float-left">
     
 			  <!-- Public Profile -->
@@ -39,9 +38,9 @@
 			     
 				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
 					<div class="UnderlineNav-body">
-						<a href="/lgd/profile/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Public Profile</a>
-						<a href="/lgd/profile/voter/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item selected">Voter Profile</a>
-						<a href="/lgd/profile/candidate/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Candidate Profile</a>
+						<a href="/lgd/<?= $k ?>/profile" class="mobilemenu UnderlineNav-item">Public Profile</a>
+						<a href="/lgd/<?= $k ?>/profilevoter" class="mobilemenu UnderlineNav-item selected">Voter Profile</a>
+						<a href="/lgd/<?= $k ?>/profilecandidate" class="mobilemenu UnderlineNav-item">Candidate Profile</a>
 					</div>
 				</nav>
 
@@ -190,4 +189,4 @@
 	</div>
 </DIV>
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

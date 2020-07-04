@@ -42,7 +42,7 @@ $k = rawurlencode($k);
 <div class="col-3 float-left pr-4">
   <nav class="menu position-relative" aria-label="Personal settings" data-pjax>
     <h3 class="menu-heading"><?= $MenuDescription ?></h3>
-    <a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/?k=<?= $k ?>">Summary</a>
+    <a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/index">Summary</a>
     <a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/district">District</a>
     <a class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/petitions">Petitions</a>
     <a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/voters">Voters</a>
@@ -53,6 +53,7 @@ $k = rawurlencode($k);
 
   <nav class="menu" aria-label="Profile">
   	<a class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?>menu-item" href="/lgd/<?= $k ?>/profile">Personal Profile</a>  
+  	<a class="<?php if ( $Menu == "admin" ) { echo "selected "; } ?>menu-item" href="/admin/<?= $k ?>/index">Admin Profile</a>  
   </nav>
   
 <?php /*

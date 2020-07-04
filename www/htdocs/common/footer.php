@@ -9,7 +9,7 @@
 				<DIV CLASS="FooterLinks">
 <?php if ( $MenuLogin == "logged") { ?>
   <a href="/exp/<?= $middleuri ?>/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
-  <a href="/exp/<?= $middleuri ?>/list"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
+  <a href="/lgd/<?= $middleuri ?>/list"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
   <a href="/exp/<?= $middleuri ?>/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a>
 <?php } else { ?>							
 					<A HREF="/exp/<?= $middleuri ?>/about">ABOUT</A>
@@ -19,7 +19,7 @@
 					<A HREF="/exp/<?= $middleuri ?>/howto">HOWTO</A>
 					<A HREF="/exp/<?= $middleuri ?>/contact">CONTACT</A>
 <?php if ( $MenuLogin == "logged") { ?>
-				  <a href="/exp/<?= $middleuri ?>/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
+				  <a href="/lgd/<?= $middleuri ?>/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
 <?php } else { ?>							
 					<A HREF="/exp/<?= $middleuri ?>/login">LOGIN</A>
 <?php } ?>  

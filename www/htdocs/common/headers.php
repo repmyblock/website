@@ -1,11 +1,15 @@
 <?php
-	$middleuri = "website";
-	
 	error_reporting(E_ERROR | E_PARSE);
+
 	// echo "<B>Decrypted Line:</B> " .  $_SERVER['DOCUMENT_URI'] .  "<UL>$Decrypted_k</UL>";
 	if ( preg_match('/Mobile/', $_SERVER['HTTP_USER_AGENT'])) { $MobileDisplay = true; }
 	//$MobileDisplay = true; 
-	if ( ! empty ($k) && $SystemUser_ID > 0 ) { $MenuLogin = "logged"; }
+	if ( ! empty ($k) && $SystemUser_ID > 0 ) { 
+		$MenuLogin = "logged"; 
+		$middleuri = rawurlencode($k);	
+	} else {
+		$middleuri = "website";
+	}
 	
 	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png";	}
 	
@@ -25,6 +29,9 @@
 		<link rel="stylesheet" type="text/css" href="/images/icons/css/all.min.css" >		
 		<link rel="stylesheet" type="text/css" href="/css/font_montserrat.css">
 		<link rel="stylesheet" type="text/css" href="/css/Primer.css">		
+<?php if ($MapShow == true) { ?>
+		<link rel="stylesheet" href="/javascript/ol/openlayer/ol.css" type="text/css">
+<?php } ?>
 	  <link rel="dns-prefetch" href="https://www.repmyblock.nyc">
 
 <?php	if ($MobileDisplay == true) { ?>
@@ -34,9 +41,20 @@
 		<!--- Not Mobile Check --->
 		<link rel="stylesheet" type="text/css" href="/css/RepMyBlock.css" />		
 <?php } ?>		<link rel="stylesheet" type="text/css" href="/css/FrameWorks.css">		
+
+
+<?php if ($MapShow == true) { ?>
+<style>
+  .map {
+    height: 400px;
+    width: 100%;
+  }
+</style>
+<script LANGUAGE="javascript" src="/javascript/ol/openlayer/ol.js"></script>
+<?php } ?>
 	</HEAD>
 	
-  <body class="logged-in env-production emoji-size-boost min-width-lg page-account">
+  <BODY class="logged-in env-production emoji-size-boost min-width-lg page-account">
 		<DIV class="header">
 			<div class="header-left">
 			  <a href="/" class="logo"><IMG SRC="<?= $imgtoshow ?>" class="header-logo"></a>

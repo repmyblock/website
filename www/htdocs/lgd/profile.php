@@ -1,5 +1,4 @@
 <?php
-	if ( ! empty ($k)) { $MenuLogin = "logged"; }  
 	$Menu = "profile";  
 	$BigMenu = "represent";	
 	
@@ -95,9 +94,9 @@
 
 				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
 					<div class="UnderlineNav-body">
-						<a href="/lgd/profile/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item selected">Public Profile</a>
-						<a href="/lgd/profile/voter/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Voter Profile</a>
-						<a href="/lgd/profile/candidate/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Candidate Profile</a>
+						<a href="/lgd/<?= $k ?>/profile" class="mobilemenu UnderlineNav-item selected">Public Profile</a>
+						<a href="/lgd/<?= $k ?>/profilevoter" class="mobilemenu UnderlineNav-item">Voter Profile</a>
+						<a href="/lgd/<?= $k ?>/profilecandidate" class="mobilemenu UnderlineNav-item">Candidate Profile</a>
 					</div>
 				</nav>
 		

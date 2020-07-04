@@ -54,34 +54,7 @@
 				<div class="Subhead">
 			  	<h2 class="Subhead-heading">Summary</h2>
 				</div>
-				
-				<P>
-					<FONT COLOR=BROWN><B>Instructions:</B></FONT>
-				</P>
-				
-				<P>
-					<B>The website is not fully completed</B> but once you verify your voter registration status
-					and your email address, we'll email you a 
-					<A TARGET="Example Petition" HREF="https://repmyblock.nyc/petitions">personalized petition.</A>	
-				</P>
-					
-				<P>
-					<B>Go to the <A HREF="/lgd/<?= $k ?>/profile/voter">Voter Profile</A></B> and find your voter 
-					registration card. Once you selected your voter registration card, <B>click on
-				the <A HREF="/lgd/<?= $k ?>/profile/candidate">Candidate Profile</A></B> and select County Committee.
-				</P>
-				
-				<P>
-					<B>Once you have completed the menu</B>, your petition, Walk Sheet and CRU forms will be
-					in the <A HREF="/lgd/<?= $k ?>/downloads/">Download</A> screen.
-					
-				</P>
-					
-				<P>
-					The <A TARGET="CCSUN" HREF="https://CCSunlight.org">CC Sunlight Project</A> has put together a very
-					good Run Kit. You can download 
-					<A TARGET="CCSUN"HREF="https://drive.google.com/drive/folders/1CLpq48zFPQbHCeMN_3IKHVM65xejA354">from here.</A>
-				</P>
+						
 				
 
 	<?php 
@@ -114,6 +87,13 @@
 					you need to wait until <? $DateToWait ?> to take them
 					to the board of elections. <B>Just follow the 
 					<A HREF="<?= $FrontEndWeb ?>/where-to-file/prepare-to-file-your-petition-to-the-board-of-elections.html">instruction posted on the FAQ</A>.</B>
+				</P>
+				
+						
+				<P>
+					The <A TARGET="CCSUN" HREF="https://CCSunlight.org">CC Sunlight Project</A> has put together a very
+					good Run Kit. You can download 
+					<A TARGET="CCSUN"HREF="https://drive.google.com/drive/folders/1CLpq48zFPQbHCeMN_3IKHVM65xejA354">from here.</A>
 				</P>
 	  
 			</DIV>

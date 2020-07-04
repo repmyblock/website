@@ -1,5 +1,6 @@
 <?php 
 	$BigMenu = "home";
+	$MapShow = true;
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
@@ -7,6 +8,7 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
 
 	/* User is logged */
+	$LongLat = "[-73.8710, 40.6928]"; $Zoom = 11;
 	
 ?>
 
@@ -26,10 +28,19 @@
 				membership information has traditionally been hard to access. 
 			</B>
 		</P>
-	</DIV>
+
+	
+	<P>
+	<link rel="stylesheet" href="/maps/RepMyBlockMaps.1f948dd0.css">
+	<div id="map" class="map"></div>
+  <span id="status"></span>
+	<script src="/maps/RepMyBlockMaps.8170589f.js"></script>
+   </P>
 	
 	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>
 
+
+	</DIV>
 
 </div>
 
