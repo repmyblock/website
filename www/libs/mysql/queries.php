@@ -6,12 +6,13 @@ class queries {
 
   	if ( $DebugInfo["Flag"] > 0 ) {
   		echo "<BR><FONT COLOR=GREEN><I><B>Database: Server:</B> $databaseserver - <B>Name:</B> $databasename</I></FONT><BR>";
+  		if ($DebugInfo["Flag"] == 1000) { exit(); }
 		}  	
-	
+			
   	$this->DebugInfo = $DebugInfo;
     $this->DB = new DB();    
     $this->DB->open($databasename, $databaseserver, $databaseport, 
-                    $databaseuser, $databasepassword, $sslkeys, $DebugInfo);                    
+                    $databaseuser, $databasepassword, $sslkeys, $DebugInfo);    
   }
 
 	// Function has been changed to the same because
