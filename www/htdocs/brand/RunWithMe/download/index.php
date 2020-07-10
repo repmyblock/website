@@ -13,8 +13,6 @@
 
 	$imgtoshow = "/brand/RunWithMe/RunWithMe.png";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
-	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
-	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
 		
@@ -40,29 +38,15 @@
 						
 
 	<FORM METHOD="POST" ACTION="">			
-		<?php
-		
-			if ($result["USERNAME"] == 1) {
-				echo "<P CLASS=\"f60\">";
-				echo "<B><FONT COLOR=BROWN>The USERNAME " . $_POST["username"] . " already exist</FONT></B><BR>";
-				echo "</P>";
-			}
-			
-			if ($result["EMAIL"] == 1) {
-				echo "<P CLASS=\"f60\">";
-				echo "<B><FONT COLOR=BROWN>The EMAIL " . $_POST["emailaddress"] . " already exist</FONT></B><BR>";
-				echo "</P>";
-			}
-		?>
 		
 		<P CLASS="f80">
 			<DIV CLASS="f80">First Name:</DIV> 
-			<DIV><INPUT CLASS="" type="<?= $TypeEmail ?>" autocorrect="off" autocapitalize="none" NAME="FirstName" PLACEHOLDER="First Name" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
+			<DIV><INPUT CLASS="" type="text" autocorrect="off" autocapitalize="none" NAME="FirstName" PLACEHOLDER="First Name" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
 		</P>
 			
 		<P CLASS="f80">
 			<DIV CLASS="f80">Last Name:</DIV>
-			<DIV><INPUT CLASS="" type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="LastName" PLACEHOLDER="Last Name" VALUE="<?= $_POST["username"] ?>"></DIV>
+			<DIV><INPUT CLASS="" type="text" autocorrect="off" autocapitalize="none" NAME="LastName" PLACEHOLDER="Last Name" VALUE="<?= $_POST["username"] ?>"></DIV>
 		</P>
 		
 		<P>
