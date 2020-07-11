@@ -65,6 +65,20 @@ class OutragedDems extends queries {
 		return $this->_return_multiple($sql,  $sql_vars);		
 	}
 	
+	function ShowPetitionsForUser($UniqID) {
+		$sql = "SELECT * FROM PetitionGroup " . 
+						"LEFT JOIN PetitionSigners ON (PetitionSigners.PetitionGroup_ID = PetitionGroup.PetitionGroup_ID) " .
+						"LEFT JOIN Candidate ON (PetitionGroup.Candidate_ID = Candidate.Candidate_ID) " .  
+						"LEFT JOIN CanWitnessSet ON (CanWitnessSet.Candidate_ID = Candidate.Candidate_ID) " .
+						"LEFT JOIN CandidateWitness ON (CanWitnessSet.CandidateWitness_ID = CandidateWitness.CandidateWitness_ID) " .
+						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
+						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+						"LEFT JOIN PartySymbol ON (Candidate.PartySymbol_ID = PartySymbol.PartySymbol_ID) " . 
+						"WHERE PetitionGroup_OwnerUniqID = :Uniq";
+		$sql_vars = array("Uniq" => $UniqID);
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
 	function ListPetitionSet($CanPetitionSet_ID) {
 		$sql = "SELECT * FROM CanPetitionSet " .
 						"LEFT JOIN Candidate ON (CanPetitionSet.Candidate_ID = Candidate.Candidate_ID) " . 
