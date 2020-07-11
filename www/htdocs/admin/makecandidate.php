@@ -16,53 +16,11 @@
 	if ( ! empty ($_POST)) {
 	
 		
-		/*
-		
-		echo "<PRE>" . print_r($_POST, 1) . "<BR>";
-		exit();
-	
-		[rawvoterid] => 2157509
-    [UniqNYSVoterID] => NY000000000050251106
-    [DatedFiles] => 20200203
-    [DatedFilesID] => 22
-    [EnrollPolParty] => DEM
-    [FullName] => Alexandria Ocasio-cortez 
-    [Address1] => 1525 UNIONPORT ROAD - Apt. 4D
-    [Address2] => BRONX, NY 10462
-    [County] => 03
-    [] => 57
-    [AD] => 87
-    [candidateelection] => 10010
-    [NewED] => 057
-    [CandidateNameID] => 
-    [candidateDBTable] => EDAD
-
-		
-		
-    [rawvoterid] => 31466
-    [UniqNYSVoterID] => NY000000000035760967
-    [DatedFiles] => 20200203
-    [DatedFilesID] => 22
-    [EnrollPolParty] => DEM
-    [FullName] => Carmen G. Ocasio 
-    [Address1] => 1748 DECATUR STREET - Apt. 1R
-    [Address2] => RIDGEWOOD, NY 11385
-    [County] => 41
-    [ED] => 8
-    [AD] => 38
-    [candidateelection] => 13470
-    [ChangeED] => 008
-    [NewED] => 35
-    [CandidateNameID] => 124
-    [candidateDBTable] => EDAD
-    		*/
-		
 		if ( ! empty ($_POST["NewED"]) && is_numeric($_POST["NewED"]) && ! empty ($_POST["ChangeED"])) {
 			$EDAD = sprintf('%02d%03d', $_POST["AD"], $_POST["NewED"]);			
 		} else {
 			$EDAD = sprintf('%02d%03d', $_POST["AD"], $_POST["ED"]);		
 		}
-
 		
 		//function PrepDisctictVoterRoll($CandidateID, $RawVoterID, $DatedFiles, $DatedFilesID, $InfoArray) {
 			
