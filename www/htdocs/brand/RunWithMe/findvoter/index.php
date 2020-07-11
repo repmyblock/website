@@ -2,24 +2,24 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 
 	if ( ! empty ($_POST)) {
-		
-		
-		if ($_POST["checkoneyes"] == "yes") {
-			header("Location: ../neighbors/?k=" . EncryptURL("NYSID=" . $_POST["NYSID"] . 
-																											  "&HseNbr=" . $_POST["ResHouseNumber"] .
-																												"&FracAdd=" . $_POST["ResFracAddress"] .
-																												"&Apt=" . $_POST["ResApartment"] .
-																												"&PreSt=" . $_POST["ResPreStreet"] .
-																												"&St=" . $_POST["ResStreetName"] .
-																												"&PostSt=" . $_POST["ResPostStDir"] .
-																												"&City=" . $_POST["ResCity"] .
-																												"&Zip=" . $_POST["ResZip"]));
-								 
-											
-			exit();
-		}
-		
-		
+
+		// find which one is the right one.
+		foreach ($_POST["NYSIDVERIF"] as $index => $var) {
+			if ( $var == $_POST["NYSID"]) {
+				if ($_POST["checkoneyes"] == "yes") {
+					header("Location: ../neighbors/?k=" . EncryptURL("NYSID=" . $_POST["NYSID"] . 
+																												  "&HseNbr=" . $_POST["ResHouseNumber"][$index] .
+																													"&FracAdd=" . $_POST["ResFracAddress"][$index] .
+																													"&Apt=" . $_POST["ResApartment"][$index] .
+																													"&PreSt=" . $_POST["ResPreStreet"][$index] .
+																													"&St=" . $_POST["ResStreetName"][$index] .
+																													"&PostSt=" . $_POST["ResPostStDir"][$index] .
+																													"&City=" . $_POST["ResCity"][$index] .
+																													"&Zip=" . $_POST["ResZip"][$index]));
+					exit();
+				}
+			}			
+		}		
 		exit();
 	}
 
@@ -61,20 +61,23 @@
 
 		<P>
 					
-			<?php if (count ($result) == 1 ) { ?>
+			<?php if (count ($result) == 1 ) { 
+				$Counter = 0;
+				?>
 	
 				We found this voter. 
 				Is that you? 			 
 		
 			<INPUT TYPE="hidden" NAME="NYSID" VALUE="<?= $result[0]["VotersIndexes_UniqNYSVoterID"] ?>">	
-			<INPUT TYPE="hidden" NAME="ResHouseNumber" VALUE="<?= $result[0]["Raw_Voter_ResHouseNumber"] ?>">	
-			<INPUT TYPE="hidden" NAME="ResFracAddress" VALUE="<?= $result[0]["Raw_Voter_ResFracAddress"] ?>">	
-			<INPUT TYPE="hidden" NAME="ResApartment" VALUE="<?= $result[0]["Raw_Voter_ResApartment"] ?>">	
-			<INPUT TYPE="hidden" NAME="ResPreStreet" VALUE="<?= $result[0]["Raw_Voter_ResPreStreet"] ?>">	
-			<INPUT TYPE="hidden" NAME="ResStreetName" VALUE="<?= $result[0]["Raw_Voter_ResStreetName"] ?>">	
-			<INPUT TYPE="hidden" NAME="ResPostStDir" VALUE="<?= $result[0]["Raw_Voter_ResPostStDir"] ?>">	
-			<INPUT TYPE="hidden" NAME="ResCity" VALUE="<?= $result[0]["Raw_Voter_ResCity"] ?>">	
-			<INPUT TYPE="hidden" NAME="ResZip" VALUE="<?= $result[0]["Raw_Voter_ResZip"] ?>">	
+			<INPUT TYPE="hidden" NAME="NYSIDVERIF[<?= $Counter ?>]" VALUE="<?= $var["VotersIndexes_UniqNYSVoterID"] ?>">	
+			<INPUT TYPE="hidden" NAME="ResHouseNumber[<?= $Counter ?>]" VALUE="<?= $result[0]["Raw_Voter_ResHouseNumber"] ?>">	
+			<INPUT TYPE="hidden" NAME="ResFracAddress[<?= $Counter ?>]" VALUE="<?= $result[0]["Raw_Voter_ResFracAddress"] ?>">	
+			<INPUT TYPE="hidden" NAME="ResApartment[<?= $Counter ?>]" VALUE="<?= $result[0]["Raw_Voter_ResApartment"] ?>">	
+			<INPUT TYPE="hidden" NAME="ResPreStreet[<?= $Counter ?>]" VALUE="<?= $result[0]["Raw_Voter_ResPreStreet"] ?>">	
+			<INPUT TYPE="hidden" NAME="ResStreetName[<?= $Counter ?>]" VALUE="<?= $result[0]["Raw_Voter_ResStreetName"] ?>">	
+			<INPUT TYPE="hidden" NAME="ResPostStDir[<?= $Counter ?>]" VALUE="<?= $result[0]["Raw_Voter_ResPostStDir"] ?>">	
+			<INPUT TYPE="hidden" NAME="ResCity[<?= $Counter ?>]" VALUE="<?= $result[0]["Raw_Voter_ResCity"] ?>">	
+			<INPUT TYPE="hidden" NAME="ResZip[<?= $Counter ?>]" VALUE="<?= $result[0]["Raw_Voter_ResZip"] ?>">	
 
 			<TABLE BORDER=1>
 			<TR>
@@ -111,14 +114,67 @@
 		   
             
             
-       <?php } else { ?>
+       <?php } else { 
        
        
-       echo "We found " . count($result) . "<BR>";
+       	echo "We found " . count($result) . "<BR>";
+       	$Counter = 0;
+       ?>
+       <TABLE BORDER=1>
+			<TR>
+				<TH>&nbsp;</TH>
+				<TH>First Name</TH>			
+				<TH>Last Name</TH>
+				<TH>Street Address</TH>
+				<TH>Zipcode</TH>
+				<TH>Age</TH>				
+				<TH>Gender</TH>
+			</TR>
        
+       <?php
+       	foreach ($result as $var) {
+       		if ( ! empty ($var)) {
+       		
+      	
+       	?>
        
-     <?php } ?>
+      	
+
+			
+			
+			<TR>
+				<TD> <INPUT TYPE="radio" NAME="NYSID" VALUE="<?= $var["VotersIndexes_UniqNYSVoterID"] ?>">	
+							<INPUT TYPE="hidden" NAME="NYSIDVERIF[<?= $Counter ?>]" VALUE="<?= $var["VotersIndexes_UniqNYSVoterID"] ?>">	
+							<INPUT TYPE="hidden" NAME="ResHouseNumber[<?= $Counter ?>]" VALUE="<?= $var["Raw_Voter_ResHouseNumber"] ?>">	
+							<INPUT TYPE="hidden" NAME="ResFracAddress[<?= $Counter ?>]" VALUE="<?= $var["Raw_Voter_ResFracAddress"] ?>">	
+							<INPUT TYPE="hidden" NAME="ResApartment[<?= $Counter ?>]" VALUE="<?= $var["Raw_Voter_ResApartment"] ?>">	
+							<INPUT TYPE="hidden" NAME="ResPreStreet[<?= $Counter ?>]" VALUE="<?= $var["Raw_Voter_ResPreStreet"] ?>">	
+							<INPUT TYPE="hidden" NAME="ResStreetName[<?= $Counter ?>]" VALUE="<?= $var["Raw_Voter_ResStreetName"] ?>">	
+							<INPUT TYPE="hidden" NAME="ResPostStDir[<?= $Counter ?>]" VALUE="<?= $var["Raw_Voter_ResPostStDir"] ?>">	
+							<INPUT TYPE="hidden" NAME="ResCity[<?= $Counter ?>]" VALUE="<?= $var["Raw_Voter_ResCity"] ?>">	
+							<INPUT TYPE="hidden" NAME="ResZip[<?= $Counter ?>]" VALUE="<?= $var["Raw_Voter_ResZip"] ?>"></TD>
+				<TD><?= ucwords($var["Raw_Voter_FirstName"]) ?></TD>			
+				<TD><?= ucwords($var["Raw_Voter_LastName"]) ?></TD>
+				<TD><?= ucwords($var["Raw_Voter_ResStreetName"]) ?></TD>
+				<TD><?= $var["Raw_Voter_ResZip"] ?></TD>
+				<TD><?= $var["Raw_Voter_DOB"] ?></TD>				
+				<TD ALIGN=CENTER><?= $result[0]["Raw_Voter_Gender"] ?></TD>
+			</TR>
+       
+       <?php 
+       	$Counter++;
+     }
+}       
+   } ?>
 	
+			</TABLE>
+			
+			&nbsp;<BR>
+
+			<DIV>
+				<INPUT CLASS="" TYPE="Submit" NAME="checkoneyes" VALUE="yes">
+				<INPUT CLASS="" TYPE="Submit" NAME="checkoneno" VALUE="no">
+			</DIV>
 		</P>
 						
 

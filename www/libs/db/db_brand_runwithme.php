@@ -43,18 +43,18 @@ class runwithme extends queries {
 		return $this->_return_multiple($sql, $sql_vars);	
 	} 
 	
-	// This will have plenty of logic.
-	function SavePetitionGroup($Signatures, $TheWitness, $DatedFile) {
-		
-		echo "Inside the SavePetition group:";
-		echo "<PRE>" . print_r($Signatures, 1) . "<PRE>"; 
+	function ShowPetitionsForUser($UniqID) {
+		$sql = "SELECT * FROM PetitionGroup " . 
+						"LEFT JOIN PetitionSigners ON (PetitionSigners.PetitionGroup_ID = PetitionGroup.PetitionGroup_ID) " . 
+						"WHERE PetitionGroup_OwnerUniqID = :Uniq";
+		$sql_vars = array("Uniq" => $UniqID);
+		return $this->_return_multiple($sql, $sql_vars);
+	}
 	
-		echo "Inside the Witness group:";
-		echo "<PRE>" . print_r($TheWitness, 1) . "<PRE>"; 
-		
-		
+	// This will have plenty of logic.
+	function SavePetitionGroup($Signatures, $TheWitness, $OwnerID, $CandidateID, $DatedFile) {
 		$sql = "SELECT * FROM " . $DatedFile . " " . 
-						"LEFT JOIN Data_County ON (" . $DatedFile . ".Raw_Voter_CountyCode = Data_County.DataCounty_ID) " .
+						"LEFT JOIN DataCounty ON (" . $DatedFile . ".Raw_Voter_CountyCode = DataCounty.DataCounty_ID) " .
 						"WHERE ";	
 		$Counter = 0;
 	
@@ -74,16 +74,10 @@ class runwithme extends queries {
 			}
 		}
 		
-		echo "SQL: $sql<BR>";
-		exit();
-		
-		$results = $this->_return_multiple($sql, $sqlvars);
-		
-		echo "Inside the Witness group:";
-		echo "<PRE>" . print_r($results, 1) . "<PRE>"; 
-		
-		$sql = "INSERT INTO PetitionGroup SET PetitionGroup_WitnessName = :WitnessName, PetitionGroup_WitnessResidence = :Residence, " .
-						"Raw_Voter_UniqNYSVoterID = :UniqID, PetitionSigners_Timestamp = NOW()";
+		$results = $this->_return_multiple($sql, $sqlvars);		
+		$sql = "INSERT INTO PetitionGroup SET Candidate_ID = :CandidateID, PetitionGroup_WitnessName = :WitnessName, PetitionGroup_WitnessResidence = :Residence, " .
+						"PetitionGroup_UniqNYSVoterID = :UniqID, PetitionGroup_WitnessCity = :City, PetitionGroup_WitnessCounty = :County, " . 
+						"PetitionGroup_OwnerUniqID = :Owner, PetitionGroup_Timestamp = NOW()";
 		
 		// This is to create the witness
 		if ( ! empty ($results)) {
@@ -100,22 +94,53 @@ class runwithme extends queries {
 	      		
 						$sqlvars = array("WitnessName" => ucwords(strtolower($var["Raw_Voter_FirstName"])) . " " . 
 																							ucwords(strtolower($var["Raw_Voter_LastName"])),
-														 "Residence" => trim($Residence), "UniqID" => $TheWitness);
+														 "Residence" => trim($Residence), "UniqID" => $TheWitness,
+														 "City" => trim(ucwords(strtolower($var["Raw_Voter_ResCity"]))),
+														 "County" => trim(ucwords(strtolower($var["DataCounty_Name"]))),
+														 "Owner" => $OwnerID, "CandidateID" => $CandidateID);
+	          
+						$this->_return_nothing($sql, $sqlvars);
+						$groupid = $this->_return_simple("SELECT LAST_INSERT_ID() as GroupID");
+					}					
+				}
+			}
+		}
+		
+		$sql = "INSERT INTO PetitionSigners SET " .
+						"PetitionGroup_ID = :GroupID, PetitionSigners_Date = NOW(), " . 
+						"PetitionSigners_Name = :WitnessName, PetitionSigners_Residence = :Residence, " .
+						"PetitionSigners_ResidenceCounty = :County, " . 
+						"Raw_Voter_UniqNYSVoterID = :UniqID, PetitionSigners_Timestamp = NOW()";
+		
+		// This is to create petitioneed
+		if ( ! empty ($results)) {
+			foreach ($results as $var) {
+				if ( ! empty ($var)) {
+					if ( $var["Raw_Voter_UniqNYSVoterID"] != $TheWitness ) {
+						$Residence = "";
+						if ( ! empty ($var["Raw_Voter_ResHouseNumber"])) { $Residence .= $var["Raw_Voter_ResHouseNumber"] . " "; }
+						if ( ! empty ($var["Raw_Voter_ResFracAddress"])) { $Residence .= $var["Raw_Voter_ResFracAddress"] . " "; }
+						if ( ! empty ($var["Raw_Voter_ResPreStreet"])) { $Residence .= $var["Raw_Voter_ResPreStreet"] . " "; }
+						if ( ! empty ($var["Raw_Voter_ResStreetName"])) { $Residence .= ucwords(strtolower($var["Raw_Voter_ResStreetName"])) . " "; }
+						if ( ! empty ($var["Raw_Voter_ResPostStDir"])) { $Residence .= $var["Raw_Voter_ResPostStDir"] . " "; }
+						if ( ! empty ($var["Raw_Voter_ResApartment"])) { $Residence = trim($Residence) . " - Apt " . $var["Raw_Voter_ResApartment"] . " "; }
+						if ( ! empty ($var["Raw_Voter_ResCity"])) { 
+							$Residence = trim($Residence) . ", " . ucwords(strtolower($var["Raw_Voter_ResCity"])) . ", NY " . $var["Raw_Voter_ResZip"] ; 
+						}
+	      		
+						$sqlvars = array("WitnessName" => ucwords(strtolower($var["Raw_Voter_FirstName"])) . " " . 
+																							ucwords(strtolower($var["Raw_Voter_LastName"])),
+														 "Residence" => trim($Residence), "UniqID" => $var["Raw_Voter_UniqNYSVoterID"],
+														 "GroupID" => $groupid["GroupID"], "County" => $var["DataCounty_Name"]);
 	          
 						$this->_return_nothing($sql, $sqlvars);
 					}					
 				}
 			}
 		}
-		
-		
-		
-		
-		exit();
+		return $groupid["GroupID"];
 	}
-			
-
-	
+		
 }
 
 

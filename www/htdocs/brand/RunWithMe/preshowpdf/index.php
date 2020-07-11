@@ -1,15 +1,19 @@
 <?php
-	$CandidateID = 284;
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_runwithme.php";	
+					
+	$r = new runwithme();	
+	$result = $r->ShowPetitionsForUser($URIEncryptedString["NYSID"]);
+
+	//echo "<PRE>" . print_r($result, 1) . "</PRE>";
+	header("Location: " . $FrontEndPDF . "/NYS/Petition/?k=" . EncryptURL("NYSID=" . $URIEncryptedString["NYSID"] . "&PetType=prefiled&Intrustions=yes"));
+	
+	exit();
 	
 	if ( ! empty ($_POST)) {	
 		if ($_POST["Save"] == "Prepare the PDF file") {
-			
-			require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
-			require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-			require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_runwithme.php";	
-					
-			$r = new runwithme();	
 			
 			// Do the witness first.
 			$SignatureGroup[0] = $_POST["NYSID"];
@@ -17,7 +21,7 @@
 			
 			// The rest of the petition
 			$r->SavePetitionGroup($_POST["Sigs"], $_POST["NYSID"], $_POST["NYSID"], $CandidateID, "Raw_Voter_" . $DatedFiles);														
-			header("Location: ../preshowpdf/?k=" . EncryptURL("NYSID=" . $_POST["NYSID"]));								
+			
 			
 		}
 		
