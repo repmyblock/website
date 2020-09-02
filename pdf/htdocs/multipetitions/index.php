@@ -17,7 +17,7 @@ $CanPetitionSet_ID = trim($_GET["petid"]);
 $CandidatePetitionSet_ID = trim($_GET["setid"]);
 $WaterMarkVoid = trim($_GET["Watermark"]);
 
-$WritenSignatureMonth = "March";
+$WritenSignatureMonth = "February";
 $Variable = "demo-CC";
 	
 if (is_numeric($CanPetitionSet_ID)) { $Variable = "petid"; }
@@ -94,8 +94,8 @@ switch ($Variable) {
 		$result[0]["Candidate_DispResidence"] = "Your address here";
 		// $result[0]["CandidateWitness_FullName"] = "Committee to replace here";
 		// $result[0]["CandidateWitness_Residence"] = "Address of committee person";
-		$result[0]["CandidatePetition_VoterCounty"] = "Bronx, Queens or Kings";
-		$result[0]["CandidateParty"] = "Democratic";
+		$result[0]["CandidatePetition_VoterCounty"] = "a New York City";
+		$result[0]["CandidateParty"] = "Democratic or Republican";
 		$pdf->Watermark = "Demo Petition / Not Valid";
 		$pdf->BarCode = "Demo Petition";
 		$pdf->DemoPrint = "true";
@@ -201,7 +201,7 @@ $pdf->CandidateNomination .= " or for election to a party position of such party
 //$pdf->WitnessResidence = "_______________________________________________________"; 
 
 $pdf->TodayDateText = "Date: " . date("F _________ , Y"); 
-$pdf->TodayDateText = "Date: " . $WritenSignatureMonth . " _______ , 2020";
+$pdf->TodayDateText = "Date: " . $WritenSignatureMonth . " _______ , 2021";
 $pdf->County = $result[0]["CandidatePetition_VoterCounty"];
 $pdf->City = "City of New York";
 

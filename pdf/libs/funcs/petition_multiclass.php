@@ -21,7 +21,7 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetFont('Arial','B',50);
     	$this->SetTextColor(255,192,203);
    		$this->RotatedText(35,190, $this->Watermark, 45);
-   		$this->RotatedText(40,210, "Election will be held in 2020", 45);
+   		$this->RotatedText(40,210, "Election will be held in 2021", 45);
    		$this->SetTextColor(0,0,0);
 		}
 
@@ -29,7 +29,7 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetXY(125, 1);
 			$this->SetFont('Arial', 'B', 15);
 			$this->SetTextColor(0,0,255);
-			$this->Link(125, 1, 90, 10, "https://repmyblock.nyc/get-involved/interested/");
+			$this->Link(125, 1, 90, 10, "https://repmyblock.nyc/exp/multipetition/propose");
  	   	$this->MultiCell(90, 5, "Click here for more information on how to participate.", 0, 'R');
  	   	$this->SetTextColor(0); 	   	
  	   	$this->SetXY($this->Col1, $YLocation);
@@ -303,7 +303,7 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetTextColor(0,0,255);
 			$this->SetXY(120, 132.5);
 			$this->Link(120, 130, 70, 25, "https://repmyblock.nyc/get-involved/interested/");
- 	   	$this->MultiCell(70, 7.2, "Petitioning starts February 25, 2020 until March 30, 2020", 0, 'C'); 	   									
+ 	   	$this->MultiCell(70, 7.2, "Petitioning will start in February 2021 until March 2021", 0, 'C'); 	   									
  	   }
 		
 		$this->SetTextColor(0);
