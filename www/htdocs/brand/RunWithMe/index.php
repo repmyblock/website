@@ -7,23 +7,17 @@
 <DIV class="main">
 	<DIV CLASS="right f80">Run With Me</DIV>
 
-		<P>
-				&nbsp;
-			</P>
-				
-			<P>
+	
+			<P CLASS="f50">
 				Paperboy Prince is running for Congress in the 7<sup>th</sup> Congressional District and you can 
 				access his website at <a href="https://paperboyprince.com/volunteer">https://paperboyprince.com/volunteer</a>	</FONT>
 			</P>
 			
-			<P>
-				<CENTER><FONT SIZE=+2><B><A HREF="download">Download a petition to put Paperboy Love Prince on the November Ballot</A></B></FONT></CENTER>
+			<P CLASS="f80bold center">
+				<A HREF="download">Click here to download a petition to put Paperboy Love Prince on the November Ballot</A>
 			</P>
 			
-			<P>
-				&nbsp;
-			</P>
-					
+		
 			<blockquote class="instagram-media" data-instgrm-captioned 
 				data-instgrm-permalink="https://www.instagram.com/tv/B9UdHvmpDWU/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="12" 
 				style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> 
@@ -39,7 +33,7 @@
 							<div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div></a> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://www.instagram.com/tv/B9UdHvmpDWU/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">This isn’t a diss song bt a response to the Governor who tried calling me out in his recent speech. We need to focus on bringing ppl together! More love !!#Paperboy2020 has #governorcuomo mad 😡😱 u like this song ?? #HopTheTrain out now !! Dm me or text me , to help us get on the ballot! We have 1 month! 727 379 2327 #hahapaper #bars #beef #itsourtime #soreadlove #disstrack</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A post shared by <a href="https://www.instagram.com/paperboytheprince/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px;" target="_blank"> Paperboy Prince Of The Love</a> (@paperboytheprince) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2020-03-04T17:15:00+00:00">Mar 4, 2020 at 9:15am PST</time></p></div></blockquote> <script async src="//www.instagram.com/embed.js"></script>
 		
 		
-			<P>
+			<P CLASS="f60">
 				Rep My Block is provided Free of Charge to any candidate that wishes to integrate 
 				it's services.
 			</P>

@@ -37,9 +37,7 @@ class runwithme extends queries {
 			$sql_vars["HseNbr"] = $HseNbr;
 		}				
 		
-		
 		$sql .= " ORDER BY CAST(Raw_Voter_ResHouseNumber AS UNSIGNED), Raw_Voter_ResApartment";
-		
 		return $this->_return_multiple($sql, $sql_vars);	
 	} 
 	

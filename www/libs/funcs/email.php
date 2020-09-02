@@ -137,7 +137,7 @@ function SendForgotLogin($to, $hashtable) {
 	$BotArray["sendemail"] =  $to;
 
   $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
-	$linktoverify = $FrontEndWebsite . "/login/forgotpwd/recover/?hashkey=" . $hashtable;       
+	$linktoverify = $FrontEndWebsite . "/exp/" . $hashtable . "/forgotpwd_recover";
 	
 	$WelcomeLine = "Hello";
 	
@@ -463,7 +463,7 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
 	$BotArray["sendemail"] =  $to;
 
   $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
-	$linktoverify = $FrontEndWebsite . "/register/verify/?hashkey=" . $hashtable . "&username=" . $username;       
+	$linktoverify = $FrontEndWebsite . "/exp/$hashtable" . $username . "/verify";       
 	
 	$WelcomeLine = "Welcome";
 	if ( ! empty ($infoarray["FirstName"])) {

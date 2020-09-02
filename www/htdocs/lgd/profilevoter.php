@@ -8,7 +8,7 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
 
   if (empty ($SystemUser_ID)) { goto_signoff(); }
-  if (empty ($UniqNYSVoterID)) { header("Location: input/?k=" . $k); exit(); }
+  if (empty ($UniqNYSVoterID)) { header("Location: " . $k . "/input"); exit(); }
 	$rmb = new repmyblock();
 
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	

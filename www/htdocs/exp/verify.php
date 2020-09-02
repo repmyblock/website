@@ -7,9 +7,11 @@
 	$r = new login();
 	
 	// Check that the hash code exist.
-
-	if ( ! empty ($_GET["username"])) { $username = $_GET["username"]; }
-	if ( ! empty ($_GET["hashkey"])) {	$hashkey = $_GET["hashkey"]; }	
+	if (! empty ($_GET["info"])) {
+		$hashkey = substr( $_GET["info"], 0, 32);  
+		$username = substr( $_GET["info"], 32, strlen($_GET["info"]) - 32);
+	}
+	
 	if ( ! empty ($_POST["username"])) { $username = $_POST["username"]; }
 	if ( ! empty ($_POST["hashkey"])) {	$hashkey = $_POST["hashkey"]; }
 
@@ -24,7 +26,7 @@
 												"&hashkey=" . $_POST["hashkey"] . 
 												"&username=" . $_POST["username"];
 				// The reason for no else is that the code supposed to go away.
-				header("Location: /register/verify/verifypassword/?k=" . EncryptURL($URLToEncrypt));
+				header("Location: /lgd/" .  rawurlencode(EncryptURL($URLToEncrypt)) . "/verifypassword");
 				exit();
 			} else {
 				$error_msg = "<FONT COLOR=RED><B>The information did not match our records</B></FONT>";	
@@ -39,12 +41,11 @@
 												"&hashkey=" . $_POST["hashkey"] . 
 												"&username=" . $_POST["username"];
 				// The reason for no else is that the code supposed to go away.
-				header("Location: /register/verify/verifypassword/?k=" . EncryptURL($URLToEncrypt));
+				header("Location: /lgd/" .  rawurlencode(EncryptURL($URLToEncrypt)) . "/verifypassword");
 				exit();		
 		}
 	}
-	
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 <div class="main">
 	<H1>Verify the email address</H1>
@@ -54,18 +55,26 @@
 	} ?>
 
 	<P>
-		<FORM METHOD="POST" ACTION="">
-			<TABLE>
-				<TR><TD>Username:</TD><TD><INPUT TYPE="text" NAME="username" VALUE="<?= $username ?>" SIZE=30></TD></TR>
-				<TR><TD>HashCode:</TD><TD><INPUT TYPE="text" NAME="hashkey" VALUE="<?= $hashkey ?>" SIZE=60></TD></TR>
-				<TR><TD>&nbsp;</TD><TD><INPUT TYPE="Submit" NAME="signin" VALUE="Verify Email"></TD></TR>
-			</TABLE>
-		</FORM>
+			<FORM METHOD="POST" ACTION="">
+					<P CLASS="f80">
+						Username:
+						<INPUT TYPE="text" NAME="username" VALUE="<?= $username ?>" placeholder="Username">
+					<P>
+						
+					<P CLASS="f80">
+						Hashkey: 
+						<INPUT TYPE="text" NAME="hashkey" VALUE="<?= $hashkey ?>" SIZE=60 placeholder="Hashkey">
+					</P>
+					
+					<P>
+						<INPUT TYPE="Submit" NAME="signin" VALUE="Log In">
+					</P>
+			</FORM>
 	</P>
 
 	<P>
-		<FONT SIZE=+2><A HREF="/login/forgotpwd">I forgot my password</A></FONT><BR>
+		<FONT SIZE=+2><A HREF="/exp/<?= $_GET["info"] ?>/forgotpwd">I forgot my password</A></FONT><BR>
 	</P>
 </DIV>
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

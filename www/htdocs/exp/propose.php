@@ -32,9 +32,10 @@
 	
 	<P>
 	<link rel="stylesheet" href="/maps/RepMyBlockMaps.1f948dd0.css">
+	
 	<div id="map" class="map"></div>
   <span id="status"></span>
-	<script src="/maps/RepMyBlockMaps.8170589f.js"></script>
+  <script src="/maps/RepMyBlockMaps.8170589f.js"></script>
    </P>
 	
 	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>

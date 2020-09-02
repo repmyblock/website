@@ -49,7 +49,7 @@
 		$error_msg = "<FONT COLOR=RED><B>The information did not match our records</B></FONT>";	
 	}
 	
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
 <div class="main">
@@ -60,19 +60,26 @@
 		echo "<P>" . $error_msg . "</P>";	
 	} ?>
 
+
 	<P>
-		<FORM METHOD="POST" ACTION="">
-			<TABLE>
-				<TR><TD>Password:</TD><TD><INPUT TYPE="password" NAME="password" VALUE="" SIZE=30></TD></TR>
-				<TR><TD>&nbsp;</TD><TD><INPUT TYPE="Submit" NAME="signin" VALUE="Enter your password"></TD></TR>
-			</TABLE>
-		</FORM>
-	</P>
+			<FORM METHOD="POST" ACTION="">
+					
+					<P CLASS="f80">
+						Password: 
+						<INPUT TYPE="password" NAME="password" placeholder="Password">
+					</P>
+					
+					<P>
+						<INPUT TYPE="Submit" NAME="signin" VALUE="Enter your password">
+					</P>
+			</FORM>
+		</P>
+
 	
-	<P>
-		<FONT SIZE=+2><A HREF="/login/forgotpwd">I forgot my password</A></FONT><BR>
+	<P CLASS="f60">
+			<A HREF="/exp/<?= $middleuri ?>/forgotpwd">I forgot my password</A>
 	</P>
 	
 </div>
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

@@ -6,9 +6,13 @@
 
 	$r = new login();
 
+	// Check that the hash code exist.
+
+
 	if ( ! empty ($_POST)) {
 		if ( ! empty ($_POST["username"])) {
-
+			
+			
 			$hashtable = hash(md5, PrintRandomText(40));
 			$r->UpdateUsernameHash($_POST["username"], $hashtable);
 

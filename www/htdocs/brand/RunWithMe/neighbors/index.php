@@ -54,19 +54,17 @@
 	<FORM METHOD="POST" ACTION="">		
 	<DIV CLASS="right f80">Download a Paperboy Love Prince Petition</DIV>
 	
-		<P>
-			&nbsp;
-		</P>
 			
-		<P>
+		<P CLASS="f50">
 			We need to find the voters in your building that you know that
-			can sign a petition.
+			can sign a petition.<BR>
+			<B>Select only the voters you know.</B>
 		</P>
 		
 		<INPUT TYPE="hidden" NAME="NYSID[0]" VALUE="<?= $URIEncryptedString["NYSID"] ?>">
 
 			
-			<TABLE BORDER=1>
+			<TABLE ID="VoterTable">
 			<TR>
 				<TH>&nbsp;</TH>
 				<TH>Apt</TH>				
@@ -83,11 +81,11 @@
 
 			
 			<TR>
-				<TD>
+				<TD ALIGN=CENTER>
 					<INPUT TYPE="checkbox" NAME="NYSID[<?= $Counter ?>]" VALUE="<?= $var["Raw_Voter_UniqNYSVoterID"] ?>">
 					<INPUT TYPE="hidden" NAME="Witness[<?= $Counter ?>]" VALUE="<?= $var["Raw_Voter_FirstName"] . " " . $var["Raw_Voter_LastName"] ?>">
 				</TD>
-				<TD><?= $var["Raw_Voter_ResApartment"] ?></TD>
+				<TD ALIGN=CENTER><?= $var["Raw_Voter_ResApartment"] ?></TD>
 				<TD><?= ucwords($var["Raw_Voter_FirstName"]) ?></TD>			
 				<TD><?= ucwords($var["Raw_Voter_LastName"]) ?></TD>
 			</TR>

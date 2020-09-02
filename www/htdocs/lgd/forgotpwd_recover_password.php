@@ -35,7 +35,7 @@
 												"&FirstName=" . $FirstName . "&LastName=" . $LastName;
 	
 											
-					header("Location: done/?k=" . EncryptURL($URLToEncrypt));
+					header("Location: /lgd/" . rawurlencode(EncryptURL($URLToEncrypt)) . "/forgotpwd_recover_password_done");
 					exit();
 				}
 			} else {
@@ -53,7 +53,7 @@
 		print "<FONT COLOR=RED><B>THERE IS AN INTERNAL ERROR WITH userid = zero - Nothing you can do, we need to investigate. Try from the beggining.</B></FONT>";
 	}
 
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";		
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";		
 
 ?>
 <DIV class="main">
@@ -90,4 +90,4 @@
 	</DIV>
 </DIV>
 			
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

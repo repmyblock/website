@@ -18,23 +18,16 @@
 		
 	<DIV CLASS="right f80">Download a Paperboy Love Prince Petition</DIV>
 	
-		<P>
-			&nbsp;
-		</P>
 			
-		<P>
+		<P CLASS="f60 p20">
 			To prepare the petition, we need to verify your Voter Registration. Please enter your first and last name.
 		</P>
 
-		<P>
-			<?php if ( ! empty($error_msg)) { ?>
-						
+		<?php if ( ! empty($error_msg)) { ?>
+			<P CLASS="f60">
 				<FONT COLOR="BROWN"><B><?= $error_msg ?></B></FONT>
-			
-			<?php } ?>
-			
-			&nbsp;
-		</P>
+			</P>
+		<?php } ?>
 						
 
 	<FORM METHOD="POST" ACTION="">			
@@ -50,7 +43,7 @@
 		</P>
 		
 		<P>
-			<DIV><INPUT CLASS="" TYPE="Submit" NAME="CheckRegistration" VALUE="Check Registration"></DIV>
+			<DIV><INPUT CLASS="" TYPE="Submit" NAME="CheckRegistration" VALUE="Check My Voter Registration"></DIV>
 		</P>
 		
 		<P CLASS="f40">

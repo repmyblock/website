@@ -17,17 +17,12 @@
 			
 			// The rest of the petition
 			$r->SavePetitionGroup($_POST["Sigs"], $_POST["NYSID"], $_POST["NYSID"], $CandidateID, "Raw_Voter_" . $DatedFiles);														
-			header("Location: ../preshowpdf/?k=" . EncryptURL("NYSID=" . $_POST["NYSID"]));								
-			
+			header("Location: ../preshowpdf/?k=" . EncryptURL("NYSID=" . $_POST["NYSID"]));									
 		}
-		
 		
 		exit();
 	}
 
-	
-	
-	
 	$imgtoshow = "/brand/RunWithMe/RunWithMe.png";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
@@ -36,24 +31,22 @@
 	<FORM METHOD="POST" ACTION="">		
 	<DIV CLASS="right f80">Download a Paperboy Love Prince Petition</DIV>
 	
-		<P>
-			&nbsp;
-		</P>
-			
-		<P>
-			Which on of these person will you ask to Witness your petition?
+
+		<P CLASS="f50">
+			Which on of these person will you ask to witness your own petition?<BR>
+			<B>You cannot withness your own petition so you need to ask one of these person to do it.</B>
 		</P>
 
 			<INPUT TYPE="hidden" NAME="NYSID" VALUE="<?= $URIEncryptedString["NYSID"][0] ?>">
 				
-			<TABLE BORDER=1>
+			<TABLE  ID="VoterTable">
 			<TR>
 				<TH>&nbsp;</TH>
 				<TH>Witness</TH>				
 			</TR>
 			
 					<TR>
-				<TD><INPUT TYPE="radio" NAME="Withness" VALUE="BLANK"></TD>
+				<TD><INPUT TYPE="radio" NAME="Witness" VALUE="BLANK"></TD>
 				<TD>Leave the witness line blank</TD>				
 			</TR>
 			

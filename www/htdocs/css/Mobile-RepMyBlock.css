@@ -1,17 +1,24 @@
-body {margin: 200;}
+body {margin: 200; -webkit-text-size-adjust: 100%;}
 div {font-family: 'Montserrat', font-size: 80px; sans-serif;color:#16317D!important;}
 
 p.f80 {font-size:80px; font-weight: 600;}
 p.f80bold {font-size:80px; font-weight: 600;}
-p.f60 {font-size:60px; font-weight: 500; padding: 30px 5px;}
+p.f60 {font-size:60px; font-weight: 500; }
 p.f40 {font-size:40px; padding: 30px 5px;}
+p.f50 {font-size:50px; padding: 30px 5px;}
 
 div.f80 {font-size:80px; font-weight: 600;}
 div.f80bold {font-size:80px; font-weight: 600;}
-div.f60 {font-size:60px; font-weight: 500; padding: 30px 5px;}
+div.f60 {font-size:60px; font-weight: 500;}
 div.f40 {font-size:40px; padding: 30px 5px;}
+div.f50 {font-size:50px; padding: 30px 5px;}
 
 a.p40 {padding: 104px  204px 104px;}
+
+#VoterTable	{	border:1px solid #000;	border-collapse:collapse;	font-size:50px;	text-align:left; }
+#VoterTable th	{	border:1px solid;	padding:3px 6px; font-size:50px; }
+#VoterTable td	{	border:1px solid;	padding:3px 6px; font-size:50px;}
+
 
 .hundred {width:100%;}
 .MediaCenter {text-align:center;}
@@ -151,8 +158,9 @@ input[type=text],  textarea {font-size: 60px; font-weight: 400;padding: 12px;bor
 input[type=username],  textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;width:100%}
 input[type=email],  textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;width:100%}
 input[type=password],  textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;width:100%}
-input[type=submit] {font-size: 60px; font-weight: 600;background-color: #EE2E62;color: white;padding: 12px 20px;border: none;cursor: pointer;width:100%}
-input[type=submit]:hover {font-size: 60px; font-weight: 600;background-color: #EE2E62;color: #16317D;width:100%}
+input[type=submit] {font-size: 60px; font-weight: 600;background-color: #EE2E62;color: white;padding: 12px 20px;border: none;cursor: pointer; width:100%}
+input[type=submit]:hover {font-size: 60px; font-weight: 600;background-color: #EE2E62;color: #16317D; width:100%}
+
 
 input[type=checkbox] { 
 	-ms-transform: scale(3); /* IE */
@@ -160,8 +168,31 @@ input[type=checkbox] {
   -webkit-transform: scale(3); /* Safari and Chrome */
   -o-transform: scale(3); /* Opera */
   transform: scale(3);
+  padding: 10px;
+  
+}
+
+
+/*
+.votertable input[type=text],  textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
+.votertable input[type=username],  textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
+.votertable input[type=email],  textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
+.votertable input[type=password],  textarea {font-size: 60px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
+*/
+.votertable input[type=submit] {font-size: 60px; font-weight: 600;background-color: #EE2E62;color: white;padding: 12px 20px;border: none;cursor: pointer;}
+.votertable input[type=submit]:hover {font-size: 60px; font-weight: 600;background-color: #EE2E62;color: #16317D;}
+
+
+.votertable input[type=checkbox] { 
+	-ms-transform: scale(3); /* IE */
+  -moz-transform: scale(3); /* FF */
+  -webkit-transform: scale(3); /* Safari and Chrome */
+  -o-transform: scale(3); /* Opera */
+  transform: scale(3);
   padding: 0px;
 }
+
+
 
 select.mobilebig {font-size: 40px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 10px;margin-bottom: 10px;resize: vertical;width:100%}
 select.mobilebig:focus {font-size: 40px; font-weight: 400;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 10px;margin-bottom: 10px;resize: vertical;width:100%}

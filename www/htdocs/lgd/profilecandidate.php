@@ -16,7 +16,7 @@
 			$Encrypted_URL .= "&Position[]=" . $var;
 		}
 		
-		header("Location: verify/?k=" . EncryptURL($Encrypted_URL));
+		header("Location: " . rawurlencode(EncryptURL($Encrypted_URL)) . "/verify");
 		exit();		
 	}
 

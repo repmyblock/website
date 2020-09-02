@@ -7,9 +7,8 @@
 	$r = new login();
 	
 	// Check that the hash code exist.
-	if ( ! empty ($_GET["username"])) { $username = $_GET["username"]; }
-	if ( ! empty ($_GET["hashkey"])) {	$hashkey = $_GET["hashkey"]; }	
-	if ( ! empty ($_POST["username"])) { $username = $_POST["username"]; }
+
+	$hashkey = $_GET["info"]; 
 	if ( ! empty ($_POST["hashkey"])) {	$hashkey = $_POST["hashkey"]; }
 	
 
@@ -25,14 +24,14 @@
 											"&username=" . $_POST["username"];
 			// The reason for no else is that the code supposed to go away.
 
-			header("Location: password/?k=" . EncryptURL($URLToEncrypt));
+			header("Location: /lgd/" . rawurlencode(EncryptURL($URLToEncrypt)) . "/forgotpwd_recover_password");
 			exit();
 		}
 						
 		$error_msg = "<FONT COLOR=RED><B>The information did not match our records</B></FONT>";	
 	}
 	
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true ) { $TypeUsername = "username";
 	} else { $TypeUsername = "text"; }
 
@@ -64,4 +63,4 @@
 
 </DIV>
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
