@@ -53,7 +53,12 @@ $k = rawurlencode($k);
 
   <nav class="menu" aria-label="Profile">
   	<a class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?>menu-item" href="/lgd/<?= $k ?>/profile">Personal Profile</a>  
+ 
+		<?php // Need to check if admin is given
+		/*
   	<a class="<?php if ( $Menu == "admin" ) { echo "selected "; } ?>menu-item" href="/admin/<?= $k ?>/index">Admin Profile</a>  
+  	*/
+  	?>
   </nav>
   
 <?php /*
