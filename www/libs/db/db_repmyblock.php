@@ -11,6 +11,15 @@ class RepMyBlock extends queries {
 	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
+  function SearchUsers($DateFile) {
+  	$sql = "SELECT * FROM SystemUser " .
+  					"LEFT JOIN Raw_Voter_" . $DateFile . " ON (Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = SystemUser.Raw_Voter_UniqNYSVoterID)";
+  	$sql_vars = array();
+  	
+  	return $this->_return_multiple($sql, $sql_vars);
+  }
+  
+  
   function FindPersonUser($SystemUserID) {
 		$sql = "SELECT * FROM SystemUser WHERE SystemUser_ID = :ID";	
 		$sql_vars = array(':ID' => $SystemUserID);											

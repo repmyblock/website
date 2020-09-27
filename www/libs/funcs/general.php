@@ -1,4 +1,5 @@
 <?php
+
 function ordinal($number) {
   $ends = array('th','st','nd','rd','th','th','th','th','th','th');
   if ((($number % 100) >= 11) && (($number%100) <= 13))
@@ -8,6 +9,8 @@ function ordinal($number) {
 }
 
 function WriteStderr($Data, $Message = "") {
+	 global $Developping;
+	 
 	// Need to save the information
 	if ( $Developping == 1) {
 		if ( ! empty ($Message)) {
