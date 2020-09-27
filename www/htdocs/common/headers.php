@@ -1,18 +1,14 @@
 <?php
 	error_reporting(E_ERROR | E_PARSE);
-
-	// echo "<B>Decrypted Line:</B> " .  $_SERVER['DOCUMENT_URI'] .  "<UL>$Decrypted_k</UL>";
 	if ( preg_match('/Mobile/', $_SERVER['HTTP_USER_AGENT'])) { $MobileDisplay = true; }
 	//$MobileDisplay = true; 
-	if ( ! empty ($k) && $SystemUser_ID > 0 ) { 
+	if ( ! empty ($k) && $URIEncryptedString["SystemUser_ID"] > 0 ) { 
 		$MenuLogin = "logged"; 
 		$middleuri = rawurlencode($k);	
 	} else {
 		$middleuri = "website";
 	}
-	
-	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png";	}
-	
+	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png"; }	
 ?><!DOCTYPE html>
 <html lang="en-US" prefix="og: http://ogp.me/ns#" class="no-js">
 	<HEAD>
@@ -67,14 +63,8 @@
 		    	<a href="/exp/<?= $middleuri ?>/login" class="login">LOGIN</a>
 		    <?php } ?>
 		  </DIV>
-		</DIV> 
+		</DIV>
 		
-<?php 
-	if ( ! empty($SystemUser_ID)) {
-		$NewKToEncrypt = EncryptURL("SystemUser_ID=" . $SystemUser_ID); 
-	}
-?>
-
 <?php /*
 <nav class="d-flex" aria-label="Global">
   <a class="js-selected-navigation-item Header-link  mr-3" data-hotkey="g p" data-ga-click="Header, click, Nav menu - item:pulls context:user" aria-label="Pull requests you created" data-selected-links="/pulls /pulls/assigned /pulls/mentioned /pulls" href="/pulls">Pull requests</a>

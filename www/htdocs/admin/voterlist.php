@@ -1,16 +1,14 @@
 <?php
-	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
-	$Menu = "team";
+	if ( ! empty ($k)) { $MenuLogin = "logged"; }
+	$Menu = "admin";
 	$BigMenu = "represent";	
-	 
-  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
+
 	if ( ! empty ($_POST)) {
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";
 
 		$to = "theo@theochino.com";
 		$emailsubject = time() . " - Your sample Democratic party petition and walk sheet.";
@@ -31,17 +29,15 @@
 		}
 	}
 
-  if (empty ($SystemUser_ID)) { goto_signoff(); }
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 
-	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
-	
 
-	
-	if ( ! empty ($URIEncryptedString["Query_NYSBOEID"])) {		
+	if ( ! empty ($URIEncryptedString["Query_NYSBOEID"])) {
 		preg_match('/NY(.*)/', $URIEncryptedString["Query_NYSBOEID"], $matches, PREG_OFFSET_CAPTURE);
-	 	if (is_numeric($matches[1][0])) {	 	
+	 	if (is_numeric($matches[1][0])) {
 			$NYSBOEID_padded = "NY" . str_pad($matches[1][0], 18, "0", STR_PAD_LEFT);
 			$Result = $rmb->SearchVoter_Dated_NYSBOEID($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, 
 																								$DatedFilesID, $NYSBOEID_padded);
@@ -49,52 +45,62 @@
 			$ErrorMsg = "The NYS Voter ID is invalid";
 		}
 			
-	} elseif (! empty ($Query_LastName)) {		
-		$Result = $rmb->SearchVoter_Dated_DB($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, $DatedFilesID, 
-																					$URIEncryptedString["Query_FirstName"], $URIEncryptedString["Query_LastName"], NULL, 
-																					$URIEncryptedString["Query_ZIP"], $URIEncryptedString["Query_COUNTY"], 
-																					$URIEncryptedString["Query_PARTY"], $URIEncryptedString["Query_AD"], 
-																					$URIEncryptedString["Query_ED"], $URIEncryptedString["Query_Congress"] );	
+	} elseif (! empty ($URIEncryptedString["Query_LastName"])) {
+		$Result = $rmb->SearchVoter_Dated_DB($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, $DatedFilesID,
+																					$URIEncryptedString["Query_FirstName"], $URIEncryptedString["Query_LastName"], NULL,
+																					$URIEncryptedString["Query_ZIP"], $URIEncryptedString["Query_COUNTY"],
+																					$URIEncryptedString["Query_PARTY"], $URIEncryptedString["Query_AD"],
+																					$URIEncryptedString["Query_ED"], $URIEncryptedString["Query_Congress"]);
+		WriteStderr($Result, "SearchVoter_Dated_DB");
+																				
 	} else {
-		if (! empty ($Query_AD) || ! ($Query_ED)) {	
-				header("Location: byad/?k=" . $k);	
+		
+		if (! empty ($URIEncryptedString["Query_AD"]) || ! empty ($URIEncryptedString["Query_ED"])) {	
+			
+			WriteStderr($URIEncryptedString, "URIEncryptedString in the Empty QueryAD and QueryED");
+			
+				header("Location: /admin/" . $k . "/byad");	
 				exit();
+				
+				
+				
 		} else {	
 			$ErrorMsg = "There is an error, a field is empty";
 		}
 	} 
 	
+
 	if ( empty ($Result)) {
-		$ErrorMsg = "No voter found";
-		$ReturnK = EncryptURL(	
-			"SystemUser_ID=" . $URIEncryptedString["SystemUser_ID"]. 
-			"&SystemAdmin=" .  $URIEncryptedString["SystemAdmin"] . 
-			"&FirstName=" . $URIEncryptedString["FirstName"] . 
-			"&LastName=" . $URIEncryptedString["LastName"] . 
-			"&UniqNYSVoterID=" . $URIEncryptedString["UniqNYSVoterID"]. 
-			"&UserParty=" . $URIEncryptedString["UserParty"]. 
-			"&MenuDescription=" . $URIEncryptedString["MenuDescription"]. 
-			"&RetReturnFirstName=" . $URIEncryptedString["Query_FirstName"] . 
-			"&RetReturnLastName=" . $URIEncryptedString["Query_LastName"] . 
-			"&RetReturnAD=" . $URIEncryptedString["Query_AD"] . 
-			"&RetReturnED=" . $URIEncryptedString["Query_ED"]  . 
-			"&RetReturnZIP=" . $URIEncryptedString["Query_ZIP"]  . 
-			"&RetReturnCOUNTY=" . $URIEncryptedString["Query_COUNTY"] . 
-			"&RetReturnPARTY=" . $URIEncryptedString["Query_PARTY"] . 
-			"&RetReturnNYSBOEID=" . $URIEncryptedString["Query_NYSBOEID"] . 
-			"&RetReturnCongress=" . $URIEncryptedString["Query_Congress"] . 
-			"&ErrorMsg=" . $ErrorMsg
-    );
-		header("Location: /lgd/team/admin/?k=" . $ReturnK);
+		$ErrorMsg = "Voter not found";		
+		header("Location: /admin/" .  CreateEncoded ( array( 	
+								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+								"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+								"FirstName" => $URIEncryptedString["FirstName"],
+								"LastName" => $URIEncryptedString["LastName"],
+								"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+								"UserParty" => $URIEncryptedString["UserParty"],
+								"MenuDescription" => $URIEncryptedString["MenuDescription"],
+								"RetReturnFirstName" => $URIEncryptedString["Query_FirstName"],
+								"RetReturnLastName" => $URIEncryptedString["Query_LastName"],
+								"RetReturnAD" => $URIEncryptedString["Query_AD"],
+								"RetReturnED" => $URIEncryptedString["Query_ED"],
+								"RetReturnZIP" => $URIEncryptedString["Query_ZIP"],
+								"RetReturnCOUNTY" => $URIEncryptedString["Query_COUNTY"],
+								"etReturnPARTY" => $URIEncryptedString["Query_PARTY"],
+								"RetReturnNYSBOEID" => $URIEncryptedString["Query_NYSBOEID"],
+								"RetReturnCongress" => $URIEncryptedString["Query_Congress"],
+								"ErrorMsg" => $ErrorMsg								
+					)) . "/voterlookup");
 		exit();
 	}
+
 	
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
 <div class="row">
   <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 			<div class="col-9 float-left">
 				<div class="Subhead">
 			  	<h2 class="Subhead-heading">Voter Lookup Result</h2>
@@ -219,17 +225,27 @@
 					
 
 
-			<?php $MySpecialK = EncryptURL("Raw_Voter_ID=" . $var["Raw_Voter_ID"] . "&RawDatedFiles=" .  $DatedFiles . 
-			                               "&ED=" . $var["Raw_Voter_ElectDistr"] . "&AD=" . $var["Raw_Voter_AssemblyDistr"] .
-			                               "&Raw_Voter_EnrollPolParty=" . $var["Raw_Voter_EnrollPolParty"]);
-
-						$NextScreenK = EncryptURL($Decrypted_k . "&Raw_Voter_ID=" . $var["Raw_Voter_ID"]);
+			<?php 
+						$MySpecialK = urlencode(CreateEncoded (array( 	
+								"Raw_Voter_ID" => $var["Raw_Voter_ID"],
+								"RawDatedFiles" => $DatedFiles,
+			          "ED" => $var["Raw_Voter_ElectDistr"],
+			          "AD" => $var["Raw_Voter_AssemblyDistr"],
+			          "Raw_Voter_EnrollPolParty" => $var["Raw_Voter_EnrollPolParty"],
+								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+								"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+								"FirstName" => $URIEncryptedString["FirstName"],
+								"LastName" => $URIEncryptedString["LastName"],
+								"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+								"UserParty" => $URIEncryptedString["UserParty"],
+								"MenuDescription" => $URIEncryptedString["MenuDescription"]
+						)));
 			?>
 
 			<svg class="octicon octicon-repo mr-1" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
 			Download <a class="mr-1" href="<?= $FrontEndPDF ?>/raw_voterlist/?k=<?= $MySpecialK ?>">Walking 
 			List</a> <a class="mr-1" href="<?= $FrontEndPDF ?>/raw_petitions/?k=<?= $MySpecialK ?>">Petition</a>
-			<a class="mr-1" href="makecandidate/?k=<?= $NextScreenK ?>">Make Candidate</a>
+			<a class="mr-1" href="/admin/<?= $MySpecialK ?>/makecandidate">Make Candidate</a>
 			<BR>
 			
 			<?php 
@@ -268,4 +284,4 @@
 		</DIV>
 	</DIV>
 </DIV>
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

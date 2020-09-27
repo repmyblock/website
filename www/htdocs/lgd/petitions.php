@@ -8,26 +8,11 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
   require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 
-  if (empty ($SystemUser_ID)) { goto_signoff(); }
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 
-	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
-
-
-/*
-	$Petitions[0]["Petition_ID"] = "2039";
-	$Petitions[0]["Signed"] = 10;
-	$Petitions[0]["Total"] = 1023;	
-
-	$Petitions[1]["Petition_ID"] = "1022";
-	$Petitions[1]["Signed"] = 1;
-	$Petitions[1]["Total"] = 13;	
-
-	$Petitions[2]["Petition_ID"] = "2059";
-	$Petitions[2]["Signed"] = 114;
-	$Petitions[2]["Total"] = 232;	
-*/				
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 

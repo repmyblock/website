@@ -3,19 +3,16 @@
 	$Menu = "admin";
 	$BigMenu = "represent";	
 	
-  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	// require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_voterlist.php";  
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
-  if (empty ($SystemUser_ID)) { goto_signoff(); }
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 
-	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($UserParty);
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
+	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
 
 	$rmb = new RepMyBlock();	
-	$result = $rmb->GetPetitionsForCandidate($DatedFiles, 0, $SystemUser_ID);
+	$result = $rmb->GetPetitionsForCandidate($DatedFiles, 0, $URIEncryptedString["SystemUser_ID"]);
 	
 	if ( ! empty ($result)) {
 		foreach ($result as $var) {
@@ -55,7 +52,7 @@
 <div class="<?= $Cols ?> float-left">
 	
 	<div class="Subhead">
-  	<h2 class="Subhead-heading">Voters</h2>
+  	<h2 class="Subhead-heading">Petition Trackers</h2>
 	</div>
 
 	<?php 

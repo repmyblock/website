@@ -8,10 +8,10 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
   require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 
-  if (empty ($SystemUser_ID)) { goto_signoff(); }
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 
-	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
 	
 	$NumberOfMessages = 0;

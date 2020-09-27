@@ -1,5 +1,7 @@
 <?php
 error_reporting(E_ERROR | E_PARSE);
+require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
+require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";	
 
 ### This file is the SSL Key used to encrypt the _GET variable.
 date_default_timezone_set('America/New_York'); 
@@ -19,17 +21,24 @@ if ( ! empty ($_GET["id"])) {
 	$id = $_POST["id"];
 }
 
+$OverAllMicrotimeStart = microtime(true);
+WriteStderr($OverAllMicrotimeStart, $_SERVER['DOCUMENT_URI'] . " ------------------------------------------------------------ Microtime");
+WriteStderr($k, $_SERVER['DOCUMENT_URI'] . " Received K");
+
 if ( ! empty ($k)) {
 	$Decrypted_k = DecryptURL ( $k );	
 	parse_str ( $Decrypted_k, $URIEncryptedString);
-  parse_str ( $Decrypted_k );
+  // parse_str ( $Decrypted_k );
 
 	$k_raw = $k;
 	$k = rawurlencode($k);
 }
 
-// Check the timestamp before moving on
+WriteStderr($Decrypted_k, $_SERVER['DOCUMENT_URI'] . " DecryptedK");
+WriteStderr($URIEncryptedString, $_SERVER['DOCUMENT_URI'] . " URIEncryptedString");
 
+
+// Check the timestamp before moving on
 $DEBUG["TimePassed"] = $URIEncryptedString["LastTimeUser"];
 $DEBUG["TimeFromSystem"] = time();
 $DEBUG["TimeDifference"] = time() - $URIEncryptedString["LastTimeUser"];
@@ -55,12 +64,14 @@ if ($CalculatePHPSelf == 1) {
 function EncryptURL($string = "") {  	
 	global $PubKey;
   openssl_get_publickey($PubKey);
-   
+
   $MyString = "LastTimeUser=" . time();
     
   if ( ! empty ($string)) {
   	$MyString .= "&" . $string;
   }
+    
+  WriteStderr($MyString, $_SERVER['DOCUMENT_URI'] . " Encrypting");
     
 	$SizeMessage = strlen($MyString);
   $encpayload = "";
@@ -83,7 +94,9 @@ function EncryptURL($string = "") {
     $encpayload .= $encblocktext;
   }
   
-  return rawurlencode(base64_encode(pack ("Na*", $blockct, $encpayload)));
+  $MyString = rawurlencode(base64_encode(pack ("Na*", $blockct, $encpayload)));
+  WriteStderr($MyString, $_SERVER['DOCUMENT_URI'] . " Encrypted String");
+  return $MyString;
 }
 
 function DecryptURL ( $sealed ) {
@@ -180,8 +193,8 @@ function PrintDebugArray($ArrayToPrint, $Title = "") {
 	}
 }
 
-function goto_signoff() {
-	header ("Location: /signoff");
+function goto_signoff() {	
+	header ("Location: /exp/website/signoff");
 	exit();
 }
 

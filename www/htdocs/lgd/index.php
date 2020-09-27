@@ -1,17 +1,18 @@
 <?php
-	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
+	if ( ! empty ($k)) { $MenuLogin = "logged"; }  
 	$Menu = "summary";
 	$BigMenu = "represent";	
 	
+	// require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";	
-	require $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
+  require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
 	
-  if (empty ($SystemUser_ID)) { goto_signoff(); }
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); exit(); }
+  
 	$rmb = new RepMyBlock();
-	$rmbperson = $rmb->FindPersonUser($SystemUser_ID);
-	$NumberPetitions = $rmb->GetPetitionsSumary($SystemUser_ID);
+	$rmbperson = $rmb->FindPersonUser($URIEncryptedString["SystemUser_ID"]);
+	$NumberPetitions = $rmb->GetPetitionsSumary($URIEncryptedString["SystemUser_ID"]);
 
 	if ( $VerifVoter == 1 && $rmbperson["Raw_Voter_ID"] > 0 ) { $VerifVoter = 0; }
 	if ( $VerifEmail == 1 && $rmbperson["SystemUser_emailverified"] == 'yes') { $VerifEmail = 0; }

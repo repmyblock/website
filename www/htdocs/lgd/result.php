@@ -1,61 +1,52 @@
 <?php
 	$Menu = "profile";  
-	$BigMenu = "represent";	
+	$BigMenu = "represent";
+	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
-
-  if (empty ($SystemUser_ID)) { goto_signoff(); }
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 	
+	/*
+		echo "I am here<BR>";
+		print "<PRE>" . print_r($_POST, 1) . "<PRE>";
+		exit();
+	*/
+	
+	WriteStderr($_POST, "Post");
 	if ( ! empty ($_POST)) {
     $ADED = sprintf('%02d%03d', $_POST["Raw_Voter_AssemblyDistr"], $_POST["Raw_Voter_ElectDistr"]);		
     $District = sprintf('AD %02d / ED %03d', $_POST["Raw_Voter_AssemblyDistr"], $_POST["Raw_Voter_ElectDistr"]);		
 
-		$rmb->UpdateSystemUserWithVoterCard($SystemUser_ID, $_POST["RawVoterID"], 
+		$rmb->UpdateSystemUserWithVoterCard($_POST["SystemUser_ID"], $_POST["Raw_Voter_ID"], 
 																				$_POST["Raw_Voter_UniqNYSVoterID"], $ADED);
 																				
-		$EncryptedURL = "SystemUser_ID=" . $SystemUser_ID .
-										"&FirstName=" . $FirstName . 
-										"&LastName=" . $LastName .
-										"&VotersIndexes_ID=" . $VotersIndexes_ID . 
-										"&UniqNYSVoterID=" . $_POST["Raw_Voter_UniqNYSVoterID"] . 
-										"&MenuDescription=" . urlencode($District) . 
-										"&UserParty=" . $_POST["Raw_Voter_EnrollPolParty"];
-		
-		header("Location: /lgd/profile/voter/?k=" . EncryptURL($EncryptedURL));
+		header("Location: " .  CreateEncoded ( array( 
+								"SystemUser_ID" => $_POST["SystemUser_ID"],
+								"FirstName" => $_POST["FirstName"], 
+								"LastName" => $_POST["LastName"],
+								"VotersIndexes_ID" => $_POST["VotersIndexes_ID"],
+								"UniqNYSVoterID" => $_POST["Raw_Voter_UniqNYSVoterID"],
+								"MenuDescription" => urlencode($District), 
+								"UserParty" => $_POST["Raw_Voter_EnrollPolParty"]
+					)) . "/profilevoter");
 		exit();
 	}
 	
-	if ( empty ($VotersIndexes_ID )) {
+	if ( empty ($URIEncryptedString["VotersIndexes_ID"] )) {
 		include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 		echo "We did not find the Voter ID information. We Return";
 		include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";
 		exit();
 	} 
 	
-	$rmbvoters = $rmb->SearchVotersBySingleIndex($VotersIndexes_ID, $DatedFiles);
+	$rmbvoters = $rmb->SearchVotersBySingleIndex($URIEncryptedString["VotersIndexes_ID"], $DatedFiles);
+	WriteStderr($rmbvoters, "SearchVotersBySingleIndex");
 	
-	/*
-		print "RESULT: ";
-		echo "<PRE>";
-		print_r($rmbvoters);
-		echo "</PRE>";
-*/
-
-	
-	if (! empty ($rmbvoters["Raw_Voter_UniqNYSVoterID"])) {
+	if ( empty ($rmbvoters["Raw_Voter_UniqNYSVoterID"])) {
 		$rmbvoteridx = $rmb->SearchLocalRawDBbyNYSID($rmbvoters["Raw_Voter_UniqNYSVoterID"]);
-	
-	
-	/*
-		print "RESULT: ";
-		echo "<PRE>";
-		print_r($rmbvoteridx);
-		echo "</PRE>";
-	*/
+		WriteStderr($rmbvoters, "SearchLocalRawDBbyNYSID");
 	
 		if ( ! empty ($rmbvoteridx)) {
 			foreach ($rmbvoteridx as $var) {
@@ -68,10 +59,7 @@
 		}
 	}
 	
-	
-	
-
-	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $URIEncryptedString["$MenuDescription"] = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
@@ -86,12 +74,20 @@
 			  <div class="Subhead mt-0 mb-0">
 			    <h2 id="public-profile-heading" class="Subhead-heading">Voter Profile</h2>
 			  </div>
+			    
+<?php 
+				if ($VerifEmail == true) { 
+					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
+				} else if ($VerifVoter == true) {
+					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
+				} 
+?>
 			     
 				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
 					<div class="UnderlineNav-body">
-						<a href="/lgd/profile/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Public Profile</a>
-						<a href="/lgd/profile/voter/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item selected">Voter Profile</a>
-						<a href="/lgd/profile/candidate/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Candidate Profile</a>
+						<a href="/lgd/<?= $k ?>/profile" class="mobilemenu UnderlineNav-item">Public Profile</a>
+						<a href="/lgd/<?= $k ?>/profilevoter" class="mobilemenu UnderlineNav-item">Voter Profile</a>
+						<a href="/lgd/<?= $k ?>/profilecandidate" class="mobilemenu UnderlineNav-item selected">Candidate Profile</a>
 					</div>
 				</nav>
 
@@ -107,79 +103,148 @@
 					</div>
 					
 					<FORM ACTION="" METHOD=POST>
-
 					<div id="voters">
-						
-						
-							
 							<?php
 							
-									if ( ! empty ($rmbvoters )) {
-										foreach ($rmbvoteridx as $var) {
-										
+						if ( ! empty ($rmbvoters )) {
+							$var =$rmbvoters;
+							WriteStderr($var, "Voter Found");
+							
+							if ( ! empty ($var)) { 
+								if (empty ($Query_AD) || ( $var["Raw_Voter_AssemblyDistr"] == $Query_AD)  ) {	
+									if ( empty ($Query_ED) || ( $var["Raw_Voter_ElectDistr"] == $Query_ED)  ) {	
+										if ( empty ($PARTY) || ($var["Raw_Voter_EnrollPolParty"] == $PARTY) ) {
+															
+											$EnrollVoterParty = $var["Raw_Voter_EnrollPolParty"];
 											
-											if ( ! empty ($var)) {
-										?>
-														
-														<div class="list-group-item">
-														
-														<INPUT TYPE="checkbox" NAME="SelectAllAddresses" VALUE="<?= $rmbvoters["Raw_Voter_UniqNYSVoterID"] ?>">&nbsp;&nbsp;
-														<INPUT TYPE="hidden" NAME="VoterIndexes_ID" VALUE="<?= $rmbvoters["VotersIndexes_ID"] ?>">
-														<INPUT TYPE="hidden" NAME="Raw_Voter_ID" VALUE="<?= $rmbvoters["Raw_Voter_ID"] ?>">
-														<INPUT TYPE="hidden" NAME="RawVoterID" VALUE="<?= $RawVoterID ?>">
-														<INPUT TYPE="hidden" NAME="Raw_Voter_UniqNYSVoterID" VALUE="<?= $rmbvoters["Raw_Voter_UniqNYSVoterID"] ?>">
-														<INPUT TYPE="hidden" NAME="Raw_Voter_ElectDistr" VALUE="<?= $rmbvoters["Raw_Voter_ElectDistr"] ?>">
-														<INPUT TYPE="hidden" NAME="Raw_Voter_AssemblyDistr" VALUE="<?= $rmbvoters["Raw_Voter_AssemblyDistr"] ?>">
-														<INPUT TYPE="hidden" NAME="Raw_Voter_EnrollPolParty" VALUE="<?= $rmbvoters["Raw_Voter_EnrollPolParty"] ?>">
-														
-												
-														<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
-														<?= $rmbvoters["Raw_Voter_ID"] ?><BR>
-														<B>Last Name:</B> <?= $rmbvoters["Raw_Voter_LastName"] ?> <B>First Name:</B> <?= $rmbvoters["Raw_Voter_FirstName"] ?>	<B>Middle Name:</B> <?= $rmbvoters["Raw_Voter_MiddleName"] ?> 
-														<?php if ( !empty ($rmbvoters["Raw_Voter_Suffix"])) { echo "<B>Suffix:</B>" . $rmbvoters["Raw_Voter_Suffix"]; } ?><BR>
-														<?= $rmbvoters["Raw_Voter_ResHouseNumber"] ?>
-														<?= $rmbvoters["Raw_Voter_ResFracAddress"] ?>
-														<?= $rmbvoters["Raw_Voter_ResPreStreet"] ?>
-														<?= $rmbvoters["Raw_Voter_ResStreetName"] ?>
-														<?= $rmbvoters["Raw_Voter_ResPostStDir"] ?><BR>
-														<?= $rmbvoters["Raw_Voter_ResApartment"] ?><BR>
-														<?= $rmbvoters["Raw_Voter_ResCity"] ?>,
-														<?= $rmbvoters["Raw_Voter_ResZip"] ?> - <?= $rmbvoters["Raw_Voter_ResZip4"] ?><BR>
-														<?= $rmbvoters["Raw_Voter_DOB"] ?> - <?= $rmbvoters["Raw_Voter_Gender"] ?> - <?= $rmbvoters["Raw_Voter_EnrollPolParty"] ?><BR>
-														<B>County:</B> <?= $rmbvoters["Raw_Voter_CountyCode"] ?> 
-														<B>AD:</B> <?= $rmbvoters["Raw_Voter_AssemblyDistr"] ?>
-														<B>ED:</B> <?= $rmbvoters["Raw_Voter_ElectDistr"] ?>
-														<B>Legist:</B> <?= $rmbvoters["Raw_Voter_LegisDistr"] ?>
-														<B>Town:</B> <?= $rmbvoters["Raw_Voter_TownCity"] ?>
-														<B>Ward:</B> <?= $rmbvoters["Raw_Voter_Ward"] ?>
-														<B>Congress:</B> <?= $rmbvoters["Raw_Voter_CongressDistr"] ?>
-														<B>Senate:</B> <?= $rmbvoters["Raw_Voter_SenateDistr"] ?><BR>
-														<B>Status:</B> <?= $rmbvoters["Raw_Voter_Status"] ?><BR>
-									
-								</div>			
-														
-												<?php		
-												
-												
-											}
-										}
-									}
-							?>
+											if ( $var["Raw_Voter_Gender"] == "M") {	$EnrollVoterSex = "male"; }
+											else if ( $var["Raw_Voter_Gender"] == "F") {	$EnrollVoterSex = "female"; }
+											else { $EnrollVoterSex = "other"; }
+											
+											preg_match('/^NY0+(.*)/', $var["Raw_Voter_UniqNYSVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
+											$UniqVoterID = "NY" . $UniqMatches[1][0];
+				?>
+				
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_UniqNYSVoterID"] ?>" NAME="Raw_Voter_UniqNYSVoterID">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_AssemblyDistr"] ?>" NAME="Raw_Voter_AssemblyDistr">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_ElectDistr"] ?>" NAME="Raw_Voter_ElectDistr">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_ID"] ?>" NAME="Raw_Voter_ID">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["SystemUser_ID"] ?>" NAME="SystemUser_ID">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_FirstName"] ?>" NAME="Raw_Voter_FirstName">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_LastName"] ?>" NAME="Raw_Voter_LastName">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["VotersIndexes_ID"] ?>" NAME="VotersIndexes_ID">				
+				
+				<div class="list-group-item f60">
+					<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
+					<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $var["Raw_Voter_Status"] ?></FONT>
+					<BR><BR>
+					<TABLE BORDER=1>
+					<TR>
+						<TH style="padding:0px 10px;">First</TH>
+						<TH style="padding:0px 10px;">Middle</TH>
+						<TH style="padding:0px 10px;">Last</TH>
+						<TH style="padding:0px 10px;">Suffix</TH>
+					</TR>
+					<TR ALIGN=CENTER>
+						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_FirstName"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_MiddleName"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_LastName"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_Suffix"] ?></TD>
+					</TR>
+				</TABLE>
+				<BR>
+				<TABLE BORDER=1>
+					<TR>
+						<TH style="padding:0px 10px;">Date of Birth</TH>
+						<TH style="padding:0px 10px;">Age</TH>
+						<TH style="padding:0px 10px;">Gender</TH>
+						<TH style="padding:0px 10px;">Party</TH>
+					</TR>
+					<TR ALIGN=CENTER>
+						<TD style="padding:0px 10px;"><?= PrintShortDate($var["Raw_Voter_DOB"]); ?></TD>
+						<TD style="padding:0px 10px;">	<?php
+										$dob = new DateTime($var["Raw_Voter_DOB"]);
+	 									$now = new DateTime();
+	 									$difference = $now->diff($dob);
+	 									echo $difference->y;				
+									?>
+						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_Gender"] ?></TD>
+						<TD style="padding:0px 10px;"><?= NewYork_PrintParty($var["Raw_Voter_EnrollPolParty"]) ?></TD>
+					</TR>
+				</TABLE>
+				<BR>
+				<TABLE BORDER=1>
+					<TR>
+						<TH style="padding:0px 10px;">Assembly<BR>District</TH>
+						<TH style="padding:0px 10px;">Electoral<BR>District</TH>
+						<TH style="padding:0px 10px;">Congress</TH>
+						<TH style="padding:0px 10px;">County</TH>
+					</TR>
+					<TR ALIGN=CENTER>
+						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_AssemblyDistr"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_ElectDistr"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_CongressDistr"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataCounty_Name"] ?></TD>
+					</TR>
+				</TABLE>
+				<BR>
 						
-							
-							
-					 	
-					</div>
+				<TABLE BORDER=1>
+					<TR>
+						<TH style="padding:0px 10px;">Address</TH>
+					</TR>
+					<TR>
+						<TD style="padding:0px 10px;">		
+							<?php if (! empty ($var["Raw_Voter_ResHouseNumber"])) echo $var["Raw_Voter_ResHouseNumber"]; ?>
+							<?php if (! empty ($var["Raw_Voter_ResFracAddress"]))  echo $var["Raw_Voter_ResFracAddress"]; ?>
+							<?php if (! empty ($var["Raw_Voter_ResPreStreet"])) echo $var["Raw_Voter_ResPreStreet"]; ?>
+							<?php if (! empty ($var["Raw_Voter_ResStreetName"])) echo $var["Raw_Voter_ResStreetName"]; ?>
+							<?php if (! empty ($var["Raw_Voter_ResPostStDir"])) echo $var["Raw_Voter_ResPostStDir"]; ?>
+							<?php if (! empty ($var["Raw_Voter_ResApartment"])) echo " - Apt " . $var["Raw_Voter_ResApartment"]; ?>
+							<BR>
+							<?= $var["Raw_Voter_ResCity"] ?>, NY
+							<?= $var["Raw_Voter_ResZip"] ?>
+							<?php if (! empty ($var["Raw_Voter_ResZip4"])) echo " - " . $var["Raw_Voter_ResZip4"]; ?>
+							<BR>
+						</TD>
+					</TR>
+				</TABLE>
+				<BR>
+				<TABLE BORDER=1>
+				<TR>
+					<TH style="padding:0px 10px;">Legis #</TH>
+					<TH style="padding:0px 10px;">Town</TH>
+					<TH style="padding:0px 10px;">Ward</TH>
+					<TH style="padding:0px 10px;">Senate</TH>
+				</TR>
+				<TR ALIGN=CENTER>
+					<TD style="padding:0px 10px;"><?= $var["Raw_Voter_LegisDistr"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["Raw_Voter_TownCity"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["Raw_Voter_Ward"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["Raw_Voter_SenateDistr"] ?></TD>
+				</TR>
+			</TABLE>
+			
+		</div>
+												<?php		
+								}
+							}
+						}
+					}
+				}
 					
-					<div id="list-group-item filtered">
-						<p><button type="submit" class="btn btn-primary">This is my voter registration card</button></p>
+			?>
+
+					<div id="">
+						<BR>
+						<p>
+							&nbsp;<button type="submit" class="btn btn-primary">This is my voter registration card</button>
+							<button type="submit" class="btn btn-primary">NOT my registration card</button>
+						</P>
 					</DIV>
+				</div>
 					
 				</FORM>
-				</div>
-			</div>		
-		</div>
-	</div>
-</DIV>
+				
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

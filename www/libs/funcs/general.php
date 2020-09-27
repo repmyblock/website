@@ -1,5 +1,4 @@
 <?php
-
 function ordinal($number) {
   $ends = array('th','st','nd','rd','th','th','th','th','th','th');
   if ((($number % 100) >= 11) && (($number%100) <= 13))
@@ -8,15 +7,15 @@ function ordinal($number) {
       return $number. $ends[$number % 10];
 }
 
-function WriteStderr($Data) {
+function WriteStderr($Data, $Message = "") {
 	// Need to save the information
-	$STDERR = fopen('php://stderr', 'w+');
-
-	fwrite($STDERR, "\n");
-	fwrite($STDERR, print_r($Data, 1));
-	fwrite($STDERR, "\n");
-	
-	fclose($STDERR);		
+	if ( $Developping == 1) {
+		if ( ! empty ($Message)) {
+			error_log($Message . ": " . print_r($Data, 1));
+		} else {
+			error_log("Write Std Error: " . print_r($Data, 1));
+		}
+	}
 }
 
 function PrintRandomText($length = 9) {
@@ -94,5 +93,28 @@ function NewYork_PrintPartyAdjective($Party) {
 		case 'SAM': return "SAM"; break;
 	}
 }
+
+function ParseEDAD ($string) {
+	preg_match('/(\d\d)(\d\d\d)/', $string, $Keywords);		
+	return sprintf('AD %02d / ED %03d', $Keywords[1], $Keywords[2]);
+}
+
+function CreateEncoded($VariableToPass, $VariableToRemove = "") {
+	$URLString = "";
+	
+	if ( ! empty ($VariableToPass)) {
+		foreach ($VariableToPass as $var => $value) {
+			if ( ! empty ($value)) {
+				if (! empty($URLString)) { $URLString .= "&"; }
+				$URLString .= $var . "=" . $value;
+				error_log ("Create Encoded Var: $var\tValue: $value");	
+			}
+		}		
+	}
+	
+	WriteStderr($URLString, "URLString");
+	return rawurlencode(EncryptURL($URLString));
+}
+
 
 ?>

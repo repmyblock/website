@@ -1,16 +1,14 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
-	$Menu = "team";
+	$Menu = "admin";
 	$BigMenu = "represent";	
 	 
-  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 	
 	// Verify that the person is or has not beeing a candidate already.
-	if (empty ($SystemUser_ID)) { goto_signoff(); }
+	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 	
 	if ( ! empty ($_POST)) {
@@ -55,7 +53,8 @@
 			$rmb->InsertCandidateSet($_POST["CandidateNameID"], $CandidatePetitionSet["CandidatePetitionSet_ID"], $_POST["EnrollPolParty"], $_POST["County"]);
 		}
 		
-		header("Location: ?k=" . $k);
+		// header("Location: ?k=" . $k);
+		echo "Je suis la mais je ne sais pas pourquoi encore<BR>";
 		exit();
 		
 	}
@@ -67,7 +66,7 @@
 
 	
 	if ( ! empty ($Result)) {
-		$ResultStats = $rmb->ReturnGroupAD_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $Result[0]["Raw_Voter_EnrollPolParty"], 
+		$ResultStats = $rmb->ReturnGroupAD_Dated_DB($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, $DatedFilesID, $Result[0]["Raw_Voter_EnrollPolParty"], 
 																								$Result[0]["Raw_Voter_AssemblyDistr"], $Result[0]["Raw_Voter_ElectDistr"]);
 																																
 	}
@@ -79,12 +78,12 @@
 		$ResultElections = $rmb->CandidateElection("EDAD", $EDAD, date("Y-m-d"));
 	}
 	
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
 <div class="row">
   <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 			<div class="col-9 float-left">
 				<div class="Subhead">
 			  	<h2 class="Subhead-heading">Create a Candidate</h2>
@@ -396,6 +395,7 @@
 					"&MenuDescription=" . $URIEncryptedString["MenuDescription"]
 				); ?>
 			
+			
     
      
       	<?php if ( count($ResultElections) > 0) { ?>
@@ -419,4 +419,4 @@
 </DIV>
 
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

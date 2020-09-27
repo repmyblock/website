@@ -3,20 +3,16 @@
 	$BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
   
-	if (empty ($SystemUser_ID)) { goto_signoff(); }
+	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();	
-	$rmbperson = $rmb->FindPersonUserProfile($SystemUser_ID);
+	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
 		
 	// Put the POST HERE because we need to reread the data 
-	$NewEncryptFile = "SystemUser_ID=" . $SystemUser_ID;
-						
-
-	if ( ! empty ($_POST)) {
-	
+	if ( ! empty ($_POST)) {	
 		$ProfileArray = array (	"bio" => $_POST["profile_bio"], 
 														"URL"=> $_POST["URL"],
 														"Location" => $_POST["Location"]);
@@ -35,7 +31,7 @@
 			$ProfileArray["Special"]["SystemUser_emaillinkid"] = hash("md5", PrintRandomText(40));
 		}
 		
-		$rmbperson = $rmb->UpdatePersonUserProfile($SystemUser_ID, $ProfileArray, $rmbperson);
+		$rmbperson = $rmb->UpdatePersonUserProfile($URIEncryptedString["SystemUser_ID"], $ProfileArray, $rmbperson);
 		
 		if ( $rmbperson["ChangeEmail"] == 1) {			
 			$infoarray["FirstName"] = $rmbperson["SystemUser_FirstName"];
@@ -54,19 +50,21 @@
 	$PersonBio       = $rmbperson["SystemUserProfile_bio"];
 	$PersonURL       = $rmbperson["SystemUserProfile_URL"];
 	$PersonLocation  = $rmbperson["SystemUserProfile_Location"];
-	if ( ! empty($SystemAdmin)) { $NewEncryptFile .= "&SystemAdmin=" . $SystemAdmin; }
-
+	
 	if ( $VerifVoter == 1) { $NewEncryptFile .= "&VerifVoter=1"; }
 	if ( $VerifEmail == 1) { $NewEncryptFile .= "&VerifEmail=1"; }
-	if ( ! empty($PersonFirstName)) { $NewEncryptFile .= "&FirstName=" . $PersonFirstName; }
-	if ( ! empty($PersonLastName)) { $NewEncryptFile .= "&LastName=" . $PersonLastName; }
-	if ( ! empty($UniqNYSVoterID)) { $NewEncryptFile .= "&UniqNYSVoterID=" . $UniqNYSVoterID; }
-	if ( ! empty($VotersIndexes_ID)) { $NewEncryptFile .= "&VotersIndexes_ID=" . $VotersIndexes_ID; }
-	if ( ! empty($UserParty)) { $NewEncryptFile .= "&UserParty=" . $UserParty; }
-	if ( ! empty($MenuDescription)) { $NewEncryptFile .= "&MenuDescription=" . $MenuDescription; }
 	
-	$k = EncryptURL($NewEncryptFile);
-
+	$EncodeString =
+				array( 
+					"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+					"FirstName" => $PersonFirstName, "LastName" => $PersonLastName,
+					"VotersIndexes_ID" =>  $URIEncryptedString["VotersIndexes_ID"], "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+					"UserParty" => $URIEncryptedString["UserParty"], "MenuDescription" => $URIEncryptedString["MenuDescription"],
+					"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+					"VerifVoter" => $URIEncryptedString["VerifVoter"], "VerifEmail" => $URIEncryptedString["VerifEmail"]
+				);
+	$k = CreateEncoded ($EncodeString);
+	
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
 		

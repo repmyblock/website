@@ -36,8 +36,10 @@
 		</DIV>			
 	<?php require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/GoogleAnalytics.php"; ?>
 	</BODY>	
-	
-
-	
-	
 </HTML>
+<?php
+	$OverAllMicrotimeEnd = microtime(true);
+	WriteStderr($OverAllMicrotimeEnd, " ------------------------------------------------------------ Microtime");
+	WriteStderr(($OverAllMicrotimeEnd - $OverAllMicrotimeStart) . "\n\n\n", "Total Process Time");
+	
+?>

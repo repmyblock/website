@@ -1,27 +1,20 @@
 <?php
 	$Menu = "profile";  
 	$BigMenu = "represent";	
-
-  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
-
-  if (empty ($SystemUser_ID)) { goto_signoff(); }
-  if (empty ($UniqNYSVoterID)) { header("Location: " . $k . "/input"); exit(); }
-	$rmb = new repmyblock();
-
-	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($UserParty);
-	$rmbvoters = $rmb->SearchVotersBySingleIndex($VotersIndexes_ID, $DatedFiles);	
-		
-	if ( empty ($VotersIndexes_ID )) {
-		header("Location: " . $k . "/input");
-		exit();
-	} 
 	
-	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($UserParty);
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
+	
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
+  if (empty ($URIEncryptedString["UniqNYSVoterID"])) { header("Location: /lgd/" . $k . "/input"); exit(); }
+	// if (empty ($URIEncryptedString["VotersIndexes_ID "])) { header("Location: " . $k_raw . "/index"); exit(); }
+	$rmb = new repmyblock();
+	
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}
+	$Party = NewYork_PrintParty($$URIEncryptedString["UserParty"]);
+	$rmbvoters = $rmb->SearchVotersBySingleIndex($URIEncryptedString["VotersIndexes_ID"], $DatedFiles);
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }

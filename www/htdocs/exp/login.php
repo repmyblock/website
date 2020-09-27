@@ -3,35 +3,34 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
 	if ( ! empty ($_POST["username"])) {
-	  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
-		require $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";
 		$r = new login();
 		
 		### I need to check the username and password.
 		$resultPass = $r->CheckUsernamePassword($_POST["username"], $_POST["password"]);
 		
-		if ( ! empty ($resultPass)) {											
+		WriteStderr($resultPass, "ResultPass");
+		
+		if ( ! empty ($resultPass)) {			
+
 			$URLToEncrypt = "SystemUser_ID=" . $resultPass["SystemUser_ID"];
-			if ( ! empty ($resultPass["SystemUser_Priv"])) { $URLToEncrypt .= "&SystemAdmin=" . $resultPass["SystemUser_Priv"]; }
-			if ( empty ($resultPass["Raw_Voter_ID"])) { $URLToEncrypt .= "&VerifVoter=1"; }
-			if ( $resultPass["SystemUser_emailverified"] == 'no') { $URLToEncrypt .= "&VerifEmail=1"; }
-			if ( ! empty($resultPass["SystemUser_FirstName"])) { $URLToEncrypt .= "&FirstName=" . $resultPass["SystemUser_FirstName"]; }
-			if ( ! empty($resultPass["SystemUser_LastName"])) { $URLToEncrypt .= "&LastName=" . $resultPass["SystemUser_LastName"]; }
-			if ( ! empty($resultPass["VotersIndexes_ID"])) { $URLToEncrypt .= "&VotersIndexes_ID=" . $resultPass["VotersIndexes_ID"]; }
-			if ( ! empty($resultPass["Raw_Voter_UniqNYSVoterID"])) { $URLToEncrypt .= "&UniqNYSVoterID=" . $resultPass["Raw_Voter_UniqNYSVoterID"]; }
-			if ( ! empty($resultPass["Raw_Voter_RegParty"])) { $URLToEncrypt .= "&UserParty=" . $resultPass["Raw_Voter_RegParty"]; }
-			if ( ! empty($resultPass["SystemUser_EDAD"])) { 
-				preg_match('/(\d\d)(\d\d\d)/', $resultPass["SystemUser_EDAD"], $Keywords);
-				$District = sprintf('AD %02d / ED %03d', $Keywords[1], $Keywords[2]);
-				$URLToEncrypt .= "&MenuDescription=" . urlencode($District);
-			}
-			
-			// header("Location: /lgd/?k=" . EncryptURL($URLToEncrypt));
-			header("Location: /lgd/" . rawurlencode(EncryptURL($URLToEncrypt)) . "/index");
+
+			$VariableToPass = array( 
+				"SystemUser_ID" => $resultPass["SystemUser_ID"],
+				"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+				"FirstName" => $resultPass["SystemUser_FirstName"],
+				"LastName" => $resultPass["SystemUser_LastName"],
+				"VotersIndexes_ID" => $resultPass["VotersIndexes_ID"],
+				"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
+				"UserParty" => $resultPass["Raw_Voter_RegParty"],
+				"EDAD" => $resultPass["SystemUser_EDAD"],
+				"SystemAdmin" => $resultPass["SystemUser_Priv"]
+			);
+						
+			header("Location: /lgd/" . CreateEncoded($VariableToPass) . "/index");
 			
 			exit();
-			// The reason for no else is that the code supposed to go away.
 		}
 						
 		$error_msg = "<FONT COLOR=RED><B>The information did not match our records</B></FONT>";	

@@ -2,18 +2,17 @@
 	$Menu = "profile";  
 	$BigMenu = "represent";	
 
-  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
 
-  if (empty ($SystemUser_ID)) { goto_signoff(); }
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 
-	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($UserParty);
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $URIEncryptedString["MenuDescription"] = "District Not Defined";}	
+	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
 
 	if ( ! empty ($_POST)) {
+		WriteStderr($_POST, "Input \$_POST");
 
 		// Search in the database.
 		if ( $_POST["Year"] < 100 ) {
@@ -28,28 +27,24 @@
 		$DOB = $Year . "-" . $_POST["Month"] . "-" . $_POST["Day"];
 		
 	 	$result = $rmb->SearchVoterDB($DBFirstName, $DBLastName, $DOB);
-		$EncryptURL = "SystemUser_ID=" . $SystemUser_ID . 
-									"&FirstName=" . $FirstName . "&LastName=" . $LastName;
-		if ($VerifVoter == 1) { $EncryptURL .= "&VerifVoter=1"; }
-		if ($VerifEmail == 1) { $EncryptURL .= "&VerifEmail=1"; }
-		
-		/*
-		print "RESULT: ";
-		echo "<PRE>";
-		print_r($result);
-		echo "</PRE>";
-		exit();
-		*/
+		WriteStderr($result, "SearchVoterDB(DBFirstName: $DBFirstName, DBLastName: $DBLastName, DOB: $DOB)");
 		
 		switch(count($result)) {
 			case 0:
 				//echo "Did not find anything\n";
-				$error_msg = "Did not find this voter.";
+				$error_msg = "<FONT COLOR=BROWN><B>This person is not in the database.</B></FONT>";
 				break;			
 			
-			case 1:			
-				$EncryptURL .= "&VotersIndexes_ID=". $result[0]["VotersIndexes_ID"];
-				header("Location: " . rawurlencode(EncryptURL($EncryptURL)) . "/result");
+			case 1:				
+				header("Location: /lgd/" .CreateEncoded ( array( 
+								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+								"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+								"FirstName" => $URIEncryptedString["FirstName"],
+								"LastName" => $URIEncryptedString["LastName"],
+								"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
+								"UniqNYSVoterID" => $result[0]["Raw_Voter_UniqNYSVoterID"],
+								"UserParty" => $result[0]["Raw_Voter_RegParty"]
+							))  . "/result");
 				exit();
 			
 			default:
@@ -60,10 +55,25 @@
 						}	
 					}
 				}
-				header("Location: " . rawurlencode(EncryptURL($EncryptURL)) . "/select");
+				
+				header("Location: /lgd/" . CreateEncoded ( array( 
+								"SystemUser_ID" => $resultPass["SystemUser_ID"],
+								"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+								"FirstName" => $resultPass["SystemUser_FirstName"],
+								"LastName" => $resultPass["SystemUser_LastName"],
+								"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
+								"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
+								"UserParty" => $resultPass["Raw_Voter_RegParty"],
+								"SystemAdmin" => $resultPass["SystemUser_Priv"],
+								"vi[]" => $var["VotersIndexes_ID"]
+							))   . "/select");
 				exit();
 		}		
 	}
+	
+	// This is because we'll add some logic later.
+	$FirstName = $URIEncryptedString["FirstName"];
+	$LastName = $URIEncryptedString["LastName"];
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
@@ -96,8 +106,11 @@
 
 
 			  <div class="clearfix gutter d-flex flex-shrink-0">
-			
+		
 					<div class="col-16">
+	
+						<?= $error_msg ?>
+	
 					  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 							<div>
 								<dl class="form-group col-3 d-inline-block"> 

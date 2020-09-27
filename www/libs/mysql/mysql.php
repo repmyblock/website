@@ -42,7 +42,7 @@ class db {
 					$time_end = microtime(true);	  	
 			  }
 			  
-				error_log("PDO Timing: " . ($time_end - $time_start));	
+				error_log("PDO Query time: " . ($time_end - $time_start));	
 				  
 				$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				return $this->pdo;

@@ -3,25 +3,21 @@
 	$Menu = "team";
 	$BigMenu = "represent";	
 	 
-  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 	
-  if (empty ($SystemUser_ID)) { goto_signoff(); }
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 
-	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
 	
-	// print "resultPass: " . "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
-	
-	if (! empty ($Query_AD)) {	
+	if (! empty ($URIEncryptedString["Query_AD"])) {	
 			$Result = $rmb->ReturnGroupAD_Dated_DB($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, $DatedFilesID, 
 																							$URIEncryptedString["Query_PARTY"], $URIEncryptedString["Query_AD"], 
 																							$URIEncryptedString["Query_ED"]);			
-			// print "resultPass: " . "<PRE>" . print_r($Result, 1) . "</PRE>";
+			WriteStderr($Result, "ReturnGroundAD_Dated_DB");
 	}
 	
 	$MyTotal = 0;
@@ -33,13 +29,12 @@
 		}
 	}
 	
-	
-	include $_SERVER["DOCUMENT_ROOT"] . "/headers/headers.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
 <div class="row">
   <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/menu.php"; ?>
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 			<div class="col-9 float-left">
 				<div class="Subhead">
 			  	<h2 class="Subhead-heading">Find Raw Voter</h2>
@@ -96,7 +91,7 @@
 	
 			?>
 						<BR>
-							<B><A HREF="/lgd/team/admin/?k=<?= $k ?>">Back to the query screen</A></B>
+							<B><A HREF="/admin/<?= $k ?>/voterlookup">Back to the query screen</A></B>
 						</DIV>
 
 </FORM>
@@ -105,4 +100,4 @@
 </DIV>
 
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/headers/footer.php";	?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>
