@@ -253,6 +253,13 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
+	function DisplayElectionPositions($ID) {
+		$sql = "SELECT * FROM CandidatePositions " . 
+						"WHERE CandidatePositions_ID = :ID ";
+		$sql_vars = array('ID' => $ID);
+		return $this->_return_simple($sql, $sql_vars);
+	}
+	
 	function ListCandidatePetitions($Date) {
 		$sql = "SELECT * FROM CandidatePetitionSet " . 
 						"LEFT JOIN CanPetitionSet ON (CanPetitionSet.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
@@ -297,6 +304,11 @@ class RepMyBlock extends queries {
 		$sql = "SELECT * FROM CandidateElection " . 
 						"LEFT JOIN Candidate ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID)";
 					
+		return $this->_return_multiple($sql);
+	}
+	
+	function ListElectionsDates ($limit = 50, $start = 0) {
+		$sql = "SELECT * FROM Elections ORDER BY Elections_Date DESC, Elections_Type LIMIT $start, $limit";
 		return $this->_return_multiple($sql);
 	}
 	
@@ -355,6 +367,15 @@ class RepMyBlock extends queries {
 		$sql = "INSERT INTO CanNomination SET Candidate_ID = :CandidateID, SystemUser_ID = :SystemUserID, CandidateElection_ID = :CandidateElectionID";
 		$sql_vars = array('CandidateID' => $CandidateID, 'SystemUserID' => $SystemUserID, 'CandidateElectionID' => $ElectionID);
 		return $this->_return_nothing($sql, $sql_vars);
+	}
+
+
+	function ListCandidates() {
+		$sql = "SELECT * FROM Candidate " . 
+						"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
+						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+						"ORDER BY Elections_Date DESC, CandidateElection.CandidateElection_DBTable, CandidateElection.CandidateElection_DBTableValue";
+		return $this->_return_multiple($sql);
 	}
 
 	function ListOnlyElections() {

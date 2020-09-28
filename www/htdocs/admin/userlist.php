@@ -107,7 +107,7 @@
 
 				<form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 				<div class="list-group-item filtered f60 hundred">
-					<span><B>Raw Voter List</B></span>  	          			
+					<span><B>Rep My Block Users</B></span>  	          			
 				</div>
 					
 			 	<DIV class="panels">		

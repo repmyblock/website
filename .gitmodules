@@ -1,0 +1,3 @@
+[submodule "www/www/libs/utils/php-qrcode-1"]
+	path = www/www/libs/utils/php-qrcode-1
+	url = https://github.com/theochino/php-qrcode-1.git

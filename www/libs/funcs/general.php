@@ -57,6 +57,12 @@ function PrintShortDate($Date) {
 	}
 }
 
+function PrintDate($Date) {
+	if ( ! empty ($Date)) {
+		return date("m.d.y", strtotime( $Date ));
+	}
+}
+
 function PrintShortTime($Date) {
 	if ( ! empty ($Date)) {
 		return date("h:i a", strtotime( $Date ));
