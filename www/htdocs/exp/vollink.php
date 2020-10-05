@@ -1,0 +1,35 @@
+<?php 
+	$BigMenu = "home";
+	if ( ! empty ($k)) { $MenuLogin = "logged"; }
+	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
+
+	/* User is logged */
+	
+?>
+
+
+<div class="main">
+	<DIV CLASS="intro">
+		<P>
+			<h1 CLASS="intro">Links for Volunteers.</H1>
+		</P>
+		
+		<P CLASS="f60">
+			<A HREF="https://github.com/repmyblock/website/issues/new" TARGET="new">Report a problem about the website</A> <i>(Require a GitHub password)</I><BR>
+			<A HREF="https://github.com/repmyblock/mobile_ios/issues/new" TARGET="new">Report a problem about iPhone Mobile App</A> <i>(Require a GitHub password)</I><BR>
+			<A HREF="https://github.com/repmyblock/mobile_android/issues/new" TARGET="new">Report a problem about the Android Mobile App</A> <i>(Require a GitHub password)</I><BR>
+		</P>
+
+		
+	</DIV>
+	
+	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/login">Back to main page</A></P>
+
+
+</div>
+
+
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
