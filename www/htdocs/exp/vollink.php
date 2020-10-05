@@ -23,6 +23,9 @@
 			<A HREF="https://github.com/repmyblock/mobile_android/issues/new" TARGET="new">Report a problem about the Android Mobile App</A> <i>(Require a GitHub password)</I><BR>
 		</P>
 
+		<P CLASS="f60">
+			<A HREF="https://apps.apple.com/us/app/testflight/id899247664" TARGET="new">Download the TestFlight application to get the Beta Version of the RepMyBlock iPhone app.</A>
+		</P>
 		
 	</DIV>
 	
