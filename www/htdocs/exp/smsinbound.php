@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_VoteTheo.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_sms.php";
 $r = new sms();
 
 $original = file_get_contents("php://input");
