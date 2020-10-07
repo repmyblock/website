@@ -1,8 +1,3 @@
-<?php /* This contains a group for each ... Mobile and Non Mobile */ 
-
-$k = rawurlencode($k);
-
-?>
 <?php	if ($MobileDisplay == true) { 
 	$DIVCol="col-12";
 	?>

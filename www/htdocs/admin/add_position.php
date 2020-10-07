@@ -39,6 +39,8 @@
 			*/
 		exit();
 	}
+	
+	$ButtonText = "Add Position";
 
 	$FormFieldParty = $URIEncryptedString["UserParty"];
 
@@ -58,7 +60,7 @@
 			<div class="<?= $DIVCol ?> float-left">
 
 				<div class="Subhead">
-			  	<h2 class="Subhead-heading">Candidate Profile</h2>
+			  	<h2 class="Subhead-heading">Political Positions</h2>
 				</div>
 			
 			<?php 
@@ -148,7 +150,7 @@
 						<div>						
 							<dl class="form-group col-12 d-inline-block"> 
 								<dd>
-									<button type="submit" class="btn btn-primary mobilemenu">Search Voter Registration</button>
+									<button type="submit" class="btn btn-primary mobilemenu"><?= $ButtonText ?></button>
 								</dd>
 							</dl>
 						</div>

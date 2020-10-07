@@ -125,5 +125,28 @@ function CreateEncoded($VariableToPass, $VariableToRemove = "") {
 	return rawurlencode(EncryptURL($URLString));
 }
 
+function PrintVerifMenu($VerifEmail = true, $VerifVoter = true) {
+	if ($VerifEmail == true) { 
+		include $_SERVER["DOCUMENT_ROOT"] . "/common/warnings_emailverif.php";
+	} else if ($VerifVoter == true) {
+		include $_SERVER["DOCUMENT_ROOT"] . "/common/warnings_voterinfo.php";
+	}
+}
+
+function PlurialMenu($k, $menusarray) {
+	
+	if ( ! empty ($menusarray)) {
+		echo "<nav class=\"UnderlineNav pt-1 mb-4\">\n";
+		echo "  <div class=\"UnderlineNav-body\">\n";
+		foreach ($menusarray as $var) {
+			if ( $_SERVER["PHP_SELF"] == "/lgd/" . $var["url"] . ".php" ) { $selected = " selected"; } else { $selected = ""; }			
+			echo "    <a href=\"/lgd/"  . $var["k"] . "/" . $var["url"] . "\" class=\"mobilemenu UnderlineNav-item" .  $selected . "\">" . $var["text"] . "</a>\n";
+		}
+		echo "</div>\n";
+		echo "</nav>\n";
+	}
+	
+}
+
 
 ?>

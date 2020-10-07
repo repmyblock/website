@@ -32,13 +32,7 @@
   	<h2 class="Subhead-heading">Team</h2>
 	</div>
 	
-	<?php 
-		if ($VerifEmail == true) { 
-			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
-		} else if ($VerifVoter == true) {
-			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
-		} 
-	?>          
+	<?php PrintVerifMenu($VerifEmail, $VerifVoter);	?>          
  
   <dl class="form-group">
   	<dt><label for="user_profile_email">Team building</label></dt>
@@ -54,10 +48,6 @@
   <?php	} ?>
    		
    		
-    </dd>
-  </dl>
-    
-			
 		
 
      
@@ -68,14 +58,14 @@
 		
 		
 
-		<h2>List of voters in your area.</H2>	
+		<B>List of voters in your area.</B>	
 		
 	
 		<P>
-			<FONT SIZE=+2><A HREF="<?= $k ?>/target">Create a petition set with the voters you want to target</A></FONT><BR>		
+			<A HREF="<?= $k ?>/target">Create a petition set with the voters you want to target</A><BR>		
 		</P>
 		
-		<h2>This is a list of petition set created</h2>
+		<b>This is a list of petition set created</b>
 		
 		<P>
 		
@@ -101,18 +91,22 @@
 		</P>				
 		
 		<P>
-			<FONT SIZE=+2><A HREF="<?= $k ?>/managesignedvoters">Manage your signed voters</A></FONT>
+		<b><A HREF="<?= $k ?>/managesignedvoters">Manage your signed voters</A></FONT></B>
 		</P>
 		
 		
 		<P>
-			<FONT SIZE=+2><A HREF="">Candidates running in your district.</A></FONT>
+		<b><A HREF="">Candidates running in your district.</A></FONT></B>
 		</P>
 		
 		<UL>
 			* None.
 		</UL>
 
+    </dd>
+  </dl>
+    
+			
 	
 
 </DIV>

@@ -28,15 +28,13 @@ WriteStderr($k, $_SERVER['DOCUMENT_URI'] . " Received K");
 if ( ! empty ($k)) {
 	$Decrypted_k = DecryptURL ( $k );	
 	parse_str ( $Decrypted_k, $URIEncryptedString);
-  // parse_str ( $Decrypted_k );
-
 	$k_raw = $k;
-	$k = rawurlencode($k);
+	
+	$k = rawurlencode(rawurlencode($k));
 }
 
 WriteStderr($Decrypted_k, $_SERVER['DOCUMENT_URI'] . " DecryptedK");
 WriteStderr($URIEncryptedString, $_SERVER['DOCUMENT_URI'] . " URIEncryptedString");
-
 
 // Check the timestamp before moving on
 $DEBUG["TimePassed"] = $URIEncryptedString["LastTimeUser"];
@@ -60,6 +58,8 @@ if ($CalculatePHPSelf == 1) {
 		$CalculatedSelfPHP = rtrim($matches[1], '/') . '/';
 	}
 }
+
+/* --------- This is the end of the Verif Function ... the rest are functions --------- */
 
 function EncryptURL($string = "") {  	
 	global $PubKey;

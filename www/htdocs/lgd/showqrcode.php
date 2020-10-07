@@ -50,13 +50,16 @@
 			
 			<BR>
 				
-			<A HREF="/lgd/<?= $TheNewK ?>/voterquery">Look for a new voter</A></B>
+				
+
+				
+			<A HREF="/lgd/<?= $k ?>/voterquery">Look for a new voter</A></B>
 			
 		</div>
 		
 		
 		
-																	
+									
 		
 	
 			</DIV>

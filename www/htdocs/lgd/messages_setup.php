@@ -7,12 +7,11 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
   
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	if (empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 
 	$rmb = new repmyblock();
 	
-	$NumberOfMessages = 1;
+	$NumberOfMessages = 0;
 	$TopMenus = array ( 
 								array("k" => $k, "url" => "messages", "text" => "Internal Messaging"),
 								array("k" => $k, "url" => "messages_sms", "text" => "Text Messages"),
@@ -26,9 +25,6 @@
 <div class="row">
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-		
-		<?php WriteStderr($k, "K in Messages.php line 31"); ?>
-		
 		<div class="col-9 float-left">
 			<div class="Subhead"><h2 class="Subhead-heading">Messages</h2></div>
 			
@@ -40,12 +36,14 @@
 			<div class="Box">
 			  <div class="Box-header pl-0">
 				  <div class="table-list-filters d-flex">
-						<div class="table-list-header-toggle states flex-justify-start pl-3">Messages</div>
+						<div class="table-list-header-toggle states flex-justify-start pl-3">Communication Providers</div>
 					</div>
 				</div>
 
 				<?php if ($NumberOfMessages == 0) { ?>
-					<div class="Box-body text-center py-6 js-collaborated-repos-empty" >You don't have any messages.</div>
+					<div class="Box-body text-center py-6 js-collaborated-repos-empty" >
+						<a href="/lgd/<?= $k ?>/messages_setprov">Setup SMS provider</a>
+					</div>
 				<?php } else { ?>
 
 			    <div class="js-collaborated-repos">

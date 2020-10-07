@@ -3,8 +3,6 @@
 	$BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
   
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
@@ -67,7 +65,14 @@
 	
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
-		
+	
+	$TopMenus = array ( 
+							array("k" => $k, "url" => "profile", "text" => "Public Profile"),
+							array("k" => $k, "url" => "profilevoter", "text" => "Voter Profile"),
+							array("k" => $k, "url" => "profilecandidate", "text" => "Candidate Profile")
+						);			
+													
+	WriteStderr($TopMenus, "Top Menu");			
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
@@ -82,21 +87,10 @@
 			    <h2 id="public-profile-heading" class="Subhead-heading">Personal Profile</h2>
 			  </div>
 			     
-				<?php 
-					if ($VerifEmail == true) { 
-						include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
-					} else if ($VerifVoter == true) {
-						include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
-					} 
-				?>		  
-
-				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
-					<div class="UnderlineNav-body">
-						<a href="/lgd/<?= $k ?>/profile" class="mobilemenu UnderlineNav-item selected">Public Profile</a>
-						<a href="/lgd/<?= $k ?>/profilevoter" class="mobilemenu UnderlineNav-item">Voter Profile</a>
-						<a href="/lgd/<?= $k ?>/profilecandidate" class="mobilemenu UnderlineNav-item">Candidate Profile</a>
-					</div>
-				</nav>
+			<?php
+				PrintVerifMenu($VerifEmail, $VerifVoter);
+			 	PlurialMenu($k, $TopMenus);
+			?>
 		
 				<div class="col-12">
 					<form class="edit_user" id="" aria-labelledby="public-profile-heading" action="" accept-charset="UTF-8" method="post">
