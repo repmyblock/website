@@ -63,6 +63,12 @@ function PrintDate($Date) {
 	}
 }
 
+function PrintDateTime($Date) {
+	if ( ! empty ($Date)) {
+		return date("m.d.y h:i a", strtotime( $Date ));
+	}
+}
+
 function PrintShortTime($Date) {
 	if ( ! empty ($Date)) {
 		return date("h:i a", strtotime( $Date ));
@@ -134,7 +140,6 @@ function PrintVerifMenu($VerifEmail = true, $VerifVoter = true) {
 }
 
 function PlurialMenu($k, $menusarray) {
-	
 	if ( ! empty ($menusarray)) {
 		echo "<nav class=\"UnderlineNav pt-1 mb-4\">\n";
 		echo "  <div class=\"UnderlineNav-body\">\n";
@@ -145,8 +150,33 @@ function PlurialMenu($k, $menusarray) {
 		echo "</div>\n";
 		echo "</nav>\n";
 	}
-	
 }
 
+function formatPhoneNumber($phoneNumber) {
+    $phoneNumber = preg_replace('/[^0-9]/','',$phoneNumber);
 
+    if(strlen($phoneNumber) > 10) {
+        $countryCode = substr($phoneNumber, 0, strlen($phoneNumber)-10);
+        $areaCode = substr($phoneNumber, -10, 3);
+        $nextThree = substr($phoneNumber, -7, 3);
+        $lastFour = substr($phoneNumber, -4, 4);
+
+        $phoneNumber = '+'.$countryCode.' ('.$areaCode.') '.$nextThree.'-'.$lastFour;
+    }
+    else if(strlen($phoneNumber) == 10) {
+        $areaCode = substr($phoneNumber, 0, 3);
+        $nextThree = substr($phoneNumber, 3, 3);
+        $lastFour = substr($phoneNumber, 6, 4);
+
+        $phoneNumber = '('.$areaCode.') '.$nextThree.'-'.$lastFour;
+    }
+    else if(strlen($phoneNumber) == 7) {
+        $nextThree = substr($phoneNumber, 0, 3);
+        $lastFour = substr($phoneNumber, 3, 4);
+
+        $phoneNumber = $nextThree.'-'.$lastFour;
+    }
+
+    return $phoneNumber;
+}
 ?>
