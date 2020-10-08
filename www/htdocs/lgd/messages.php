@@ -12,7 +12,7 @@
 
 	$rmb = new repmyblock();
 	
-	$NumberOfMessages = 1;
+	$NumberOfMessages = 0;
 	$TopMenus = array ( 
 								array("k" => $k, "url" => "messages", "text" => "Internal Messaging"),
 								array("k" => $k, "url" => "messages_sms", "text" => "Text Messages"),
