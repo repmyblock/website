@@ -3,9 +3,7 @@
 	$Menu = "summary";
 	$BigMenu = "represent";	
 	
-	// require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-  require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
 	
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); exit(); }
@@ -26,11 +24,18 @@
 	$NumberOfAddressesOnDistrict = 0;				
 
 	/* Define the boxes here before we set the menu */
-	$Party = NewYork_PrintParty($UserParty);
-	$BoxInDistrict = $Party . "s in the district";
-	if ($VerifVoter == 1) { $BoxInDistrict = "Verify your voter info."; }
-	$BoxSignatures = $NumberOfSignatures . " (" . $Progress . " %)";
-	if (empty ($MenuDescription)) { $BoxSignatures = "Not defined"; }
+	if (empty ($MenuDescription)) { 
+		$BoxSignatures = "Not defined"; 
+		$BoxInDistrict = "Number of voters";
+		$NumberOfElectors = "Not defined";
+		
+	} else {
+		$Party = NewYork_PrintParty($UserParty);
+		$BoxInDistrict = $Party . "s in the district";
+		if ($VerifVoter == 1) { $BoxInDistrict = "Verify your voter info."; }
+		$BoxSignatures = $NumberOfSignatures . " (" . $Progress . " %)";
+	}	
+	
 	
 	$PersonFirstName = $rmbperson["SystemUser_FirstName"];
 	$PersonLastName  = $rmbperson["SystemUser_LastName"];
@@ -56,15 +61,16 @@
 			  	<h2 class="Subhead-heading">Summary</h2>
 				</div>
 						
+				<?php	PrintVerifMenu($VerifEmail, $VerifVoter);	?>     
 				
-
-	<?php 
-				if ($VerifEmail == true) { 
-					include $_SERVER["DOCUMENT_ROOT"] . "/common/warnings_emailverif.php";
-				} else if ($VerifVoter == true) {
-					include $_SERVER["DOCUMENT_ROOT"] . "/common/warnings_voterinfo.php";
-				} 
-	?>         
+				<?php if ($MenuDescription == "District Not Defined") { ?>
+				
+				<P>
+					<A HREF="/lgd/<?= $k ?>/profile">Please update your Personal Profile so we can complete the summary information.</A>
+				</P>		
+					
+				<?php } ?>
+				   
 	        
 		    <div class="d-flex flex-column flex-md-row mb-3">
 		    	<div class="col-12 py-3 px-4 col-md-4 mb-md-0 mb-3 mr-md-3 bg-gray rounded-1">

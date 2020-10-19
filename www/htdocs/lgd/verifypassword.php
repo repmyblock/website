@@ -1,43 +1,39 @@
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";
-  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 
 	$r = new login();
 	// Check that the hash code exist.
+	WriteStderr($_POST, "_POST");
+	
 	
 	if ( ! empty ($_POST)) {
+		
 		if ( ! empty ($_POST["password"])) {
-			if (password_verify ( $_POST["password"] , $password ) == 1) {
-				$r->VerifyAccount($SystemUser_ID);
-				$result = $r->FindRawVoterInfoFromSystemID($SystemUser_ID, $DatedFilesID, $DatedFiles);				
-												
+			if (password_verify ( $_POST["password"] , $URIEncryptedString["password"] ) == 1) {
+				$r->VerifyAccount($URIEncryptedString["SystemUser_ID"]);
+				
+				$result = $r->FindRawVoterInfoFromSystemID($URIEncryptedString["SystemUser_ID"], $DatedFilesID, $DatedFiles);				
+				WriteStderr($result, "Result FindRawVoterInfoFromSystemID");
+				
 				if ( ! empty($resultPass["SystemUser_EDAD"])) { 
 					preg_match('/(\d\d)(\d\d\d)/', $resultPass["SystemUser_EDAD"], $Keywords);
 					$District = sprintf('AD %02d / ED %03d', $Keywords[1], $Keywords[2]);
 					$URLToEncrypt .= "&MenuDescription=" . urlencode($District);
 				}
-				
-				if ( empty () { $URLToEncrypt .= "&VerifVoter=1"; }
-				if ( $resultPass["SystemUser_emailverified"] == 'no') { $URLToEncrypt .= "&VerifEmail=1"; }
-	
-				if ($SystemUser_ID > 0 ) {
-					print "I am here<BR>";
-				
+					
+				if ($URIEncryptedString["SystemUser_ID"] > 0 ) {				
 					$VariableToPass = array( 
-						"SystemUser_ID" => $SystemUser_ID,
+						"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 						"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
 						"FirstName=" => $resultPass["SystemUser_FirstName"],
-						"LastName=" => $resultPass["SystemUser_LastName"]; 
+						"LastName=" => $resultPass["SystemUser_LastName"], 
 						"VotersIndexes_ID=" => $resultPass["VotersIndexes_ID"],
 						"UniqNYSVoterID=" => $resultPass["Raw_Voter_UniqNYSVoterID"],
 						"UserParty=" => $resultPass["Raw_Voter_RegParty"]
 					);				
 
-					echo "CreateEncoded: " . CreateEncoded($VariableToPass) . "<BR>";
-					exit();
-					header("Location: /lgd/" . CreateEncoded($VariableToPass, $VariableToRemove) . "/index";
+					header("Location: /lgd/" . CreateEncoded($VariableToPass, $VariableToRemove) . "/index");
 					exit();
 				}
 			}
