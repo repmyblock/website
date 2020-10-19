@@ -15,9 +15,17 @@ class RepMyBlock extends queries {
   	$sql = "SELECT * FROM SystemUser " .
   					"LEFT JOIN Raw_Voter_" . $DateFile . " ON (Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = SystemUser.Raw_Voter_UniqNYSVoterID)";
   	$sql_vars = array();
-  	
   	return $this->_return_multiple($sql, $sql_vars);
   }
+  
+  function FindVotersInRawForEDAD($ADED, $Party, $DateFile) {  	
+  	preg_match('/(\d\d)(\d\d\d)/', $ADED, $Keywords);		
+		$sql = "SELECT * FROM Raw_Voter_" . $DateFile . " WHERE " .
+						"Raw_Voter_ElectDistr = :ED AND Raw_Voter_AssemblyDistr = :AD AND Raw_Voter_EnrollPolParty = :PARTY " .
+						"AND (Raw_Voter_Status = 'ACTIVE' OR Raw_Voter_Status = 'INACTIVE')";
+		$sql_vars = array("ED" =>  intval($Keywords[2]), "AD" => intval($Keywords[1]), "PARTY" => $Party);	
+		return $this->_return_multiple($sql, $sql_vars);
+	}  
   
   
   function FindPersonUser($SystemUserID) {
@@ -26,7 +34,6 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql,  $sql_vars);
 	}
 	
-	// This is a particular to get the BIO
 	function FindPersonUserProfile($SystemUserID) {
 		$sql = "SELECT * FROM SystemUser " . 
 						"LEFT JOIN SystemUserProfile ON (SystemUser.SystemUserProfile_ID = SystemUserProfile.SystemUserProfile_ID) " . 
@@ -47,7 +54,6 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql,  $sql_vars);
 	}
 	
-
 	function SearchVoterDBbyID($DatedFiles, $RawVoterID) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM " . $TableVoter . " WHERE " . 

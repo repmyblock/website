@@ -53,7 +53,13 @@ class login extends queries {
 		$this->_return_nothing($sql,  $sql_vars);
 	}
 						
-  
+	// Hack for login to pass right info.
+	function FindVotersFromNYSUniq($UniqNYSVoterID, $DateFileName) {
+		$sql = "SELECT * FROM Raw_Voter_" . $DateFileName . " WHERE Raw_Voter_UniqNYSVoterID = :Uniq";
+		$sql_vars = array("Uniq" => $UniqNYSVoterID);
+		return $this->_return_simple($sql, $sql_vars);
+	} 
+
   function RegisterEmail($email) {
   	$sql = "";
   	
