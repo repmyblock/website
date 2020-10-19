@@ -1,6 +1,8 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	$BigMenu = "represent";
+	$Menu = "team";  
+	$BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
@@ -35,6 +37,21 @@
 ?>
 
 <div class="row">
+  <div class="main">
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+  		<div class="<?= $Cols ?> float-left">
+    
+			  <!-- Public Profile -->
+			  <div class="Subhead mt-0 mb-0">
+			    <h2 id="public-profile-heading" class="Subhead-heading">Voter Profile</h2>
+			  </div>
+			    
+<?php 
+			PrintVerifMenu($VerifEmail, $VerifVoter);	
+			PlurialMenu($k, $TopMenus);
+?>
+
+<div class="row">
 	
 	<div class="side">
     <h2>ED<?= $ElectionDistrict ?>/AD<?= $AssemblyDistrict ?></h2>
@@ -59,5 +76,8 @@
 	</div>
 </DIV>
 
+</DIV>
+</DIV>
+</DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

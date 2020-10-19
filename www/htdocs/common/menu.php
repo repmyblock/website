@@ -1,4 +1,12 @@
-<?php	if ($MobileDisplay == true) { 
+<?php
+
+	if (empty ($URIEncryptedString["EDAD"])) { 
+		$MenuDescription = "District Not Defined";
+	} else {
+		$MenuDescription = ParseEDAD($URIEncryptedString["EDAD"]);
+	} 
+	
+	if ($MobileDisplay == true) { 
 	$DIVCol="col-12";
 	?>
 <div class="justifymobile">

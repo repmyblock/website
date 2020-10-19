@@ -8,30 +8,32 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 	
-	/*
-		echo "I am here<BR>";
-		print "<PRE>" . print_r($_POST, 1) . "<PRE>";
-		exit();
-	*/
-	
+	$TopMenus = array ( 
+								array("k" => $k, "url" => "profile", "text" => "Public Profile"),
+								array("k" => $k, "url" => "profilevoter", "text" => "Voter Profile"),
+								array("k" => $k, "url" => "profilecandidate", "text" => "Candidate Profile")
+							);			
+
 	WriteStderr($_POST, "Post");
 	if ( ! empty ($_POST)) {
-    $ADED = sprintf('%02d%03d', $_POST["Raw_Voter_AssemblyDistr"], $_POST["Raw_Voter_ElectDistr"]);		
-    $District = sprintf('AD %02d / ED %03d', $_POST["Raw_Voter_AssemblyDistr"], $_POST["Raw_Voter_ElectDistr"]);		
+		if ($_POST["voterreg"] == "yes") {
+		  $ADED = sprintf('%02d%03d', $_POST["Raw_Voter_AssemblyDistr"], $_POST["Raw_Voter_ElectDistr"]);		
+	    $District = sprintf('AD %02d / ED %03d', $_POST["Raw_Voter_AssemblyDistr"], $_POST["Raw_Voter_ElectDistr"]);		
 
-		$rmb->UpdateSystemUserWithVoterCard($_POST["SystemUser_ID"], $_POST["Raw_Voter_ID"], 
-																				$_POST["Raw_Voter_UniqNYSVoterID"], $ADED);
-																				
-		header("Location: " .  CreateEncoded ( array( 
-								"SystemUser_ID" => $_POST["SystemUser_ID"],
-								"FirstName" => $_POST["FirstName"], 
-								"LastName" => $_POST["LastName"],
-								"VotersIndexes_ID" => $_POST["VotersIndexes_ID"],
-								"UniqNYSVoterID" => $_POST["Raw_Voter_UniqNYSVoterID"],
-								"MenuDescription" => urlencode($District), 
-								"UserParty" => $_POST["Raw_Voter_EnrollPolParty"]
-					)) . "/profilevoter");
-		exit();
+			$rmb->UpdateSystemUserWithVoterCard($_POST["SystemUser_ID"], $_POST["Raw_Voter_ID"], 
+																					$_POST["Raw_Voter_UniqNYSVoterID"], $ADED);
+																							
+			header("Location: " .  CreateEncoded ( array( 
+									"SystemUser_ID" => $_POST["SystemUser_ID"],
+									"FirstName" => $_POST["FirstName"], 
+									"LastName" => $_POST["LastName"],
+									"VotersIndexes_ID" => $_POST["VotersIndexes_ID"],
+									"UniqNYSVoterID" => $_POST["Raw_Voter_UniqNYSVoterID"],
+									"MenuDescription" => urlencode($District), 
+									"UserParty" => $_POST["Raw_Voter_EnrollPolParty"]
+						)) . "/profilevoter");
+			exit();
+		}
 	}
 	
 	if ( empty ($URIEncryptedString["VotersIndexes_ID"] )) {
@@ -76,21 +78,10 @@
 			  </div>
 			    
 <?php 
-				if ($VerifEmail == true) { 
-					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
-				} else if ($VerifVoter == true) {
-					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
-				} 
+			PrintVerifMenu($VerifEmail, $VerifVoter);	
+			PlurialMenu($k, $TopMenus);
 ?>
 			     
-				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
-					<div class="UnderlineNav-body">
-						<a href="/lgd/<?= $k ?>/profile" class="mobilemenu UnderlineNav-item">Public Profile</a>
-						<a href="/lgd/<?= $k ?>/profilevoter" class="mobilemenu UnderlineNav-item">Voter Profile</a>
-						<a href="/lgd/<?= $k ?>/profilecandidate" class="mobilemenu UnderlineNav-item selected">Candidate Profile</a>
-					</div>
-				</nav>
-
 				<div class="Box">
 					<div class="Box-header pl-0">
 						<div class="table-list-filters d-flex">
@@ -129,7 +120,7 @@
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_AssemblyDistr"] ?>" NAME="Raw_Voter_AssemblyDistr">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_ElectDistr"] ?>" NAME="Raw_Voter_ElectDistr">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_ID"] ?>" NAME="Raw_Voter_ID">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["SystemUser_ID"] ?>" NAME="SystemUser_ID">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $URIEncryptedString["SystemUser_ID"] ?>" NAME="SystemUser_ID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_FirstName"] ?>" NAME="Raw_Voter_FirstName">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_LastName"] ?>" NAME="Raw_Voter_LastName">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["VotersIndexes_ID"] ?>" NAME="VotersIndexes_ID">				
@@ -238,8 +229,8 @@
 					<div id="">
 						<BR>
 						<p>
-							&nbsp;<button type="submit" class="btn btn-primary">This is my voter registration card</button>
-							<button type="submit" class="btn btn-primary">NOT my registration card</button>
+							&nbsp;<button type="submit" class="btn btn-primary" name="voterreg" value="yes">This is my voter registration card</button>
+							<button type="submit" class="btn btn-primary" name="voterreg" value="not">NOT my registration card</button>
 						</P>
 					</DIV>
 				</div>

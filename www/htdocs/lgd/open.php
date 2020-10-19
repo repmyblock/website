@@ -2,15 +2,10 @@
 	$Menu = "voters";
 	$BigMenu = "represent";	
 	
-  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	// require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_voterlist.php";  
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
   if (empty ($SystemUser_ID)) { goto_signoff(); }
-
-	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($UserParty);
 
 	$rmb = new RepMyBlock();	
 	$result = $rmb->GetPetitionsForCandidate($DatedFiles, 0, $SystemUser_ID);

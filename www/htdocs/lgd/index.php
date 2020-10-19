@@ -11,7 +11,10 @@
 	$rmb = new RepMyBlock();
 	$rmbperson = $rmb->FindPersonUser($URIEncryptedString["SystemUser_ID"]);
 	$NumberPetitions = $rmb->GetPetitionsSumary($URIEncryptedString["SystemUser_ID"]);
-
+	
+	WriteStderr($rmbperson, "rmbperson");
+	WriteStderr($NumberPetitions, "NumberPetition");
+	
 	if ( $VerifVoter == 1 && $rmbperson["Raw_Voter_ID"] > 0 ) { $VerifVoter = 0; }
 	if ( $VerifEmail == 1 && $rmbperson["SystemUser_emailverified"] == 'yes') { $VerifEmail = 0; }
 
@@ -24,13 +27,13 @@
 	$NumberOfAddressesOnDistrict = 0;				
 
 	/* Define the boxes here before we set the menu */
-	if (empty ($MenuDescription)) { 
+	if (empty ($URIEncryptedString["EDAD"])) { 	
 		$BoxSignatures = "Not defined"; 
 		$BoxInDistrict = "Number of voters";
 		$NumberOfElectors = "Not defined";
 		
 	} else {
-		$Party = NewYork_PrintParty($UserParty);
+		$Party = NewYork_PrintParty($UserParty);		
 		$BoxInDistrict = $Party . "s in the district";
 		if ($VerifVoter == 1) { $BoxInDistrict = "Verify your voter info."; }
 		$BoxSignatures = $NumberOfSignatures . " (" . $Progress . " %)";
@@ -42,9 +45,6 @@
 	$PersonEmail     = $rmbperson["SystemUser_Email"];
 
 	$DayToGo = intval(($LastDayPetiton - time()) / 86400);
-	
-	/* Define the elements of the menu */
-	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>

@@ -1,9 +1,9 @@
 <?php
 	$BigMenu = "represent";
+	$Menu = "team";  
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_voterlist.php";	
 	
 	$r = new voterlist();
@@ -12,7 +12,20 @@
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";		
 ?>
-
+<div class="row">
+  <div class="main">
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+  		<div class="<?= $Cols ?> float-left">
+    
+			  <!-- Public Profile -->
+			  <div class="Subhead mt-0 mb-0">
+			    <h2 id="public-profile-heading" class="Subhead-heading">Voter Profile</h2>
+			  </div>
+			    
+<?php 
+			PrintVerifMenu($VerifEmail, $VerifVoter);	
+			PlurialMenu($k, $TopMenus);
+?>
 <div class="main">
 		<h1>Election District <?= $ElectionDistrict ?>, Assembly District <?= $AssemblyDistrict ?></H1>
 			
@@ -66,6 +79,9 @@
 		</P>
 		
 </DIV>
+</DIV>
+</DIV>
+</DIV>
 
 		<script>
 		function loadDoc(IdToMark, k) {
@@ -79,5 +95,6 @@
 		  xhttp.send();
 		}
 		</script>
+		
 	
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

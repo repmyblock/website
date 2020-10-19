@@ -12,10 +12,14 @@
 		
 		WriteStderr($resultPass, "ResultPass");
 		
+		
 		if ( ! empty ($resultPass)) {			
 
-			$URLToEncrypt = "SystemUser_ID=" . $resultPass["SystemUser_ID"];
-
+			// This is a hack to deal with the fact that the database need to be rebuilt.
+			// So we need to get the rest in the RawDatabase
+			$ResultRawInfo = $r->FindVotersFromNYSUniq($resultPass["Raw_Voter_UniqNYSVoterID"], $DatedFiles);
+			WriteStderr($ResultRawInfo, "ResultRawInfo");
+		
 			$VariableToPass = array( 
 				"SystemUser_ID" => $resultPass["SystemUser_ID"],
 				"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
@@ -23,7 +27,7 @@
 				"LastName" => $resultPass["SystemUser_LastName"],
 				"VotersIndexes_ID" => $resultPass["VotersIndexes_ID"],
 				"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
-				"UserParty" => $resultPass["Raw_Voter_RegParty"],
+				"UserParty" => $ResultRawInfo["Raw_Voter_EnrollPolParty"],
 				"EDAD" => $resultPass["SystemUser_EDAD"],
 				"SystemAdmin" => $resultPass["SystemUser_Priv"]
 			);
