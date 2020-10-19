@@ -34,9 +34,9 @@ class voterlist extends queries {
 		
 		$result = $this->_return_simple($sql,  $sql_vars);	
 		
-		$FullName = $this->DB_ReturnFullName($result);
-    $Address_Line1 = $this->DB_ReturnAddressLine1($result);
-    $Address_Line2 = $this->DB_ReturnAddressLine2($result);
+		$FullName = DB_ReturnFullName($result);
+    $Address_Line1 = DB_ReturnAddressLine1($result);
+    $Address_Line2 = DB_ReturnAddressLine2($result);
 	
    $sql = "INSERT INTO Candidate SET SystemUser_ID = :SystemID, Raw_Voter_ID = :RawVoter, " .
 						"Raw_Voter_DatedTable_ID = :DatedTableID, Raw_Voter_Dates_ID = :DatedTableDateID, " . 
@@ -88,9 +88,9 @@ class voterlist extends queries {
     $Counter = 0;
     foreach ($var as $vor) {
 			if (! empty ($vor)) {
-				$FullName = $this->DB_ReturnFullName($vor);
-        $Address_Line1 = $this->DB_ReturnAddressLine1($vor);
-        $Address_Line2 = $this->DB_ReturnAddressLine2($vor);
+				$FullName = DB_ReturnFullName($vor);
+        $Address_Line1 = DB_ReturnAddressLine1($vor);
+        $Address_Line2 = DB_ReturnAddressLine2($vor);
         
     		// This is awfull but we need to go trought the list to find the VotersIndexes_ID
         $VoterIndexesID = $this->GetVotersIndexesIDfromNYSCode($vor["Raw_Voter_UniqNYSVoterID"]);
@@ -112,11 +112,11 @@ class voterlist extends queries {
 														":RawVoterID" => $vor["Raw_Voter_ID"],
 														":VotersIndexesID" => $VoterIndexesID["VotersIndexes_ID"], 
 														":RawVoterDatesID" => $DateID,
-														":VoterFullName" => $this->DB_ReturnFullName($vor),
-														":Address1" => $this->DB_ReturnAddressLine1($vor),
-										 				":Address2" => $this->DB_ReturnAddressLine2($vor),
+														":VoterFullName" => DB_ReturnFullName($vor),
+														":Address1" => DB_ReturnAddressLine1($vor),
+										 				":Address2" => DB_ReturnAddressLine2($vor),
 														":Address3" => "",
-														":County" => $this->DB_WorkCounty($vor["Raw_Voter_CountyCode"]));
+														":County" => DB_WorkCounty($vor["Raw_Voter_CountyCode"]));
 							    
 				$this->_return_nothing($sql, $sql_vars); 	
 
@@ -160,9 +160,9 @@ class voterlist extends queries {
 			if ($vor["Raw_Voter_ID"] == $RawVoterID) {
 				
         // Fix address
-        $FullName = $this->DB_ReturnFullName($vor);
-        $Address_Line1 = $this->DB_ReturnAddressLine1($vor);
-        $Address_Line2 = $this->DB_ReturnAddressLine2($vor);
+        $FullName = DB_ReturnFullName($vor);
+        $Address_Line1 = DB_ReturnAddressLine1($vor);
+        $Address_Line2 = DB_ReturnAddressLine2($vor);
 
         // Check that the candidate is there only once
         $sql = "SELECT * FROM Candidate WHERE SystemUser_ID = :SystemUserID AND " .
@@ -195,9 +195,9 @@ class voterlist extends queries {
     $Counter = 0;
     foreach ($var as $vor) {
 			if (! empty ($vor)) {
-				$FullName = $this->DB_ReturnFullName($vor);
-        $Address_Line1 = $this->DB_ReturnAddressLine1($vor);
-        $Address_Line2 = $this->DB_ReturnAddressLine2($vor);
+				$FullName = DB_ReturnFullName($vor);
+        $Address_Line1 = DB_ReturnAddressLine1($vor);
+        $Address_Line2 = DB_ReturnAddressLine2($vor);
         
     		// This is awfull but we need to go trought the list to find the VotersIndexes_ID
         $VoterIndexesID = $this->GetVotersIndexesIDfromNYSCode($vor["Raw_Voter_UniqNYSVoterID"]);
@@ -219,11 +219,11 @@ class voterlist extends queries {
 														":RawVoterID" => $vor["Raw_Voter_ID"],
 														":VotersIndexesID" => $VoterIndexesID["VotersIndexes_ID"], 
 														":RawVoterDatesID" => $DateID,
-														":VoterFullName" => $this->DB_ReturnFullName($vor),
-														":Address1" => $this->DB_ReturnAddressLine1($vor),
-										 				":Address2" => $this->DB_ReturnAddressLine2($vor),
+														":VoterFullName" => DB_ReturnFullName($vor),
+														":Address1" => DB_ReturnAddressLine1($vor),
+										 				":Address2" => DB_ReturnAddressLine2($vor),
 														":Address3" => "",
-														":County" => $this->DB_WorkCounty($vor["Raw_Voter_CountyCode"]));
+														":County" => DB_WorkCounty($vor["Raw_Voter_CountyCode"]));
 							    
 				$this->_return_nothing($sql, $sql_vars); 	
 
@@ -233,36 +233,9 @@ class voterlist extends queries {
     return $CandidateInfo;
 	}
 	
-	function DB_WorkCounty($CountyID) {
-		$County = $this->GetCountyFromNYSCodes($CountyID);
-		return $County["DataCounty_Name"];	
-	}
-
-	function DB_ReturnAddressLine1($vor) {
-		$Address_Line1 = "";
-		if ( ! empty ($vor["Raw_Voter_ResHouseNumber"])) { $Address_Line1 .= $vor["Raw_Voter_ResHouseNumber"] . " "; }		
-		if ( ! empty ($vor["Raw_Voter_ResFracAddress"])) { $Address_Line1 .= $vor["Raw_Voter_ResFracAddress"] . " "; }		
-		if ( ! empty ($vor["Raw_Voter_ResPreStreet"])) { $Address_Line1 .= $vor["Raw_Voter_ResPreStreet"] . " "; }		
-		$Address_Line1 .= $vor["Raw_Voter_ResStreetName"] . " ";
-		if ( ! empty ($vor["Raw_Voter_ResPostStDir"])) { $Address_Line1 .= $vor["Raw_Voter_ResPostStDir"] . " "; }		
-		if ( ! empty ($vor["Raw_Voter_ResApartment"])) { $Address_Line1 .= "- Apt. " . $vor["Raw_Voter_ResApartment"]; }
-		$Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
-		return $Address_Line1;
-  }
-  
-  function DB_ReturnAddressLine2($vor) {
-  	$Address_Line2 = $vor["Raw_Voter_ResCity"] . ", NY " . $vor["Raw_Voter_ResZip"];
-    return $Address_Line2;
-  }
 	
-	function DB_ReturnFullName($vor) {
-		$FullName = $vor["Raw_Voter_FirstName"] . " ";
-		if ( ! empty ($vor["Raw_Voter_MiddleName"])) { $FullName .= substr($vor["Raw_Voter_MiddleName"], 0, 1) . ". "; }
-		$FullName .= $vor["Raw_Voter_LastName"] ." ";
-		if ( ! empty ($vor["Raw_Voter_Suffix"])) { $FullName .= $vor["Raw_Voter_Suffix"]; }				
-		$FullName = ucwords(strtolower($FullName));
-		return $FullName;
-	}	
+	
+
 	
 	function FindRawVoterbyADED($DatedFiles, $EDist, $ADist, $Party = "", $Active = 1, $order = 0) {
 		

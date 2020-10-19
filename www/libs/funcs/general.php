@@ -152,6 +152,37 @@ function PlurialMenu($k, $menusarray) {
 	}
 }
 
+function DB_ReturnFullName($vor) {
+	$FullName = $vor["Raw_Voter_FirstName"] . " ";
+	if ( ! empty ($vor["Raw_Voter_MiddleName"])) { $FullName .= substr($vor["Raw_Voter_MiddleName"], 0, 1) . ". "; }
+	$FullName .= $vor["Raw_Voter_LastName"] ." ";
+	if ( ! empty ($vor["Raw_Voter_Suffix"])) { $FullName .= $vor["Raw_Voter_Suffix"]; }				
+	$FullName = ucwords(strtolower($FullName));
+	return $FullName;
+}	
+
+function DB_WorkCounty($CountyID) {
+	$County = $this->GetCountyFromNYSCodes($CountyID);
+	return $County["DataCounty_Name"];	
+}
+
+function DB_ReturnAddressLine1($vor) {
+	$Address_Line1 = "";
+	if ( ! empty ($vor["Raw_Voter_ResHouseNumber"])) { $Address_Line1 .= $vor["Raw_Voter_ResHouseNumber"] . " "; }		
+	if ( ! empty ($vor["Raw_Voter_ResFracAddress"])) { $Address_Line1 .= $vor["Raw_Voter_ResFracAddress"] . " "; }		
+	if ( ! empty ($vor["Raw_Voter_ResPreStreet"])) { $Address_Line1 .= $vor["Raw_Voter_ResPreStreet"] . " "; }		
+	$Address_Line1 .= $vor["Raw_Voter_ResStreetName"] . " ";
+	if ( ! empty ($vor["Raw_Voter_ResPostStDir"])) { $Address_Line1 .= $vor["Raw_Voter_ResPostStDir"] . " "; }		
+	if ( ! empty ($vor["Raw_Voter_ResApartment"])) { $Address_Line1 .= "- Apt. " . $vor["Raw_Voter_ResApartment"]; }
+	$Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
+	return $Address_Line1;
+}
+
+function DB_ReturnAddressLine2($vor) {
+	$Address_Line2 = $vor["Raw_Voter_ResCity"] . ", NY " . $vor["Raw_Voter_ResZip"];
+  return $Address_Line2;
+}
+
 function formatPhoneNumber($phoneNumber) {
     $phoneNumber = preg_replace('/[^0-9]/','',$phoneNumber);
 
