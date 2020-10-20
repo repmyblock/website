@@ -68,7 +68,6 @@
 		}
 	} 
 	
-
 	if ( empty ($Result)) {
 		$ErrorMsg = "Voter not found";		
 		header("Location: /lgd/" .  CreateEncoded ( array( 	
@@ -88,6 +87,7 @@
 								"etReturnPARTY" => $URIEncryptedString["Query_PARTY"],
 								"RetReturnNYSBOEID" => $URIEncryptedString["Query_NYSBOEID"],
 								"RetReturnCongress" => $URIEncryptedString["Query_Congress"],
+								"EDAD" =>  $URIEncryptedString["EDAD"],
 								"ErrorMsg" => $ErrorMsg								
 					)) . "/voternotfound");
 		exit();
@@ -151,13 +151,11 @@
 				<BR>
 				<TABLE BORDER=1>
 					<TR>
-						<TH style="padding:0px 10px;">Date of Birth</TH>
 						<TH style="padding:0px 10px;">Age</TH>
 						<TH style="padding:0px 10px;">Gender</TH>
 						<TH style="padding:0px 10px;">Party</TH>
 					</TR>
-					<TR ALIGN=CENTER>
-						<TD style="padding:0px 10px;"><?= PrintShortDate($var["Raw_Voter_DOB"]); ?></TD>
+					<TR ALIGN=CENTER>					
 						<TD style="padding:0px 10px;">	<?php
 										$dob = new DateTime($var["Raw_Voter_DOB"]);
 	 									$now = new DateTime();
@@ -226,21 +224,29 @@
 
 			<?php 
 						$MySpecialK = urlencode(CreateEncoded (array( 	
-								"Raw_Voter_UniqNYSVoterID" => $var["Raw_Voter_UniqNYSVoterID"],
-			          "Raw_Voter_EnrollPolParty" => $var["Raw_Voter_EnrollPolParty"],
-								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"]
+								"VoterUniqInfo" => $var["Raw_Voter_UniqNYSVoterID"],
+			          "VoterParty" => $var["Raw_Voter_EnrollPolParty"],
+								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+								"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+								"FirstName" => $URIEncryptedString["FirstName"],
+								"LastName" => $URIEncryptedString["LastName"],
+								"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+								"UserParty" => $URIEncryptedString["UserParty"],
+								"EDAD" =>  $URIEncryptedString["EDAD"]
 						)));
 			?>
 
+		<?php /*
 			<svg class="octicon octicon-repo mr-1" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
 			Download <a class="mr-1" href="<?= $FrontEndPDF ?>/raw_voterlist/?k=<?= $MySpecialK ?>">Walking 
 			List</a> <a class="mr-1" href="<?= $FrontEndPDF ?>/raw_petitions/?k=<?= $MySpecialK ?>">Petition</a>
 			<a class="mr-1" href="/lgd/<?= $MySpecialK ?>/invitetorun">Make Candidate</a>
 			<BR>
+			*/ ?>
 			
 			<svg class="octicon octicon-repo mr-1" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
 			<a class="mr-1" href="/lgd/<?= $MySpecialK ?>/showqrcode">Show QR Code</a> 
-			<a class="mr-1" href="/lgd/<?= $MySpecialK ?>/updateuserinfo">Show QR Code </a> 
+			<a class="mr-1" href="/lgd/<?= $MySpecialK ?>/updateuserinfo">Update Voter Information</a> 
 			
 			<BR>
 			
@@ -253,7 +259,8 @@
 							"LastName" => $URIEncryptedString["LastName"],
 							"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
 							"UserParty" => $URIEncryptedString["UserParty"],
-							"MenuDescription" => $URIEncryptedString["MenuDescription"]
+							"MenuDescription" => $URIEncryptedString["MenuDescription"],
+							"EDAD" =>  $URIEncryptedString["EDAD"]
 						)); ?>
 			
 			<B><A HREF="/lgd/<?= $TheNewK ?>/voterquery">Look for a new voter</A></B>

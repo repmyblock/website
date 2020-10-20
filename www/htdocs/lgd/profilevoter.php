@@ -7,12 +7,13 @@
 	
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   if (empty ($URIEncryptedString["UniqNYSVoterID"])) { header("Location: /lgd/" . $k . "/input"); exit(); }
-	// if (empty ($URIEncryptedString["VotersIndexes_ID "])) { header("Location: " . $k_raw . "/index"); exit(); }
+	
 	$rmb = new repmyblock();
 	
-	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}
-	$Party = NewYork_PrintParty($$URIEncryptedString["UserParty"]);
-	$rmbvoters = $rmb->SearchVotersBySingleIndex($URIEncryptedString["VotersIndexes_ID"], $DatedFiles);
+	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
+	//	$rmbvoters = $rmb->SearchVotersBySingleIndex($URIEncryptedString["VotersIndexes_ID"], $DatedFiles);
+	$rmbvoters = $rmb->SearchVoterDBbyNYSID($URIEncryptedString["UniqNYSVoterID"], $DatedFiles);
+	$rmbvoters = $rmbvoters[0];
 	
 	$TopMenus = array ( 
 								array("k" => $k, "url" => "profile", "text" => "Public Profile"),
@@ -144,7 +145,7 @@
 								</TABLE>
 									<BR>
 									
-										<TABLE BORDER=1>
+									<TABLE BORDER=1>
 									<TR>
 										<TH style="padding:0px 10px;">Date of Birth</TH>
 										<TH style="padding:0px 10px;">Age</TH>
@@ -165,7 +166,15 @@
 									</TR>
 								</TABLE>
 									<BR>
+									<TABLE BORDER=1>
+									<TR>
+										<TH style="padding:0px 10px;">Board of Election ID #</TH>
+									</TR>
 									
+									<TR ALIGN=CENTER>
+										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_CountyVoterNumber"] ?></TD>
+									</TR>
+								</TABLE>
 								
 								
 				

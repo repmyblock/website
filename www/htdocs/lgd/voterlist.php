@@ -17,31 +17,44 @@
 			$result = $rmb->FindVotersInRawForEDAD($URIEncryptedString["EDAD"], $URIEncryptedString["UserParty"], $DatedFiles);
 			$url = "openwithout";
 		}
+		
+		if ( ! empty ($result)) {
+			foreach ($result as $var) {
+				if ( ! empty ($var)) {
+
+					$MyAddressToUse = $var["Raw_Voter_ResHouseNumber"] . " " . $var["Raw_Voter_ResStreetName"];
+					if ( empty ($Counter[$MyAddressToUse] )) { $Counter[$MyAddressToUse] = 0;	}
+					$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Raw_Voter_UniqNYSVoterID"] = $var["Raw_Voter_UniqNYSVoterID"];
+					$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Full_Elector_Address"] = $var["Raw_Voter_ResHouseNumber"] . " " . $var["Raw_Voter_ResStreetName"];
+				}			
+				
+				$Counter[$MyAddressToUse]++;
+			}	
+		}
+		
+		
 	} else {
 		$url = "open";
-	}
 	
-	
-	if ( ! empty ($result)) {
-		foreach ($result as $var) {
-			if ( ! empty ($var)) {
+		
+		if ( ! empty ($result)) {
+			foreach ($result as $var) {
+				if ( ! empty ($var)) {
 
-				$MyAddressToUse = $var["Raw_Voter_ResHouseNumber"] . " " . 
-													$var["Raw_Voter_ResStreetName"];
-
-				if ( empty ($Counter[$MyAddressToUse] )) {
-					$Counter[$MyAddressToUse] = 0;
-				}
+					$MyAddressToUse = $var["Raw_Voter_ResHouseNumber"] . " " . 
+														$var["Raw_Voter_ResStreetName"];
+					if ( empty ($Counter[$MyAddressToUse] )) { $Counter[$MyAddressToUse] = 0;	}
+					$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Petition_ID"] = $var["Candidate_ID"];
+					$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_ID"] = $var["VotersIndexes_UniqNYSVoterID"];
+					$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_FullName"] = $var["CandidatePetition_VoterFullName"];
+					$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_Address"] = "Apt " . $var["Raw_Voter_ResApartment"];
+					$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Full_Elector_Address"] = $var["Raw_Voter_ResHouseNumber"] . " " . $var["Raw_Voter_ResStreetName"];
+				}			
 				
-				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Petition_ID"] = $var["Candidate_ID"];
-				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_ID"] = $var["VotersIndexes_UniqNYSVoterID"];
-				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_FullName"] = $var["CandidatePetition_VoterFullName"];
-				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_Address"] = "Apt " . $var["Raw_Voter_ResApartment"];
-				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Full_Elector_Address"] = $var["Raw_Voter_ResHouseNumber"] . " " . $var["Raw_Voter_ResStreetName"];
-			}			
-			
-			$Counter[$MyAddressToUse]++;
-		}	
+				$Counter[$MyAddressToUse]++;
+			}	
+		}
+	
 	}
 
 			
@@ -73,7 +86,7 @@
 	
 	
 			
-				    
+				<?php /*    
 				<div class="clearfix gutter d-flex flex-shrink-0">
 							<dl class="form-group col-48 d-inline-block"> 
 								<dt class="mobilemenu"><label for="user_profile_name">Running for</label><DT>
@@ -85,6 +98,7 @@
 								</dd>
 							</dl>
 						</div>
+						*/ ?>
 
 				
 	<div class="Box">
@@ -106,13 +120,25 @@
 			
 			
 <?php
-
+			
 			$Counter = 0;
 			if ( ! empty ($Electors)) {
+				
+				WriteStderr($Electors, "Electors");
+				
 				foreach ($Electors as $Address => $Elector) {
 					if ( ! empty ($Address)) { ?>
 						<div class="list-group-item filtered f60 hundred">
-							<A CLASS="pad40" HREF="/lgd/<?= $k . "/" . $url ?>"><i class="fas fa-folder handle"></i></A>							
+							<A CLASS="pad40" HREF="/lgd/<?=  CreateEncoded ( array( 
+									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+									"FirstName" => $URIEncryptedString["FirstName"], 
+									"LastName" => $URIEncryptedString["LastName"],
+									"VotersIndexes_ID" => $URIEncryptedString["VotersIndexes_ID"],
+									"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+									"EDAD" =>  $URIEncryptedString["EDAD"],
+									"UserParty" => $URIEncryptedString["UserParty"],
+									"Address" => $Elector[0]["Raw_Voter_UniqNYSVoterID"]
+								)) . "/" . $url ?>"><i class="fas fa-folder handle"></i></A>							
 							
 							
 							<?php /* INPUT TYPE="checkbox" NAME="SelectAllAddresses" VALUE="<?= $Address ?>">&nbsp;&nbsp;

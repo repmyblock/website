@@ -19,9 +19,10 @@
 	if ( $VerifEmail == 1 && $rmbperson["SystemUser_emailverified"] == 'yes') { $VerifEmail = 0; }
 
 	/* Define numbers */
-	$NumberOfElectors = $NumberPetitions["CandidateTotal"];
+	$Party = NewYork_PrintParty($rmbperson["SystemUser_Party"]);		
+	$NumberOfElectors = $rmbperson["SystemUser_NumVoters"];
 	$NumberOfSignatures = intval($NumberOfElectors * $SignaturesRequired) + 1;
-	$Progress = round ((($NumberPetitions["CandidateSigned"] / $NumberPetitions["CandidateTotal"]) * 100), 2);
+	$Progress = round ((($NumberPetitions["CandidateSigned"] / $NumberOfElectors) * 100), 2);
 	$DateToWait = "April 1<sup>st</sup>";
 	
 	$NumberOfAddressesOnDistrict = 0;				
@@ -33,8 +34,7 @@
 		$NumberOfElectors = "Not defined";
 		
 	} else {
-		$Party = NewYork_PrintParty($UserParty);		
-		$BoxInDistrict = $Party . "s in the district";
+		$BoxInDistrict = $Party . "s in your district";
 		if ($VerifVoter == 1) { $BoxInDistrict = "Verify your voter info."; }
 		$BoxSignatures = $NumberOfSignatures . " (" . $Progress . " %)";
 	}	

@@ -166,14 +166,14 @@ function DB_WorkCounty($CountyID) {
 	return $County["DataCounty_Name"];	
 }
 
-function DB_ReturnAddressLine1($vor) {
+function DB_ReturnAddressLine1($vor, $apt = 1) {
 	$Address_Line1 = "";
 	if ( ! empty ($vor["Raw_Voter_ResHouseNumber"])) { $Address_Line1 .= $vor["Raw_Voter_ResHouseNumber"] . " "; }		
 	if ( ! empty ($vor["Raw_Voter_ResFracAddress"])) { $Address_Line1 .= $vor["Raw_Voter_ResFracAddress"] . " "; }		
 	if ( ! empty ($vor["Raw_Voter_ResPreStreet"])) { $Address_Line1 .= $vor["Raw_Voter_ResPreStreet"] . " "; }		
 	$Address_Line1 .= $vor["Raw_Voter_ResStreetName"] . " ";
 	if ( ! empty ($vor["Raw_Voter_ResPostStDir"])) { $Address_Line1 .= $vor["Raw_Voter_ResPostStDir"] . " "; }		
-	if ( ! empty ($vor["Raw_Voter_ResApartment"])) { $Address_Line1 .= "- Apt. " . $vor["Raw_Voter_ResApartment"]; }
+	if ( ! empty ($vor["Raw_Voter_ResApartment"]) && $apt == 1) { $Address_Line1 .= "- Apt. " . $vor["Raw_Voter_ResApartment"]; }
 	$Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
 	return $Address_Line1;
 }
@@ -181,6 +181,14 @@ function DB_ReturnAddressLine1($vor) {
 function DB_ReturnAddressLine2($vor) {
 	$Address_Line2 = $vor["Raw_Voter_ResCity"] . ", NY " . $vor["Raw_Voter_ResZip"];
   return $Address_Line2;
+}
+
+function PrintReferer() {
+
+	// We need to remove the HOST portion.
+	// $_SERVER['HTTP_HOST']	
+	return 	$_SERVER['HTTP_REFERER'];
+	
 }
 
 function formatPhoneNumber($phoneNumber) {

@@ -30,7 +30,8 @@ if (! empty($_POST)) {
 						    "FirstName" => $URIEncryptedString["FirstName"],
 						    "LastName" => $URIEncryptedString["LastName"],
 						    "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
-						   	"SystemAdmin" => $URIEncryptedString["SystemAdmin"]
+						   	"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+						   	"EDAD" => $URIEncryptedString["EDAD"]
 					)) . "/" . $finalurl);
 		exit();
 	}

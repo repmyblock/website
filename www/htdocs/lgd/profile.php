@@ -59,7 +59,8 @@
 					"VotersIndexes_ID" =>  $URIEncryptedString["VotersIndexes_ID"], "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
 					"UserParty" => $URIEncryptedString["UserParty"], "MenuDescription" => $URIEncryptedString["MenuDescription"],
 					"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
-					"VerifVoter" => $URIEncryptedString["VerifVoter"], "VerifEmail" => $URIEncryptedString["VerifEmail"]
+					"VerifVoter" => $URIEncryptedString["VerifVoter"], "VerifEmail" => $URIEncryptedString["VerifEmail"],
+					"EDAD" => $URIEncryptedString["EDAD"]
 				);
 	$k = CreateEncoded ($EncodeString);
 	

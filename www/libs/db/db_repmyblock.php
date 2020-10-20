@@ -27,6 +27,38 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}  
   
+  function FindAllActivesVoterForUniq($UniqTenant, $DateFile) {
+  	$sql = "SELECT * FROM Raw_Voter_" . $DateFile . " WHERE Raw_Voter_UniqNYSVoterID = :Uniq";
+  	$sql_vars = array("Uniq" => $UniqTenant);
+  	$ret = $this->_return_simple($sql, $sql_vars);
+  	
+  	$sql = "SELECT *, BIN(Raw_Voter_ResApartment) AS BinNotNeeded " . 
+  					"FROM Raw_Voter_" . $DateFile . " WHERE Raw_Voter_EnrollPolParty = :PARTY AND " .
+						"Raw_Voter_ElectDistr = :ED AND Raw_Voter_AssemblyDistr = :AD AND " .
+						"Raw_Voter_ResStreetName = :StreetName AND ";
+		$sql_vars = array("ED" =>  $ret["Raw_Voter_ElectDistr"], "AD" => $ret["Raw_Voter_AssemblyDistr"], 
+											"PARTY" => $ret["Raw_Voter_EnrollPolParty"], "StreetName" => $ret["Raw_Voter_ResStreetName"]);	
+		
+		if ( ! empty ($ret["Raw_Voter_ResHouseNumber"])) {
+			$sql .= "Raw_Voter_ResHouseNumber = :ResHouseNumber AND";
+			$sql_vars["ResHouseNumber"] = $ret["Raw_Voter_ResHouseNumber"];
+		}
+		if ( ! empty ($ret["Raw_Voter_ResFracAddress"])){
+			$sql .= "Raw_Voter_ResFracAddress = :ResFracAddress AND";
+			$sql_vars["ResFracAddress"] = $ret["Raw_Voter_ResFracAddress"];
+		}
+		if ( ! empty ($ret["Raw_Voter_ResPreStreet"])){
+			$sql .= "Raw_Voter_ResPreStreet = :ResPreStreet AND";
+			$sql_vars["ResPreStreet"] = $ret["Raw_Voter_ResPreStreet"];
+		}
+		if ( ! empty ($ret["Raw_Voter_ResPostStDir"])){
+			$sql .= "Raw_Voter_ResPostStDir = :ResPostStDir AND";
+			$sql_vars["ResPostStDir"] = $ret["Raw_Voter_ResPostStDir"];
+		}
+		
+		$sql .= "(Raw_Voter_Status = 'ACTIVE' OR Raw_Voter_Status = 'INACTIVE') ORDER BY BinNotNeeded ASC";
+		return $this->_return_multiple($sql, $sql_vars);
+	}  
   
   function FindPersonUser($SystemUserID) {
 		$sql = "SELECT * FROM SystemUser WHERE SystemUser_ID = :ID";	
@@ -543,13 +575,17 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED) {
-		$sql = "UPDATE SystemUser SET " .
-						" Raw_Voter_UniqNYSVoterID = :NYSVoterID, " .
-						"SystemUser_EDAD = :EDAD " .
-						"WHERE SystemUser_ID = :ID ";
-		$sql_vars = array("NYSVoterID" => $UniqNYSVoterID,
-											"EDAD" => $ADED, "ID" => $SystemUser_ID);
+	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED, $VoterCount = 0) {
+		$sql = "UPDATE SystemUser SET Raw_Voter_UniqNYSVoterID = :NYSVoterID, SystemUser_EDAD = :EDAD ";
+		$sql_vars = array("NYSVoterID" => $UniqNYSVoterID,"EDAD" => $ADED, "ID" => $SystemUser_ID);
+
+
+		if ($VoterCount > 0) {
+			$sql .= ", SystemUser_NumVoters = :CountVoters ";
+			$sql_vars["CountVoters"] = $VoterCount;
+		}
+		
+		$sql .= "WHERE SystemUser_ID = :ID ";
 		return $this->_return_nothing($sql, $sql_vars);				
 	}
 	
