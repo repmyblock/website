@@ -3,16 +3,19 @@
 	$Menu = "team";
 	$BigMenu = "represent";	
 	 
-  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
-
-	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($UserParty);
+
+	$TopMenus = array ( 
+						array("k" => $k, "url" => "team", "text" => "Pledges"),
+						array("k" => $k, "url" => "teampetitions", "text" => "Manage Petitions"),
+						array("k" => $k, "url" => "teamcandidate", "text" => "Other Candidates")
+					);			
+	WriteStderr($TopMenus, "Top Menu");		
 
 				
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
@@ -32,7 +35,10 @@
   	<h2 class="Subhead-heading">Team</h2>
 	</div>
 	
-	<?php PrintVerifMenu($VerifEmail, $VerifVoter);	?>          
+	<?php
+		PrintVerifMenu($VerifEmail, $VerifVoter);		
+		PlurialMenu($k, $TopMenus);
+?>          
  
   <dl class="form-group">
   	<dt><label for="user_profile_email">Team building</label></dt>

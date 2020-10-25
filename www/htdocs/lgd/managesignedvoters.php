@@ -10,6 +10,13 @@
 	$result = $r->GetSignedElectors($Candidate_ID);
 	$EncryptURL = EncryptURL("CandidateID=" . $Candidate_ID . "&PetitionSetID=" . $CandidatePetitionSet_ID);
 	
+	$TopMenus = array ( 
+						array("k" => $k, "url" => "team", "text" => "Pledges"),
+						array("k" => $k, "url" => "teampetitions", "text" => "Manage Petitions"),
+						array("k" => $k, "url" => "teamcandidate", "text" => "Other Candidates")
+					);			
+	WriteStderr($TopMenus, "Top Menu");		
+	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";		
 ?>
 <div class="row">

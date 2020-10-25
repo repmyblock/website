@@ -93,7 +93,11 @@
 		exit();
 	}
 
-	
+	$TopMenus = array ( 
+						array("k" => $k, "url" => "voterlist", "text" => "District Voters"),
+						array("k" => $k, "url" => "voterquery", "text" => "Search Voter")
+					);
+
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
@@ -104,6 +108,11 @@
 				<div class="Subhead">
 			  	<h2 class="Subhead-heading">Voter Lookup Result</h2>
 				</div>
+				
+				<?php
+				PrintVerifMenu($VerifEmail, $VerifVoter);
+			 	PlurialMenu($k, $TopMenus);
+			?>
 
 				<form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 				<div class="list-group-item filtered f60 hundred">

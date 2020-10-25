@@ -102,7 +102,10 @@
 		<div class="Box">
 	  	<div class="Box-header pl-0">
 	    	<div class="table-list-filters d-flex">
-	  			<div class="table-list-header-toggle states flex-justify-start pl-3">Open positions to run for in the <?= $Party ?> Party</div>
+	  			<div class="table-list-header-toggle states flex-justify-start pl-3">Open positions to run for in the <?= $Party ?> Party<BR>
+	  				<FONT COLOR=BROWN><B>This menu will be enabled January 2021</B></FONT>
+	  				
+	  				</div>
 	  		</div>
 	    </div>
     
@@ -145,7 +148,7 @@
 	 
 		</div>
 		<BR>
-		<p><button type="submit" class="btn btn-primary">Run for the selected positions</button></p>
+		<?php /* <p><button type="submit" class="btn btn-primary">Run for the selected positions</button></p> */ ?>
 </div>
 </FORM>
 </div>

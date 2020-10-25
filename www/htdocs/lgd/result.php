@@ -22,7 +22,7 @@
 		
 
 			$rmb->UpdateSystemUserWithVoterCard($_POST["SystemUser_ID"], $_POST["Raw_Voter_ID"], 
-																					$_POST["Raw_Voter_UniqNYSVoterID"], $ADED, count($NumberOfVoterInDistrict));
+																					$_POST["Raw_Voter_UniqNYSVoterID"], $ADED, $_POST["Raw_Voter_EnrollPolParty"], count($NumberOfVoterInDistrict));
 																							
 			header("Location: /lgd/" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $_POST["SystemUser_ID"],

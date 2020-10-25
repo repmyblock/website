@@ -56,6 +56,12 @@
 		}
 	
 	}
+	
+	$TopMenus = array ( 
+						array("k" => $k, "url" => "voterlist", "text" => "District Voters"),
+						array("k" => $k, "url" => "voterquery", "text" => "Search Voter")
+					);			
+	WriteStderr($TopMenus, "Top Menu");		
 
 			
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
@@ -76,13 +82,11 @@
   	<h2 class="Subhead-heading">Voters</h2>
 	</div>
 
-	<?php 
-		if ($VerifEmail == true) { 
-			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
-		} else if ($VerifVoter == true) {
-			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
-		} 
-	?>
+			<?php
+				PrintVerifMenu($VerifEmail, $VerifVoter);
+			 	PlurialMenu($k, $TopMenus);
+			?>
+
 	
 	
 			

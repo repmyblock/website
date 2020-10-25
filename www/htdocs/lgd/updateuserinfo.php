@@ -35,9 +35,36 @@
 			
 			<P>
 			
-				<A HREF="/ldg/<?= $k ?>/sendlinkupdate">Send them a link to enrol into RepMyBlock.</A><BR>
-				<A HREF="/ldg/<?= $k ?>/sendlinkreginfo">Send them information to update their voter registration information.</A><BR>
-				<A HREF="/ldg/<?= $k ?>/sendlinkcandidate">Send them information on a candidate you like.</A><BR>
+				<A HREF="/lgd/<?= CreateEncoded (
+													array( 
+														"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+														"FirstName" => $PersonFirstName, "LastName" => $PersonLastName,
+														"VotersIndexes_ID" =>  $URIEncryptedString["VotersIndexes_ID"], "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+														"UserParty" => $URIEncryptedString["UserParty"], "MenuDescription" => $URIEncryptedString["MenuDescription"],
+														"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+														"VerifVoter" => $URIEncryptedString["VerifVoter"], "VerifEmail" => $URIEncryptedString["VerifEmail"],
+														"EDAD" => $URIEncryptedString["EDAD"]
+													)) ?>/sendlink">Send them a link to enrol into RepMyBlock.</A><BR>
+				<A HREF="/lgd/<?= CreateEncoded (
+													array( 
+														"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+														"FirstName" => $PersonFirstName, "LastName" => $PersonLastName,
+														"VotersIndexes_ID" =>  $URIEncryptedString["VotersIndexes_ID"], "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+														"UserParty" => $URIEncryptedString["UserParty"], "MenuDescription" => $URIEncryptedString["MenuDescription"],
+														"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+														"VerifVoter" => $URIEncryptedString["VerifVoter"], "VerifEmail" => $URIEncryptedString["VerifEmail"],
+														"EDAD" => $URIEncryptedString["EDAD"]
+													))?>/sendlink">Send them information to update their voter registration information.</A><BR>
+				<A HREF="/lgd/<?= CreateEncoded (
+													array( 
+														"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+														"FirstName" => $PersonFirstName, "LastName" => $PersonLastName,
+														"VotersIndexes_ID" =>  $URIEncryptedString["VotersIndexes_ID"], "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+														"UserParty" => $URIEncryptedString["UserParty"], "MenuDescription" => $URIEncryptedString["MenuDescription"],
+														"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+														"VerifVoter" => $URIEncryptedString["VerifVoter"], "VerifEmail" => $URIEncryptedString["VerifEmail"],
+														"EDAD" => $URIEncryptedString["EDAD"]
+													)) ?>/sendlink">Send them information on a candidate you like.</A><BR>
 				
 </P>
 <P>

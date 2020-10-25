@@ -26,13 +26,7 @@
 			  	<h2 class="Subhead-heading">Petitions</h2>
 				</div>
 				
-				<?php 
-					if ($VerifEmail == true) { 
-						include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
-					} else if ($VerifVoter == true) {
-						include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
-					} 
-				?> 
+				<?php	PrintVerifMenu($VerifEmail, $VerifVoter);	?>     
 			
 			  <div class="Box">
 					<div class="Box-header pl-0">
@@ -46,13 +40,14 @@
 				if ( empty ($Petitions)) { ?>    
 			    <div class="Box-body text-center py-6 js-collaborated-repos-empty">
 			      You have not yet setup your petitions 
-			    	<a href="setup/?k=<?= $k ?>">you can setup it up here.</a>
+			    	<a href="/lgd/<?= $k ?>/profilecandidate"><B>you can setup it up here</B></a>.
+			    		<BR><FONT COLOR=BROWN><B>This menu will be enabled January 2021</B></FONT>
 			    </div>
 			<?php } 
 				} else { ?>
 			    <div class="Box-body text-center py-6 js-collaborated-repos-empty">
 			      Before you can setup your petitions 
-			    	<a href=/lgd/profile/voter/?k=<?= $k ?>">you need to verify your voter information.</a>
+			    	<a href=/lgd/<?= $k ?>/profilevoter">you need to verify your voter information.</a>
 			    </div>
 			<?php } ?>
 			

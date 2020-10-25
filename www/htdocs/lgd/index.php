@@ -15,9 +15,6 @@
 	WriteStderr($rmbperson, "rmbperson");
 	WriteStderr($NumberPetitions, "NumberPetition");
 	
-	if ( $VerifVoter == 1 && $rmbperson["Raw_Voter_ID"] > 0 ) { $VerifVoter = 0; }
-	if ( $VerifEmail == 1 && $rmbperson["SystemUser_emailverified"] == 'yes') { $VerifEmail = 0; }
-
 	/* Define numbers */
 	$Party = NewYork_PrintParty($rmbperson["SystemUser_Party"]);		
 	$NumberOfElectors = $rmbperson["SystemUser_NumVoters"];
@@ -93,7 +90,7 @@
 					Once you collect the  <?= $NumberOfSignatures ?> signatutes plus a few more, 
 					you need to wait until <? $DateToWait ?> to take them
 					to the board of elections. <B>Just follow the 
-					<A HREF="<?= $FrontEndWeb ?>/where-to-file/prepare-to-file-your-petition-to-the-board-of-elections.html">instruction posted on the FAQ</A>.</B>
+					<A HREF="/exp/<?= $k ?>/howto">instruction posted on the FAQ</A>.</B>
 				</P>
 				
 						
