@@ -6,6 +6,24 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 
+	switch ($URIEncryptedString["SendOption"]) {
+		case "SendLink":
+			$title = "Send Link to enroll to Rep My Block";
+			$emailfunc = "SendEnrolRepMyBlock";			
+			break;
+			
+		case "UpdateVoterInfo":
+			$title = "Send link to update registration info";
+			$emailfunc = "SendInfoUpdateRegister";
+			break;
+			
+		case "ListCandidate":
+			$title = "Send link about candidate";
+			$emailfunc = "SendInfoAboutCandidate";
+			break;
+	}
+
+
 	if (! empty($_POST)) {
 		//echo "POST: <PRE>" . print_r($_POST) . "</PRE>";
 		parse_str(DecryptURL($_POST["String"]), $POSTEncryptedString);
@@ -14,7 +32,7 @@
 		
 		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";
-		SendInviteToEnroll($_POST["emailaddress"], $POSTEncryptedString["Campaign"], $POSTEncryptedString["CampaignEmail"], $POSTEncryptedString["VolunteerEmail"]);
+		$emailfunc($_POST["emailaddress"], $POSTEncryptedString["Campaign"], $POSTEncryptedString["CampaignEmail"], $POSTEncryptedString["VolunteerEmail"]);
 		
 		header("Location: /lgd/" . CreateEncoded ( array( 	
 								"FirstName" => $POSTEncryptedString["FirstName"] ,
@@ -24,21 +42,7 @@
 		exit();
 		
 	}
-	
-	switch ($URIEncryptedString["SendOption"]) {
-		case "SendLink":
-			$title = "Send Link to enroll to Rep My Block";
-			break;
-			
-		case "UpdateVoterInfo":
-			$title = "Send link to update registration info";
-			break;
-			
-		case "ListCandidate":
-			$title = "Send link about candidate";
-			break;
-	}
-	
+		
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 	$Party = NewYork_PrintParty($UserParty);
@@ -62,7 +66,8 @@
 																						"CampaignEmail" => $CampaignEmail,
 																						"C" => $URIEncryptedString["C"],
 																						"U" => $URIEncryptedString["U"],  	
-																						"S" => $URIEncryptedString["S"]
+																						"S" => $URIEncryptedString["S"],
+																						"SendOption" => $URIEncryptedString["SendOption"]
 																			)))) ?>">
 				
 					<P CLASS="f80">

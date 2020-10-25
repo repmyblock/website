@@ -125,6 +125,74 @@ function SendNominationEmail($to, $emailsubject, $message, $CanCominationID) {
 # final_send_mail($fullfrom, $from, $emailaddress, $emailsubject, $message, $attachements = "", $mimeready = 'no', $post_headers = "" ) {
 }
 
+
+// Nomination Email
+function SendEnrolRepMyBlock($to, $emailsubject, $message, $CanCominationID) {
+	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
+	$TextTime = time ();
+	$FromAddress = "infos@RepMyBlock.NYC";
+  $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
+  $emailsubject= "=?utf-8?b?".base64_encode("This is to Enroll in RepMyBlock.")."?=";
+  
+  $LinkToAcceptance = $FrontEndWebsite . "/get-involved/acceptnomination/?k=" . EncryptURL("CanNomination=" . $CanCominationID);
+
+	$message .= "\n\n" . $LinkToAcceptance . "\n";
+	$html_message = "<HTML>" . 
+									"<BODY>" .
+									"<P>" . $message . "</P>" .
+									"<P>" . $LinkToAcceptance . "</P>" . 
+									"</BODY>" . 
+									"</HTML>";
+	
+	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $htmlmessage);
+# final_send_mail($fullfrom, $from, $emailaddress, $emailsubject, $message, $attachements = "", $mimeready = 'no', $post_headers = "" ) {
+}
+
+
+function SendInfoUpdateRegister($to, $emailsubject, $message, $CanCominationID) {
+	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
+	$TextTime = time ();
+	$FromAddress = "infos@RepMyBlock.NYC";
+  $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
+  $emailsubject= "=?utf-8?b?".base64_encode("Information to update your voter information.")."?=";
+
+  
+  $LinkToAcceptance = $FrontEndWebsite . "/get-involved/acceptnomination/?k=" . EncryptURL("CanNomination=" . $CanCominationID);
+
+	$message .= "\n\n" . $LinkToAcceptance . "\n";
+	$html_message = "<HTML>" . 
+									"<BODY>" .
+									"<P>" . $message . "</P>" .
+									"<P>" . $LinkToAcceptance . "</P>" . 
+									"</BODY>" . 
+									"</HTML>";
+	
+	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $htmlmessage);
+# final_send_mail($fullfrom, $from, $emailaddress, $emailsubject, $message, $attachements = "", $mimeready = 'no', $post_headers = "" ) {
+}
+
+function SendInfoAboutCandidate($to, $emailsubject, $message, $CanCominationID) {
+	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
+	$TextTime = time ();
+	$FromAddress = "infos@RepMyBlock.NYC";
+  $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
+  $emailsubject= "=?utf-8?b?".base64_encode("This is the information about the following candidates.")."?=";
+
+  
+  $LinkToAcceptance = $FrontEndWebsite . "/get-involved/acceptnomination/?k=" . EncryptURL("CanNomination=" . $CanCominationID);
+
+	$message .= "\n\n" . $LinkToAcceptance . "\n";
+	$html_message = "<HTML>" . 
+									"<BODY>" .
+									"<P>" . $message . "</P>" .
+									"<P>" . $LinkToAcceptance . "</P>" . 
+									"</BODY>" . 
+									"</HTML>";
+	
+	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $htmlmessage);
+# final_send_mail($fullfrom, $from, $emailaddress, $emailsubject, $message, $attachements = "", $mimeready = 'no', $post_headers = "" ) {
+}
+
 function SendForgotLogin($to, $hashtable) {
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
@@ -239,6 +307,138 @@ function SendForgotLogin($to, $hashtable) {
 		
 }
 
+function SendReferralWelcome($to) {	
+	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+	$TextTime = time ();
+	$FromAddress = "infos@RepMyBlock.NYC";
+  $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
+	$emailsubject= "=?utf-8?b?".base64_encode("Thanks for registering on the Rep My Block website.")."?=";
+	
+	
+	
+	$linktoverify = $FrontEndWebsite . "/exp/website/interested";
+	$BotArray["sendemail"] = $to;
+	$WelcomeLine = "Hello";
+	
+	$message = 
+		"Content-Transfer-Encoding: base64\n" .
+		"Content-Type: text/plain; charset=utf-8\n\n" . 
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+					"\n" . $WelcomeLine . ",\n\n" . 
+					"We are still working on the website, and it should be fully functional for the 2021 City Council Cycle sometimes.\n\n" .
+					"We will also have a section for all the candidates for City Council running in your district to put information about their campaign. They should not have to pay millions of dollars to reach you.\n\n" . 
+					"We won't share your information with them without your consent.\n\n".
+					"We hope that you will run to represent your block.\n\n".
+					$linktoverify . "\n\n" .
+					"Most importantly, share the knowledge."
+				)
+			)
+		) . 
+	"\n";
+
+	$html_message = 
+		"Content-Transfer-Encoding: base64\n" .
+		//"Content-Transfer-Encoding: utf-8\n" .
+		"Content-Type: text/html; charset=utf-8\n\n" .	
+		
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+		
+					TopEmail() . 
+					
+					"<P>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>" . $WelcomeLine .",</FONT><BR>\n" .
+					"</P>\n" .
+		
+					"<P>\n" .
+					"We are still working on the website, and it should be fully functional for the 2021 City Council Cycle sometimes.<BR> " .
+					"</P>\n" .
+
+					"<P>\n" .
+					"We will also have a section for all the candidates for City Council running in your district to put information about their campaign. They should not have to pay millions of dollars to reach you. " .
+					"</P>\n" .
+					
+					"<P>\n" .
+					"We won't share your information with them without your consent." .
+					"</P>\n" .
+					
+					
+					"<P>\n" .
+					"<B>We hope that you will run to represent your block.</B>" .
+					"</P>\n" .
+		
+							 
+					// SUBURBAN BUTTON GROUP START 
+							"<center>" .
+							"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" align=\"center\" " . 
+							       "class=\"responsive-table\" style=\"max-width: 100%\">\n" .
+							 
+							  "<tr>\n" . 
+							    "<td align=\"center\" style=\"padding:5px\" class=\"responsive-table\">\n" . 
+							
+					// START BUTTON
+										"<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"360\" height=\"59\" class=\"responsive-table\">\n" . 
+										  "<tr>\n" . 
+										    "<td class=\"responsive-table-button blue-red\" bgcolor=\"#EE2E62\" width=\"360\" height=\"59\" " . 
+										      "style=\"-webkit-border-radius:4px;border-radius:4px;border:1px solid #00007f;" . 
+										      "border-bottom:4px solid #EE2E62;min-width:360px; max-width:360px;\" " . 
+										      "align=\"center\">\n" . 
+													  "<a class=\"mobile-font-22 blue-btn\" height=\"59\" href=\"" . $linktoverify . "\" target=\"_blank\" " . 
+												  	"style=\"padding:13px;display:block;font-size:26px;font-family:Avenir,Arial,sans-serif;font-weight:700;" .
+													  "font-style:normal;color:#ffffff;letter-spacing:0em;text-decoration:none;line-height:33px;\">Register to Represent My Block</a>\n" . 
+										    "</td>\n" . 
+										  "</tr>\n" . 
+										"</table>\n" . 
+					//  END BUTTON
+		
+									"</td>\n" . 
+								"</tr>\n" . 
+							
+							"</table>" .
+							"</center>\n" . 
+					// SUBURBAN BUTTON GROUP END -->\n" .
+				 
+		
+			
+					"<P>\n" .
+					"<B>Most importantly, share the knowledge.</B>" .
+					"</P>\n" .
+		
+		
+				/*
+					AddCountiesSpecials($infoarray["County"], $infoarray["Party"]) . 
+				
+	
+					"<div>" . 
+			   	"<!--[if mso]>" . 
+			    "<v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" . $linktoverify  . "\" style=\"height:36px;v-text-anchor:middle;\" strokecolor=\"#EE2E62\" fillcolor=\"#EE2E62\">" . 
+			    "<w:anchorlock/>" . 
+			   	"<center style=\"color:#ffffff;font-family:Helvetica, Arial,sans-serif;font-size:16px;\">Verify my email address</center>" . 
+			   	"</v:roundrect>" . 
+			  	"<![endif]-->" . 
+			  	"<a href=\"" . $linktoverify  . "\" style=\"padding: 8px 12px;background-color:#EE2E62;font-weight: bold;border:1px solid #EB7035;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:20px;line-height:44px;text-align:center;text-decoration:none;-webkit-text-size-adjust:none;mso-hide:all;\">Verify my email address</a>" . 
+			 		" </div>" . 
+			*/
+		
+			/*
+					"<P><BR>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\">Once you validate your email, " . 
+					"you can share this email with your friends interested to know more.</FONT><BR>\n" . 
+					"</P>\n" .
+			*/
+		
+					BottomEmail($BotArray)
+				)
+			)
+		) . 
+	"\n";
+	
+	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $html_message);	
+		
+}
 
 function SendForgotUsername($to, $hashtable) {
 	
@@ -565,6 +765,122 @@ function SendChangeEmail($to, $hashtable, $username, $infoarray = "") {
 	
 }
 
+
+
+function SendInviteToEnroll($to, $campaign, $campaignemail, $volunteer) {
+	
+	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+	$TextTime = time ();
+	$FromAddress = "infos@RepMyBlock.NYC";
+  $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
+	$emailsubject= "=?utf-8?b?".base64_encode("Thanks for volunteer for $campaign")."?=";
+	
+
+	$linktoverify = $FrontEndWebsite . "/login/forgotuser/recover/?hashkey=" . $hashtable .
+									"&email=" . rawurlencode($to);       
+
+	$BotArray["sendemail"] = $to;
+  $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
+	
+	$WelcomeLine = "Hello";
+	
+	$message = 
+		"Content-Transfer-Encoding: base64\n" .
+		"Content-Type: text/plain; charset=utf-8\n\n" . 
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+					"\n" . $WelcomeLine . ",\n\n" . 
+					"You can recover your username by clicking on this link: " .
+					$linktoverify . "\n\n" .
+					
+					"Once you validate your email, you can share this email with your friends interested to know more.\n" . 
+					"This message was sent to: " . $BotArray["sendemail"] . "\n"
+				)
+			)
+		) . 
+	"\n";
+
+	$html_message = 
+		"Content-Transfer-Encoding: base64\n" .
+		//"Content-Transfer-Encoding: utf-8\n" .
+		"Content-Type: text/html; charset=utf-8\n\n" .	
+		
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+		
+					TopEmail() . 
+					
+					"<P>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>" . $WelcomeLine .",</FONT><BR>\n" .
+					"</P>\n" .
+		
+					"<P>\n" .
+					"Thank you for volunteering for the $campaign. They will be contacting you very soon.<BR> " .
+					"</P>\n" .
+		
+							 
+					// SUBURBAN BUTTON GROUP START 
+							"<center>" .
+							"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" align=\"center\" " . 
+							       "class=\"responsive-table\" style=\"max-width: 100%\">\n" .
+							 
+							  "<tr>\n" . 
+							    "<td align=\"center\" style=\"padding:5px\" class=\"responsive-table\">\n" . 
+							
+					// START BUTTON
+										"<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"360\" height=\"59\" class=\"responsive-table\">\n" . 
+										  "<tr>\n" . 
+										    "<td class=\"responsive-table-button blue-red\" bgcolor=\"#EE2E62\" width=\"360\" height=\"59\" " . 
+										      "style=\"-webkit-border-radius:4px;border-radius:4px;border:1px solid #00007f;" . 
+										      "border-bottom:4px solid #EE2E62;min-width:360px; max-width:360px;\" " . 
+										      "align=\"center\">\n" . 
+													  "<a class=\"mobile-font-22 blue-btn\" height=\"59\" href=\"" . $linktoverify . "\" target=\"_blank\" " . 
+												  	"style=\"padding:13px;display:block;font-size:26px;font-family:Avenir,Arial,sans-serif;font-weight:700;" .
+													  "font-style:normal;color:#ffffff;letter-spacing:0em;text-decoration:none;line-height:33px;\">Accept the invitation</a>\n" . 
+										    "</td>\n" . 
+										  "</tr>\n" . 
+										"</table>\n" . 
+					//  END BUTTON
+		
+									"</td>\n" . 
+								"</tr>\n" . 
+							
+							"</table>" .
+							"</center>\n" . 
+					// SUBURBAN BUTTON GROUP END -->\n" .
+				 
+		
+		
+					AddCountiesSpecials($infoarray["County"], $infoarray["Party"]) . 
+				
+			/*
+					"<div>" . 
+			   	"<!--[if mso]>" . 
+			    "<v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" . $linktoverify  . "\" style=\"height:36px;v-text-anchor:middle;\" strokecolor=\"#EE2E62\" fillcolor=\"#EE2E62\">" . 
+			    "<w:anchorlock/>" . 
+			   	"<center style=\"color:#ffffff;font-family:Helvetica, Arial,sans-serif;font-size:16px;\">Verify my email address</center>" . 
+			   	"</v:roundrect>" . 
+			  	"<![endif]-->" . 
+			  	"<a href=\"" . $linktoverify  . "\" style=\"padding: 8px 12px;background-color:#EE2E62;font-weight: bold;border:1px solid #EB7035;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:20px;line-height:44px;text-align:center;text-decoration:none;-webkit-text-size-adjust:none;mso-hide:all;\">Verify my email address</a>" . 
+			 		" </div>" . 
+			*/
+		
+					"<P><BR>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\">Once you validate your email, " . 
+					"you can share this email with your friends interested to know more.</FONT><BR>\n" . 
+					"</P>\n" .
+		
+					BottomEmail($BotArray)
+				)
+			)
+		) . 
+	"\n";
+	
+	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $html_message);	
+		
+}
 
 
 function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {	

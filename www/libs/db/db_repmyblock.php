@@ -575,9 +575,9 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED, $VoterCount = 0) {
-		$sql = "UPDATE SystemUser SET Raw_Voter_UniqNYSVoterID = :NYSVoterID, SystemUser_EDAD = :EDAD ";
-		$sql_vars = array("NYSVoterID" => $UniqNYSVoterID,"EDAD" => $ADED, "ID" => $SystemUser_ID);
+	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED, $Party, $VoterCount = 0) {
+		$sql = "UPDATE SystemUser SET Raw_Voter_UniqNYSVoterID = :NYSVoterID, SystemUser_EDAD = :EDAD, SystemUser_Party = :Party";
+		$sql_vars = array("NYSVoterID" => $UniqNYSVoterID,"EDAD" => $ADED, "ID" => $SystemUser_ID, "Party" => $Party);
 
 
 		if ($VoterCount > 0) {

@@ -32,7 +32,11 @@
 				<B>Update the voter information.</B><BR>
 				This information is not shared with anyone except who you share it with.
 			</P>
-			
+		
+			<?php
+					// To deal with the referer
+					$KeyWords = PrintReferer(1);
+			?>
 			<P>
 			
 				<A HREF="/lgd/<?= CreateEncoded (
@@ -43,7 +47,10 @@
 														"UserParty" => $URIEncryptedString["UserParty"], "MenuDescription" => $URIEncryptedString["MenuDescription"],
 														"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
 														"VerifVoter" => $URIEncryptedString["VerifVoter"], "VerifEmail" => $URIEncryptedString["VerifEmail"],
-														"EDAD" => $URIEncryptedString["EDAD"]
+														"EDAD" => $URIEncryptedString["EDAD"],
+														"SendOption" => "SendLink",
+														"Return" => $KeyWords[5],	
+														"ReturnParams" => $Decrypted_k													
 													)) ?>/sendlink">Send them a link to enrol into RepMyBlock.</A><BR>
 				<A HREF="/lgd/<?= CreateEncoded (
 													array( 
@@ -53,7 +60,10 @@
 														"UserParty" => $URIEncryptedString["UserParty"], "MenuDescription" => $URIEncryptedString["MenuDescription"],
 														"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
 														"VerifVoter" => $URIEncryptedString["VerifVoter"], "VerifEmail" => $URIEncryptedString["VerifEmail"],
-														"EDAD" => $URIEncryptedString["EDAD"]
+														"EDAD" => $URIEncryptedString["EDAD"],
+														"SendOption" => "UpdateVoterInfo",
+														"Return" => $KeyWords[5],
+														"ReturnParams" => $Decrypted_k			
 													))?>/sendlink">Send them information to update their voter registration information.</A><BR>
 				<A HREF="/lgd/<?= CreateEncoded (
 													array( 
@@ -63,11 +73,14 @@
 														"UserParty" => $URIEncryptedString["UserParty"], "MenuDescription" => $URIEncryptedString["MenuDescription"],
 														"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
 														"VerifVoter" => $URIEncryptedString["VerifVoter"], "VerifEmail" => $URIEncryptedString["VerifEmail"],
-														"EDAD" => $URIEncryptedString["EDAD"]
+														"EDAD" => $URIEncryptedString["EDAD"],
+														"SendOption" => "ListCandidate",
+														"Return" => $KeyWords[5],
+														"ReturnParams" => $Decrypted_k			
 													)) ?>/sendlink">Send them information on a candidate you like.</A><BR>
 				
-</P>
-<P>
+					</P>
+					<P>
 				<BR>
 				
 			<A HREF="<?= PrintReferer()  ?>">Return to previous menu</A></B>

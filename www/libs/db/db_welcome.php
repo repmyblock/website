@@ -42,6 +42,16 @@ class welcome extends queries {
 		$sql_vars = array("VoterID" => $VoterID, "SystemUserID" => $SystemID, "CandidateID" => $CandidateID, "Email" => $Email);
 		return $this->_return_nothing($sql, $sql_vars);			
 	}
+	
+	function SaveReferral($Email, $CellPhone) {
+		if ( ! empty ($Email) || ! empty($CellPhone)) {
+			$sql = "INSERT INTO Referral SET ";
+			if ( ! empty ($Email)) { $sql .= "Referral_email = :Email, "; $sql_vars["Email"] = $Email; }
+			if ( ! empty ($CellPhone)) { $sql .= "Referral_cellphone = :CellPhone, "; $sql_vars["CellPhone"] = $CellPhone; }
+			$sql .= "Referral_date = NOW()";
+			return $this->_return_nothing($sql, $sql_vars);	
+		}	
+	}
 		
 }
 

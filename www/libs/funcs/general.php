@@ -183,12 +183,22 @@ function DB_ReturnAddressLine2($vor) {
   return $Address_Line2;
 }
 
-function PrintReferer() {
+function PrintReferer($order = 0) {
+	WriteStderr($_SERVER["HTTP_REFERER"], "HTTP_REFERER");
 
-	// We need to remove the HOST portion.
-	// $_SERVER['HTTP_HOST']	
-	return 	$_SERVER['HTTP_REFERER'];
+	switch ($order) {
+		case '1':
+			$keywords = preg_split("/\//", $_SERVER['HTTP_REFERER']);
+			WriteStderr($keywords , "Rest for Referer");
+			return $keywords;
+			break;
+			
+		default:
+			return 	$_SERVER['HTTP_REFERER'];
+			break;
+	}
 	
+	return 	$_SERVER['HTTP_REFERER'];
 }
 
 function formatPhoneNumber($phoneNumber) {

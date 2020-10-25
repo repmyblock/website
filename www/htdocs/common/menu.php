@@ -15,7 +15,7 @@
     <a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/index">Summary</a>
     <a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/district">District</a>
     <a class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/petitions">Petitions</a>
-    <a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/voters">Voters</a>
+    <a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/voterlist">Voters</a>
     <a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/team">Team</a>
     <a class="<?php if ( $Menu == "messages" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/messages">Messages</a>
     <a class="<?php if ( $Menu == "downloads" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/downloads">Downloads</a>
@@ -47,7 +47,7 @@
     <a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/index">Summary</a>
     <a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/district">District</a>
     <a class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/petitions">Petitions</a>
-    <a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/voters">Voters</a>
+    <a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/voterlist">Voters</a>
     <a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/team">Team</a>
     <a class="<?php if ( $Menu == "messages" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/messages">Messages</a>
     <a class="<?php if ( $Menu == "downloads" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/downloads">Downloads</a>
