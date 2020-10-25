@@ -19,7 +19,7 @@ class PDF_Multi extends PDF_Code128 {
 			$DatePrintEvent = $this->DateEvent;
 		}
 		
-		$this->Image('../common/NYCBOE.jpg',10 ,10 , 25);
+		$this->Image($_SERVER["DOCUMENT_ROOT"] . "/../libs/asset/NYS/NYCBOE.jpg", 10, 10, 25);
 		
 		$this->SetLineWidth(0.4);
 		
