@@ -30,7 +30,7 @@
 					<A TARGET="instagram" CLASS="FooterSocial"  HREF="https://www.instagram.com/RepMyBlockNYC">Instagram</A>
 				</DIV>
 				<DIV CLASS="FooterStuff">
-					<I>RepMyBlock is a <A HREF="https://OutragedDems.NYC">Outraged Dems</A> project.</I>
+					<I>RepMyBlock is a <A HREF="https://RepMyBlock.US">Represent My Block</A> project.</I>
 				</DIV>
 			</P>
 		</DIV>			

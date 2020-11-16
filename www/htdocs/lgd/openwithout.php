@@ -13,6 +13,9 @@
 	$MyAddressToUse = "<B>" . DB_ReturnAddressLine1($result[0], 0) . "</B><BR>" . DB_ReturnAddressLine2($result[0]);
 	
 	if ( ! empty ($result)) {
+		
+		WriteStderr($result, "Result of voters - result");
+		
 		foreach ($result as $var) {
 			if ( ! empty ($var)) {
 				 
@@ -21,7 +24,7 @@
 				}
 				
 				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Petition_ID"] = $var["Candidate_ID"];
-				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_ID"] = $var["VotersIndexes_UniqNYSVoterID"];
+				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_ID"] = $var["Raw_Voter_UniqNYSVoterID"];
 				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_FullName"] = DB_ReturnFullName($var);
 				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_Address"] = "Apt " . $var["Raw_Voter_ResApartment"];
 				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Binary"] = $var["BinNotNeeded"];
@@ -32,8 +35,11 @@
 		}	
 	}
 	
+	// The function depending.	
+	$FunctionToFollow = "updateuserinfo";
+	$FunctionToFollow = "updateusercaninfo";
 	
-	WriteStderr($Electors, "Result of voters - result");
+	WriteStderr($Electors, "Result of voters - Electors");
 	
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
@@ -62,9 +68,6 @@
 		} 
 	?>
 
-
-
-
 	<div class="Box">
   	<div class="Box-header pl-0">
     	<div class="table-list-filters d-flex">
@@ -87,7 +90,21 @@
 						
 					 
 <?php				foreach ($Elector as $Elect) {
-					 		if (! empty ($Elect)) { ?>
+					 		if (! empty ($Elect)) { 
+					 			
+					 			$MyLocalK = CreateEncoded ( array( 
+									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+									"FirstName" => $URIEncryptedString["FirstName"], 
+									"LastName" => $URIEncryptedString["LastName"],
+									"VotersIndexes_ID" => $URIEncryptedString["VotersIndexes_ID"],
+									"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+									"EDAD" =>  $URIEncryptedString["EDAD"],
+									"UserParty" => $URIEncryptedString["UserParty"],
+									"Elector_ID" => $Elect["Elector_ID"]
+								));
+					 			
+					 			
+					 			?>
 								<div class="list-group-item f60">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-arrows-alt handle"></i>&nbsp;
 									<span class="ml-1"><?= $Elect["Elector_Address"] ?></span>&nbsp;
 									<INPUT TYPE="checkbox" NAME="CreateID[]" VALUE="<?= $Elect["Elector_ID"] ?>">&nbsp;&nbsp;
@@ -96,8 +113,8 @@
 									
 							<?php /*	<svg class="octicon octicon-repo mr-1" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg> */ ?>
 							<?php /* Petition <a class="mr-1" href="<?= $k ?>/organize">#<?= $Elect["Petition_ID"] ?></a> */ ?>
-									<a class="mr-1" href="/lgd/<?= $k ?>/updateuserinfo">Update Info</a>
-									<a class="mr-1" href="/lgd/<?= $k ?>/showqrcode">Show QR Code</a></div><?php 
+									<a class="mr-1" href="/lgd/<?= $MyLocalK ?>/<?= $FunctionToFollow ?>">Update Info</a>
+									<a class="mr-1" href="/lgd/<?= $MyLocalK ?>/showqrcode">Show QR Code</a></div><?php 
 				}	 
 						} ?>
 						

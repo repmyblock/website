@@ -11,12 +11,66 @@ class RepMyBlock extends queries {
 	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
+  function ListSurveyCategories($SystemUserID) {
+  	$sql = "SELECT * FROM TeamMemberOrg " .
+  					"LEFT JOIN SurveyCategory ON (TeamMemberOrg.TeamMember_ID = SurveyCategory.TeamMember_ID) " .
+  					"LEFT JOIN SurveyValues ON (TeamMemberOrg.TeamMember_ID = SurveyValues.TeamMember_ID " . 
+  					"AND SurveyCategory.SurveyCategory_ID = SurveyValues.SurveyCategory_ID) " .
+  					"WHERE TeamMemberOrg.SystemUser_ID = :SystemUserID";
+  	$sql_vars = array("SystemUserID" => $SystemUserID);
+  	return $this->_return_multiple($sql, $sql_vars);	
+  }
+  
   function SearchUsers($DateFile) {
   	$sql = "SELECT * FROM SystemUser " .
   					"LEFT JOIN Raw_Voter_" . $DateFile . " ON (Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = SystemUser.Raw_Voter_UniqNYSVoterID)";
   	$sql_vars = array();
   	return $this->_return_multiple($sql, $sql_vars);
   }
+  
+  function SearchVoterContactEmail($SystemUserID, $UniqNYSVoterID, $EmailAddress) { 	
+		$sql = "SELECT * FROM VoterContactEmail " .
+						"WHERE SystemUser_ID = :SystemUserID AND Raw_Voter_UniqNYSVoterID = :Uniq AND VoterContactEmail_val = :Email";
+  	$sql_vars = array("SystemUserID" => $SystemUserID, "Uniq" => $UniqNYSVoterID, "Email" => $EmailAddress);
+  	return $this->_return_multiple($sql, $sql_vars);
+  }
+	
+  function SaveVoterContactEmail($SystemUserID, $UniqNYSVoterID, $EmailAddress) { 	
+  	$sql = "INSERT INTO VoterContactEmail " .
+  					"SET SystemUser_ID = :SystemUserID, Raw_Voter_UniqNYSVoterID = :Uniq, VoterContactEmail_val = :Email, VoterContactEmail_dateadded = NOW()";
+  	$sql_vars = array("SystemUserID" => $SystemUserID, "Uniq" => $UniqNYSVoterID, "Email" => $EmailAddress);
+  	return $this->_return_nothing($sql, $sql_vars);
+  }
+  
+  function SearchVoterContactTelephone($SystemUserID, $UniqNYSVoterID, $Telephone) { 	
+		$sql = "SELECT * FROM VoterContactPhone " .
+						"WHERE SystemUser_ID = :SystemUserID AND Raw_Voter_UniqNYSVoterID = :Uniq AND VoterContactPhone_val = :Phone";
+  	$sql_vars = array("SystemUserID" => $SystemUserID, "Uniq" => $UniqNYSVoterID, "Phone" => $Telephone);
+  	return $this->_return_multiple($sql, $sql_vars);
+  }
+	
+  function SaveVoterContactTelephone($SystemUserID, $UniqNYSVoterID, $Telephone, $TypePhone = NULL) { 	
+  	$sql = "INSERT INTO VoterContactPhone " .
+  					"SET SystemUser_ID = :SystemUserID, Raw_Voter_UniqNYSVoterID = :Uniq, VoterContactPhone_val = :Phone, VoterContactPhone_dateadded = NOW()";
+  	$sql_vars = array("SystemUserID" => $SystemUserID, "Uniq" => $UniqNYSVoterID, "Phone" => $Telephone);
+  	
+  	if ( ! empty ($TypePhone)) {
+  		$sql .= ", VoterContactPhone_type = :TypePhone";
+  		$sql_vars["TypePhone"] = $TypePhone;
+  	}
+
+  	return $this->_return_nothing($sql, $sql_vars);
+  }
+  
+  function FindAllVoterInformationByUniq($SystemID, $ElectorID, $DateFile) {
+  	$sql = "SELECT * FROM Raw_Voter_" . $DateFile . " " .
+  					"LEFT JOIN VoterContactEmail ON (Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = VoterContactEmail.Raw_Voter_UniqNYSVoterID AND VoterContactEmail.SystemUser_ID = :SystemID_1) " . 
+  					"LEFT JOIN VoterContactPhone ON (Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = VoterContactPhone.Raw_Voter_UniqNYSVoterID AND VoterContactPhone.SystemUser_ID = :SystemID_2) " . 
+  					"WHERE Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = :Uniq";
+  	$sql_vars = array("Uniq" => $ElectorID, "SystemID_1" => $SystemID, "SystemID_2" => $SystemID);		
+  	return $this->_return_multiple($sql, $sql_vars); 	
+  }
+  
   
   function FindVotersInRawForEDAD($ADED, $Party, $DateFile) {  	
   	preg_match('/(\d\d)(\d\d\d)/', $ADED, $Keywords);		
