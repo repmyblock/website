@@ -267,7 +267,7 @@ class login extends queries {
 	
 	function CheckUsernamePassword($Username, $Password) {
 		$sql = "SELECT * FROM SystemUser " . 
-						"LEFT JOIN Raw_Voter ON (Raw_Voter.Raw_Voter_ID = SystemUser.Raw_Voter_ID) " .
+						"LEFT JOIN Voters ON (Voters.Voters_ID = SystemUser.Voters_ID) " .
 						"WHERE SystemUser_username = :Username";
 		
 		$sql_vars = array("Username" => $Username);
