@@ -28,7 +28,7 @@
 	<P CLASS="BckGrndElement">DOWNLOAD FORM</P>
 
 	<P>
-		<B><A HREF="https://pdf.repmyblock.nyc/NYS/mainpage/CRU_PreFile">NYC BOE Pre Assigned Indentification Number Application</A></B>
+		<B><A HREF="https://pdf.repmyblock.nyc/NYS/NYC/CRU_PreFile">NYC BOE Pre Assigned Indentification Number Application</A></B>
 	</P>
 	
 	<P CLASS="BckGrndElement">HOW IT WORKS</P>
