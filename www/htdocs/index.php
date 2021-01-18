@@ -18,11 +18,10 @@
 		<A class="action-runfor" HREF="/exp/<?= $middleuri ?>/interested" CLASS="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
 		<A class="action-nominate" HREF="/exp/<?= $middleuri ?>/propose" CLASS="NomCandidate"><img class="action-nominate" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
 	</DIV>
-<?php /*
+
 	<P CLASS="BlueBox">
-		<A HREF="interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>FEBRUARY 26 TO APRIL 4, 2019.</a>
+		<A HREF="interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>FEBRUARY 23 TO APRIL 1, 2021.</a>
 	</P>
-*/?>
 
 	<BR>
 
