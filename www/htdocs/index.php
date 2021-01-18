@@ -31,13 +31,6 @@
 		<B><A HREF="https://pdf.repmyblock.nyc/NYS/mainpage/CRU_PreFile">NYC BOE Pre Assigned Indentification Number Application</A></B>
 	</P>
 	
-
-	<P CLASS="BckGrndElement">HOW IT WORKS</P>
-
-	<P>
-		<B>The County Committee is the most basic committee of any New York party; it's their backbone.</B>
-	</P>
-
 	<P CLASS="BckGrndElement">HOW IT WORKS</P>
 
 	<P>
@@ -46,7 +39,7 @@
 	
 	<P>	
 		The County Committee is the most basic committee of any New York party; it's the backbone because it selects the local platform and 
-		the candidates that will represent our values. Many registered Democrats dont even know its existence. 
+		the candidates that will represent our values. Many registered Democrats or Republicans dont even know its existence. 
 		It's the body that validates the party backroom deals. 
 	</P>
 	
