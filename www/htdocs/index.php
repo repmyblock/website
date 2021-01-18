@@ -20,7 +20,7 @@
 	</DIV>
 
 	<P CLASS="BlueBox">
-		<A HREF="interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>FEBRUARY 23 TO APRIL 1, 2021.</a>
+		<A HREF="/exp/<?= $middleuri ?>/interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>FEBRUARY 23 TO APRIL 1, 2021.</a>
 	</P>
 
 	<BR>
@@ -28,9 +28,15 @@
 	<P CLASS="BckGrndElement">DOWNLOAD FORM</P>
 
 	<P>
-		<A HREF="https://pdf.repmyblock.nyc/NYS/mainpage/CRU_PreFile">NYC BOE Pre Assigned Indentification Number Application</A>
+		<B><A HREF="https://pdf.repmyblock.nyc/NYS/mainpage/CRU_PreFile">NYC BOE Pre Assigned Indentification Number Application</A></B>
 	</P>
 	
+
+	<P CLASS="BckGrndElement">HOW IT WORKS</P>
+
+	<P>
+		<B>The County Committee is the most basic committee of any New York party; it's their backbone.</B>
+	</P>
 
 	<P CLASS="BckGrndElement">HOW IT WORKS</P>
 
