@@ -64,8 +64,8 @@ class RepMyBlock extends queries {
   
   function FindAllVoterInformationByUniq($SystemID, $ElectorID, $DateFile) {
   	$sql = "SELECT * FROM Raw_Voter_" . $DateFile . " " .
-  					"LEFT JOIN VoterContactEmail ON (Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = VoterContactEmail.Raw_Voter_UniqNYSVoterID AND VoterContactEmail.SystemUser_ID = :SystemID_1) " . 
-  					"LEFT JOIN VoterContactPhone ON (Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = VoterContactPhone.Raw_Voter_UniqNYSVoterID AND VoterContactPhone.SystemUser_ID = :SystemID_2) " . 
+  					"INNER JOIN VoterContactEmail ON (Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = VoterContactEmail.Raw_Voter_UniqNYSVoterID AND VoterContactEmail.SystemUser_ID = :SystemID_1) " . 
+  					"INNER JOIN VoterContactPhone ON (Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = VoterContactPhone.Raw_Voter_UniqNYSVoterID AND VoterContactPhone.SystemUser_ID = :SystemID_2) " . 
   					"WHERE Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = :Uniq";
   	$sql_vars = array("Uniq" => $ElectorID, "SystemID_1" => $SystemID, "SystemID_2" => $SystemID);		
   	return $this->_return_multiple($sql, $sql_vars); 	
