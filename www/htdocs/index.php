@@ -30,6 +30,11 @@
 	<P>
 		<B><A HREF="https://pdf.repmyblock.nyc/NYS/NYC/CRU_PreFile">NYC BOE Pre Assigned Indentification Number Application</A></B>
 	</P>
+		
+		<P CLASS="MediaCenter">
+	 <iframe width="560" height="315" src="https://www.youtube.com/embed/lDt7hQFxPB8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</P>
+		
 	
 	<P CLASS="BckGrndElement">HOW IT WORKS</P>
 
