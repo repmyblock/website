@@ -20,7 +20,7 @@
 	</DIV>
 <?php /*
 	<P CLASS="BlueBox">
-		<A HREF="interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>MARCH 2 TO MARCH 25, 2019.</a>
+		<A HREF="interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>MARCH 2 TO MARCH 25, 2021.</a>
 	</P>
 */?>
 	<P CLASS="BckGrndElement">HOW IT WORKS</P>
