@@ -20,7 +20,7 @@
 	</DIV>
 
 	<P CLASS="BlueBox">
-		<A HREF="/exp/<?= $middleuri ?>/interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>FEBRUARY 23 TO APRIL 1, 2021.</a>
+		<A HREF="/exp/<?= $middleuri ?>/interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>MARCH 2 TO MARCH 25, 2021.</a>
 	</P>
 
 	<BR>
@@ -28,8 +28,13 @@
 	<P CLASS="BckGrndElement">DOWNLOAD FORM</P>
 
 	<P>
-		<B><A HREF="https://pdf.repmyblock.nyc/NYS/NYC/CRU_PreFile">NYC BOE Pre Assigned Indentification Number Application</A></B>
+		<B><FONT SIZE=+1><A HREF="https://pdf.repmyblock.nyc/NYS/NYC/CRU_PreFile">NYC BOE Pre Assigned Indentification Number Application</A></FONT></B>
 	</P>
+		
+		<P CLASS="MediaCenter">
+	 <iframe width="560" height="315" src="https://www.youtube.com/embed/lDt7hQFxPB8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</P>
+		
 	
 	<P CLASS="BckGrndElement">HOW IT WORKS</P>
 
