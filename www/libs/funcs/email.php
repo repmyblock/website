@@ -1235,9 +1235,9 @@ function TopEmail() {
 										
 										"<DIV style=\"padding: 12px 20px 20px 10px ;text-align: center;background: #FCED00;color: #FCED00;\">\n" .
 										"<FONT style=\"font-size: 24px;font-weight: bold;color:#16317D;\">Rep My Block</FONT><BR>\n" .
-										"<FONT style=\"font-size: 14px;color:#16317D;\">Represent your community by running for the County Committee</FONT>" . 
+										"<FONT style=\"font-size: 14px;color:#16317D;\">Represent your community by running for the County Committee" . 
 										$BETANOTICE . 
-										"\n" .
+										"</FONT>\n" .
 										"</DIV>\n";
 
 // HEADER END
