@@ -99,10 +99,7 @@ function SendWalkList($to, $emailsubject, $InsideText, $EDAD, $k, $data) {
 	"\n";
 	
 	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $html_message);	
-	
-	
 }
-
 
 // Nomination Email
 function SendNominationEmail($to, $emailsubject, $message, $CanCominationID) {
@@ -124,7 +121,6 @@ function SendNominationEmail($to, $emailsubject, $message, $CanCominationID) {
 	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $htmlmessage);
 # final_send_mail($fullfrom, $from, $emailaddress, $emailsubject, $message, $attachements = "", $mimeready = 'no', $post_headers = "" ) {
 }
-
 
 // Nomination Email
 function SendEnrolRepMyBlock($to, $emailsubject, $message, $CanCominationID) {
@@ -882,14 +878,12 @@ function SendInviteToEnroll($to, $campaign, $campaignemail, $volunteer) {
 		
 }
 
-
 function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {	
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	
-	#$TextTime = time ();
 	$FromAddress = "infos@" . $MailFromDomain;
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
-  $emailsubject= "=?utf-8?b?".base64_encode("Verify your email address on Rep My Block.")."?=";
+  $emailsubject= "=?utf-8?b?" . base64_encode("Verify your email address on Rep My Block.") . "?=";
 
 	$BotArray["sendemail"] =  $to;
 
@@ -1241,7 +1235,9 @@ function TopEmail() {
 										
 										"<DIV style=\"padding: 12px 20px 20px 10px ;text-align: center;background: #FCED00;color: #FCED00;\">\n" .
 										"<FONT style=\"font-size: 24px;font-weight: bold;color:#16317D;\">Rep My Block</FONT><BR>\n" .
-										"<FONT style=\"font-size: 14px;color:#16317D;\">Represent your community by running for the County Committee</FONT>\n" .
+										"<FONT style=\"font-size: 14px;color:#16317D;\">Represent your community by running for the County Committee</FONT>" . 
+										$BETANOTICE . 
+										"\n" .
 										"</DIV>\n";
 
 // HEADER END
