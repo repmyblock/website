@@ -17,8 +17,8 @@
 
 			// This is a hack to deal with the fact that the database need to be rebuilt.
 			// So we need to get the rest in the RawDatabase
-			$ResultRawInfo = $r->FindVotersFromNYSUniq($resultPass["Raw_Voter_UniqNYSVoterID"], $DatedFiles);
-			WriteStderr($ResultRawInfo, "ResultRawInfo");
+			// $ResultRawInfo = $r->FindVotersFromNYSUniq($resultPass["Raw_Voter_UniqNYSVoterID"], $DatedFiles);
+			// WriteStderr($ResultRawInfo, "ResultRawInfo");
 		
 			$VariableToPass = array( 
 				"SystemUser_ID" => $resultPass["SystemUser_ID"],

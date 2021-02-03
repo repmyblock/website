@@ -11,7 +11,7 @@
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
 
-if (! empty($_POST)) {	
+	if (! empty($_POST)) {	
 	
 		// This will be different answer depending
 		$finalurl = "voterresult";
@@ -37,8 +37,10 @@ if (! empty($_POST)) {
 	}
 
 	$rmb = new RepMyBlock();	
-	$result = $rmb->GetPetitionsForCandidate($DatedFiles, 0, $URIEncryptedString["SystemUser_ID"]);
 	
+	// Why I am getting petition for candidates ?
+	//	$result = $rmb->GetPetitionsForCandidate($DatedFiles, 0, $URIEncryptedString["SystemUser_ID"]);
+	/*
 	if ( ! empty ($result)) {
 		foreach ($result as $var) {
 			if ( ! empty ($var)) {
@@ -60,7 +62,8 @@ if (! empty($_POST)) {
 			$Counter[$MyAddressToUse]++;
 		}	
 	}
-
+	*/
+	
 	$TopMenus = array ( 
 						array("k" => $k, "url" => "voterlist", "text" => "District Voters"),
 						array("k" => $k, "url" => "voterquery", "text" => "Search Voter")

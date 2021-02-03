@@ -45,12 +45,12 @@
 		}
 			
 	} elseif (! empty ($URIEncryptedString["Query_LastName"])) {
-		$Result = $rmb->SearchVoter_Dated_DB($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, $DatedFilesID,
+		$Result = $rmb->QueryVoterFile($URIEncryptedString["UniqNYSVoterID"], 
 																					$URIEncryptedString["Query_FirstName"], $URIEncryptedString["Query_LastName"], NULL,
 																					$URIEncryptedString["Query_ZIP"], $URIEncryptedString["Query_COUNTY"],
 																					$URIEncryptedString["Query_PARTY"], $URIEncryptedString["Query_AD"],
 																					$URIEncryptedString["Query_ED"], $URIEncryptedString["Query_Congress"]);
-		WriteStderr($Result, "SearchVoter_Dated_DB");
+		WriteStderr($Result, "QueryVoterFile");
 																				
 	} else {
 		
@@ -125,23 +125,19 @@
 				if ( ! empty ($Result)) {
 						foreach ($Result as $var) {
 							if ( ! empty ($var)) { 
-								if (empty ($Query_AD) || ( $var["Raw_Voter_AssemblyDistr"] == $Query_AD)  ) {	
-									if ( empty ($Query_ED) || ( $var["Raw_Voter_ElectDistr"] == $Query_ED)  ) {	
-										if ( empty ($PARTY) || ($var["Raw_Voter_EnrollPolParty"] == $PARTY) ) {
+								//if (empty ($Query_AD) || ( $var["Raw_Voter_AssemblyDistr"] == $Query_AD)  ) {	
+								//	if ( empty ($Query_ED) || ( $var["Raw_Voter_ElectDistr"] == $Query_ED)  ) {	
+									//	if ( empty ($PARTY) || ($var["Voters_RegParty"] == $PARTY) ) {
 															
-											$EnrollVoterParty = $var["Raw_Voter_EnrollPolParty"];
-											
-											if ( $var["Raw_Voter_Gender"] == "M") {	$EnrollVoterSex = "male"; }
-											else if ( $var["Raw_Voter_Gender"] == "F") {	$EnrollVoterSex = "female"; }
-											else { $EnrollVoterSex = "other"; }
-											
-											preg_match('/^NY0+(.*)/', $var["Raw_Voter_UniqNYSVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
+											$EnrollVoterParty = $var["Voters_RegParty"];
+										
+											preg_match('/^NY0+(.*)/', $var["VotersIndexes_UniqStateVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
 											$UniqVoterID = "NY" . $UniqMatches[1][0];
 				?>
 				
 				<div class="list-group-item f60">
 					<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
-					<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $var["Raw_Voter_Status"] ?></FONT>
+					<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $var["Voters_Status"] ?></FONT>
 					<BR><BR>
 					<TABLE BORDER=1>
 					<TR>
@@ -151,10 +147,10 @@
 						<TH style="padding:0px 10px;">Suffix</TH>
 					</TR>
 					<TR ALIGN=CENTER>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_FirstName"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_MiddleName"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_LastName"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_Suffix"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["VotersFirstName_Text"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["VotersMiddleName_Text"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["VotersLastName_Text"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["VotersIndexes_Suffix"] ?></TD>
 					</TR>
 				</TABLE>
 				<BR>
@@ -166,13 +162,13 @@
 					</TR>
 					<TR ALIGN=CENTER>					
 						<TD style="padding:0px 10px;">	<?php
-										$dob = new DateTime($var["Raw_Voter_DOB"]);
+										$dob = new DateTime($var["VotersIndexes_DOB"]);
 	 									$now = new DateTime();
 	 									$difference = $now->diff($dob);
 	 									echo $difference->y;				
 									?>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_Gender"] ?></TD>
-						<TD style="padding:0px 10px;"><?= NewYork_PrintParty($var["Raw_Voter_EnrollPolParty"]) ?></TD>
+						<TD style="padding:0px 10px;"><?= ucfirst($var["Voters_Gender"]) ?></TD>
+						<TD style="padding:0px 10px;"><?= NewYork_PrintParty($var["Voters_RegParty"]) ?></TD>
 					</TR>
 				</TABLE>
 				<BR>
@@ -254,13 +250,11 @@
 			*/ ?>
 			
 			<svg class="octicon octicon-repo mr-1" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
-			<a class="mr-1" href="/lgd/<?= $MySpecialK ?>/showqrcode">Show QR Code</a> 
-			<a class="mr-1" href="/lgd/<?= $MySpecialK ?>/updateuserinfo">Update Voter Information</a> 
-			
+			<a class="mr-1" href="/lgd/<?= $MySpecialK ?>/showqrcode">Show QR Code</a>
+			<a class="mr-1" href="/lgd/<?= $MySpecialK ?>/updateuserinfo">Update Voter Information</a>
 			<BR>
 			
-			<?php 
-			
+			<?php 	
 				$TheNewK = CreateEncoded (array( 	
 							"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
 							"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
@@ -272,23 +266,19 @@
 							"EDAD" =>  $URIEncryptedString["EDAD"]
 						)); ?>
 			
-			<B><A HREF="/lgd/<?= $TheNewK ?>/voterquery">Look for a new voter</A></B>
-			
+			<B><A HREF="/lgd/<?= $TheNewK ?>/voterquery">Look for a new voter</A></B>	
 		</div>
-		
-		
-		
-																	
-			<?php
-						}
-					}
-				}
+											
+	<?php
+		//			}
+		//		}
+		//	}
 			}	 
 		} 
 	} else { ?>
-			<div class="list-group-item f60">
-				No voter found.
-			</div>
+		<div class="list-group-item f60">
+			No voter found.
+		</div>
 	<?php } ?>
 	
 			</DIV>

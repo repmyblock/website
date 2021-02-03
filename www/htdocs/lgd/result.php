@@ -44,11 +44,11 @@
 		exit();
 	} 
 	
-	$rmbvoters = $rmb->SearchVotersBySingleIndex($URIEncryptedString["VotersIndexes_ID"], $DatedFiles);
-	WriteStderr($rmbvoters, "SearchVotersBySingleIndex");
+	$rmbvoters = $rmb->ReturnVoterIndex($URIEncryptedString["VotersIndexes_ID"]);
+	WriteStderr($rmbvoters, "ReturnVoterIndex");
 	
-	if ( empty ($rmbvoters["Raw_Voter_UniqNYSVoterID"])) {
-		$rmbvoteridx = $rmb->SearchLocalRawDBbyNYSID($rmbvoters["Raw_Voter_UniqNYSVoterID"]);
+	if ( empty ($rmbvoters["VotersIndexes_UniqStateVoterID"])) {
+		$rmbvoteridx = $rmb->SearchLocalRawDBbyNYSID($rmbvoters["VotersIndexes_UniqStateVoterID"]);
 		WriteStderr($rmbvoters, "SearchLocalRawDBbyNYSID");
 	
 		if ( ! empty ($rmbvoteridx)) {
@@ -101,31 +101,25 @@
 							
 							if ( ! empty ($var)) { 
 								if (empty ($Query_AD) || ( $var["Raw_Voter_AssemblyDistr"] == $Query_AD)  ) {	
-									if ( empty ($Query_ED) || ( $var["Raw_Voter_ElectDistr"] == $Query_ED)  ) {	
-										if ( empty ($PARTY) || ($var["Raw_Voter_EnrollPolParty"] == $PARTY) ) {
+									if ( empty ($Query_ED) || ( $var["Voters_RegParty"] == $Query_ED)  ) {	
+										if ( empty ($PARTY) || ($var["Voters_RegParty"] == $PARTY) ) {
 															
-											$EnrollVoterParty = $var["Raw_Voter_EnrollPolParty"];
-											
-											if ( $var["Raw_Voter_Gender"] == "M") {	$EnrollVoterSex = "male"; }
-											else if ( $var["Raw_Voter_Gender"] == "F") {	$EnrollVoterSex = "female"; }
-											else { $EnrollVoterSex = "other"; }
-											
-											preg_match('/^NY0+(.*)/', $var["Raw_Voter_UniqNYSVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
+											$EnrollVoterParty = $var["Voters_RegParty"];
+									
+											preg_match('/^NY0+(.*)/', $var["VotersIndexes_UniqStateVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
 											$UniqVoterID = "NY" . $UniqMatches[1][0];
 				?>
 				
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_UniqNYSVoterID"] ?>" NAME="Raw_Voter_UniqNYSVoterID">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_AssemblyDistr"] ?>" NAME="Raw_Voter_AssemblyDistr">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_ElectDistr"] ?>" NAME="Raw_Voter_ElectDistr">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_ID"] ?>" NAME="Raw_Voter_ID">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["VotersIndexes_UniqStateVoterID"] ?>" NAME="VotersIndexes_UniqStateVoterID">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTable"] ?>" NAME="ElectionsDistricts_DBTable">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTableValue"] ?>" NAME="ElectionsDistricts_DBTableValue">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["VotersIndexes_ID"] ?>" NAME="VotersIndexes_ID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $URIEncryptedString["SystemUser_ID"] ?>" NAME="SystemUser_ID">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_FirstName"] ?>" NAME="Raw_Voter_FirstName">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_LastName"] ?>" NAME="Raw_Voter_LastName">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Raw_Voter_EnrollPolParty"] ?>" NAME="Raw_Voter_EnrollPolParty">				
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_RegParty"] ?>" NAME="Voters_RegParty">				
 				
 				<div class="list-group-item f60">
 					<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
-					<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $var["Raw_Voter_Status"] ?></FONT>
+					<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $var["Voters_Status"] ?></FONT>
 					<BR><BR>
 					
 					<TABLE BORDER=1>
@@ -134,7 +128,7 @@
 									</TR>
 									
 									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $var["Raw_Voter_CountyVoterNumber"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $var["Voters_CountyVoterNumber"] ?></TD>
 									</TR>
 								</TABLE>
 					<BR>
@@ -146,10 +140,10 @@
 						<TH style="padding:0px 10px;">Suffix</TH>
 					</TR>
 					<TR ALIGN=CENTER>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_FirstName"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_MiddleName"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_LastName"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_Suffix"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["VotersFirstName_Text"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["VotersMiddleName_Text"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["VotersLastName_Text"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["VotersIndexes_Suffix"] ?></TD>
 					</TR>
 				</TABLE>
 				<BR>
@@ -161,15 +155,15 @@
 						<TH style="padding:0px 10px;">Party</TH>
 					</TR>
 					<TR ALIGN=CENTER>
-						<TD style="padding:0px 10px;"><?= PrintShortDate($var["Raw_Voter_DOB"]); ?></TD>
+						<TD style="padding:0px 10px;"><?= PrintShortDate($var["VotersIndexes_DOB"]); ?></TD>
 						<TD style="padding:0px 10px;">	<?php
-										$dob = new DateTime($var["Raw_Voter_DOB"]);
+										$dob = new DateTime($var["VotersIndexes_DOB"]);
 	 									$now = new DateTime();
 	 									$difference = $now->diff($dob);
 	 									echo $difference->y;				
 									?>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_Gender"] ?></TD>
-						<TD style="padding:0px 10px;"><?= NewYork_PrintParty($var["Raw_Voter_EnrollPolParty"]) ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["Voters_Gender"] ?></TD>
+						<TD style="padding:0px 10px;"><?= NewYork_PrintParty($var["Voters_RegParty"]) ?></TD>
 					</TR>
 				</TABLE>
 				<BR>
@@ -195,16 +189,16 @@
 					</TR>
 					<TR>
 						<TD style="padding:0px 10px;">		
-							<?php if (! empty ($var["Raw_Voter_ResHouseNumber"])) echo $var["Raw_Voter_ResHouseNumber"]; ?>
-							<?php if (! empty ($var["Raw_Voter_ResFracAddress"]))  echo $var["Raw_Voter_ResFracAddress"]; ?>
-							<?php if (! empty ($var["Raw_Voter_ResPreStreet"])) echo $var["Raw_Voter_ResPreStreet"]; ?>
-							<?php if (! empty ($var["Raw_Voter_ResStreetName"])) echo $var["Raw_Voter_ResStreetName"]; ?>
-							<?php if (! empty ($var["Raw_Voter_ResPostStDir"])) echo $var["Raw_Voter_ResPostStDir"]; ?>
-							<?php if (! empty ($var["Raw_Voter_ResApartment"])) echo " - Apt " . $var["Raw_Voter_ResApartment"]; ?>
+							<?php if (! empty ($var["DataAddress_HouseNumber"])) echo $var["DataAddress_HouseNumber"]; ?>
+							<?php if (! empty ($var["DataAddress_FracAddress"]))  echo $var["DataAddress_FracAddress"]; ?>
+							<?php if (! empty ($var["DataAddress_PreStreet"])) echo $var["DataAddress_PreStreet"]; ?>
+							<?php if (! empty ($var["DataStreet_Name"])) echo $var["DataStreet_Name"]; ?>
+							<?php if (! empty ($var["DataAddress_PostStreet"])) echo $var["DataAddress_PostStreet"]; ?>
+							<?php if (! empty ($var["DataHouse_Apt"])) echo " - Apt " .  strtoupper($var["DataHouse_Apt"]); ?>
 							<BR>
-							<?= $var["Raw_Voter_ResCity"] ?>, NY
-							<?= $var["Raw_Voter_ResZip"] ?>
-							<?php if (! empty ($var["Raw_Voter_ResZip4"])) echo " - " . $var["Raw_Voter_ResZip4"]; ?>
+							<?= $var["DataCity_Name"] ?>, NY
+							<?= $var["DataAddress_zipcode"] ?>
+							<?php if (! empty ($var["DataAddress_zip4"])) echo " - " . $var["DataAddress_zip4"]; ?>
 							<BR>
 						</TD>
 					</TR>

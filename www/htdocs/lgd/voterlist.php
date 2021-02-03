@@ -4,13 +4,12 @@
 	$BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 
 	$rmb = new RepMyBlock();
-	$result = $rmb->GetPetitionsForCandidate($DatedFiles, 0, $URIEncryptedString["SystemUser_ID"]);
+	$result = $rmb->GetPetitionsForCandidate(0, $URIEncryptedString["SystemUser_ID"]);
 	
 	if ( empty ($result)) {
 		if ( ! empty ($URIEncryptedString["EDAD"])) {
