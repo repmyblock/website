@@ -137,7 +137,7 @@ class RepMyBlock extends queries {
 		$sql = "SELECT * FROM " . $TableVoter . " " .
 						"LEFT JOIN DataCounty ON ( Raw_Voter_CountyCode = DataCounty.DataCounty_ID) " . 
 						"LEFT JOIN Candidate ON (Candidate.Raw_Voter_ID = " . $TableVoter . ".Raw_Voter_ID AND Raw_Voter_DatedTable_ID = :DatedFiles) " .
-						"LEFT JOIN CanPetitionSet ON (CanPetitionSet.Candidate_ID = Candidate.Candidate_ID) " .
+						"LEFT JOIN CandidatePetitionGroup ON (CandidatePetitionGroup.Candidate_ID = Candidate.Candidate_ID) " .
 						"WHERE " . 
 						$TableVoter . ".Raw_Voter_ID = :RawVoterID";
 		$sql_vars = array('DatedFiles' => $DatedFiles, 'RawVoterID' => $RawVoterID);			
@@ -156,6 +156,62 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
+	
+	function QueryVoterFile($UniqNYSVoterID, $FirstName, $LastName, $DOB = NULL, 
+																$zip = NULL, $countyid = NULL, $Party = NULL, $AD = NULL, $ED = NULL, $Congress = NULL) {
+		$this->SaveVoterRequest($FirstName, $LastName, $DOB, NULL, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
+		
+		$CompressedFirstName = preg_replace("/[^a-zA-Z]+/", "", $FirstName);
+		$CompressedLastName = preg_replace("/[^a-zA-Z]+/", "", $LastName);
+		
+		$sql = "SELECT * FROM VotersIndexes " .
+						"LEFT JOIN VotersFirstName ON (VotersFirstName.VotersFirstName_ID = VotersIndexes.VotersFirstName_ID ) " . 
+						"LEFT JOIN VotersLastName ON (VotersLastName.VotersLastName_ID = VotersIndexes.VotersLastName_ID ) " .
+						"LEFT JOIN VotersMiddleName ON (VotersMiddleName.VotersMiddleName_ID = VotersIndexes.VotersMiddleName_ID ) " .
+						"LEFT JOIN Voters ON (Voters.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " . 
+						"WHERE VotersFirstName_Compress LIKE :FirstName AND " . 
+						"VotersLastName_Compress LIKE :LastName";
+												
+		$sql_vars = array('FirstName' => $CompressedFirstName . "%", 
+											'LastName' => $CompressedLastName . "%");
+	//										'DOB' => $DOB
+											// 'Status' => $Status); 
+											//,'TableID' => $TableID);
+		
+		return $this->_return_multiple($sql, $sql_vars);				
+		
+	
+		if ( ! empty ($FirstName)) { $sql .= " AND Raw_Voter_FirstName = :FirstName"; $sql_vars["FirstName"] = $FirstName; }		
+		if ( ! empty ($zip)) { $sql .= " AND Raw_Voter_ResZip = :ZIP"; $sql_vars["ZIP"] = $zip;	}
+		if ( ! empty ($AD)) {	$sql .= " AND Raw_Voter_AssemblyDistr = :AD";	$sql_vars["AD"] = $AD; }
+		if ( ! empty ($ED)) {	$sql .= " AND Raw_Voter_ElectDistr = :ED"; $sql_vars["ED"] = $ED; }
+		if ( ! empty ($Congress)) {	$sql .= " AND Raw_Voter_CongressDistr = :Congress";	$sql_vars["Congress"] = $Congress;	}
+		if ( ! empty ($Party)) { $sql .= " AND Raw_Voter_EnrollPolParty = :Party"; $sql_vars["Party"] = $Party;	}
+		
+		if ( ! empty ($countyid)) {
+			switch ($countyid) {
+				case 'BQK':
+					$sql .= " AND (Raw_Voter_CountyCode = \"03\" || Raw_Voter_CountyCode = \"41\" || Raw_Voter_CountyCode = \"24\")";
+					break;
+					
+				case 'NYC':
+					$sql .= " AND (Raw_Voter_CountyCode = \"43\" || Raw_Voter_CountyCode = \"31\")";
+					break;
+
+				case 'OUTSIDE':
+					$sql .= " AND Raw_Voter_CountyCode != \"03\" && Raw_Voter_CountyCode != \"41\" && Raw_Voter_CountyCode != \"24\"" .
+									" AND Raw_Voter_CountyCode != \"43\" || Raw_Voter_CountyCode != \"31\"";
+					break;
+				
+				default:
+					$sql .= " AND Raw_Voter_CountyCode = :CountyCode";
+					$sql_vars["CountyCode"] = $countyid;
+					break;				
+			}
+		}
+		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
 	
 	function SearchVoter_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $FirstName, $LastName, $DOB = NULL, 
 																$zip = NULL, $countyid = NULL, $Party = NULL, $AD = NULL, $ED = NULL, $Congress = NULL) {
@@ -249,10 +305,10 @@ class RepMyBlock extends queries {
 
 
 	function SaveVoterRequest($FirstName, $LastName, $DateOfBirth, $DatedFilesID, $Email, $UniqNYSVoterID, $IP) {
-		$sql = "INSERT INTO SaveVoterRequest SET SaveVoterRequest_FirstName = :FirstName, " .
-		 				"SaveVoterRequest_LastName = :LastName, SaveVoterRequest_DateOfBirth = :DateOfBirth, " .
-    				"SaveVoterRequest_DatedFileID = :DatedFilesID, SaveVoterRequest_Email = :Email, " .
-    				"SaveVoterRequest_UniqNYSVoterID = :UniqNYSVoterID, SaveVoterRequest_IP = :IP, SaveVoterRequest_Date = NOW()";
+		$sql = "INSERT INTO SystemUserQuery SET SystemUserQuery_FirstName = :FirstName, " .
+		 				"SystemUserQuery_LastName = :LastName, SystemUserQuery_DateOfBirth = :DateOfBirth, " .
+    				"SystemUserQuery_DatedFileID = :DatedFilesID, SystemUserQuery_Email = :Email, " .
+    				"SystemUserQuery_UniqNYSVoterID = :UniqNYSVoterID, SystemUserQuery_IP = :IP, SystemUserQuery_Date = NOW()";
 
 		$sql_vars = array("FirstName" => $FirstName, "LastName" => $LastName, 
 											"DateOfBirth" => $DateOfBirth, "DatedFilesID" => $DatedFilesID,
@@ -269,11 +325,13 @@ class RepMyBlock extends queries {
 		$sql = "SELECT * FROM VotersIndexes " .
 						"LEFT JOIN VotersFirstName ON (VotersFirstName.VotersFirstName_ID = VotersIndexes.VotersFirstName_ID ) " . 
 						"LEFT JOIN VotersLastName ON (VotersLastName.VotersLastName_ID = VotersIndexes.VotersLastName_ID ) " .
-						"LEFT JOIN Raw_Voter ON (Raw_Voter.Raw_Voter_UniqNYSVoterID = VotersIndexes.VotersIndexes_UniqNYSVoterID) " . 
+						"LEFT JOIN Voters ON (Voters.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " . 
 						"WHERE VotersFirstName_Compress = :FirstName AND " . 
 						"VotersLastName_Compress = :LastName " . #AND Raw_Voter_Dates_ID = :TableID " .
 						"AND VotersIndexes_DOB = :DOB"; // AND Raw_Voter_Status = :Status"
-						;
+						
+		WriteStderr($sql, "SQL request");
+						
 		$sql_vars = array('FirstName' => $CompressedFirstName, 
 											'LastName' => $CompressedLastName, 
 											'DOB' => $DOB);
@@ -300,9 +358,9 @@ class RepMyBlock extends queries {
 	
 	function ListCandidatePetitions($Date) {
 		$sql = "SELECT * FROM CandidatePetitionSet " . 
-						"LEFT JOIN CanPetitionSet ON (CanPetitionSet.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
-						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CanPetitionSet.Candidate_ID) " .
-						"LEFT JOIN DataCounty ON (CanPetitionSet.DataCounty_ID = DataCounty.DataCounty_ID) " .
+						"LEFT JOIN CandidatePetitionGroup ON (CandidatePetitionGroup.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
+						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CandidatePetitionGroup.Candidate_ID) " .
+						"LEFT JOIN DataCounty ON (CandidatePetitionGroup.DataCounty_ID = DataCounty.DataCounty_ID) " .
 						"LEFT JOIN CandidatePositions ON (CandidatePositions.CandidateElection_DBTable = Candidate.CandidateElection_DBTable) " .
 						"WHERE CandidatePetitionSet_TimeStamp > :Date " . 
 						"ORDER BY CandidatePetitionSet.CandidatePetitionSet_ID DESC";
@@ -332,7 +390,7 @@ class RepMyBlock extends queries {
 	
 	function ListCandidateInformation($SystemUserID) {
 		$sql = "SELECT * FROM Candidate " . 
-						"LEFT JOIN CanPetitionSet ON (Candidate.Candidate_ID = CanPetitionSet.Candidate_ID) " . 
+						"LEFT JOIN CandidatePetitionGroup ON (Candidate.Candidate_ID = CandidatePetitionGroup.Candidate_ID) " . 
 						"WHERE SystemUser_ID = :SystemUserID";
 		$sql_vars = array('SystemUserID' => $SystemUserID);
 		return $this->_return_multiple($sql, $sql_vars);
@@ -366,15 +424,15 @@ class RepMyBlock extends queries {
 		
 	}
 	
-	function InsertCandidateSet($Candidate_ID, $CandidatePetitionSet_ID, $CanPetitionSet_Party, $DataCounty_ID) {
-		$sql = "INSERT INTO CanPetitionSet SET " .
+	function InsertCandidateSet($Candidate_ID, $CandidatePetitionSet_ID, $CandidatePetitionGroup_Party, $DataCounty_ID) {
+		$sql = "INSERT INTO CandidatePetitionGroup SET " .
 						"CandidatePetitionSet_ID = :CanPetSetID, Candidate_ID = :CandidateID, " .
-						"DataCounty_ID = :CountyID, CanPetitionSet_Party = :Party";
+						"DataCounty_ID = :CountyID, CandidatePetitionGroup_Party = :Party";
 		$sql_vars = array("CanPetSetID" => $CandidatePetitionSet_ID, "CandidateID" => $Candidate_ID, 
-											"CountyID" => $DataCounty_ID, "Party" => $CanPetitionSet_Party);			
+											"CountyID" => $DataCounty_ID, "Party" => $CandidatePetitionGroup_Party);			
 		$this->_return_nothing($sql, $sql_vars);
 		
-		$sql = "SELECT LAST_INSERT_ID() as CanPetitionSet_ID";
+		$sql = "SELECT LAST_INSERT_ID() as CandidatePetitionGroup_ID";
 		return $this->_return_simple($sql);
 	}
 	
@@ -440,8 +498,8 @@ class RepMyBlock extends queries {
 	
 	function ListCandidatePetition($SystemUserID) {
 		$sql = "SELECT * FROM CandidatePetitionSet " .
-						"LEFT JOIN CanPetitionSet ON (CanPetitionSet.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
-						"LEFT JOIN Candidate ON (CanPetitionSet.Candidate_ID = Candidate.Candidate_ID) " .
+						"LEFT JOIN CandidatePetitionGroup ON (CandidatePetitionGroup.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
+						"LEFT JOIN Candidate ON (CandidatePetitionGroup.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CanWitnessSet ON (CanWitnessSet.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CandidateWitness ON (CanWitnessSet.CandidateWitness_ID = CandidateWitness.CandidateWitness_ID) " .
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
@@ -494,20 +552,29 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql);
 	}
 	
-	function SearchVotersBySingleIndex($SingleIndex, $DatedFiles) {
+	function ReturnVoterIndex($SingleIndex) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM VotersIndexes " .
 						"LEFT JOIN VotersFirstName ON (VotersFirstName.VotersFirstName_ID = VotersIndexes.VotersFirstName_ID ) " . 
 						"LEFT JOIN VotersLastName ON (VotersLastName.VotersLastName_ID = VotersIndexes.VotersLastName_ID ) " .
-		#				"LEFT JOIN Raw_Voter ON (Raw_Voter.Raw_Voter_UniqNYSVoterID = VotersIndexes.VotersIndexes_UniqNYSVoterID) " . 
-						"LEFT JOIN " . $TableVoter . " ON (" . $TableVoter . ".Raw_Voter_UniqNYSVoterID = VotersIndexes.VotersIndexes_UniqNYSVoterID) " .		
-						"LEFT JOIN DataCounty ON (" . $TableVoter . ".Raw_Voter_CountyCode = DataCounty.DataCounty_ID) " .
+						"LEFT JOIN VotersMiddleName ON (VotersMiddleName.VotersMiddleName_ID = VotersIndexes.VotersMiddleName_ID ) " .
+						"LEFT JOIN Voters ON (Voters.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " . 
+						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " . 
+						"LEFT JOIN DataAddress ON (DataHouse.DataAddress_ID = DataAddress.DataAddress_ID) " .
+						"LEFT JOIN DataStreet ON (DataAddress.DataStreet_ID = DataStreet.DataStreet_ID) " .
+						"LEFT JOIN DataCity ON (DataAddress.DataCity_ID = DataCity.DataCity_ID) " .
+						"LEFT JOIN DataState ON (DataAddress.DataState_ID = DataState.DataState_ID) " .
+#						DataHouse_ID
+#						DataAddress_ID
+#						DataStreet_ID DataCity_ID DataState_ID
+	#					"LEFT JOIN DataState ON (VotersIndexes.DataState_ID = DataState.DataState_ID) " .
+						
 						"WHERE VotersIndexes.VotersIndexes_ID = :SingleIndex";
 		$sql_vars = array("SingleIndex" => $SingleIndex);		
 		return $this->_return_simple($sql, $sql_vars);		
 	}
 	
-	function GetPetitionsForCandidate($DatedFiles, $CandidateID = 0, $SystemUserID = 0) {
+	function GetPetitionsForCandidate($CandidateID = 0, $SystemUserID = 0) {
 
 		if ( $CandidateID == 0 && $SystemUserID == 0) return 0;
 		
@@ -518,13 +585,12 @@ class RepMyBlock extends queries {
 						"Candidate.CandidateElection_DBTable, Candidate.CandidateElection_DBTableValue, Candidate.Candidate_StatsVoters, " . 
 						"Candidate.Candidate_Status, Candidate.Candidate_NominatedBy, CandidatePetition.CandidatePetition_ID, CandidatePetition.Candidate_ID, " . 
 						"CandidatePetition.FollowUp_ID, CandidatePetition.CandidatePetition_Order, " . 
-						"CandidatePetition.Raw_Voter_DatedTable_ID, CandidatePetition.Raw_Voter_Dates_ID, " . 
 						"CandidatePetition.VotersIndexes_ID, CandidatePetition.CandidatePetition_VoterFullName, " . 
 						"CandidatePetition.CandidatePetition_VoterResidenceLine1, CandidatePetition.CandidatePetition_VoterResidenceLine2, " . 
 						"CandidatePetition.CandidatePetition_VoterResidenceLine3, CandidatePetition.CandidatePetition_VoterCounty, CandidatePetition.DataStreet_ID, " . 
-						"CandidatePetition.Raw_Voter_ResHouseNumber, CandidatePetition.Raw_Voter_ResFracAddress, " . 
-						"CandidatePetition.Raw_Voter_ResPreStreet, CandidatePetition.Raw_Voter_ResStreetName, CandidatePetition.Raw_Voter_ResPostStDir, " . 
-						"CandidatePetition.Raw_Voter_ResApartment, CandidatePetition.Raw_Voter_Status, CandidatePetition.CandidatePetition_SignedDate " . 
+						"CandidatePetition.Voters_ResHouseNumber, CandidatePetition.Voters_ResFracAddress, " . 
+						"CandidatePetition.Voters_ResPreStreet, CandidatePetition.Voters_ResStreetName, CandidatePetition.Voters_ResPostStDir, " . 
+						"CandidatePetition.Voters_ResApartment, CandidatePetition.Voters_Status, CandidatePetition.CandidatePetition_SignedDate " . 
 						"FROM Candidate " .
 						"LEFT JOIN CandidatePetition ON (CandidatePetition.Candidate_ID = Candidate.Candidate_ID) " .
 						// "LEFT JOIN VotersIndexes ON (CandidatePetition.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " .
