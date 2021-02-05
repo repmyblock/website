@@ -1,1 +1,1 @@
-This is bugs
+<?php header("Location: https://trac.repmyblock.nyc"); ?>
