@@ -18,7 +18,7 @@ class Trac extends queries {
   }
   
   function CreateTicket($TicketArray) {
-  	$sql = "INSERT INTO ticket SET " 
+  	$sql = "INSERT INTO ticket SET " .
   					"type = :Type, time = :Time, changetime = :ChangeTime, component = :Component, severity = :Sev, " .
   					"priority = :Priority, owner = :Owner, reporter = :Reporter, cc = :Copy, version = :Version, " . 
   					"milestone = :Milestone, status = :Status, resolution = :Resolution, summary = :Summary, " .
