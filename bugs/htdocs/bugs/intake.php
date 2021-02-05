@@ -49,11 +49,11 @@
 	$Referer = $_SERVER['HTTP_REFERER'];
 	preg_match('/.*\.repmyblock\.nyc\/([^\/]*)\/([^\/]*)\/(.*)/', $_SERVER['HTTP_REFERER'], $matches, PREG_OFFSET_CAPTURE);
 	
-	if ( strlen( $matches[2][0]) > 64 ) {
-		// echo "Matches: " . $matches[2][0] . "<BR>";
-		$URLRef = "/" . $matches[1][0] . "/" . $matches[3][0];
-		$URLRefDecode = urldecode($matches[2][0]);
+	$URLRef = "/" . $matches[1][0] . "/" . $matches[3][0];
 	
+	if ( strlen( $matches[2][0]) > 64 ) {
+		// echo "Matches: " . $matches[2][0] . "<BR>";		
+		$URLRefDecode = urldecode($matches[2][0]);
 		if ( ! empty ($URLRefDecode )) {	
 			parse_str (DecryptURL($URLRefDecode), $URLRefDecrypt);
 		}
