@@ -25,7 +25,7 @@
 		$TicketArray["cc"]= $_POST[""];
 		$TicketArray["version"]= $_POST[""];
 		$TicketArray["milestone"]= $_POST[""];
-		$TicketArray["status"],= $_POST[""];
+		$TicketArray["status"]= $_POST[""];
 		$TicketArray["resolution"]= $_POST[""];
 		$TicketArray["summary"]= $_POST[""];
 		$TicketArray["description"]= $_POST[""];
