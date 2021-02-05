@@ -24,10 +24,10 @@
 		$TicketArray["cc"]= $_POST[""];
 		$TicketArray["version"]= "dev-2020-b40";
 		$TicketArray["milestone"]= $_POST[""];
-		$TicketArray["status"]= $_POST["new"];
+		$TicketArray["status"]= "new";
 		$TicketArray["resolution"]= $_POST[""];
 		$TicketArray["summary"]= $_POST["Doing"];
-		$TicketArray["description"]= "Expectations:<BR>" . $_POST["Expectation"] . "<BR>Result:<BR>" . $_POST["Result"] . "<BR>" . $_POST["ORIGINAL_K"];
+		$TicketArray["description"]= "Expectations:\n" . $_POST["Expectation"] . "\n\nResult:\n" . $_POST["Result"] . "\n\n" . $_POST["ORIGINAL_K"];
 		$TicketArray["keywords"]= $_POST[""];
 		
 		$rmb = new Trac();	
