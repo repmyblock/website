@@ -34,7 +34,7 @@
 		echo "Saved the ticket information into the system";
 		
 		
-			exit();
+			
 		
 		$NextScreen = "Thanks";
 		header("Location: /bugs/" . $NextScreen . "/thanks");
