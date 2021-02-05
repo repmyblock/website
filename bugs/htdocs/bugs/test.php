@@ -49,14 +49,20 @@
 	<INPUT TYPE="hidden" NAME="REMOTE_ADDR" VALUE="<?= $_REQUEST['REMOTE_ADDR'] ?>">
 	<INPUT TYPE="hidden" NAME="BUGREQUESTIME" VALUE="<?= $_REQUEST['REQUEST_TIME'] ?>">
 
+<P>
 	What were you doing?<BR>
 	<TEXTAREA COLS=70 ROWS=10 NAME="Doing"></TEXTAREA>
+</P>
 
+<P>
 	What were you expecting?<BR>
 	<TEXTAREA COLS=70 ROWS=10 NAME="Expectations"></TEXTAREA>
+</P>
 
+<P>
 	Result you saw?<BR>
 	<TEXTAREA COLS=70 ROWS=10 NAME="Result"></TEXTAREA>	
+</P>
 
 </FORM>
 
