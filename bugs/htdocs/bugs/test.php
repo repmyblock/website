@@ -12,8 +12,9 @@
 	if ( ! empty ($_POST)) {
 		
 		echo "<PRE>" . print_r($_POST, 1) . "</PRE>";
-		exit();
-	
+		
+		
+		
 		$TicketArray["type"]= $_POST[""];
 		$TicketArray["time"] = $_POST[""]; 
 		$TicketArray["changetime"]= $_POST[""];
@@ -28,7 +29,7 @@
 		$TicketArray["status"]= $_POST[""];
 		$TicketArray["resolution"]= $_POST[""];
 		$TicketArray["summary"]= $_POST[""];
-		$TicketArray["description"]= $_POST[""];
+		$TicketArray["description"]= $_POST["ORIGINAL_K"];
 		$TicketArray["keywords"]= $_POST[""];
 		
 		$rmb = new Trac();	
