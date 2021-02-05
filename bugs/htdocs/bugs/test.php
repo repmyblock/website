@@ -11,9 +11,7 @@
 
 	if ( ! empty ($_POST)) {
 		
-		echo "<PRE>" . print_r($_POST, 1) . "</PRE>";
-		
-		
+		// echo "<PRE>" . print_r($_POST, 1) . "</PRE>";
 		
 		$TicketArray["type"]= "defect";
 		$TicketArray["time"] = $_POST[""]; 
@@ -28,7 +26,7 @@
 		$TicketArray["milestone"]= $_POST[""];
 		$TicketArray["status"]= $_POST["new"];
 		$TicketArray["resolution"]= $_POST[""];
-		$TicketArray["summary"]= $_POST["Doing"]
+		$TicketArray["summary"]= $_POST["Doing"];
 		$TicketArray["description"]= "Expectations:<BR>" . $_POST["Expectation"] . "<BR>Result:<BR>" . $_POST["Result"] . "<BR>" . $_POST["ORIGINAL_K"];
 		$TicketArray["keywords"]= $_POST[""];
 		
