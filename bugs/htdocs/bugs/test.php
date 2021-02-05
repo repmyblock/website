@@ -64,5 +64,7 @@
 	<TEXTAREA COLS=70 ROWS=10 NAME="Result"></TEXTAREA>	
 </P>
 
+<INPUT TYPE="SUBMIT" NAME="" VALUE="Submit the problem">
+
 </FORM>
 
