@@ -15,21 +15,21 @@
 		
 		
 		
-		$TicketArray["type"]= $_POST["defect"];
+		$TicketArray["type"]= "defect";
 		$TicketArray["time"] = $_POST[""]; 
 		$TicketArray["changetime"]= $_POST[""];
-		$TicketArray["component"]= $_POST["Main Website"];
-		$TicketArray["severity"]= $_POST["Broken"];
-		$TicketArray["priority"]= $_POST["critical"];
+		$TicketArray["component"]= "Main Website";
+		$TicketArray["severity"]= "Broken";
+		$TicketArray["priority"]= "critical";
 		$TicketArray["owner"]= $_POST[""];
 		$TicketArray["reporter"]= $_POST[""];
 		$TicketArray["cc"]= $_POST[""];
-		$TicketArray["version"]= $_POST["dev-2020-b40"];
+		$TicketArray["version"]= "dev-2020-b40";
 		$TicketArray["milestone"]= $_POST[""];
 		$TicketArray["status"]= $_POST["new"];
 		$TicketArray["resolution"]= $_POST[""];
-		$TicketArray["summary"]= $_POST["User Entered"];
-		$TicketArray["description"]= $_POST["ORIGINAL_K"];
+		$TicketArray["summary"]= $_POST["Doing"]
+		$TicketArray["description"]= "Expectations:<BR>" . $_POST["Expectation"] . "<BR>Result:<BR>" . $_POST["Result"] . "<BR>" . $_POST["ORIGINAL_K"];
 		$TicketArray["keywords"]= $_POST[""];
 		
 		$rmb = new Trac();	
@@ -63,6 +63,11 @@
 <P>
 	Result you saw?<BR>
 	<TEXTAREA COLS=70 ROWS=10 NAME="Result"></TEXTAREA>	
+</P>
+
+<P>
+	Please enter any confidential information on this window. <BR>
+	<TEXTAREA COLS=70 ROWS=10 NAME="SecretInformation"></TEXTAREA>	
 </P>
 
 <INPUT TYPE="SUBMIT" NAME="" VALUE="Submit the problem">
