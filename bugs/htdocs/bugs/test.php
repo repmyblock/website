@@ -15,20 +15,20 @@
 		
 		
 		
-		$TicketArray["type"]= $_POST[""];
+		$TicketArray["type"]= $_POST["defect"];
 		$TicketArray["time"] = $_POST[""]; 
 		$TicketArray["changetime"]= $_POST[""];
-		$TicketArray["component"]= $_POST[""];
-		$TicketArray["severity"]= $_POST[""];
-		$TicketArray["priority"]= $_POST[""];
+		$TicketArray["component"]= $_POST["Main Website"];
+		$TicketArray["severity"]= $_POST["Broken"];
+		$TicketArray["priority"]= $_POST["critical"];
 		$TicketArray["owner"]= $_POST[""];
 		$TicketArray["reporter"]= $_POST[""];
 		$TicketArray["cc"]= $_POST[""];
-		$TicketArray["version"]= $_POST[""];
+		$TicketArray["version"]= $_POST["dev-2020-b40"];
 		$TicketArray["milestone"]= $_POST[""];
-		$TicketArray["status"]= $_POST[""];
+		$TicketArray["status"]= $_POST["new"];
 		$TicketArray["resolution"]= $_POST[""];
-		$TicketArray["summary"]= $_POST[""];
+		$TicketArray["summary"]= $_POST["User Entered"];
 		$TicketArray["description"]= $_POST["ORIGINAL_K"];
 		$TicketArray["keywords"]= $_POST[""];
 		
