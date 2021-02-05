@@ -7,10 +7,7 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_trac.php";  
 #	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 
-	$rmb = new Trac();	
-	$result = $rmb->ListTickets();
 	
-	echo "<PRE>" . print_r($result, 1) . "</PRE>";
 
 	if ( ! empty ($_POST)) {
 		
@@ -34,12 +31,15 @@
 		$TicketArray["description"]= $_POST[""];
 		$TicketArray["keywords"]= $_POST[""];
 		
+		$rmb = new Trac();	
 		$rmb->CreateTicket($TicketArray);
 		echo "Saved the ticket information into the system";
 		exit();
 		
 	}
 ?>	
+
+<H1>Enterering Bugs.</H1>
 
 <FORM ACTION="" METHOD="POST">
 	<INPUT TYPE="hidden" NAME="ORIGINAL_K" VALUE="<?= $_REQUEST['k'] ?>">
@@ -49,13 +49,13 @@
 	<INPUT TYPE="hidden" NAME="REMOTE_ADDR" VALUE="<?= $_REQUEST['REMOTE_ADDR'] ?>">
 	<INPUT TYPE="hidden" NAME="BUGREQUESTIME" VALUE="<?= $_REQUEST['REQUEST_TIME'] ?>">
 
-	What were you doing?
+	What were you doing?<BR>
 	<TEXTAREA COLS=70 ROWS=10 NAME="Doing"></TEXTAREA>
 
-	What were you expecting?
+	What were you expecting?<BR>
 	<TEXTAREA COLS=70 ROWS=10 NAME="Expectations"></TEXTAREA>
 
-	Result you saw?
+	Result you saw?<BR>
 	<TEXTAREA COLS=70 ROWS=10 NAME="Result"></TEXTAREA>	
 
 </FORM>
