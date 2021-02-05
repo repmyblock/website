@@ -43,7 +43,7 @@
 	$str = 'NotePad.txt';
 	
 	echo "ORIG: c1dfd96eea8cc2b62785275bca38ac261256e278<BR>";
-	echo "SHA1: " . sha1($str) . "<BR>";
+	echo "SHA1: " . sha1(utf8_encode($str)) . "<BR>";
 	
 ?>
 
