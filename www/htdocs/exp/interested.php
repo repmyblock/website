@@ -19,9 +19,8 @@
 		
 		<P CLASS="f60">
 			<B>
-				The process to run for County Committee is basically the same 
-				as other positions in New York State. Running for President of the
-				United States or running for County Committee follow the exact same process.
+				The process to run for County Committee is the same as other positions in New York State. 
+				Running for President of the United States, City Council, or County Committee follow the same process. 
 			</B>
 		</P>
 	</DIV>
