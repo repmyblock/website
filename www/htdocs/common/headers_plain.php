@@ -1,4 +1,3 @@
-<?php $BetaVersion = "frontend-dev2020"; ?>
 <?php
 	error_reporting(E_ERROR | E_PARSE);
 	if ( preg_match('/Mobile/', $_SERVER['HTTP_USER_AGENT'])) { $MobileDisplay = true; }
@@ -77,7 +76,6 @@
 </nav>
 */ ?>
 
-
 <div class="navbar">
 <?php if ( $MenuLogin == "logged") { ?>
   <a href="/lgd/<?= $middleuri ?>/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
@@ -90,11 +88,4 @@
   <a href="/exp/<?= $middleuri ?>/interested"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
   <a href="/exp/<?= $middleuri ?>/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
 <?php } ?> 
-<B>Version: <?= $BetaVersion ?></B> <A HREF="<?= $FrontEndBugs ?>/bugs/<?= CreateEncoded ( array( 	
-																																							"Referer" =>  $_SERVER['HTTP_REFERER'],
-																																							"URI" => $_SERVER['REQUEST_URI'],
-																																							"DocumentRoot" => $_SERVER['DOCUMENT_ROOT'],
-																																							"Version" => $BetaVersion,
-																																							"PageRequestTime" => $_SERVER['REQUEST_TIME']
-																																				))?>/intake">Beta Website - Report a problem with this page</A>
 </div>
