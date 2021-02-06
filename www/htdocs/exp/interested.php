@@ -32,24 +32,14 @@
 	<div class="panel2">
 	
 		<P CLASS="f60 justify">
-			The first step is simply saying, "I am doing it." The process will not 
-			make much sence but everything is like that as to disuade people from running. We
-			built this website to streamline the process to remove all the hoops 
-			from  running.
+			The first step is merely saying, "I am doing it." The process will not make much sense, but everything is like that to dissuade people 
+			from running. We built this website to streamline the process to remove all the hoops from running.
 		</P>
 		
 		<P CLASS="f60 justify">
-			The party, like any Non Profit Organisation or For Profit Corporation has bylaws.
-			You can find the bylaws of the various Democratic Party County Committee here.
-			<A HREF="https://forum.repmyblock.nyc/t/about-the-county-committee-rules-category/49" TARGET=Bylaws">Bronx County</A>,
-			<A HREF="https://forum.repmyblock.nyc/t/about-the-county-committee-rules-category/48" TARGET=Bylaws">Queens County</A>,
-			<A HREF="https://forum.repmyblock.nyc/t/about-the-county-committee-rules-category/46" TARGET=Bylaws">Kings County</A> <I>(Brooklyn)</I>,
-			<A HREF="https://forum.repmyblock.nyc/t/about-the-county-committee-rules-category/45" TARGET=Bylaws">New York County</A> <I>(Manhattan)</I>,
-			<A HREF="https://forum.repmyblock.nyc/t/about-the-county-committee-rules-category/47" TARGET=Bylaws">Richmond County</A> <I>(State Island)</I>
-			<I>
-				(We are working on getting the Bylaws from the other parties and has soon has we have them
-				we will publish them.)
-			</I>
+			The party, like any Non-Profit Organisation or For-Profit Corporation, has bylaws. You can find the bylaws of the various Democratic, 
+			Republican, Conservative and Working Families Parties County Committee at the Board of Election. 
+			<I>(We are working on getting the Bylaws from the other parties, and we will publish them as soon as we have them.)</I>
 		</P>
 		
 	<P CLASS="MediaCenter">
@@ -66,16 +56,14 @@
 	<div class="panel2">
 
 		<P CLASS="f60 justify">
-			You have decided to run, <B>congratulation!</B>.<BR>
-			Before we start, we need to make sure that your voter registration with the 
-			board of election is correct. You will need that you are register in the 
-			electoral party.
+			You have decided to run, <B>congratulation!</B>
+			Before you start, we need to ensure that your voter registration with the board of election is correct. 
+			You will require that you are registered in an electoral party based on your convictions.
 		</P>
 		
 		<P CLASS="f60 justify">
-			If you are not registered to vote of you are not registered in a party, you
-			can print a form or you can go to the DMV website and register.<B>You can verify 
-			your registration automatically on the Rep My Block website.</B>
+			If you are not registered to vote or are not registered in a party, you can print a form or go to the DMV website and register. 
+		<B>You can verify your registration automatically on the Rep My Block website.</B>
 		</P>
 			
 		<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>
@@ -86,9 +74,8 @@
 	<div class="panel2">
 		
 	<P CLASS="f60 justify">
-		This step is 36 days long and in 2020, it will start on February 25<sup>th</sup>, 2020. 
-		Rep My Block will supply a list of registered
-		voter in your district.
+		This step is 23 days long, and in 2021, it will start on March 2nd, 2021, and end on March 25th, 2021.  
+		Rep My Block will supply a list of registered voters in your district. 
 	</P>
 	
 
@@ -97,9 +84,8 @@
 	</P>
 	
 	<P CLASS="f60 justify">
-		Contrary to the presidential petitioning, won't need to stop random voter in the street
-		but simply knock on your neiboors doors. The Rep My Block website has the walk sheet 
-		that is organized by streets.
+		Contrary to the presidential petitioning, won't need to stop random voter in the street but knock on your neighbors' doors. 
+		The Rep My Block website has the walk sheet that is organized by streets. 
 	</P>	
 
 	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></H2></CENTER></P>
@@ -110,14 +96,11 @@
 	<div class="panel2">
 	
 	<P CLASS="f60 justify">
-		Once you have collected the required numbers of signatures, you will need to bind
-		the petitions according to the strengin rules of the New York State board of election.
+		Once you have collected the required numbers of signatures, you will need to bind the petitions according to the New York State Board of Elections' stringent rules.
 	</P>
 
 	<P CLASS="f60 justify">
-		Rep My Block is composed of hundred of volunteers that has done the process. If you 
-		have any questions, a volunteer will be able to answer you put them together. All you
-		need to do is use the message board.
+		Rep My Block is composed of hundreds of volunteers that have done the process. If you have any questions, a volunteer will be able to answer you put them together.
 	</P>
 
 	
@@ -137,17 +120,16 @@
 	
 	
 	<P CLASS="f60 justify">
-		This is where you go to the board of Election to drop your petitions between 
-		March 30<SUP>th</SUP>, 2020 and April 2<SUP>nd</SUP>, 2020.
+		This step is where you go to the Board of Election to drop your petitions between March 23<SUP>rd</SUP>, 2020, and March 25<SUP>th</SUP>, 2020. 
 	
 	<P CLASS="MediaCenter">
 	 <iframe width="560" height="240" src="https://www.youtube.com/embed/G0yRhVGz2TM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</P>
 	
 	<P CLASS="f60 justify">
-		The Rep My Block is a community based system that use the power of the community. We will
-		setup dropping points troughout the community and submit the petition for you. All you will
-		need to do is to staple your petition together and drop them at a drop off location. 
+		Rep My Block is a community-based system that uses the power of the community. We will setup dropping points throughout the 
+		community and submit the petition for you. 
+		All you will need to do is to staple your petition together and drop them at a drop off location. 
 	</P>
 
 	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>
@@ -159,19 +141,16 @@
 	<div class="panel2">
 	
 	<P CLASS="f60 justify">
-		This is the exiting step where you actually run for County Committee and you
-		remind your neiboors to vote for you on June 23<SUP>rd</SUP>, 2020.
+		This step is the exciting step where you run for County Committee, and you remind your neighbors to vote for you on June 22<SUP>nd</SUP>, 2021.
 	</P>
 	
 	<P CLASS="f60 justify">
-		On June 22<SUP>nd</SUP> you will need to put some flyers around your neiberhood 
-		to remind them to vote for you.
+		On June 21<SUP>st</SUP>, you will need to put some flyers around your neighborhood to remind your voters to vote for you.
 	</P>
 	
 	<P CLASS="f60 justify">
-		The Rep My Block ressources will have a few toolks to help you create a quick
-		flyer to put around your block and will explain the rules from the Departement 
-		of Sanitation regarding those flyers.
+		Rep My Block resources will have a few tools to help you create a quick flyer to put around your block and explain 
+		the Department of Sanitation rules regarding those flyers.
 	</P>
 
 	
@@ -187,13 +166,12 @@
 	<div class="panel2">
 	
 	<P CLASS="f60 justify">
-		Finally! You spend 27 hours completing the previous 6 step. <B>It is now time to attend 
-	your first meeting!</B>
+		</B>Finally!</B> You spend 27 hours completing the previous six steps. <B>It is now time to attend your first meeting!</B>
 	</P>
 
 	<P CLASS="f60 justify">
-		Rep My Block will have conntected you with other County Committee members that hopefully share
-		your vision and <B>you will need to work together to get your ideas accross.</B>
+		Rep My Block will have contacted you with other County Committee members that hopefully share your vision, and 
+		<B>you will need to work together to get your ideas across.</B>
 	</P>
 
 	<P CLASS="MediaCenter">
@@ -201,17 +179,13 @@
 	</P>
 	
 	<P CLASS="f60 justify">
-		The business of the County Committe meeting is to elect the leadership of the County Party. 
-		As committee member you will be approached asking to support a candidate. <B>This is the most 
-		important part</B> because it will dictate how the party will behave during the following 2 
-		years cycle.
+		The business of the County Committee meeting is to elect the leadership of the County Party. As a committee member, you will be approached asking to support a candidate. It's the most critical part because it will dictate how the party will behave during the next two-year cycle.
 	</P>
 	
 	<P CLASS="f60 justify">
-		<B>This is where the drama takes place.</B> You can see what to expect at the first meeting 
-		by checking out 
-		<A HREF="https://www.revolutions.nyc/expectations/WhatToExpect.pdf">the flyer distributed</A> 
-		at the last meeting in Manhattan.
+		<B>It's where all drama takes place.</B> You can see what to expect at the first meeting
+		by <A HREF="https://www.revolutions.nyc/expectations/WhatToExpect.pdf">checking out 
+		the flyer distributed</B> at the last Manhattan meeting.
 	</P>
 	
 	<P CLASS="MediaCenter">
