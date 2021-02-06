@@ -31,7 +31,10 @@ class Trac extends queries {
   					"Resolution" => $TicketArray["resolution"],	"Summary" => $TicketArray["summary"], 
   					"Description" => $TicketArray["description"], "Keywords" => $TicketArray["keywords"]);
   		
-		return $this->_return_nothing($sql, $sql_vars);	 	
+		$this->_return_nothing($sql, $sql_vars);	 	
+		
+		$sql = "SELECT LAST_INSERT_ID() AS TicketID";
+		return $this->_return_simple($sql);	 	
   }
 }
 

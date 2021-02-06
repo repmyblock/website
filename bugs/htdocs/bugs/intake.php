@@ -1,46 +1,64 @@
 <?php
-	$Menu = "voters";
-	$BigMenu = "represent";	
-	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_trac.php";  
-#	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	
 
 	if ( ! empty ($_POST)) {
 		
 		echo "<PRE>" . print_r($_POST, 1) . "</PRE>";
 				
-		$TicketArray["type"]= "defect";
+		$TicketArray["severity"] = "Fuzzy Description";
+		$TicketArray["priority"]= "critical";
+		$TicketArray["type"]= "trivial";
+		
+		if ( $_POST["cosmetic"] == "yes" ) { $TicketArray["severity"] = "Cosmetic"; $TicketArray["type"]= "enhancement"; } 
+		else if  ($_POST["cosmetic"] == "no") {	$TicketArray["severity"] = "Broken"; }
+		
+		if ( $_POST["blocker"] == "yes") { $TicketArray["type"]= "defect"; $TicketArray["priority"]= "critical"; }
+		else if ($_POST["blocker"] == "no") {$TicketArray["type"]= "enhancement"; $TicketArray["priority"]= "minor";}
+		
 		$TicketArray["time"] = $_POST["PageRequestTime"] . "000000";
 		$TicketArray["changetime"]= $_POST["BUGREQUESTIME"] . "000000";
 		$TicketArray["component"]= "Main Website";
-		$TicketArray["severity"]= "Broken";
-		$TicketArray["priority"]= "critical";
-		$TicketArray["owner"]= "";
+		$TicketArray["owner"]= NULL;
 		$TicketArray["reporter"]= "Bug Track";
-		$TicketArray["cc"]= $_POST[""];
+		$TicketArray["cc"] = NULL;
 		$TicketArray["version"]= $_POST["Version"];
-		$TicketArray["milestone"]= $_POST[""];
+		$TicketArray["milestone"]= NULL;
 		$TicketArray["status"]= "new";
-		$TicketArray["resolution"]= $_POST[""];
+		$TicketArray["resolution"]= NULL;
 		$TicketArray["summary"]= $_POST["Doing"];
 		$TicketArray["description"]= "**Expectations:**\n\\\\" . $_POST["Expectations"] . "\n\n**Result:**\n\\\\" . $_POST["Result"] . "\n\n";
-		$TicketArray["keywords"]= $_POST[""];
+		$TicketArray["keywords"]= NULL;
 		
 		$rmb = new Trac();	
-		$rmb->CreateTicket($TicketArray);
-		echo "Saved the ticket information into the system";
+		$TicketNumber = $rmb->CreateTicket($TicketArray);
+		echo "Saved the ticket information into the system: " . $TicketNumber["TicketID"];
 		
 		
-			
 		
-		$NextScreen = "Thanks";
-		header("Location: /bugs/" . $NextScreen . "/thanks");
+		$PostString = "SecretInfo=" . CreateEncoded ( array("Confidential" =>   $_POST["SecretInformation"] )) . "&" . 
+									"SystemID=" . $_POST["SystemID"] . "&" . "Version=" . $_POST["Version"] . "&" .
+									"OriginalK=" . $_POST["OriginalK"] . "&" . "RefferedK=" . $_POST["BUGREFERER"] . "&" .
+									"BrwEncoding=" . $_POST["ENDODING"] . "&" . "BrwRemoteIP=" . $_POST["REMOTE_ADDR"] . "&" .
+									"BrwLanguage=" . $_POST["LANGUAGE"] . "&" .	"BrwTime=" . $_POST["BUGREQUESTIME"] . "&" .
+									"RequestTime=" . $_POST["PageRequestTime"] . "&" . "Ticket=" . $TicketNumber["TicketID"];
+    
+    $URLService = "https://upload.repmyblock.nyc/trac.php?SystemID=" . $_POST["SystemID"] . "&Version=" . $_POST["Version"] . 
+    							"&Ticket=" . $TicketNumber["TicketID"];
+    							
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $URLService);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);	
+		curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $PostString);
+		curl_exec($ch);
+		$info = curl_getinfo($ch);
 		
-		exit();
-		
+		header("Location: /bugs/" . CreateEncoded ( array("TicketNumber" =>   $TicketNumber["TicketID"] )) . "/thanksalot");
 	}
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
@@ -87,6 +105,10 @@
 			at the botton but remember that even protected, it is still shared with a number of developpers.
 		</P>
 		
+		<P>
+			<B>You don't need to fill all the boxes,</B> you can leave some empty.
+		</P>
+		
 <FORM ACTION="" METHOD="POST">
 	<INPUT TYPE="hidden" NAME="SystemID" VALUE="<?= $URLRefDecrypt["SystemUser_ID"] ?>">
 	<INPUT TYPE="hidden" NAME="Version" VALUE="<?= $DecryptInfo["Version"] ?>">
@@ -104,23 +126,21 @@
 </P>
 
 <P>
-		<H2>What were you expecting?</H2>
+	<H2>What were you expecting?</H2>
 	<TEXTAREA COLS=70 ROWS=6 NAME="Expectations"></TEXTAREA>
 </P>
 
 </P>
 	<H2>Is this a cosmectic issue?</H2><BR>
 	The website still works but it doesn't look good or it's confusing<BR>
-	
-			<INPUT TYPE="radio" VALUE="yes" NAME="cosmetic"> Yes&nbsp;&nbsp;
-			<INPUT TYPE="radio" VALUE="no" NAME="cosmetic"> No
+	<INPUT TYPE="radio" VALUE="yes" NAME="cosmetic"> Yes&nbsp;&nbsp;
+	<INPUT TYPE="radio" VALUE="no" NAME="cosmetic"> No
 </P>
 
 <P>
-		<H2>What results did you experience?</H2>
+	<H2>What results did you experience?</H2>
 	<TEXTAREA COLS=70 ROWS=6 NAME="Result"></TEXTAREA>	
 </P>
-
 
 </P>
 	<H2>Did you have to stop using RepMyBlock?</H2><BR>
@@ -128,7 +148,6 @@
 			<INPUT TYPE="radio" VALUE="yes" NAME="blocker"> Yes&nbsp;&nbsp;
 			<INPUT TYPE="radio" VALUE="no" NAME="blocker"> No
 </P>
-
 
 <P>
 	<h2>Confidential information on this window.</H2>

@@ -1,18 +1,10 @@
-<?php
-	$Menu = "voters";
-	$BigMenu = "represent";	
-	
+<?php	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_trac.php";  
-
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
-
-	$bugnumber = 21;
-
-?>	
-
-
+	
+	if ( ! empty ($_GET["k"] )) {	parse_str (DecryptURL($_GET['k']), $DecryptInfo);	}
+	$bugnumber = $DecryptInfo["TicketNumber"];
+?>
 <div class="main">
 	<DIV CLASS="intro center">
 		<P>
@@ -34,13 +26,12 @@
 		</P>
 		
 		<P>
-			<h2>Th&eacute;o Chino</h2><BR>
+			<h2>Th&eacute;o Chino</h2>
 			<I>Co-Founder of the Rep My Block website.</I>
 		</P>
 		
 </DIV>
 
 </div>
-	<?php // print phpinfo(); ?>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
