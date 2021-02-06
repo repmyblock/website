@@ -4,8 +4,6 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_trac.php";  
 
 	if ( ! empty ($_POST)) {
-		
-		echo "<PRE>" . print_r($_POST, 1) . "</PRE>";
 				
 		$TicketArray["severity"] = "Fuzzy Description";
 		$TicketArray["priority"]= "critical";
@@ -32,10 +30,7 @@
 		$TicketArray["keywords"]= NULL;
 		
 		$rmb = new Trac();	
-		$TicketNumber = $rmb->CreateTicket($TicketArray);
-		echo "Saved the ticket information into the system: " . $TicketNumber["TicketID"];
-		
-		
+		$TicketNumber = $rmb->CreateTicket($TicketArray);	
 		
 		$PostString = "SecretInfo=" . CreateEncoded ( array("Confidential" =>   $_POST["SecretInformation"] )) . "&" . 
 									"SystemID=" . $_POST["SystemID"] . "&" . "Version=" . $_POST["Version"] . "&" .
@@ -62,8 +57,6 @@
 	}
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
-	
-	
 	$Referer = $_SERVER['HTTP_REFERER'];
 	preg_match('/.*\.repmyblock\.nyc\/([^\/]*)\/([^\/]*)\/(.*)/', $_SERVER['HTTP_REFERER'], $matches, PREG_OFFSET_CAPTURE);
 	
@@ -77,18 +70,8 @@
 		}
 	}
 
-	if ( ! empty ($_GET["k"] )) {	
-		parse_str (DecryptURL($_GET['k']), $DecryptInfo);
-	//	print "<PRE>" . print_r($DecryptInfo, 1) . "</PRE>";
-	}
-	
-	
+	if ( ! empty ($_GET["k"] )) {	parse_str (DecryptURL($_GET['k']), $DecryptInfo);	}
 ?>	
-
-
-
-
-
 <div class="main">
 	<DIV CLASS="intro center">
 		<P>
@@ -161,7 +144,6 @@
 </DIV>
 
 </div>
-	<?php // print phpinfo(); ?>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
 
