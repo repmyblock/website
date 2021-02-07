@@ -40,7 +40,7 @@
 									"RequestTime=" . $_POST["PageRequestTime"] . "&" . "Ticket=" . $TicketNumber["TicketID"];
     
     $URLService = "https://upload.repmyblock.nyc/trac.php?SystemID=" . $_POST["SystemID"] . "&Version=" . $_POST["Version"] . 
-    							"&Ticket=" . $TicketNumber["TicketID"];
+    							"&Ticket=" . $TicketNumber["TicketID"] . "&IP=" . $_POST["REMOTE_ADDR"];
     							
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $URLService);
