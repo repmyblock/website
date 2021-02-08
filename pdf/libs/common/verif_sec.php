@@ -3,6 +3,7 @@ error_reporting(E_ERROR | E_PARSE);
 
 ### This file is the SSL Key used to encrypt the _GET variable.
 date_default_timezone_set('America/New_York'); 
+require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/SSLKeys/SSLInsideKey.php";
 
 if ( ! empty ($_POST["k"])) {
@@ -21,38 +22,42 @@ if ( ! empty ($_GET["id"])) {
 
 if ( ! empty ($k)) {
 	$Decrypted_k = DecryptURL ( $k );
-	parse_str ( $Decrypted_k, $URIEncryptedString);
-  parse_str ( $Decrypted_k );
+	
+	if ( ! empty ($Decrypted_k)) {
+	
+		parse_str ( $Decrypted_k, $URIEncryptedString);
+ 		parse_str ( $Decrypted_k );
 
-	$k_raw = $k;
-	$k = rawurlencode($k);
-}
+		$k_raw = $k;
+		$k = rawurlencode($k);
+	}
 
-// Check the timestamp before moving on
+	// Check the timestamp before moving on
 
-$DEBUG["TimePassed"] = $URIEncryptedString["LastTimeUser"];
-$DEBUG["TimeFromSystem"] = time();
-$DEBUG["TimeDifference"] = time() - $URIEncryptedString["LastTimeUser"];
+	$DEBUG["TimePassed"] = $URIEncryptedString["LastTimeUser"];
+	$DEBUG["TimeFromSystem"] = time();
+	$DEBUG["TimeDifference"] = time() - $URIEncryptedString["LastTimeUser"];
 
-$TimerToLoggoff = 36000000;
+	$TimerToLoggoff = 36000000;
 
-if ( (time() - $URIEncryptedString["LastTimeUser"] ) > $TimerToLoggoff  && ! empty ($URIEncryptedString)) { 
-	//require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php"; 
-	//$r = new login();  
-	//$r->LogOffPerson($CustomerInfo["CustomerLogin_RandomKey"]);
-	header ("Location: /signoff");
-	exit();
-}
+	if ( (time() - $URIEncryptedString["LastTimeUser"] ) > $TimerToLoggoff  && ! empty ($URIEncryptedString)) { 
+		//require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php"; 
+		//$r = new login();  
+		//$r->LogOffPerson($CustomerInfo["CustomerLogin_RandomKey"]);
+		header ("Location: /signoff");
+		exit();
+	}
 
-// GetMy PHP SELF ... Need to remove the index.php
-// _SERVER["PHP_SELF"]
+	// GetMy PHP SELF ... Need to remove the index.php
+	// _SERVER["PHP_SELF"]
 
-if ($CalculatePHPSelf == 1) {
-	preg_match("/(.*)?(\/[^\/]*\.php)$/", $_SERVER["PHP_SELF"], $matches);
-	if ( empty ($matches)) {
-		$CalculatedSelfPHP = rtrim($_SERVER["PHP_SELF"], '/') . '/';
-	} else {
-		$CalculatedSelfPHP = rtrim($matches[1], '/') . '/';
+	if ($CalculatePHPSelf == 1) {
+		preg_match("/(.*)?(\/[^\/]*\.php)$/", $_SERVER["PHP_SELF"], $matches);
+		if ( empty ($matches)) {
+			$CalculatedSelfPHP = rtrim($_SERVER["PHP_SELF"], '/') . '/';
+		} else {
+			$CalculatedSelfPHP = rtrim($matches[1], '/') . '/';
+		}
 	}
 }
 
@@ -88,18 +93,20 @@ function DecryptURL ( $sealed ) {
   global $PrivKey;
   openssl_get_privatekey ($PrivKey);
   $finaltext = "";
-
+  
   $arr = unpack('Nblockct/a*', base64_decode(rawurldecode($sealed)));
   $blockct = $arr['blockct'];
   $encpayload=$arr[1];
   $decmessage = "";
-  
-  for ($loop=0;$loop < $blockct;$loop++) {
-    $blocktext = substr($encpayload, $loop*256, 256);
-    openssl_private_decrypt($blocktext, $decblocktext, $PrivKey);
-    $finaltext .= $decblocktext;
-  }
 
+	if ($blockct < 10) {
+	  for ($loop=0;$loop < $blockct;$loop++) {
+	    $blocktext = substr($encpayload, $loop*256, 256);
+	    openssl_private_decrypt($blocktext, $decblocktext, $PrivKey);
+	    $finaltext .= $decblocktext;
+	  }
+	}
+ 
   return($finaltext);
 }
 
