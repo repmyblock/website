@@ -21,7 +21,7 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetFont('Arial','B',50);
     	$this->SetTextColor(255,192,203);
    		$this->RotatedText(35,190, $this->Watermark, 45);
-   		$this->RotatedText(40,210, "Election will be held in 2021", 45);
+   		$this->RotatedText(40,210, "Can only be signed in March 2021", 45);
    		$this->SetTextColor(0,0,0);
 		}
 
@@ -303,7 +303,7 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetTextColor(0,0,255);
 			$this->SetXY(120, 132.5);
 			$this->Link(120, 130, 70, 25, "https://repmyblock.nyc/exp/multipetition/propose");
- 	   	$this->MultiCell(70, 8.2, "Petitioning will start in February 2021 until March 2021", 0, 'C'); 	   									
+ 	   	$this->MultiCell(70, 8.2, "Petitioning will start in March 2nd, 2021 until March 25th, 2021", 0, 'C'); 	   									
  	   }
 		
 		$this->SetTextColor(0);
