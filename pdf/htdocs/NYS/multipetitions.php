@@ -17,7 +17,7 @@ $CanPetitionSet_ID = trim($_GET["petid"]);
 $CandidatePetitionSet_ID = trim($_GET["setid"]);
 $WaterMarkVoid = trim($_GET["Watermark"]);
 
-$WritenSignatureMonth = "February";
+$WritenSignatureMonth = "March";
 $Variable = "demo-CC";
 	
 if (is_numeric($CanPetitionSet_ID)) { $Variable = "petid"; }
