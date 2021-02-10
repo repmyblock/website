@@ -249,7 +249,7 @@
 			<BR>
 			
 			<P>
-			<B><A HREF="/lgd/team/admin/<?= CreateEncoded ( array( 	
+			<B><A HREF="/admin/<?= CreateEncoded ( array( 	
 											"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 											"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
 											"FirstName" => $URIEncryptedString["FirstName"],
