@@ -248,20 +248,17 @@
 			<a class="mr-1" href="/admin/<?= $MySpecialK ?>/makecandidate">Make Candidate</a>
 			<BR>
 			
-			<?php 
-			
-				$TheNewK = EncryptURL(	
-					"SystemUser_ID=" . $URIEncryptedString["SystemUser_ID"]. 
-					"&SystemAdmin=" .  $URIEncryptedString["SystemAdmin"] . 
-					"&FirstName=" . $URIEncryptedString["FirstName"] . 
-					"&LastName=" . $URIEncryptedString["LastName"] . 
-					"&UniqNYSVoterID=" . $URIEncryptedString["UniqNYSVoterID"]. 
-					"&UserParty=" . $URIEncryptedString["UserParty"]. 
-					"&MenuDescription=" . $URIEncryptedString["MenuDescription"]
-				); ?>
-			
-			<B><A HREF="/lgd/team/admin/?k=<?= $TheNewK ?>">Look for a new voter</A></B>
-			
+			<P>
+			<B><A HREF="/lgd/team/admin/<?= CreateEncoded ( array( 	
+											"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+											"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+											"FirstName" => $URIEncryptedString["FirstName"],
+											"LastName" => $URIEncryptedString["LastName"],
+											"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+											"UserParty" => $URIEncryptedString["UserParty"],
+											"MenuDescription" => $URIEncryptedString["MenuDescription"]
+					))?>/voterlookup">Look for a new voter</A></B>
+			</P>
 		</div>
 		
 		
