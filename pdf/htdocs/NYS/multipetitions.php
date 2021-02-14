@@ -31,6 +31,7 @@ if (strlen($k < 20)) {
 
 $WritenSignatureMonth = "March";
 $Variable = "demo-CC";
+$WaterMarkVoid = 'yes';
 	
 if (is_numeric($CanPetitionSet_ID)) { $Variable = "petid"; }
 if (is_numeric($CandidatePetitionSet_ID)) { $Variable = "setid"; }
