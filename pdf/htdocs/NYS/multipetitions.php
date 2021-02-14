@@ -1,7 +1,7 @@
 <?php
 //date_default_timezone_set('America/New_York'); 
+
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";		
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/petition_multiclass.php';
@@ -13,9 +13,21 @@ $PageSize = "letter";
 $pdf = new PDF_Multi('P','mm', $PageSize);
 //$pdf = new PDF('P','mm', $PageSize);
 
-$CanPetitionSet_ID = trim($_GET["petid"]);
-$CandidatePetitionSet_ID = trim($_GET["setid"]);
-$WaterMarkVoid = trim($_GET["Watermark"]);
+// Faut que je travaille avec K.
+if (strlen($k < 20)) {
+	// This is just regular K
+	preg_match('/([pse])(\d*)/', $k, $matches, PREG_OFFSET_CAPTURE);
+
+	switch ($matches[1][0]) {
+		case 'p': $CanPetitionSet_ID = intval($matches[2][0]); break;
+		case 's': $CandidatePetitionSet_ID = intval($matches[2][0]); break;
+		case 'e': $Candidate_ID = intval($matches[2][0]); break;
+	}
+} else {
+	$CanPetitionSet_ID = trim($_GET["petid"]);
+	$CandidatePetitionSet_ID = trim($_GET["setid"]);
+	$WaterMarkVoid = trim($_GET["Watermark"]);
+}
 
 $WritenSignatureMonth = "March";
 $Variable = "demo-CC";
@@ -26,6 +38,7 @@ if (is_numeric($CandidatePetitionSet_ID)) { $Variable = "setid"; }
 if (is_numeric($Candidate_ID)) { $Variable = "person"; }
 if (is_numeric($SystemUser_ID)) { $Variable = "person"; }
 if ( $WaterMarkVoid == 'yes') { $pdf->Watermark = "VOID - Do not use"; }
+
 
 switch ($Variable) {
 	
