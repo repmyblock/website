@@ -12,7 +12,7 @@ class ShowTheBooks extends queries {
   }
   
   function ListCandidates() {
-  	$sql = "SELECT * FROM Candidate";
+  	$sql = "SELECT * FROM Candidate ORDER BY RAND()";
   	return $this->_return_multiple($sql);
   }
  	
