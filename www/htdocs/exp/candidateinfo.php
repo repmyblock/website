@@ -4,16 +4,20 @@
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_showthebooks.php";  
-
+	
+	if (! empty ($_POST)) {	
+		$key = array_search('Download the petition', $_POST);
+		header("Location: " . $FrontEndPDF . "/NYS/p" . $key . "/multipetitions");
+		
+		exit();
+	}
+	
 	$showbooks = new ShowTheBooks();
-	$result = $showbooks->ListCandidates();
-				
-	echo "<PRE>" . print_r($result, 1) . "</PRE>";
-				
+	$result = $showbooks->ListCandidates();				
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
-
+<FORM ACTION="" METHOD="POST">
 
 <div class="main">
 	<div class="row">
@@ -27,18 +31,27 @@
 			<?php if (! empty ($result)) {
 					foreach ($result as $var) {
 						if (! empty ($var)) { 
-							if ( $var["Candidate_SuspendCampaign"]  != "yes") { ?>
+							if ( $var["Candidate_SuspendCampaign"]  != "yes") {								
+								if ( empty ($var["Candidate_PetID"] )) { $var["Candidate_PetID"] = 0;	}
+								 ?>
 							
 			
-			<TR><td align="CENTER" COLSPAN=4><?= $var["Candidate_CouncilDistrict"] ?></TD></TR>
+			<TR><td align="LEFT" COLSPAN=4><h2>&nbsp;<?= $var["Candidate_CouncilDistrict"] ?></H2></TD></TR>
+			
 			<TR>
-				<td COLSPAN=4><b>&nbsp;<FONT SIZE=+3><?= $var["Candidate_FirstName"] ?> <?= $var["Candidate_LastName"] ?></FONT></B> - <?= NewYork_PrintParty($var["Candidate_Party"]) ?></TD></TR>
+				<td COLSPAN=3><b>&nbsp;<FONT SIZE=+3><?= $var["Candidate_FirstName"] ?> <?= $var["Candidate_LastName"] ?></FONT></B> - <?= NewYork_PrintParty($var["Candidate_Party"]) ?></TD>
+				<TD ALIGN=RIGHT><INPUT TYPE="SUBMIT" NAME="<?= $var["Candidate_PetID"] ?>" VALUE="Download the petition">&nbsp;</TD>
+			</TR>
+			
 			<TR>
-				<td scope="row">&nbsp;</TD>
+				
+				
+				
+				
 				<TD VALIGN=TOP>
 					<BR>&nbsp;
 				<img src="https://www.showthebooks.org/politico/pics/<?= $var["Candidate_Picture"] ?>" width="60">&nbsp;</td>				
-				<td scope="row">&nbsp;</TD>
+				<td>&nbsp;</TD>
 	
 			<TD>
 				<BR>
@@ -59,7 +72,7 @@
 			
 		
 					
-				<b><BR>
+				<b><BR>&nbsp;<BR>
 				
 						
 				</td>
@@ -76,6 +89,7 @@
 	</DIV>
 	</DIV>
 </div>
+</FORM>
 
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
