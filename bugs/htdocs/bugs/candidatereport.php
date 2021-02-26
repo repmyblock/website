@@ -28,8 +28,8 @@
 		$TicketArray["milestone"]= NULL;
 		$TicketArray["status"]= "new";
 		$TicketArray["resolution"]= NULL;
-		$TicketArray["summary"]= $_POST["Doing"];
-		$TicketArray["description"]= "**Expectations:**\n\\\\" . $_POST["Expectations"] . "\n\n**Result:**\n\\\\" . $_POST["Result"] . "\n\n";
+		$TicketArray["summary"]= 	"Can: " . $POST["Candidate"] . " - " . $_POST["FullName"];
+		$TicketArray["description"]= "**Expectations:**\n\\\\" . $_POST["Doing"] . "\n\n**Result:**\n\\\\" . $_POST["Expectations"] . "\n\n";
 		$TicketArray["keywords"]= NULL;
 		
 		$rmb = new Trac();	
@@ -96,7 +96,8 @@
 	<INPUT TYPE="hidden" NAME="SystemID" VALUE="">
 	<INPUT TYPE="hidden" NAME="Version" VALUE="ShowTheBooksDB">
 	<INPUT TYPE="hidden" NAME="PageRequestTime" VALUE="<?= time() ?>">
-	<INPUT TYPE="hidden" NAME="OriginalK" VALUE="<?= $_GET["k"] ?>">
+	<INPUT TYPE="hidden" NAME="Candidate" VALUE="<?= $_GET["k"] ?>">
+	<INPUT TYPE="hidden" NAME="FullName" VALUE="<?= $result["Candidate_Nickname"] ?>">
 	<INPUT TYPE="hidden" NAME="BUGREFERER" VALUE="<?= $_SERVER["HTTP_REFERER"] ?>">
 	<INPUT TYPE="hidden" NAME="ENDODING" VALUE="<?= $_SERVER["HTTP_ACCEPT_ENCODING"] ?>">
 	<INPUT TYPE="hidden" NAME="LANGUAGE" VALUE="<?= $_SERVER["HTTP_ACCEPT_LANGUAGE"] ?>">

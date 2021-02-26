@@ -8,6 +8,8 @@
 	$showbooks = new ShowTheBooks();
 	$result = $showbooks->ListCandidates();
 				
+	echo "<PRE>" . print_r($result, 1) . "</PRE>";
+				
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
@@ -15,7 +17,8 @@
 
 <div class="main">
 	<div class="row">
-		<div class="register">				<P>
+		<div class="register">				
+		<P>
 			<h1 CLASS="intro">Candidates Running for Office in 2021</H1>
 		</P>
 		
