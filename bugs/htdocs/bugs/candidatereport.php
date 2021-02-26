@@ -12,15 +12,15 @@
 		$TicketArray["priority"]= "critical";
 		$TicketArray["type"]= "trivial";
 		
-		if ( $_POST["cosmetic"] == "yes" ) { $TicketArray["severity"] = "Cosmetic"; $TicketArray["type"]= "enhancement"; } 
-		else if  ($_POST["cosmetic"] == "no") {	$TicketArray["severity"] = "Broken"; }
+//		if ( $_POST["cosmetic"] == "yes" ) { $TicketArray["severity"] = "Cosmetic"; $TicketArray["type"]= "enhancement"; } 
+//		else if  ($_POST["cosmetic"] == "no") {	$TicketArray["severity"] = "Broken"; }
 		
-		if ( $_POST["blocker"] == "yes") { $TicketArray["type"]= "defect"; $TicketArray["priority"]= "critical"; }
-		else if ($_POST["blocker"] == "no") {$TicketArray["type"]= "enhancement"; $TicketArray["priority"]= "minor";}
+//		if ( $_POST["blocker"] == "yes") { $TicketArray["type"]= "defect"; $TicketArray["priority"]= "critical"; }
+//		else if ($_POST["blocker"] == "no") {$TicketArray["type"]= "enhancement"; $TicketArray["priority"]= "minor";}
 		
 		$TicketArray["time"] = $_POST["PageRequestTime"] . "000000";
 		$TicketArray["changetime"]= $_POST["BUGREQUESTIME"] . "000000";
-		$TicketArray["component"]= "Main Website";
+		$TicketArray["component"]= "Data";
 		$TicketArray["owner"]= NULL;
 		$TicketArray["reporter"]= "Bug Track";
 		$TicketArray["cc"] = NULL;
