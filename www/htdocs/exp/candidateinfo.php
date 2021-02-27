@@ -81,8 +81,13 @@
 		<INPUT TYPE="SUBMIT" NAME="SELECT" VALUE="Show only those candidates">&nbsp;</TD>
 		</P>
 		
-		<P><BR></P>
 		
+		
+		<P>
+			<B>RepMyBlock is non-partisan.</B> Each time you refresh this page, the candidate list is shuffled randomly.
+		</P>
+		
+		<P><BR></P>
 		
 		<?php
 			
