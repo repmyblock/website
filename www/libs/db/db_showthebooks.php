@@ -16,7 +16,33 @@ class ShowTheBooks extends queries {
   	return $this->_return_multiple($sql);
   }
  	
-	
+ 	function ListCandidatesByParty($party, $position) {
+ 	
+ 		$sql = "SELECT * FROM Candidate ";
+ 		$and = "";
+ 		
+ 		if (! empty ($party)) {
+ 			$sql .= "WHERE ";
+ 			$sql .= " Candidate_Party = :Party";
+ 			$sql_vars["Party"] = $party;
+ 			$and = " AND";
+ 		}
+ 		
+ 		if (! empty ($position)) {
+ 			if ( empty ($and)) { $and = "WHERE ";}
+ 			$sql .= $and . " Candidate_CouncilDistrict = :Position";
+ 			$sql_vars["Position"] = $position;
+ 		}
+ 		
+ 		$sql .= " ORDER BY RAND()";
+ 		
+ 		if (! empty ($and)) {
+ 			return $this->_return_multiple($sql, $sql_vars);
+ 		} else {
+ 			return $this->_return_multiple($sql);
+ 		}
+  }
+ 
 }
 
 ?>
