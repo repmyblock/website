@@ -12,9 +12,19 @@
 
 <div class="main">
 	<CENTER>
+		
+	<P CLASS="BckGrndElement">PETITIONING DURING COVID-19</P>
+
 
 	<P CLASS="BlueBox">
 		<A HREF="/exp/<?= $middleuri ?>/candidateinfo" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">HELP YOUR FAVORITE CANDIDATE ON THE BALLOT!<BR>DOWNLOAD AND SIGN THEIR PETITION FROM YOUR HOME.</a>
+	</P>
+	
+	
+	<P>
+		To use the RepMyBlock petition engine, you need to be with two <I>(or more)</I> members of the same party at the same address 
+		and a printer. One member signs the petition while the other member witness. After that, we work with 
+		the campaigns to arrange for you to mail it to them or volunteer to come and pick them up. <B>All you have to do is slip it under the door.</B>
 	</P>
 
 	<P CLASS="BckGrndElement">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
