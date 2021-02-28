@@ -12,6 +12,13 @@
 
 <div class="main">
 	<CENTER>
+
+	<P CLASS="BlueBox">
+		<A HREF="/exp/<?= $middleuri ?>/candidateinfo" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">HELP YOUR FAVORITE CANDIDATE ON THE BALLOT!<BR>DOWNLOAD AND SIGN THEIR PETITION FROM YOUR HOME.</a>
+	</P>
+
+	<P CLASS="BckGrndElement">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
+
 	<P CLASS="BckGrndCenter">I WANT TO</P>
 
 	<DIV>
@@ -25,16 +32,6 @@
 
 	<BR>
 
-	<P CLASS="BckGrndElement">DOWNLOAD FORM</P>
-
-	<P>
-		<B><FONT SIZE=+1><A HREF="https://pdf.repmyblock.nyc/NYS/NYC/CRU_PreFile">NYC BOE Pre Assigned Indentification Number Application</A></FONT></B>
-	</P>
-		
-		<P CLASS="MediaCenter">
-	 <iframe width="560" height="315" src="https://www.youtube.com/embed/lDt7hQFxPB8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</P>
-		
 	
 	<P CLASS="BckGrndElement">HOW IT WORKS</P>
 
@@ -55,6 +52,18 @@
 	<P>
 		<B>The time commitment is about 32 hours a year.</B>
 	</P>
+	
+		<P CLASS="BckGrndElement">DOWNLOAD FORM</P>
+
+	<P>
+		<B><FONT SIZE=+1><A HREF="https://pdf.repmyblock.nyc/NYS/NYC/CRU_PreFile">NYC BOE Pre Assigned Indentification Number Application</A></FONT></B>
+	</P>
+		
+		<P CLASS="MediaCenter">
+	 <iframe width="560" height="315" src="https://www.youtube.com/embed/lDt7hQFxPB8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</P>
+		
+
 	
 	</CENTER>
 </div>
