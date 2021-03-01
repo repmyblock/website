@@ -8,9 +8,10 @@
 
 	if ( ! empty ($_POST)) {
 				
-		$TicketArray["severity"] = "Fuzzy Description";
+		// $TicketArray["severity"] = "Fuzzy Description";
+		$TicketArray["severity"] = "Cosmetic";
 		$TicketArray["priority"]= "critical";
-		$TicketArray["type"]= "trivial";
+		$TicketArray["type"]= "enhancement";
 		
 //		if ( $_POST["cosmetic"] == "yes" ) { $TicketArray["severity"] = "Cosmetic"; $TicketArray["type"]= "enhancement"; } 
 //		else if  ($_POST["cosmetic"] == "no") {	$TicketArray["severity"] = "Broken"; }
@@ -28,7 +29,7 @@
 		$TicketArray["milestone"]= NULL;
 		$TicketArray["status"]= "new";
 		$TicketArray["resolution"]= NULL;
-		$TicketArray["summary"]= 	"Can: " . $POST["Candidate"] . " - " . $_POST["FullName"];
+		$TicketArray["summary"]= 	"Canditate: " . $_POST["Candidate"] . " - " . $_POST["FullName"];
 		$TicketArray["description"]= "**Expectations:**\n\\\\" . $_POST["Doing"] . "\n\n**Result:**\n\\\\" . $_POST["Expectations"] . "\n\n";
 		$TicketArray["keywords"]= NULL;
 		
