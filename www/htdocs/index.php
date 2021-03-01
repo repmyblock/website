@@ -26,6 +26,10 @@
 		and a printer. One member signs the petition while the other member witness. After that, we work with 
 		the campaigns to arrange for you to mail it to them or volunteer to come and pick them up. <B>All you have to do is slip it under the door.</B>
 	</P>
+	
+	<P>
+		<P CLASS="f80 center"><A HREF="/exp/website/register">To access voters lists, register and log into the Rep My Block website</A></P>
+	</P>
 
 	<P CLASS="BckGrndElement">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
