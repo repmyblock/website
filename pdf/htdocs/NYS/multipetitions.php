@@ -43,11 +43,10 @@ if ( $WaterMarkVoid == 'yes') { $pdf->Watermark = "VOID - Do not use"; }
 
 switch ($Variable) {
 	
-  case 'person';
+  case 'person':
   	$result = $r->ListCandidatePetition($SystemUser_ID, "published");
   	if ( ! empty ($result)) {
-  		
-  		//print "<PRE>" . print_r($result, 1) . "</PRE>";
+  	
   		
 			$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
 			$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
@@ -59,8 +58,13 @@ switch ($Variable) {
 		goto democc;
 		break;
 		
-	case 'setid';
+	case 'setid':
+	
 		$result = $r->ListPetitionSet($CandidatePetitionSet_ID);
+		
+		//print "<PRE>" . print_r($result, 1) . "</PRE>";
+		//exit();
+		
 		if ( ! empty ($result)) {
 			$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
 			$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
@@ -68,18 +72,31 @@ switch ($Variable) {
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
 		}
 		
+		// Check that all answer are set to no.
+		$FinalWaterMark = "no";
+		foreach ($result as $var) {
+			if ( $var["CanPetitionSet_Watermark"] == "yes" ) { $FinalWaterMark = 'yes'; }
+		}
+		if ( $FinalWaterMark == 'no') { $WaterMarkVoid = NULL; $pdf->Watermark = NULL; }
+		
+		
 		if ( $result[0]["Candidate_Status"] == "published") break;
 		goto democc;
 		break;
 							
-	case 'petid';
+	case 'petid':
 		$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
+		
 		if ( ! empty ($result)) {
 			$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
 			$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
-			$pdf->BarCode = $result[0]["CanPetitionSet_ID"];
+			$pdf->BarCode = "P" . $result[0]["CanPetitionSet_ID"];
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
+			if ( $result[0]["CanPetitionSet_Watermark"] == 'no' ) { $WaterMarkVoid = NULL; $pdf->Watermark = NULL; }
 		}
+		
+		
+		
 		if ( $result[0]["Candidate_Status"] == "published") break;
 		
 	case 'demo-single':
@@ -254,7 +271,7 @@ for ($i = 0; $i < $TotalCountName; $i++) {
 
 	$pdf->SetFont('Arial', '', 10);
 	$pdf->SetY($YLocation - 13);
-	$pdf->Cell(38, 0, $Counter  . ". ___ / ___ / " . date("Y"), 0, 0, 'L', 0);	
+	$pdf->Cell(38, 0, $Counter  . ". March ___ " . date("Y"), 0, 0, 'L', 0);	
 	
 	$pdf->SetX(195);
 	$pdf->Cell(38, 0, $County[$i], 0, 0, 'L', 0);
@@ -287,21 +304,21 @@ while ( $done == 1) {
 	// Above line.	
 	$pdf->Line($pdf->Line_Left, $YLocation + 2, $pdf->Line_Right, $YLocation + 2);
 	
-	$YLocation += 13;
+	$YLocation += 16; // This makes the box bigger
 	$pdf->SetXY($pdf->Line_Left, $YLocation - 4);
 	
-	$pdf->Line($pdf->Line_Left + 36, $YLocation - 1.5, $pdf->Line_Right - 91, $YLocation - 1.5);
+	$pdf->Line($pdf->Line_Left + 36, $YLocation - 4.5, $pdf->Line_Right - 91, $YLocation - 4.5);
 	
 	$pdf->SetTextColor(220);
 
 	$pdf->SetFont('Arial','I',20);
-	$pdf->SetXY( 72,  $YLocation - 6);
+	$pdf->SetXY( 72,  $YLocation - 9);
 	$pdf->Write(0, 'Sign here');
 	
 	$pdf->SetTextColor(190);
 
 	$pdf->SetFont('Arial','I',8);		
-	$pdf->SetXY( 41,  $YLocation + 0.8);
+	$pdf->SetXY( 41,  $YLocation - 1.8);
 	$pdf->Write(0, "Print your name here:");
 
 	$pdf->SetFont('Arial','',8);
@@ -309,9 +326,9 @@ while ( $done == 1) {
 	
 	$pdf->SetXY( 6,  $YLocation - 4 );
 	$pdf->SetFont('Arial', '', 10);
-	$pdf->Cell(38, 0, $Counter . ". ___ / ___ / ". date("Y"), 0, 0, 'L', 0);
+	$pdf->Cell(38, 0, $Counter . ". March ___ ". date("Y"), 0, 0, 'L', 0);
 
-	$pdf->SetY($YLocation+0.8);	
+	$pdf->SetY($YLocation + 0.8);	
 		
 	if ($pdf->GetY() > 218) {
 		$done = 0;

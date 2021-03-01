@@ -262,17 +262,24 @@ class PDF_Multi extends PDF_Code128 {
 		}
 
 		$this->SetFont('Arial','I',14);
-		$this->SetXY( 124,  $YLocation + 30 );
+		$this->SetXY( 129,  $YLocation + 29 );
 		$this->Write(0, 'Signature of witness');
+		
+		
 		
 		$this->SetFont('Arial','',8);
 		$this->SetTextColor(0);
+		$this->SetXY(5, -7 );
+		$this->Cell(0, 0,	$this->BarCode);
+	
 
-		$this->SetY(-11);
+		$this->SetY(-15);
 		$this->SetFont('Arial','B',13);
 		$this->Cell(0,0,	$this->TodayDateText);
+		
+		
 		$this->SetFont('Arial','',8);
-		$this->Cell(0,0, "_________________________________________________________", 0, 0, 0);
+		$this->Cell(0,3, "_________________________________________________________", 0, 0, 0);
 		
 		$this->SetXY(40, -15);
 		$this->Cell(40,10, "City", 0, 'L', 0);
@@ -283,9 +290,10 @@ class PDF_Multi extends PDF_Code128 {
 		$this->Cell(40, 10, $this->City, 0, 'C', 0);
 		$this->Cell(40, 10, $this->County, 0, 'C', 0);
 		
-		$this->SetXY(160, -7 );
+		$this->SetXY(169, -7 );
 		$this->SetFont('Arial','',13);
 		$this->Cell(0, 0,	"SHEET No. ______ ");
+		
 	
 		//A,C,B sets
 		if (! empty ($this->BarCode)) {
