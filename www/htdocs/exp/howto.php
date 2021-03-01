@@ -21,19 +21,25 @@
 		</P>
 
 		<P CLASS="f40">
-			The filing period will begin on <B>March 30<SUP>th</SUP></B> and end at midnight on April 2<SUP>nd</SUP>. 
-			<B>You do not need to drop your petitions before March 30<SUP>th</SUP>.</B>
+			The filing period will begin on <B>March 22<SUP>nd</SUP></B> and end at midnight on March 25<SUP>th</SUP>. 
+			<B>You do not need to drop your petitions before March 22<SUP>nd</SUP>.</B>
 		<BR>
 			Before you drop your petitions, you will need to apply for a Pre Assigned ID Number by 
-			<B><A HREF="<?= $FrontEndPDF ?>/NYS/NYC/CRU_PreFile/" TARGET="CRU">completing the Petition Pre Assigned Identification Number Application</A></B>
-			and mailing it to the Candidate Record Unit at the Board of Election.
-		<BR>
+			<B><A HREF="<?= $FrontEndPDF ?>/NYS/NYC/CRU_PreFile" TARGET="CRU">completing the Petition Pre Assigned Identification Number Application</A></B>
+			and mailing it to the Candidate Record Unit at the Board of Election. 
 		 <I>(If you have used the RepMyBlock system, <A HREF="/exp/<?= $middleuri ?>/login"><B>log into your account</B></A> to download a custom pre-filed one.)</I>
 		</P>
 		
 		<P>
-			<IMG SRC="/images/BOECalendar.png">
+			<CENTER><IMG SRC="/images/202102-BOECalendar.png"></CENTER>
 		</P>
+	
+		<P>&nbsp;<BR></P>
+		
+		<P CLASS="MediaCenter">
+	 <iframe width="560" height="315" src="https://www.youtube.com/embed/lDt7hQFxPB8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</P>
+		
 	</DIV>
 	</DIV>
 </div>
