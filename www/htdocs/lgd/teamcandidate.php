@@ -17,6 +17,8 @@
 					);			
 	WriteStderr($TopMenus, "Top Menu");		
 
+//	$rmb->ListCandidate();
+			
 				
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>

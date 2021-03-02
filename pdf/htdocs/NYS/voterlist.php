@@ -8,21 +8,25 @@
 
 	$r = new OutragedDems();
 	
-	if ( ! empty ($CanPetitionSet_ID)) {
-		$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);		
+	if ( $URIEncryptedString["TypeSearch"] == "Raw" ) {		
+		$TodayDay = date_create(date("Y-m-d"));
+		$voters = $r->FindRawVoterbyADED($URIEncryptedString["RawDatedFiles"], $URIEncryptedString["ED"], $URIEncryptedString["AD"], $URIEncryptedString["Raw_Voter_EnrollPolParty"]);
 	} else {
-		$result = $r->ListCandidatePetition($SystemUser_ID, "published");
+	
+		if ( ! empty ($CanPetitionSet_ID)) {
+			$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);		
+		} else {
+			$result = $r->ListCandidatePetition($SystemUser_ID, "published");
+		}
+		$result = $result[0];
+		$voters = $r->ListVoterCandidate($result["Candidate_ID"]);
+
 	}
-	$result = $result[0];
-	$voters = $r->ListVoterCandidate($result["Candidate_ID"]);
 
 	$Today = date("Ymd_Hi");
 	$OutputFilename = "WalkSheet_" . $result["CandidateElection_DBTable"] . $result["CandidateElection_DBTableValue"] . "_" . $Today . ".pdf";
-	/*
-		echo "<PRE>";
-		print_r($result);
-		exit();
-	*/
+	
+ 	// echo "<PRE>" . print_r($voters, 1) . "</PRE>"; exit();
 	
 	if (! empty ($voters)) {
 		foreach ($voters as $person) {
@@ -30,11 +34,21 @@
 				$FixedAddress = preg_replace('!\s+!', ' ', $person["Raw_Voter_ResStreetName"] );
 				$FixedApt = preg_replace('!\s+!', '', $person["Raw_Voter_ResApartment"] );
 				$Address[$FixedAddress][$person["Raw_Voter_ResHouseNumber"]]["PrintAddress"] = ucwords(strtolower(trim($r->DB_ReturnAddressLine1($person))));
-				$Address[$FixedAddress][$person["Raw_Voter_ResHouseNumber"]][$FixedApt][$person["Raw_Voter_Status"]][$person["CandidatePetition_ID"]] =	$person["CandidatePetition_VoterFullName"];
 				
+				if ( $URIEncryptedString["TypeSearch"] == "Raw" ) {		
+					$Address[$FixedAddress][$person["Raw_Voter_ResHouseNumber"]][$FixedApt][$person["Raw_Voter_Status"]][$person["Raw_Voter_ID"]] =	$r->DB_ReturnFullName($person);
+					$VoterAge = date_diff(date_create($person["Raw_Voter_DOB"]), $TodayDay)->format("%Y");       		
+       		if ( $VoterAge < 1 || $VoterAge > 150) { $VoterAge = 0; }
+       		$Age[$person["Raw_Voter_ID"]] = $VoterAge;
+       		$Gender[$person["Raw_Voter_ID"]] = $person["Raw_Voter_Gender"];
+				} else {
+					$Address[$FixedAddress][$person["Raw_Voter_ResHouseNumber"]][$FixedApt][$person["Raw_Voter_Status"]][$person["CandidatePetition_ID"]] =	$person["CandidatePetition_VoterFullName"];
+					$Age[$person["CandidatePetition_ID"]] = $person["CandidatePetition_Age"];
+					$Gender[$person["CandidatePetition_ID"]] = $person["Raw_Voter_Gender"];
+				}			
 				// The reason for this is that the CandidatePetition_ID is unique enough.
-				$Age[$person["CandidatePetition_ID"]] = $person["CandidatePetition_Age"];
-        $Gender[$person["CandidatePetition_ID"]] = $person["Raw_Voter_Gender"];
+				
+        
 			}
 		}
 	}

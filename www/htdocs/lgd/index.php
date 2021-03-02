@@ -99,6 +99,13 @@
 					good Run Kit. You can download 
 					<A TARGET="CCSUN"HREF="https://drive.google.com/drive/folders/1CLpq48zFPQbHCeMN_3IKHVM65xejA354">from here.</A>
 				</P>
+				
+				<P>&nbsp;</P>
+				
+				<P>
+					If you find something that doesn't work, please report it by clickin on the <B>BUG</B> menu option below.
+					<CENTER><IMG SRC="/images/ReportBug.jpg"></CENTER>
+				</P>
 	  
 			</DIV>
 		</DIV>
