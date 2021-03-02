@@ -1,6 +1,6 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
-	$Menu = "team";
+	$Menu = "voters";
 	$BigMenu = "represent";	
 	 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
@@ -66,11 +66,12 @@
 						echo "</div>";
 						
 					 } else {
-							
+							if ( count ($Result) < 1) {
 								
 								echo "<B><FONT SIZE=+2 COLOR=BROWN>You need to select a party to list by AD & ED.<BR>
 								</FONT><FONT SIZE=+2>You cannot select ALL.</FONT>
 								</FONT></B>";
+							}
 								
 							} 
 							
