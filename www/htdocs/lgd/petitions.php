@@ -41,7 +41,7 @@
 			    <div class="Box-body text-center py-6 js-collaborated-repos-empty">
 			      You have not yet setup your petitions 
 			    	<a href="/lgd/<?= $k ?>/profilecandidate"><B>you can setup it up here</B></a>.
-			    		<BR><FONT COLOR=BROWN><B>This menu will be enabled January 2021</B></FONT>
+			    		<BR><FONT COLOR=BROWN><B>March 3rd, 2021</B></FONT>
 			    </div>
 			<?php } 
 				} else { ?>

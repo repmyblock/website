@@ -58,26 +58,56 @@
 	
 	$RestOfLine = "";
 	$pdf->Text_PubDate_XLoc = 153;
-	if ( $result["CandidateElection_DBTable"] = "EDAD") {
-		preg_match('/(\d\d)(\d\d\d)/', $result["CandidateElection_DBTableValue"], $Keywords);
-		$RestOfLine = " AD: " . intval($Keywords[1]) . " ED: " . intval($Keywords[2]);
-		$pdf->Text_PubDate_XLoc = 133;
-	}
+	
 		
 	
 	$pdf->Text_PubDate = date("M j, Y \a\\t g:i a") . $RestOfLine;
-	$pdf->Text_CandidateName = $result["Candidate_DispName"];
-	$pdf->Text_ElectionDate = $ElectionDate;
-	$pdf->Text_PosType = $result["CandidateElection_PositionType"];
-  $pdf->Text_Party = $result["CandidateElection_Party"];
-  $pdf->Text_PosText = $result["CandidateElection_Text"];
- 	$pdf->Text_PosPetText = $result["CandidateElection_PetitionText"];
-  $pdf->Text_DistricType = $result["CandidateElection_DBTable"];
-  $pdf->Text_DistricHeading = $result["CandidateElection_DBTableValue"];
-  $pdf->Text_PetitionSetID = $result["CandidatePetitionSet_ID"];
-   
-  $pdf->LeftText = $pdf->Text_Party . " SetID:" . $result["CandidatePetitionSet_ID"];
-	$pdf->RightText =  $pdf->Text_DistricType . ":" . $pdf->Text_DistricHeading;
+	
+	if ( $URIEncryptedString["TypeSearch"] == "Raw" ) {		
+		//echo "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>"; exit();
+		
+		
+		$RestOfLine = " AD: " . intval($URIEncryptedString["AD"]) . " ED: " . intval($URIEncryptedString["ED"]);
+		$pdf->Text_PubDate = date("M j, Y \a\\t g:i a") . $RestOfLine;
+		$pdf->Text_PubDate_XLoc = 133;
+
+		$pdf->Text_CandidateName = $result["Candidate_DispName"];
+		$pdf->Text_ElectionDate = $ElectionDate;
+		$pdf->Text_PosType = $result["CandidateElection_PositionType"];
+	  $pdf->Text_Party = $result["Raw_Voter_EnrollPolParty"];
+	  $pdf->Text_PosText = $result["CandidateElection_Text"];
+	 	$pdf->Text_PosPetText = $result["CandidateElection_PetitionText"];
+	  $pdf->Text_DistricType = $result["CandidateElection_DBTable"];
+	  $pdf->Text_DistricHeading = $result["CandidateElection_DBTableValue"];
+	  $pdf->Text_PetitionSetID = $result["CandidatePetitionSet_ID"];
+	   
+	   
+	  $pdf->LeftText = $pdf->Text_Party . " SetID:" . $result["CandidatePetitionSet_ID"];
+		$pdf->RightText =  $pdf->Text_DistricType . ":" . $pdf->Text_DistricHeading;
+
+	} else  {
+		
+		if ( $result["CandidateElection_DBTable"] = "EDAD") {
+			preg_match('/(\d\d)(\d\d\d)/', $result["CandidateElection_DBTableValue"], $Keywords);
+			$RestOfLine = " AD: " . intval($Keywords[1]) . " ED: " . intval($Keywords[2]);
+			$pdf->Text_PubDate_XLoc = 133;
+		}
+		$pdf->Text_PubDate = date("M j, Y \a\\t g:i a") . $RestOfLine;
+		$pdf->Text_CandidateName = $result["Candidate_DispName"];
+		$pdf->Text_ElectionDate = $ElectionDate;
+		$pdf->Text_PosType = $result["CandidateElection_PositionType"];
+	  $pdf->Text_Party = $result["CandidateElection_Party"];
+	  $pdf->Text_PosText = $result["CandidateElection_Text"];
+	 	$pdf->Text_PosPetText = $result["CandidateElection_PetitionText"];
+	  $pdf->Text_DistricType = $result["CandidateElection_DBTable"];
+	  $pdf->Text_DistricHeading = $result["CandidateElection_DBTableValue"];
+	  $pdf->Text_PetitionSetID = $result["CandidatePetitionSet_ID"];
+	   
+	   
+	  $pdf->LeftText = $pdf->Text_Party . " SetID:" . $result["CandidatePetitionSet_ID"];
+		$pdf->RightText =  $pdf->Text_DistricType . ":" . $pdf->Text_DistricHeading;
+ 	}
+	
 	
 	// Insert the logo:
 	if ( $PageSize == "letter") {

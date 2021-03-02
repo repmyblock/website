@@ -4,7 +4,6 @@
 	$BigMenu = "represent";	
 	 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 	
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
@@ -63,11 +62,19 @@
 																																								"Raw_Voter_EnrollPolParty" => $var["Raw_Voter_EnrollPolParty"],
 																																								"TypeSearch" => "Raw"				
 																																							)); ?>/voterlist">Walksheet</A> 
-							<?php } ?>
-						</div>
+							<?php } 
+						echo "</div>";
 						
-						<?php } ?>
-				<?php
+					 } else {
+							
+								
+								echo "<B><FONT SIZE=+2 COLOR=BROWN>You need to select a party to list by AD & ED.<BR>
+								</FONT><FONT SIZE=+2>You cannot select ALL.</FONT>
+								</FONT></B>";
+								
+							} 
+							
+					
 				
 				 if ( ! empty ($Result)) {
 				foreach ($Result as $var) {
@@ -96,8 +103,13 @@
 	}
 	
 			?>
+			
+			
+						
+			
+			
 						<BR>
-							<B><A HREF="/admin/<?= $k ?>/voterlookup">Back to the query screen</A></B>
+							<B><A HREF="/lgd/<?= $k ?>/voterquery">Back to the query screen</A></B>
 						</DIV>
 
 </FORM>

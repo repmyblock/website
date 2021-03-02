@@ -62,8 +62,8 @@ if (! empty($_POST)) {
 	}
 
 	$TopMenus = array ( 
-						array("k" => $k, "url" => "voterlist", "text" => "District Voters"),
-						array("k" => $k, "url" => "voterquery", "text" => "Search Voter")
+						array("k" => $k, "url" => "voterquery", "text" => "Search Voter"),
+						array("k" => $k, "url" => "voterlist", "text" => "District Voters")
 					);			
 	WriteStderr($TopMenus, "Top Menu");		
 
