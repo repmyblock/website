@@ -71,10 +71,10 @@
 		$pdf->Text_PubDate = date("M j, Y \a\\t g:i a") . $RestOfLine;
 		$pdf->Text_PubDate_XLoc = 133;
 
-		$pdf->Text_CandidateName = $result["Candidate_DispName"];
+		$pdf->Text_CandidateName = "in the " . $URIEncryptedString["Raw_Voter_EnrollPolParty"] . " party";
 		$pdf->Text_ElectionDate = $ElectionDate;
 		$pdf->Text_PosType = $result["CandidateElection_PositionType"];
-	  $pdf->Text_Party = $result["Raw_Voter_EnrollPolParty"];
+	  $pdf->Text_Party = $URIEncryptedString["Raw_Voter_EnrollPolParty"];
 	  $pdf->Text_PosText = $result["CandidateElection_Text"];
 	 	$pdf->Text_PosPetText = $result["CandidateElection_PetitionText"];
 	  $pdf->Text_DistricType = $result["CandidateElection_DBTable"];
@@ -82,7 +82,7 @@
 	  $pdf->Text_PetitionSetID = $result["CandidatePetitionSet_ID"];
 	   
 	   
-	  $pdf->LeftText = $pdf->Text_Party . " SetID:" . $result["CandidatePetitionSet_ID"];
+	  $pdf->LeftText = $pdf->Text_Party;  //  . " SetID:" . $result["CandidatePetitionSet_ID"];
 		$pdf->RightText =  $pdf->Text_DistricType . ":" . $pdf->Text_DistricHeading;
 
 	} else  {
