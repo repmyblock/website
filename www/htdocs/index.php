@@ -30,7 +30,23 @@
 	<P>
 		<P CLASS="f80 center"><A HREF="/exp/website/register">To access voters lists, register and log into the Rep My Block website</A></P>
 	</P>
+	
+	<P CLASS="BckGrndElement">ZOOM WITH PAPERBOY LOVE PRINCE</P>
 
+	<P>
+		<B>Sal Albanese</B>, <B>Badrun Khan</B>, <B>Ben Yee</B>, <B>Vittoria Fariello</B>, and <B>Jared Rich</B> discuss with 
+		Paperboy Love Prince the weaponization of the electoral process in five one-hour candids chats. These videos were 
+		recorded while Paperboy Love Prince was running for congress and discovering first hand the different steps of running. 
+		Those video chats' goal is to demonstrate there is hope, but it will require every voter to participate in the process 
+		beyond showing up to the polls to vote. <B>Democracy depends on it!</B>
+	</P>
+
+	<P>
+		<P CLASS="f80 center"><A HREF="/exp/website/training">Access to the video chats</A></P>
+	</P>
+
+	
+	
 	<P CLASS="BckGrndElement">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
 	<P CLASS="BckGrndCenter">I WANT TO</P>
