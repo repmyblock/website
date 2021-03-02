@@ -15,11 +15,9 @@
 		
 	<P CLASS="BckGrndElement">PETITIONING DURING COVID-19</P>
 
-
 	<P CLASS="BlueBox">
 		<A HREF="/exp/<?= $middleuri ?>/candidateinfo" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">HELP YOUR FAVORITE CANDIDATE ON THE BALLOT!<BR>DOWNLOAD AND SIGN THEIR PETITION FROM YOUR HOME.</a>
 	</P>
-	
 	
 	<P>
 		To use the RepMyBlock petition engine, you need to be with two <I>(or more)</I> members of the same party at the same address 
@@ -42,11 +40,9 @@
 	</P>
 
 	<P>
-		<P CLASS="f80 center"><A HREF="/exp/website/training">Access to the video chats</A></P>
+		<P CLASS="f80 center"><A HREF="/exp/website/training">Access the video chats</A></P>
 	</P>
 
-	
-	
 	<P CLASS="BckGrndElement">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
 	<P CLASS="BckGrndCenter">I WANT TO</P>
@@ -62,7 +58,6 @@
 
 	<BR>
 
-	
 	<P CLASS="BckGrndElement">HOW IT WORKS</P>
 
 	<P>
