@@ -40,7 +40,8 @@
  			<A HREF="/admin/<?= $k ?>/voterlookup">Voter Lookup</A><BR>
   		<A HREF="/admin/<?= $k ?>/track">Petitions Tracker</A><BR>	
   		<A HREF="/admin/<?= $k ?>/setup_elections">Election Maintenance</A><BR>	
-  		<A HREF="/admin/<?= $k ?>/setup_positions"> Position Maintenance</A><BR>	
+  		<A HREF="/admin/<?= $k ?>/setup_positions">Position Maintenance</A><BR>	
+  		<A HREF="/admin/<?= $k ?>/create_petition">Create a petition</A><BR>	
    		
     </dd>
   </dl>

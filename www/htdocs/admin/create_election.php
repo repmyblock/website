@@ -12,8 +12,23 @@
 	$rmb = new repmyblock();
 	$Party = NewYork_PrintParty($UserParty);
 	
-	if (! empty($_POST)) {		
+	if (! empty($_POST)) {	
+		
+		
+		echo "<PRE>" . print_r($_POST,1 ) . "</PRE>";
+		
+		$result = $rmb->InsertCandidate(NULL, $_POST["UniqNYS"], NULL, NULL, 
+														NULL, $_POST["CandidateElection_ID"], $_POST["Party"], $_POST["Candidate_DispName"],
+														$_POST["EmailCandidate_DispResidence"], $_POST["CandidateElection_DBTable"], 
+														$_POST["CandidateElection_DBTableValue"],	NULL, "published");
+		
+		echo "<PRE>" . print_r($result, 1 ) . "</PRE>";
+		exit();
+		
+			
 		header("Location: /admin/" .  CreateEncoded ( array( 
+								"Query_Username" => $_POST["Username"],
+								"Query_Email" => $_POST["Email"],
 								"Query_FirstName" => $_POST["FirstName"],
 								"Query_LastName" => $_POST["LastName"], 
 								"Query_AD" => $_POST["AD"],
@@ -28,7 +43,7 @@
 						    "LastName" => $URIEncryptedString["LastName"],
 						    "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
 						   	"SystemAdmin" => $URIEncryptedString["SystemAdmin"]
-					)) . "/voterlist");
+					)) . "/userlist");
 		exit();
 	}
 
@@ -43,6 +58,16 @@
 	if ( ! empty ($URIEncryptedString["RetReturnNYSBOEID"])) { $FormFieldNYSBOEID = $URIEncryptedString["RetReturnNYSBOEID"]; }
 	if ( ! empty ($URIEncryptedString["RetReturnCongress"])) { $FormFieldCongress = $URIEncryptedString["RetReturnCongress"]; }
 	if ( ! empty ($URIEncryptedString["RetReturnPARTY"])) { $FormFieldParty = $URIEncryptedString["RetReturnPARTY"]; }
+	if ( ! empty ($URIEncryptedString["RetReturnUsername"])) { $FormFieldUsername = $URIEncryptedString["RetReturnUsername"]; }
+	if ( ! empty ($URIEncryptedString["RetReturnEmail"])) { $FormFieldEmail = $URIEncryptedString["RetReturnEmail"]; }
+	
+	$TopMenus = array ( 
+							array("k" => $k, "url" => "create_petition", "text" => "Petitions"),
+							array("k" => $k, "url" => "create_witnesses", "text" => "Witnesses"),
+							array("k" => $k, "url" => "create_election", "text" => "Election")
+						);			
+													
+	WriteStderr($TopMenus, "Top Menu");		
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
@@ -53,16 +78,13 @@
 			<div class="<?= $DIVCol ?> float-left">
 
 				<div class="Subhead">
-			  	<h2 class="Subhead-heading">Voter Lookup</h2>
+			  	<h2 class="Subhead-heading">Create Elections</h2>
 				</div>
 			
-			<?php 
-				if ($VerifEmail == true) { 
-					include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
-				} else if ($VerifVoter == true) {
-					include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
-				} 
-			?>          
+		<?php
+				PrintVerifMenu($VerifEmail, $VerifVoter);
+			 	PlurialMenu($k, $TopMenus, "admin");
+			?>
 			
 			<?php if (! empty ($URIEncryptedString["ErrorMsg"])) {
 		    	
@@ -71,68 +93,41 @@
 		    } ?>
 				
 				
-				<B><FONT COLOR="BROWN">Some query combination are not possible.</FONT></B><BR>
-				Try them but if you get a page that says: <I><B>"The Assembly District cannot be empty"</B></I>, 
-				it means that that query combination does not work.
+			
 				    
 				<div class="clearfix gutter d-flex flex-shrink-0">
 									
 				<div class="col-12">
 				  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
-						<div>
+				
+							
+							<div>
 							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">First Name</label><DT>
+								<dt class="mobilemenu"><label for="user_profile_name">CandidateElection_PetitionText</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="First" name="FirstName" VALUE="<?= $FormFieldFirstName ?>" id="">
+									<input class="form-control" type="text" Placeholder="Candidate Name" name="CandidateElection_PetitionText" VALUE="<?= $FormFieldCandidateElection_PetitionText ?>" id="">
 								</dd>
 							</dl>
 
 							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Last Name</label><DT>
+								<dt class="mobilemenu"><label for="user_profile_name">Candidate_DispResidence</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="Last" name="LastName" VALUE="<?= $FormFieldLastName ?>" id="">
+									<input class="form-control" type="text" Placeholder="Candidate_DispResidence" name="EmailCandidate_DispResidence" VALUE="<?= $FormFieldCandidate_DispResidence ?>" id="">
 								</dd>
 							</dl>
 							
 							</div>
 							
 						
-								<div>
 							
+									<div>
 							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Zipcode</label><DT>
+								<dt class="mobilemenu"><label for="user_profile_name">Election ID</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="Zipcode" name="ZIP" VALUE="<?= $FormFieldZIP ?>" id="">
+									<input class="form-control" type="text" Placeholder=" Election ID" name="CandidateElection_ID" VALUE="<?= $FormFieldCandidateElection_ID ?>" id="">
 								</dd>
 							</dl>
-							
-								<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">County</label><DT>
-								<dd>
-									<SELECT CLASS="mobilebig" NAME="COUNTY">
-									<OPTION VALUE="">Whole State</OPTION>
-									<OPTION VALUE="NYC"<?php if ($FormFieldCounty == "NYC"  || empty ($FormFieldCounty)) { echo " SELECTED"; } ?>>New York City</OPTION>
-									<OPTION VALUE="BQK"<?php if ($FormFieldCounty == "BQK") { echo " SELECTED"; } ?>>Bronx, Queens, and Kings</OPTION>
-									<OPTION VALUE="03"<?php if ($FormFieldCounty == "03") { echo " SELECTED"; } ?>>Bronx County (the Bronx)</OPTION>
-									<OPTION VALUE="31"<?php if ($FormFieldCounty == "31") { echo " SELECTED"; } ?>>New York County (Manhattan)</OPTION>
-									<OPTION VALUE="41"<?php if ($FormFieldCounty == "41") { echo " SELECTED"; } ?>>Queens County</OPTION>
-									<OPTION VALUE="43"<?php if ($FormFieldCounty == "43") { echo " SELECTED"; } ?>>Richmond County (Staten Island)</OPTION>
-									<OPTION VALUE="24"<?php if ($FormFieldCounty == "24") { echo " SELECTED"; } ?>>Kings County (Brooklyn)</OPTION>
-									<OPTION VALUE="OUTSIDE"<?php if ($FormFieldCounty == "OUTSIDE") { echo " SELECTED"; } ?>>Outside New York City</OPTION>
-									</SELECT>
-								</dd>
-							</dl>
-							
-						</DIV>
 
-					<DIV>
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">NYS BOE ID</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="NYS Uniq ID" name="UniqNYS" VALUE="<?= $FormFieldNYSBOEID ?>" id="">
-								</dd>
-							</dl>
-				
 							<dl class="form-group col-48 d-inline-block"> 
 								<dt class="mobilemenu"><label for="user_profile_name">Party</label><DT>
 								<dd>
@@ -153,76 +148,44 @@
 									</SELECT>
 								</dd>
 							</dl>
-						</div>
-
-						<div>						
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">House Number</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="House Number" name="HousNumber" VALUE="<?= $RetHousNumber ?>" id="">
-								</dd>
-							</dl>
-
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Street Name</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Street Name" name="StreetName" VALUE="<?= $RetStreetName ?>" id="">
-								</dd>
-							</dl>					
-						</div>
-						
-						<div>						
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Apt Number</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Apt Number" name="AptNumber" VALUE="<?= $RetAptNumber ?>" id="">
-								</dd>
-							</dl>
-
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">City</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="City" name="City" VALUE="<?= $RetCity ?>" id="">
-								</dd>
-							</dl>					
-						</div>
-						
-									<div>						
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Assembly District</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Assembly District" name="AD" VALUE="<?= $RetReturnAD ?>" id="">
-								</dd>
-							</dl>
-
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Electoral District</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Electoral District" name="ED" VALUE="<?= $RetReturnED ?>" id="">
-								</dd>
-							</dl>					
-						</div>
-								
-						<div>
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Congressional District</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Congressional District" name="Congress" VALUE="<?= $FormFieldCongress ?>" id="">
-								</dd>
-							</dl>
 					
+							</div>
+							
+							
+						
+							
+
+					<DIV>
 							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">City Council District</label><DT>
+								<dt class="mobilemenu"><label for="user_profile_name">NYS BOE ID</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="City Council District" name="CityCouncil" VALUE="<?= $FormFieldCityCouncil ?>" id="">
+									<input class="form-control" type="text" Placeholder="NYS Uniq ID" name="UniqNYS" VALUE="<?= $FormFieldNYSBOEID ?>" id="">
 								</dd>
 							</dl>
+				
+								</div>
+
+						<div>						
+							<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">DB Table</label><DT>
+								<dd>
+									<input class="form-control" type="text" Placeholder="DB Table" name="CandidateElection_DBTable" VALUE="<?= $FormFieldCandidateElection_DBTable ?>" id="">
+								</dd>
+							</dl>
+
+							<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">DB Table Value</label><DT>
+								<dd>
+									<input class="form-control" type="text" Placeholder="DB Table Value" name="CandidateElection_DBTableValue" VALUE="<?= $FormFieldCandidateElection_DBTableValue ?>" id="">
+								</dd>
+							</dl>					
 						</div>
+				
 
 						<div>						
 							<dl class="form-group col-12 d-inline-block"> 
 								<dd>
-									<button type="submit" class="btn btn-primary mobilemenu">Search Voter Registration</button>
+									<button type="submit" class="btn btn-primary mobilemenu">Search User</button>
 								</dd>
 							</dl>
 						</div>
