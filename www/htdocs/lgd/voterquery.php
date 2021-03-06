@@ -67,7 +67,7 @@ if (! empty($_POST)) {
 					);			
 	WriteStderr($TopMenus, "Top Menu");		
 
-
+	if ( empty ($FormFieldParty)) $FormFieldParty = "DEM";
 			
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ($MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
