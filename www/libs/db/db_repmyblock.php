@@ -420,12 +420,12 @@ class RepMyBlock extends queries {
 		
 	}
 	
-	function InsertCandidateSet($Candidate_ID, $CandidatePetitionSet_ID, $CanPetitionSet_Party, $DataCounty_ID) {
+	function InsertCandidateSet($Candidate_ID, $CandidatePetitionSet_ID, $CanPetitionSet_Party, $DataCounty_ID, $Watermark = "no") {
 		$sql = "INSERT INTO CanPetitionSet SET " .
 						"CandidatePetitionSet_ID = :CanPetSetID, Candidate_ID = :CandidateID, " .
-						"DataCounty_ID = :CountyID, CanPetitionSet_Party = :Party";
+						"DataCounty_ID = :CountyID, CanPetitionSet_Party = :Party, CanPetitionSet_Watermark = :Watermark";
 		$sql_vars = array("CanPetSetID" => $CandidatePetitionSet_ID, "CandidateID" => $Candidate_ID, 
-											"CountyID" => $DataCounty_ID, "Party" => $CanPetitionSet_Party);			
+											"CountyID" => $DataCounty_ID, "Party" => $CanPetitionSet_Party, "Watermark" => $Watermark);			
 		$this->_return_nothing($sql, $sql_vars);
 		
 		$sql = "SELECT LAST_INSERT_ID() as CanPetitionSet_ID";

@@ -139,13 +139,13 @@ function PrintVerifMenu($VerifEmail = true, $VerifVoter = true) {
 	}
 }
 
-function PlurialMenu($k, $menusarray) {
+function PlurialMenu($k, $menusarray, $alturl = "lgd") {
 	if ( ! empty ($menusarray)) {
 		echo "<nav class=\"UnderlineNav pt-1 mb-4\">\n";
 		echo "  <div class=\"UnderlineNav-body\">\n";
 		foreach ($menusarray as $var) {
-			if ( $_SERVER["PHP_SELF"] == "/lgd/" . $var["url"] . ".php" ) { $selected = " selected"; } else { $selected = ""; }			
-			echo "    <a href=\"/lgd/"  . $var["k"] . "/" . $var["url"] . "\" class=\"mobilemenu UnderlineNav-item" .  $selected . "\">" . $var["text"] . "</a>\n";
+			if ( $_SERVER["PHP_SELF"] == "/" . $alturl . "/" . $var["url"] . ".php" ) { $selected = " selected"; } else { $selected = ""; }			
+			echo "    <a href=\"/" . $alturl . "/"  . $var["k"] . "/" . $var["url"] . "\" class=\"mobilemenu UnderlineNav-item" .  $selected . "\">" . $var["text"] . "</a>\n";
 		}
 		echo "</div>\n";
 		echo "</nav>\n";
