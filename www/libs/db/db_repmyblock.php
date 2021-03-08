@@ -217,8 +217,8 @@ class RepMyBlock extends queries {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM " . $TableVoter . " " . 
 						"LEFT JOIN DataCounty ON ( Raw_Voter_CountyCode = DataCounty.DataCounty_ID) " . 
-						"WHERE Raw_Voter_LastName = :LastName ";						
-		$sql_vars = array('LastName' => $LastName);
+						"WHERE Raw_Voter_LastName LIKE :LastName ";						
+		$sql_vars = array('LastName' => $LastName . "%");
 
 		if ( ! empty ($FirstName)) { $sql .= " AND Raw_Voter_FirstName = :FirstName"; $sql_vars["FirstName"] = $FirstName; }		
 		if ( ! empty ($zip)) { $sql .= " AND Raw_Voter_ResZip = :ZIP"; $sql_vars["ZIP"] = $zip;	}
@@ -230,16 +230,17 @@ class RepMyBlock extends queries {
 		if ( ! empty ($countyid)) {
 			switch ($countyid) {
 				case 'BQK':
-					$sql .= " AND (Raw_Voter_CountyCode = \"03\" || Raw_Voter_CountyCode = \"41\" || Raw_Voter_CountyCode = \"24\")";
+					$sql .= " AND (Raw_Voter_CountyCode = \"03\" OR Raw_Voter_CountyCode = \"41\" OR Raw_Voter_CountyCode = \"24\") ";
 					break;
 					
 				case 'NYC':
-					$sql .= " AND (Raw_Voter_CountyCode = \"43\" || Raw_Voter_CountyCode = \"31\")";
+					$sql .= " AND (Raw_Voter_CountyCode = \"43\" OR Raw_Voter_CountyCode = \"31\" OR Raw_Voter_CountyCode = \"03\"" . 
+									" OR Raw_Voter_CountyCode = \"41\" OR Raw_Voter_CountyCode = \"24\") ";
 					break;
 
 				case 'OUTSIDE':
-					$sql .= " AND Raw_Voter_CountyCode != \"03\" && Raw_Voter_CountyCode != \"41\" && Raw_Voter_CountyCode != \"24\"" .
-									" AND Raw_Voter_CountyCode != \"43\" || Raw_Voter_CountyCode != \"31\"";
+					$sql .= " AND Raw_Voter_CountyCode != \"03\" AND Raw_Voter_CountyCode != \"41\" AND Raw_Voter_CountyCode != \"24\"" .
+									" AND Raw_Voter_CountyCode != \"43\" AND Raw_Voter_CountyCode != \"31\" ";
 					break;
 				
 				default:
@@ -248,6 +249,8 @@ class RepMyBlock extends queries {
 					break;				
 			}
 		}
+		
+		WriteStderr($sql, "SearchVoter Query SQL");
 		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
@@ -529,12 +532,24 @@ class RepMyBlock extends queries {
 						"SystemUserOldEmail_OldStatus = :OldStatus, SystemUserOldEmail_NewEmail = :NewEmail, " .
 						"SystemUserOldEmail_Timestamp = NOW()";
 		$sql_vars = array("SystemUserID" => $SystemUserID, "OldEmail" => $OldEmail,
-											"OldStatus" => $OldStatus, "NewEmail" => $NewEmail);
-		
+											"OldStatus" => $OldStatus, "NewEmail" => $NewEmail);	
 	}
 	
-	function InsertCandidatePetitionSet($System_ID = NULL) {
-		
+	function FindCandidatePetitionSet($Candidate_ID, $CanPetitionSet_Party, $DataCounty_ID, $watermark = "no") {
+		$sql = "SELECT max(CandidatePetitionSet_ID) AS CandidateSet FROM NYSVoters.CanPetitionSet";
+		$ret = $this->_return_simple($sql);	
+		$newret =  $ret["CandidateSet"] + 1;	
+		$this->InsertCandidateSet($Candidate_ID, $newret, $CanPetitionSet_Party, $DataCounty_ID, $watermark);
+		return $newret;
+	}
+	
+	function ListCandidatePetitionSet($CandidatePetitionSet_ID) {
+		$sql = "SELECT * FROM CanPetitionSet WHERE CandidatePetitionSet_ID = :CandidateSetID";
+		$sql_vars = array("CandidateSetID" => $CandidatePetitionSet_ID);
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	function InsertCandidatePetitionSet($System_ID = NULL) {	
 		$sql = "INSERT INTO CandidatePetitionSet SET CandidatePetitionSet_TimeStamp = NOW()";
 		$sql_vars = array('CanSetID' => $CandidatePetitionSet_ID);
 		

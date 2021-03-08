@@ -55,11 +55,14 @@
 	if ( ! empty ($URIEncryptedString["RetReturnUsername"])) { $FormFieldUsername = $URIEncryptedString["RetReturnUsername"]; }
 	if ( ! empty ($URIEncryptedString["RetReturnEmail"])) { $FormFieldEmail = $URIEncryptedString["RetReturnEmail"]; }
 	
-	$TopMenus = array ( 
+$TopMenus = array ( 
 							array("k" => $k, "url" => "create_petition", "text" => "Petitions"),
 							array("k" => $k, "url" => "create_witnesses", "text" => "Witnesses"),
-							array("k" => $k, "url" => "create_election", "text" => "Election")
+							array("k" => $k, "url" => "create_election", "text" => "Election"),
+							array("k" => $k, "url" => "create_candidateset", "text" => "Petition Set"),
+							array("k" => $k, "url" => "copy_candidateset", "text" => "Copy Set")
 						);			
+									
 													
 	WriteStderr($TopMenus, "Top Menu");		
 

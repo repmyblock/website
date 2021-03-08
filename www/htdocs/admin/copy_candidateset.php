@@ -13,21 +13,31 @@
 	$Party = NewYork_PrintParty($UserParty);
 	
 	if (! empty($_POST)) {	
-		
-		
 		echo "<PRE>" . print_r($_POST,1 ) . "</PRE>";
 		
-		$result = $rmb->InsertCandidate(NULL, $_POST["UniqNYS"], NULL, NULL, 
-														NULL, $_POST["CandidateElection_ID"], $_POST["Party"], $_POST["Candidate_DispName"],
-														$_POST["EmailCandidate_DispResidence"], $_POST["CandidateElection_DBTable"], 
-														$_POST["CandidateElection_DBTableValue"],	NULL, "published");
+		$result = $rmb->ListCandidatePetitionSet($_POST["CandidatePetitionSet_ID"]);
+		if ( ! empty($result)) {
+			foreach ($result as $var) {
+				echo "<PRE> ===> " . print_r($var, 1 ) . "</PRE>";
 		
+				if ( ! empty ($var)) {
+					if ( empty ($CandidatePetitionSet_ID) ) {
+						$CandidatePetitionSet_ID = $rmb->FindCandidatePetitionSet($_POST["Candidate_ID"], $var["Party"], $var["County_ID"], "no");
+						echo "<PRE> => " . print_r($CandidatePetitionSet_ID, 1 ) . "</PRE>";
+					}
+					$rmb->InsertCandidateSet($var["Candidate_ID"], $CandidatePetitionSet_ID, $var["Party"], $var["County_ID"], "no" );	
+					
+				}
+				
+			}
+		}
+	
 		echo "<PRE>" . print_r($result, 1 ) . "</PRE>";
+		$svar = "https://pdf.repmyblock.nyc/NYS/s" . $CandidatePetitionSet_ID . "/multipetitions";		
+		echo "<A HREF=\"" . $svar . "\">" . $svar . "</A><BR>";
+	
 		exit();
 		
-		exit();
-		
-			
 		header("Location: /admin/" .  CreateEncoded ( array( 
 								"Query_Username" => $_POST["Username"],
 								"Query_Email" => $_POST["Email"],
@@ -70,6 +80,8 @@
 							array("k" => $k, "url" => "create_candidateset", "text" => "Petition Set"),
 							array("k" => $k, "url" => "copy_candidateset", "text" => "Copy Set")
 						);			
+									
+												
 													
 	WriteStderr($TopMenus, "Top Menu");		
 
@@ -107,84 +119,37 @@
 							
 							<div>
 							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Display Name</label><DT>
+								<dt class="mobilemenu"><label for="user_profile_name">CandidatePetitionSet_ID</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="Candidate Name" name="Candidate_DispName" VALUE="<?= $FormFieldCandidate_DispName ?>" id="">
+									<input class="form-control" type="text" Placeholder="CandidatePetitionSet_ID" name="CandidatePetitionSet_ID" VALUE="<?= $FormFieldCandidate_DispName ?>" id="">
 								</dd>
 							</dl>
 
 							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Candidate_DispResidence</label><DT>
+								<dt class="mobilemenu"><label for="user_profile_name">Candidate_ID</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="Candidate_DispResidence" name="EmailCandidate_DispResidence" VALUE="<?= $FormFieldCandidate_DispResidence ?>" id="">
+									<input class="form-control" type="text" Placeholder="Candidate_ID" name="Candidate_ID" VALUE="<?= $FormFieldCandidate_DispResidence ?>" id="">
 								</dd>
 							</dl>
 							
 							</div>
 							
 						
-							
-									<div>
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Election ID</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder=" Election ID" name="CandidateElection_ID" VALUE="<?= $FormFieldCandidateElection_ID ?>" id="">
-								</dd>
-							</dl>
-
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Party</label><DT>
-								<dd>
-									<SELECT  CLASS="mobilebig" NAME="Party">
-										<OPTION VALUE="">All</OPTION>
-										<OPTION VALUE="DEM"<?php if ($FormFieldParty == "DEM") { echo " SELECTED"; } ?>>Democratic</OPTION>
-										<OPTION VALUE="REP"<?php if ($FormFieldParty == "REP") { echo " SELECTED"; } ?>>Republican</OPTION>
-										<OPTION VALUE="BLK"<?php if ($FormFieldParty == "BLK") { echo " SELECTED"; } ?>>No Affiliation</OPTION>
-										<OPTION VALUE="GRE"<?php if ($FormFieldParty == "GRE") { echo " SELECTED"; } ?>>Green</OPTION>
-										<OPTION VALUE="LBT"<?php if ($FormFieldParty == "LBT") { echo " SELECTED"; } ?>>Libertarian</OPTION>
-										<OPTION VALUE="CON"<?php if ($FormFieldParty == "CON") { echo " SELECTED"; } ?>>Conservatives</OPTION>
-										<OPTION VALUE="IND"<?php if ($FormFieldParty == "IND") { echo " SELECTED"; } ?>>Independence Party</OPTION>
-										<OPTION VALUE="WOR"<?php if ($FormFieldParty == "WOR") { echo " SELECTED"; } ?>>Working Families</OPTION>
-										<OPTION VALUE="WEP"<?php if ($FormFieldParty == "WEP") { echo " SELECTED"; } ?>>Women's Equality Party</OPTION>
-										<OPTION VALUE="REF"<?php if ($FormFieldParty == "REF") { echo " SELECTED"; } ?>>Reform</OPTION>
-										<OPTION VALUE="SAM"<?php if ($FormFieldParty == "SAM") { echo " SELECTED"; } ?>>SAM</OPTION>													
-										<OPTION VALUE="OTH"<?php if ($FormFieldParty == "OTH") { echo " SELECTED"; } ?>>Other</OPTION>
-									</SELECT>
-								</dd>
-							</dl>
-					
-							</div>
-							
 							
 						
 							
 
 					<DIV>
 							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">NYS BOE ID</label><DT>
+								<dt class="mobilemenu"><label for="user_profile_name">Order</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="NYS Uniq ID" name="UniqNYS" VALUE="<?= $FormFieldNYSBOEID ?>" id="">
+									<input class="form-control" type="text" Placeholder="Order" name="Order" VALUE="<?= $FormFieldNYSBOEID ?>" id="">
 								</dd>
 							</dl>
 				
 								</div>
 
-						<div>						
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">DB Table</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="DB Table" name="CandidateElection_DBTable" VALUE="<?= $FormFieldCandidateElection_DBTable ?>" id="">
-								</dd>
-							</dl>
-
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">DB Table Value</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="DB Table Value" name="CandidateElection_DBTableValue" VALUE="<?= $FormFieldCandidateElection_DBTableValue ?>" id="">
-								</dd>
-							</dl>					
-						</div>
-				
+					
 
 						<div>						
 							<dl class="form-group col-12 d-inline-block"> 
