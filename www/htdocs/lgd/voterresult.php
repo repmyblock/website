@@ -181,10 +181,13 @@
 				<BR>
 				
 					<TABLE BORDER=1>
+						<TR>
+						<TH style="padding:0px 10px;" COLSPAN=3>New York City Districts</TH>
+					</TR>
 					<TR>
-						<TH style="padding:0px 10px;">Council<BR>District</TH>
-						<TH style="padding:0px 10px;">Civil Court<BR>District</TH>
-						<TH style="padding:0px 10px;">Judicial<BR>District</TH>
+						<TH style="padding:0px 10px;">City Council</TH>
+						<TH style="padding:0px 10px;">Civil Court</TH>
+						<TH style="padding:0px 10px;">Judicial</TH>
 					</TR>
 					<TR ALIGN=CENTER>
 						<TD style="padding:0px 10px;"><?= $var["Council_District"] ?></TD>
