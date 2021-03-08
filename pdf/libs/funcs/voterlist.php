@@ -13,7 +13,7 @@ class PDF extends FPDF {
 	function Header()	{
 		
 		// The Logo
-		$this->Image('../pics/RepMyBlock.png', 5, 5, 0);
+		$this->Image($_SERVER["DOCUMENT_ROOT"] . '/../htdocs/pics/RepMyBlock.png', 5, 5, 0);
 
 		if (! empty ($this->Watermark)) {
 			$this->SetFont('Arial','B',50);

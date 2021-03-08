@@ -188,8 +188,38 @@
 										</TD>
 									</TR>
 								</TABLE>
+					
+					
+											<?php if ( ! empty ($var["Council_District"])) { ?>
+				<BR>
+				
+					<TABLE BORDER=1>
+						<TR>
+						<TH style="padding:0px 10px;" COLSPAN=3>New York City Districts</TH>
+					</TR>
+					<TR>
+						<TH style="padding:0px 10px;">City Council</TH>
+						<TH style="padding:0px 10px;">Civil Court</TH>
+						<TH style="padding:0px 10px;">Judicial</TH>
+					</TR>
+					<TR ALIGN=CENTER>
+						<TD style="padding:0px 10px;"><?= $var["Council_District"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["Civil_Court_District"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["Judicial_District"] ?></TD>
+					</TR>
+				</TABLE>
+		
+				
+				<?php } ?>
+					
 								<BR>
+								
+								
 									<TABLE BORDER=1>
+										
+					
+				
+										
 									<TR>
 										<TH style="padding:0px 10px;">Legis #</TH>
 										<TH style="padding:0px 10px;">Town</TH>
@@ -241,20 +271,20 @@
 									
 									<?php if (! empty ($var["CanPetitionSet_ID"])) { ?>
 										
-										<a class="mr-1" TARGET="Petition" href="<?= $FrontEndPDF ?>/multipetitions/?petid=<?= $var["CanPetitionSet_ID"] ?>">Single Petition</A>										
+										<a class="mr-1" TARGET="Petition" href="<?= $FrontEndPDF ?>/NYS/p<?= $var["CanPetitionSet_ID"] ?>/multipetitions">Single Petition</A>										
 										
 										<?php if ( ! empty ($var["CandidatePetitionSet_ID"])) { ?>
 											
-										<a class="mr-1" TARGET="Petition" href="<?= $FrontEndPDF ?>/multipetitions/?setid=<?= $var["CandidatePetitionSet_ID"] ?>">Multiple Petition</A>										
+										<a class="mr-1" TARGET="Petition" href="<?= $FrontEndPDF ?>/NYS/s<?= $var["CandidatePetitionSet_ID"] ?>/multipetitions">Multiple Petition</A>										
 											
 										<?php } ?>
 										
-										<a class="mr-1" TARGET="WalkSheet" href="<?= $FrontEndPDF ?>/voterlist/?k=<?= EncryptURL("CanPetitionSet_ID=" . $var["CanPetitionSet_ID"]); ?>">Walking List</a> 
+										<a class="mr-1" TARGET="WalkSheet" href="<?= $FrontEndPDF ?>/NYS/<?= EncryptURL("CanPetitionSet_ID=" . $var["CanPetitionSet_ID"]); ?>/voterlist">Walking List</a> 
 									<?php /*	<a class="mr-1" href="/lgd/team/admin/petitioncombine/?k=<?= EncryptURL("CanPetitionSet_ID=" . $var["CanPetitionSet_ID"]); ?>">Combine Candidate with other petition</a> */ ?>
 									
 									<?php } else { ?>
 										
-										<a class="mr-1" TARGET="Petition" href="<?= $FrontEndPDF ?>/raw_voterlist/?k=<?= $MySpecialK ?>">Walking List</a> 
+										<a class="mr-1" TARGET="Petition" href="<?= $FrontEndPDF ?>/NYS/<?= $MySpecialK ?>/voterlist">Walking List</a> 
 								
 									<?php } ?>
 									
@@ -401,7 +431,7 @@
       	<?php if ( count($ResultElections) > 0) { ?>
 								
 									<button type="submit" class="btn btn-primary">Create the Candidate Petition</button><BR> <BR>
-									<B><A HREF="/lgd/team/admin/?k=<?= $TheNewK ?>">Look for a new voter</A></B>
+									<B><A HREF="/admin/<?= $TheNewK ?>/voterlist">Look for a new voter</A></B>
 								
 								<?php } ?>
 									

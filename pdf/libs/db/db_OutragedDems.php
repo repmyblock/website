@@ -28,6 +28,19 @@ class OutragedDems extends queries {
 		$sql_vars = array('NYS' => $NYS, 'LocalHash' => $Candidate_LocalHash);											
 		return $this->_return_multiple($sql,  $sql_vars);
 	}
+
+
+  function ListCandidateByNYS($NYS, $election_ID) { 	
+		$sql = "SELECT * FROM Candidate " . 
+						"LEFT JOIN CandidatePetition ON (CandidatePetition.Candidate_ID = Candidate.Candidate_ID) " .
+						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
+						"LEFT JOIN Raw_Voter_Dates ON (Raw_Voter_Dates.Raw_Voter_Dates_ID = Candidate.Raw_Voter_Dates_ID) " .
+						"WHERE Candidate_UniqNYSVoterID = :NYS AND Elections_ID = :ElectionID AND Candidate_Status = 'published'";
+		
+		$sql_vars = array('NYS' => $NYS, "ElectionID" => $election_ID);											
+		return $this->_return_multiple($sql,  $sql_vars);
+	}
+	
 	
 	function GetListAddresses($DatedFiles, $ResHouseNumber, $ResStreetName, $ResZip, $ResApt = NULL) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
@@ -208,6 +221,9 @@ class OutragedDems extends queries {
 		$FullName = ucwords(strtolower($FullName));
 		return $FullName;
 	}	
+	
+	
+	
 	
 }
 

@@ -16,17 +16,25 @@ $pdf = new PDF_Multi('P','mm', $PageSize);
 // Faut que je travaille avec K.
 if (strlen($k < 20)) {
 	// This is just regular K
-	preg_match('/([pse])(\d*)/', $k, $matches, PREG_OFFSET_CAPTURE);
+	preg_match('/([pseN])Y?(\d*)/', $k, $matches, PREG_OFFSET_CAPTURE);
 
 	switch ($matches[1][0]) {
 		case 'p': $CanPetitionSet_ID = intval($matches[2][0]); break;
 		case 's': $CandidatePetitionSet_ID = intval($matches[2][0]); break;
 		case 'e': $Candidate_ID = intval($matches[2][0]); break;
+		case 'N': $NYSVoters = intval($matches[2][0]); break;
 	}
 } else {
 	$CanPetitionSet_ID = trim($_GET["petid"]);
 	$CandidatePetitionSet_ID = trim($_GET["setid"]);
 	$WaterMarkVoid = trim($_GET["Watermark"]);
+}
+
+if (! empty ($NYSVoters)) {
+	echo "Need to fish the rest: $NYSVoters<BR>";	
+	$result = $r->ListCandidateByNYS("NY" . $NYSVoters, "1369");
+	print "<PRE>" . print_r($result, 1) . "</PRE>";
+
 }
 
 $WritenSignatureMonth = "March";
@@ -94,9 +102,7 @@ switch ($Variable) {
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
 			if ( $result[0]["CanPetitionSet_Watermark"] == 'no' ) { $WaterMarkVoid = NULL; $pdf->Watermark = NULL; }
 		}
-		
-		
-		
+	
 		if ( $result[0]["Candidate_Status"] == "published") break;
 		
 	case 'demo-single':
