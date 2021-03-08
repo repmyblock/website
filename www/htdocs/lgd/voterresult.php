@@ -195,10 +195,11 @@
 						<TD style="padding:0px 10px;"><?= $var["Judicial_District"] ?></TD>
 					</TR>
 				</TABLE>
-				<BR>
+		
 				
 				<?php } ?>
 				
+						<BR>
 				<TABLE BORDER=1>
 					<TR>
 						<TH style="padding:0px 10px;">Assembly<BR>District</TH>
