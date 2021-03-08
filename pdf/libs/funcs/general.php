@@ -12,6 +12,24 @@ function WriteStderr($Data, $Message = "") {
 	}
 }
 
+function CreateEncoded($VariableToPass, $VariableToRemove = "") {
+	$URLString = "";
+	
+	if ( ! empty ($VariableToPass)) {
+		foreach ($VariableToPass as $var => $value) {
+			if ( ! empty ($value)) {
+				if (! empty($URLString)) { $URLString .= "&"; }
+				$URLString .= $var . "=" . $value;
+				error_log ("Create Encoded Var: $var\tValue: $value");	
+			}
+		}		
+	}
+	
+	WriteStderr($URLString, "URLString");
+	return rawurlencode(EncryptURL($URLString));
+}
+
+
 function PrintRandomText($length = 9) {
   
   $alpha = "abcdefghijklmnopqrstuvwxyz";
