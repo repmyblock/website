@@ -1,9 +1,10 @@
 <?php
 error_reporting(E_ERROR | E_PARSE);
+require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
+require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";	
 
 ### This file is the SSL Key used to encrypt the _GET variable.
 date_default_timezone_set('America/New_York'); 
-require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/SSLKeys/SSLInsideKey.php";
 
 if ( ! empty ($_POST["k"])) {
