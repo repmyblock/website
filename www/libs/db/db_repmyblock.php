@@ -216,7 +216,7 @@ class RepMyBlock extends queries {
 		$this->SaveVoterRequest($FirstName, $LastName, $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM " . $TableVoter . " " . 
-						"LEFT JOIN LEFT JOIN NYC_Raw_20210218 ON (Raw_Voter_CountyVoterNumber = County_EMSID) " . // Temporary Line for City Council.
+						"LEFT JOIN NYC_Raw_20210218 ON (Raw_Voter_CountyVoterNumber = County_EMSID) " . // Temporary Line for City Council.
 						"LEFT JOIN DataCounty ON ( Raw_Voter_CountyCode = DataCounty.DataCounty_ID) " . 
 						"WHERE Raw_Voter_LastName LIKE :LastName ";						
 		$sql_vars = array('LastName' => $LastName . "%");
