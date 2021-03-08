@@ -176,6 +176,8 @@
 					</TR>
 				</TABLE>
 				
+				
+				<?php if ( ! empty ($var["Council_District"])) { ?>
 				<BR>
 				
 					<TABLE BORDER=1>
@@ -190,8 +192,10 @@
 						<TD style="padding:0px 10px;"><?= $var["Judicial_District"] ?></TD>
 					</TR>
 				</TABLE>
-				
 				<BR>
+				
+				<?php } ?>
+				
 				<TABLE BORDER=1>
 					<TR>
 						<TH style="padding:0px 10px;">Assembly<BR>District</TH>
