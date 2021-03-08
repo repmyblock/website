@@ -7,7 +7,7 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/voterlist.php';
 
 	$r = new OutragedDems();
-	
+
 	if ( $URIEncryptedString["TypeSearch"] == "Raw" ) {		
 		$TodayDay = date_create(date("Y-m-d"));
 		$voters = $r->FindRawVoterbyADED($URIEncryptedString["RawDatedFiles"], $URIEncryptedString["ED"], $URIEncryptedString["AD"], $URIEncryptedString["Raw_Voter_EnrollPolParty"]);

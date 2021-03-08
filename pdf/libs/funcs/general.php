@@ -1,14 +1,15 @@
 <?php
 
-function WriteStderr($Data) {
+function WriteStderr($Data, $Message = "") {
+	 global $Developping;
 	// Need to save the information
-	$STDERR = fopen('php://stderr', 'w+');
-	
-	fwrite($STDERR, "\n");
-	fwrite($STDERR, print_r($Data, 1));
-	fwrite($STDERR, "\n");
-	
-	fclose($STDERR);		
+	if ( $Developping == 1) {
+		if ( ! empty ($Message)) {
+			error_log($Message . ": " . print_r($Data, 1));
+		} else {
+			error_log("Write Std Error: " . print_r($Data, 1));
+		}
+	}
 }
 
 function PrintRandomText($length = 9) {
