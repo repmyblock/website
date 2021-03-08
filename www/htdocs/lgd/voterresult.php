@@ -175,6 +175,22 @@
 						<TD style="padding:0px 10px;"><?= NewYork_PrintParty($var["Raw_Voter_EnrollPolParty"]) ?></TD>
 					</TR>
 				</TABLE>
+				
+				<BR>
+				
+					<TABLE BORDER=1>
+					<TR>
+						<TH style="padding:0px 10px;">Council<BR>District</TH>
+						<TH style="padding:0px 10px;">Civil Court<BR>District</TH>
+						<TH style="padding:0px 10px;">Judicial<BR>District</TH>
+					</TR>
+					<TR ALIGN=CENTER>
+						<TD style="padding:0px 10px;"><?= $var["Council_District"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["Civil_Court_District"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["Judicial_District"] ?></TD>
+					</TR>
+				</TABLE>
+				
 				<BR>
 				<TABLE BORDER=1>
 					<TR>
