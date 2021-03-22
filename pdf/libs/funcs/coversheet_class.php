@@ -21,7 +21,7 @@ class PDF extends FPDF {
 		}
 		
     $this->SetFont('Arial','B',24);
-    $this->Ln(15);
+    $this->Ln(25);
     $this->Cell(0,0, "DESIGNATING PETITION COVER SHEET",0,0,'C');
     $this->Ln(13);
     $this->Cell(0,0, strtoupper($this->party) . " PARTY",0,0,'C');		
@@ -37,7 +37,7 @@ class PDF extends FPDF {
   
   	$this->Line($this->Line_Left, $YLocation - 0.1,  $this->Line_Right, $YLocation - 0.1); 
 
-    $this->SetFont('Arial','B',8);
+    $this->SetFont('Arial','B', 8);
     $this->SetXY($this->Col1, $YLocation );
     $this->MultiCell($this->SizeCol1, 4, "NAME" . strtoupper($this->PluralCandidates) . " OF CANDIDATE" . strtoupper($this->PluralCandidates), 0, 'C');
 
@@ -57,18 +57,18 @@ class PDF extends FPDF {
 	    			
 	  $this->Line($this->Line_Left, $YLocation - 0.1, $this->Line_Right, $YLocation - 0.1); 
  			
-   	$this->SetFont('Arial','B',11);
+   	$this->SetFont('Arial','B',14);
 		$this->SetXY($this->Col1, $YLocation + 0.3 );
-		$this->MultiCell($this->SizeCol1, 3.5, $this->Candidate[$i], 0, 'C', 0);
+		$this->MultiCell($this->SizeCol1, 5, $this->Candidate[$i], 0, 'C', 0);
 		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
 
-		$this->SetFont('Arial','', 9);   	   		
+		$this->SetFont('Arial','', 14);   	   		
 		$this->SetXY($this->Col2, $YLocation );
- 		$this->MultiCell($this->SizeCol2, 3.5, $this->RunningFor[$i], 0, 'C', 0);
+ 		$this->MultiCell($this->SizeCol2, 5, $this->RunningFor[$i], 0, 'C', 0);
 		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
 								
 		$this->SetXY($this->Col3, $YLocation );
-		$this->MultiCell($this->SizeCol3, 3.5, $this->Residence[$i], 0, 'C', 0);
+		$this->MultiCell($this->SizeCol3, 5, $this->Residence[$i], 0, 'C', 0);
 		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
 
 									
@@ -90,20 +90,35 @@ class PDF extends FPDF {
     $Botton_Corner_Y = $this->GetY();
 
 
- $this->Ln(15);  
+ 		$this->Ln(15);  
 		$this->SetFont('Arial','', 15);  
-		$this->MultiCell(0, 10,  "Total Number of Volumes in the Petition: 1");
-   	$this->MultiCell(0, 10,  "Identification Numbers: " . $this->BOEIDNbr);
+		$this->MultiCell(0, 10,  "Total Number of Volumes in the Petition: " . $this->BOEIDNbrOfVolumes);
+   	$this->MultiCell(0, 6, "Identification Numbers:");
+ 
+ 		$this->SetX(20);
+   	$this->MultiCell(0, 6,  $this->BOEIDNbr, '', 'L');
    	
-   	$this->MultiCell(0, 10,  "The petition contains the number, or in excess of the number, " . 
-   												"of valid signatures required by the Election Law.Contact ");
+   	$this->Ln(4.5);
+   	$this->SetFont('Arial','B', 12);  
+   	$this->MultiCell(0, 5,  "The petition contains the number, or in excess of the number, " . 
+   												"of valid signatures required by the Election Law.");
+		$this->Ln(4.5);
    	
-   	$this->MultiCell(0, 10,  "Person to Correct Deficiencies:Name: _____________");
-   	$this->MultiCell(0, 10, "Residence Address:____________________________________________");
-   	$this->MultiCell(0, 10, "Phone:_____________");
-   	$this->MultiCell(0, 10,  "Email: ______________________");
+   	$this->SetFont('Arial','', 12);  
    	
-   	$this->MultiCell(0, 10,  "I hereby authorize that notice of any determination made by the Board of Elections " . 
+   	$this->SetX(20);
+   	$this->MultiCell(0, 5, "Contact person to correct deficiencies: " . $this->Person);
+		$this->SetX(20);
+   	$this->MultiCell(0, 5, "Residence address: " . $this->Address);
+		$this->SetX(20);
+   	$this->MultiCell(0, 5, "Phone: " . $this->Phone);
+		$this->SetX(20);
+   	$this->MultiCell(0, 5, "Email: " . $this->Email);
+   	
+   	$this->Ln(4.5);
+   	
+ 	 	$this->SetFont('Arial','B', 12); 
+   	$this->MultiCell(0, 5,  "I hereby authorize that notice of any determination made by the Board of Elections " . 
    												"be transmitted to the person name above:");
    	
    #$this->Ln(1);

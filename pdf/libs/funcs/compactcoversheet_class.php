@@ -95,7 +95,7 @@ class PDF extends FPDF {
 
 		$this->SetFont('Arial','', 7);  
    	$this->SetX(6);
-   	$this->MultiCell(0, 3,  $this->BOEIDNbr);
+   	$this->MultiCell(0, 6,  $this->BOEIDNbr, '', 'L');
    	
    	$this->SetFont('Arial','B', 8);  
    	$this->MultiCell(0, 10,  "The petition contains the number, or in excess of the number, " . 
@@ -105,8 +105,8 @@ class PDF extends FPDF {
    	
    	$this->MultiCell(0, 3, "Contact person to correct deficiencies: " . $this->Person);
    	$this->MultiCell(0, 3, "Residence address: " . $this->Address);
-   	$this->MultiCell(0, 3, "Phone:" . $this->Phone);
-   	$this->MultiCell(0, 3, "Email:" . $this->Email);
+   	$this->MultiCell(0, 3, "Phone: " . $this->Phone);
+   	$this->MultiCell(0, 3, "Email: " . $this->Email);
    	
  	 	$this->SetFont('Arial','B', 8); 
    	$this->MultiCell(0, 10,  "I hereby authorize that notice of any determination made by the Board of Elections " . 

@@ -122,9 +122,9 @@
 		}
 	}
 	
+	
 	$pdf->NumberOfCandidates = $TotalCandidates;
-	$pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
-	$pdf->party = "Democratic";
+	$pdf->party = NewYork_PrintPartyAdjective($result[0]["Candidate_Party"]);
 	$pdf->ElectionDate = "June 25th, 2019";
 	
 	if ($pdf->NumberOfCandidates > 1) { 
