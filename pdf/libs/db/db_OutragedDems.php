@@ -223,12 +223,11 @@ class OutragedDems extends queries {
 	}	
 	
 	function GetBOEIDFromCandidateID($CandidateID) {
-		
 	
-		
 		$sql = "SELECT * FROM CandidatePetIDNbr LEFT JOIN " . 
 						"Candidate ON (Candidate.Candidate_ID = CandidatePetIDNbr.Candidate_ID) " . 
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
+						"LEFT JOIN CandidatePetIDDeficiencies ON (CandidatePetIDDeficiencies.CandidatePetIDDeficiencies_ID = CandidatePetIDNbr.CandidatePetIDDeficiencies_ID)" .
 						"WHERE CandidatePetIDNbr.Candidate_ID = :CandidateID";
 		$sql_vars = array("CandidateID" => $CandidateID);
 		return $this->_return_multiple($sql, $sql_vars);

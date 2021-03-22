@@ -84,13 +84,11 @@
 		$pdf->BOEIDNbr .= $Order[$i];
 	}
 	
-	
-	
-	$pdf->Person = "Theo Chino";
- 	$pdf->Address = "640 Riverside Drive 10B, New York, NY 10031";
-	$pdf->Phone = "(212) 694-9968";
-	$pdf->Email = "theo@repmyblock.nyc";
-	
+	$pdf->Person = $result[0]["CandidatePetIDDeficiencies_Name"];
+ 	$pdf->Address = $result[0]["CandidatePetIDDeficiencies_Address"];
+	$pdf->Phone = $result[0]["CandidatePetIDDeficiencies_Phone"];
+	$pdf->Email = $result[0]["CandidatePetIDDeficiencies_Email"];
+
 
 	$Counter = 1;
 	$TotalCandidates = 1;
