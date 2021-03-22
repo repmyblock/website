@@ -3,24 +3,25 @@
 		
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/coversheet_class.php';
+	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/compactcoversheet_class.php';
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
 	$r = new OutragedDems();
+	
+	if (strlen($k < 20)) {
+		// This is just regular K
+		preg_match('/([pseN])Y?(\d*)/', $k, $matches, PREG_OFFSET_CAPTURE);
 
-if (strlen($k < 20)) {
-	// This is just regular K
-	preg_match('/([pseN])Y?(\d*)/', $k, $matches, PREG_OFFSET_CAPTURE);
-
-	switch ($matches[1][0]) {
-		case 'p': $CanPetitionSet_ID = intval($matches[2][0]); break;
-		case 's': $CandidatePetitionSet_ID = intval($matches[2][0]); break;
-		case 'e': $Candidate_ID = intval($matches[2][0]); break;
-		case 'N': $NYSVoters = intval($matches[2][0]); break;
-	}
-} 
-
-	$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
+		switch ($matches[1][0]) {
+			case 'p': $CanPetitionSet_ID = intval($matches[2][0]); break;
+			case 's': $CandidatePetitionSet_ID = intval($matches[2][0]); break;
+			case 'e': $Candidate_ID = intval($matches[2][0]); $result = $r->GetBOEIDFromCandidateID($Candidate_ID); break;
+			case 'N': $NYSVoters = intval($matches[2][0]); break;
+		}
+	} 
+	
+	
+	// $result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
 		/*	
 		print "<PRE>" . print_r($result, 1) . "</PRE>";
 		exit();
@@ -57,7 +58,39 @@ if (strlen($k < 20)) {
 	$pdf->PositionType[$TotalCandidates] = "electoral";
 	$pdf->RunningFor[$TotalCandidates] =  $var["CandidateElection_PetitionText"];
 	$pdf->Residence[$TotalCandidates] = $var["Candidate_DispResidence"];
-	$pdf->BOEIDNbr = "NY2101786";
+	
+	
+	$pdf->BOEIDNbrOfVolumes = count($result);
+	
+	for( $i = 0; $i < $pdf->BOEIDNbrOfVolumes; $i++) {
+		do {
+			$j = rand ( 0 , ($pdf->BOEIDNbrOfVolumes - 1) );
+			if ( empty ($Order[$j])) {
+				$Order[$j] = $result[$i]["CandidatePetIDNbr_BOEID"] . " ";
+				$done = 0;
+			} else {
+				$done = 1;
+			}
+		} while ($done == 1);		
+	}
+	
+	/*
+	for( $i = 0; $i < $pdf->BOEIDNbrOfVolumes; $i++) {
+		$Order[$i] = "NY" . (2101786 + $i) . " ";
+	}
+	*/
+	
+	for( $i = 0; $i < $pdf->BOEIDNbrOfVolumes; $i++) {
+		$pdf->BOEIDNbr .= $Order[$i];
+	}
+	
+	
+	
+	$pdf->Person = "Theo Chino";
+ 	$pdf->Address = "640 Riverside Drive 10B, New York, NY 10031";
+	$pdf->Phone = "(212) 694-9968";
+	$pdf->Email = "theo@repmyblock.nyc";
+	
 
 	$Counter = 1;
 	$TotalCandidates = 1;

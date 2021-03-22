@@ -136,9 +136,12 @@ switch ($Variable) {
 		$pdf->Watermark = "Demo Petition / Not Valid";
 		$pdf->BarCode = "Demo Petition";
 		$pdf->DemoPrint = "true";
-		break;
-		
+		break;	
 }
+
+
+if ( ! empty ($URIEncryptedString["EmptyAddress"])) { $EmptyAddress = $URIEncryptedString["EmptyAddress"]; }
+if ( ! empty ($URIEncryptedString["EmptyCounty"])) { $EmptyCounty = $URIEncryptedString["EmptyCounty"]; }
 
 $pdf->county = $result[0]["CandidatePetition_VoterCounty"];
 $pdf->party = $result[0]["CandidateParty"];
@@ -246,7 +249,7 @@ $pdf->City = "____________________";
 $pdf->County = "__________________"; 
 
 if ( $PageSize == "letter") {
-	$NumberOfLines = 12 - $pdf->NumberOfCandidates;
+	$NumberOfLines = 13 - $pdf->NumberOfCandidates;
 	$pdf->BottonPt = 240.4;
 	
 	$pdf->BottonPt = 232;
@@ -267,6 +270,7 @@ $pdf->AddPage();
 // This is the meat of the petition.	
 $Counter = 0;
 
+
 // Need to calculate the number of empty line.
 
 $TotalCountName = count($Name);
@@ -274,24 +278,41 @@ $TotalCountName = count($Name);
 for ($i = 0; $i < $TotalCountName; $i++) {
 	$Counter++;
 	$YLocation = $pdf->GetY();
-
+	
 	$pdf->SetFont('Arial', '', 10);
-	$pdf->SetY($YLocation - 13);
-	$pdf->Cell(38, 0, $Counter  . ". March ___ " . date("Y"), 0, 0, 'L', 0);	
+	$pdf->Line($pdf->Line_Left, $YLocation + 2, $pdf->Line_Right, $YLocation + 2);
 	
-	$pdf->SetX(195);
-	$pdf->Cell(38, 0, $County[$i], 0, 0, 'L', 0);
+	$YLocation += 16; // This makes the box bigger
+	$pdf->SetXY($pdf->Line_Left, $YLocation - 4);
 	
-	$pdf->SetXY(41, $YLocation + 6);
-	$pdf->Cell(78, 0, $Name[$i], 0,'C', 0);
+	$pdf->Line($pdf->Line_Left + 36, $YLocation - 4.5, $pdf->Line_Right - 91, $YLocation - 4.5);
 	
-	$pdf->SetXY(121, $YLocation - 4);
-	$pdf->MultiCell(73, 2.8, $Address[$i], 0, 'L', 0);
 
-	$pdf->Line(5, $YLocation + 8, 212.5, $YLocation + 8);
-	$pdf->SetY($YLocation);
+
+	$pdf->SetFont('Arial',"B",10);
+	$pdf->SetXY( 40,  $YLocation - 1);
+	$pdf->Cell(38, 0, $Name[$i], 0, 0, 'L', 0);
+
+
+	$pdf->SetFont('Arial','',14);
+	$pdf->SetXY( 120,  $YLocation - 10);
+	$pdf->MultiCell(70, 5, $Address[$i], 0, 'L', 0);
+
+	$pdf->SetFont('Arial','B',10);
+	$pdf->SetXY( 190,  $YLocation - 6);
+	$pdf->Cell(38, 0, $County[$i], 0, 0, 'L', 0);
+
+
+	$pdf->SetXY( 41,  $YLocation - 1.8);	
 	
-	$pdf->Ln(13); 
+
+	
+	
+	$pdf->SetXY( 6,  $YLocation - 4 );
+	$pdf->SetFont('Arial', '', 10);
+	$pdf->Cell(38, 0, $Counter . ". March ___ ". date("Y"), 0, 0, 'L', 0);
+
+	$pdf->SetY($YLocation + 0.8);	
 	
 	if ( $Counter > $NumberOfLines ) {
 		$Counter = 0;
@@ -333,6 +354,18 @@ while ( $done == 1) {
 	$pdf->SetXY( 6,  $YLocation - 4 );
 	$pdf->SetFont('Arial', '', 10);
 	$pdf->Cell(38, 0, $Counter . ". March ___ ". date("Y"), 0, 0, 'L', 0);
+		
+	if ( ! empty ($EmptyAddress)) {
+		$pdf->SetFont('Arial','',14);
+		$pdf->SetXY( 120,  $YLocation - 10);
+		$pdf->MultiCell(70, 5, $EmptyAddress, 0, 'L', 0);
+	}
+
+	if (! empty ($EmptyCounty)) {
+		$pdf->SetFont('Arial','B',10);
+		$pdf->SetXY( 190,  $YLocation - 6);
+		$pdf->Cell(38, 0, $EmptyCounty, 0, 0, 'L', 0);
+	}
 
 	$pdf->SetY($YLocation + 0.8);	
 		

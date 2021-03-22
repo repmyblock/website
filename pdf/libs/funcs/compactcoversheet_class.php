@@ -20,17 +20,11 @@ class PDF extends FPDF {
    		$this->SetTextColor(0,0,0);
 		}
 		
-    $this->SetFont('Arial','B',24);
-    $this->Ln(15);
-    $this->Cell(0,0, "DESIGNATING PETITION COVER SHEET",0,0,'C');
-    $this->Ln(13);
-    $this->Cell(0,0, strtoupper($this->party) . " PARTY",0,0,'C');		
-    $this->Ln(15);    
-    
+    $this->SetFont('Arial','B',12);
+    $this->Cell(0,0, "DESIGNATING PETITION COVER SHEET - " .  strtoupper($this->party) . " PARTY" ,0,0,'C');
+    $this->Ln(4);
     $this->SetFont('Arial','B',8);
-		  
 		
-    
 		$YLocation_new = $Top_Corner_Y = $this->GetY() - 1.5;   
  		$this->SetY($Top_Corner_Y); 
   	$MyTop = $YLocation = $this->GetY();
@@ -90,19 +84,31 @@ class PDF extends FPDF {
     $Botton_Corner_Y = $this->GetY();
 
 
- $this->Ln(15);  
+ 		$this->Ln(1);  
 		$this->SetFont('Arial','', 15);  
-		$this->MultiCell(0, 10,  "Total Number of Volumes in the Petition: 1");
-   	$this->MultiCell(0, 10,  "Identification Numbers: " . $this->BOEIDNbr);
+		$this->MultiCell(0,3.5,  "Total Number of Volumes in the Petition: " . $this->BOEIDNbrOfVolumes);
+
+		$this->Ln(1.8);
+		
+		$this->SetFont('Arial','B', 8);  
+   	$this->MultiCell(0, 3,  "Identification Numbers: ");
+
+		$this->SetFont('Arial','', 7);  
+   	$this->SetX(6);
+   	$this->MultiCell(0, 3,  $this->BOEIDNbr);
    	
+   	$this->SetFont('Arial','B', 8);  
    	$this->MultiCell(0, 10,  "The petition contains the number, or in excess of the number, " . 
-   												"of valid signatures required by the Election Law.Contact ");
+   												"of valid signatures required by the Election Law.");
    	
-   	$this->MultiCell(0, 10,  "Person to Correct Deficiencies:Name: _____________");
-   	$this->MultiCell(0, 10, "Residence Address:____________________________________________");
-   	$this->MultiCell(0, 10, "Phone:_____________");
-   	$this->MultiCell(0, 10,  "Email: ______________________");
+   	$this->SetFont('Arial','', 8);  
    	
+   	$this->MultiCell(0, 3, "Contact person to correct deficiencies: " . $this->Person);
+   	$this->MultiCell(0, 3, "Residence address: " . $this->Address);
+   	$this->MultiCell(0, 3, "Phone:" . $this->Phone);
+   	$this->MultiCell(0, 3, "Email:" . $this->Email);
+   	
+ 	 	$this->SetFont('Arial','B', 8); 
    	$this->MultiCell(0, 10,  "I hereby authorize that notice of any determination made by the Board of Elections " . 
    												"be transmitted to the person name above:");
    	
