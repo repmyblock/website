@@ -36,7 +36,7 @@ class PDF extends FPDF {
     $this->MultiCell($this->SizeCol1, 4, "NAME" . strtoupper($this->PluralCandidates) . " OF CANDIDATE" . strtoupper($this->PluralCandidates), 0, 'C');
 
     $this->SetXY($this->Col2, $YLocation );
-    $this->MultiCell($this->SizeCol2, 4, $this->RunningForHeading[$this->PositionType[$i]], 0, 'C');
+    $this->MultiCell($this->SizeCol2, 4, $this->RunningForHeading[$this->PositionType[0]], 0, 'C');
 
 	 	$this->SetXY($this->Col3, $YLocation );
 	 	$this->MultiCell($this->SizeCol3, 4, "PLACE" . strtoupper($this->PluralCandidates) . " OF RESIDENCE", 0, 'C');

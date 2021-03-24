@@ -88,38 +88,11 @@
  	$pdf->Address = $result[0]["CandidatePetIDDeficiencies_Address"];
 	$pdf->Phone = $result[0]["CandidatePetIDDeficiencies_Phone"];
 	$pdf->Email = $result[0]["CandidatePetIDDeficiencies_Email"];
-
+	$pdf->PositionType[0] = $result[0]["CandidateElection_PositionType"];
 
 	$Counter = 1;
 	$TotalCandidates = 1;
-	
-	$i = 0;
-	if ( ! empty ($PetitionData)) {
-		foreach ( $PetitionData as $var => $key) {
-					
-			if ( ! empty ($var)) {
-				if ( is_array($key)) {
- 					$pdf->Candidate[$TotalCandidates] =  "Candidate Name";
- 					$pdf->RunningFor[$TotalCandidates] =  "Position Name";
-					$pdf->Residence[$TotalCandidates] = $key["CandidateResidence"];
-					$pdf->PositionType[$TotalCandidates] = $key["PositionType"];
-					
-					$pdf->Appointments[$TotalCandidates] = "";
-					$comma_first = 0;
-					foreach ($key["Witness_FullName"] as $klo => $vir) {
-						if ($comma_first == 1) {
-							$pdf->Appointments[$TotalCandidates] .= ", ";
-						}
-						$pdf->Appointments[$TotalCandidates] .= $vir . ", " . $key["Witness_Residence"][$klo];						
-						$comma_first = 1;
-					}						
-					$TotalCandidates++;	
-				
-				}
-			}
-		}
-	}
-	
+
 	
 	$pdf->NumberOfCandidates = $TotalCandidates;
 	$pdf->party = NewYork_PrintPartyAdjective($result[0]["Candidate_Party"]);

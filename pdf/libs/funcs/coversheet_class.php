@@ -42,7 +42,7 @@ class PDF extends FPDF {
     $this->MultiCell($this->SizeCol1, 4, "NAME" . strtoupper($this->PluralCandidates) . " OF CANDIDATE" . strtoupper($this->PluralCandidates), 0, 'C');
 
     $this->SetXY($this->Col2, $YLocation );
-    $this->MultiCell($this->SizeCol2, 4, $this->RunningForHeading[$this->PositionType[$i]], 0, 'C');
+    $this->MultiCell($this->SizeCol2, 4, $this->RunningForHeading[$this->PositionType[0]], 0, 'C');
 
 	 	$this->SetXY($this->Col3, $YLocation );
 	 	$this->MultiCell($this->SizeCol3, 4, "PLACE" . strtoupper($this->PluralCandidates) . " OF RESIDENCE", 0, 'C');
@@ -57,12 +57,12 @@ class PDF extends FPDF {
 	    			
 	  $this->Line($this->Line_Left, $YLocation - 0.1, $this->Line_Right, $YLocation - 0.1); 
  			
-   	$this->SetFont('Arial','B',14);
+   	$this->SetFont('Arial','B',12);
 		$this->SetXY($this->Col1, $YLocation + 0.3 );
 		$this->MultiCell($this->SizeCol1, 5, $this->Candidate[$i], 0, 'C', 0);
 		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
 
-		$this->SetFont('Arial','', 14);   	   		
+		$this->SetFont('Arial','', 12);   	   		
 		$this->SetXY($this->Col2, $YLocation );
  		$this->MultiCell($this->SizeCol2, 5, $this->RunningFor[$i], 0, 'C', 0);
 		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
@@ -119,7 +119,7 @@ class PDF extends FPDF {
    	
  	 	$this->SetFont('Arial','B', 12); 
    	$this->MultiCell(0, 5,  "I hereby authorize that notice of any determination made by the Board of Elections " . 
-   												"be transmitted to the person name above:");
+   												"be transmitted to the person name above.");
    	
    #$this->Ln(1);
     

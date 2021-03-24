@@ -21,10 +21,10 @@ if (strlen($k < 20)) {
 } 
 
 	//$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
-		/*	
-		print "<PRE>" . print_r($result, 1) . "</PRE>";
-		exit();
 		
+	//	print "<PRE>" . print_r($result, 1) . "</PRE>";
+		//exit();
+	/*	
 	if ( ! empty ($result)) {
 			$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
 			$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
@@ -60,6 +60,11 @@ if (strlen($k < 20)) {
 	
 	$pdf->BOEIDNbrOfVolumes = count($result);
 	
+	
+	#for ($i = 2101467; $i <= 210176; $i++) {
+	#	$Order[$j] = "BX" . 2101467 . " ";		
+	#}
+	
 	for( $i = 0; $i < $pdf->BOEIDNbrOfVolumes; $i++) {
 		do {
 			$j = rand ( 0 , ($pdf->BOEIDNbrOfVolumes - 1) );
@@ -85,35 +90,10 @@ if (strlen($k < 20)) {
 	$pdf->Person = $result[0]["CandidatePetIDDeficiencies_Name"];
  	$pdf->Address = $result[0]["CandidatePetIDDeficiencies_Address"];
 	$pdf->Phone = $result[0]["CandidatePetIDDeficiencies_Phone"];
-	$pdf->Email = $result[0]["CandidatePetIDDeficiencies_Email"];
+	$pdf->Email = $result[0]["CandidatePetIDDeficiencies_Email"];	
+	$pdf->PositionType[0] = $result[0]["CandidateElection_PositionType"];
 	
-	$i = 0;
-	if ( ! empty ($PetitionData)) {
-		foreach ( $PetitionData as $var => $key) {
-					
-			if ( ! empty ($var)) {
-				if ( is_array($key)) {
- 					$pdf->Candidate[$TotalCandidates] =  "Candidate Name";
- 					$pdf->RunningFor[$TotalCandidates] =  "Position Name";
-					$pdf->Residence[$TotalCandidates] = $key["CandidateResidence"];
-					$pdf->PositionType[$TotalCandidates] = $key["PositionType"];
-					
-					$pdf->Appointments[$TotalCandidates] = "";
-					$comma_first = 0;
-					foreach ($key["Witness_FullName"] as $klo => $vir) {
-						if ($comma_first == 1) {
-							$pdf->Appointments[$TotalCandidates] .= ", ";
-						}
-						$pdf->Appointments[$TotalCandidates] .= $vir . ", " . $key["Witness_Residence"][$klo];						
-						$comma_first = 1;
-					}						
-					$TotalCandidates++;	
-				
-				}
-			}
-		}
-	}
-	
+		
 	$pdf->NumberOfCandidates = $TotalCandidates;
 	$pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
 	$pdf->party = NewYork_PrintPartyAdjective($result[0]["Candidate_Party"]);
@@ -134,20 +114,6 @@ if (strlen($k < 20)) {
 	// Add or the if both.	
  	$pdf->CandidateNomination .= " or for election to a party position of such party.";
 
-	// Need to fix that.
-	
-	$pdf->WitnessName = "________________________________________"; 
-	$pdf->WitnessResidence = "_______________________________________________________"; 
-	
-	
-	$pdf->TodayDateText = "Date: " . date("F _________ , Y"); 
-	$pdf->TodayDateText = "Date: April _______ , 2019";
-	$pdf->County = $result[0]["CandidatePetition_VoterCounty"];
-	$pdf->City = "City of New York";
-	
-	$pdf->City = "____________________"; 
-	$pdf->County = "__________________"; 
-	
 	if ( $PageSize == "letter") {
 		$NumberOfLines = 14 - $pdf->NumberOfCandidates;
 		$pdf->BottonPt = 240.4;
