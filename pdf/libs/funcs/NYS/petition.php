@@ -3,6 +3,9 @@
 #require($_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/fpdf181/fpdf.php');
 require $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
 
+// Each time I need to add a font, add the symlink to the font directory in utils/fpdf181/font 
+// otherwise it won't work.
+
 #class PDF extends FPDF {
 class PDF_Multi extends PDF_Code128 {
 	
@@ -21,7 +24,7 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetFont('Arial','B',50);
     	$this->SetTextColor(255,192,203);
    		$this->RotatedText(35,190, $this->Watermark, 45);
-   		$this->RotatedText(40,210, "Election will be held in 2020", 45);
+   		$this->RotatedText(40,210, "Election will be held in 2022", 45);
    		$this->SetTextColor(0,0,0);
 		}
 
@@ -29,7 +32,7 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetXY(125, 1);
 			$this->SetFont('Arial', 'B', 15);
 			$this->SetTextColor(0,0,255);
-			$this->Link(125, 1, 90, 10, "https://repmyblock.nyc/get-involved/interested/");
+			$this->Link(125, 1, 90, 10, "https://repmyblock.nyc/exp/website/interested");
  	   	$this->MultiCell(90, 5, "Click here for more information on how to participate.", 0, 'R');
  	   	$this->SetTextColor(0); 	   	
  	   	$this->SetXY($this->Col1, $YLocation);
@@ -64,6 +67,7 @@ class PDF_Multi extends PDF_Code128 {
 				" Party as the name of the independent body making the nomination and ");
 				
 			if ( ! empty ($this->FontType)) {
+				
 				$this->AddFont($this->FontType,'', $this->FontType . ".php");
 				$this->SetFont($this->FontType,'', 16);
 				$this->Write(3, $this->PartyEmblem);
@@ -317,7 +321,6 @@ class PDF_Multi extends PDF_Code128 {
 				$this->Write(0, 'Residence address, also post office if not identical');
 			}
 		}
-			
 
 		$this->SetFont('Arial','I',14);
 		$this->SetXY( 124,  $YLocation + 30 );
@@ -344,6 +347,11 @@ class PDF_Multi extends PDF_Code128 {
 		$this->SetXY(160, -7 );
 		$this->SetFont('Arial','',13);
 		$this->Cell(0, 0,	"SHEET No. ______ ");
+		
+		$this->SetFont('Arial','',8);
+		$this->SetTextColor(0);
+		$this->SetXY(5, -7 );
+		$this->Cell(0, 0,	$this->BarCode);
 	
 		//A,C,B sets
 		if (! empty ($this->BarCode)) {
@@ -354,14 +362,14 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetFont('Arial','B',19);
 			$this->SetTextColor(255,0,0);
 			$this->SetXY(40, 50);
-			$this->Link(40, 50, 80, 30, "https://repmyblock.nyc/get-involved/interested/");
+			$this->Link(40, 50, 80, 30, "https://repmyblock.nyc/exp/website/interested");
  	   	$this->MultiCell(80, 7, "We'll provide you the list of " . $this->party . 
 				 	   									" voters to ask for signatures.", 0, 'C');
 
 			$this->SetTextColor(0,0,255);
 			$this->SetXY(120, 132.5);
-			$this->Link(120, 130, 70, 25, "https://repmyblock.nyc/get-involved/interested/");
- 	   	$this->MultiCell(70, 7.2, "Petitioning starts February 25, 2020 until March 30, 2020", 0, 'C'); 	   									
+			$this->Link(120, 130, 70, 25, "https://repmyblock.nyc/exp/website/interested");
+ 	   	$this->MultiCell(70, 7.2, "Petitioning starts February 25, 2022 until March 30, 2022", 0, 'C'); 	   									
  	   }
 		
 		$this->SetTextColor(0);

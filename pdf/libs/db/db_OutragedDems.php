@@ -101,6 +101,7 @@ class OutragedDems extends queries {
 						"LEFT JOIN CanWitnessSet ON (CanWitnessSet.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CandidateWitness ON (CandidateWitness.CandidateWitness_ID = CanWitnessSet.CandidateWitness_ID) " .
 						"LEFT JOIN CandidatePetitionSet ON (CandidatePetitionSet.CandidatePetitionSet_ID = CanPetitionSet.CandidatePetitionSet_ID) " .
+						"LEFT JOIN PartySymbol ON (Candidate.PartySymbol_ID = PartySymbol.PartySymbol_ID) " . 
 						"WHERE CanPetitionSet.CandidatePetitionSet_ID = :CandPetitionSetID " .
 						"ORDER BY CandidateElection_DisplayOrder ASC";
 		$sql_vars = array("CandPetitionSetID" => $CanPetitionSet_ID);
@@ -116,6 +117,7 @@ class OutragedDems extends queries {
 						"LEFT JOIN CanWitnessSet ON (CanWitnessSet.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CandidateWitness ON (CandidateWitness.CandidateWitness_ID = CanWitnessSet.CandidateWitness_ID) " .
 						"LEFT JOIN CandidatePetitionSet ON (CandidatePetitionSet.CandidatePetitionSet_ID = CanPetitionSet.CandidatePetitionSet_ID) " .
+						"LEFT JOIN PartySymbol ON (Candidate.PartySymbol_ID = PartySymbol.PartySymbol_ID) " . 
 						"WHERE CanPetitionSet.CanPetitionSet_ID = :CandPetitionSetID " .
 						"ORDER BY CandidateElection_DisplayOrder ASC";
 						
