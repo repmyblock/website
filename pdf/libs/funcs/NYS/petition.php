@@ -67,8 +67,8 @@ class PDF_Multi extends PDF_Code128 {
 				" Party as the name of the independent body making the nomination and ");
 				
 			if ( ! empty ($this->EmblemFontType)) {
-				$this->AddFont($this->FontType,'', $this->EmblemFontType . ".php");
-				$this->SetFont($this->FontType,'', $this->EmblemFontSize);
+				$this->AddFont($this->EmblemFontType,'', $this->EmblemFontType . ".php");
+				$this->SetFont($this->EmblemFontType,'', $this->EmblemFontSize);
 				$this->Write(3, $this->PartyEmblem);
 			}
 			
