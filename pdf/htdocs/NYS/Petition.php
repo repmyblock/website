@@ -150,8 +150,12 @@ if ( ! empty ($result[0]["Candidate_FullPartyName"])) {
 	$pdf->PetitionType = "independent";
 	$pdf->party = $result[0]["Candidate_FullPartyName"];
 	$pdf->ElectionDate = date("jS \of F Y", strtotime($result[0]["Elections_Date"]));
-	$pdf->FontType = $result[0]["PartySymbol_Font"];
+	$pdf->EmblemFontType = $result[0]["PartySymbol_Font"];
+	$pdf->EmblemFontSize = $result[0]["PartySymbol_Size"];
 	$pdf->PartyEmblem = $result[0]["PartySymbol_Char"];
+	
+	//echo "<PRE>" . print_r($result, 1) . "</PRE>";
+	//exit();
 	
 } else {
 	$pdf->party = $result[0]["CandidateParty"];
