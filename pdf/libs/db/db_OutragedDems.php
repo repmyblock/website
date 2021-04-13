@@ -11,6 +11,11 @@ class OutragedDems extends queries {
 	  	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
+  function SelectObjections() {
+  	$sql = "SELECT * FROM Objections";
+  	return $this->_return_multiple($sql);
+  }
+  
   function UpdateCandidatePetitionHash($NYS, $Candidate_LocalHash) {
   	$sql = "UPDATE Candidate SET Candidate_LocalHash = NULL " .
   					"WHERE Candidate_UniqNYSVoterID = :NYS AND Candidate_LocalHash = :LocalHash";

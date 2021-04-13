@@ -37,7 +37,8 @@ if (! empty ($NYSVoters)) {
 
 }
 
-$WritenSignatureMonth = "March";
+$WritenSignatureMonth = date("F");
+$WritenSignatureYear = date("Y");
 $Variable = "demo-CC";
 $WaterMarkVoid = 'yes';
 	
@@ -257,7 +258,7 @@ $pdf->CandidateNomination .= " or for election to a party position of such party
 //$pdf->WitnessResidence = "_______________________________________________________"; 
 
 $pdf->TodayDateText = "Date: " . date("F _________ , Y"); 
-$pdf->TodayDateText = "Date: " . $WritenSignatureMonth . " _______ , 2021";
+$pdf->TodayDateText = "Date: " . $WritenSignatureMonth . " _______, " . $WritenSignatureYear;
 $pdf->County = $result[0]["CandidatePetition_VoterCounty"];
 $pdf->City = "City of New York";
 
@@ -326,7 +327,7 @@ for ($i = 0; $i < $TotalCountName; $i++) {
 	
 	$pdf->SetXY( 6,  $YLocation - 4 );
 	$pdf->SetFont('Arial', '', 10);
-	$pdf->Cell(38, 0, $Counter . ". March ___ ". date("Y"), 0, 0, 'L', 0);
+	$pdf->Cell(38, 0, $Counter . ". " . $WritenSignatureMonth . " ___ ". $WritenSignatureYear, 0, 0, 'L', 0);
 
 	$pdf->SetY($YLocation + 0.8);	
 	
@@ -369,7 +370,7 @@ while ( $done == 1) {
 	
 	$pdf->SetXY( 6,  $YLocation - 4 );
 	$pdf->SetFont('Arial', '', 10);
-	$pdf->Cell(38, 0, $Counter . ". March ___ ". date("Y"), 0, 0, 'L', 0);
+	$pdf->Cell(38, 0, $Counter . ". " . $WritenSignatureMonth . " ___ ". $WritenSignatureYear, 0, 0, 'L', 0);
 		
 	if ( ! empty ($EmptyAddress)) {
 		$pdf->SetFont('Arial','',14);

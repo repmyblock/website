@@ -19,7 +19,7 @@ class PDF_Multi extends PDF_Code128 {
 			$DatePrintEvent = $this->DateEvent;
 		}
 		
-		$this->Image('../common/NYCBOE.jpg', 95, 8, 25);
+		$this->Image($_SERVER["DOCUMENT_ROOT"] . "/../libs/asset/NYS/NYCBOE.jpg", 95, 8, 25);
 		
 		$this->SetLineWidth(0.4);
 		
@@ -32,7 +32,7 @@ class PDF_Multi extends PDF_Code128 {
     $this->MultiCell(0, 3,  "IN\nTHE CITY OF NEW YORK", 0, 'C', 0);
 		$this->SetFont('Arial','B',12);
     $this->Ln(4);
-    $this->MultiCell(0, 5,  "PETITION HEARINGS\nNOTICE OF APPEARANCE", 0, 'C', 0);
+    $this->MultiCell(0, 4,  "PETITION HEARINGS\nNOTICE OF APPEARANCE", 0, 'C', 0);
     $this->Cell(24, 4, "", 0, 0, 'L');		
 		
     $this->SetFont('Arial','B',9);
