@@ -64,7 +64,7 @@ class PDF_Multi extends PDF_Code128 {
 				"is truly stated opposite my signature hereto, and that I do hereby nominate the following " . 
 				"named person as a candidate for election to public office to be voted for at the election " . 
 				"to be held on the " . $this->ElectionDate . ", and that I select the name " . $this->party . 
-				" Party as the name of the independent body making the nomination and ");
+				" as the name of the independent body making the nomination and ");
 				
 			if ( ! empty ($this->EmblemFontType)) {
 				$this->AddFont($this->EmblemFontType,'', $this->EmblemFontType . ".php");
