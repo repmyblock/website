@@ -61,7 +61,7 @@
 																																								"AD" => $var["Raw_Voter_AssemblyDistr"],
 																																								"Raw_Voter_EnrollPolParty" => $var["Raw_Voter_EnrollPolParty"],
 																																								"TypeSearch" => "Raw"				
-																																							)); ?>/voterlist">Walksheet</A> 
+																																							)); ?>/VoterList">Walksheet</A> 
 							<?php } 
 						echo "</div>";
 						
@@ -96,7 +96,7 @@
 																																								"ED" => $var["Raw_Voter_ElectDistr"],
 																																								"Raw_Voter_EnrollPolParty" => $var["Raw_Voter_EnrollPolParty"],
 																																								"TypeSearch" => "Raw"
-																																							)); ?>/voterlist">Walksheet</A>
+																																							)); ?>/VoterList">Walksheet</A>
 									</div>
 									
 			<?php	}	 

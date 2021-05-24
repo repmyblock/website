@@ -30,10 +30,10 @@
 				<P>
 					<FONT SIZE=+2>
 						Download a 
-						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/NYS/<?= $NewKEncrypt ?>/multipetitions">blank petition</A>
-						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/NYS/<?= $NewKEncrypt ?>/multipetitions"><i class="fa fa-download" aria-hidden="true"></i></A> and a
-						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/NYS/<?= $NewKEncrypt ?>/voterlist">list of voters</A>
-						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/NYS/<?= $NewKEncrypt ?>/voterlist"><i class="fa fa-download" aria-hidden="true"></i></A>
+						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/NYS/<?= $NewKEncrypt ?>/Petition">blank petition</A>
+						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/NYS/<?= $NewKEncrypt ?>/Petition"><i class="fa fa-download" aria-hidden="true"></i></A> and a
+						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/NYS/<?= $NewKEncrypt ?>/VoterList">list of voters</A>
+						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/NYS/<?= $NewKEncrypt ?>/VoterList"><i class="fa fa-download" aria-hidden="true"></i></A>
 					</FONT>
 					<BR>for <?= $result[0]["Candidate_ID"] ?>
 				</P>
