@@ -9,6 +9,20 @@
 	<DIV CLASS="right f80">Running for Office Training Material</DIV>
 
 
+<h4>The County Committee</h4>
+
+
+<P>
+	<B>Teaser:</B> What is the County Commmittee.
+</P>
+
+<P>
+	<UL>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/KtYLNV3_npk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</UL>
+</P>
+
+
 <h4>Zoom with Paperboy hosted by el Chino!</h4>
 
 
