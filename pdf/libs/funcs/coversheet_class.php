@@ -22,7 +22,7 @@ class PDF extends FPDF {
 		
     $this->SetFont('Arial','B',24);
     $this->Ln(25);
-    $this->Cell(0,0, "DESIGNATING PETITION COVER SHEET",0,0,'C');
+    $this->Cell(0,0, $this->typepetition . " PETITION COVER SHEET",0,0,'C');
     $this->Ln(13);
     $this->Cell(0,0, strtoupper($this->party) . " PARTY",0,0,'C');		
     $this->Ln(15);    

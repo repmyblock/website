@@ -15,15 +15,15 @@ if (strlen($k < 20)) {
 	switch ($matches[1][0]) {
 		case 'p': $CanPetitionSet_ID = intval($matches[2][0]); break;
 		case 's': $CandidatePetitionSet_ID = intval($matches[2][0]); break;
-			case 'e': $Candidate_ID = intval($matches[2][0]); $result = $r->GetBOEIDFromCandidateID($Candidate_ID); break;
+		case 'e': $Candidate_ID = intval($matches[2][0]); $result = $r->GetBOEIDFromCandidateID($Candidate_ID); break;
 		case 'N': $NYSVoters = intval($matches[2][0]); break;
 	}
 } 
 
 	//$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
 		
-	//	print "<PRE>" . print_r($result, 1) . "</PRE>";
-		//exit();
+	//print "<PRE>" . print_r($result, 1) . "</PRE>";
+	//exit();
 	/*	
 	if ( ! empty ($result)) {
 			$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
@@ -96,8 +96,16 @@ if (strlen($k < 20)) {
 		
 	$pdf->NumberOfCandidates = $TotalCandidates;
 	$pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
-	$pdf->party = NewYork_PrintPartyAdjective($result[0]["Candidate_Party"]);
-	$pdf->ElectionDate = "June 25th, 2019";
+	
+	if ( $result[0]["Candidate_Party"] != "BLK") {	
+		$pdf->party = NewYork_PrintPartyAdjective($result[0]["Candidate_Party"]);
+		$pdf->typepetition = "DESIGNATING";
+	} else {
+		$pdf->party = $result[0]["Candidate_FullPartyName"];
+		$pdf->typepetition = "INDEPENDENT";
+	}
+
+	$pdf->ElectionDate = $result[0]["Elections_Date"]; #"June 25th, 2019";
 	
 	if ($pdf->NumberOfCandidates > 1) { 
 		$pdf->PluralCandidates = "s"; 

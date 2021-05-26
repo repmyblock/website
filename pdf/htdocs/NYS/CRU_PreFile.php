@@ -37,7 +37,10 @@ if (is_numeric($CanPetitionSet_ID)) {
 		$pdf->Election = strtoupper($result["Elections_Type"]);
     $pdf->PrintName = $result["Candidate_DispName"];
     $pdf->Representing = "Self";
+    
+    
     $pdf->PartyName = NewYork_PrintPartyAdjective($result["CanPetitionSet_Party"]);
+    
    
 		$pdf->Total = 0;
 		switch ($result["DataCounty_Name"]) {			
