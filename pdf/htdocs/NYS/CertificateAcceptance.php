@@ -3,7 +3,7 @@
 		
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/coversheet_class.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/NYS/certificate_acceptance.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
 	$r = new OutragedDems();
@@ -52,10 +52,7 @@ if (strlen($k < 20)) {
 		$pdf->Watermark = "Demo Petition / Not Valid";
 	}
 
-	$pdf->Candidate[$TotalCandidates] = $var["Candidate_DispName"];
-	$pdf->PositionType[$TotalCandidates] = "electoral";
-	$pdf->RunningFor[$TotalCandidates] =  $var["CandidateElection_PetitionText"];
-	$pdf->Residence[$TotalCandidates] = $var["Candidate_DispResidence"];
+	
 	
 	
 	$pdf->BOEIDNbrOfVolumes = count($result);
@@ -93,34 +90,25 @@ if (strlen($k < 20)) {
 	$pdf->Email = $result[0]["CandidatePetIDDeficiencies_Email"];	
 	$pdf->PositionType[0] = $result[0]["CandidateElection_PositionType"];
 	
-		
-	$pdf->NumberOfCandidates = $TotalCandidates;
-	$pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
+	$pdf->CandidateName = $var["Candidate_DispName"];
+	$pdf->CandidateAddress = $var["Candidate_DispResidence"];
+	$pdf->PublicOffice =  $var["CandidateElection_PetitionText"];
+
+ 	$pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
+ 	
+ 	$pdf->PubNotaryDay = "______";
+ 	$pdf->PubNotaryMonth = "______, " . date("Y");
+ 	$pdf->PubNotaryCounty = "_________";
 	
 	if ( $result[0]["Candidate_Party"] != "BLK") {	
 		$pdf->party = NewYork_PrintPartyAdjective($result[0]["Candidate_Party"]);
-		$pdf->typepetition = "DESIGNATING";
 	} else {
 		$pdf->party = $result[0]["Candidate_FullPartyName"];
-		$pdf->typepetition = "INDEPENDENT";
 	}
 
-	$pdf->ElectionDate = $result[0]["Elections_Date"]; #"June 25th, 2019";
+	$pdf->ElectionDate = PrintShortDate($result[0]["Elections_Date"]); #"June 25th, 2019";
+	$pdf->TypeOffice = $result[0]["Elections_Type"]; #"June 25th, 2019";
 	
-	if ($pdf->NumberOfCandidates > 1) { 
-		$pdf->PluralCandidates = "s"; 
-		$pdf->PluralAcandidates = "";	
-	} else { 
-		$pdf->PluralCandidates = "";
-		$pdf->PluralAcandidates = "a";	
-	}
-
-	$pdf->RunningForHeading["electoral"] = "PUBLIC OFFICE" . strtoupper($pdf->PluralCandidates);
-	$pdf->RunningForHeading["party"] = "PARTY POSITION" . strtoupper($pdf->PluralCandidates);
-
-	$pdf->CandidateNomination = "nomination of such party for public office";
-	// Add or the if both.	
- 	$pdf->CandidateNomination .= " or for election to a party position of such party.";
 
 	if ( $PageSize == "letter") {
 		$NumberOfLines = 14 - $pdf->NumberOfCandidates;
