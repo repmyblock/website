@@ -16,25 +16,20 @@
 	<P CLASS="BckGrndElement">WHAT IS THE COUNTY COMMITTEE</P>
 
 	<P>
-		<B>The County Committee is the most basic committee of any New York party; it's their backbone.</B>
+		<B>The County Committee is the body that elects the chair of the County Chair.</B>
 	</P>
 	
 	<P>	
-		The County Committee is the most basic committee of any New York party; it's the backbone because it selects the local platform and 
-		the candidates that will represent our values. Many registered Democrats or Republicans dont even know its existence. 
-		It's the body that validates the party backroom deals. 
+		The most important job of the County Committee member is to elect the County Chair of the party 
+		and select the replacement of any state assembly member that resigned. Many registered Democrats or Republicans ignore its existence. 
 	</P>
-		
-		
-	
-	
 	
 	<P CLASS="MediaCenter">
 	 <iframe width="560" height="315" src="https://www.youtube.com/embed/KtYLNV3_npk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</P>
 
 	<P>
-		<B>The time commitment is about 32 hours a year.</B>
+		<B>The time commitment is about 32 hours every two years or about 3 minutes a day.</B>
 	</P>
 	
 			<P CLASS="BckGrndElement">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
