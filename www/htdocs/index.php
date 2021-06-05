@@ -16,7 +16,8 @@
 	<P CLASS="BckGrndElement">A PRINT ERROR IN THE NEW YORK VOTING GUIDE</P>
 
 	<P>
-		My name is Theo Chino, and I am the Co-Founder of this Non-Partisant website. Due to a print error in the New York City Voter Guide, this website is referenced instead of my campaign website. 
+		My name is Theo Chino, and I am the Co-Founder of this Non-Partisan website. Due to a print error 
+		in the New York City Voter Guide, this website is referenced instead of my campaign website. 
 		<B>If you are looking for my campaign website, it's <A HREF="https://pubadvocate.nyc">https://pubadvocate.nyc</A></B>. 
 	</P>
 	
