@@ -38,7 +38,7 @@
 
 																					
 		<P CLASS="f60">
-			Rep My Block will sent you information about the process at the end of December 2020 or January 2021 on 
+			Rep My Block will sent you information about the process in January 2022 on 
 			how to get involved. 
 		</P>	
 	
