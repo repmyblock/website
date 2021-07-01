@@ -29,7 +29,7 @@
 	<B>Cecilia Cortez</B>, Democratic Candidate for City Council District 40<BR>	
 </P>
 
-<h4>Members of the Democratic Parties</h4>
+<h4>Party Members</h4>
 
 <P style="margin-left: 1.5em">
 	<?php	/* <B>Luis Ordo&ntilde;ez</B>, Male District Leader for AD XX Part X<BR> */ ?>
