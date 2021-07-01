@@ -15,16 +15,18 @@
 
 
 <P style="margin-left: 1.5em">
-	<B>Joycelyn Taylor</B>, Candidate for Mayor<BR>
-	<B>Aaron Foldenauer</B>, Candidate for Mayor<BR>
-	<B>Paperboy Love Prince</B>, Candidate for Mayor<BR>
-	<B>Theo Bruce Chino Tavarez</B>, Candidate for Public Advocate<BR>
+	<B>Joycelyn Taylor</B>, Democratic Candidate for Mayor<BR>
+	<B>Aaron Foldenauer</B>, Democratic Candidate for Mayor<BR>
+	<B>Paperboy Love Prince</B>, Democratic Candidate for Mayor<BR>
+	<B>Theo Bruce Chino Tavarez</B>, Democratic Candidate for Public Advocate<BR>
+	<B>Alex Pan</B>, Democratic Candidate for Comptroler<BR>
+	<B>Robert Elstein</B>, Democratic Candidate for Brooklyn Borough President<BR>
 	<?php /* <B>Maria Ordo&ntilde;ez</B>, Candidate for City Council District 7<BR> */ ?>
-	<B>Lattina Brown</B>, Candidate for City Council District 17<BR>
-	<B>Badrun Khan</B>, Candidate for City Council District 26<BR>
-	<B>Lutchi Gayot</B>, Candidate for City Council District 34<BR>
-	<B>Rick Echevarria,</B> Candidate for City Council District 37<BR>
-	<B>Cecilia Cortez</B>, Candidate for City Council District 40<BR>	
+	<B>Lattina Brown</B>, Democratic Candidate for City Council District 17<BR>
+	<B>Badrun Khan</B>, Democratic Candidate for City Council District 26<BR>
+	<B>Lutchi Gayot</B>, Democratic Candidate for City Council District 34<BR>
+	<B>Rick Echevarria,</B> Democratic Candidate for City Council District 37<BR>
+	<B>Cecilia Cortez</B>, Democratic Candidate for City Council District 40<BR>	
 </P>
 
 <h4>Members of the Democratic Parties</h4>
