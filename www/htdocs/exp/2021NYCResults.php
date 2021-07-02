@@ -39,6 +39,12 @@
 	<B>Esther Yang</B>, Democratic Candidate for Female District Leader 76<SUP>th</SUP> AD Part A<BR>
 </P>
 
+<h4>Previous Candidate for Public Office</h4>
+
+<P style="margin-left: 1.5em">
+	<B>Jared Rich</B>, Candidate for Public Advocate, 2019 Special Election<BR>
+</P>
+
 <h4>Party Members</h4>
 
 <P style="margin-left: 1.5em">
