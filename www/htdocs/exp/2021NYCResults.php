@@ -14,7 +14,7 @@
 <h4>Candidate for Public Office</h4>
 
 <P style="margin-left: 1.5em">
-	<?php /* <B>Joycelyn Taylor</B>, Democratic Candidate for Mayor<BR> */ ?>
+	<B>Joycelyn Taylor</B>, Democratic Candidate for Mayor<BR>
 	<?php /* <B>Aaron Foldenauer</B>, Democratic Candidate for Mayor<BR> */ ?>
 	<B>Paperboy Love Prince</B>, Democratic Candidate for Mayor<BR>
 	<B>Theo Bruce Chino Tavarez</B>, Democratic Candidate for Public Advocate<BR>
