@@ -23,6 +23,7 @@
 	<B>Paperboy Love Prince</B>, Democratic Candidate for Mayor<BR>
 	<B>Theo Bruce Chino Tavarez</B>, Democratic Candidate for Public Advocate<BR>
 	<B>Alex Pan</B>, Democratic Candidate for Comptroler<BR>
+	<B>Kimberly Watkins</B>, Democratic Candidate for Manhattan Borough President<BR>
 	<B>Robert Elstein</B>, Democratic Candidate for Brooklyn Borough President<BR>
 	<?php /* <B>Maria Ordo&ntilde;ez</B>, Candidate for City Council District 7<BR> */ ?>
 	<B>Lattina Brown</B>, Democratic Candidate for City Council District 17<BR>
