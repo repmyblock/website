@@ -24,7 +24,7 @@
 	<B>Alex Pan</B>, Democratic Candidate for Comptroler<BR>
 	<B>Kimberly Watkins</B>, Democratic Candidate for Manhattan Borough President<BR>
 	<B>Robert Elstein</B>, Democratic Candidate for Brooklyn Borough President<BR>
-	<B>Edward Irizarry</B>, Democratic Candidate for Judge of the Civil Court 2<SUP>nd</SUP> Municipal Court District<BR>
+	<B>Edward Irizarry</B>, Democratic Candidate for Judge of the Civil Court 2<SUP>nd</SUP> Municipal District<BR>
 	<B>Kim Moscaritolo</B>, Democratic Candidate for City Council District 5<BR>
 	<?php /* <B>Maria Ordo&ntilde;ez</B>, Candidate for City Council District 7<BR> */ ?>
 	<?php /* <B>Lena Melendez</B>, Candidate for City Council District 7<BR> */ ?>
@@ -32,6 +32,7 @@
 	<B>Keith Harris</B>, Candidate for City Council District 7<BR>
 	<B>Shanequa Moore</B>, Candidate for City Council District 12<BR>
 	<B>Lattina Brown</B>, Democratic Candidate for City Council District 17<BR>
+	<B>Adriana Aviles</B>, Democratic Candidate for City Council District 19<BR>
 	<B>Moumita Ahmed</B>, Democratic Candidate for City Council District 24<BR>
 	<B>Badrun Khan</B>, Democratic Candidate for City Council District 26<BR>
 	<B>Emily Sharpe </B>, Democratic Candidate for City Council District 26<BR>
@@ -51,7 +52,7 @@
 
 <DIV CLASS="f60"><B>Party Members</B></DIV>
 <P CLASS="f40" style="margin-left: 1.5em">
-	<B>Christine Tuaillon</B>, Queens County Committee Member<BR>
+	<B>Christine Tuaillon</B>, Queens County Democratic Party Committee Member<BR>
 </P>
 
 <DIV CLASS="f60"><B>Members of the Public</B></DIV>
