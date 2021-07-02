@@ -35,6 +35,7 @@
 	<B>Lutchi Gayot</B>, Democratic Candidate for City Council District 34<BR>
 	<B>Rick Echevarria,</B> Democratic Candidate for City Council District 37<BR>
 	<B>Cecilia Cortez</B>, Democratic Candidate for City Council District 40<BR>	
+	<B>Harriet Hines</B>, Democratic Candidate for City Council District 40<BR>	
 	<B>Esther Yang</B>, Democratic Candidate for Female District Leader 76<SUP>th</SUP> AD Part A<BR>
 </P>
 
