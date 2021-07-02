@@ -30,6 +30,7 @@
 	<B>Keith Harris</B>, Candidate for City Council District 7<BR>
 	<B>Lattina Brown</B>, Democratic Candidate for City Council District 17<BR>
 	<B>Badrun Khan</B>, Democratic Candidate for City Council District 26<BR>
+	<B>Emily Sharpe </B>, Democratic Candidate for City Council District 26<BR>
 	<B>Lutchi Gayot</B>, Democratic Candidate for City Council District 34<BR>
 	<B>Rick Echevarria,</B> Democratic Candidate for City Council District 37<BR>
 	<B>Cecilia Cortez</B>, Democratic Candidate for City Council District 40<BR>	
