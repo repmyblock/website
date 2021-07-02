@@ -13,11 +13,10 @@
 	<DIV CLASS="right f80">Candidates and member of the Public demanding that the NYC Board of Elections 
 		release of the ballots raw data</DIV>
 
-<P>
 	
-<h4>Candidate for Public Office</h4>
+<DIV CLASS="f60"><B>Candidate for Public Office</B></DIV>
 
-<P style="margin-left: 1.5em">
+<P CLASS="f40" style="margin-left: 1.5em">
 	<B>Joycelyn Taylor</B>, Democratic Candidate for Mayor<BR>
 	<?php /* <B>Aaron Foldenauer</B>, Democratic Candidate for Mayor<BR> */ ?>
 	<B>Paperboy Love Prince</B>, Democratic Candidate for Mayor<BR>
@@ -41,29 +40,30 @@
 	<B>Esther Yang</B>, Democratic Candidate for Female District Leader 76<SUP>th</SUP> AD Part A<BR>
 </P>
 
-<h4>Previous Candidate for Public Office</h4>
+<DIV CLASS="f60"><B>Previous Candidate for Public Office</B></DIV>
 
-<P style="margin-left: 1.5em">
+<P CLASS="f40" style="margin-left: 1.5em">
 	<B>Jared Rich</B>, Candidate for Public Advocate, 2019 Special Election<BR>
 	<B>Steve Lee</B>, Democratic Candidate for NYS Assembly District 40, 2020<BR>
 </P>
 
-<h4>Party Members</h4>
+<DIV CLASS="f60"><B>Party Members</B></DIV>
 
-<P style="margin-left: 1.5em">
+<P CLASS="f40" style="margin-left: 1.5em">
+	
 </P>
 
-<h4>Members of the Public</h4>
+<DIV CLASS="f60"><B>Members of the Public</B></DIV>
 
-<P style="margin-left: 1.5em">
+<P CLASS="f40" style="margin-left: 1.5em">
 </P>
 		
-<h4>Members of the Press</h4>
-<P style="margin-left: 1.5em">
+<DIV CLASS="f60"><B>Members of the Press</B></DIV>
+<P CLASS="f40" style="margin-left: 1.5em">
 </P>		
 		
 		
-			<P CLASS="f60">
+			<P CLASS="f30">
 				Rep My Block is provided Free of Charge to any candidate that wishes to integrate 
 				its services.
 			</P>
