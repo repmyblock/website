@@ -13,14 +13,14 @@
 	
 <h4>Candidate for Public Office</h4>
 
-
 <P style="margin-left: 1.5em">
 	<B>Joycelyn Taylor</B>, Democratic Candidate for Mayor<BR>
-	<B>Aaron Foldenauer</B>, Democratic Candidate for Mayor<BR>
+	<?php /* <B>Aaron Foldenauer</B>, Democratic Candidate for Mayor<BR> */ ?>
 	<B>Paperboy Love Prince</B>, Democratic Candidate for Mayor<BR>
 	<B>Theo Bruce Chino Tavarez</B>, Democratic Candidate for Public Advocate<BR>
 	<B>Alex Pan</B>, Democratic Candidate for Comptroler<BR>
 	<B>Robert Elstein</B>, Democratic Candidate for Brooklyn Borough President<BR>
+	<B>Kim Moscaritolo</B>, Candidate for City Council District 5<BR>
 	<?php /* <B>Maria Ordo&ntilde;ez</B>, Candidate for City Council District 7<BR> */ ?>
 	<B>Lattina Brown</B>, Democratic Candidate for City Council District 17<BR>
 	<B>Badrun Khan</B>, Democratic Candidate for City Council District 26<BR>
