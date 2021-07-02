@@ -15,7 +15,7 @@
 
 
 <P style="margin-left: 1.5em">
-	<B>Joycelyn Taylor</B>, Democratic Candidate for Mayor<BR>
+	<?php /* <B>Joycelyn Taylor</B>, Democratic Candidate for Mayor<BR> */ ?>
 	<B>Aaron Foldenauer</B>, Democratic Candidate for Mayor<BR>
 	<B>Paperboy Love Prince</B>, Democratic Candidate for Mayor<BR>
 	<B>Theo Bruce Chino Tavarez</B>, Democratic Candidate for Public Advocate<BR>
