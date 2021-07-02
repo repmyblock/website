@@ -21,6 +21,7 @@
 	<B>Joycelyn Taylor</B>, Democratic Candidate for Mayor<BR>
 	<?php /* <B>Aaron Foldenauer</B>, Democratic Candidate for Mayor<BR> */ ?>
 	<B>Paperboy Love Prince</B>, Democratic Candidate for Mayor<BR>
+	<B>Art Chang</B>, Democratic Candidate for Mayor<BR>
 	<B>Theo Bruce Chino Tavarez</B>, Democratic Candidate for Public Advocate<BR>
 	<B>Alex Pan</B>, Democratic Candidate for Comptroler<BR>
 	<B>Kimberly Watkins</B>, Democratic Candidate for Manhattan Borough President<BR>
@@ -36,6 +37,7 @@
 	<B>Rick Echevarria,</B> Democratic Candidate for City Council District 37<BR>
 	<B>Cecilia Cortez</B>, Democratic Candidate for City Council District 40<BR>	
 	<B>Harriet Hines</B>, Democratic Candidate for City Council District 40<BR>	
+	<?php	/* <B>Luis Ordo&ntilde;ez</B>, Male District Leader for AD 70<SUP>th</SUP> AD Part D<BR> */ ?>
 	<B>Esther Yang</B>, Democratic Candidate for Female District Leader 76<SUP>th</SUP> AD Part A<BR>
 </P>
 
@@ -43,12 +45,12 @@
 
 <P style="margin-left: 1.5em">
 	<B>Jared Rich</B>, Candidate for Public Advocate, 2019 Special Election<BR>
+	<B>Steve Lee</B>, Democratic Candidate for NYS Assembly District 40, 2020<BR>
 </P>
 
 <h4>Party Members</h4>
 
 <P style="margin-left: 1.5em">
-	<?php	/* <B>Luis Ordo&ntilde;ez</B>, Male District Leader for AD XX Part X<BR> */ ?>
 </P>
 
 <h4>Members of the Public</h4>
