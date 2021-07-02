@@ -26,9 +26,9 @@
 	<B>Robert Elstein</B>, Democratic Candidate for Brooklyn Borough President<BR>
 	<B>Edward Irizarry</B>, Democratic Candidate for Judge of the Civil Court 2<SUP>nd</SUP> Municipal Court District<BR>
 	<B>Kim Moscaritolo</B>, Democratic Candidate for City Council District 5<BR>
-	<? /* <B>Maria Ordo&ntilde;ez</B>, Candidate for City Council District 7<BR> */ ?>
-	<? /* <B>Lena Melendez</B>, Candidate for City Council District 7<BR> */ ?>
-	<? /* <B>Marti Allen-Cummings</B>, Candidate for City Council District 7<BR> */ ?>
+	<?php /* <B>Maria Ordo&ntilde;ez</B>, Candidate for City Council District 7<BR> */ ?>
+	<?php /* <B>Lena Melendez</B>, Candidate for City Council District 7<BR> */ ?>
+	<?php /* <B>Marti Allen-Cummings</B>, Candidate for City Council District 7<BR> */ ?>
 	<B>Keith Harris</B>, Candidate for City Council District 7<BR>
 	<B>Shanequa Moore</B>, Candidate for City Council District 12<BR>
 	<B>Lattina Brown</B>, Democratic Candidate for City Council District 17<BR>
@@ -39,7 +39,7 @@
 	<B>Rick Echevarria,</B> Democratic Candidate for City Council District 37<BR>
 	<B>Cecilia Cortez</B>, Democratic Candidate for City Council District 40<BR>
 	<B>Harriet Hines</B>, Democratic Candidate for City Council District 40<BR>
-	<? /* <B>Luis Ordo&ntilde;ez</B>, Male District Leader for AD 70<SUP>th</SUP> AD Part D<BR> */ ?>
+	<?php /* <B>Luis Ordo&ntilde;ez</B>, Male District Leader for AD 70<SUP>th</SUP> AD Part D<BR> */ ?>
 	<B>Esther Yang</B>, Democratic Candidate for Female District Leader 76<SUP>th</SUP> AD Part A<BR>
 </P>
 
