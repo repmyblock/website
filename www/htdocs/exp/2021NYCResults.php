@@ -1,5 +1,9 @@
 <?php
 //	$imgtoshow = "/brand/RunWithMe/RunWithMe.png";
+
+	$TwitterImage = "https://static.repmyblock.nyc/pics/paste/AddYourName.png";
+	$TwitterDesc = "These candidates are calling for @BOENYC to release the raw data so the results can be independently tabulated.";
+
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
