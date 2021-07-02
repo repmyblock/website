@@ -25,12 +25,14 @@
 	<B>Alex Pan</B>, Democratic Candidate for Comptroler<BR>
 	<B>Kimberly Watkins</B>, Democratic Candidate for Manhattan Borough President<BR>
 	<B>Robert Elstein</B>, Democratic Candidate for Brooklyn Borough President<BR>
+	<B>Kim Moscaritolo</B>, Democratic Candidate for City Council District 5<BR>
 	<?php /* <B>Maria Ordo&ntilde;ez</B>, Candidate for City Council District 7<BR> */ ?>
 	<B>Lattina Brown</B>, Democratic Candidate for City Council District 17<BR>
 	<B>Badrun Khan</B>, Democratic Candidate for City Council District 26<BR>
 	<B>Lutchi Gayot</B>, Democratic Candidate for City Council District 34<BR>
 	<B>Rick Echevarria,</B> Democratic Candidate for City Council District 37<BR>
 	<B>Cecilia Cortez</B>, Democratic Candidate for City Council District 40<BR>	
+	<B>Esther Yang</B>, Democratic Candidate for Female District Leader 76<SUP>th</SUP> AD Part A<BR>
 </P>
 
 <h4>Party Members</h4>
