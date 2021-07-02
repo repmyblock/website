@@ -10,12 +10,11 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
-	<DIV CLASS="right f80">Candidates and member of the Public demanding that the NYC Board of Elections 
-		release of the ballots raw data</DIV>
+	<DIV CLASS="right f80">Candidates and member of the	Public demanding 
+		that the NYC Board of Elections release of the ballots raw data
+	</DIV>
 
-	
 <DIV CLASS="f60"><B>Candidate for Public Office</B></DIV>
-
 <P CLASS="f40" style="margin-left: 1.5em">
 	<B>Joycelyn Taylor</B>, Democratic Candidate for Mayor<BR>
 	<?php /* <B>Aaron Foldenauer</B>, Democratic Candidate for Mayor<BR> */ ?>
@@ -25,36 +24,37 @@
 	<B>Alex Pan</B>, Democratic Candidate for Comptroler<BR>
 	<B>Kimberly Watkins</B>, Democratic Candidate for Manhattan Borough President<BR>
 	<B>Robert Elstein</B>, Democratic Candidate for Brooklyn Borough President<BR>
+	<B>Edward Irizarry</B>, Democratic Candidate for Judge of the Civil Court 2<SUP>nd</SUP> Municipal Court District<BR>
 	<B>Kim Moscaritolo</B>, Democratic Candidate for City Council District 5<BR>
-	<?php /* <B>Maria Ordo&ntilde;ez</B>, Candidate for City Council District 7<BR> */ ?>
+	<? /* <B>Maria Ordo&ntilde;ez</B>, Candidate for City Council District 7<BR> */ ?>
+	<? /* <B>Lena Melendez</B>, Candidate for City Council District 7<BR> */ ?>
+	<? /* <B>Marti Allen-Cummings</B>, Candidate for City Council District 7<BR> */ ?>
 	<B>Keith Harris</B>, Candidate for City Council District 7<BR>
+	<B>Shanequa Moore</B>, Candidate for City Council District 12<BR>
 	<B>Lattina Brown</B>, Democratic Candidate for City Council District 17<BR>
 	<B>Moumita Ahmed</B>, Democratic Candidate for City Council District 24<BR>
 	<B>Badrun Khan</B>, Democratic Candidate for City Council District 26<BR>
 	<B>Emily Sharpe </B>, Democratic Candidate for City Council District 26<BR>
 	<B>Lutchi Gayot</B>, Democratic Candidate for City Council District 34<BR>
 	<B>Rick Echevarria,</B> Democratic Candidate for City Council District 37<BR>
-	<B>Cecilia Cortez</B>, Democratic Candidate for City Council District 40<BR>	
-	<B>Harriet Hines</B>, Democratic Candidate for City Council District 40<BR>	
-	<?php	/* <B>Luis Ordo&ntilde;ez</B>, Male District Leader for AD 70<SUP>th</SUP> AD Part D<BR> */ ?>
+	<B>Cecilia Cortez</B>, Democratic Candidate for City Council District 40<BR>
+	<B>Harriet Hines</B>, Democratic Candidate for City Council District 40<BR>
+	<? /* <B>Luis Ordo&ntilde;ez</B>, Male District Leader for AD 70<SUP>th</SUP> AD Part D<BR> */ ?>
 	<B>Esther Yang</B>, Democratic Candidate for Female District Leader 76<SUP>th</SUP> AD Part A<BR>
 </P>
 
 <DIV CLASS="f60"><B>Previous Candidate for Public Office</B></DIV>
-
 <P CLASS="f40" style="margin-left: 1.5em">
 	<B>Jared Rich</B>, Candidate for Public Advocate, 2019 Special Election<BR>
 	<B>Steve Lee</B>, Democratic Candidate for NYS Assembly District 40, 2020<BR>
 </P>
 
 <DIV CLASS="f60"><B>Party Members</B></DIV>
-
 <P CLASS="f40" style="margin-left: 1.5em">
-	
+	<B>Christine Tuaillon</B>, Queens County Committee Member<BR>
 </P>
 
 <DIV CLASS="f60"><B>Members of the Public</B></DIV>
-
 <P CLASS="f40" style="margin-left: 1.5em">
 </P>
 		
