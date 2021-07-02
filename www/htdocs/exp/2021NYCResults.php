@@ -29,6 +29,7 @@
 	<?php /* <B>Maria Ordo&ntilde;ez</B>, Candidate for City Council District 7<BR> */ ?>
 	<B>Keith Harris</B>, Candidate for City Council District 7<BR>
 	<B>Lattina Brown</B>, Democratic Candidate for City Council District 17<BR>
+	<B>Moumita Ahmed</B>, Democratic Candidate for City Council District 24<BR>
 	<B>Badrun Khan</B>, Democratic Candidate for City Council District 26<BR>
 	<B>Emily Sharpe </B>, Democratic Candidate for City Council District 26<BR>
 	<B>Lutchi Gayot</B>, Democratic Candidate for City Council District 34<BR>
