@@ -30,6 +30,7 @@
 	<?php /* <B>Lena Melendez</B>, Candidate for City Council District 7<BR> */ ?>
 	<?php /* <B>Marti Allen-Cummings</B>, Candidate for City Council District 7<BR> */ ?>
 	<B>Keith Harris</B>, Candidate for City Council District 7<BR>
+	<B>Sheba Simpson-Amsterdam</B>, Candidate for City Council District 9<BR>
 	<B>Shanequa Moore</B>, Candidate for City Council District 12<BR>
 	<B>Lattina Brown</B>, Democratic Candidate for City Council District 17<BR>
 	<B>Adriana Aviles</B>, Democratic Candidate for City Council District 19<BR>
@@ -40,6 +41,7 @@
 	<B>Rick Echevarria,</B> Democratic Candidate for City Council District 37<BR>
 	<B>Cecilia Cortez</B>, Democratic Candidate for City Council District 40<BR>
 	<B>Harriet Hines</B>, Democratic Candidate for City Council District 40<BR>
+	<B>Anthony Beckford</B>, Democratic Candidate for City Council District 45<BR>
 	<?php /* <B>Luis Ordo&ntilde;ez</B>, Male District Leader for AD 70<SUP>th</SUP> AD Part D<BR> */ ?>
 	<B>Esther Yang</B>, Democratic Candidate for Female District Leader 76<SUP>th</SUP> AD Part A<BR>
 </P>
