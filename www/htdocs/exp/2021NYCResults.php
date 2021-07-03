@@ -54,6 +54,7 @@
 
 <DIV CLASS="f60"><B>Party Members</B></DIV>
 <P CLASS="f40" style="margin-left: 1.5em">
+	<B>Virginia Ramos Rios</B>, New York State Committee member for the 28<SUP>th</SUP> AD (Queens)<BR>
 	<B>Christine Tuaillon</B>, Queens County Democratic Party Committee Member<BR>
 </P>
 
