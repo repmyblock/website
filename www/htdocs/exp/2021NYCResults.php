@@ -20,6 +20,7 @@
 	<?php /* <B>Aaron Foldenauer</B>, Democratic Candidate for Mayor<BR> */ ?>
 	<B>Paperboy Love Prince</B>, Democratic Candidate for Mayor<BR>
 	<B>Art Chang</B>, Democratic Candidate for Mayor<BR>
+	<B>Devi Nampiaparampil</B>, Republican Candidate for Public Advocate<BR>
 	<B>Theo Bruce Chino Tavarez</B>, Democratic Candidate for Public Advocate<BR>
 	<B>Alex Pan</B>, Democratic Candidate for Comptroler<BR>
 	<B>Kimberly Watkins</B>, Democratic Candidate for Manhattan Borough President<BR>
@@ -29,14 +30,16 @@
 	<?php /* <B>Maria Ordo&ntilde;ez</B>, Candidate for City Council District 7<BR> */ ?>
 	<?php /* <B>Lena Melendez</B>, Candidate for City Council District 7<BR> */ ?>
 	<?php /* <B>Marti Allen-Cummings</B>, Candidate for City Council District 7<BR> */ ?>
-	<B>Keith Harris</B>, Candidate for City Council District 7<BR>
-	<B>Sheba Simpson-Amsterdam</B>, Candidate for City Council District 9<BR>
-	<B>Shanequa Moore</B>, Candidate for City Council District 12<BR>
+	<B>Keith Harris</B>, Democratic Candidate for City Council District 7<BR>
+	<B>Sheba Simpson-Amsterdam</B>, Democratic Candidate for City Council District 9<BR>
+	<B>Shanequa Moore</B>, Democratic Candidate for City Council District 12<BR>
 	<B>Lattina Brown</B>, Democratic Candidate for City Council District 17<BR>
 	<B>Adriana Aviles</B>, Democratic Candidate for City Council District 19<BR>
 	<B>Moumita Ahmed</B>, Democratic Candidate for City Council District 24<BR>
 	<B>Badrun Khan</B>, Democratic Candidate for City Council District 26<BR>
 	<B>Emily Sharpe </B>, Democratic Candidate for City Council District 26<BR>
+	<B>Sheryl Fetik</B>, Independent Candidate for City Council District 29<BR>
+	<B>Douglas Shapiro</B>, Democratic Candidate for City Council District 29<BR>
 	<B>Lutchi Gayot</B>, Democratic Candidate for City Council District 34<BR>
 	<B>Rick Echevarria,</B> Democratic Candidate for City Council District 37<BR>
 	<B>Cecilia Cortez</B>, Democratic Candidate for City Council District 40<BR>
@@ -55,6 +58,7 @@
 <DIV CLASS="f60"><B>Party Members</B></DIV>
 <P CLASS="f40" style="margin-left: 1.5em">
 	<B>Virginia Ramos Rios</B>, New York State Committee member for the 28<SUP>th</SUP> AD (Queens)<BR>
+	<B>Michael Hano</B>, New York County Democratic Party Committee Member<BR>
 	<B>Christine Tuaillon</B>, Queens County Democratic Party Committee Member<BR>
 </P>
 
