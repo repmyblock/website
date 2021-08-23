@@ -13,11 +13,18 @@
 	<DIV CLASS="right f80">Candidates and member of the	Public demanding 
 		that the NYC Board of Elections release of the ballots raw data
 	</DIV>
+	
+
+<DIV CLASS="f60"><B>Update August 19, 2021</B></DIV>	
+<P CLASS="f40" style="margin-left: 1.5em">
+	The Board of Election released the ballot raw data information. 
+	You can download a zip file with the raw ballot data at
+	<A HREF="https://www.vote.nyc/sites/default/files/pdf/election_results/2021/20210622Primary%20Election/cvr/PE2021_CVR_Final.zip">https://www.vote.nyc/sites/default/files/pdf/election_results/2021/20210622Primary%20Election/cvr/PE2021_CVR_Final.zip</A>.
+</P>
 
 <DIV CLASS="f60"><B>Candidate for Public Office</B></DIV>
 <P CLASS="f40" style="margin-left: 1.5em">
 	<B>Joycelyn Taylor</B>, Democratic Candidate for Mayor<BR>
-	<?php /* <B>Aaron Foldenauer</B>, Democratic Candidate for Mayor<BR> */ ?>
 	<B>Paperboy Love Prince</B>, Democratic Candidate for Mayor<BR>
 	<B>Art Chang</B>, Democratic Candidate for Mayor<BR>
 	<B>Devi Nampiaparampil</B>, Republican Candidate for Public Advocate<BR>
@@ -27,9 +34,6 @@
 	<B>Robert Elstein</B>, Democratic Candidate for Brooklyn Borough President<BR>
 	<B>Edward Irizarry</B>, Democratic Candidate for Judge of the Civil Court 2<SUP>nd</SUP> Municipal District<BR>
 	<B>Kim Moscaritolo</B>, Democratic Candidate for City Council District 5<BR>
-	<?php /* <B>Maria Ordo&ntilde;ez</B>, Candidate for City Council District 7<BR> */ ?>
-	<?php /* <B>Lena Melendez</B>, Candidate for City Council District 7<BR> */ ?>
-	<?php /* <B>Marti Allen-Cummings</B>, Candidate for City Council District 7<BR> */ ?>
 	<B>Keith Harris</B>, Democratic Candidate for City Council District 7<BR>
 	<B>Sheba Simpson-Amsterdam</B>, Democratic Candidate for City Council District 9<BR>
 	<B>Shanequa Moore</B>, Democratic Candidate for City Council District 12<BR>
@@ -45,7 +49,6 @@
 	<B>Cecilia Cortez</B>, Democratic Candidate for City Council District 40<BR>
 	<B>Harriet Hines</B>, Democratic Candidate for City Council District 40<BR>
 	<B>Anthony Beckford</B>, Democratic Candidate for City Council District 45<BR>
-	<?php /* <B>Luis Ordo&ntilde;ez</B>, Male District Leader for AD 70<SUP>th</SUP> AD Part D<BR> */ ?>
 	<B>Esther Yang</B>, Democratic Candidate for Female District Leader 76<SUP>th</SUP> AD Part A<BR>
 </P>
 
