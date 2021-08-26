@@ -105,18 +105,26 @@ function SendWalkList($to, $emailsubject, $InsideText, $EDAD, $k, $data) {
 
 
 // Nomination Email
-function SendNominationEmail($to, $emailsubject, $message, $CanCominationID) {
+function SendNominationEmail($to, $FirstName, $FriendName, $CanCominationID) {
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 	$TextTime = time ();
 	$FromAddress = "infos@RepMyBlock.NYC";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
   
-  $LinkToAcceptance = $FrontEndWebsite . "/get-involved/acceptnomination/?k=" . EncryptURL("CanNomination=" . $CanCominationID);
+  $LinkToAcceptance = $FrontEndWebsite . "/exp/" . EncryptURL("CanNomination=" . $CanCominationID) . "/reademail";
 
 	$message .= "\n\n" . $LinkToAcceptance . "\n";
 	$html_message = "<HTML>" . 
 									"<BODY>" .
-									"<P>" . $message . "</P>" .
+									"<P>" .
+										"Dear $FirsName, " .
+										
+										"Your friend, $FriendName, though of you as a person that would be " .
+										"up to represent your block for the election of the Chair and the leadership " .
+										"of the Democratic or Republican party in New York." .
+								
+									"</P>" .
+									
 									"<P>" . $LinkToAcceptance . "</P>" . 
 									"</BODY>" . 
 									"</HTML>";
@@ -307,18 +315,23 @@ function SendForgotLogin($to, $hashtable) {
 		
 }
 
-function SendReferralWelcome($to) {	
+function SendReferralWelcome($to, $FirstName, $RefName, $ReferenceID) {	
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	$TextTime = time ();
 	$FromAddress = "infos@RepMyBlock.NYC";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
-	$emailsubject= "=?utf-8?b?".base64_encode("Thanks for registering on the Rep My Block website.")."?=";
+	$emailsubject= "=?utf-8?b?".base64_encode($RefName . " reffered you us, Rep My Block, as someone interest in politics.")."?=";
 	
 	
 	
-	$linktoverify = $FrontEndWebsite . "/exp/website/interested";
+	$linktoverify = $FrontEndWebsite . "/exp/" . CreateEncoded (
+				array(
+					"FirstName" => $FirstName,
+					"RefName" => $RefName,
+					"ReferenceID" => $ReferenceID
+				)) . "/interested";
 	$BotArray["sendemail"] = $to;
-	$WelcomeLine = "Hello";
+	$WelcomeLine = "Hello " . $FirstName;
 	
 	$message = 
 		"Content-Transfer-Encoding: base64\n" .
@@ -327,12 +340,14 @@ function SendReferralWelcome($to) {
 			base64_encode(
 				utf8_encode(
 					"\n" . $WelcomeLine . ",\n\n" . 
-					"We are still working on the website, and it should be fully functional for the 2021 City Council Cycle sometimes.\n\n" .
-					"We will also have a section for all the candidates for City Council running in your district to put information about their campaign. They should not have to pay millions of dollars to reach you.\n\n" . 
+					"Your friend " . $RefName . " gave us your name and emailed to reach out to you because they tough you would be interested in selecting the next leaders of one of the Political Parties recognized in New York.\n\n" .
+					"The work is pretty simple, and it's explained on our website. It only requires 30 hours of your time for the whole year.\n\n" .
+					"We are still working on the website, and it should be fully functional for the 2022 Election cycle that begins in February 2022.\n\n" .
+					"We will also have a section for all the candidates running for State positions in your district to put information about their campaign. They should not have to pay millions of dollars to reach you.\n\n" . 
 					"We won't share your information with them without your consent.\n\n".
-					"We hope that you will run to represent your block.\n\n".
+					"We hope that you will run to represent your block and elect the leaders of your party in October 2022.\n\n".
 					$linktoverify . "\n\n" .
-					"Most importantly, share the knowledge."
+					"Most importantly, share this email."
 				)
 			)
 		) . 
@@ -350,15 +365,23 @@ function SendReferralWelcome($to) {
 					TopEmail() . 
 					
 					"<P>\n" .
-					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>" . $WelcomeLine .",</FONT><BR>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>" . $WelcomeLine . ",</FONT><BR>\n" .
+					"</P>\n" .
+					
+					"<P>\n" .
+					"Your friend " . $RefName . " gave us your name and emailed to reach out to you because they tough you would be interested in selecting the next leaders of one of the Political Parties recognized in New York.\n" .
+					"</P>\n" .
+					
+					"<P>\n" .
+					"The work is pretty simple, and it's explained on our website. It only requires 30 hours of your time for the whole year.\n" . 
 					"</P>\n" .
 		
 					"<P>\n" .
-					"We are still working on the website, and it should be fully functional for the 2021 City Council Cycle sometimes.<BR> " .
+					"We are still working on the website, and it should be fully functional for the 2022 Election cycle that begins in February 2022.\n" .
 					"</P>\n" .
 
 					"<P>\n" .
-					"We will also have a section for all the candidates for City Council running in your district to put information about their campaign. They should not have to pay millions of dollars to reach you. " .
+					"We will also have a section for all the candidates running for State positions in your district to put information about their campaign. They should not have to pay millions of dollars to reach you." .
 					"</P>\n" .
 					
 					"<P>\n" .
@@ -388,7 +411,7 @@ function SendReferralWelcome($to) {
 										      "align=\"center\">\n" . 
 													  "<a class=\"mobile-font-22 blue-btn\" height=\"59\" href=\"" . $linktoverify . "\" target=\"_blank\" " . 
 												  	"style=\"padding:13px;display:block;font-size:26px;font-family:Avenir,Arial,sans-serif;font-weight:700;" .
-													  "font-style:normal;color:#ffffff;letter-spacing:0em;text-decoration:none;line-height:33px;\">Register to Represent My Block</a>\n" . 
+													  "font-style:normal;color:#ffffff;letter-spacing:0em;text-decoration:none;line-height:33px;\">I would like to know more.</a>\n" . 
 										    "</td>\n" . 
 										  "</tr>\n" . 
 										"</table>\n" . 
@@ -404,7 +427,7 @@ function SendReferralWelcome($to) {
 		
 			
 					"<P>\n" .
-					"<B>Most importantly, share the knowledge.</B>" .
+					"<B>Most importantly, share this email.</B>" .
 					"</P>\n" .
 		
 		

@@ -43,11 +43,14 @@ class welcome extends queries {
 		return $this->_return_nothing($sql, $sql_vars);			
 	}
 	
-	function SaveReferral($Email, $CellPhone) {
+	function SaveReferral($Email, $CellPhone, $Friend = NULL, $Firstname = NULL, $SentEmail = NULL) {
 		if ( ! empty ($Email) || ! empty($CellPhone)) {
 			$sql = "INSERT INTO Referral SET ";
 			if ( ! empty ($Email)) { $sql .= "Referral_email = :Email, "; $sql_vars["Email"] = $Email; }
 			if ( ! empty ($CellPhone)) { $sql .= "Referral_cellphone = :CellPhone, "; $sql_vars["CellPhone"] = $CellPhone; }
+			if ( ! empty ($Friend)) { $sql .= "Referral_fromname = :FromName, "; $sql_vars["FromName"] = $Friend; }
+			if ( ! empty ($Firstname)) { $sql .= "Referral_FirstName = :FirstName, "; $sql_vars["FirstName"] = $Firstname; }
+			if ( ! empty ($SentEmail)) { $sql .= "Referral_SentDate = NOW(), "; }
 			$sql .= "Referral_date = NOW()";
 			return $this->_return_nothing($sql, $sql_vars);	
 		}	

@@ -17,6 +17,42 @@ class sms extends queries {
   	return $this->_return_multiple($sql, $sql_vars);
   }
   
+  function ListCampaigns($CampaignID = NULL) {
+  	$sql = "SELECT * FROM SMSCampaign";
+  	
+  	if ( ! empty ($CampaignID)) {
+  		$sql .= " WHERE SMSCampaign_ID = :Camp";
+  		$sql_vars = array("Camp" => $CampaignID);
+  		return $this->_return_simple($sql, $sql_vars);
+  	}
+  	
+  	
+  	return $this->_return_multiple($sql, $sql_vars);
+  }
+  
+  function ListAccountHolders($SystemUser_ID) {
+  	$sql = "SELECT * FROM SMSAccountHolder WHERE SystemUser_ID = :SysID";
+  	$sql_vars = array("SysID" => $SystemUser_ID);
+  	return $this->_return_multiple($sql, $sql_vars);
+  }
+
+  function ListCandidate($SystemUser_ID) {
+  	$sql = "SELECT DISTINCT SMSCampaign.Candidate_ID, Candidate_DispName, Candidate_Party " . 
+  					"FROM NYSVoters.SMSCampaign " . 
+  					"LEFT JOIN NYSVoters.Candidate ON (Candidate.Candidate_ID = SMSCampaign.Candidate_ID) " .
+  					"WHERE SMSCampaign.SystemUser_ID = :SysID";  					
+  	$sql_vars = array("SysID" => $SystemUser_ID);
+  	return $this->_return_multiple($sql, $sql_vars);
+  }
+  
+  function CreateNewCampaign($Text, $SysID, $CandidateID, $SMSAccountHolder, $TestPlan) {
+  	$sql = "INSERT INTO SMSCampaign SET " .
+  					"SystemUser_ID = :SysID, Candidate_ID = :CandID, SMSAccountHolder_ID = :AcctHolderID, " .
+  					"SMSCampaign_Text = :CampaignText, SMSTestPlan_ID = :TestPlan, SMSCampaign_DateWriten = NOW()";
+  	$sql_vars = array("SysID" => $SysID, "CandID" => $CandidateID, "AcctHolderID" => $SMSAccountHolder,
+  					"CampaignText" => $Text, "TestPlan" => $TestPlan);
+  	return $this->_return_nothing($sql, $sql_vars);				 	
+  }
   
 	function SaveSMSReturn($message, $from, $to,  $direction, $whole) {
 		switch ($direction) {

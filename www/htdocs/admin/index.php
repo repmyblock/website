@@ -42,6 +42,7 @@
   		<A HREF="/admin/<?= $k ?>/setup_elections">Election Maintenance</A><BR>	
   		<A HREF="/admin/<?= $k ?>/setup_positions">Position Maintenance</A><BR>	
   		<A HREF="/admin/<?= $k ?>/create_petition">Create a petition</A><BR>	
+  		<A HREF="/admin/<?= $k ?>/report_texting">Create a texting report</A><BR>	
    		
     </dd>
   </dl>
