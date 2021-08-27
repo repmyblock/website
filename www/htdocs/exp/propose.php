@@ -1,15 +1,8 @@
-<?php 
-	$BigMenu = "home";
-	$MapShow = true;
-	if ( ! empty ($k)) { $MenuLogin = "logged"; }
-	
+<?php 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
-
-	/* User is logged */
-	$LongLat = "[-73.8710, 40.6928]"; $Zoom = 11;
 	
+
 	if ( ! empty($_POST)) {
 		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";  
@@ -33,26 +26,22 @@
 		exit();
 	}
 	
-	
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
+	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
+	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 
 <div class="main">
-	<DIV CLASS="intro center">
-		<P>
-			<h1 CLASS="intro">Nominate a New Yorker to County Committee.</H1>
-		</P>
-		
-		<P CLASS="f60">
-			<B>
-				Rep My Block is a non-partisan effort to get New Yorkers to a party leadership that represent their collective value. 
-			</B>
-		</P>
-
-		<P CLASS="f60">
-			<B>
-				If you know someone that would be perfect to run for the position, please let us know and we'll send them an email 
-				with the instructions.
-			</B>
+	<DIV CLASS="right f80">Nominate</DIV>
+	
+	
+		<P CLASS="f40">
+			
+				If you know someone that would be perfect to represent their block
+				for the County Committee position, 
+				please let us know and we'll send them an email 
+				with instructions.
+			
 		</P>
 		
 		<FORM ACTION="" METHOD="POST">
@@ -71,10 +60,13 @@
 		<P CLASS="f80">
 			<DIV><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Send the information"></DIV>
 		</P>
-							</FORM>
+		</FORM>
 				
 							
-							
+		<P CLASS="f40">
+			Rep My Block is a non-partisan effort to get New Yorkers to a party leadership that represent their collective value. 
+			
+		</P>
 
 <?php /*		
 		<P>
