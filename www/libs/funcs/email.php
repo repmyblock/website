@@ -4,7 +4,7 @@
 function SendPetitionEmail2($to, $emailsubject, $message, $k) {
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
 	$emailsubject = "RepMyBlock Email verification";
                  
@@ -22,7 +22,7 @@ function SendPetitionEmail2($to, $emailsubject, $message, $k) {
 function SendPetitionEmail($to, $emailsubject, $message, $k) {
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
 
 	$attach[0]["type"] = "application/pdf";
@@ -52,7 +52,7 @@ function SendWalkList($to, $emailsubject, $InsideText, $EDAD, $k, $data) {
 	
 		
 	$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
 	$emailsubject= "=?utf-8?b?".base64_encode($emailsubject)."?=";
 	
@@ -108,7 +108,7 @@ function SendWalkList($to, $emailsubject, $InsideText, $EDAD, $k, $data) {
 function SendNominationEmail($to, $FirstName, $FriendName, $CanCominationID) {
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 	$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
   
   $LinkToAcceptance = $FrontEndWebsite . "/exp/" . EncryptURL("CanNomination=" . $CanCominationID) . "/reademail";
@@ -138,7 +138,7 @@ function SendNominationEmail($to, $FirstName, $FriendName, $CanCominationID) {
 function SendEnrolRepMyBlock($to, $emailsubject, $message, $CanCominationID) {
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 	$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
   $emailsubject= "=?utf-8?b?".base64_encode("This is to Enroll in RepMyBlock.")."?=";
   
@@ -160,7 +160,7 @@ function SendEnrolRepMyBlock($to, $emailsubject, $message, $CanCominationID) {
 function SendInfoUpdateRegister($to, $emailsubject, $message, $CanCominationID) {
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 	$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
   $emailsubject= "=?utf-8?b?".base64_encode("Information to update your voter information.")."?=";
 
@@ -182,7 +182,7 @@ function SendInfoUpdateRegister($to, $emailsubject, $message, $CanCominationID) 
 function SendInfoAboutCandidate($to, $emailsubject, $message, $CanCominationID) {
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 	$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
   $emailsubject= "=?utf-8?b?".base64_encode("This is the information about the following candidates.")."?=";
 
@@ -205,7 +205,7 @@ function SendForgotLogin($to, $hashtable) {
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
 	$emailsubject= "=?utf-8?b?".base64_encode("Password Recovery Email.")."?=";
 	
@@ -318,7 +318,7 @@ function SendForgotLogin($to, $hashtable) {
 function SendReferralWelcome($to, $FirstName, $RefName, $ReferenceID) {	
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
 	$emailsubject= "=?utf-8?b?".base64_encode($RefName . " reffered you us, Rep My Block, as someone interest in politics.")."?=";
 	
@@ -467,7 +467,7 @@ function SendForgotUsername($to, $hashtable) {
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
 	$emailsubject= "=?utf-8?b?".base64_encode("Username Recovery Email.")."?=";
 	
@@ -582,7 +582,7 @@ function SendWelcomeVolunteerMessage($to, $campaign, $campaignemail, $volunteer)
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
 	$emailsubject= "=?utf-8?b?".base64_encode("Thanks for volunteer for $campaign")."?=";
 	
@@ -697,7 +697,7 @@ function SendChangeEmail($to, $hashtable, $username, $infoarray = "") {
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	
 	#$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
   $emailsubject= "=?utf-8?b?".base64_encode("Verify your email address after changing it on Rep My Block.")."?=";
 
@@ -794,7 +794,7 @@ function SendInviteToEnroll($to, $campaign, $campaignemail, $volunteer) {
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
 	$emailsubject= "=?utf-8?b?".base64_encode("Thanks for volunteer for $campaign")."?=";
 	
@@ -910,7 +910,7 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	
 	#$TextTime = time ();
-	$FromAddress = "infos@RepMyBlock.NYC";
+	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
   $emailsubject= "=?utf-8?b?".base64_encode("Verify your email address on Rep My Block.")."?=";
 
