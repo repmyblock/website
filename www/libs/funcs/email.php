@@ -320,10 +320,8 @@ function SendReferralWelcome($to, $FirstName, $RefName, $ReferenceID) {
 	$TextTime = time ();
 	$FromAddress = "infos@RepMyBlock.NET";
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
-	$emailsubject= "=?utf-8?b?".base64_encode($RefName . " reffered you us, Rep My Block, as someone interest in politics.")."?=";
-	
-	
-	
+	$emailsubject= "=?utf-8?b?".base64_encode($RefName . " referred you to us, Rep My Block, as someone interest in politics.")."?=";
+
 	$linktoverify = $FrontEndWebsite . "/exp/" . CreateEncoded (
 				array(
 					"FirstName" => $FirstName,
