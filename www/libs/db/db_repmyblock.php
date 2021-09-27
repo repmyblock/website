@@ -115,11 +115,11 @@ class RepMyBlock extends queries {
 		$CompressedLastName = preg_replace("/[^a-zA-Z]+/", "", $LastName);
 		
 		$sql = "SELECT * FROM VotersIndexes " .
-						"LEFT JOIN VotersFirstName ON (VotersFirstName.VotersFirstName_ID = VotersIndexes.VotersFirstName_ID ) " . 
-						"LEFT JOIN VotersLastName ON (VotersLastName.VotersLastName_ID = VotersIndexes.VotersLastName_ID ) " .
+						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID ) " . 
+						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID ) " .
 						"LEFT JOIN " . $TableVoter  . " ON (" . $TableVoter . ".Raw_Voter_UniqNYSVoterID = VotersIndexes.VotersIndexes_UniqNYSVoterID) " . 
-						"WHERE VotersFirstName_Compress = :FirstName AND " . 
-						"VotersLastName_Compress = :LastName " . #AND Raw_Voter_Dates_ID = :TableID " .
+						"WHERE DataFirstName_Compress = :FirstName AND " . 
+						"DataLastName_Compress = :LastName " . #AND Raw_Voter_Dates_ID = :TableID " .
 						"AND VotersIndexes_DOB = :DOB"; // AND Raw_Voter_Status = :Status"
 						;
 		$sql_vars = array('FirstName' => $CompressedFirstName,
@@ -165,12 +165,12 @@ class RepMyBlock extends queries {
 		$CompressedLastName = preg_replace("/[^a-zA-Z]+/", "", $LastName);
 		
 		$sql = "SELECT * FROM VotersIndexes " .
-						"LEFT JOIN VotersFirstName ON (VotersFirstName.VotersFirstName_ID = VotersIndexes.VotersFirstName_ID ) " . 
-						"LEFT JOIN VotersLastName ON (VotersLastName.VotersLastName_ID = VotersIndexes.VotersLastName_ID ) " .
-						"LEFT JOIN VotersMiddleName ON (VotersMiddleName.VotersMiddleName_ID = VotersIndexes.VotersMiddleName_ID ) " .
+						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID ) " . 
+						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID ) " .
+						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID ) " .
 						"LEFT JOIN Voters ON (Voters.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " . 
-						"WHERE VotersFirstName_Compress LIKE :FirstName AND " . 
-						"VotersLastName_Compress LIKE :LastName";
+						"WHERE DataFirstName_Compress LIKE :FirstName AND " . 
+						"DataLastName_Compress LIKE :LastName";
 												
 		$sql_vars = array('FirstName' => $CompressedFirstName . "%", 
 											'LastName' => $CompressedLastName . "%");
@@ -323,11 +323,11 @@ class RepMyBlock extends queries {
 		$CompressedLastName = preg_replace("/[^a-zA-Z]+/", "", $LastName);
 		
 		$sql = "SELECT * FROM VotersIndexes " .
-						"LEFT JOIN VotersFirstName ON (VotersFirstName.VotersFirstName_ID = VotersIndexes.VotersFirstName_ID ) " . 
-						"LEFT JOIN VotersLastName ON (VotersLastName.VotersLastName_ID = VotersIndexes.VotersLastName_ID ) " .
+						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID ) " . 
+						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID ) " .
 						"LEFT JOIN Voters ON (Voters.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " . 
-						"WHERE VotersFirstName_Compress = :FirstName AND " . 
-						"VotersLastName_Compress = :LastName " . #AND Raw_Voter_Dates_ID = :TableID " .
+						"WHERE DataFirstName_Compress = :FirstName AND " . 
+						"DataLastName_Compress = :LastName " . #AND Raw_Voter_Dates_ID = :TableID " .
 						"AND VotersIndexes_DOB = :DOB"; // AND Raw_Voter_Status = :Status"
 						
 		WriteStderr($sql, "SQL request");
@@ -555,9 +555,9 @@ class RepMyBlock extends queries {
 	function ReturnVoterIndex($SingleIndex) {
 		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM VotersIndexes " .
-						"LEFT JOIN VotersFirstName ON (VotersFirstName.VotersFirstName_ID = VotersIndexes.VotersFirstName_ID ) " . 
-						"LEFT JOIN VotersLastName ON (VotersLastName.VotersLastName_ID = VotersIndexes.VotersLastName_ID ) " .
-						"LEFT JOIN VotersMiddleName ON (VotersMiddleName.VotersMiddleName_ID = VotersIndexes.VotersMiddleName_ID ) " .
+						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID ) " . 
+						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID ) " .
+						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID ) " .
 						"LEFT JOIN Voters ON (Voters.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " . 
 						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " . 
 						"LEFT JOIN DataAddress ON (DataHouse.DataAddress_ID = DataAddress.DataAddress_ID) " .
@@ -826,8 +826,8 @@ class RepMyBlock extends queries {
 		}
 	
 		$sql = "SELECT * FROM VotersIndexes " .
-						"LEFT JOIN VotersFirstName ON (VotersFirstName.VotersFirstName_ID = VotersIndexes.VotersFirstName_ID ) " . 
-						"LEFT JOIN VotersLastName ON (VotersLastName.VotersLastName_ID = VotersIndexes.VotersLastName_ID ) " .
+						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID ) " . 
+						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID ) " .
 						#"LEFT JOIN Raw_Voter ON (Raw_Voter.Raw_Voter_UniqNYSVoterID = VotersIndexes.VotersIndexes_UniqNYSVoterID) " . 
 						"LEFT JOIN " . $TableVoter . " ON (" . $TableVoter . ".Raw_Voter_UniqNYSVoterID = VotersIndexes.VotersIndexes_UniqNYSVoterID) " .		
 						"WHERE " . $sql_index;
