@@ -18,11 +18,19 @@
 <?php } ?>  
 					<A HREF="/exp/<?= $middleuri ?>/howto">HOWTO</A>
 					<A HREF="/exp/<?= $middleuri ?>/contact">CONTACT</A>
+					<A HREF="<?= $FrontEndBugs ?>/bugs/<?= CreateEncoded ( array( 	
+																																	"Referer" =>  $_SERVER['HTTP_REFERER'],
+																																	"URI" => $_SERVER['REQUEST_URI'],
+																																	"DocumentRoot" => $_SERVER['DOCUMENT_ROOT'],
+																																	"Version" => $BetaVersion,
+																																	"PageRequestTime" => $_SERVER['REQUEST_TIME']
+																																))?>/intake">BUG</A>
 <?php if ( $MenuLogin == "logged") { ?>
 				  <a href="/lgd/<?= $middleuri ?>/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
 <?php } else { ?>							
 					<A HREF="/exp/<?= $middleuri ?>/login">LOGIN</A>
 <?php } ?>  
+
 				</DIV>
 				<DIV CLASS="FooterSocial">
 					<A TARGET="twitter" CLASS="FooterSocial" HREF="https://twitter.com/RepMyBlock">Twitter</A>

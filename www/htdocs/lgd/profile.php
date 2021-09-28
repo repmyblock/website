@@ -9,6 +9,8 @@
 	$rmb = new repmyblock();	
 	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
 		
+
+	
 	// Put the POST HERE because we need to reread the data 
 	if ( ! empty ($_POST)) {	
 		$ProfileArray = array (	"bio" => $_POST["profile_bio"], 
@@ -54,12 +56,16 @@
 	
 	$EncodeString =
 				array( 
-					"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+					"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+					"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
 					"FirstName" => $PersonFirstName, "LastName" => $PersonLastName,
-					"VotersIndexes_ID" =>  $URIEncryptedString["VotersIndexes_ID"], "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
-					"UserParty" => $URIEncryptedString["UserParty"], "MenuDescription" => $URIEncryptedString["MenuDescription"],
+					"VotersIndexes_ID" =>  $URIEncryptedString["VotersIndexes_ID"], 
+					"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+					"UserParty" => $URIEncryptedString["UserParty"], 
+					"MenuDescription" => $URIEncryptedString["MenuDescription"],
 					"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
-					"VerifVoter" => $URIEncryptedString["VerifVoter"], "VerifEmail" => $URIEncryptedString["VerifEmail"],
+					"VerifVoter" => $URIEncryptedString["VerifVoter"], 
+					"VerifEmail" => $URIEncryptedString["VerifEmail"],
 					"EDAD" => $URIEncryptedString["EDAD"]
 				);
 	$k = CreateEncoded ($EncodeString);

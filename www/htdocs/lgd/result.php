@@ -13,16 +13,20 @@
 								array("k" => $k, "url" => "profilevoter", "text" => "Voter Profile"),
 								array("k" => $k, "url" => "profilecandidate", "text" => "Candidate Profile")
 							);			
+							
+							
 
-	WriteStderr($_POST, "Post");
+	
 	if ( ! empty ($_POST)) {
+		WriteStderr($_POST, "Post");
 		if ($_POST["voterreg"] == "yes") {
-		  $ADED = sprintf('%02d%03d', $_POST["Raw_Voter_AssemblyDistr"], $_POST["Raw_Voter_ElectDistr"]);		
-			$NumberOfVoterInDistrict = $rmb->FindVotersInRawForEDAD($ADED, $_POST["Raw_Voter_EnrollPolParty"], $DatedFiles);
-		
-
+		 
+			//I don't care anymore about the number of voters in the district.
+			$NumberOfVoterInDistrict = $rmb->FindVotersForEDAD($_POST["ElectionsDistricts_DBTable"], 
+																													$_POST["ElectionsDistricts_DBTableValue"], $_POST["Voters_RegParty"]);	
 			$rmb->UpdateSystemUserWithVoterCard($_POST["SystemUser_ID"], $_POST["Raw_Voter_ID"], 
-																					$_POST["Raw_Voter_UniqNYSVoterID"], $ADED, $_POST["Raw_Voter_EnrollPolParty"], count($NumberOfVoterInDistrict));
+																					$_POST["Raw_Voter_UniqNYSVoterID"], $ADED, $_POST["Raw_Voter_EnrollPolParty"], 
+																					count($NumberOfVoterInDistrict));
 																							
 			header("Location: /lgd/" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $_POST["SystemUser_ID"],
@@ -140,9 +144,9 @@
 						<TH style="padding:0px 10px;">Suffix</TH>
 					</TR>
 					<TR ALIGN=CENTER>
-						<TD style="padding:0px 10px;"><?= $var["VotersFirstName_Text"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["VotersMiddleName_Text"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["VotersLastName_Text"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataFirstName_Text"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataMiddleName_Text"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataLastName_Text"] ?></TD>
 						<TD style="padding:0px 10px;"><?= $var["VotersIndexes_Suffix"] ?></TD>
 					</TR>
 				</TABLE>

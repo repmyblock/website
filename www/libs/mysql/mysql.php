@@ -16,7 +16,7 @@ class db {
     if(empty($user)) {
       // $this->connect_id = mysql_connect(); - Deprecated
 			$error_msg = "Database not available ... reporting why.";
-			header("Location: /error/?k=" . EncryptURL("error_msg=" . $error_msg));
+			header("Location: /error/" . EncryptURL("error_msg=" . $error_msg). "/dberror");
 			exit();
 			// Put a nagios trigger here
 			exit();
@@ -51,12 +51,12 @@ class db {
 				$this->SaveError ($e->getMessage(), $sql, $sql_vars, $DebugInfo);
 	   		if ( $DebugInfo["Flag"] > 0 ) {
 					$error_msg ="Failed to get DB handle: " . $e->getMessage() . "\n";
-					header("Location: /error/?k=" . EncryptURL("error_msg=" . $error_msg));
+					header("Location: /error/" . EncryptURL("error_msg=" . $error_msg). "/dberror");
 					exit();
 			} else { 
 					$error_msg = "Error with the Database. Admin already notified. " . 
 												"Please try in one hour.";
-					header("Location: /error/?k=" . EncryptURL("error_msg=" . $error_msg));
+					header("Location: /error/" . EncryptURL("error_msg=" . $error_msg). "/dberror");
 					exit();
 				}
 	   		exit;
@@ -91,12 +91,12 @@ class db {
 				$this->SaveError ($e->getMessage(), $sql, $sql_vars, $DebugInfo);
 	    	if ( $DebugInfo["Flag"] > 0 ) {
 					$error_msg =  "Failed to get DB handle: " . $e->getMessage();
-					header("Location: /error/?k=" . EncryptURL("error_msg=" . $error_msg));
+					header("Location: /error/" . EncryptURL("error_msg=" . $error_msg). "/dberror");
 					exit();
 				} else { 
 					$this->SaveError ($e->getMessage(), $sql, $sql_vars, $DebugInfo);
 					$error_msg =  "Error with the Database. Admin already notified. Please try in one hour.";
-					header("Location: /error/?k=" . EncryptURL("error_msg=" . $error_msg));
+					header("Location: /error/" . EncryptURL("error_msg=" . $error_msg). "/dberror");
 					exit();
 				}
 				// Put a nagios trigger here
@@ -114,13 +114,13 @@ class db {
 					$this->SaveError ($e->getMessage(), $sql, $sql_vars, $DebugInfo);
 		    	if ( $DebugInfo["Flag"] > 0 ) {
 						$error_msg =  "Failed to get DB handle: " . $e->getMessage();
-						header("Location: /error/?k=" . EncryptURL("error_msg=" . $error_msg));
+						header("Location: /error/" . EncryptURL("error_msg=" . $error_msg). "/dberror");
 						exit();
 
 					} else { 
 						$error_msg =  "Error with the Database. Admin already notified. " .
 													"Please try in one hour.";
-						header("Location: /error/?k=" . EncryptURL("error_msg=" . $error_msg));
+						header("Location: /error/" . EncryptURL("error_msg=" . $error_msg). "/dberror");
 						exit();
 					}
 					// Put a nagios trigger here
@@ -165,14 +165,14 @@ class db {
 			if ( ! @file_put_contents ( $DebugInfo["DBErrorsFilename"] , $TransData ,  FILE_APPEND | LOCK_EX )) {
 				$error_msg =  "There was a problem with saving file and the transaction did not go trough<BR>" .
 										  "Transaction: " . $DebugInfo["DBErrorsFilename"];
-				header("Location: /error/?k=" . EncryptURL("error_msg=" . $error_msg));
+				header("Location: /error/" . EncryptURL("error_msg=" . $error_msg) . "/dberror");
 				exit();
 			}
 		}
 		
 #		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 		$error_msg =  "Error with the Database. Admin already notified. Please try in one hour.";
-		header("Location: /error/?k=" . EncryptURL("error_msg=" . $error_msg));
+		header("Location: /error/" . EncryptURL("error_msg=" . $error_msg) . "/dberror");
 		exit();
 	}
 

@@ -18,12 +18,13 @@ class RepMyBlock extends queries {
   	return $this->_return_multiple($sql, $sql_vars);
   }
   
-  function FindVotersInRawForEDAD($ADED, $Party, $DateFile) {  	
-  	preg_match('/(\d\d)(\d\d\d)/', $ADED, $Keywords);		
-		$sql = "SELECT * FROM Raw_Voter_" . $DateFile . " WHERE " .
-						"Raw_Voter_ElectDistr = :ED AND Raw_Voter_AssemblyDistr = :AD AND Raw_Voter_EnrollPolParty = :PARTY " .
-						"AND (Raw_Voter_Status = 'ACTIVE' OR Raw_Voter_Status = 'INACTIVE')";
-		$sql_vars = array("ED" =>  intval($Keywords[2]), "AD" => intval($Keywords[1]), "PARTY" => $Party);	
+  function FindVotersForEDAD($District, $ADED, $Party) {  	
+		$sql = "SELECT * FROM Voters WHERE " .
+						"ElectionsDistricts_DBTable = :DISTRICT AND ElectionsDistricts_DBTableValue = :ADED AND Voters_RegParty = :PARTY " .
+						"AND (Voters_Status = 'Active' OR Voters_Status = 'Inactive')";
+		$sql_vars = array("ADED" =>  $ADED, "DISTRICT" => $District, "PARTY" => $Party);	
+		
+		WriteStderr($sql_vars, "SQL Query: " . $sql);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}  
   
@@ -641,8 +642,9 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
+
 	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED, $Party, $VoterCount = 0) {
-		$sql = "UPDATE SystemUser SET Raw_Voter_UniqNYSVoterID = :NYSVoterID, SystemUser_EDAD = :EDAD, SystemUser_Party = :Party";
+		$sql = "UPDATE SystemUser SET Voters_UniqStateVoterID = :NYSVoterID, SystemUser_EDAD = :EDAD, SystemUser_Party = :Party";
 		$sql_vars = array("NYSVoterID" => $UniqNYSVoterID,"EDAD" => $ADED, "ID" => $SystemUser_ID, "Party" => $Party);
 
 

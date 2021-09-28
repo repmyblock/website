@@ -11,7 +11,7 @@
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $URIEncryptedString["MenuDescription"] = "District Not Defined";}	
 	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
 
-	if ( ! empty ($_POST)) {
+	if ( ! empty ($_POST["Year"])) {
 		WriteStderr($_POST, "Input \$_POST");
 
 		// Search in the database.
@@ -25,6 +25,8 @@
 		$DBFirstName = $_POST["FirstName"];
 		$DBLastName = $_POST["LastName"];
 		$DOB = $Year . "-" . $_POST["Month"] . "-" . $_POST["Day"];
+		
+		// Before we go and search the Database, we need to check that the DOB info is right.
 		
 	 	$result = $rmb->SearchVoterDB($DBFirstName, $DBLastName, $DOB);
 		WriteStderr($result, "SearchVoterDB(DBFirstName: $DBFirstName, DBLastName: $DBLastName, DOB: $DOB)");
