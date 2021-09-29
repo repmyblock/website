@@ -51,12 +51,13 @@
 
 	<P CLASS="BckGrndElement">ZOOM WITH PAPERBOY LOVE PRINCE</P>
 
-	<P>
-		<B>Sal Albanese</B>, <B>Badrun Khan</B>, <B>Ben Yee</B>, <B>Vittoria Fariello</B>, and <B>Jared Rich</B> discuss with 
-		Paperboy Love Prince the weaponization of the electoral process in five one-hour candids chats. These videos were 
-		recorded while Paperboy Love Prince was running for congress and discovering first hand the different steps of running. 
-		Those video chats' goal is to demonstrate there is hope, but it will require every voter to participate in the process 
-		beyond showing up to the polls to vote. <B>Democracy depends on it!</B>
+	<P>		
+		<B>Sal Albanese</B>, <B>Badrun Khan</B>, <B>Ben Yee</B>, <B>Vittoria Fariello</B>, and <B>Jared Rich</B> discuss the 
+		weaponization of the electoral process with Paperboy Love Prince in five one-hour candid chats. These videos were 
+		recorded while Paperboy Love Prince was running for congress, and discovering first-hand, the different steps 
+		involved in running for public office. The goal of these video chats is to demonstrate that there is hope, but 
+		it will require every voter to participate in the political process by going beyond just showing up to the polls 
+		to vote. <B>Democracy depends on it!</B>
 	</P>
 
 	<P>
