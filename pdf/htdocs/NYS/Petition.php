@@ -128,7 +128,7 @@ switch ($Variable) {
 		$result[0]["CandidateElection_Number"] = 1;
 		$result[0]["CandidateElection_PositionType"] = "party";
 		$result[0]["Candidate_DispName"] = "Your name here\n";
-		$result[0]["CandidateElection_PetitionText"] = "Member of the Democratic Party County Committee from the XXth election district in the XXth assembly district Your County, New York State";
+		$result[0]["CandidateElection_PetitionText"] = "Member of the Democratic or Republican Party County Committee from the XXth election district in the XXth assembly district Your County, New York State";
 		$result[0]["Candidate_DispResidence"] = "Your address here";
 		// $result[0]["CandidateWitness_FullName"] = "Committee to replace here";
 		// $result[0]["CandidateWitness_Residence"] = "Address of committee person";
