@@ -21,7 +21,7 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetFont('Arial','B',50);
     	$this->SetTextColor(255,192,203);
    		$this->RotatedText(35,190, $this->Watermark, 45);
-   		$this->RotatedText(40,210, "Election will be held in 2021", 45);
+   		$this->RotatedText(40,210, "Election will be held in 2022", 45);
    		$this->SetTextColor(0,0,0);
 		}
 
@@ -49,11 +49,11 @@ class PDF_Multi extends PDF_Code128 {
 		$this->Cell(192,2.8, 
 			"I, the undersigned, do hereby state that I am a duly " . 
 			"enrolled voter of the " . $this->party . " Party " .
-			"and entitled to vote at the next primary");
+			"and entitled to vote at the next ");
 		$this->Ln(2.8);
 		  
 		$this->MultiCell(0,2.8, 
-			"election of such party, to be held on " . 
+			"primary election of such party, to be held on " . 
 			$this->ElectionDate . "; that my place of residence is truly " . 
 			"stated opposite my signature hereto, and I do hereby designate " .
 			"the following named person" . $this->PluralCandidates . " as " .
@@ -297,13 +297,13 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetTextColor(255,0,0);
 			$this->SetXY(40, 50);
 			$this->Link(40, 50, 80, 30, "https://repmyblock.nyc/exp/multipetition/propose");
- 	   	$this->MultiCell(80, 7, "We'll provide you the list of " . $this->party . 
+ 	   	$this->MultiCell(80, 8, "We'll provide you the list of " . $this->party . 
 				 	   									" voters to ask for signatures.", 0, 'C');
 
 			$this->SetTextColor(0,0,255);
 			$this->SetXY(120, 132.5);
 			$this->Link(120, 130, 70, 25, "https://repmyblock.nyc/exp/multipetition/propose");
- 	   	$this->MultiCell(70, 8.2, "Petitioning will start in February 2021 until March 2021", 0, 'C'); 	   									
+ 	   	$this->MultiCell(70, 8.2, "Petitioning will start in February 2022 until March 2022", 0, 'C'); 	   									
  	   }
 		
 		$this->SetTextColor(0);
