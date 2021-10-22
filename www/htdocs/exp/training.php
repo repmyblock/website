@@ -11,6 +11,15 @@
 
 <h4>The County Committee</h4>
 
+<P>
+	<B>News Segments:</B> Corruption at the Board of Elections.
+</P>
+
+<P>
+	<UL>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/q93fQM8ppfk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</UL>
+</P>
 
 <P>
 	<B>Teaser:</B> What is the County Commmittee.
@@ -21,6 +30,8 @@
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/KtYLNV3_npk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</UL>
 </P>
+
+
 
 
 <h4>Zoom with Paperboy hosted by el Chino!</h4>
