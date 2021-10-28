@@ -93,7 +93,15 @@
 	</UL>
 </P>
 
-			
+<P>
+	<B>Episode #6:</B> Dr. Devi Nampiaparampil, Republican candidate for Public Advocate, dive into the road blocks setup by the Campaign Finance Fund.
+</P>
+
+<P>
+	<UL>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/Q7sQCZtM0bY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</UL>
+</P>
 		
 		
 		
