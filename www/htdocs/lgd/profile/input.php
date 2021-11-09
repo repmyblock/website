@@ -38,7 +38,7 @@
 				break;			
 			
 			case 1:				
-				header("Location: /lgd/" .CreateEncoded ( array( 
+				header("Location: /" .CreateEncoded ( array( 
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 								"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
 								"FirstName" => $URIEncryptedString["FirstName"],
@@ -46,7 +46,7 @@
 								"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
 								"UniqNYSVoterID" => $result[0]["Raw_Voter_UniqNYSVoterID"],
 								"UserParty" => $result[0]["Raw_Voter_RegParty"]
-							))  . "/result");
+							))  . "/lgd/result");
 				exit();
 			
 			default:
@@ -58,7 +58,7 @@
 					}
 				}
 				
-				header("Location: /lgd/" . CreateEncoded ( array( 
+				header("Location: /" . CreateEncoded ( array( 
 								"SystemUser_ID" => $resultPass["SystemUser_ID"],
 								"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
 								"FirstName" => $resultPass["SystemUser_FirstName"],
@@ -68,7 +68,7 @@
 								"UserParty" => $resultPass["Raw_Voter_RegParty"],
 								"SystemAdmin" => $resultPass["SystemUser_Priv"],
 								"vi[]" => $var["VotersIndexes_ID"]
-							))   . "/select");
+							))   . "/lgd/select");
 				exit();
 		}		
 	}
@@ -76,6 +76,12 @@
 	// This is because we'll add some logic later.
 	$FirstName = $URIEncryptedString["FirstName"];
 	$LastName = $URIEncryptedString["LastName"];
+	
+	$TopMenus = array ( 
+								array("k" => $k, "url" => "profile/profile", "text" => "Public Profile"),
+								array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
+								array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile")
+							);
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
@@ -98,13 +104,10 @@
 				} 
 ?>		
   
-				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
-					<div class="UnderlineNav-body">
-						<a href="/lgd/<?= $k ?>/profile" class="mobilemenu UnderlineNav-item">Public Profile</a>
-						<a href="/lgd/<?= $k ?>/profilevoter" class="mobilemenu UnderlineNav-item selected">Voter Profile</a>
-						<a href="/lgd/<?= $k ?>/profilecandidate" class="mobilemenu UnderlineNav-item">Candidate Profile</a>
-					</div>
-				</nav>
+			<?php
+				PrintVerifMenu($VerifEmail, $VerifVoter);
+			 	PlurialMenu($k, $TopMenus);
+			?>
 
 
 			  <div class="clearfix gutter d-flex flex-shrink-0">

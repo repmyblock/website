@@ -12,14 +12,14 @@
 <div class="justifymobile">
   <nav class="mobilemenu" aria-label="">
     <h3 class="mobilemenu"><?= $MenuDescription ?></h3>
-    <a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/index">Summary</a>
-    <a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/district">District</a>
-    <a class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/petitions">Petitions</a>
-    <a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/voterlist">Voters</a>
-    <a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/team">Team</a>
-    <a class="<?php if ( $Menu == "messages" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/messages">Messages</a>
-    <a class="<?php if ( $Menu == "downloads" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/downloads">Downloads</a>
-  	<a class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?>mobilemenu" href="/lgd/<?= $k ?>/profile">Personal Profile</a>  
+    <a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/summary/summary">Summary</a>
+    <a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/district/district">District</a>
+    <a class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/petitions/petitions">Petitions</a>
+    <a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/voters/voterlist">Voters</a>
+    <a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/team/team">Team</a>
+    <a class="<?php if ( $Menu == "messages" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/messages/messages">Messages</a>
+    <a class="<?php if ( $Menu == "downloads" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/downloads/downloads">Downloads</a>
+  	<a class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/profile/profile">Personal Profile</a>  
   </nav>
 
 <?php /*
@@ -44,20 +44,20 @@
 <div class="col-3 float-left pr-4">
   <nav class="menu position-relative" aria-label="Personal settings" data-pjax>
     <h3 class="menu-heading"><?= $MenuDescription ?></h3>
-    <a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/index">Summary</a>
-    <a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/district">District</a>
-    <a class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/petitions">Petitions</a>
-    <a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/voterlist">Voters</a>
-    <a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/team">Team</a>
-    <a class="<?php if ( $Menu == "messages" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/messages">Messages</a>
-    <a class="<?php if ( $Menu == "downloads" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/lgd/<?= $k ?>/downloads">Downloads</a>
+    <a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/summary/summary">Summary</a>
+    <a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/district/district">District</a>
+    <a class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/petitions/petitions">Petitions</a>
+    <a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/voters/voterlist">Voters</a>
+    <a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/team/team">Team</a>
+    <a class="<?php if ( $Menu == "messages" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/messages/messages">Messages</a>
+    <a class="<?php if ( $Menu == "downloads" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/downloads/downloads">Downloads</a>
   </nav>
 
   <nav class="menu" aria-label="Profile">
-  	<a class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?>menu-item" href="/lgd/<?= $k ?>/profile">Personal Profile</a>  
+  	<a class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?>menu-item" href="/<?= $k ?>/lgd/profile/profile">Personal Profile</a>  
   	
   <?php if ($URIEncryptedString["SystemAdmin"] > 0) { ?>
-  	<a class="<?php if ( $Menu == "admin" ) { echo "selected "; } ?>menu-item" href="/admin/<?= $k ?>/index">Admin Profile</a>  
+  	<a class="<?php if ( $Menu == "admin" ) { echo "selected "; } ?>menu-item" href="/<?= $k ?>/admin/index">Admin Profile</a>  
  	<?php } ?>
   </nav>
 	

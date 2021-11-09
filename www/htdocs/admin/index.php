@@ -42,7 +42,7 @@
   		<A HREF="/admin/<?= $k ?>/setup_elections">Election Maintenance</A><BR>	
   		<A HREF="/admin/<?= $k ?>/setup_positions">Position Maintenance</A><BR>	
   		<A HREF="/admin/<?= $k ?>/setup_petitions">Setup Petitions</A><BR>	
-   		
+  		<A HREF="/admin/<?= $k ?>/integrity_verif">Verify Data Integrity</A><BR>	
     </dd>
   </dl>
 

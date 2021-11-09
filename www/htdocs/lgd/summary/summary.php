@@ -63,7 +63,7 @@
 				<?php if ($MenuDescription == "District Not Defined") { ?>
 				
 				<P>
-					<A HREF="/lgd/<?= $k ?>/profile">Please update your Personal Profile so we can complete the summary information.</A>
+					<A HREF="/<?= $k ?>/lgd/profile/profile">Please update your Personal Profile so we can complete the summary information.</A>
 				</P>		
 					
 				<?php } ?>

@@ -6,7 +6,7 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 	
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-  if (empty ($URIEncryptedString["UniqNYSVoterID"])) { header("Location: /lgd/" . $k . "/input"); exit(); }
+  if (empty ($URIEncryptedString["UniqNYSVoterID"])) { header("Location: /" . $k . "/lgd/profile/input"); exit(); }
 	
 	$rmb = new repmyblock();
 	
@@ -16,9 +16,9 @@
 	$rmbvoters = $rmbvoters[0];
 	
 	$TopMenus = array ( 
-								array("k" => $k, "url" => "profile", "text" => "Public Profile"),
-								array("k" => $k, "url" => "profilevoter", "text" => "Voter Profile"),
-								array("k" => $k, "url" => "profilecandidate", "text" => "Candidate Profile")
+								array("k" => $k, "url" => "profile/profile", "text" => "Public Profile"),
+								array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
+								array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile")
 							);
 					
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";

@@ -39,12 +39,12 @@
 			<P CLASS="BckGrndElement">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
 		<DIV>
-		<A class="action-runfor" HREF="/exp/<?= $middleuri ?>/register" CLASS="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
-		<A class="action-nominate" HREF="/exp/<?= $middleuri ?>/propose" CLASS="NomCandidate"><img class="action-nominate" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
+		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register" CLASS="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
+		<A class="action-nominate" HREF="/<?= $middleuri ?>/exp/propose" CLASS="NomCandidate"><img class="action-nominate" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
 	</DIV>
 
 	<P CLASS="BlueBox">
-		<A HREF="/exp/<?= $middleuri ?>/interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>FEBRUARY 2022 TO MARCH 2022.</a>
+		<A HREF="/<?= $middleuri ?>/exp/interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>FEBRUARY 2022 TO MARCH 2022.</a>
 	</P>
 
 	<BR>
@@ -75,7 +75,7 @@
 	</P>
 	
 	<P>
-		<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">To access voters lists, register and log into the Rep My Block website</A></P>
+		<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register">To access voters lists, register and log into the Rep My Block website</A></P>
 	</P>
 		
 

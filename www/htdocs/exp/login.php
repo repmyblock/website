@@ -32,7 +32,7 @@
 				"SystemAdmin" => $resultPass["SystemUser_Priv"]
 			);
 						
-			header("Location: /lgd/" . CreateEncoded($VariableToPass) . "/index");
+			header("Location: /" . CreateEncoded($VariableToPass) . "/lgd/summary/summary");
 			
 			exit();
 		}

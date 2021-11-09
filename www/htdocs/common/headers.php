@@ -7,7 +7,7 @@
 		$MenuLogin = "logged"; 
 		$middleuri = rawurlencode($k);	
 	} else {
-		$middleuri = "website";
+		$middleuri = "web";
 	}
 	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png"; }	
 ?><!DOCTYPE html>
@@ -57,11 +57,11 @@
 			  <a href="/" class="logo"><IMG SRC="<?= $imgtoshow ?>" class="header-logo"></a>
 			</DIV>
 		  <div class="header-right">
-  	  	<a class="login" href="/exp/<?= $middleuri ?>/contact">CONTACT</a>
+  	  	<a class="login" href="/<?= $middleuri ?>/exp/contact">CONTACT</a>
 		  	<?php if ( $MenuLogin == "logged") { ?>
-					 <a href="/lgd/<?= $middleuri ?>/signoff" class="login right<?php if ($BigMenu == "profile") { echo " active"; } ?>">LOGOUT</a>
+					 <a href="/<?= $middleuri ?>/lgd/signoff" class="login right<?php if ($BigMenu == "profile") { echo " active"; } ?>">LOGOUT</a>
 				<?php } else { ?>
-		    	<a href="/exp/<?= $middleuri ?>/login" class="login">LOGIN</a>
+		    	<a href="/<?= $middleuri ?>/exp/login" class="login">LOGIN</a>
 		    <?php } ?>
 		  </DIV>
 		</DIV>
@@ -80,15 +80,15 @@
 
 <div class="navbar">
 <?php if ( $MenuLogin == "logged") { ?>
-  <a href="/lgd/<?= $middleuri ?>/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
-<?php /*  <a href="/exp/<?= $middleuri ?>/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
-  <a href="/lgd/<?= $middleuri ?>/voters"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="/exp/<?= $middleuri ?>/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="/<?= $middleuri ?>/lgd/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
+<?php /*  <a href="/<?= $middleuri ?>/exp/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
+  <a href="/<?= $middleuri ?>/lgd/voters"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
+  <a href="/<?= $middleuri ?>/exp/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
 <?php } else { ?>
-  <a href="/exp/<?= $middleuri ?>/howto" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
-<?php /*    <a href="/exp/<?= $middleuri ?>/propose"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
-  <a href="/exp/<?= $middleuri ?>/interested"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="/exp/<?= $middleuri ?>/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="/<?= $middleuri ?>/exp/howto" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
+<?php /*    <a href="/<?= $middleuri ?>/exp/propose"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
+  <a href="/<?= $middleuri ?>/exp/interested"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
+  <a href="/<?= $middleuri ?>/exp/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
 <?php } ?> 
 <B>Version: <?= $BetaVersion ?></B> <A HREF="<?= $FrontEndBugs ?>/bugs/<?= CreateEncoded ( array( 	
 																																							"Referer" =>  $_SERVER['HTTP_REFERER'],
