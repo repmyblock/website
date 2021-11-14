@@ -9,9 +9,9 @@
 	$rmb = new repmyblock();
 	
 	$TopMenus = array ( 
-								array("k" => $k, "url" => "profile", "text" => "Public Profile"),
-								array("k" => $k, "url" => "profilevoter", "text" => "Voter Profile"),
-								array("k" => $k, "url" => "profilecandidate", "text" => "Candidate Profile")
+								array("k" => $k, "url" => "/profile/profile", "text" => "Public Profile"),
+								array("k" => $k, "url" => "/profile/profilevoter", "text" => "Voter Profile"),
+								array("k" => $k, "url" => "/profile/profilecandidate", "text" => "Candidate Profile")
 							);
 							
 	if ( ! empty ($_POST)) {
@@ -21,19 +21,20 @@
 			//I don't care anymore about the number of voters in the district.
 			$NumberOfVoterInDistrict = $rmb->FindVotersForEDAD($_POST["ElectionsDistricts_DBTable"], 
 																													$_POST["ElectionsDistricts_DBTableValue"], $_POST["Voters_RegParty"]);	
-			$rmb->UpdateSystemUserWithVoterCard($_POST["SystemUser_ID"], $_POST["Raw_Voter_ID"], 
-																					$_POST["Raw_Voter_UniqNYSVoterID"], $ADED, $_POST["Raw_Voter_EnrollPolParty"], 
+			$rmb->UpdateSystemUserWithVoterCard($_POST["SystemUser_ID"], $_POST["VotersIndexes_ID"], 
+																					$_POST["VotersIndexes_UniqStateVoterID"], $_POST["ElectionsDistricts_DBTableValue"], 
+																					$_POST["Voters_RegParty"], 
 																					count($NumberOfVoterInDistrict));
 																							
-			header("Location: /lgd/" .  CreateEncoded ( array( 
+			header("Location: /" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $_POST["SystemUser_ID"],
 									"FirstName" => $_POST["FirstName"], 
 									"LastName" => $_POST["LastName"],
 									"VotersIndexes_ID" => $_POST["VotersIndexes_ID"],
-									"UniqNYSVoterID" => $_POST["Raw_Voter_UniqNYSVoterID"],
-									"EDAD" => $ADED, 
-									"UserParty" => $_POST["Raw_Voter_EnrollPolParty"]
-						)) . "/profilevoter");
+									"UniqNYSVoterID" => $_POST["VotersIndexes_UniqStateVoterID"],
+									"EDAD" => $_POST["ElectionsDistricts_DBTable"], 
+									"UserParty" => $_POST["Voters_RegParty"]
+						)) . "/lgd/profile/profilevoter");
 			exit();
 		}
 	}
@@ -111,7 +112,7 @@
 											$UniqVoterID = "NY" . $UniqMatches[1][0];
 				?>
 				
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["VotersIndexes_UniqStateVoterID"] ?>" NAME="VotersIndexes_UniqStateVoterID">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $UniqVoterID ?>" NAME="VotersIndexes_UniqStateVoterID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTable"] ?>" NAME="ElectionsDistricts_DBTable">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTableValue"] ?>" NAME="ElectionsDistricts_DBTableValue">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["VotersIndexes_ID"] ?>" NAME="VotersIndexes_ID">
@@ -167,6 +168,10 @@
 						<TD style="padding:0px 10px;"><?= NewYork_PrintParty($var["Voters_RegParty"]) ?></TD>
 					</TR>
 				</TABLE>
+				
+				
+	
+				
 				<BR>
 				<TABLE BORDER=1>
 					<TR>
@@ -176,9 +181,9 @@
 						<TH style="padding:0px 10px;">County</TH>
 					</TR>
 					<TR ALIGN=CENTER>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_AssemblyDistr"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_ElectDistr"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["Raw_Voter_CongressDistr"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataDistrict_StateAssembly"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataDistrict_Electoral"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataDistrict_Congress"] ?></TD>
 						<TD style="padding:0px 10px;"><?= $var["DataCounty_Name"] ?></TD>
 					</TR>
 				</TABLE>
@@ -213,12 +218,26 @@
 					<TH style="padding:0px 10px;">Senate</TH>
 				</TR>
 				<TR ALIGN=CENTER>
-					<TD style="padding:0px 10px;"><?= $var["Raw_Voter_LegisDistr"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $var["Raw_Voter_TownCity"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $var["Raw_Voter_Ward"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $var["Raw_Voter_SenateDistr"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Legislative"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["DataDistrict_TownCity"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Ward"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["DataDistrict_SenateSenate"] ?></TD>
 				</TR>
 			</TABLE>
+			
+			<BR>
+			<TABLE BORDER=1>
+				<TR>
+					<TH style="padding:0px 10px;">Council</TH>
+					<TH style="padding:0px 10px;">Civil Court</TH>
+					<TH style="padding:0px 10px;">Judicial</TH>
+				</TR>
+				<TR ALIGN=CENTER>
+					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Council"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["DataDistrict_CivilCourt"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Judicial"] ?></TD>
+				</TR>
+			</TABLE> 
 			
 		</div>
 												<?php		

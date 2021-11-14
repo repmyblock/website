@@ -46,7 +46,7 @@
 								"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
 								"UniqNYSVoterID" => $result[0]["Raw_Voter_UniqNYSVoterID"],
 								"UserParty" => $result[0]["Raw_Voter_RegParty"]
-							))  . "/lgd/result");
+							))  . "/lgd/profile/result");
 				exit();
 			
 			default:
@@ -68,7 +68,7 @@
 								"UserParty" => $resultPass["Raw_Voter_RegParty"],
 								"SystemAdmin" => $resultPass["SystemUser_Priv"],
 								"vi[]" => $var["VotersIndexes_ID"]
-							))   . "/lgd/select");
+							))   . "/lgd/profile/select");
 				exit();
 		}		
 	}

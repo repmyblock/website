@@ -6,7 +6,7 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 	
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-  if (empty ($URIEncryptedString["UniqNYSVoterID"])) { header("Location: /" . $k . "/lgd/profile/input"); exit(); }
+  if (empty ($URIEncryptedString["VotersIndexes_UniqStateVoterID"])) { header("Location: /" . $k . "/lgd/profile/input"); exit(); }
 	
 	$rmb = new repmyblock();
 	
