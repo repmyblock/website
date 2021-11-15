@@ -23,7 +23,6 @@
 		  	<h2 class="Subhead-heading">Download</h2>
 			</div>			
 				<?php 
-					PrintVerifMenu($VerifEmail, $VerifVoter);
 					WriteStderr($Decrypted_k, "Decrypted_k:");
 					$NewKEncrypt = CreateEncoded (array("Candidate_ID" => $result[0]["Candidate_ID"]));
 				?>	

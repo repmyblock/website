@@ -21,13 +21,13 @@ class login extends queries {
   	$this->SaveInscriptionRecord($Email, $Username, $Type);
   	
   	// Check Username and Email.
-  	$sql = "SELECT * FROM SystemUser WHERE SystemUser_email = :Email OR SystemUser_username = :Username";
+  	$sql = "SELECT * FROM SystemTemporaryUser WHERE SystemTemporaryUser_email = :Email OR SystemTemporaryUser_username = :Username";
 		$sql_vars = array('Email' => $Email, 'Username' => $Username);
 		$ret = $this->_return_multiple($sql,  $sql_vars);
 		
 		if (! empty($ret)) {
-			if ($ret[0][SystemUser_email] == $Email || $ret[1][SystemUser_email] == $Email) { $error["EMAIL"] = 1; }
-			if ($ret[0][SystemUser_username] == $Username || $ret[1][SystemUser_username] == $Username) { $error["USERNAME"] = 1; }
+			if ($ret[0][SystemTemporaryUser_email] == $Email || $ret[1][SystemTemporaryUser_email] == $Email) { $error["EMAIL"] = 1; }
+			if ($ret[0][SystemTemporaryUser_username] == $Username || $ret[1][SystemTemporaryUser_username] == $Username) { $error["USERNAME"] = 1; }
 			return $error;
 		}
 		
@@ -38,8 +38,8 @@ class login extends queries {
 			}
 		}
 		
-		$sql = "SELECT * FROM SystemUser WHERE SystemUser_ID = :ID";
-		$sql_vars = array('ID' => $ret["SystemUser_ID"]);
+		$sql = "SELECT * FROM SystemTemporaryUser WHERE SystemTemporaryUser_ID = :ID";
+		$sql_vars = array('ID' => $ret["SystemTemporaryUser_ID"]);
 		$ret = $this->_return_simple($sql,  $sql_vars);
 
 		return $ret;	  	
@@ -149,19 +149,19 @@ class login extends queries {
 	function AddEmailUsernamePassword($Email, $Username, $Password, $hashtable = "") {
 		$HashPass = password_hash($Password, PASSWORD_DEFAULT);
 		
-		$sql = "INSERT INTO SystemUser SET SystemUser_username = :username, " . 
-						"SystemUser_password = :password, SystemUser_email = :Email, SystemUser_createtime = NOW()";
+		$sql = "INSERT INTO SystemTemporaryUser SET SystemTemporaryUser_username = :username, " . 
+						"SystemTemporaryUser_password = :password, SystemTemporaryUser_email = :Email, SystemTemporaryUser_createtime = NOW()";
 		$sql_vars = array(':username' => $Username, ':password' => $HashPass, 
 											'Email' => $Email);
 		
 		if ( ! empty ($hashtable)) {
-			$sql .= ", SystemUser_emaillinkid = :Hash ";
+			$sql .= ", SystemTemporaryUser_emaillinkid = :Hash ";
 			$sql_vars["Hash"] = $hashtable;
 		}		
 		
 		$this->_return_nothing($sql,  $sql_vars);
 
-		$sql = "SELECT LAST_INSERT_ID() as SystemUser_ID";
+		$sql = "SELECT LAST_INSERT_ID() as SystemTemporaryUser_ID";
 		return $this->_return_simple($sql);
 	
 	}
@@ -266,14 +266,18 @@ class login extends queries {
 	} 
 	
 	function CheckUsernamePassword($Username, $Password) {
-		$sql = "SELECT * FROM SystemUser " . 
-						"LEFT JOIN Voters ON (Voters.Voters_ID = SystemUser.Voters_ID) " .
-						"WHERE SystemUser_username = :Username";
-		
+		$sql = "SELECT * FROM SystemUser WHERE SystemUser_username = :Username";	
 		$sql_vars = array("Username" => $Username);
 		$result = $this->_return_simple($sql, $sql_vars);	
 		$ResultPasswordCheck = password_verify ($Password , $result["SystemUser_password"]);
 		
+		
+		if ( $ResultPasswordCheck == 0 ) {
+			$sql = "SELECT * FROM SystemTemporaryUser WHERE SystemTemporaryUser_username = :Username";
+			$result = $this->_return_simple($sql, $sql_vars);	
+			$ResultPasswordCheck = password_verify ($Password , $result["SystemTemporaryUser_password"]);
+		}
+
 		if ( $ResultPasswordCheck == 1) {
 			// Update Login Time
 			$sql = "INSERT INTO SystemUserLastLogin SET SystemUser_ID = :ID, SystemUserLastLogin  = NOW()";

@@ -10,15 +10,21 @@
 		$middleuri = "web";
 	}
 	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png"; }	
+	
+	if ( empty ($HeaderTwitter)) {
+		$HeaderTwitterPicLink = "https://static.repmyblock.nyc/pics/paste/PoliticalMachineKeepEngagementLow.jpg";
+		$HeaderTwitterDesc = "Registrations for the 2022 Citywide Republican and Democratic county committee. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; its their backbone. The &hellip; Continue reading Rep My Block &rarr;";
+	}
+	
 ?><!DOCTYPE html>
 <html lang="en-US" prefix="og: http://ogp.me/ns#" class="no-js">
 	<HEAD>
 		<META charset="UTF-8">
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:description" content="Registrations for the 2021 Citywide Republican county committee and 2021 Manhattan and Staten Island Democratic county committee have started. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; its their backbone. The &hellip; Continue reading Rep My Block &rarr;" />
+		<meta name="twitter:description" content="<?= $HeaderTwitterDesc ?>" />
 		<meta name="twitter:title" content="Rep My Block - Rep My Block" />
 		<meta name="twitter:site" content="@RepMyBlock" />
-		<meta name="twitter:image" content="https://static.repmyblock.nyc/pics/paste/PoliticalMachineKeepEngagementLow.jpg" />
+		<meta name="twitter:image" content="<?= $HeaderTwitterPicLink ?>" />
 		<meta name="twitter:creator" content="@RepMyBlock" />
 		<TITLE>Rep My Block - Represent My Block - Nominate A Candidate</TITLE>
 		<link rel="icon" href="/images/favicon/favicon.ico" type="image/x-icon">
@@ -61,7 +67,7 @@
 		  	<?php if ( $MenuLogin == "logged") { ?>
 					 <a href="/<?= $middleuri ?>/lgd/signoff" class="login right<?php if ($BigMenu == "profile") { echo " active"; } ?>">LOGOUT</a>
 				<?php } else { ?>
-		    	<a href="/<?= $middleuri ?>/exp/login" class="login">LOGIN</a>
+		    	<a href="/<?= $middleuri ?>/exp/login/login" class="login">LOGIN</a>
 		    <?php } ?>
 		  </DIV>
 		</DIV>

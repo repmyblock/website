@@ -39,12 +39,12 @@
 			<P CLASS="BckGrndElement">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
 		<DIV>
-		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register" CLASS="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
-		<A class="action-nominate" HREF="/<?= $middleuri ?>/exp/propose" CLASS="NomCandidate"><img class="action-nominate" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
+		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/register" CLASS="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
+		<A class="action-nominate" HREF="/<?= $middleuri ?>/exp/propose/propose" CLASS="NomCandidate"><img class="action-nominate" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
 	</DIV>
 
 	<P CLASS="BlueBox">
-		<A HREF="/<?= $middleuri ?>/exp/interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>FEBRUARY 2022 TO MARCH 2022.</a>
+		<A HREF="/<?= $middleuri ?>/exp/interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>MARCH 1<SUP>st</SUP>, 2022 TO APRIL 7<SUP>th</SUP>, 2022.</a>
 	</P>
 
 	<BR>

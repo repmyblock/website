@@ -26,7 +26,6 @@
 			  	<h2 class="Subhead-heading">Petitions</h2>
 				</div>
 				
-				<?php	PrintVerifMenu($VerifEmail, $VerifVoter);	?>     
 			
 			  <div class="Box">
 					<div class="Box-header pl-0">

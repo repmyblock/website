@@ -23,7 +23,6 @@
 				</div>
 
 	<?php
-				PrintVerifMenu($VerifEmail, $VerifVoter);
 			 	PlurialMenu($k, $TopMenus);
 			?>
 

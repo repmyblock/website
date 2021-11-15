@@ -46,7 +46,6 @@
 			<div class="Subhead"><h2 class="Subhead-heading">Messages</h2></div>
 			
 			<?php
-				PrintVerifMenu($VerifEmail, $VerifVoter);
 			 	PlurialMenu($k, $TopMenus);
 			?>
 

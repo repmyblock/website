@@ -16,7 +16,12 @@
 			SendWelcomeEmail($result["SystemUser_email"], $result["SystemUser_emaillinkid"], 
 											$result["SystemUser_username"], $infoarray = ""); 
 	
-			header("Location: /exp/" . EncryptURL($URLToEncrypt) . "/doneregister");
+			$VariableToPass = array( 
+				"Email" => $result["SystemUser_email"],
+				"Username" => $result["SystemUser_username"]
+			);
+	
+			header("Location: /" . CreateEncoded($VariableToPass) . "/exp/register/doneregister");
 			
 	
 			exit();
@@ -102,8 +107,8 @@
 		<P CLASS="f40">
 			By clicking the "Register" button, you are creating a 
 			RepMyBlock account, and you agree to RepMyBlock's 
-			<A HREF="/exp/<?= $middleuri ?>/terms">Terms of Use</A> and 
-			<A HREF="/exp/<?= $middleuri ?>/privacy">Privacy Policy.</A>
+			<A HREF="/<?= $middleuri ?>/exp/terms">Terms of Use</A> and 
+			<A HREF="/<?= $middleuri ?>/exp/privacy">Privacy Policy.</A>
 		</P>
 
 	</FORM>

@@ -30,7 +30,6 @@
 			  </div>
 			    
 <?php 
-			PrintVerifMenu($VerifEmail, $VerifVoter);	
 			PlurialMenu($k, $TopMenus);
 ?>
 <div class="main">

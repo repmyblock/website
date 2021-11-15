@@ -58,7 +58,7 @@
 			  	<h2 class="Subhead-heading">Summary</h2>
 				</div>
 						
-				<?php	PrintVerifMenu($VerifEmail, $VerifVoter);	?>     
+				   
 				
 				<?php if ($MenuDescription == "District Not Defined") { ?>
 				
@@ -90,7 +90,7 @@
 					Once you collect the  <?= $NumberOfSignatures ?> signatutes plus a few more, 
 					you need to wait until <? $DateToWait ?> to take them
 					to the board of elections. <B>Just follow the 
-					<A HREF="/exp/<?= $k ?>/howto">instruction posted on the FAQ</A>.</B>
+					<A HREF="/<?= $k ?>/exp/howto">instruction posted on the FAQ</A>.</B>
 				</P>
 				
 						

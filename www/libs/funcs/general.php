@@ -1,5 +1,18 @@
 <?php
 
+const PERM_MENU_PROFILE = 1;
+const PERM_MENU_SUMMARY = 2;
+const PERM_MENU_DISTRICT = 4;
+const PERM_MENU_PETITIONS = 8;
+const PERM_MENU_VOTERS = 16;
+const PERM_MENU_TEAM = 32;
+const PERM_MENU_MESSAGES = 64;
+const PERM_MENU_DOWNLOADS = 128;
+const PERM_MENU_PLEDGES = 256;
+
+const PERM_ADMIN_MENU = 512;
+const PERM_ADMIN_RAWDB = 1024;
+
 function ordinal($number) {
   $ends = array('th','st','nd','rd','th','th','th','th','th','th');
   if ((($number % 100) >= 11) && (($number%100) <= 13))
@@ -136,20 +149,22 @@ function CreateEncoded($VariableToPass, $VariableToRemove = "") {
 }
 
 function PrintVerifMenu($VerifEmail = true, $VerifVoter = true) {
+	
 	if ($VerifEmail == true) { 
-		include $_SERVER["DOCUMENT_ROOT"] . "/common/warnings_emailverif.php";
+		include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
 	} else if ($VerifVoter == true) {
-		include $_SERVER["DOCUMENT_ROOT"] . "/common/warnings_voterinfo.php";
+		include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
 	}
+	
 }
 
 function PlurialMenu($k, $menusarray) {
 	if ( ! empty ($menusarray)) {
 		echo "<nav class=\"UnderlineNav pt-1 mb-4\">\n";
 		echo "  <div class=\"UnderlineNav-body\">\n";
-		foreach ($menusarray as $var) {
+		foreach ($menusarray as $var) {		
 			if ( $_SERVER["PHP_SELF"] == "/lgd/" . $var["url"] . ".php" ) { $selected = " selected"; } else { $selected = ""; }			
-			echo "    <a href=\"/lgd/"  . $var["k"] . "/" . $var["url"] . "\" class=\"mobilemenu UnderlineNav-item" .  $selected . "\">" . $var["text"] . "</a>\n";
+			echo "    <a href=\"/" . $var["k"] . "/lgd/" . $var["url"] . "\" class=\"mobilemenu UnderlineNav-item" .  $selected . "\">" . $var["text"] . "</a>\n";
 		}
 		echo "</div>\n";
 		echo "</nav>\n";

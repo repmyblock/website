@@ -11,6 +11,24 @@ class RepMyBlock extends queries {
 	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
+ 	function database_showtables() {
+  	$sql = "SHOW TABLES";
+  	return $this->_return_multiple($sql);	
+ 	}
+ 	
+ 	function database_showcolums($Tables) {
+ 		$sql = "SHOW COLUMNS FROM $Tables"; 		
+ 		// $sql_vars = array("Tables" => $Tables);
+  	return $this->_return_multiple($sql); 
+ 	}
+ 	
+ 	function database_custquery($dbtable, $dbcol, $val) {
+ 		$sql = "SELECT * FROM $dbtable WHERE $dbcol = :VALUE LIMIT 10000";
+ 		$sql_vars = array("VALUE" => $val);
+ 		return $this->_return_multiple($sql, $sql_vars); 
+ 	}
+
+  
   function SearchUsers($DateFile) {
   	$sql = "SELECT * FROM SystemUser " .
   					"LEFT JOIN Raw_Voter_" . $DateFile . " ON (Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = SystemUser.Raw_Voter_UniqNYSVoterID)";
@@ -565,12 +583,11 @@ class RepMyBlock extends queries {
 						"LEFT JOIN DataStreet ON (DataAddress.DataStreet_ID = DataStreet.DataStreet_ID) " .
 						"LEFT JOIN DataCity ON (DataAddress.DataCity_ID = DataCity.DataCity_ID) " .
 						"LEFT JOIN DataState ON (DataAddress.DataState_ID = DataState.DataState_ID) " .
-#						DataHouse_ID
-#						DataAddress_ID
-#						DataStreet_ID DataCity_ID DataState_ID
-	#					"LEFT JOIN DataState ON (VotersIndexes.DataState_ID = DataState.DataState_ID) " .
-						
+						"LEFT JOIN DataDistrictTemporal on (DataHouse.DataDistrictTemporal_GroupID = DataDistrictTemporal.DataDistrictTemporal_GroupID) " .
+						"LEFT JOIN DataDistrict ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .		
+						"LEFT JOIN DataCounty ON (DataDistrict.DataCounty_ID = DataCounty.DataCounty_ID) " .				
 						"WHERE VotersIndexes.VotersIndexes_ID = :SingleIndex";
+						
 		$sql_vars = array("SingleIndex" => $SingleIndex);		
 		return $this->_return_simple($sql, $sql_vars);		
 	}
@@ -644,8 +661,9 @@ class RepMyBlock extends queries {
 	
 
 	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED, $Party, $VoterCount = 0) {
-		$sql = "UPDATE SystemUser SET Voters_UniqStateVoterID = :NYSVoterID, SystemUser_EDAD = :EDAD, SystemUser_Party = :Party";
-		$sql_vars = array("NYSVoterID" => $UniqNYSVoterID,"EDAD" => $ADED, "ID" => $SystemUser_ID, "Party" => $Party);
+		$sql = "UPDATE SystemUser SET Voters_UniqStateVoterID = :NYSVoterID, SystemUser_EDAD = :EDAD, SystemUser_Party = :Party, " . 
+						"VotersIndexes_ID = :Index";
+		$sql_vars = array("NYSVoterID" => $UniqNYSVoterID,"EDAD" => $ADED, "ID" => $SystemUser_ID, "Party" => $Party, "Index" => $RawVoterID);
 
 
 		if ($VoterCount > 0) {

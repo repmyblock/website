@@ -9,7 +9,7 @@
 		</P>
 		
 		<p CLASS="f80">
-			<A HREF="/exp/<?= $middleuri ?>/login">Click here to the login page.</A>
+			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
 		</P>
 	
 	

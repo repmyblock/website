@@ -19,21 +19,34 @@
 			// So we need to get the rest in the RawDatabase
 			// $ResultRawInfo = $r->FindVotersFromNYSUniq($resultPass["Raw_Voter_UniqNYSVoterID"], $DatedFiles);
 			// WriteStderr($ResultRawInfo, "ResultRawInfo");
-		
-			$VariableToPass = array( 
-				"SystemUser_ID" => $resultPass["SystemUser_ID"],
-				"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
-				"FirstName" => $resultPass["SystemUser_FirstName"],
-				"LastName" => $resultPass["SystemUser_LastName"],
-				"VotersIndexes_ID" => $resultPass["VotersIndexes_ID"],
-				"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
-				"UserParty" => $ResultRawInfo["Raw_Voter_EnrollPolParty"],
-				"EDAD" => $resultPass["SystemUser_EDAD"],
-				"SystemAdmin" => $resultPass["SystemUser_Priv"]
-			);
-						
-			header("Location: /" . CreateEncoded($VariableToPass) . "/lgd/summary/summary");
 			
+			// Since the person just logged in, 
+			
+			if ( $resultPass["SystemTemporaryUser_ID"] > 0 && empty ($resultPass["SystemUser_ID"])) {
+				// This is in case 
+				
+				$VariableToPass = array( 
+					"SystemUser_ID" => "TMP" . $resultPass["SystemTemporaryUser"],
+					"ProfileCreate" => "yes",
+					"SystemUser_Priv" => 1
+				);
+				
+			} else {
+		
+				$VariableToPass = array( 
+					"SystemUser_ID" => $resultPass["SystemUser_ID"],
+					"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+					"FirstName" => $resultPass["SystemUser_FirstName"],
+					"LastName" => $resultPass["SystemUser_LastName"],
+					"VotersIndexes_ID" => $resultPass["VotersIndexes_ID"],
+					"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
+					"UserParty" => $ResultRawInfo["Raw_Voter_EnrollPolParty"],
+					"EDAD" => $resultPass["SystemUser_EDAD"],
+					"SystemAdmin" => $resultPass["SystemUser_Priv"]
+				);
+			}
+					
+			header("Location: /" . CreateEncoded($VariableToPass) . "/lgd/summary/summary");
 			exit();
 		}
 						
@@ -74,15 +87,15 @@
 
 		
 		<P CLASS="f60">
-			<A HREF="/exp/<?= $middleuri ?>/forgotpwd">I forgot my password</A>
+			<A HREF="/<?= $middleuri ?>/exp/forgot/forgotpwd">I forgot my password</A>
 		</P>
 		
 		<P CLASS="f60">
-			<A HREF="/exp/<?= $middleuri ?>/forgotuser">I forgot my username</A>
+			<A HREF="/<?= $middleuri ?>/exp/forgot/forgotuser">I forgot my username</A>
 		</P>
 		
 		<P CLASS="f60">
-			<A HREF="/exp/<?= $middleuri ?>/register">Register</A>
+			<A HREF="/<?= $middleuri ?>/exp/register/register">Register</A>
 		</P>
 
 	</DIV>
