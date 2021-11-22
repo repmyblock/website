@@ -13,7 +13,7 @@
   <a href="/<?= $middleuri ?>/exp/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a>
 <?php } else { ?>							
 					<A HREF="/<?= $middleuri ?>/exp/toplinks/about">ABOUT</A>
-					<A HREF="/<?= $middleuri ?>/exp/interested">REPRESENT</A>
+					<A HREF="/<?= $middleuri ?>/web/training/steps/torun">REPRESENT</A>
 					<A HREF="/<?= $middleuri ?>/exp/propose/nomination">NOMINATE</A>
 <?php } ?>  
 					<A HREF="/<?= $middleuri ?>/exp/toplinks/howto">HOWTO</A>
