@@ -1,5 +1,4 @@
 
-
 		<div class="footer">
 			<P CLASS="footerclass1">
 				<DIV CLASS="FooterTitle">REP MY BLOCK</DIV>
@@ -8,12 +7,12 @@
 			<P CLASS="footerclass2">
 				<DIV CLASS="FooterLinks">
 <?php if ( $MenuLogin == "logged") { ?>
-  <a href="/<?= $middleuri ?>/exp/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
-  <a href="/<?= $middleuri ?>/lgd/list"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="/<?= $middleuri ?>/exp/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a>
+  <a href="/<?= $middleuri ?>/exp/toplinks/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="/<?= $middleuri ?>/training/steps/torun"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
+  <a href="/<?= $middleuri ?>/exp/propose/nomination"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a>
 <?php } else { ?>							
 					<A HREF="/<?= $middleuri ?>/exp/toplinks/about">ABOUT</A>
-					<A HREF="/<?= $middleuri ?>/web/training/steps/torun">REPRESENT</A>
+					<A HREF="/<?= $middleuri ?>/training/steps/torun">REPRESENT</A>
 					<A HREF="/<?= $middleuri ?>/exp/propose/nomination">NOMINATE</A>
 <?php } ?>  
 					<A HREF="/<?= $middleuri ?>/exp/toplinks/howto">HOWTO</A>
@@ -49,5 +48,4 @@
 	$OverAllMicrotimeEnd = microtime(true);
 	WriteStderr($OverAllMicrotimeEnd, " ------------------------------------------------------------ Microtime");
 	WriteStderr(($OverAllMicrotimeEnd - $OverAllMicrotimeStart) . "\n\n\n", "Total Process Time");
-	
 ?>
