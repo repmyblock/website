@@ -12,13 +12,13 @@
 																
 		if ( empty ($result["USERNAME"]) && empty ($result["EMAIL"])) {
 		
-			require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";			
-			SendWelcomeEmail($result["SystemUser_email"], $result["SystemUser_emaillinkid"], 
-											$result["SystemUser_username"], $infoarray = ""); 
+			require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
+			SendWelcomeEmail($result["SystemTemporaryUser_email"], $result["SystemTemporaryUser_emaillinkid"], 
+											$result["SystemTemporaryUser_username"], $infoarray = ""); 
 	
 			$VariableToPass = array( 
-				"Email" => $result["SystemUser_email"],
-				"Username" => $result["SystemUser_username"]
+				"Email" => $result["SystemTemporaryUser_email"],
+				"Username" => $result["SystemTemporaryUser_username"]
 			);
 	
 			header("Location: /" . CreateEncoded($VariableToPass) . "/exp/register/doneregister");
@@ -107,8 +107,8 @@
 		<P CLASS="f40">
 			By clicking the "Register" button, you are creating a 
 			RepMyBlock account, and you agree to RepMyBlock's 
-			<A HREF="/<?= $middleuri ?>/exp/terms">Terms of Use</A> and 
-			<A HREF="/<?= $middleuri ?>/exp/privacy">Privacy Policy.</A>
+			<A HREF="/<?= $middleuri ?>/policies/terms">Terms of Use</A> and 
+			<A HREF="/<?= $middleuri ?>/policies/privacy">Privacy Policy.</A>
 		</P>
 
 	</FORM>

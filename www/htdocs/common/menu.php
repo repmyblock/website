@@ -37,7 +37,6 @@
 </div>
 */ ?>
 
-
 <?php } else { 
 	$DIVCol="col-9";
 	?>
@@ -76,16 +75,10 @@
       <span class="pl-2 flex-auto css-truncate css-truncate-target" style="max-width: 170px" title="walkthecounty">Andrew Yang</span>
     </a>
   </nav>
-*/ ?>  
-  
-  
+*/ ?>
 </div>
 
 <?php }
-	
 	### Verification email
-  
-	$VerifEmail = true; 
 	PrintVerifMenu($VerifEmail, $VerifVoter); 
-		
 ?>

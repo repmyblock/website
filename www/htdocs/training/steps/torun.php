@@ -5,6 +5,7 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php";	
 
 	/* User is logged */
 
@@ -25,7 +26,7 @@
 		</P>
 	</DIV>
 	
-	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>
+	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
 
 	<button class="accordion2">The First Step</button>
 	<div class="panel2">
@@ -41,12 +42,13 @@
 			<I>(We are working on getting the Bylaws from the other parties, and we will publish them as soon as we have them.)</I>
 		</P>
 		
-	<P CLASS="MediaCenter">
-	 <iframe width="560" height="240" src="https://www.youtube.com/embed/ZyKD5H0y0KM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</P>
+		<P CLASS="MediaCenter">
+		 <iframe width="560" height="240" src="https://www.youtube.com/embed/MgAY-Ipyk1Q?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</P>
+		
 
 	
-		<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>
+		<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
 	
 	</DIV>
 
@@ -64,8 +66,9 @@
 			If you are not registered to vote or are not registered in a party, you can print a form or go to the DMV website and register. 
 		<B>You can verify your registration automatically on the Rep My Block website.</B>
 		</P>
+		
 			
-		<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>
+		<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
 		</DIV>
 
 
@@ -73,7 +76,9 @@
 	<div class="panel2">
 		
 	<P CLASS="f60 justify">
-		This step is 23 days long, and in 2021, it will start on March 2nd, 2021, and end on March 25th, 2021.  
+		This step is <?= $ImportantDates["NY"]["CycleLength"] ?> days long, and in <?= $ImportantDates["NY"]["Cycle"] ?>, 
+		it will start on <?= $ImportantDates["NY"]["LongDate"]["FirstPetitionDay"] ?>, 
+		and it ends on <?= $ImportantDates["NY"]["LongDate"]["LastPetitionDay"] ?>.  
 		Rep My Block will supply a list of registered voters in your district. 
 	</P>
 	
@@ -86,8 +91,13 @@
 		Contrary to the presidential petitioning, won't need to stop random voter in the street but knock on your neighbors' doors. 
 		The Rep My Block website has the walk sheet that is organized by streets. 
 	</P>	
+	
+	<P CLASS="MediaCenter">
+		 <iframe width="560" height="240" src="https://www.youtube.com/embed/XUGFbBCcIS4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</P>
+	
 
-	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></H2></CENTER></P>
+	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></H2></CENTER></P>
 	</DIV>
 
 
@@ -108,7 +118,7 @@
 	 <iframe width="560" height="240" src="https://www.youtube.com/embed/9GfIm72Ksz0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</P>
 	
-	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>
+	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
 
 	
 		</DIV>
@@ -119,7 +129,9 @@
 	
 	
 	<P CLASS="f60 justify">
-		This step is where you go to the Board of Election to drop your petitions between March 23<SUP>rd</SUP>, 2020, and March 25<SUP>th</SUP>, 2020. 
+		This step is where you go to the Board of Election to drop your petitions between 
+		<?= $ImportantDates["NY"]["LongDate"]["FirstSubmitDay"] ?>, and <?= $ImportantDates["NY"]["LongDate"]["LastPetitionDay"] ?>. 
+
 	
 	<P CLASS="MediaCenter">
 	 <iframe width="560" height="240" src="https://www.youtube.com/embed/G0yRhVGz2TM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -131,7 +143,7 @@
 		All you will need to do is to staple your petition together and drop them at a drop off location. 
 	</P>
 
-	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>
+	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
 	
 		</DIV>
 
@@ -140,11 +152,11 @@
 	<div class="panel2">
 	
 	<P CLASS="f60 justify">
-		This step is the exciting step where you run for County Committee, and you remind your neighbors to vote for you on June 22<SUP>nd</SUP>, 2021.
+		This step is the exciting step where you run for County Committee, and you remind your neighbors to vote for you on <?= $ImportantDates["NY"]["LongDate"]["PrimaryElection"] ?>.
 	</P>
 	
 	<P CLASS="f60 justify">
-		On June 21<SUP>st</SUP>, you will need to put some flyers around your neighborhood to remind your voters to vote for you.
+		The night before, we sugest that you put some flyers around your neighborhood to remind your voters to vote for you.
 	</P>
 	
 	<P CLASS="f60 justify">
@@ -157,8 +169,8 @@
 	 <iframe width="560" height="240" src="https://www.youtube.com/embed/WXRd6lF3Ix4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</P>
 	
-	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>
-		</DIV>
+	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
+	</DIV>
 
 
 	<button class="accordion2">The Seventh Step</button>
@@ -167,6 +179,11 @@
 	<P CLASS="f60 justify">
 		</B>Finally!</B> You spend 27 hours completing the previous six steps. <B>It is now time to attend your first meeting!</B>
 	</P>
+
+	<P CLASS="MediaCenter">
+	 <iframe width="560" height="240" src="https://www.youtube.com/embed/ZyKD5H0y0KM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</P>
+
 
 	<P CLASS="f60 justify">
 		Rep My Block will have contacted you with other County Committee members that hopefully share your vision, and 
@@ -191,7 +208,7 @@
 	 <iframe width="560" height="240" src="https://www.youtube.com/embed/wPDC_XeTbc4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</P>
 	
-	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>
+	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
 	
 
 </div>

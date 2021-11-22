@@ -7,9 +7,6 @@
   
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();	
-	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
-		
-
 	
 	// Put the POST HERE because we need to reread the data 
 	if ( ! empty ($_POST)) {	
@@ -30,9 +27,17 @@
 			$ProfileArray["Special"]["SystemUser_email"] = $_POST["Email"];
 			$ProfileArray["Special"]["SystemUser_emaillinkid"] = hash("md5", PrintRandomText(40));
 		}
-		
-		$rmbperson = $rmb->UpdatePersonUserProfile($URIEncryptedString["SystemUser_ID"], $ProfileArray, $rmbperson);
-		
+
+		if ( $URIEncryptedString["SystemUser_ID"] == "TMP") {
+			$rmbperson = $rmb->CreateSysmterUserAndUpdateProfile($URIEncryptedString["SystemTemporaryEmail"], $ProfileArray, $rmbperson);		
+			$URIEncryptedString["SystemUser_ID"] = $rmbperson["SystemUser_ID"];
+    	$URIEncryptedString["FirstName"] = $rmbperson["SystemUser_FirstName"];
+    	$URIEncryptedString["LastName"] = $rmbperson["SystemUser_LastName"];
+    	$URIEncryptedString["SystemAdmin"] = $rmbperson["SystemUser_Priv"];
+    } else {
+			$rmbperson = $rmb->UpdatePersonUserProfile($URIEncryptedString["SystemUser_ID"], $ProfileArray, $rmbperson);
+		}
+	
 		if ( $rmbperson["ChangeEmail"] == 1) {			
 			$infoarray["FirstName"] = $rmbperson["SystemUser_FirstName"];
 			require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";			
@@ -40,45 +45,63 @@
 											$rmbperson["SystemUser_username"], $infoarray); 
 		}	
 	}
-
+	
+	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
 	if ( $VerifVoter == 1 && $rmbperson["Raw_Voter_ID"] > 0 ) { $VerifVoter = 0; }
 	if ( $VerifEmail == 1 && $rmbperson["SystemUser_emailverified"] == 'yes') { $VerifEmail = 0; }
+	
+	if ( $URIEncryptedString["SystemUser_ID"] == "TMP" ) {
+	
+		$PersonEmail = $URIEncryptedString["SystemTemporaryEmail"];
+		$EncodeString =
+					array( 
+						"SystemUser_ID" => $rmbperson["SystemUser_ID"],
+				    "SystemUser_ID" => $rmbperson["SystemTemporaryEmail"],
+				    "SystemUser_ID" => $rmbperson["ProfileCreate"],
+				    "SystemUser_ID" => $rmbperson["SystemUser_Priv"]
+					);	
+		$k = CreateEncoded ($EncodeString);	
 		
-	$PersonFirstName = $rmbperson["SystemUser_FirstName"];
-	$PersonLastName  = $rmbperson["SystemUser_LastName"];
-	$PersonEmail     = $rmbperson["SystemUser_email"];
-	$PersonBio       = $rmbperson["SystemUserProfile_bio"];
-	$PersonURL       = $rmbperson["SystemUserProfile_URL"];
-	$PersonLocation  = $rmbperson["SystemUserProfile_Location"];
-	
-	if ( $VerifVoter == 1) { $NewEncryptFile .= "&VerifVoter=1"; }
-	if ( $VerifEmail == 1) { $NewEncryptFile .= "&VerifEmail=1"; }
-	
-	$EncodeString =
-				array( 
-					"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
-					"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
-					"FirstName" => $PersonFirstName, "LastName" => $PersonLastName,
-					"VotersIndexes_ID" =>  $URIEncryptedString["VotersIndexes_ID"], 
-					"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
-					"UserParty" => $URIEncryptedString["UserParty"], 
-					"MenuDescription" => $URIEncryptedString["MenuDescription"],
-					"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
-					"VerifVoter" => $URIEncryptedString["VerifVoter"], 
-					"VerifEmail" => $URIEncryptedString["VerifEmail"],
-					"EDAD" => $URIEncryptedString["EDAD"]
-				);
-	$k = CreateEncoded ($EncodeString);
-	
-	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($UserParty);
-	
-	$TopMenus = array ( 
-							array("k" => $k, "url" => "profile/profile", "text" => "Public Profile"),
-							array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"), 
-							array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile")
-						);
-						
+	} else {
+		
+		$PersonFirstName = $rmbperson["SystemUser_FirstName"];
+		$PersonLastName  = $rmbperson["SystemUser_LastName"];
+		$PersonEmail     = $rmbperson["SystemUser_email"];
+		$PersonBio       = $rmbperson["SystemUserProfile_bio"];
+		$PersonURL       = $rmbperson["SystemUserProfile_URL"];
+		$PersonLocation  = $rmbperson["SystemUserProfile_Location"];
+		
+		if ( $VerifVoter == 1) { $NewEncryptFile .= "&VerifVoter=1"; }
+		if ( $VerifEmail == 1) { $NewEncryptFile .= "&VerifEmail=1"; }
+		
+		$EncodeString =
+					array( 
+						"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+						"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+						"FirstName" => $PersonFirstName, "LastName" => $PersonLastName,
+						"VotersIndexes_ID" =>  $URIEncryptedString["VotersIndexes_ID"], 
+						"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+						"UserParty" => $URIEncryptedString["UserParty"], 
+						"MenuDescription" => $URIEncryptedString["MenuDescription"],
+						"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+						"VerifVoter" => $URIEncryptedString["VerifVoter"], 
+						"VerifEmail" => $URIEncryptedString["VerifEmail"],
+						"EDAD" => $URIEncryptedString["EDAD"]
+					);
+		$k = CreateEncoded ($EncodeString);
+		
+		if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
+		$Party = NewYork_PrintParty($UserParty);
+		
+		if ($VerifEmail == true) {
+			$TopMenus = array ( 
+										array("k" => $k, "url" => "profile/profile", "text" => "Public Profile"),
+										array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"), 
+										array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile")
+									);
+		}							
+	}
+
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>

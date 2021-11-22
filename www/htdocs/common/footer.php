@@ -8,16 +8,16 @@
 			<P CLASS="footerclass2">
 				<DIV CLASS="FooterLinks">
 <?php if ( $MenuLogin == "logged") { ?>
-  <a href="/exp/<?= $middleuri ?>/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
-  <a href="/lgd/<?= $middleuri ?>/list"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="/exp/<?= $middleuri ?>/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a>
+  <a href="/<?= $middleuri ?>/exp/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="/<?= $middleuri ?>/lgd/list"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
+  <a href="/<?= $middleuri ?>/exp/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a>
 <?php } else { ?>							
-					<A HREF="/exp/<?= $middleuri ?>/about">ABOUT</A>
-					<A HREF="/exp/<?= $middleuri ?>/interested">REPRESENT</A>
-					<A HREF="/exp/<?= $middleuri ?>/propose">NOMINATE</A>
+					<A HREF="/<?= $middleuri ?>/exp/toplinks/about">ABOUT</A>
+					<A HREF="/<?= $middleuri ?>/exp/interested">REPRESENT</A>
+					<A HREF="/<?= $middleuri ?>/exp/propose/nomination">NOMINATE</A>
 <?php } ?>  
-					<A HREF="/exp/<?= $middleuri ?>/howto">HOWTO</A>
-					<A HREF="/exp/<?= $middleuri ?>/contact">CONTACT</A>
+					<A HREF="/<?= $middleuri ?>/exp/toplinks/howto">HOWTO</A>
+					<A HREF="/<?= $middleuri ?>/exp/contact/contact">CONTACT</A>
 					<A HREF="<?= $FrontEndBugs ?>/bugs/<?= CreateEncoded ( array( 	
 																																	"Referer" =>  $_SERVER['HTTP_REFERER'],
 																																	"URI" => $_SERVER['REQUEST_URI'],
@@ -26,9 +26,9 @@
 																																	"PageRequestTime" => $_SERVER['REQUEST_TIME']
 																																))?>/intake">BUG</A>
 <?php if ( $MenuLogin == "logged") { ?>
-				  <a href="/lgd/<?= $middleuri ?>/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
+				  <a href="/<?= $middleuri ?>/lgd/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
 <?php } else { ?>							
-					<A HREF="/exp/<?= $middleuri ?>/login">LOGIN</A>
+					<A HREF="/<?= $middleuri ?>/exp/login/login">LOGIN</A>
 <?php } ?>  
 
 				</DIV>
@@ -38,7 +38,7 @@
 					<A TARGET="instagram" CLASS="FooterSocial"  HREF="https://www.instagram.com/RepMyBlockNYC">Instagram</A>
 				</DIV>
 				<DIV CLASS="FooterStuff">
-					<I>RepMyBlock is a <A HREF="https://RepMyBLock.us">RepMyBlock</A> project.</I>
+					<I>RepMyBlock is a <A TARGET="ARMBPROJ" HREF="https://github.com/repmyblock">RepMyBlock</A> project.</I>
 				</DIV>
 			</P>
 		</DIV>			

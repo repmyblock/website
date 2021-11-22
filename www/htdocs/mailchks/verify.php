@@ -1,22 +1,42 @@
 <?php
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 
-	$r = new login();
-	
+		
 	// Check that the hash code exist.
-	if (! empty ($_GET["info"])) {
-		$hashkey = substr( $_GET["info"], 0, 32);  
-		$username = substr( $_GET["info"], 32, strlen($_GET["info"]) - 32);
+	if (! empty ($_GET["k"])) {
+		$hashkey = substr( $_GET["k"], 0, 32);  
+		$username = substr( $_GET["k"], 32, strlen($_GET["k"]) - 32);
 	}
 	
 	if ( ! empty ($_POST["username"])) { $username = $_POST["username"]; }
 	if ( ! empty ($_POST["hashkey"])) {	$hashkey = $_POST["hashkey"]; }
 
 	if ( ! empty ($_POST["username"])) {
+		$r = new login();
 		$result = $r->CheckUsername($_POST["username"]);
+		
+		if ( $result["SystemTemporaryUser_emailverified"] == "no" && empty ($result["SystemUser_ID"])) {
+			if ($_POST["hashkey"] == $result["SystemTemporaryUser_emaillinkid"]) {
+				
+				if (! empty ($result["SystemTemporaryUser_password"]) && empty ($result["SystemUser_password"])) {
+					$password = $result["SystemTemporaryUser_password"];
+				}
+				
+				$URLToEncrypt = "&password=" .  $password . 
+												"&systemuserid=" . $result["SystemUser_ID"] .
+												"&systemusertempid=" . $result["SystemTemporaryUser_ID"] .
+												"&hashkey=" . $_POST["hashkey"] . 
+												"&username=" . $_POST["username"];
+				// The reason for no else is that the code supposed to go away.
+				header("Location: /" .  rawurlencode(EncryptURL($URLToEncrypt)) . "/mailchks/verifypassword");
+				exit();
+			}
+		}
+		
+		
 		if ( $result["SystemUser_emailverified"] == "no") {		
 			if ($_POST["hashkey"] == $result["SystemUser_emaillinkid"]) {
 				
@@ -26,7 +46,7 @@
 												"&hashkey=" . $_POST["hashkey"] . 
 												"&username=" . $_POST["username"];
 				// The reason for no else is that the code supposed to go away.
-				header("Location: /lgd/" .  rawurlencode(EncryptURL($URLToEncrypt)) . "/verifypassword");
+				header("Location: /" .  rawurlencode(EncryptURL($URLToEncrypt)) . "/mailchks/verifypassword");
 				exit();
 			} else {
 				$error_msg = "<FONT COLOR=RED><B>The information did not match our records</B></FONT>";	
@@ -41,7 +61,7 @@
 												"&hashkey=" . $_POST["hashkey"] . 
 												"&username=" . $_POST["username"];
 				// The reason for no else is that the code supposed to go away.
-				header("Location: /lgd/" .  rawurlencode(EncryptURL($URLToEncrypt)) . "/verifypassword");
+				header("Location: /" .  rawurlencode(EncryptURL($URLToEncrypt)) . "/mailchks/verifypassword");
 				exit();		
 		}
 	}
@@ -73,7 +93,7 @@
 	</P>
 
 	<P>
-		<FONT SIZE=+2><A HREF="/exp/<?= $_GET["info"] ?>/forgotpwd">I forgot my password</A></FONT><BR>
+		<FONT SIZE=+2><A HREF="/<?= $middleuri ?>/exp/forgot/forgotpwd">I forgot my password</A></FONT><BR>
 	</P>
 </DIV>
 

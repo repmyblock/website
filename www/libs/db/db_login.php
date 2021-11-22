@@ -20,9 +20,18 @@ class login extends queries {
   	// Save the entry to keep track.
   	$this->SaveInscriptionRecord($Email, $Username, $Type);
   	
-  	// Check Username and Email.
-  	$sql = "SELECT * FROM SystemTemporaryUser WHERE SystemTemporaryUser_email = :Email OR SystemTemporaryUser_username = :Username";
+  	// Check Username and Email in the main table.
+  	$sql = "SELECT * FROM SystemUser WHERE SystemUser_email = :Email OR SystemUser_username = :Username";
 		$sql_vars = array('Email' => $Email, 'Username' => $Username);
+		$ret = $this->_return_multiple($sql,  $sql_vars);
+		if (! empty($ret)) {
+			if ($ret[0][SystemUser_email] == $Email || $ret[1][SystemUser_email] == $Email) { $error["EMAIL"] = 1; }
+			if ($ret[0][SystemUser_username] == $Username || $ret[1][SystemUser_username] == $Username) { $error["USERNAME"] = 1; }
+			return $error;
+		}
+  	
+  	// Check Username and Email in the temporary table.
+  	$sql = "SELECT * FROM SystemTemporaryUser WHERE SystemTemporaryUser_email = :Email OR SystemTemporaryUser_username = :Username";
 		$ret = $this->_return_multiple($sql,  $sql_vars);
 		
 		if (! empty($ret)) {
@@ -33,8 +42,8 @@ class login extends queries {
 		
 		if ( empty($ret)) {
 			$ret = $this->AddEmailUsernamePassword($Email, $Username, $Password, $hashtable);		
-			if ( empty ($ret["SystemUser_ID"])) {
-				return "Problem saving the Email";
+			if ( empty ($ret["SystemTemporaryUser_ID"])) {
+				return array("Problem" => "Problem saving the Email");
 			}
 		}
 		
@@ -45,11 +54,11 @@ class login extends queries {
 		return $ret;	  	
   }
 
-	function SaveInscriptionRecord ($Email, $Username, $Type = "Other") {
+	function SaveInscriptionRecord ($Email, $Username, $Type = "Other", $SystemUserID = NULL) {
 		$sql = "INSERT INTO SystemUserVoter SET SystemUserVoter_Username = :Username, " .
 						"SystemUserVoter_Email = :Email, SystemUserVoter_action = :Type, " . 
-						"SystemUserVoter_Date = NOW(), SystemUserVoter_IP = :IP";
-		$sql_vars = array('Email' => $Email, 'Username' => $Username, 'Type' => $Type, 'IP' => $_SERVER['REMOTE_ADDR']);
+						"SystemUserVoter_Date = NOW(), SystemUserVoter_IP = :IP, SystemUser_ID = :SystemUserID";
+		$sql_vars = array('Email' => $Email, 'Username' => $Username, 'Type' => $Type, 'IP' => $_SERVER['REMOTE_ADDR'], 'SystemUserID' => $SystemUserID);
 		$this->_return_nothing($sql,  $sql_vars);
 	}
 						
@@ -73,8 +82,15 @@ class login extends queries {
 	}
 	
 	function CheckUsername($Username) {
-		$sql = "SELECT * FROM SystemUser WHERE SystemUser_username = :Username";
-		$sql_vars = array(':Username' => $Username);											
+		$sql = "SELECT * FROM SystemTemporaryUser " . 
+						"LEFT JOIN SystemUser ON (SystemUser.SystemUser_ID = SystemTemporaryUser.SystemUser_ID) " . 
+						"WHERE SystemTemporaryUser_username = :Username";
+		$sql_vars = array(':Username' => $Username);			
+		
+		$ret = $this->_return_simple($sql, $sql_vars);
+		if ( ! empty ($ret)) return $ret;
+		
+		$sql = "SELECT * FROM SystemUser WHERE SystemUser_username = :Username";								
 		return $this->_return_simple($sql,  $sql_vars);
 	}
 
@@ -286,6 +302,29 @@ class login extends queries {
 			return $result;
 		}
 		return null;
+	}
+	
+	function MovedSystemUserToMainTable($TempEmail, $TypeEmailVerif) {
+		
+		$sql = "INSERT INTO SystemUser (SystemUser_email, SystemUser_emailverified, SystemUser_username, SystemUser_password, " . 
+																		"SystemUser_createtime, SystemUser_lastlogintime, SystemUser_Priv"; 
+		$sql .= ") " .
+					 "SELECT SystemTemporaryUser_email, :TypeEmail, SystemTemporaryUser_username, " . 
+									"SystemTemporaryUser_password, NOW(), NOW(), " . (PERM_MENU_PROFILE + PERM_MENU_SUMMARY);
+		$sql .= " FROM SystemTemporaryUser WHERE SystemTemporaryUser_email = :TempEmail"; 
+		$sql_vars = array("TempEmail" => $TempEmail, "TypeEmail" => $TypeEmailVerif);																	
+		$this->_return_nothing($sql, $sql_vars);		
+	
+		$sql = "SELECT LAST_INSERT_ID() as SystemUser_ID";
+		$ret = $this->_return_simple($sql);
+
+		$sql = "UPDATE SystemTemporaryUser SET SystemUser_ID = :SystemUserID,  SystemTemporaryUser_password = null, SystemTemporaryUser_emaillinkid = null WHERE SystemTemporaryUser_email = :TempEmail"; 
+		$sql_vars = array("TempEmail" => $TempEmail, "SystemUserID" => $ret["SystemUser_ID"]);
+		$this->_return_nothing($sql, $sql_vars);	
+		
+		$this->SaveInscriptionRecord ($TempEmail, $Username, "convert", $ret["SystemUser_ID"]);	
+		return $this->FindPersonUserProfile($ret["SystemUser_ID"]);
+		
 	}
 	
 	function FindSystemUser_ID($SystemUserVoterID) {

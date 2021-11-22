@@ -1,10 +1,4 @@
 <?php 
-	/***************************
-	* File: about.php
-	* Purpose: About page that explain what this software is about.
-	* Author: Theo Chino
-	*/
-	
 	$BigMenu = "home";
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	
@@ -20,7 +14,7 @@
 <div class="main">
 	<DIV CLASS="intro center">
 		<P>
-			<h1 CLASS="intro">Rep My Block is a non partisan website.</H1>
+			<h1 CLASS="intro">Privacy.</H1>
 		</P>
 		
 		<P CLASS="f60">
@@ -32,9 +26,17 @@
 				membership information has traditionally been hard to access. 
 			</B>
 		</P>
+		
+		<P CLASS="f60">
+			<B>
+				Here goes the privacy conditions.
+			</B>
+		</P>
+
+		
 	</DIV>
 	
-	<P CLASS="f80 center"><A HREF="/exp/<?= $middleuri ?>/register">Register on the Rep My Block website</A></P>
+	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
 
 
 </div>

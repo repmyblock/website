@@ -886,9 +886,9 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
   $emailsubject= "=?utf-8?b?" . base64_encode("Verify your email address on Rep My Block.") . "?=";
 
 	$BotArray["sendemail"] =  $to;
-
+	
   $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
-	$linktoverify = $FrontEndWebsite . "/exp/$hashtable" . $username . "/verify";       
+	$linktoverify = $FrontEndWebsite . "/$hashtable" . $username . "/mailchks/verify";       
 	
 	$WelcomeLine = "Welcome";
 	if ( ! empty ($infoarray["FirstName"])) {
@@ -903,6 +903,10 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
 				utf8_encode(
 					"\n" . $WelcomeLine . ",\n\n" . 
 					"Before you can activate your account, we need to verify your email address.\n\n"  .
+					
+					"The activation process is a two step process. First you need to click on the verify button " .
+					"and then you will need to forward this email to verif@" .  $MailFromDomain . "\n\n" .
+					
 					"Please verify your email address by clicking on this link: " .
 					$linktoverify . "\n\n" .
 					
@@ -931,8 +935,13 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
 					"<P>\n" .
 					"Before you can activate your account, we need to verify your email address.<BR>\n" .
 					"</P>\n" .
-		
-							 
+					
+					"<P>\n" . 
+					"The activation process is a two step process. First you need to click on the verify button " .
+					"and then you will need to forward this email to </B>verif@" .  $MailFromDomain . "</B><BR>\n\n" .
+
+					"</P>\n" . 
+					
 					// SUBURBAN BUTTON GROUP START 
 							"<center>" .
 							"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" align=\"center\" " . 

@@ -855,6 +855,46 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql);		
 	}
 	
+	function CreateSysmterUserAndUpdateProfile($TempEmail, $ProfileArray = "", $Person = "") {
+		
+		$sql = "INSERT INTO SystemUser (SystemUser_email, SystemUser_emailverified, SystemUser_username, SystemUser_password, " . 
+																		"SystemUser_emaillinkid, SystemUser_createtime, SystemUser_lastlogintime, SystemUser_Priv"; 
+		$sql_vars = array("TempEmail" => $TempEmail);
+																		
+		if ( ! empty ($ProfileArray["Change"]["SystemUser_FirstName"])) { $sql .= ", SystemUser_FirstName"; $sql_vars["FirstName"] = $ProfileArray["Change"]["SystemUser_FirstName"]; }
+		if ( ! empty ($ProfileArray["Change"]["SystemUser_LastName"])) { $sql .= ", SystemUser_LastName"; $sql_vars["LastName"] = $ProfileArray["Change"]["SystemUser_LastName"]; }
+																		
+		$sql .= ") " .
+					 "SELECT SystemTemporaryUser_email, SystemTemporaryUser_emailverified, SystemTemporaryUser_username, " . 
+									"SystemTemporaryUser_password, SystemTemporaryUser_emaillinkid, NOW(), NOW(), " . (PERM_MENU_PROFILE + PERM_MENU_SUMMARY);
+									
+		if ( ! empty ($ProfileArray["Change"]["SystemUser_FirstName"])) { $sql .= ", :FirstName"; }
+		if ( ! empty ($ProfileArray["Change"]["SystemUser_LastName"])) { $sql .= ", :LastName"; }
+									
+		$sql .= " FROM SystemTemporaryUser WHERE SystemTemporaryUser_email = :TempEmail"; 
+		$this->_return_nothing($sql, $sql_vars);		
+	
+		$sql = "SELECT LAST_INSERT_ID() as SystemUser_ID";
+		$ret = $this->_return_simple($sql);
+
+		$sql = "UPDATE SystemTemporaryUser SET SystemUser_ID = :SystemUserID,  SystemTemporaryUser_password = null, SystemTemporaryUser_emaillinkid = null WHERE SystemTemporaryUser_email = :TempEmail"; 
+		$sql_vars = array("TempEmail" => $TempEmail, "SystemUserID" => $ret["SystemUser_ID"]);
+		$this->_return_nothing($sql, $sql_vars);	
+		
+		$this->SaveInscriptionRecord ($TempEmail, $Username, "convert", $ret["SystemUser_ID"]);	
+		return $this->FindPersonUserProfile($ret["SystemUser_ID"]);
+		
+	}
+	
+	function SaveInscriptionRecord ($Email, $Username, $Type = "Other", $SystemUserID = NULL) {
+		$sql = "INSERT INTO SystemUserVoter SET SystemUserVoter_Username = :Username, " .
+						"SystemUserVoter_Email = :Email, SystemUserVoter_action = :Type, " . 
+						"SystemUserVoter_Date = NOW(), SystemUserVoter_IP = :IP, SystemUser_ID = :SystemUserID";
+		$sql_vars = array('Email' => $Email, 'Username' => $Username, 'Type' => $Type, 'IP' => $_SERVER['REMOTE_ADDR'], 'SystemUserID' => $SystemUserID);
+		$this->_return_nothing($sql,  $sql_vars);
+	}
+	
+	
 	/* Custom SQL Statement to minimize the number of question based on logic. */
 		
 	// The input is an array with array of stuff that changed + Person is the stuff coming
