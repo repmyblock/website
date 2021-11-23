@@ -100,11 +100,7 @@
 		<P>
 			<B>Rep My Block</B> is an unincorporated organization run by volunteers who donate their skills, knowledge, and resources. RepMyBlock is decentralized to avoid political filling requirements.
 		</P>
-		
-		<P>
-			The Service is hosted at Linode, Inc, and in 2021, the Chino-Malaga family <B>paid $ 1,528.68 in the course of 2021</B> 
-			with their personal American Express card. It falls below the $ 5,000.00 political lobbying threshold registration.
-		</P>
+
 		
 		<P>
 			<B>Rep My Block</B> relies on Computer Code by volunteers from the <A HREF="https://www.progcode.org" TARGET="ProgCode">Progressive 
