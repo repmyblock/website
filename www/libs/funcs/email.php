@@ -1271,12 +1271,12 @@ function BottomEmail($BotArray) {
 			"<div class=\"FooterInfo\">Represent your community by running for your County Committee</div>\n" .
 			"<BR>" . 
 			"<div class=\"FooterLinks\">\n" .
-			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/about/\">ABOUT</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
-			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/get-involved/list/\">REPRESENT</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
-			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/get-involved/nominate/\">NOMINATE</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
-			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/where-to-file/prepare-to-file-your-petition-to-the-board-of-elections.html\">HOWTO</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
-			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/contact.html\">CONTACT</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
-			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/get-involved/profile/\" class=\"right\">PROFILE</a>\n" .
+			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/exp/toplinks/about\">ABOUT</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
+			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/training/steps/torun\">REPRESENT</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
+			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/exp/propose/nomination\">NOMINATE</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
+			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/exp/toplinks/howto\">HOWTO</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
+			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/exp/contact/contact\">CONTACT</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
+			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/exp/login/login\" class=\"right\">LOGIN</a>\n" .
 			"</div>\n" .
 
 			"<BR>" . 
