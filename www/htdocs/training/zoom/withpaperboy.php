@@ -40,6 +40,45 @@
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/MnI7iBxCN4A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</UL>
 </P>
+<P>
+	
+	
+	
+<P><B>Buy this Book: How to win an election</B> <I>(for those running for higher office than County Committee.)</I></P>
+	
+	<TABLE style="border:0;">
+		<TR  style="border:0;">
+			<TD VALIGN=TOP><A HREF="https://press.princeton.edu/books/hardcover/9780691154084/how-to-win-an-election"><IMG ALT="Cover How To Win An Election" SRC="/images/HowToWinElection.jpg"></A></TD>
+			<TD>&nbsp;&nbsp;&nbsp;</TD>
+			<TD VALIGN=TOP>How to Win an Election is an ancient Roman guide for campaigning that is as up-to-date as 
+		tomorrow's headlines. In 64 BC when idealist Marcus Cicero, Rome's greatest orator, ran for
+		consul <I>(the highest office in the Republic)</I>, his practical 
+		brother Quintus decided he needed some no-nonsense advice on running a successful campaign. 
+		<BR>&nbsp;<BR>
+		
+		What follows in his short letter are timeless bits of political wisdom, from the importance of
+		promising everything to everybody and reminding voters about the sexual scandals of your 
+		opponents to being a chameleon, putting on a good show for the masses, and constantly surrounding 
+		yourself with rabid supporters. 
+		
+		<BR>&nbsp;<BR>
+		Presented here in a lively and colorful new translation, with 
+		the Latin text on facing pages, this unashamedly pragmatic primer on the humble art of personal 
+		politicking is dead-on <I>(Cicero won)</I> and as relevant today as when it was written.
+		<BR>&nbsp;<BR>
+		
+		<A HREF="https://press.princeton.edu/books/hardcover/9780691154084/how-to-win-an-election"><B>Link to How to Win an Election:</B> 
+			An Ancient Guide for Modern Politicians.</A>
+		</TD>
+				<TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+		</TR>
+		
+		
+	</TABLE>
+	
+	
+</P>
+
 
 
 
