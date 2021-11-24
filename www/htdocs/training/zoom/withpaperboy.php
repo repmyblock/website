@@ -150,9 +150,7 @@
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/Q7sQCZtM0bY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</UL>
 </P>
-		
-		
-		
+			
 			<P CLASS="f60">
 				Rep My Block is provided Free of Charge to any candidate that wishes to integrate 
 				it's services.
