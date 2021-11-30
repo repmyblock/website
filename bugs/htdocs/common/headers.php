@@ -54,7 +54,7 @@
   <BODY class="logged-in env-production emoji-size-boost min-width-lg page-account">
 		<DIV class="header">
 			<div class="header-left">
-			  <a href="/<?= $FrontEndWebsite ?>" class="logo"><IMG SRC="<?= $imgtoshow ?>" class="header-logo"></a>
+			  <a href="<?= $FrontEndWebsite ?>" class="logo"><IMG SRC="<?= $imgtoshow ?>" class="header-logo"></a>
 			</DIV>
 		  <div class="header-right">
   	  	<a class="login" href="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/contact/contact">CONTACT</a>
