@@ -7,7 +7,7 @@
 		$MenuLogin = "logged"; 
 		$middleuri = rawurlencode($k);	
 	} else {
-		$middleuri = "frombug";
+		$middleuri = "fbugs";
 	}
 	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png"; }	
 ?><!DOCTYPE html>
