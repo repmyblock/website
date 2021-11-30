@@ -28,14 +28,6 @@ class RepMyBlock extends queries {
  		return $this->_return_multiple($sql, $sql_vars); 
  	}
 
-  
-  function SearchUsers($DateFile) {
-  	$sql = "SELECT * FROM SystemUser " .
-  					"LEFT JOIN Raw_Voter_" . $DateFile . " ON (Raw_Voter_" . $DateFile . ".Raw_Voter_UniqNYSVoterID = SystemUser.Raw_Voter_UniqNYSVoterID)";
-  	$sql_vars = array();
-  	return $this->_return_multiple($sql, $sql_vars);
-  }
-  
   function FindVotersForEDAD($District, $ADED, $Party) {  	
 		$sql = "SELECT * FROM Voters WHERE " .
 						"ElectionsDistricts_DBTable = :DISTRICT AND ElectionsDistricts_DBTableValue = :ADED AND Voters_RegParty = :PARTY " .
@@ -45,40 +37,7 @@ class RepMyBlock extends queries {
 		WriteStderr($sql_vars, "SQL Query: " . $sql);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}  
-  
-  function FindAllActivesVoterForUniq($UniqTenant, $DateFile) {
-  	$sql = "SELECT * FROM Raw_Voter_" . $DateFile . " WHERE Raw_Voter_UniqNYSVoterID = :Uniq";
-  	$sql_vars = array("Uniq" => $UniqTenant);
-  	$ret = $this->_return_simple($sql, $sql_vars);
-  	
-  	$sql = "SELECT *, BIN(Raw_Voter_ResApartment) AS BinNotNeeded " . 
-  					"FROM Raw_Voter_" . $DateFile . " WHERE Raw_Voter_EnrollPolParty = :PARTY AND " .
-						"Raw_Voter_ElectDistr = :ED AND Raw_Voter_AssemblyDistr = :AD AND " .
-						"Raw_Voter_ResStreetName = :StreetName AND ";
-		$sql_vars = array("ED" =>  $ret["Raw_Voter_ElectDistr"], "AD" => $ret["Raw_Voter_AssemblyDistr"], 
-											"PARTY" => $ret["Raw_Voter_EnrollPolParty"], "StreetName" => $ret["Raw_Voter_ResStreetName"]);	
-		
-		if ( ! empty ($ret["Raw_Voter_ResHouseNumber"])) {
-			$sql .= "Raw_Voter_ResHouseNumber = :ResHouseNumber AND";
-			$sql_vars["ResHouseNumber"] = $ret["Raw_Voter_ResHouseNumber"];
-		}
-		if ( ! empty ($ret["Raw_Voter_ResFracAddress"])){
-			$sql .= "Raw_Voter_ResFracAddress = :ResFracAddress AND";
-			$sql_vars["ResFracAddress"] = $ret["Raw_Voter_ResFracAddress"];
-		}
-		if ( ! empty ($ret["Raw_Voter_ResPreStreet"])){
-			$sql .= "Raw_Voter_ResPreStreet = :ResPreStreet AND";
-			$sql_vars["ResPreStreet"] = $ret["Raw_Voter_ResPreStreet"];
-		}
-		if ( ! empty ($ret["Raw_Voter_ResPostStDir"])){
-			$sql .= "Raw_Voter_ResPostStDir = :ResPostStDir AND";
-			$sql_vars["ResPostStDir"] = $ret["Raw_Voter_ResPostStDir"];
-		}
-		
-		$sql .= "(Raw_Voter_Status = 'ACTIVE' OR Raw_Voter_Status = 'INACTIVE') ORDER BY BinNotNeeded ASC";
-		return $this->_return_multiple($sql, $sql_vars);
-	}  
-  
+   
   function FindPersonUser($SystemUserID) {
 		$sql = "SELECT * FROM SystemUser WHERE SystemUser_ID = :ID";	
 		$sql_vars = array(':ID' => $SystemUserID);											
@@ -88,6 +47,8 @@ class RepMyBlock extends queries {
 	function FindPersonUserProfile($SystemUserID) {
 		$sql = "SELECT * FROM SystemUser " . 
 						"LEFT JOIN SystemUserProfile ON (SystemUser.SystemUserProfile_ID = SystemUserProfile.SystemUserProfile_ID) " . 
+						"LEFT JOIN Voters ON (SystemUser.Voters_ID = Voters.Voters_ID) " . 
+						"LEFT JOIN DataState ON (Voters.DataState_ID = DataState.DataState_ID) " . 
 						"WHERE SystemUser_ID = :ID";	
 		$sql_vars = array(':ID' => $SystemUserID);											
 		return $this->_return_simple($sql,  $sql_vars);		
@@ -103,20 +64,6 @@ class RepMyBlock extends queries {
 		$sql = "SELECT * FROM SystemUser WHERE SystemUser_email = :Email";
 		$sql_vars = array(':Email' => $email);											
 		return $this->_return_simple($sql,  $sql_vars);
-	}
-	
-	function SearchVoterDBbyID($DatedFiles, $RawVoterID) {
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " WHERE " . 
-		"Raw_Voter_ID = :RawVoterID";
-		$sql_vars = array('RawVoterID' => $RawVoterID);							
-		return $this->_return_multiple($sql, $sql_vars);
-	}
-	
-	function FindSystemUserVoter($RawVoterID) {
-		$sql = "SELECT * FROM SystemUserVoter WHERE Raw_Voter_ID = :RawVoterID";
-		$sql_vars = array('RawVoterID' => $RawVoterID);							
-		return $this->_return_multiple($sql, $sql_vars);
 	}
 		
 	function FindGeoDiscID($GeoDescAbbrev) {
@@ -150,31 +97,6 @@ class RepMyBlock extends queries {
 	
 		return $this->_return_multiple($sql, $sql_vars);
 	}
-	
-	function VoterRanCandidate($RawVoterID, $DatedFiles) {
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " " .
-						"LEFT JOIN DataCounty ON ( Raw_Voter_CountyCode = DataCounty.DataCounty_ID) " . 
-						"LEFT JOIN Candidate ON (Candidate.Raw_Voter_ID = " . $TableVoter . ".Raw_Voter_ID AND Raw_Voter_DatedTable_ID = :DatedFiles) " .
-						"LEFT JOIN CandidatePetitionGroup ON (CandidatePetitionGroup.Candidate_ID = Candidate.Candidate_ID) " .
-						"WHERE " . 
-						$TableVoter . ".Raw_Voter_ID = :RawVoterID";
-		$sql_vars = array('DatedFiles' => $DatedFiles, 'RawVoterID' => $RawVoterID);			
-		return $this->_return_multiple($sql, $sql_vars);		
-	}
-	
-	function SearchCandidateInArea($DatedFiles, $RawVoterID) {
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " " .
-						"LEFT JOIN Raw_Voter ON (Raw_Voter.Raw_Voter_TableDate_ID = " . $TableVoter . ".Raw_Voter_ID) " .
-						"LEFT JOIN CandidatePetition ON (CandidatePetition.Raw_Voter_ID = Raw_Voter.Raw_Voter_ID) " . 
-						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CandidatePetition.Candidate_ID) " .		
-						"WHERE " . 
-						"Raw_Voter.Raw_Voter_ID = :RawVoterID";
-		$sql_vars = array('RawVoterID' => $RawVoterID);									
-		return $this->_return_multiple($sql, $sql_vars);
-	}
-	
 	
 	function QueryVoterFile($UniqNYSVoterID, $FirstName, $LastName, $DOB = NULL, 
 																$zip = NULL, $countyid = NULL, $Party = NULL, $AD = NULL, $ED = NULL, $Congress = NULL) {
@@ -232,96 +154,9 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	function SearchVoter_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $FirstName, $LastName, $DOB = NULL, 
-																$zip = NULL, $countyid = NULL, $Party = NULL, $AD = NULL, $ED = NULL, $Congress = NULL) {
-		$this->SaveVoterRequest($FirstName, $LastName, $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " " . 
-						"LEFT JOIN DataCounty ON ( Raw_Voter_CountyCode = DataCounty.DataCounty_ID) " . 
-						"WHERE Raw_Voter_LastName = :LastName ";						
-		$sql_vars = array('LastName' => $LastName);
+	// $this->SaveVoterRequest("NYS BOE ID", $NYSBOEID, $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
 
-		if ( ! empty ($FirstName)) { $sql .= " AND Raw_Voter_FirstName = :FirstName"; $sql_vars["FirstName"] = $FirstName; }		
-		if ( ! empty ($zip)) { $sql .= " AND Raw_Voter_ResZip = :ZIP"; $sql_vars["ZIP"] = $zip;	}
-		if ( ! empty ($AD)) {	$sql .= " AND Raw_Voter_AssemblyDistr = :AD";	$sql_vars["AD"] = $AD; }
-		if ( ! empty ($ED)) {	$sql .= " AND Raw_Voter_ElectDistr = :ED"; $sql_vars["ED"] = $ED; }
-		if ( ! empty ($Congress)) {	$sql .= " AND Raw_Voter_CongressDistr = :Congress";	$sql_vars["Congress"] = $Congress;	}
-		if ( ! empty ($Party)) { $sql .= " AND Raw_Voter_EnrollPolParty = :Party"; $sql_vars["Party"] = $Party;	}
-		
-		if ( ! empty ($countyid)) {
-			switch ($countyid) {
-				case 'BQK':
-					$sql .= " AND (Raw_Voter_CountyCode = \"03\" || Raw_Voter_CountyCode = \"41\" || Raw_Voter_CountyCode = \"24\")";
-					break;
-					
-				case 'NYC':
-					$sql .= " AND (Raw_Voter_CountyCode = \"43\" || Raw_Voter_CountyCode = \"31\")";
-					break;
-
-				case 'OUTSIDE':
-					$sql .= " AND Raw_Voter_CountyCode != \"03\" && Raw_Voter_CountyCode != \"41\" && Raw_Voter_CountyCode != \"24\"" .
-									" AND Raw_Voter_CountyCode != \"43\" || Raw_Voter_CountyCode != \"31\"";
-					break;
-				
-				default:
-					$sql .= " AND Raw_Voter_CountyCode = :CountyCode";
-					$sql_vars["CountyCode"] = $countyid;
-					break;				
-			}
-		}
-		
-		return $this->_return_multiple($sql, $sql_vars);
-	}
 	
-	function SearchVoter_Dated_NYSBOEID($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $NYSBOEID) {
-		$this->SaveVoterRequest("NYS BOE ID", $NYSBOEID, $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " " .
-						"LEFT JOIN DataCounty ON ( Raw_Voter_CountyCode = DataCounty.DataCounty_ID) " . 
-						"WHERE Raw_Voter_UniqNYSVoterID = :NYSBOEID";
-		$sql_vars = array('NYSBOEID' => $NYSBOEID);
-		
-		return $this->_return_multiple($sql, $sql_vars);
-	}
-
-	function ReturnGroupAD_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $PARTY, $AD, $ED = NULL) { 
-		$this->SaveVoterRequest("AD: " . $AD, "GROUP", $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-
-		$sql_vars = array('AD' => $AD, 'Party' => $PARTY);
-		$sql = "SELECT COUNT(*) AS Count, Raw_Voter_EnrollPolParty, Raw_Voter_AssemblyDistr, Raw_Voter_ElectDistr " . 
-						"FROM " . $TableVoter . " " . 
-					 	"WHERE Raw_Voter_AssemblyDistr = :AD AND Raw_Voter_EnrollPolParty = :Party" ;
-		if ( ! empty ($ED)) {
-			$sql .= " AND Raw_Voter_ElectDistr = :ED";
-			$sql_vars["ED"] = $ED;
-		}			 
-					 
-		$sql .= " AND (Raw_Voter_Status = 'ACTIVE' OR Raw_Voter_Status = 'INACTIVE')" .
-					 " GROUP BY Raw_Voter_AssemblyDistr, Raw_Voter_ElectDistr ";
-	 	$sql .= " ORDER BY CAST(Raw_Voter_ElectDistr AS unsigned) ASC";
-	 	
-		return $this->_return_multiple($sql, $sql_vars);
-	}
-
-	function SearchByAD_Dated_DB($UniqNYSVoterID, $DatedFiles, $DatedFilesID, $PARTY, $AD, $ED = NULL) { 
-		$this->SaveVoterRequest("AD: " . $AD, "ED: " . $ED, NULL, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		
-		// Need to move party so I can have an empty request for the general.
-		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_EnrollPolParty = :Party AND " . 
-					"Raw_Voter_AssemblyDistr = :AD";
-		$sql_vars = array('AD' => $AD, 'Party' => $PARTY);
-		if ( ! empty ($ED)) {
-			$sql .= " AND Raw_Voter_ElectDistr = :ED";
-			$sql_vars["ED"] = $ED;
-		} else {
-			$sql .= " GROUP BY Raw_Voter_ElectDistr";
-		}
-		
-		return $this->_return_multiple($sql, $sql_vars);
-	}
-
 
 	function SaveVoterRequest($FirstName, $LastName, $DateOfBirth, $DatedFilesID, $Email, $UniqNYSVoterID, $IP) {
 		$sql = "INSERT INTO SystemUserQuery SET SystemUserQuery_FirstName = :FirstName, " .
@@ -336,7 +171,7 @@ class RepMyBlock extends queries {
 		return $this->_return_nothing($sql, $sql_vars);
 	}
 
-	function SearchVoterDB($FirstName, $LastName, $DOB, $TableID = "", $Status = "") {
+	function SearchVoterDB($FirstName, $LastName, $DOB, $Status = "") {
 
 		$CompressedFirstName = preg_replace("/[^a-zA-Z]+/", "", $FirstName);
 		$CompressedLastName = preg_replace("/[^a-zA-Z]+/", "", $LastName);
@@ -384,26 +219,6 @@ class RepMyBlock extends queries {
 						"WHERE CandidatePetitionSet_TimeStamp > :Date " . 
 						"ORDER BY CandidatePetitionSet.CandidatePetitionSet_ID DESC";
 		$sql_vars = array('Date' => $Date);
-		return $this->_return_multiple($sql, $sql_vars);
-	}
-
-	function SearchVoterDBbyNYSID($ID, $DatedFiles) {
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " " .
-						"LEFT JOIN DataCounty ON (Raw_Voter_" . $DatedFiles . ".Raw_Voter_CountyCode = DataCounty.DataCounty_ID) " .
-						"WHERE Raw_Voter_UniqNYSVoterID = :ID";
-		$sql_vars = array('ID' => $ID);							
-		
-		// $result = $this->_return_multiple($sql, $sql_vars);
-		// return $result;
-		return $this->_return_multiple($sql, $sql_vars);
-	}
-	
-	function SearchLocalRawDBbyNYSID($UniqNYSID) {
-		$sql = "SELECT * FROM Raw_Voter WHERE Raw_Voter_UniqNYSVoterID = :ID ";  #AND Raw_Voter_Dates_ID = :Dates " .
-						#"AND Raw_Voter_Status = :Status";
-		
-		$sql_vars = array('ID' => $UniqNYSID); #,  'Status' => $Status);		# ,'Dates' => $DatedFilesID);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
@@ -572,8 +387,7 @@ class RepMyBlock extends queries {
 	}
 	
 	function ReturnVoterIndex($SingleIndex) {
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM VotersIndexes " .
+				$sql = "SELECT * FROM VotersIndexes " .
 						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID ) " . 
 						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID ) " .
 						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID ) " .
@@ -662,7 +476,7 @@ class RepMyBlock extends queries {
 
 	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED, $Party, $VoterCount = 0) {
 		$sql = "UPDATE SystemUser SET Voters_UniqStateVoterID = :NYSVoterID, SystemUser_EDAD = :EDAD, SystemUser_Party = :Party, " . 
-						"VotersIndexes_ID = :Index";
+						"Voters_ID = :Index";
 		$sql_vars = array("NYSVoterID" => $UniqNYSVoterID,"EDAD" => $ADED, "ID" => $SystemUser_ID, "Party" => $Party, "Index" => $RawVoterID);
 
 
@@ -675,9 +489,8 @@ class RepMyBlock extends queries {
 		return $this->_return_nothing($sql, $sql_vars);				
 	}
 	
-	function FindRawVoterbyADED($DatedFiles, $EDist, $ADist, $Party = "", $Active = 1, $order = 0) {
+	function FindRawVoterbyADED($EDist, $ADist, $Party = "", $Active = 1, $order = 0) {
 		
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
 		$sql = "SELECT * FROM " . $TableVoter . 
 						// " LEFT JOIN DataStreet ON (DataStreet.DataStreet_Name = Raw_Voter_ResStreetName) " .
 						" WHERE " . 
@@ -832,12 +645,11 @@ class RepMyBlock extends queries {
 	}	
 
 	/* This is for the search of the $VI in the other file */
-	function SearchVotersIndexesDB($ArrIndexes, $DatedFiles) {
+	function SearchVotersIndexesDB($ArrIndexes) {
 
 		if ( empty ($ArrIndexes)) return 0;
 		$sql_index = "";
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-				
+
 		foreach ($ArrIndexes as $var) {
 			if ( ! empty ($var)) {
 				if ( ! empty ($sql_index)) { $sql_index .= " OR "; }
@@ -849,10 +661,35 @@ class RepMyBlock extends queries {
 						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID ) " . 
 						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID ) " .
 						#"LEFT JOIN Raw_Voter ON (Raw_Voter.Raw_Voter_UniqNYSVoterID = VotersIndexes.VotersIndexes_UniqNYSVoterID) " . 
-						"LEFT JOIN " . $TableVoter . " ON (" . $TableVoter . ".Raw_Voter_UniqNYSVoterID = VotersIndexes.VotersIndexes_UniqNYSVoterID) " .		
+						#"LEFT JOIN " . $TableVoter . " ON (" . ".Raw_Voter_UniqNYSVoterID = VotersIndexes.VotersIndexes_UniqNYSVoterID) " .		
 						"WHERE " . $sql_index;
 		
 		return $this->_return_multiple($sql);		
+	}
+	
+	function SearchUserVoterCard($SystemUserID) {
+		$sql = "SELECT * FROM SystemUser " .
+						"LEFT JOIN Voters ON (Voters.Voters_ID = SystemUser.Voters_ID) " . 
+						"LEFT JOIN VotersIndexes ON (VotersIndexes.VotersIndexes_ID = Voters.VotersIndexes_ID) " .
+						"LEFT JOIN DataState ON (DataState.DataState_ID = VotersIndexes.DataState_ID) " .
+						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID) " .  
+						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID) " .  
+						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID) " .
+						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
+						"LEFT JOIN DataAddress ON (DataAddress.DataAddress_ID = DataHouse.DataAddress_ID) " .
+						"LEFT JOIN DataStreet ON (DataAddress.DataStreet_ID = DataStreet.DataStreet_ID) " .
+						"LEFT JOIN DataCity ON (DataCity.DataCity_ID = DataAddress.DataCity_ID) " .
+						"LEFT JOIN DataDistrictTemporal on (DataHouse.DataDistrictTemporal_GroupID = DataDistrictTemporal.DataDistrictTemporal_GroupID) " .
+						"LEFT JOIN DataDistrict ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .		
+						"LEFT JOIN DataCounty ON (DataDistrict.DataCounty_ID = DataCounty.DataCounty_ID) " .				
+
+						
+						"WHERE SystemUser_ID = :SystemID";
+		$sql_vars = array("SystemID" => $SystemUserID);
+		
+		WriteStderr($sql, "sql");
+		
+		return $this->_return_simple($sql, $sql_vars);
 	}
 	
 	function CreateSysmterUserAndUpdateProfile($TempEmail, $ProfileArray = "", $Person = "") {

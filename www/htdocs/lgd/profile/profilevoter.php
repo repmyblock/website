@@ -6,15 +6,20 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 	
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-  if (empty ($URIEncryptedString["VotersIndexes_UniqStateVoterID"])) { header("Location: /" . $k . "/lgd/profile/input"); exit(); }
+  if (empty ($URIEncryptedString["UniqNYSVoterID"])) { header("Location: /" . $k . "/lgd/profile/input"); exit(); }
 	
 	$rmb = new repmyblock();
 	
 	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
-	//	$rmbvoters = $rmb->SearchVotersBySingleIndex($URIEncryptedString["VotersIndexes_ID"], $DatedFiles);
-	$rmbvoters = $rmb->SearchVoterDBbyNYSID($URIEncryptedString["UniqNYSVoterID"], $DatedFiles);
-	$rmbvoters = $rmbvoters[0];
+	//	$rmbperson = $rmb->SearchVotersBySingleIndex($URIEncryptedString["VotersIndexes_ID"], $DatedFiles);
+	//$rmbperson = $rmb->SearchVoterDBbyNYSID($URIEncryptedString["UniqNYSVoterID"], $DatedFiles);
+
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	WriteStderr($rmbperson, "SearchUserVoterCard");
 	
+	
+	// Need to go find the right data.
+
 	$TopMenus = array ( 
 								array("k" => $k, "url" => "profile/profile", "text" => "Public Profile"),
 								array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
@@ -59,16 +64,14 @@
 						<div class="list-group-item filtered">
 							
 							<?php 
-								preg_match('/^NY0+(.*)/', $rmbvoters["Raw_Voter_UniqNYSVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
-								$UniqVoterID = "NY" . $UniqMatches[1][0];
+								// This need to be updated for the right state						
+								preg_match('/^NY0+(.*)/', $rmbperson["VotersIndexes_UniqStateVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
+								$UniqVoterID = $rmbperson["DataState_Abbrev"] . $UniqMatches[1][0]; 
 						?>
 						
-						
-							
-							
 									<P>
 									<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
-									<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $rmbvoters["Raw_Voter_Status"] ?></FONT>
+									<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $rmbperson["Voters_Status"] ?></FONT>
 									</P>
 									
 									
@@ -81,10 +84,10 @@
 										<TH style="padding:0px 10px;">Suffix</TH>
 									</TR>
 									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_FirstName"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_MiddleName"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_LastName"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_Suffix"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataFirstName_Text"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataMiddleName_Text"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataLastName_Text"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["VotersIndexes_Suffix"] ?></TD>
 									</TR>
 								</TABLE>
 									
@@ -97,15 +100,16 @@
 										<TH style="padding:0px 10px;">County</TH>
 									</TR>
 									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_AssemblyDistr"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_ElectDistr"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_CongressDistr"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["DataCounty_Name"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_StateAssembly"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Electoral"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Congress"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataCounty_Name"] ?></TD>
 									</TR>
 								</TABLE>
 								
 									<BR>
-										
+									
+													
 									<TABLE BORDER=1>
 									<TR>
 										<TH style="padding:0px 10px;">Address</TH>
@@ -113,16 +117,16 @@
 									</TR>
 									<TR>
 										<TD style="padding:0px 10px;">		
-											<?php if (! empty ($rmbvoters["Raw_Voter_ResHouseNumber"])) echo $rmbvoters["Raw_Voter_ResHouseNumber"]; ?>
-											<?php if (! empty ($rmbvoters["Raw_Voter_ResFracAddress"]))  echo $rmbvoters["Raw_Voter_ResFracAddress"]; ?>
-											<?php if (! empty ($rmbvoters["Raw_Voter_ResPreStreet"])) echo $rmbvoters["Raw_Voter_ResPreStreet"]; ?>
-											<?php if (! empty ($rmbvoters["Raw_Voter_ResStreetName"])) echo $rmbvoters["Raw_Voter_ResStreetName"]; ?>
-											<?php if (! empty ($rmbvoters["Raw_Voter_ResPostStDir"])) echo $rmbvoters["Raw_Voter_ResPostStDir"]; ?>
-											<?php if (! empty ($rmbvoters["Raw_Voter_ResApartment"])) echo " - Apt " . $rmbvoters["Raw_Voter_ResApartment"]; ?>
+											<?php if (! empty ($rmbperson["DataAddress_HouseNumber"])) echo $rmbperson["DataAddress_HouseNumber"]; ?>
+											<?php if (! empty ($rmbperson["DataAddress_FracAddress"]))  echo $rmbperson["DataAddress_FracAddress"]; ?>
+											<?php if (! empty ($rmbperson["DataAddress_PreStreet"])) echo $rmbperson["DataAddress_PreStreet"]; ?>
+											<?php if (! empty ($rmbperson["DataStreet_Name"])) echo $rmbperson["DataStreet_Name"]; ?>
+											<?php if (! empty ($rmbperson["DataAddress_PostStreet"])) echo $rmbperson["DataAddress_PostStreet"]; ?>
+											<?php if (! empty ($rmbperson["DataHouse_Apt"])) echo " - Apt " . $rmbperson["DataHouse_Apt"]; ?>
 											<BR>
-											<?= $rmbvoters["Raw_Voter_ResCity"] ?>, NY
-												<?= $rmbvoters["Raw_Voter_ResZip"] ?>
-											<?php if (! empty ($rmbvoters["Raw_Voter_ResZip4"])) echo " - " . $rmbvoters["Raw_Voter_ResZip4"]; ?>
+											<?= $rmbperson["DataCity_Name"] . ", " . $rmbperson["DataState_Abbrev"] ?>
+												<?= $rmbperson["DataAddress_zipcode"] ?>
+											<?php if (! empty ($rmbperson["Raw_Voter_ResZip4"])) echo " - " . $rmbperson["Raw_Voter_ResZip4"]; ?>
 											<BR>
 										</TD>
 									</TR>
@@ -136,10 +140,10 @@
 										<TH style="padding:0px 10px;">Senate</TH>
 									</TR>
 									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_LegisDistr"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_TownCity"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_Ward"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_SenateDistr"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Legislative"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["Raw_Voter_TownCity"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Ward"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_SenateSenate"] ?></TD>
 									</TR>
 								</TABLE>
 									<BR>
@@ -152,16 +156,16 @@
 										<TH style="padding:0px 10px;">Party</TH>
 									</TR>
 									<?php
-										$dob = new DateTime($rmbvoters["Raw_Voter_DOB"]);
+										$dob = new DateTime($rmbperson["VotersIndexes_DOB"]);
 	 									$now = new DateTime();
 	 									$difference = $now->diff($dob);
 									?>
 									
 									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= PrintShortDate($rmbvoters["Raw_Voter_DOB"]); ?></TD>
+										<TD style="padding:0px 10px;"><?= PrintShortDate($rmbperson["VotersIndexes_DOB"]); ?></TD>
 										<TD style="padding:0px 10px;"><?= $difference->y; ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_Gender"] ?></TD>
-										<TD style="padding:0px 10px;"><?= NewYork_PrintParty($rmbvoters["Raw_Voter_EnrollPolParty"]) ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["Voters_Gender"] ?></TD>
+										<TD style="padding:0px 10px;"><?= NewYork_PrintParty($rmbperson["Voters_RegParty"]) ?></TD>
 									</TR>
 								</TABLE>
 									<BR>
@@ -171,7 +175,7 @@
 									</TR>
 									
 									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $rmbvoters["Raw_Voter_CountyVoterNumber"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["Voters_CountyVoterNumber"] ?></TD>
 									</TR>
 								</TABLE>
 								

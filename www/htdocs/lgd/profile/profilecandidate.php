@@ -14,7 +14,7 @@
 			$Encrypted_URL .= "&Position[]=" . $var;
 		}
 		
-		header("Location: /lgd/" . rawurlencode(EncryptURL($Encrypted_URL)) . "/verify");
+		header("Location: /" . rawurlencode(EncryptURL($Encrypted_URL)) . "/lgd/profile/runposition");
 		exit();		
 	}
 
@@ -23,7 +23,8 @@
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
 
-	$result = $rmb->ListElectedPositions('NY');
+	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
+	$result = $rmb->ListElectedPositions($rmbperson["DataState_Abbrev"]);
 	
 	if (! empty($result)) {
 		foreach($result as $var) {

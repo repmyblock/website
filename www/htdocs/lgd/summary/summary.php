@@ -58,13 +58,45 @@
 			  	<h2 class="Subhead-heading">Summary</h2>
 				</div>
 						
-				   
+				<?php 
+					switch ($rmbperson["SystemUser_emailverified"]) {
+						case "no": ?>
+							<P>
+								<B><FONT COLOR=BROWN>Please follow the instructions in the email from</FONT> infos@<?=  $MailFromDomain ?>.</B> 
+								You won't be able to use the system until the email is verified.
+							</P>
+							
+							<P>If you haven't received the email,
+								you can send an email to infos@<?=  $MailFromDomain ?> with the subject: "Need to receive link, dbd22886cdb83"
+								that step is performed.
+							</P>		
+						<?php break;
+						
+						case "link": ?>
+							<P>
+								<B><FONT COLOR=BROWN>Please forward the verification email to</FONT> verif@<?=  $MailFromDomain ?>.</B> 
+								You won't be able to use the system until 
+								that step is performed. If you deleted the verification email, click here for alternative instructions.
+							</P>
+						<?php break;
+						
+						case "reply": ?>
+							<P>
+								<B><FONT COLOR=BROWN>Please follow the instructions in the email from</FONT> infos@<?=  $MailFromDomain ?> and click
+								on the link attached.</FONT></B>
+								If you deleted the verification email, click here for alternative instructions.
+							</P>
+				<?php break; 
+					} ?>
+
+
 				
 				<?php if ($MenuDescription == "District Not Defined") { ?>
+							
 				
-				<P>
-					<A HREF="/<?= $k ?>/lgd/profile/profile">Please update your Personal Profile so we can complete the summary information.</A>
-				</P>		
+					<P>
+						<A HREF="/<?= $k ?>/lgd/profile/profile">Please update your Personal Profile so we can complete the summary information.</A>
+					</P>		
 					
 				<?php } ?>
 				   
@@ -92,14 +124,7 @@
 					to the board of elections. <B>Just follow the 
 					<A HREF="/<?= $k ?>/exp/howto">instruction posted on the FAQ</A>.</B>
 				</P>
-				
-						
-				<P>
-					The <A TARGET="CCSUN" HREF="https://CCSunlight.org">CC Sunlight Project</A> has put together a very
-					good Run Kit. You can download 
-					<A TARGET="CCSUN"HREF="https://drive.google.com/drive/folders/1CLpq48zFPQbHCeMN_3IKHVM65xejA354">from here.</A>
-				</P>
-	  
+			  
 			</DIV>
 		</DIV>
 	</DIV>

@@ -47,8 +47,6 @@
 	}
 	
 	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
-	if ( $VerifVoter == 1 && $rmbperson["Raw_Voter_ID"] > 0 ) { $VerifVoter = 0; }
-	if ( $VerifEmail == 1 && $rmbperson["SystemUser_emailverified"] == 'yes') { $VerifEmail = 0; }
 	
 	if ( $URIEncryptedString["SystemUser_ID"] == "TMP" ) {
 	
@@ -64,28 +62,26 @@
 		
 	} else {
 		
+	
+		WriteStderr($rmbperson, "rmbperson array");
+		
 		$PersonFirstName = $rmbperson["SystemUser_FirstName"];
 		$PersonLastName  = $rmbperson["SystemUser_LastName"];
 		$PersonEmail     = $rmbperson["SystemUser_email"];
 		$PersonBio       = $rmbperson["SystemUserProfile_bio"];
 		$PersonURL       = $rmbperson["SystemUserProfile_URL"];
 		$PersonLocation  = $rmbperson["SystemUserProfile_Location"];
-		
-		if ( $VerifVoter == 1) { $NewEncryptFile .= "&VerifVoter=1"; }
-		if ( $VerifEmail == 1) { $NewEncryptFile .= "&VerifEmail=1"; }
-		
+			
 		$EncodeString =
 					array( 
-						"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
-						"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
-						"FirstName" => $PersonFirstName, "LastName" => $PersonLastName,
-						"VotersIndexes_ID" =>  $URIEncryptedString["VotersIndexes_ID"], 
-						"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
-						"UserParty" => $URIEncryptedString["UserParty"], 
+						"SystemUser_ID" => $rmbperson["SystemUser_ID"],	
+						"FirstName" => $PersonFirstName, 
+						"LastName" => $PersonLastName,
+						"VotersIndexes_ID" =>  $rmbperson["VotersIndexes_ID"], 
+						"UniqNYSVoterID" => $rmbperson["Voters_UniqStateVoterID"],
+						"UserParty" => $rmbperson["SystemUser_Party"], 
 						"MenuDescription" => $URIEncryptedString["MenuDescription"],
-						"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
-						"VerifVoter" => $URIEncryptedString["VerifVoter"], 
-						"VerifEmail" => $URIEncryptedString["VerifEmail"],
+						"SystemPriv" => $URIEncryptedString["SystemUser_Priv"],
 						"EDAD" => $URIEncryptedString["EDAD"]
 					);
 		$k = CreateEncoded ($EncodeString);
@@ -93,7 +89,7 @@
 		if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 		$Party = NewYork_PrintParty($UserParty);
 		
-		if ($VerifEmail == true) {
+		if ($rmbperson["SystemUser_emailverified"] == "both") {
 			$TopMenus = array ( 
 										array("k" => $k, "url" => "profile/profile", "text" => "Public Profile"),
 										array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"), 

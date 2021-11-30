@@ -1,5 +1,7 @@
 <?php
 
+	WriteStderr($rmbperson, "RMBPerson in Menu");
+	
 	if (empty ($URIEncryptedString["EDAD"])) { 
 		$MenuDescription = "District Not Defined";
 	} else {
@@ -43,7 +45,6 @@
 <div class="col-3 float-left pr-4">
 	  <nav class="menu position-relative" aria-label="Personal settings" data-pjax>
 	    <h3 class="menu-heading"><?= $MenuDescription ?></h3>
-	    
 			<?php if ( ! empty ($rmbperson["SystemUser_Priv"]) ) { ?>
 		 		<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_SUMMARY ) { ?><a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/summary/summary">Summary</a><?php } ?>
 		    <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DISTRICT ) { ?><a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/district/district">District</a><?php } ?>

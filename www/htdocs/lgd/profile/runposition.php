@@ -16,7 +16,7 @@
 	}
 	
 	$rmb = new RMB_newyork();
-	$result = $rmb->SearchVoterDBbyNYSID($URIEncryptedString["UniqNYSVoterID"], $DatedFiles);
+	$result = $rmb->SearchVoterDBbyNYSID($URIEncryptedString[""]);
 	
 	// This the the logic for populating the candidate field
 	if ( ! empty ($_POST)) {

@@ -21,7 +21,7 @@
 			//I don't care anymore about the number of voters in the district.
 			$NumberOfVoterInDistrict = $rmb->FindVotersForEDAD($_POST["ElectionsDistricts_DBTable"], 
 																													$_POST["ElectionsDistricts_DBTableValue"], $_POST["Voters_RegParty"]);	
-			$rmb->UpdateSystemUserWithVoterCard($_POST["SystemUser_ID"], $_POST["VotersIndexes_ID"], 
+			$rmb->UpdateSystemUserWithVoterCard($_POST["SystemUser_ID"], $_POST["Voters_ID"], 
 																					$_POST["VotersIndexes_UniqStateVoterID"], $_POST["ElectionsDistricts_DBTableValue"], 
 																					$_POST["Voters_RegParty"], 
 																					count($NumberOfVoterInDistrict));
@@ -30,7 +30,7 @@
 									"SystemUser_ID" => $_POST["SystemUser_ID"],
 									"FirstName" => $_POST["FirstName"], 
 									"LastName" => $_POST["LastName"],
-									"VotersIndexes_ID" => $_POST["VotersIndexes_ID"],
+									"VotersIndexes_ID" => $_POST["Voters_ID"],
 									"UniqNYSVoterID" => $_POST["VotersIndexes_UniqStateVoterID"],
 									"EDAD" => $_POST["ElectionsDistricts_DBTable"], 
 									"UserParty" => $_POST["Voters_RegParty"]
@@ -47,7 +47,7 @@
 	} 
 	
 	$rmbvoters = $rmb->ReturnVoterIndex($URIEncryptedString["VotersIndexes_ID"]);
-	WriteStderr($rmbvoters, "ReturnVoterIndex");
+	WriteStderr($rmbvoters, "ReturnIndex");
 	
 	if ( empty ($rmbvoters["VotersIndexes_UniqStateVoterID"])) {
 		$rmbvoteridx = $rmb->SearchLocalRawDBbyNYSID($rmbvoters["VotersIndexes_UniqStateVoterID"]);
@@ -114,7 +114,7 @@
 				<INPUT TYPE="HIDDEN" VALUE="<?= $UniqVoterID ?>" NAME="VotersIndexes_UniqStateVoterID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTable"] ?>" NAME="ElectionsDistricts_DBTable">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTableValue"] ?>" NAME="ElectionsDistricts_DBTableValue">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["VotersIndexes_ID"] ?>" NAME="VotersIndexes_ID">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_ID"] ?>" NAME="Voters_ID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $URIEncryptedString["SystemUser_ID"] ?>" NAME="SystemUser_ID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_RegParty"] ?>" NAME="Voters_RegParty">				
 				

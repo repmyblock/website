@@ -14,22 +14,28 @@
 				
 				// Move the information from Temp to Master.
 				$ret = $r->CheckUsername($URIEncryptedString["username"]);
-				WriteStderr($ret, "CheckUsername with " . $URIEncryptedString["username"]);
+				WriteStderr($ret, "RET VAR CheckUsername with " . $URIEncryptedString["username"]);
 				
 				if ( empty ($ret["SystemUser_ID"])) {
 					$TypeEmailVerif = "link";
-					if ( $ret["SystemTemporaryUser_emailverified"] == "yes") { $TypeEmailVerif = "both"; }
-					$r->MovedSystemUserToMainTable($ret["SystemTemporaryUser_email"], $TypeEmailVerif);
-				}
+					if ( $ret["SystemTemporaryUser_emailverified"] == "reply") { $TypeEmailVerif = "both"; }
+					$ret = $r->MovedSystemUserToMainTable($ret["SystemTemporaryUser_email"], $TypeEmailVerif);
 					
-				if ($URIEncryptedString["SystemUser_ID"] > 0 ) {				
+					WriteStderr($ret, "RET VAR after MovedSystemUserToMainTable with " . $URIEncryptedString["username"]);
+				}
+				
+				// if Systerm_USER .... 
+				
+				WriteStderr($ret, "CheckUsername with " . $URIEncryptedString["username"]);
+					
+				if ($ret["SystemUser_ID"] > 0 ) {				
 					$VariableToPass = array( 
-						"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-						"FirstName=" => $resultPass["SystemUser_FirstName"],
-						"LastName=" => $resultPass["SystemUser_LastName"], 
-						"VotersIndexes_ID=" => $resultPass["VotersIndexes_ID"],
-						"UniqNYSVoterID=" => $resultPass["Raw_Voter_UniqNYSVoterID"],
-						"UserParty=" => $resultPass["Raw_Voter_RegParty"]
+						"SystemUser_ID" => $ret["SystemUser_ID"],
+						"FirstName=" => $ret["SystemUser_FirstName"],
+						"LastName=" => $ret["SystemUser_LastName"], 
+						"VotersIndexes_ID=" => $ret["VotersIndexes_ID"],
+						"UniqNYSVoterID=" => $ret["Raw_Voter_UniqNYSVoterID"],
+						"UserParty=" => $ret["Raw_Voter_RegParty"]
 					);				
 
 					header("Location: /" . CreateEncoded($VariableToPass, $VariableToRemove) . "/lgd/summary/summary");

@@ -29,7 +29,6 @@ function WriteStderr($Data, $Message = "") {
 	 
 	// Need to save the information
 	if ( $Developping == 1) {	
-				
 		if ( ! empty ($Message)) {
 			error_log($Message . ": " . print_r($Data, 1));
 		} else {
@@ -139,7 +138,9 @@ function CreateEncoded($VariableToPass, $VariableToRemove = "") {
 			if ( ! empty ($value)) {
 				if (! empty($URLString)) { $URLString .= "&"; }
 				$URLString .= $var . "=" . $value;
-				error_log ("Create Encoded Var: $var\tValue: $value");	
+				if ( $Developping == 1) {	
+					error_log ("Create Encoded Var: $var\tValue: $value");	
+				}
 			}
 		}		
 	}

@@ -305,7 +305,6 @@ class login extends queries {
 	}
 	
 	function MovedSystemUserToMainTable($TempEmail, $TypeEmailVerif) {
-		
 		$sql = "INSERT INTO SystemUser (SystemUser_email, SystemUser_emailverified, SystemUser_username, SystemUser_password, " . 
 																		"SystemUser_createtime, SystemUser_lastlogintime, SystemUser_Priv"; 
 		$sql .= ") " .
@@ -318,13 +317,21 @@ class login extends queries {
 		$sql = "SELECT LAST_INSERT_ID() as SystemUser_ID";
 		$ret = $this->_return_simple($sql);
 
-		$sql = "UPDATE SystemTemporaryUser SET SystemUser_ID = :SystemUserID,  SystemTemporaryUser_password = null, SystemTemporaryUser_emaillinkid = null WHERE SystemTemporaryUser_email = :TempEmail"; 
+		$sql = "UPDATE SystemTemporaryUser SET SystemUser_ID = :SystemUserID,  SystemTemporaryUser_password = null, " . 
+						"SystemTemporaryUser_emaillinkid = null WHERE SystemTemporaryUser_email = :TempEmail"; 
 		$sql_vars = array("TempEmail" => $TempEmail, "SystemUserID" => $ret["SystemUser_ID"]);
 		$this->_return_nothing($sql, $sql_vars);	
 		
 		$this->SaveInscriptionRecord ($TempEmail, $Username, "convert", $ret["SystemUser_ID"]);	
 		return $this->FindPersonUserProfile($ret["SystemUser_ID"]);
-		
+	}
+	
+	function FindPersonUserProfile($SystemUserID) {
+		$sql = "SELECT * FROM SystemUser " . 
+						"LEFT JOIN SystemUserProfile ON (SystemUser.SystemUserProfile_ID = SystemUserProfile.SystemUserProfile_ID) " . 
+						"WHERE SystemUser_ID = :ID";	
+		$sql_vars = array(':ID' => $SystemUserID);											
+		return $this->_return_simple($sql,  $sql_vars);		
 	}
 	
 	function FindSystemUser_ID($SystemUserVoterID) {
