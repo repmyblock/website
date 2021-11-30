@@ -1,4 +1,3 @@
-<!--- REPLACELINKWITHVERSIONTAG --->
 <?php
 	error_reporting(E_ERROR | E_PARSE);
 	if ( preg_match('/Mobile/', $_SERVER['HTTP_USER_AGENT'])) { $MobileDisplay = true; }
