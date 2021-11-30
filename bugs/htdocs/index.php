@@ -2,12 +2,12 @@
 <html lang="en-US" prefix="og: http://ogp.me/ns#" class="no-js">
 	<HEAD>
 		<META charset="UTF-8">
-		<TITLE>Rep My Block - Represent My Block - Upload a File</TITLE>
-		<link rel="icon" href="https://repmyblock.nyc/pics/favicon/favicon.ico" type="image/x-icon">
-		<link rel="shortcut icon" href="https://repmyblock.nyc/pics/favicon/favicon.ico" type="image/x-icon">
-		<link rel="stylesheet" type="text/css" href="https://repmyblock.nyc/pics/icons/css/all.min.css" >		
-		<link rel="stylesheet" type="text/css" href="https://repmyblock.nyc/font/montserrat.css">
-		<link rel="stylesheet" type="text/css" href="https://repmyblock.nyc/css/RepMyBlock.css">		
+		<TITLE>Rep My Block - Represent My Block - Enter a bug</TITLE>
+		<link rel="icon" href="https://repmyblock.org/pics/favicon/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="https://repmyblock.org/pics/favicon/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="https://repmyblock.org/pics/icons/css/all.min.css" >		
+		<link rel="stylesheet" type="text/css" href="https://repmyblock.org/font/montserrat.css">
+		<link rel="stylesheet" type="text/css" href="https://repmyblock.org/css/RepMyBlock.css">		
 
 		<style>
 		#drop_file_zone {
@@ -73,18 +73,18 @@
 	<BODY>
 		<DIV class="header">
 			<div class="header-left">
-		 		<a href="https://repmyblock.nyc" class="logo"><IMG SRC="https://static.repmyblock.nyc/pics/logo/RepMyBlock.png" height=70 class="header-logo"></a>
+		 		<a href="https://repmyblock.nyc" class="logo"><IMG SRC="https://static.repmyblock.org/pics/logo/RepMyBlock.png" height=70 class="header-logo"></a>
 			</DIV>
 		  <div class="header-right">
-  	  	<a href="https://repmyblock.nyc/exp/website/contact">CONTACT</a>
-	    	<a href="https://repmyblock.nyc/exp/website/login">LOGIN</a>
+  	  	<a href="https://repmyblock.org/frombug/exp/contact/contact">CONTACT</a>
+	    	<a href="https://repmyblock.org/frombug/exp/login/login">LOGIN</a>
 		  </DIV>
 		</DIV> 
 		
 		<div class="navbar">
-		  <a href="https://repmyblock.nyc//exp/website/propose">NOMINATE</a>
-		  <a href="https://repmyblock.nyc/exp/website/interested">REPRESENT</a>
-		  <a href="https://repmyblock.nyc/about/" class="active">ABOUT</a> 
+		  <a href="https://repmyblock.org/frombug/exp/propose/nomination">NOMINATE</a>
+		  <a href="https://repmyblock.org/frombug/training/steps/torun">REPRESENT</a>
+		  <a href="https://repmyblock.org/frombug/exp/toplinks/about">ABOUT</a> 
 		</div>
 
 		<div class="main">
@@ -108,12 +108,12 @@
 			
 			<P CLASS="footerclass2">
 				<DIV CLASS="FooterLinks">
-					<A HREF="https://repmyblock.nyc/exp/website/about">ABOUT</A>
-					<A HREF="https://repmyblock.nyc/exp/website/interested">REPRESENT</A>
-					<A HREF="https://repmyblock.nyc/exp/website/propose">NOMINATE</A>
-					<A HREF="https://repmyblock.nyc/exp/website/howto">HOWTO</A>
-					<A HREF="https://repmyblock.nyc/exp/website/contact">CONTACT</A>
-					<A HREF="https://repmyblock.nyc/exp/website/login">LOGIN</A>
+					<A HREF="https://repmyblock.org/frombug/exp/toplinks/about">ABOUT</A>
+					<A HREF="https://repmyblock.org/frombug/training/steps/torun">REPRESENT</A>
+					<A HREF="https://repmyblock.org/frombug/exp/propose/nomination">NOMINATE</A>
+					<A HREF="https://repmyblock.org/frombug/exp/toplinks/howto">HOWTO</A>
+					<A HREF="https://repmyblock.org/frombug/exp/contact/contact">CONTACT</A>
+					<A HREF="https://repmyblock.org/frombug/exp/login/login">LOGIN</A>
 				</DIV>
 			
 				<DIV CLASS="FooterSocial">
@@ -123,7 +123,7 @@
 				</DIV>
 			
 				<DIV CLASS="FooterStuff">
-					<I>RepMyBlock is a <A HREF="https://repmyblock.us">Represent My Block</A> project.</I>
+					<I>RepMyBlock is a <A HREF="https://github.com/repmyblock">Represent My Block</A> project.</I>
 				</DIV>
 			</P>
 		</DIV>			
