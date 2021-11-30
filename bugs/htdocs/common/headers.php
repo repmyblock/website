@@ -6,7 +6,7 @@
 		$MenuLogin = "logged"; 
 		$middleuri = rawurlencode($k);	
 	} else {
-		$middleuri = "website";
+		$middleuri = "frombug";
 	}
 	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png"; }	
 ?><!DOCTYPE html>
@@ -14,12 +14,12 @@
 	<HEAD>
 		<META charset="UTF-8">
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:description" content="Registrations for the 2021 Citywide Republican county committee and 2021 Manhattan and Staten Island Democratic county committee have started. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; its their backbone. The &hellip; Continue reading Rep My Block &rarr;" />
+		<meta name="twitter:description" content="Registrations for the 2022 Citywide Republican county committee and 2022 Manhattan and Staten Island Democratic county committee have started. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; its their backbone. The &hellip; Continue reading Rep My Block &rarr;" />
 		<meta name="twitter:title" content="Rep My Block - Rep My Block" />
 		<meta name="twitter:site" content="@RepMyBlock" />
 		<meta name="twitter:image" content="https://static.repmyblock.nyc/pics/paste/PoliticalMachineKeepEngagementLow.jpg" />
 		<meta name="twitter:creator" content="@RepMyBlock" />
-		<TITLE>Rep My Block - Represent My Block - Nominate A Candidate</TITLE>
+		<TITLE>Rep My Block - Represent My Block - Submit a bug</TITLE>
 		<link rel="icon" href="/images/favicon/favicon.ico" type="image/x-icon">
 		<link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="/images/icons/css/all.min.css" >		
@@ -56,7 +56,7 @@
 			  <a href="/" class="logo"><IMG SRC="<?= $imgtoshow ?>" class="header-logo"></a>
 			</DIV>
 		  <div class="header-right">
-  	  	<a class="login" href="<?= $FrontEndWebsite ?>/exp/<?= $middleuri ?>/contact">CONTACT</a>
+  	  	<a class="login" href="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/contact/contact">CONTACT</a>
 		  </DIV>
 		   <CENTER><B><FONT SIZE=+3>BUG INTAKE WEBSITE</FONT></B></CENTER>
 		</DIV>

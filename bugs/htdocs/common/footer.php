@@ -1,5 +1,3 @@
-
-
 		<div class="footer">
 			<P CLASS="footerclass1">
 				<DIV CLASS="FooterTitle">REP MY BLOCK</DIV>
@@ -8,16 +6,16 @@
 			<P CLASS="footerclass2">
 				<DIV CLASS="FooterLinks">
 <?php if ( $MenuLogin == "logged") { ?>
-  <a href="<?= $FrontEndWebsite ?>/exp/<?= $middleuri ?>/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
-  <a href="<?= $FrontEndWebsite ?>/lgd/<?= $middleuri ?>/list"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="<?= $FrontEndWebsite ?>/exp/<?= $middleuri ?>/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a>
+  <a href="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/toplinks/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/training/steps/torun"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
+  <a href="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/propose/nomination"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a>
 <?php } else { ?>							
-					<A HREF="<?= $FrontEndWebsite ?>/exp/<?= $middleuri ?>/about">ABOUT</A>
-					<A HREF="<?= $FrontEndWebsite ?>/exp/<?= $middleuri ?>/interested">REPRESENT</A>
-					<A HREF="<?= $FrontEndWebsite ?>/exp/<?= $middleuri ?>/propose">NOMINATE</A>
+					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/toplinks/about">ABOUT</A>
+					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/training/steps/torun">REPRESENT</A>
+					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/propose/nomination">NOMINATE</A>
 <?php } ?>  
-					<A HREF="<?= $FrontEndWebsite ?>/exp/<?= $middleuri ?>/howto">HOWTO</A>
-					<A HREF="<?= $FrontEndWebsite ?>/exp/<?= $middleuri ?>/contact">CONTACT</A>
+					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/toplinks/howto">HOWTO</A>
+					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/contact/contact">CONTACT</A>
 					<A HREF="<?= $FrontEndBugs ?>/bugs/<?= CreateEncoded ( array( 	
 																																	"Referer" =>  $_SERVER['HTTP_REFERER'],
 																																	"URI" => $_SERVER['REQUEST_URI'],
@@ -26,10 +24,11 @@
 																																	"PageRequestTime" => $_SERVER['REQUEST_TIME']
 																																))?>/intake">BUG</A>
 <?php if ( $MenuLogin == "logged") { ?>
-				  <a href="<?= $FrontEndWebsite ?>/lgd/<?= $middleuri ?>/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
+				  <a href="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/lgd/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
 <?php } else { ?>							
-					<A HREF="<?= $FrontEndWebsite ?>/exp/<?= $middleuri ?>/login">LOGIN</A>
+					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/login/login">LOGIN</A>
 <?php } ?>  
+
 				</DIV>
 				<DIV CLASS="FooterSocial">
 					<A TARGET="twitter" CLASS="FooterSocial" HREF="https://twitter.com/RepMyBlock">Twitter</A>
@@ -37,7 +36,7 @@
 					<A TARGET="instagram" CLASS="FooterSocial"  HREF="https://www.instagram.com/RepMyBlockNYC">Instagram</A>
 				</DIV>
 				<DIV CLASS="FooterStuff">
-					<I>RepMyBlock is a <A HREF="https://RepMyBLock.us">RepMyBlock</A> project.</I>
+					<I>RepMyBlock is a <A TARGET="ARMBPROJ" HREF="https://github.com/repmyblock">RepMyBlock</A> project.</I>
 				</DIV>
 			</P>
 		</DIV>			
@@ -48,5 +47,4 @@
 	$OverAllMicrotimeEnd = microtime(true);
 	WriteStderr($OverAllMicrotimeEnd, " ------------------------------------------------------------ Microtime");
 	WriteStderr(($OverAllMicrotimeEnd - $OverAllMicrotimeStart) . "\n\n\n", "Total Process Time");
-	
 ?>
