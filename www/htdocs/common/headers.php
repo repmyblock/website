@@ -1,4 +1,3 @@
-<?php $BetaVersion = "frontend-dev2020"; ?>
 <?php
 	error_reporting(E_ERROR | E_PARSE);
 	if ( preg_match('/Mobile/', $_SERVER['HTTP_USER_AGENT'])) { $MobileDisplay = true; }
@@ -95,12 +94,5 @@
 <?php /*    <a href="/<?= $middleuri ?>/exp/propose"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
   <a href="/<?= $middleuri ?>/training/steps/torun"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
   <a href="/<?= $middleuri ?>/exp/toplinks/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
-<?php } ?> 
-<B>Version: <?= $BetaVersion ?></B> <A HREF="<?= $FrontEndBugs ?>/bugs/<?= CreateEncoded ( array( 	
-																																							"Referer" =>  $_SERVER['HTTP_REFERER'],
-																																							"URI" => $_SERVER['REQUEST_URI'],
-																																							"DocumentRoot" => $_SERVER['DOCUMENT_ROOT'],
-																																							"Version" => $BetaVersion,
-																																							"PageRequestTime" => $_SERVER['REQUEST_TIME']
-																																				))?>/intake">Beta Website - Report a problem with this page</A>
+<?php } ?>
 </div>
