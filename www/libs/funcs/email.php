@@ -905,7 +905,7 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
 					"Before you can activate your account, we need to verify your email address.\n\n"  .
 					
 					"The activation process is a two step process. First you need to click on the verify button " .
-					"and then you will need to forward this email to verif@" .  $MailFromDomain . "\n\n" .
+					"and then you will need to forward this email to notif@" .  $MailFromDomain . "\n\n" .
 					
 					"Please verify your email address by clicking on this link: " .
 					$linktoverify . "\n\n" .
@@ -938,7 +938,7 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
 					
 					"<P>\n" . 
 					"The activation process is a two step process. First you need to click on the verify button " .
-					"and then you will need to forward this email to </B>verif@" .  $MailFromDomain . "</B><BR>\n\n" .
+					"and then you will need to forward this email to </B>notif@" .  $MailFromDomain . "</B><BR>\n\n" .
 
 					"</P>\n" . 
 					
