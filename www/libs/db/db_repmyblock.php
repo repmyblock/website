@@ -692,7 +692,7 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
-	function CreateSysmterUserAndUpdateProfile($TempEmail, $ProfileArray = "", $Person = "") {
+	function CreateSystemUserAndUpdateProfile($TempEmail, $ProfileArray = "", $Person = "") {
 		
 		$sql = "INSERT INTO SystemUser (SystemUser_email, SystemUser_emailverified, SystemUser_username, SystemUser_password, " . 
 																		"SystemUser_emaillinkid, SystemUser_createtime, SystemUser_lastlogintime, SystemUser_Priv"; 

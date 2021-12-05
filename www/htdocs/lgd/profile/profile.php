@@ -29,7 +29,7 @@
 		}
 
 		if ( $URIEncryptedString["SystemUser_ID"] == "TMP") {
-			$rmbperson = $rmb->CreateSysmterUserAndUpdateProfile($URIEncryptedString["SystemTemporaryEmail"], $ProfileArray, $rmbperson);		
+			$rmbperson = $rmb->CreateSystemUserAndUpdateProfile($URIEncryptedString["SystemTemporaryEmail"], $ProfileArray, $rmbperson);		
 			$URIEncryptedString["SystemUser_ID"] = $rmbperson["SystemUser_ID"];
     	$URIEncryptedString["FirstName"] = $rmbperson["SystemUser_FirstName"];
     	$URIEncryptedString["LastName"] = $rmbperson["SystemUser_LastName"];
