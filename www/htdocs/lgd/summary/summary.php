@@ -84,7 +84,7 @@
 						
 						case "link": ?>
 							<P>
-								<B><FONT COLOR=BROWN>Please forward the verification email to</FONT> verif@<?=  $MailFromDomain ?>.</B> 
+								<B><FONT COLOR=BROWN>Please forward the verification email to</FONT> notif@<?=  $MailFromDomain ?>.</B> 
 								You won't be able to use the system until 
 								that step is performed. If you deleted the verification email, click here for alternative instructions.
 							</P>
