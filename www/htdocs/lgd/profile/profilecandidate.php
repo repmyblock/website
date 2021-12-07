@@ -23,7 +23,7 @@
 	$rmb = new repmyblock();
 
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
+	$Party = PrintParty($URIEncryptedString["UserParty"]);
 
 	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
 	$result = $rmb->ListElectedPositions($rmbperson["DataState_Abbrev"]);

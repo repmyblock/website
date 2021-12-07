@@ -164,7 +164,7 @@
 	 									echo $difference->y;				
 									?>
 						<TD style="padding:0px 10px;"><?= $var["Voters_Gender"] ?></TD>
-						<TD style="padding:0px 10px;"><?= NewYork_PrintParty($var["Voters_RegParty"]) ?></TD>
+						<TD style="padding:0px 10px;"><?= PrintParty($var["Voters_RegParty"]) ?></TD>
 					</TR>
 				</TABLE>
 				

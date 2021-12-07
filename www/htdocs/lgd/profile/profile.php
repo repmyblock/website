@@ -87,7 +87,7 @@
 		$k = CreateEncoded ($EncodeString);
 		
 		if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
-		$Party = NewYork_PrintParty($UserParty);
+		$Party = PrintParty($UserParty);
 		
 		if ($rmbperson["SystemUser_emailverified"] == "both") {
 			$TopMenus = array ( 

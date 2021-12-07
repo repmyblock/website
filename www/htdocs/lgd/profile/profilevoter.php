@@ -10,7 +10,7 @@
 	
 	$rmb = new repmyblock();
 	
-	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
+	$Party = PrintParty($URIEncryptedString["UserParty"]);
 	//	$rmbperson = $rmb->SearchVotersBySingleIndex($URIEncryptedString["VotersIndexes_ID"], $DatedFiles);
 	//$rmbperson = $rmb->SearchVoterDBbyNYSID($URIEncryptedString["UniqNYSVoterID"], $DatedFiles);
 
@@ -165,7 +165,7 @@
 										<TD style="padding:0px 10px;"><?= PrintShortDate($rmbperson["VotersIndexes_DOB"]); ?></TD>
 										<TD style="padding:0px 10px;"><?= $difference->y; ?></TD>
 										<TD style="padding:0px 10px;"><?= $rmbperson["Voters_Gender"] ?></TD>
-										<TD style="padding:0px 10px;"><?= NewYork_PrintParty($rmbperson["Voters_RegParty"]) ?></TD>
+										<TD style="padding:0px 10px;"><?= PrintParty($rmbperson["Voters_RegParty"]) ?></TD>
 									</TR>
 								</TABLE>
 									<BR>

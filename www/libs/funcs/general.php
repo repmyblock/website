@@ -91,7 +91,7 @@ function PrintShortTime($Date) {
 	}
 }
 
-function NewYork_PrintParty($Party) {
+function PrintParty($Party) {
 	switch($Party) {
 		case 'DEM': return "Democrat"; break;
 		case 'REP': return "Republican"; break;
@@ -108,7 +108,7 @@ function NewYork_PrintParty($Party) {
 	}
 }
 
-function NewYork_PrintPartyAdjective($Party) {
+function PrintPartyAdjective($Party) {
 	switch($Party) {
 		case 'DEM': return "Democratic"; break;
 		case 'REP': return "Republican"; break;

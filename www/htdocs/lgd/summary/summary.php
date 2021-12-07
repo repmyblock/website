@@ -5,6 +5,7 @@
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
+	include_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php";  
 	
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); exit(); }
   
@@ -16,11 +17,13 @@
 	WriteStderr($NumberPetitions, "NumberPetition");
 	
 	/* Define numbers */
-	$Party = NewYork_PrintParty($rmbperson["SystemUser_Party"]);		
+	
+	preg_match('/([A-Z][A-Z])/', $rmbperson["Voters_UniqStateVoterID"], $matches, PREG_OFFSET_CAPTURE);
+	$VoterState = $matches[1][0];
+	$Party = PrintParty($rmbperson["SystemUser_Party"]);		
 	$NumberOfElectors = $rmbperson["SystemUser_NumVoters"];
 	$NumberOfSignatures = intval($NumberOfElectors * $SignaturesRequired) + 1;
 	$Progress = round ((($NumberPetitions["CandidateSigned"] / $NumberOfElectors) * 100), 2);
-	$DateToWait = "April 1<sup>st</sup>";
 	
 	$NumberOfAddressesOnDistrict = 0;				
 
@@ -29,19 +32,26 @@
 		$BoxSignatures = "Not defined"; 
 		$BoxInDistrict = "Number of voters";
 		$NumberOfElectors = "Not defined";
+		$DayToGo = "Not defined";
 		
 	} else {
 		$BoxInDistrict = $Party . "s in your district";
 		if ($VerifVoter == 1) { $BoxInDistrict = "Verify your voter info."; }
 		$BoxSignatures = $NumberOfSignatures . " (" . $Progress . " %)";
+		$DayToGo = intval(($ImportantDates[$VoterState]["UNIX"]["LastPetitionDay"] - time()) / 86400);
+		$DateToWait = $ImportantDates[$VoterState]["LongDate"]["FirstSubmitDay"]; /// This need to be calculated.
 	}	
+	
+	
+
+	
 	
 	
 	$PersonFirstName = $rmbperson["SystemUser_FirstName"];
 	$PersonLastName  = $rmbperson["SystemUser_LastName"];
 	$PersonEmail     = $rmbperson["SystemUser_Email"];
 
-	$DayToGo = intval(($LastDayPetiton - time()) / 86400);
+
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
@@ -120,7 +130,7 @@
 			
 				<P>
 					Once you collect the  <?= $NumberOfSignatures ?> signatutes plus a few more, 
-					you need to wait until <? $DateToWait ?> to take them
+					you will need to wait until <?= $DateToWait ?> to take them
 					to the board of elections. <B>Just follow the 
 					<A HREF="/<?= $k ?>/exp/howto">instruction posted on the FAQ</A>.</B>
 				</P>

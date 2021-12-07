@@ -183,17 +183,19 @@ class RepMyBlock extends queries {
 						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID ) " .
 						"LEFT JOIN Voters ON (Voters.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " . 
 						"WHERE DataFirstName_Compress = :FirstName AND " . 
-						"DataLastName_Compress = :LastName " . #AND Raw_Voter_Dates_ID = :TableID " .
-						"AND VotersIndexes_DOB = :DOB"; // AND Raw_Voter_Status = :Status"
-						
-		WriteStderr($sql, "SQL request");
-						
+						"DataLastName_Compress = :LastName " .
+						"AND VotersIndexes_DOB = :DOB"; 
 		$sql_vars = array('FirstName' => $CompressedFirstName, 
 											'LastName' => $CompressedLastName, 
 											'DOB' => $DOB);
-											// 'Status' => $Status); 
-											//,'TableID' => $TableID);
-		
+						
+		if (! empty ($Status)) {
+			$sql .= " AND Voters_Status = :Status";
+			$sql_vars["Status"] = $Status;
+		}
+						
+		WriteStderr($sql, "SQL request");
+					
 		return $this->_return_multiple($sql, $sql_vars);		
 	}
 

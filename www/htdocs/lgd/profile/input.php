@@ -9,7 +9,7 @@
 	$rmb = new repmyblock();
 
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $URIEncryptedString["MenuDescription"] = "District Not Defined";}	
-	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
+	$Party = PrintParty($URIEncryptedString["UserParty"]);
 
 	if ( ! empty ($_POST["Year"])) {
 		WriteStderr($_POST, "Input \$_POST");
@@ -28,7 +28,7 @@
 		
 		// Before we go and search the Database, we need to check that the DOB info is right.
 		
-	 	$result = $rmb->SearchVoterDB($DBFirstName, $DBLastName, $DOB);
+	 	$result = $rmb->SearchVoterDB($DBFirstName, $DBLastName, $DOB, "active");
 		WriteStderr($result, "SearchVoterDB(DBFirstName: $DBFirstName, DBLastName: $DBLastName, DOB: $DOB)");
 		
 		switch(count($result)) {
