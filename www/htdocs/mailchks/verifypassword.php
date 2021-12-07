@@ -6,41 +6,47 @@
 	// Check that the hash code exist.
 	WriteStderr($_POST, "_POST");
 	
-	
 	if ( ! empty ($_POST)) {
-		
 		if ( ! empty ($_POST["password"])) {
-			if (password_verify ( $_POST["password"] , $URIEncryptedString["password"] ) == 1) {
-				
-				// Move the information from Temp to Master.
-				$ret = $r->CheckUsername($URIEncryptedString["username"]);
-				WriteStderr($ret, "RET VAR CheckUsername with " . $URIEncryptedString["username"]);
-				
-				if ( empty ($ret["SystemUser_ID"])) {
-					$TypeEmailVerif = "link";
-					if ( $ret["SystemTemporaryUser_emailverified"] == "reply") { $TypeEmailVerif = "both"; }
-					$ret = $r->MovedSystemUserToMainTable($ret["SystemTemporaryUser_email"], $TypeEmailVerif);
-					
-					WriteStderr($ret, "RET VAR after MovedSystemUserToMainTable with " . $URIEncryptedString["username"]);
+			WriteStderr($URIEncryptedString, "URI Passed: " . $URIEncryptedString["username"]);
+			if (password_verify ( $_POST["password"] , $URIEncryptedString["PasswordToCheck"] ) == 1) {
+				switch ($URIEncryptedString["TypeTable"]) {
+					case "Temp":
+						$ret = $r->FindPersonUserTemp($URIEncryptedString["UserID"]);
+						if ( $URIEncryptedString["PasswordToCheck"] == $ret["SystemTemporaryUser_password"] ) {				
+							WriteStderr($ret, "TEMP Table AFTER PASSWORD CHECK: " . $URIEncryptedString["username"]);
+							switch ($ret["SystemTemporaryUser_emailverified"]) { 
+								case 'no': $r->UpdateTemporaryEmailVerification($ret["SystemTemporaryUser_ID"], "link"); break;
+								case 'reply': $r->UpdateTemporaryEmailVerification($ret["SystemTemporaryUser_ID"], "both"); break;
+							}
+						}
+						$VariableToPass = array( 
+							"SystemUser_ID" => "TMP",
+							"Password" => $URIEncryptedString["PasswordToCheck"],
+							"SystemTemporaryEmail" => $ret["SystemTemporaryUser_email"],
+						);
+					break;
+	
+					case "Final":
+						$ret = $r->FindPersonUserProfile($URIEncryptedString["UserID"]);
+						if ( $URIEncryptedString["PasswordToCheck"] == $ret["SystemUser_password"] ) {				
+							WriteStderr($ret, "FINAL Table AFTER PASSWORD CHECK: " . $URIEncryptedString["username"]);
+							switch ($ret["SystemUser_emailverified"]) { 
+								case 'no': $r->UpdateEmailVerification($ret["SystemUser_ID"], "link"); break;
+								case 'reply': $r->UpdateEmailVerification($ret["SystemUser_ID"], "both"); break;
+							}
+						}			
+						$VariableToPass = array( 
+							"SystemUser_ID" => $URIEncryptedString["UserID"],
+							"Password" => $URIEncryptedString["PasswordToCheck"],
+							"SystemTemporaryEmail" => $ret["SystemTemporaryUser_email"],
+						);
+					break;
 				}
 				
-				// if Systerm_USER .... 
 				
-				WriteStderr($ret, "CheckUsername with " . $URIEncryptedString["username"]);
-					
-				if ($ret["SystemUser_ID"] > 0 ) {				
-					$VariableToPass = array( 
-						"SystemUser_ID" => $ret["SystemUser_ID"],
-						"FirstName=" => $ret["SystemUser_FirstName"],
-						"LastName=" => $ret["SystemUser_LastName"], 
-						"VotersIndexes_ID=" => $ret["VotersIndexes_ID"],
-						"UniqNYSVoterID=" => $ret["Raw_Voter_UniqNYSVoterID"],
-						"UserParty=" => $ret["Raw_Voter_RegParty"]
-					);				
-
-					header("Location: /" . CreateEncoded($VariableToPass, $VariableToRemove) . "/lgd/summary/summary");
-					exit();
-				}
+				header("Location: /" . CreateEncoded($VariableToPass, $VariableToRemove) . "/lgd/summary/summary");
+				exit();
 			}
 		}
 		$error_msg = "<FONT COLOR=RED><B>The information did not match our records</B></FONT>";	

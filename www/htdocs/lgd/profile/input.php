@@ -11,9 +11,6 @@
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $URIEncryptedString["MenuDescription"] = "District Not Defined";}	
 	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
 
-	
-
-
 	if ( ! empty ($_POST["Year"])) {
 		WriteStderr($_POST, "Input \$_POST");
 

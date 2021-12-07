@@ -46,6 +46,7 @@
 		}	
 	}
 	
+	
 	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
 	
 	if ( $URIEncryptedString["SystemUser_ID"] == "TMP" ) {
@@ -78,7 +79,6 @@
 						"FirstName" => $PersonFirstName, 
 						"LastName" => $PersonLastName,
 						"VotersIndexes_ID" =>  $rmbperson["VotersIndexes_ID"], 
-						"UniqNYSVoterID" => $rmbperson["Voters_UniqStateVoterID"],
 						"UserParty" => $rmbperson["SystemUser_Party"], 
 						"MenuDescription" => $URIEncryptedString["MenuDescription"],
 						"SystemPriv" => $URIEncryptedString["SystemUser_Priv"],

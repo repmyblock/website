@@ -15,55 +15,39 @@
 	if ( ! empty ($_POST["hashkey"])) {	$hashkey = $_POST["hashkey"]; }
 
 	if ( ! empty ($_POST["username"])) {
+		
 		$r = new login();
 		$result = $r->CheckUsername($_POST["username"]);
+		WriteStderr($result, "CheckUsernameInformation " . $_POST["username"]);
 		
-		if ( $result["SystemTemporaryUser_emailverified"] == "no" && empty ($result["SystemUser_ID"])) {
-			if ($_POST["hashkey"] == $result["SystemTemporaryUser_emaillinkid"]) {
-				
-				if (! empty ($result["SystemTemporaryUser_password"]) && empty ($result["SystemUser_password"])) {
-					$password = $result["SystemTemporaryUser_password"];
-				}
-				
-				$URLToEncrypt = "&password=" .  $password . 
-												"&systemuserid=" . $result["SystemUser_ID"] .
-												"&systemusertempid=" . $result["SystemTemporaryUser_ID"] .
-												"&hashkey=" . $_POST["hashkey"] . 
-												"&username=" . $_POST["username"];
-				// The reason for no else is that the code supposed to go away.
-				header("Location: /" .  rawurlencode(EncryptURL($URLToEncrypt)) . "/mailchks/verifypassword");
-				exit();
-			}
-		}
-		
-		
-		if ( $result["SystemUser_emailverified"] == "no") {		
-			if ($_POST["hashkey"] == $result["SystemUser_emaillinkid"]) {
-				
-				$URLToEncrypt = "SystemUser_ID=" . $result["SystemUser_ID"] . 
-												"&password=" . $result["SystemUser_password"] .
-												"&systemuserid=" . $result["SystemUser_ID"] .
-												"&hashkey=" . $_POST["hashkey"] . 
-												"&username=" . $_POST["username"];
-				// The reason for no else is that the code supposed to go away.
-				header("Location: /" .  rawurlencode(EncryptURL($URLToEncrypt)) . "/mailchks/verifypassword");
-				exit();
-			} else {
-				$error_msg = "<FONT COLOR=RED><B>The information did not match our records</B></FONT>";	
-			}
+		if ( ! empty ($result["SystemTemporaryUser_emaillinkid"] )) {
+			$TypeTable = "Temp";		
+			$SystemHashKey = $result["SystemTemporaryUser_emaillinkid"];
+			$PasswordToCheck = $result["SystemTemporaryUser_password"];
+			$IDToPass = $result["SystemTemporaryUser_ID"];
+			
 		} else {
-					
-					// This is to redirect to another screen in case.
-					
-					$URLToEncrypt = "SystemUser_ID=" . $result["SystemUser_ID"] . 
-												"&password=" . $result["SystemUser_password"] .
-												"&systemuserid=" . $result["SystemUser_ID"] .
-												"&hashkey=" . $_POST["hashkey"] . 
-												"&username=" . $_POST["username"];
-				// The reason for no else is that the code supposed to go away.
-				header("Location: /" .  rawurlencode(EncryptURL($URLToEncrypt)) . "/mailchks/verifypassword");
-				exit();		
+			$TypeTable = "Final";
+			$SystemHashKey = $result["SystemUser_emaillinkid"];		
+			$PasswordToCheck = $result["SystemUser_password"];
+			$IDToPass = $result["SystemUser_ID"];
 		}
+		
+		$VariableToPass = array( 
+			"UserID" => $IDToPass,
+			"PasswordToCheck" => $PasswordToCheck,
+			"TypeTable" => $TypeTable
+		);				
+
+		// If Same, we pass to the password check
+		if ($_POST["hashkey"] == $SystemHashKey) {
+			header("Location: /" . CreateEncoded($VariableToPass, $VariableToRemove) . "/mailchks/verifypassword");
+			exit();
+		
+		} else {
+			$error_msg = "<FONT COLOR=RED><B>The information did not match our records</B></FONT>";	
+		}
+		
 	}
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
@@ -87,7 +71,7 @@
 					</P>
 					
 					<P>
-						<INPUT TYPE="Submit" NAME="signin" VALUE="Log In">
+						<INPUT TYPE="Submit" NAME="signin" VALUE="Verify Email">
 					</P>
 			</FORM>
 	</P>

@@ -14,6 +14,8 @@
 			$Encrypted_URL .= "&Position[]=" . $var;
 		}
 		
+		WriteStderr($_POST, "Post in ProfileCandidate.php");	
+		
 		header("Location: /" . rawurlencode(EncryptURL($Encrypted_URL)) . "/lgd/profile/runposition");
 		exit();		
 	}
@@ -96,6 +98,11 @@
 
 <div class="row">
   <div class="main">
+
+		<P>
+			<B><FONT COLOR=BROWN>If you are a candidate for higher office, please send an email to 
+			</FONT> <A HREF="mailto:candidate@repmyblock.org">candidate@repmyblock.org</A> <FONT COLOR=BROWN>to access the obnibus petitions.</FONT></B>
+		</P>
 
 
 		<FORM ACTION="" METHOD="POST">

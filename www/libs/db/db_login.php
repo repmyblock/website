@@ -326,6 +326,32 @@ class login extends queries {
 		return $this->FindPersonUserProfile($ret["SystemUser_ID"]);
 	}
 	
+	function UpdateTemporaryEmailVerification($ID, $Type) {
+		if ($ID > 0) {
+			$sql = "UPDATE SystemTemporaryUser SET SystemTemporaryUser_emailverified = :Type ";
+			
+			if ( $Type == "both") {
+				$sql .= ", SystemTemporaryUser_emaillinkid = null ";
+			}
+			
+			$sql .= "WHERE SystemTemporaryUser_ID = :ID";
+			$sql_vars = array("ID" => $ID, "Type" => $Type);
+			return $this->_return_nothing($sql, $sql_vars);
+		}
+	}
+	
+	function UpdateEmailVerification($ID, $Type) {
+		if ($ID > 0) {
+			$sql = "UPDATE SystemUser SET SystemUser_emailverified = :Type ";
+			if ( $Type == "both") {
+				$sql .= ", SystemUser_emaillinkid = null ";
+			}
+			$sql .= "WHERE SystemUser_ID = :ID";
+			$sql_vars = array("ID" => $ID, "Type" => $Type);
+			return $this->_return_nothing($sql, $sql_vars);
+		}
+	}
+	
 	function FindPersonUserProfile($SystemUserID) {
 		$sql = "SELECT * FROM SystemUser " . 
 						"LEFT JOIN SystemUserProfile ON (SystemUser.SystemUserProfile_ID = SystemUserProfile.SystemUserProfile_ID) " . 
@@ -333,6 +359,14 @@ class login extends queries {
 		$sql_vars = array(':ID' => $SystemUserID);											
 		return $this->_return_simple($sql,  $sql_vars);		
 	}
+	
+ function FindPersonUserTemp($SystemUserID) {
+  	$sql = "SELECT * FROM SystemTemporaryUser " . 
+  					"LEFT JOIN SystemUser ON (SystemUser.SystemUser_ID = SystemTemporaryUser.SystemUser_ID) " . 	
+  					"WHERE SystemTemporaryUser_ID = :ID";
+  	$sql_vars = array(':ID' => $SystemUserID);											
+		return $this->_return_simple($sql,  $sql_vars);
+  }
 	
 	function FindSystemUser_ID($SystemUserVoterID) {
 		$sql = "SELECT * FROM SystemUser " . 

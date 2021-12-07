@@ -111,7 +111,7 @@
 											$UniqVoterID = "NY" . $UniqMatches[1][0];
 				?>
 				
-				<INPUT TYPE="HIDDEN" VALUE="<?= $UniqVoterID ?>" NAME="VotersIndexes_UniqStateVoterID">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["VotersIndexes_UniqStateVoterID"] ?>" NAME="VotersIndexes_UniqStateVoterID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTable"] ?>" NAME="ElectionsDistricts_DBTable">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTableValue"] ?>" NAME="ElectionsDistricts_DBTableValue">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_ID"] ?>" NAME="Voters_ID">

@@ -4,19 +4,19 @@
 	$BigMenu = "represent";	
 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_rmb_newyork.php";  
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
 
   if ( empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }	
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
 
   if ( empty ($URIEncryptedString["Position"])) { 
-		header("Location: /ldg/" . $k . "/profilecandidate");
+		header("Location: /" . $k . "/ldg/profilecandidate");
 		exit();
 	}
 	
-	$rmb = new RMB_newyork();
-	$result = $rmb->SearchVoterDBbyNYSID($URIEncryptedString[""]);
+	$rmb = new RepMyBlock();
+	$result = $rmb->ReturnVoterIndex($URIEncryptedString["VotersIndexes_ID"]);
 	
 	// This the the logic for populating the candidate field
 	if ( ! empty ($_POST)) {
@@ -33,7 +33,7 @@
 										"&MenuDescription=" . urlencode($URIEncryptedString["MenuDescription"]) . 
 										"&UserParty=" . $URIEncryptedString["UserParty"];
 		
-		header("Location: /ldg/" . rawurlencode(UrlEncrypt($EncryptedURL)) . "/verifydone");
+		header("Location: /" . rawurlencode(UrlEncrypt($EncryptedURL)) . "/ldg/verifydone");
 		exit();
 		
 	}
@@ -50,14 +50,6 @@
 			  <div class="Subhead mt-0 mb-0">
 			    <h2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</h2>
 			  </div>
-     
-<?php 
-				if ($VerifEmail == true) { 
-					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/emailverif.php";
-				} else if ($VerifVoter == true) {
-					include $_SERVER["DOCUMENT_ROOT"] . "/warnings/voterinfo.php";
-				} 
-?>		
   
 				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
 					<div class="UnderlineNav-body">
