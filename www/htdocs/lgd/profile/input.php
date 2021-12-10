@@ -7,9 +7,12 @@
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
+	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
 
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $URIEncryptedString["MenuDescription"] = "District Not Defined";}	
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
+	
+	
 
 	if ( ! empty ($_POST["Year"])) {
 		WriteStderr($_POST, "Input \$_POST");
@@ -95,14 +98,6 @@
 			  <div class="Subhead mt-0 mb-0">
 			    <h2 id="public-profile-heading" class="Subhead-heading">Voter Profile</h2>
 			  </div>
-     
-<?php 
-				if ($VerifEmail == true) { 
-					include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
-				} else if ($VerifVoter == true) {
-					include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
-				} 
-?>		
   
 			<?php
 			 	PlurialMenu($k, $TopMenus);

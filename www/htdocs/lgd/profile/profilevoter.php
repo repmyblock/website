@@ -6,7 +6,7 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 	
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-  if (empty ($URIEncryptedString["UniqNYSVoterID"])) { header("Location: /" . $k . "/lgd/profile/input"); exit(); }
+  if (empty ($URIEncryptedString["VotersIndexes_ID"])) { header("Location: /" . $k . "/lgd/profile/input"); exit(); }
 	
 	$rmb = new repmyblock();
 	
@@ -43,7 +43,6 @@
 			 	PlurialMenu($k, $TopMenus);
 			?>
 
-
 				<div class="Box">
 					<div class="Box-header pl-0">
 						<div class="table-list-filters d-flex">
@@ -56,11 +55,7 @@
 					</div>
 					
 					<div id="voters">
-						
-						
-					
-							
-						
+											
 						<div class="list-group-item filtered">
 							
 							<?php 

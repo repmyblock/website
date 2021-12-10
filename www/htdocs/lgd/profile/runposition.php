@@ -8,7 +8,7 @@
 
   if ( empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }	
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
+	$Party = PrintParty($URIEncryptedString["UserParty"]);
 
   if ( empty ($URIEncryptedString["Position"])) { 
 		header("Location: /" . $k . "/ldg/profilecandidate");
@@ -16,7 +16,8 @@
 	}
 	
 	$rmb = new RepMyBlock();
-	$result = $rmb->ReturnVoterIndex($URIEncryptedString["VotersIndexes_ID"]);
+	//$rmbperson = $rmb->ReturnVoterIndex($URIEncryptedString["VotersIndexes_ID"]);
+	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
 	
 	// This the the logic for populating the candidate field
 	if ( ! empty ($_POST)) {
@@ -38,6 +39,13 @@
 		
 	}
 	
+		$TopMenus = array ( 
+								array("k" => $k, "url" => "profile/profile", "text" => "Public Profile"),
+								array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
+								array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile")
+							);
+	
+	
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
@@ -50,33 +58,10 @@
 			  <div class="Subhead mt-0 mb-0">
 			    <h2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</h2>
 			  </div>
-  
-				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
-					<div class="UnderlineNav-body">
-						<a href="/lgd/<?= $k ?>/profile" class="mobilemenu UnderlineNav-item">Public Profile</a>
-						<a href="/lgd/<?= $k ?>/profilevoter" class="mobilemenu UnderlineNav-item">Voter Profile</a>
-						<a href="/lgd/<?= $k ?>/profilecandidate" class="mobilemenu UnderlineNav-item selected">Candidate Profile</a>
-					</div>
-				</nav>
-
-			  <div class="clearfix gutter d-flex flex-shrink-0">
-
-
-			<div class="row">
-			  <div class="main">
-
-				<FORM ACTION="" METHOD="POST">
-					
-			<?php
-				foreach ($Position as $var) {
-					if ( ! empty ($var)) { 
+  		
+  		<?php
+			 	PlurialMenu($k, $TopMenus);
 			?>
-						<INPUT TYPE="hidden" NAME="Position[]" VALUE="<?= $var ?>">
-			<?php		}
-				}
-			?>
-					
-					
 					
 				<div class="Box">
 			  	<div class="Box-header pl-0">
@@ -89,7 +74,7 @@
 			      We don't know your district <a href="/voter">create one</a>?
 			    </div>
 
-					<div id="voters" >
+					<div id="voters">
 
 							
 									<div class="list-group-item filtered">
@@ -104,8 +89,8 @@
 								 	
 								 	
 			<?php
-							if ( ! empty ($result)) {
-								foreach ($result as $index => $var) { 
+							if ( ! empty ($rmbperson)) {
+								foreach ($rmbperson as $index => $var) { 
 									
 									$PetitionFullName = "";
 									if ( ! empty ($var["Raw_Voter_FirstName"])) { $PetitionFullName .= ucwords(strtolower(trim($var["Raw_Voter_FirstName"]))) . " "; }
@@ -139,34 +124,28 @@
 									<INPUT TYPE="hidden" NAME="PetitionName" VALUE="<?= $PetitionFullName ?>">
 									<INPUT TYPE="hidden" NAME="PetitionAddress" VALUE="<?= $PetitionFullAddress ?>">
 
-
+	
 
 			<?php				print " INDEX: $index<BR>";
-									
+									echo "</div>";
 								}
 							}
 			?>
-									
-						
-					
-				</div>
-					
-				</DIV>
+								
 			</div>
-			
-			
-				</DIV>
-			</DIV>
-		</DIV>
-	
-	</DIV>
-		
-			</FORM>
-				
-				
-					</DIV>
-			</DIV>
-				</DIV>
+						
+						<?php /* 	<A HREF="input/?k=<?= $k ?>">
+						<p><button type="submit" class="btn btn-primary">Select another Voter Card.</button></p>
+						</A> */ ?>
+
+					
+					</div>
+
+				</div>
+			</div>		
+		</div>
+	</div>
+</DIV>
 				
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

@@ -17,10 +17,7 @@
 				$MyAddressToUse = $var["Raw_Voter_ResHouseNumber"] . " " . 
 													$var["Raw_Voter_ResStreetName"];
 
-				if ( empty ($Counter[$MyAddressToUse] )) {
-					$Counter[$MyAddressToUse] = 0;
-				}
-				
+				if ( empty ($Counter[$MyAddressToUse] )) { $Counter[$MyAddressToUse] = 0; }				
 				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Petition_ID"] = $var["Candidate_ID"];
 				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_ID"] = $var["VotersIndexes_UniqNYSVoterID"];
 				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_FullName"] = $var["CandidatePetition_VoterFullName"];
@@ -29,53 +26,33 @@
 			}			
 			
 			$Counter[$MyAddressToUse]++;
-		}	
+		}
 	}
-	
-	
-	
-	
+
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ($MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
-
-
-
 <div class="row">
   <div class="main">
 
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+	<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+	<div class="<?= $Cols ?> float-left">
+		<div class="Subhead">
+	  	<h2 class="Subhead-heading">Voters</h2>
+		</div>
 
-
-<div class="<?= $Cols ?> float-left">
-	
-	<div class="Subhead">
-  	<h2 class="Subhead-heading">Voters</h2>
-	</div>
-
-	<?php 
-		if ($VerifEmail == true) { 
-			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
-		} else if ($VerifVoter == true) {
-			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
-		} 
-	?>
-
-
-
-
-	<div class="Box">
-  	<div class="Box-header pl-0">
-    	<div class="table-list-filters d-flex">
-  			<div class="table-list-header-toggle states flex-justify-start pl-3">Building Addresses</div>
-  		</div>
-    </div>
+		<div class="Box">
+  		<div class="Box-header pl-0">
+    		<div class="table-list-filters d-flex">
+  				<div class="table-list-header-toggle states flex-justify-start pl-3">Building Addresses</div>
+  			</div>
+    	</div>
     
-    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
-      We don't know your district <a href="/voter">create one</a>?
-    </div>
-
-		<div id="voters" >
+	    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
+  	    We don't know your district <a href="/voter">create one</a>?
+    	</div>
+		<div id="voters">
+			
 <?php
 			$Counter = 0;
 			if ( ! empty ($Electors)) {
