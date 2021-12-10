@@ -31,7 +31,8 @@
 	if (! empty($result)) {
 		foreach($result as $var) {
 			if (! empty ($var)) {	
-				$Position[$var["CandidatePositions_Type"]][$var["CandidatePositions_Name"]][$var["CandidatePositions_Party"]] = $var["CandidatePositions_Explanation"];
+				$Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["Desc"] = $var["ElectionsPosition_Explanation"];
+				$Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["ID"] = $var["ElectionsPosition_ID"];
 			}
 		}
 	}
@@ -143,8 +144,8 @@
 					 		// if (! empty ($Pos)) { 
 					 		if ($Pos == "County Committee") { ?>
 								<div class="list-group-item f60">
-										<INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Pos ?>">&nbsp;&nbsp;<B><?= $Pos ?></B>
-									<DIV CLASS="f40"><?= $Explain[$URIEncryptedString["UserParty"]] ?></DIV>
+										<INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Explain[$URIEncryptedString["UserParty"]]["ID"] ?>">&nbsp;&nbsp;<B><?= $Pos ?></B>
+									<DIV CLASS="f40"><?= $Explain[$URIEncryptedString["UserParty"]]["Desc"] ?></DIV>
 								</div>			
 <?php					}	  
 }

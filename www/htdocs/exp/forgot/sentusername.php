@@ -11,13 +11,12 @@
 		<P CLASS="f60 justify">
 			We sent you an email with your username.
 		</P>
-	</DIV>
-	
-	<DIV>
+
 		<P CLASS="f40">
 			If you don't receive an email in the next few hours, 
-			please sent an email to passwordissues@repmyblock.nyc
+			please sent an email to <A HREF="mailto:passwordissues@repmyblock.org"><B>passwordissues@repmyblock.org</B></A>
 		</P>
+
 	</DIV>
 </DIV>
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

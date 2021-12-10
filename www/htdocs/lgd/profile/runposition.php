@@ -18,6 +18,21 @@
 	$rmb = new RepMyBlock();
 	//$rmbperson = $rmb->ReturnVoterIndex($URIEncryptedString["VotersIndexes_ID"]);
 	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
+	$listpositions = $rmb->ListElectedPositions($rmbperson["DataState_Abbrev"]);
+
+	
+	echo "URIEncryptedString:<BR>";
+	echo "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
+	
+	echo "RMBPerson:<BR>";
+	echo "<PRE>" . print_r($rmbperson, 1) . "</PRE>";
+	
+	echo "listpositions:<BR>";
+	echo "<PRE>" . print_r($listpositions, 1) . "</PRE>";	
+	
+	exit();
+	
+
 	
 	// This the the logic for populating the candidate field
 	if ( ! empty ($_POST)) {

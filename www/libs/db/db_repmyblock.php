@@ -200,16 +200,16 @@ class RepMyBlock extends queries {
 	}
 
 	function ListElectedPositions($state) {
-		$sql = "SELECT * FROM CandidatePositions " . 
-						"WHERE CandidatePositions_State = :State " . 
-						"ORDER BY CandidatePositions_Order";
+		$sql = "SELECT * FROM ElectionsPosition " . 
+						"WHERE ElectionsPosition_State = :State " . 
+						"ORDER BY ElectionsPosition_Order";
 		$sql_vars = array('State' => $state);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
 	function DisplayElectionPositions($ID) {
-		$sql = "SELECT * FROM CandidatePositions " . 
-						"WHERE CandidatePositions_ID = :ID ";
+		$sql = "SELECT * FROM ElectionsPosition " . 
+						"WHERE ElectionsPosition_ID = :ID ";
 		$sql_vars = array('ID' => $ID);
 		return $this->_return_simple($sql, $sql_vars);
 	}
@@ -219,7 +219,7 @@ class RepMyBlock extends queries {
 						"LEFT JOIN CandidatePetitionGroup ON (CandidatePetitionGroup.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
 						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CandidatePetitionGroup.Candidate_ID) " .
 						"LEFT JOIN DataCounty ON (CandidatePetitionGroup.DataCounty_ID = DataCounty.DataCounty_ID) " .
-						"LEFT JOIN CandidatePositions ON (CandidatePositions.CandidateElection_DBTable = Candidate.CandidateElection_DBTable) " .
+						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.CandidateElection_DBTable = Candidate.CandidateElection_DBTable) " .
 						"WHERE CandidatePetitionSet_TimeStamp > :Date " . 
 						"ORDER BY CandidatePetitionSet.CandidatePetitionSet_ID DESC";
 		$sql_vars = array('Date' => $Date);
