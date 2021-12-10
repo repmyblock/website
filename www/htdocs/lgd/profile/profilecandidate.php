@@ -31,10 +31,13 @@
 	if (! empty($result)) {
 		foreach($result as $var) {
 			if (! empty ($var)) {	
-				$Position[$var["CandidatePositions_Type"]][$var["CandidatePositions_Name"]] = $var["CandidatePositions_Explanation"];
+				$Position[$var["CandidatePositions_Type"]][$var["CandidatePositions_Name"]][$var["CandidatePositions_Party"]] = $var["CandidatePositions_Explanation"];
 			}
 		}
 	}
+	
+	
+	WriteStderr($Position, "Positions order");	
 	
 	$TopMenus = array ( 
 						array("k" => $k, "url" => "profile/profile", "text" => "Public Profile"),
@@ -141,7 +144,7 @@
 					 		if ($Pos == "County Committee") { ?>
 								<div class="list-group-item f60">
 										<INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Pos ?>">&nbsp;&nbsp;<B><?= $Pos ?></B>
-									<DIV CLASS="f40"><?= $Explain ?></DIV>
+									<DIV CLASS="f40"><?= $Explain[$URIEncryptedString["UserParty"]] ?></DIV>
 								</div>			
 <?php					}	  
 }
