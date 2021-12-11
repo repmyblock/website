@@ -1,9 +1,9 @@
 <?php
-	$Menu = "profile";  
-	$BigMenu = "represent";	
+	$Menu = "profile";
+	$BigMenu = "represent";
 
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 
@@ -14,15 +14,14 @@
 			$Encrypted_URL .= "&Position[]=" . $var;
 		}
 		
-		WriteStderr($_POST, "Post in ProfileCandidate.php");	
+		WriteStderr($_POST, "Post in ProfileCandidate.php");
 		
 		header("Location: /" . rawurlencode(EncryptURL($Encrypted_URL)) . "/lgd/profile/runposition");
-		exit();		
+		exit();
 	}
 
 	$rmb = new repmyblock();
-
-	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
 
 	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
@@ -30,25 +29,20 @@
 	
 	if (! empty($result)) {
 		foreach($result as $var) {
-			if (! empty ($var)) {	
+			if (! empty ($var)) {
 				$Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["Desc"] = $var["ElectionsPosition_Explanation"];
 				$Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["ID"] = $var["ElectionsPosition_ID"];
 			}
 		}
 	}
 	
-	
-	WriteStderr($Position, "Positions order");	
-	
-	$TopMenus = array ( 
+	WriteStderr($Position, "Positions order");
+	$TopMenus = array (
 						array("k" => $k, "url" => "profile/profile", "text" => "Public Profile"),
 						array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
 						array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile")
-					);			
-	WriteStderr($TopMenus, "Top Menu");		
-
-			
-			
+					);
+	WriteStderr($TopMenus, "Top Menu");			
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
@@ -62,15 +56,9 @@
 			    <h2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</h2>
 			  </div>
      
-			<?php
-			 	PlurialMenu($k, $TopMenus);
-			?>
-
-
+				<?php	PlurialMenu($k, $TopMenus);	?>
 			  <div class="clearfix gutter d-flex flex-shrink-0">
-	
-	
-
+			  	
 <style>
  /* Style the buttons that are used to open and close the accordion panel */
 .accordeonbutton {

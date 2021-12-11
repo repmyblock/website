@@ -53,7 +53,7 @@ function PrintThreeDigits($Date) {
 	}
 }
 
-function NewYork_PrintPartyAdjective($Party) {
+function PrintPartyAdjective($Party) {
 	switch($Party) {
 		case 'DEM': return "Democratic"; break;
 		case 'REP': return "Republican"; break;

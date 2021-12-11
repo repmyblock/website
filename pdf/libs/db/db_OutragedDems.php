@@ -79,18 +79,18 @@ class OutragedDems extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	function ListPetitionSet($CanPetitionSet_ID) {
-		$sql = "SELECT * FROM CanPetitionSet " .
-						"LEFT JOIN Candidate ON (CanPetitionSet.Candidate_ID = Candidate.Candidate_ID) " . 
-						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = CanPetitionSet.DataCounty_ID) " .
+	function ListPetitionSet($CandidateGroupID) {
+		$sql = "SELECT * FROM CandidateGroup " .
+						"LEFT JOIN Candidate ON (CandidateGroup.Candidate_ID = Candidate.Candidate_ID) " . 
+						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = CandidateGroup.DataCounty_ID) " .
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
 						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
-						"LEFT JOIN CanWitnessSet ON (CanWitnessSet.Candidate_ID = Candidate.Candidate_ID) " .
-						"LEFT JOIN CandidateWitness ON (CandidateWitness.CandidateWitness_ID = CanWitnessSet.CandidateWitness_ID) " .
-						"LEFT JOIN CandidatePetitionSet ON (CandidatePetitionSet.CandidatePetitionSet_ID = CanPetitionSet.CandidatePetitionSet_ID) " .
-						"WHERE CanPetitionSet.CandidatePetitionSet_ID = :CandPetitionSetID " .
+						//"LEFT JOIN CanWitnessSet ON (CanWitnessSet.Candidate_ID = Candidate.Candidate_ID) " .
+						//"LEFT JOIN CandidateWitness ON (CandidateWitness.CandidateWitness_ID = CanWitnessSet.CandidateWitness_ID) " .
+						//"LEFT JOIN CandidatePetitionSet ON (CandidatePetitionSet.CandidatePetitionSet_ID = CanPetitionSet.CandidatePetitionSet_ID) " .
+						"WHERE CandidateGroup.CandidateGroup_ID = :CandidateGroup_ID " .
 						"ORDER BY CandidateElection_DisplayOrder ASC";
-		$sql_vars = array("CandPetitionSetID" => $CanPetitionSet_ID);
+		$sql_vars = array("CandidateGroup_ID" => $CandidateGroupID);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
@@ -127,16 +127,16 @@ class OutragedDems extends queries {
 	}
 	
 	// This is base on SYstemUser
-	function ListCandidatePetition($SystemUserID, $Status = "published") {
-		$sql = "SELECT * FROM CandidatePetitionSet " .
-						"LEFT JOIN CanPetitionSet ON (CanPetitionSet.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
-						"LEFT JOIN Candidate ON (CanPetitionSet.Candidate_ID = Candidate.Candidate_ID) " .
-						"LEFT JOIN CanWitnessSet ON (CanWitnessSet.Candidate_ID = Candidate.Candidate_ID) " .
-						"LEFT JOIN CandidateWitness ON (CanWitnessSet.CandidateWitness_ID = CandidateWitness.CandidateWitness_ID) " .
+	function ListCandidatePetition($CandidateID, $Status = "published") {
+		$sql = "SELECT * FROM Candidate " .
+						// "LEFT JOIN CanWitnessSet ON (CanWitnessSet.Candidate_ID = Candidate.Candidate_ID) " .
+						//"LEFT JOIN CandidateWitness ON (CanWitnessSet.CandidateWitness_ID = CandidateWitness.CandidateWitness_ID) " .
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
-						"WHERE CandidatePetitionSet.SystemUser_ID = :SystemUserID AND Candidate_Status = :Status " .
-						"ORDER BY CandidateElection_DisplayOrder, CanPetitionSet.Candidate_ID";
-		$sql_vars = array("SystemUserID" => $SystemUserID, "Status" => $Status);	
+						"LEFT JOIN Elections ON (CandidateElection.Elections_ID = Elections.Elections_ID) " . 
+						"LEFT JOIN DataCounty ON (Candidate.DataCounty_ID = DataCounty.DataCounty_ID) " . 
+						"WHERE Candidate.Candidate_ID = :CandidateID AND Candidate_Status = :Status " .
+						"ORDER BY CandidateElection_DisplayOrder, Candidate.Candidate_ID";
+		$sql_vars = array("CandidateID" => $CandidateID, "Status" => $Status);	
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	

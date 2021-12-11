@@ -2,14 +2,18 @@
 	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
 	$Menu = "downloads";
 	$BigMenu = "represent";	
-
+	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
   
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
-	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
-	$result = $rmb->ListCandidateInformation($URIEncryptedString["SystemUser_ID"]);				
+	$Party = PrintParty($URIEncryptedString["UserParty"]);
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	$result = $rmb->ListCandidateInformation($URIEncryptedString["SystemUser_ID"]);	
+	
+	WriteStderr($result, "Result");
+		
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
@@ -29,12 +33,17 @@
 				<P>
 					<FONT SIZE=+2>
 						Download a 
-						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/NYS/<?= $NewKEncrypt ?>/multipetitions">blank petition</A>
-						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/NYS/<?= $NewKEncrypt ?>/multipetitions"><i class="fa fa-download" aria-hidden="true"></i></A> and a
-						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/NYS/<?= $NewKEncrypt ?>/voterlist">list of voters</A>
-						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/NYS/<?= $NewKEncrypt ?>/voterlist"><i class="fa fa-download" aria-hidden="true"></i></A>
+						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/<?= $rmbperson["DataState_Abbrev"] ?>/E<?= $result[0]["Candidate_ID"] ?>/petition">blank petition</A>
+						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/<?= $rmbperson["DataState_Abbrev"] ?>/E<?= $result[0]["Candidate_ID"] ?>/petition"><i class="fa fa-download" aria-hidden="true"></i></A> 
+						
+						<?php /*
+						
+						and a
+						
+						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/<?= $rmbperson["DataState_Abbrev"] ?>/<?= $NewKEncrypt ?>/voterlist">list of voters</A>
+						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/<?= $rmbperson["DataState_Abbrev"] ?>/<?= $NewKEncrypt ?>/voterlist"><i class="fa fa-download" aria-hidden="true"></i></A>
+						*/ ?>
 					</FONT>
-					<BR>for <?= $result[0]["Candidate_ID"] ?>
 				</P>
 
 				<P>

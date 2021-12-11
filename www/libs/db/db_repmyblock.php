@@ -216,9 +216,9 @@ class RepMyBlock extends queries {
 	
 	function ListCandidatePetitions($Date) {
 		$sql = "SELECT * FROM CandidatePetitionSet " . 
-						"LEFT JOIN CandidatePetitionGroup ON (CandidatePetitionGroup.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
-						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CandidatePetitionGroup.Candidate_ID) " .
-						"LEFT JOIN DataCounty ON (CandidatePetitionGroup.DataCounty_ID = DataCounty.DataCounty_ID) " .
+						"LEFT JOIN CandidateGroup ON (CandidateGroup.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
+						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CandidateGroup.Candidate_ID) " .
+						"LEFT JOIN DataCounty ON (CandidateGroup.DataCounty_ID = DataCounty.DataCounty_ID) " .
 						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.CandidateElection_DBTable = Candidate.CandidateElection_DBTable) " .
 						"WHERE CandidatePetitionSet_TimeStamp > :Date " . 
 						"ORDER BY CandidatePetitionSet.CandidatePetitionSet_ID DESC";
@@ -228,7 +228,7 @@ class RepMyBlock extends queries {
 	
 	function ListCandidateInformation($SystemUserID) {
 		$sql = "SELECT * FROM Candidate " . 
-						"LEFT JOIN CandidatePetitionGroup ON (Candidate.Candidate_ID = CandidatePetitionGroup.Candidate_ID) " . 
+						"LEFT JOIN CandidateGroup ON (Candidate.Candidate_ID = CandidateGroup.Candidate_ID) " . 
 						"WHERE SystemUser_ID = :SystemUserID";
 		$sql_vars = array('SystemUserID' => $SystemUserID);
 		return $this->_return_multiple($sql, $sql_vars);
@@ -246,13 +246,18 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql);
 	}
 	
-	function CandidateElection($DBTable, $DBTableValue , $FromDate) {
-		$sql = 	"SELECT * FROM NYSVoters.CandidateElection " .
+	function CandidateElection($DBTable, $DBTableValue, $FromDate,  $Party = NULL) {
+		$sql = 	"SELECT * FROM CandidateElection " .
 						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"WHERE Elections_Date > :FromDate AND CandidateElection_DBTable = :DBTable AND " . 
 						"CandidateElection_DBTableValue = :DBValue";
-				
 		$sql_vars = array('FromDate' => $FromDate, 'DBTable' => $DBTable, 'DBValue' => $DBTableValue);						
+						
+		if ( ! empty ($Party)) {
+			$sql .= " AND CandidateElection_Party = :Party";
+			$sql_vars["Party"] = $Party;
+		}
+				
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
@@ -262,31 +267,45 @@ class RepMyBlock extends queries {
 		
 	}
 	
-	function InsertCandidateSet($Candidate_ID, $CandidatePetitionSet_ID, $CandidatePetitionGroup_Party, $DataCounty_ID) {
-		$sql = "INSERT INTO CandidatePetitionGroup SET " .
-						"CandidatePetitionSet_ID = :CanPetSetID, Candidate_ID = :CandidateID, " .
-						"DataCounty_ID = :CountyID, CandidatePetitionGroup_Party = :Party";
-		$sql_vars = array("CanPetSetID" => $CandidatePetitionSet_ID, "CandidateID" => $Candidate_ID, 
-											"CountyID" => $DataCounty_ID, "Party" => $CandidatePetitionGroup_Party);			
+	
+	function NextPetitionSet($SystemUser_ID) {
+		if ( $SystemUser_ID > 0) {
+			$sql = "INSERT INTO CandidateSet SET SystemUser_ID = :SystemUserID, CandidateSet_TimeStamp = NOW()";
+			$sql_vars = array("SystemUserID" => $SystemUser_ID);
+			$this->_return_nothing($sql, $sql_vars);
+		
+			$sql = "SELECT LAST_INSERT_ID() as CandidateSet";
+			return $this->_return_simple($sql);
+		}		
+	}
+	
+	function InsertCandidateSet($CandidateID, $CandidateSetID, $Party, $CountyID, $Order = NULL, $WaterMark = "yes") {
+		$sql = "INSERT INTO CandidateGroup SET " .
+						"CandidateSet_ID = :CanPetSetID, Candidate_ID = :CandidateID, " .
+						"DataCounty_ID = :CountyID, CandidateGroup_Party = :Party, " .
+						"CandidateGroup_Watermark = :Water, CandidateGroup_Order = :Order";
+						
+						
+		$sql_vars = array("CanPetSetID" => $CandidateSetID, "CandidateID" => $CandidateID, 
+											"CountyID" => $CountyID, "Party" => $Party, "Water" => $WaterMark, "Order" => $Order);			
 		$this->_return_nothing($sql, $sql_vars);
 		
-		$sql = "SELECT LAST_INSERT_ID() as CandidatePetitionGroup_ID";
+		$sql = "SELECT LAST_INSERT_ID() as CandidateSet_ID";
 		return $this->_return_simple($sql);
 	}
 	
-	function InsertCandidate($SystemUserID, $UniqNYSVoterID, $RawVoterID, $RawDatedTable, 
-														$RawDatedID, $CandidateElectionID, $Party, $DisplayName,
+	function InsertCandidate($SystemUserID, $UniqNYSVoterID, $RawVoterID, $DataCountyID, $CandidateElectionID, $Party, $DisplayName,
 														$Address, $DBTable, $DBValue,	$StatsVoters, $Status) {
 															
-		$sql = "INSERT INTO Candidate SET SystemUser_ID = :SystemUserID, Candidate_UniqNYSVoterID = :UniqNYSVoterID, " .
-						"Raw_Voter_ID = :RawVoterID, Raw_Voter_DatedTable_ID = :RawDatedTable, Raw_Voter_Dates_ID = :RawDatedID, " .
+		$sql = "INSERT INTO Candidate SET SystemUser_ID = :SystemUserID, Candidate_UniqStateVoterID = :UniqNYSVoterID, " .
+						"Voter_ID = :RawVoterID, DataCounty_ID = :DataCountyID," .
 						"CandidateElection_ID = :CandidateElectionID, Candidate_Party = :Party, Candidate_DispName = :DisplayName, " .
 						"Candidate_DispResidence = :Address, CandidateElection_DBTable = :DBTable, " .
 						"CandidateElection_DBTableValue = :DBValue, Candidate_StatsVoters = :StatsVoters,  Candidate_Status = :Status";
 						
 		$sql_vars = array("SystemUserID" => $SystemUserID, "UniqNYSVoterID" => $UniqNYSVoterID, 
-											"RawVoterID" => $RawVoterID, "RawDatedTable" => $RawDatedTable, 
-											"RawDatedID" => $RawDatedID, "CandidateElectionID" => $CandidateElectionID, 
+											"RawVoterID" => $RawVoterID, "DataCountyID" => $DataCountyID, 
+											"CandidateElectionID" => $CandidateElectionID, 
 											"Party" => $Party, "DisplayName" =>  $DisplayName, 
 											"Address" => $Address, "DBTable" => $DBTable, "DBValue" => $DBValue, 
 											"StatsVoters" => $StatsVoters, "Status" => $Status);
@@ -336,8 +355,8 @@ class RepMyBlock extends queries {
 	
 	function ListCandidatePetition($SystemUserID) {
 		$sql = "SELECT * FROM CandidatePetitionSet " .
-						"LEFT JOIN CandidatePetitionGroup ON (CandidatePetitionGroup.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
-						"LEFT JOIN Candidate ON (CandidatePetitionGroup.Candidate_ID = Candidate.Candidate_ID) " .
+						"LEFT JOIN CandidateGroup ON (CandidateGroup.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
+						"LEFT JOIN Candidate ON (CandidateGroup.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CanWitnessSet ON (CanWitnessSet.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CandidateWitness ON (CanWitnessSet.CandidateWitness_ID = CandidateWitness.CandidateWitness_ID) " .
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
@@ -694,6 +713,14 @@ class RepMyBlock extends queries {
 		WriteStderr($sql, "sql");
 		
 		return $this->_return_simple($sql, $sql_vars);
+	}
+	
+	function UpdateSystemPriv($SystemUserID, $PrivModification) {
+		if ( $SystemUserID > 0 ) {
+			$sql = "UPDATE SystemUser SET SystemUser_Priv = SystemUser_Priv + :AddPriv WHERE SystemUser_ID = :SystemID";
+			$sql_vars = array("SystemID" => $SystemUserID, "AddPriv" => $PrivModification);
+			return $this->_return_nothing($sql, $sql_vars);
+		}
 	}
 	
 	function CreateSystemUserAndUpdateProfile($TempEmail, $ProfileArray = "", $Person = "") {

@@ -1,5 +1,4 @@
 <?php
-
 	WriteStderr($rmbperson, "RMBPerson in Menu");
 	
 	if (empty ($URIEncryptedString["EDAD"])) { 

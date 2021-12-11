@@ -199,8 +199,10 @@ class login extends queries {
 		return $this->_return_nothing($sql,  $sql_vars);
 	}
 	
+	
+
 	function ReturnPetitionSet($SystemUser_ID) {
-		$sql = "SELECT * FROM CandidatePetitionSet WHERE SystemUser_ID = :SystemUserID";
+		$sql = "SELECT * FROM CandidateSet WHERE SystemUser_ID = :SystemUserID";
 		$sql_vars = array("SystemUserID" => $SystemUser_ID);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}

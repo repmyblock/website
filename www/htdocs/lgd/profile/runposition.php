@@ -17,22 +17,43 @@
 	
 	$rmb = new RepMyBlock();
 	//$rmbperson = $rmb->ReturnVoterIndex($URIEncryptedString["VotersIndexes_ID"]);
-	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$listpositions = $rmb->ListElectedPositions($rmbperson["DataState_Abbrev"]);
-
+	$listelection = $rmb->CandidateElection($rmbperson["ElectionsDistricts_DBTable"], $rmbperson["ElectionsDistricts_DBTableValue"], "2021-12-10", $rmbperson["Voters_RegParty"]);
 	
-	echo "URIEncryptedString:<BR>";
-	echo "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
+	// This need to be fixed.
+	$rmbperson["DataCounty_ID"] = "120";
 	
-	echo "RMBPerson:<BR>";
-	echo "<PRE>" . print_r($rmbperson, 1) . "</PRE>";
+	// The addresses will need to be fixed as well.
+	$Address = $rmbperson["DataAddress_HouseNumber"] . " " . $rmbperson["DataStreet_Name"] . 
+						" - Apt " . $rmbperson["DataHouse_Apt"] . "\n" . $rmbperson["DataCity_Name"] . ", " . $rmbperson["DataState_Abbrev"] . " " .
+						$rmbperson["DataAddress_zipcode"];
+	$DisplayName = " " . $rmbperson["DataFirstName_Text"] . " " . $rmbperson["DataMiddleName_Text"] . ". " . $rmbperson["DataLastName_Text"];
 	
-	echo "listpositions:<BR>";
-	echo "<PRE>" . print_r($listpositions, 1) . "</PRE>";	
-	
+	$finalresult = $rmb->InsertCandidate($rmbperson["SystemUser_ID"], $rmbperson["Voters_UniqStateVoterID"], $rmbperson["Voters_ID"], $rmbperson["DataCounty_ID"],
+														$listelection[0]["CandidateElection_ID"], $rmbperson["Voters_RegParty"], $DisplayName,
+														$Address, $rmbperson["ElectionsDistricts_DBTable"], $rmbperson["ElectionsDistricts_DBTableValue"],	NULL, "published");
+		
+	$GetSetNumber = $rmb->NextPetitionSet($URIEncryptedString["SystemUser_ID"]);
+	$GetGroupID = $rmb->InsertCandidateSet($finalresult["Candidate_ID"], $GetSetNumber["CandidateSet"], $rmbperson["Voters_RegParty"], 
+																				$rmbperson["DataCounty_ID"], 1, "yes");
+					
+	// We need to add to the permission access to download petitions.
+	// PERM_MENU_DOWNLOADS			
+	$rmb->UpdateSystemPriv($URIEncryptedString["SystemUser_ID"], PERM_MENU_DOWNLOADS);			
+	header("Location: /" . CreateEncoded ( array( 
+								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+								"FirstName" => $URIEncryptedString["FirstName"], 
+								"LastName" => $URIEncryptedString["LastName"],
+								"VotersIndexes_ID" => $URIEncryptedString["VotersIndexe_ID"], 
+								"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+								"UserParty" => $URIEncryptedString["UserParty"]
+	))  . "/lgd/downloads/downloads");
 	exit();
 	
-
+	print "<A HREF=\"https://dev-frontend-pdf.repmyblock.org/NY/e" . $finalresult["Candidate_ID"] . "/petition\">Check download Multipetition</A><BR>";
+	print "<A HREF=\"https://dev-frontend-pdf.repmyblock.org/NY/s" . $GetGroupID["CandidateSet_ID"] . "/petition\">Check download Multipetition</A>";
+	exit();
 	
 	// This the the logic for populating the candidate field
 	if ( ! empty ($_POST)) {

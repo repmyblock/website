@@ -11,7 +11,7 @@
   
 	$rmb = new RepMyBlock();
 	$rmbperson = $rmb->FindPersonUser($URIEncryptedString["SystemUser_ID"]);
-	$NumberPetitions = $rmb->GetPetitionsSumary($URIEncryptedString["SystemUser_ID"]);
+	// $NumberPetitions = $rmb->GetPetitionsSumary($URIEncryptedString["SystemUser_ID"]);
 	
 	WriteStderr($rmbperson, "rmbperson");
 	WriteStderr($NumberPetitions, "NumberPetition");

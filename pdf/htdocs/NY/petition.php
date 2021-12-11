@@ -8,20 +8,16 @@ require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/NY/petition_class.php';
 require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
 
 $r = new OutragedDems();
-
 $PageSize = "letter";
 $pdf = new PDF_Multi('P','mm', $PageSize);
-//$pdf = new PDF('P','mm', $PageSize);
 
 // Faut que je travaille avec K.
 if (strlen($k < 20)) {
-	// This is just regular K
-	preg_match('/([pse])(\d*)/', $k, $matches, PREG_OFFSET_CAPTURE);
-
+	preg_match('/([pse])(\d*)/i', $k, $matches, PREG_OFFSET_CAPTURE);
 	switch ($matches[1][0]) {
-		case 'p': $CanPetitionSet_ID = intval($matches[2][0]); break;
-		case 's': $CandidatePetitionSet_ID = intval($matches[2][0]); break;
-		case 'e': $Candidate_ID = intval($matches[2][0]); break;
+		case 'p': case 'P': $CanPetitionSet_ID = intval($matches[2][0]); break;
+		case 's': case 'S': $CandidatePetitionSet_ID = intval($matches[2][0]); break;
+		case 'e': case 'E': $Candidate_ID = intval($matches[2][0]); break;
 	}
 } else {
 	$CanPetitionSet_ID = trim($_GET["petid"]);
@@ -29,26 +25,21 @@ if (strlen($k < 20)) {
 	$WaterMarkVoid = trim($_GET["Watermark"]);
 }
 
+$pdf->Watermark = "VOID - Do not use"; 
 $WritenSignatureMonth = "March";
 $Variable = "demo-CC";
 	
 if (is_numeric($CanPetitionSet_ID)) { $Variable = "petid"; }
-if (is_numeric($CandidatePetitionSet_ID)) { $Variable = "setid"; }
-	
+if (is_numeric($CandidatePetitionSet_ID)) { $Variable = "setid"; }	
 if (is_numeric($Candidate_ID)) { $Variable = "person"; }
 if (is_numeric($SystemUser_ID)) { $Variable = "person"; }
-if ( $WaterMarkVoid == 'yes') { $pdf->Watermark = "VOID - Do not use"; }
-
 
 switch ($Variable) {
-	
   case 'person';
-  	$result = $r->ListCandidatePetition($SystemUser_ID, "published");
+  	$result = $r->ListCandidatePetition($Candidate_ID, "published");
   	if ( ! empty ($result)) {
-  		
-  		//print "<PRE>" . print_r($result, 1) . "</PRE>";
-  		
-			$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
+  		$result[0]["CandidateSet_ID"] = 1;
+			$result[0]["CandidateParty"] = PrintPartyAdjective($result[0]["Candidate_Party"]);
 			$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
 			$pdf->BarCode = "P" . $SystemUser_ID;
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
@@ -60,13 +51,15 @@ switch ($Variable) {
 		
 	case 'setid';
 		$result = $r->ListPetitionSet($CandidatePetitionSet_ID);
+		WriteStderr($result, "Result in SetID of the petition");
 		if ( ! empty ($result)) {
-			$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
+			$result[0]["CandidateParty"] = PrintPartyAdjective($result[0]["CandidateGroup_Party"]);
 			$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
-			$pdf->BarCode = "S" . $result[0]["CandidatePetitionSet_ID"];
-			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
+			$pdf->BarCode = "S" . $result[0]["CandidateSet_ID"];
+			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);		
+			if ($result[0]["CandidateGroup_Watermark"] == 'no') { $pdf->Watermark = NULL; }	
 		}
-		
+	
 		if ( $result[0]["Candidate_Status"] == "published") break;
 		goto democc;
 		break;
@@ -74,7 +67,7 @@ switch ($Variable) {
 	case 'petid';
 		$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
 		if ( ! empty ($result)) {
-			$result[0]["CandidateParty"] = NewYork_PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
+			$result[0]["CandidateParty"] = PrintPartyAdjective($result[0]["CanPetitionSet_Party"]);
 			$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
 			$pdf->BarCode = $result[0]["CanPetitionSet_ID"];
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
@@ -113,7 +106,6 @@ switch ($Variable) {
 		$pdf->BarCode = "Demo Petition";
 		$pdf->DemoPrint = "true";
 		break;
-		
 }
 
 $pdf->county = $result[0]["CandidatePetition_VoterCounty"];
@@ -140,17 +132,19 @@ if ( ! empty ($result[0]["Candidate_DispName"])) {
 
 $Petition_FileName .= date("Ymd_Hi") . ".pdf";
 
+
+
 if ( ! empty ($result)) {
 	foreach ($result as $var) {
 		if (! empty ($var)) {
-			$PetitionData[$var["CanPetitionSet_ID"]]["TotalPosition"] = $var["CandidateElection_Number"];
-			$PetitionData[$var["CanPetitionSet_ID"]]["PositionType"]	= $var["CandidateElection_PositionType"];
-			$PetitionData[$var["CanPetitionSet_ID"]]["CandidateName"]	= $var["Candidate_DispName"];
-			$PetitionData[$var["CanPetitionSet_ID"]]["CandidatePositionName"]	= $var["CandidateElection_PetitionText"];
-			$PetitionData[$var["CanPetitionSet_ID"]]["CandidateResidence"] = $var["Candidate_DispResidence"];
+			$PetitionData[$var["CandidateSet_ID"]]["TotalPosition"] = $var["CandidateElection_Number"];
+			$PetitionData[$var["CandidateSet_ID"]]["PositionType"]	= $var["CandidateElection_PositionType"];
+			$PetitionData[$var["CandidateSet_ID"]]["CandidateName"]	= $var["Candidate_DispName"];
+			$PetitionData[$var["CandidateSet_ID"]]["CandidatePositionName"]	= $var["CandidateElection_PetitionText"];
+			$PetitionData[$var["CandidateSet_ID"]]["CandidateResidence"] = $var["Candidate_DispResidence"];
 			if ( ! empty($var["CandidateWitness_FullName"])) {					
-				$PetitionData[$var["CanPetitionSet_ID"]]["Witness_FullName"][$var["CandidateWitness_ID"]] = $var["CandidateWitness_FullName"];
-				$PetitionData[$var["CanPetitionSet_ID"]]["Witness_Residence"][$var["CandidateWitness_ID"]] = $var["CandidateWitness_Residence"];
+				$PetitionData[$var["CandidateSet_ID"]]["Witness_FullName"][$var["CandidateWitness_ID"]] = $var["CandidateWitness_FullName"];
+				$PetitionData[$var["CandidateSet_ID"]]["Witness_Residence"][$var["CandidateWitness_ID"]] = $var["CandidateWitness_Residence"];
 			}
 		}
 	}
@@ -162,10 +156,8 @@ $TotalCandidates = 0;
 $i = 0;
 if ( ! empty ($PetitionData)) {
 	foreach ( $PetitionData as $var => $key) {
-			
-				
 		if ( ! empty ($var)) {
-			if ( is_array($key)) {
+			if ( is_array($key)) {				
 				$pdf->Candidate[$TotalCandidates] =  $key["CandidateName"];	
 				$pdf->RunningFor[$TotalCandidates] = $key["CandidatePositionName"];
 				$pdf->Residence[$TotalCandidates] = $key["CandidateResidence"];
@@ -188,6 +180,8 @@ if ( ! empty ($PetitionData)) {
 		}
 	}
 }
+
+
 
 $pdf->NumberOfCandidates = $TotalCandidates;
 
