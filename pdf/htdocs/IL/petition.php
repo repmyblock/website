@@ -4,7 +4,7 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/OH/petition_class.php';
+require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/IL/petition_class.php';
 require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
 
 $r = new OutragedDems();
