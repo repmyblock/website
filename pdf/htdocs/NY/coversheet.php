@@ -3,7 +3,7 @@
 		
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/coversheet_class.php';
+	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/NY/coversheet_class.php';
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
 	#$r = new OutragedDems();

@@ -4,7 +4,7 @@
 	require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/voterlist.php';
+	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/voterlist_class.php';
 
 	$r = new OutragedDems();
 	
