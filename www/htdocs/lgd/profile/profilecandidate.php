@@ -25,6 +25,7 @@
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
 
 	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
+	$rmbcandidate = $rmb->ListCandidateInformation($URIEncryptedString["SystemUser_ID"]);
 	$result = $rmb->ListElectedPositions($rmbperson["DataState_Abbrev"]);
 	
 	if (! empty($result)) {
@@ -32,6 +33,13 @@
 			if (! empty ($var)) {
 				$Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["Desc"] = $var["ElectionsPosition_Explanation"];
 				$Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["ID"] = $var["ElectionsPosition_ID"];
+				
+				// This is a hack to not repeat the the position. 	
+				foreach ($rmbcandidate as $vor) {
+					if ($vor["CandidateElection_DBTable"] == $var["ElectionsPosition_DBTable"] && $vor["CandidateGroup_Party"] == $var["ElectionsPosition_Party"]) {
+						$Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["NOTSHOW"] = 1;
+					}	
+				}
 			}
 		}
 	}
@@ -132,7 +140,15 @@
 					 		// if (! empty ($Pos)) { 
 					 		if ($Pos == "County Committee") { ?>
 								<div class="list-group-item f60">
-										<INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Explain[$URIEncryptedString["UserParty"]]["ID"] ?>">&nbsp;&nbsp;<B><?= $Pos ?></B>
+									<?php if (empty ($Explain[$URIEncryptedString["UserParty"]]["NOTSHOW"])) { 
+										$ShowRunForSelected = 1;
+										?>
+										<INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Explain[$URIEncryptedString["UserParty"]]["ID"] ?>">
+									<?php } else { ?>
+										&nbsp;&nbsp;&nbsp;
+										<?php /* <A HREF="/<?= $k ?>/lgd/downloads/downloads">Go to the download page to get the petition.</A> */ ?>
+									<?php } ?>
+										&nbsp;&nbsp;<B><?= $Pos ?></B>
 									<DIV CLASS="f40"><?= $Explain[$URIEncryptedString["UserParty"]]["Desc"] ?></DIV>
 								</div>			
 <?php					}	  
@@ -147,7 +163,9 @@
 	 
 		</div>
 		<BR>
+		<?php if ( $ShowRunForSelected == 1) { ?>
  <p><button type="submit" class="btn btn-primary">Run for the selected positions</button></p> 
+ 	<?php } ?>
 </div>
 </FORM>
 </div>
