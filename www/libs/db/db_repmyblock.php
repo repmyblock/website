@@ -717,7 +717,15 @@ class RepMyBlock extends queries {
 	
 	function UpdateSystemPriv($SystemUserID, $PrivModification) {
 		if ( $SystemUserID > 0 ) {
-			$sql = "UPDATE SystemUser SET SystemUser_Priv = SystemUser_Priv + :AddPriv WHERE SystemUser_ID = :SystemID";
+			$sql = "UPDATE SystemUser SET SystemUser_Priv = SystemUser_Priv";
+			
+			if ($PrivModification >= 0) {
+				$sql .= " | ";
+			} else {
+				$sql .= " & ~";
+			}
+						 
+			$sql .= ":AddPriv WHERE SystemUser_ID = :SystemID";
 			$sql_vars = array("SystemID" => $SystemUserID, "AddPriv" => $PrivModification);
 			return $this->_return_nothing($sql, $sql_vars);
 		}

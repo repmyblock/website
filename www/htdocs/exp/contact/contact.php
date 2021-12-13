@@ -1,5 +1,5 @@
 <?php 
-	$BigMenu = "howto";
+	$BigMenu = "contact";
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
@@ -15,9 +15,12 @@
 		</P>
 		
 		<P CLASS="f60">
-			<B>
-				How to file the documents.
-			</B>
+			Please email 	<B><A HREF="infos@repmyblock.nyc">infos@repmyblock.nyc</A></B> for general inquiries.
+		</P>
+		
+		<P CLASS="f60">
+			If you want to help grow the project, 
+			<B><A HREF="/web/volunteer/tothecause">please check the volunteer page</A></B>.
 		</P>
 
 </DIV>
