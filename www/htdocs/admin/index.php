@@ -11,15 +11,9 @@
   
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
-
-
 <div class="row">
   <div class="main">
-
-
-
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-
 
 <div class="col-9 float-left">
 
