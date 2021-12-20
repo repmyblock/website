@@ -10,21 +10,36 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); exit(); }
   
 	$rmb = new RepMyBlock();
-	$rmbperson = $rmb->FindPersonUser($URIEncryptedString["SystemUser_ID"]);
-	// $NumberPetitions = $rmb->GetPetitionsSumary($URIEncryptedString["SystemUser_ID"]);
 	
-	WriteStderr($rmbperson, "rmbperson");
-	WriteStderr($NumberPetitions, "NumberPetition");
+	if ( $URIEncryptedString["SystemUser_ID"] != "TMP") {
+		$rmbperson = $rmb->FindPersonUser($URIEncryptedString["SystemUser_ID"]);
+		// $NumberPetitions = $rmb->GetPetitionsSumary($URIEncryptedString["SystemUser_ID"]);	
+		WriteStderr($rmbperson, "rmbperson");
+		WriteStderr($NumberPetitions, "NumberPetition");
 	
-	/* Define numbers */
+		/* Define numbers */
 	
-	preg_match('/([A-Z][A-Z])/', $rmbperson["Voters_UniqStateVoterID"], $matches, PREG_OFFSET_CAPTURE);
-	$VoterState = $matches[1][0];
-	$Party = PrintParty($rmbperson["SystemUser_Party"]);		
-	$NumberOfElectors = $rmbperson["SystemUser_NumVoters"];
-	$NumberOfSignatures = intval($NumberOfElectors * $SignaturesRequired) + 1;
-	$Progress = round ((($NumberPetitions["CandidateSigned"] / $NumberOfElectors) * 100), 2);
-	
+		preg_match('/([A-Z][A-Z])/', $rmbperson["Voters_UniqStateVoterID"], $matches, PREG_OFFSET_CAPTURE);
+		$VoterState = $matches[1][0];
+		$Party = PrintParty($rmbperson["SystemUser_Party"]);		
+		$NumberOfElectors = $rmbperson["SystemUser_NumVoters"];
+		$NumberOfSignatures = intval($NumberOfElectors * $SignaturesRequired) + 1;
+		$Progress = round ((($NumberPetitions["CandidateSigned"] / $NumberOfElectors) * 100), 2);
+		
+		$PersonFirstName = $rmbperson["SystemUser_FirstName"];
+		$PersonLastName  = $rmbperson["SystemUser_LastName"];
+		$PersonEmail     = $rmbperson["SystemUser_Email"];
+
+		$EmailVerifiedType = $rmbperson["SystemUser_emailverified"];
+
+	} else {
+		$EmailVerifiedType = $URIEncryptedString["EmailVerified"];
+		$LinkNameToEmail = $URIEncryptedString["EmailLink"];
+		$EmailAddress = $URIEncryptedString["SystemTemporaryEmail"];
+		
+	}
+
+		
 	$NumberOfAddressesOnDistrict = 0;				
 
 	/* Define the boxes here before we set the menu */
@@ -45,14 +60,6 @@
 	
 
 	
-	
-	
-	$PersonFirstName = $rmbperson["SystemUser_FirstName"];
-	$PersonLastName  = $rmbperson["SystemUser_LastName"];
-	$PersonEmail     = $rmbperson["SystemUser_Email"];
-
-
-	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
@@ -67,19 +74,41 @@
 				<div class="Subhead">
 			  	<h2 class="Subhead-heading">Summary</h2>
 				</div>
-						
+				
+					<?php if ($MenuDescription == "District Not Defined") { ?>
+							
+				
+					<P>
+						<B><A HREF="/<?= $k ?>/lgd/profile/profile">Please update your Personal Profile so we can complete the summary information</A>.</B>
+					</P>		
+					
+				<?php } ?>
+				
 				<?php 
-					switch ($rmbperson["SystemUser_emailverified"]) {
-						case "no": ?>
+					switch ($EmailVerifiedType) {
+						case "no": 
+						
+						
+						preg_match('/^([0-9a-f]{4})(.*)([0-9a-f]{4})$/', $LinkNameToEmail, $matches, PREG_OFFSET_CAPTURE);
+						$LinkNameToEmail = $matches[3][0] . $matches[1][0] . $matches[2][0];
+						
+						?>
 							<P>
-								<B><FONT COLOR=BROWN>Please follow the instructions in the email from</FONT> infos@<?=  $MailFromDomain ?>.</B> 
-								You won't be able to use the system until the email is verified.
+								<B><FONT COLOR=BROWN>Follow the instructions in the email that was sent from</FONT> 
+								infos@<?=  $MailFromDomain ?>.</B> You won't be able to use the system until that email address is verified.
 							</P>
 							
-							<P>If you haven't received the email,
-								you can send an email to infos@<?=  $MailFromDomain ?> with the subject: "Need to receive link, dbd22886cdb83"
-								that step is performed.
+							<P>If you haven't received the verification email at <B><?= $EmailAddress ?></B>,
+								you can send an email to <A HREF="mailto:infos@<?=  $MailFromDomain ?>?subject=Need to 
+								receive link <?= $LinkNameToEmail ?>&body=Reference <?= $LinkNameToEmail ?>"><B>you can send an email to 
+								infos@<?=  $MailFromDomain ?></B></A>
+								with the subject: <I>Need to receive link <?= $LinkNameToEmail ?></I>.
 							</P>		
+							
+							<P>
+								If <B><?= $EmailAddress ?></B> is not your correct email address, you can 
+								change it in the <A HREF="/<?= $k ?>/lgd/profile/profile">the profile menu</A>.
+							</P>
 						<?php break;
 						
 						case "link": ?>
@@ -101,14 +130,7 @@
 
 
 				
-				<?php if ($MenuDescription == "District Not Defined") { ?>
-							
-				
-					<P>
-						<A HREF="/<?= $k ?>/lgd/profile/profile">Please update your Personal Profile so we can complete the summary information.</A>
-					</P>		
-					
-				<?php } ?>
+			
 				   
 	        
 		    <div class="d-flex flex-column flex-md-row mb-3">

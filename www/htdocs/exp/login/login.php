@@ -25,14 +25,16 @@
 			if ( $resultPass["SystemTemporaryUser_ID"] > 0 && empty ($resultPass["SystemUser_ID"])) {
 				// This is in case 
 				
-				
 				WriteStderr($resultPass, "ResultPass before writing variable.");
 				
 				$VariableToPass = array( 
-					"SystemUser_ID" => "TMP" . $resultPass["SystemTemporaryUser"],
+					"SystemUser_ID" => "TMP",
+					"SystemTemporaryID" => $resultPass["SystemTemporaryUser_ID"],
 					"SystemTemporaryEmail" => $resultPass["SystemTemporaryUser_email"],
 					"ProfileCreate" => "yes",
-					"SystemUser_Priv" => 1
+					"SystemUser_Priv" => 1,
+			    "EmailLink" => $resultPass["SystemTemporaryUser_emaillinkid"],
+			    "EmailVerified" => $resultPass["SystemTemporaryUser_emailverified"]
 				);
 				
 			} else {
