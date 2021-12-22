@@ -75,20 +75,18 @@
 			  	<h2 class="Subhead-heading">Summary</h2>
 				</div>
 				
-					<?php if ($MenuDescription == "District Not Defined") { ?>
-							
-				
+				<?php if ($MenuDescription == "District Not Defined") { ?>
 					<P>
-						<B><A HREF="/<?= $k ?>/lgd/profile/profile">Please update your Personal Profile so we can complete the summary information</A>.</B>
-					</P>		
-					
+						<B>
+							<A HREF="/<?= $k ?>/lgd/profile/profile">Please update your Personal Profile so 
+							we can complete the summary information</A>.
+						</B>
+					</P>							
 				<?php } ?>
 				
 				<?php 
 					switch ($EmailVerifiedType) {
 						case "no": 
-						
-						
 						preg_match('/^([0-9a-f]{4})(.*)([0-9a-f]{4})$/', $LinkNameToEmail, $matches, PREG_OFFSET_CAPTURE);
 						$LinkNameToEmail = $matches[3][0] . $matches[1][0] . $matches[2][0];
 						
@@ -121,18 +119,13 @@
 						
 						case "reply": ?>
 							<P>
-								<B><FONT COLOR=BROWN>Please follow the instructions in the email from</FONT> infos@<?=  $MailFromDomain ?> and click
-								on the link attached.</FONT></B>
+								<B><FONT COLOR=BROWN>Please follow the instructions in the email from</FONT> infos@<?=  $MailFromDomain ?> 
+								and click on the link attached.</FONT></B>
 								If you deleted the verification email, click here for alternative instructions.
 							</P>
 				<?php break; 
 					} ?>
 
-
-				
-			
-				   
-	        
 		    <div class="d-flex flex-column flex-md-row mb-3">
 		    	<div class="col-12 py-3 px-4 col-md-4 mb-md-0 mb-3 mr-md-3 bg-gray rounded-1">
 		        <h4 class="f5 text-normal text-gray"><?= $BoxInDistrict ?></h4>
