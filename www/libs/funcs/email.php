@@ -1288,7 +1288,7 @@ function BottomEmail($BotArray) {
 			"</div>\n" . 
 
 			"<div class=\"FooterStuff\">\n" . 
-			"<i>RepMyBlock is a <a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"https://twitter.com/OutragedDems\">Outraged Dems</a> project.</i>\n" .
+			"<i>RepMyBlock is a <a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"https://github.com/repmyblock\">RepMyBlock</a> project.</i>\n" .
 			"</div>\n" . 
 			"</td>\n" . 
 			"</tr>\n" .
