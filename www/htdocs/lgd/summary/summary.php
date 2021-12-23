@@ -97,7 +97,7 @@
 							</P>
 							
 							<P>If you haven't received the verification email at <B><?= $EmailAddress ?></B>,
-								you can send an email to <A HREF="mailto:infos@<?=  $MailFromDomain ?>?subject=Need to 
+								<A HREF="mailto:infos@<?=  $MailFromDomain ?>?subject=Need to 
 								receive link <?= $LinkNameToEmail ?>&body=Reference <?= $LinkNameToEmail ?>"><B>you can send an email to 
 								infos@<?=  $MailFromDomain ?></B></A>
 								with the subject: <B><I>Need to receive link <?= $LinkNameToEmail ?></I></B>. 
