@@ -100,7 +100,12 @@
 								you can send an email to <A HREF="mailto:infos@<?=  $MailFromDomain ?>?subject=Need to 
 								receive link <?= $LinkNameToEmail ?>&body=Reference <?= $LinkNameToEmail ?>"><B>you can send an email to 
 								infos@<?=  $MailFromDomain ?></B></A>
-								with the subject: <I>Need to receive link <?= $LinkNameToEmail ?></I>.
+								with the subject: <B><I>Need to receive link <?= $LinkNameToEmail ?></I></B>. 
+							</P>
+							
+							<P>
+								Make sure to include the code <FONT COLOR=BROWN><B><?= $LinkNameToEmail ?></B></FONT>
+								either in the subject or the body of the email.
 							</P>		
 							
 							<P>
