@@ -31,6 +31,7 @@
 		$PersonEmail     = $rmbperson["SystemUser_Email"];
 
 		$EmailVerifiedType = $rmbperson["SystemUser_emailverified"];
+		$LinkNameToEmail = $rmbperson["SystemUser_emaillinkid"];
 
 	} else {
 		$EmailVerifiedType = $URIEncryptedString["EmailVerified"];
