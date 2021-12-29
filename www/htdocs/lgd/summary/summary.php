@@ -135,17 +135,17 @@
 		    <div class="d-flex flex-column flex-md-row mb-3">
 		    	<div class="col-12 py-3 px-4 col-md-4 mb-md-0 mb-3 mr-md-3 bg-gray rounded-1">
 		        <h4 class="f5 text-normal text-gray"><P CLASS="f40"><?= $BoxInDistrict ?></P></h4>
-		        <span class="f2 text-bold d-block mt-1 mb-2 pb-1"><?= $NumberOfElectors ?></span>
+		        <span class="f2 text-bold d-block mt-1 mb-2 pb-1 f60"><?= $NumberOfElectors ?></span>
 		    	</div>
 
 		    	<div class="col-md-4 mr-md-3 col-12 py-3 px-4 mb-md-0 mb-3 bg-gray rounded-1">
 		      	<h4 class="f5 text-normal text-gray"><P CLASS="f40">Required Signatures (Progress)</P></h4>
-		  			<span class="f2 text-bold d-block mt-1 mb-2 pb-1"><?= $BoxSignatures ?></span>
+		  			<span class="f2 text-bold d-block mt-1 mb-2 pb-1 f60"><?= $BoxSignatures ?></span>
 			    </div>
 
 			    <div class="col-md-4 col-12 py-3 px-4 mb-md-0 mb-3 bg-gray rounded-1">
 			      <h4 class="f5 text-normal text-gray"><P CLASS="f40">Days to Go</P></h4>
-			  		<span class="f2 text-bold d-block mt-1 mb-2 pb-1"><?= $DayToGo ?></span>						
+			  		<span class="f2 text-bold d-block mt-1 mb-2 pb-1 f60"><?= $DayToGo ?></span>						
 			    </div>
 			  </div>
 			
