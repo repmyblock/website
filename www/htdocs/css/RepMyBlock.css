@@ -8,8 +8,8 @@ a {text-decoration: none;}
 p.f80bold {font-size:26px; font-weight: 600;}
 p.f80 {font-size:18px; font-weight: 600;}
 p.f60 {font-size:14px; font-weight: 500;}
-p.f40 {font-size:12px; padding: 30px 5px;}
-p.f50 {font-size:13px; padding: 10px 5px;}
+p.f40 {font-size:12px;}
+p.f50 {font-size:13px;}
 
 div.f80bold {font-size:26px; font-weight: 600;}
 div.f80 {font-size:18px; font-weight: 600;}
