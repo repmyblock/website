@@ -30,7 +30,7 @@
 					WriteStderr($Decrypted_k, "Decrypted_k:");
 					$NewKEncrypt = CreateEncoded (array("Candidate_ID" => $result[0]["Candidate_ID"]));
 				?>	
-				<P>
+				<P CLASS="f60">
 					<FONT SIZE=+2>
 						Download a 
 						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/<?= $rmbperson["DataState_Abbrev"] ?>/E<?= $result[0]["Candidate_ID"] ?>/petition">blank petition</A>
@@ -46,13 +46,13 @@
 					</FONT>
 				</P>
 
-				<P>
+				<P CLASS="f40">
 					Once you collect the  <?= $NumberOfSignatures ?> plus a few more, you need to wait until April 1<sup>st</sup> to take them
 					to the board of elections. <B>Just follow the 
 					<A HREF="/exp/<?= $k ?>/howto">instruction posted on the FAQ</A>.</B>
 				</P>
 
-				<P>
+				<P CLASS="f40">
 					<B>Download : <A TARGET="BLANKPETITION3" HREF="<?= $FrontEndPDF ?>/NYS/petid<?= $result[0]["CandidatePetitionSet_ID"] ?>/CRU_PreFile">the Petition-Pre Assigned form</A></B> and 
 					mail it to the Candidate Record Unit of the Board of Election.
 				</P>
