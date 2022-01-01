@@ -71,15 +71,9 @@
 		<B>Ben Yee</B> present the Stucture of the Manhattan County Committee. There are slight different from one county to the other, but the basic 
 		logic is the same. If you are outside New York, you can find the process by googling <B>"County Chair"</B> and the name of your party.
 	</P>
-
 	
-
-		
 	<P CLASS="BckGrndElement f80">THE STRUCTURE OF THE COUNTY COMMITTEE</P>
 	
-	
-
-
 	<DIV class="videowrapper">
 	 <iframe width="560" height="315" src="https://www.youtube.com/embed/MgAY-Ipyk1Q?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
