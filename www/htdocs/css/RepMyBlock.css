@@ -30,6 +30,22 @@ table.f50 td, th { padding: 5px; text-align: center;}
 #VoterTable th	{	border:1px solid;	padding:3px 6px; font-size:15px;}
 #VoterTable td	{	border:1px solid;	padding:3px 6px; font-size:13px;}
 
+.videowrapper {
+    float: none;
+    clear: both;
+    width: 100%;
+    /* position: relative; */
+    padding-bottom: 35%;
+    /* padding-top: 25px; */
+    height: 0;
+}
+.videowrapper iframe {
+    position: center;
+    top: 0;
+    left: 0;
+    width: 560px;
+    height: 315px;
+}
 
 /* .right {text-align:right;} */
 .center {text-align:center;}
@@ -83,7 +99,7 @@ clip-path: polygon(24% 15%, 100% 0, 83% 100%, 0% 100%);
 .w3-btn,.w3-button{border:none;display:inline-block;padding:8px 16px;vertical-align:middle;overflow:hidden;text-decoration:none;color:inherit;background-color:inherit;text-align:center;cursor:pointer;white-space:nowrap}
 .w3-bar .w3-bar-item{padding:8px 16px;float:left;width:auto;border:none;display:block;outline:0}
 .w3-white,.w3-hover-white:hover{color:#000!important;background-color:#fff!important}
-.w3-blue,.w3-hover-blue:hover{color:#fff!important;background-color:#16317D!important;font-size: 60px;font-weight: 700;font-family: 'Montserrat', sans-serif;}
+.w3-blue,.w3-hover-blue:hover{color:#fff!important;background-color:#16317D!important;font-weight: 700;font-family: 'Montserrat', sans-serif;}
 .w3-text-blue,.w3-hover-text-blue:hover{color:#16317D!important}
 .w3-red,.w3-hover-red:hover{color:#fff!important;background-color:#EE2E62!important}
 .w3-text-red,.w3-hover-text-red:hover{color:#EE2E62!important}
@@ -92,7 +108,7 @@ clip-path: polygon(24% 15%, 100% 0, 83% 100%, 0% 100%);
 
 .BckGrndCenter{color:#16317D!important;font-size: 18px;font-weight: 700;}
 .BckGrndElement{padding: 10px  20px 10px;}
-.BlueBox{padding: 10px 20px 10px;font-size: 18px;}
+.BlueBox{padding: 10px 20px 10px;background-color:#16317D;font-size: 26px;font-weight: 700;}
 .BckGrndElement{font-size: 20px;font-weight: 700;background-image: url("/images/background/BackGround-FFF79D.jpg");}
 .FooterTitle{font-size: 18px;font-weight: 700;font-style: italic;}
 .FooterInfo{font-size: 12px;font-weight: 400;padding: -55px  20px 10px;}
@@ -143,3 +159,5 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 .register input[type=email], select, textarea {font-size: 40px;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
 .register input[type=submit] {font-size: 40px;background-color: #EE2E62;color: white;padding: 12px 20px;border: none;cursor: pointer;}
 .register input[type=submit]:hover {font-size: 40px;background-color: #EE2E62;color: #16317D;}
+
+

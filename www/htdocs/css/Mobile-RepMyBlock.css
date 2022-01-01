@@ -21,6 +21,23 @@ a.f60 {font-size:60px; font-weight: 500;}
 #VoterTable td	{	border:1px solid;	padding:3px 6px; font-size:50px;}
 
 
+.videowrapper {
+    float: none;
+    clear: both;
+    width: 100%;
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 25px;
+    height: 0;
+}
+.videowrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .hundred {width:100%;}
 .MediaCenter {text-align:center;}
 
@@ -127,7 +144,7 @@ clip-path: polygon(24% 15%, 100% 0, 83% 100%, 0% 100%);
 .w3-text-yellow,.w3-hover-text-yellow:hover{color:#16317D!important}
 
 .BckGrndElement{padding: 10px  20px 10px;}
-.BlueBox{padding: 10px 20px 10px;font-size: 18px;}
+.BlueBox{padding: 10px 20px 10px;background-color:#16317D;}
 .BckGrndElement{font-size: 20px;font-weight: 700;background-image: url("/pics/background/BackGround-FFF79D.jpg");}
 .FooterTitle{font-size: 18px;font-weight: 700;font-style: italic;}
 .FooterInfo{font-size: 12px;font-weight: 400;padding: -55px  20px 10px;}
@@ -223,5 +240,4 @@ input.mobilebig[type=submit]:hover {font-size: 60px; font-weight: 600;background
 .register input[type=password], select, textarea {font-size: 40px;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
 .register input[type=submit] {font-size: 40px;background-color: #EE2E62;color: white;padding: 12px 20px;border: none;cursor: pointer;}
 .register input[type=submit]:hover {font-size: 40px;background-color: #EE2E62;color: #16317D;}
-
 

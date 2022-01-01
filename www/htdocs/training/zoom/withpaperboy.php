@@ -16,9 +16,9 @@
 </P>
 
 <P>
-	<UL>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/KtYLNV3_npk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</UL>
+	<DIV class="videowrapper">
+		<iframe src="https://www.youtube.com/embed/KtYLNV3_npk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 </P>
 
 <P CLASS="f40">
@@ -26,9 +26,9 @@
 </P>
 
 <P>
-	<UL>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/q93fQM8ppfk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</UL>
+	<DIV class="videowrapper">
+		<iframe src="https://www.youtube.com/embed/q93fQM8ppfk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 </P>
 
 <P CLASS="f40">
@@ -36,9 +36,9 @@
 </P>
 
 <P>
-	<UL>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/MnI7iBxCN4A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</UL>
+	<DIV class="videowrapper">
+		<iframe  src="https://www.youtube.com/embed/MnI7iBxCN4A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 </P>
 <P>
 	
@@ -94,9 +94,9 @@
 
 
 <P>
-	<UL>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/UwyfucMSzDY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</UL>
+	<DIV class="videowrapper">
+		<iframe src="https://www.youtube.com/embed/UwyfucMSzDY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 </P>
 
 
@@ -106,9 +106,9 @@
 </P>
 
 <P>
-	<UL>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/lc_sgWGxZWo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</UL>
+	<DIV class="videowrapper">
+		<iframe src="https://www.youtube.com/embed/lc_sgWGxZWo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 </P>
 
 
@@ -118,9 +118,9 @@
 </P>
 
 <P>
-	<UL>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/NU1hVBaXTNo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</UL>
+	<DIV class="videowrapper">
+		<iframe src="https://www.youtube.com/embed/NU1hVBaXTNo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 </P>
 
 <P CLASS="f40">
@@ -128,9 +128,9 @@
 </P>
 
 <P>
-	<UL>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/GsQ7YtaunCE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</UL>
+	<DIV class="videowrapper">
+		<iframe src="https://www.youtube.com/embed/GsQ7YtaunCE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 </P>
 
 <P CLASS="f40">
@@ -138,9 +138,9 @@
 </P>
 
 <P>
-	<UL>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/AO7iBH0xgkA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</UL>
+	<DIV class="videowrapper">
+		<iframe src="https://www.youtube.com/embed/AO7iBH0xgkA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 </P>
 
 <p CLASS="f40">
@@ -148,9 +148,9 @@
 </P>
 
 <P>
-	<UL>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/Q7sQCZtM0bY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</UL>
+	<DIV class="videowrapper">
+		<iframe src="https://www.youtube.com/embed/Q7sQCZtM0bY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 </P>
 			
 			<P CLASS="f40">

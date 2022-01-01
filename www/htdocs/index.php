@@ -33,8 +33,9 @@
 		
 	<P CLASS="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
-<P CLASS="BlueBox f60">
-		<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox f60">ACT NOW! PETITIONING RUNS FROM<BR>MARCH 1<SUP>st</SUP>, 2022 TO APRIL 7<SUP>th</SUP>, 2022.</a>
+	<P CLASS="BlueBox">
+		<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">ACT NOW! 
+			PETITIONING RUNS FROM<BR>MARCH 1<SUP>st</SUP>, 2022 TO APRIL 7<SUP>th</SUP>, 2022.</a>
 	</P>
 
 
@@ -42,17 +43,14 @@
 		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/register" CLASS="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
 		<A class="action-nominate" HREF="/<?= $middleuri ?>/exp/propose/nomination" CLASS="NomCandidate"><img class="action-nominate" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
 	</DIV>
-
 	
-
-
 		<BR>
 
 		
 
 	<P CLASS="BckGrndElement f80">ZOOM WITH PAPERBOY LOVE PRINCE</P>
 
-	<P CLASS="BlueBox f40">
+	<P CLASS="f40">
 		<B>Sal Albanese</B>, <B>Badrun Khan</B>, <B>Ben Yee</B>, <B>Vittoria Fariello</B>, and <B>Jared Rich</B> discuss the 
 		weaponization of the electoral process with Paperboy Love Prince in five one-hour candid chats. These videos were 
 		recorded while Paperboy Love Prince was running for congress, and discovering first-hand, the different steps 
@@ -65,14 +63,10 @@
 		<P CLASS="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
 	</P>
 		
-
-
-
-	<P CLASS="MediaCenter">
-	 <iframe width="560" height="315" src="https://www.youtube.com/embed/KtYLNV3_npk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</P>
-
-
+	<DIV class="videowrapper">
+	 		<iframe src="https://www.youtube.com/embed/KtYLNV3_npk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
+		
 <P CLASS="f40">	
 		<B>Ben Yee</B> present the Stucture of the Manhattan County Committee. There are slight different from one county to the other, but the basic 
 		logic is the same. If you are outside New York, you can find the process by googling <B>"County Chair"</B> and the name of your party.
@@ -86,9 +80,9 @@
 	
 
 
-	<P CLASS="MediaCenter">
+	<DIV class="videowrapper">
 	 <iframe width="560" height="315" src="https://www.youtube.com/embed/MgAY-Ipyk1Q?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</P>
+	</DIV>
 	
 	<P>
 		<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">To access voters lists, register and log into the Rep My Block website</A></P>

@@ -42,8 +42,8 @@
 			<I>(We are working on getting the Bylaws from the other parties, and we will publish them as soon as we have them.)</I>
 		</P>
 		
-		<P CLASS="MediaCenter">
-		 <iframe width="560" height="240" src="https://www.youtube.com/embed/MgAY-Ipyk1Q?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<DIV class="videowrapper">
+		 <iframe src="https://www.youtube.com/embed/MgAY-Ipyk1Q?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		</P>
 		
 
@@ -83,18 +83,18 @@
 	</P>
 	
 
-	<P CLASS="MediaCenter">
-	 <iframe width="560" height="240" src="https://www.youtube.com/embed/cizp2jVf-Yk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</P>
+	<DIV class="videowrapper">
+	 <iframe src="https://www.youtube.com/embed/cizp2jVf-Yk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 	
 	<P CLASS="f60 justify">
 		Contrary to the presidential petitioning, won't need to stop random voter in the street but knock on your neighbors' doors. 
 		The Rep My Block website has the walk sheet that is organized by streets. 
 	</P>	
 	
-	<P CLASS="MediaCenter">
-		 <iframe width="560" height="240" src="https://www.youtube.com/embed/XUGFbBCcIS4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-		</P>
+	<DIV class="videowrapper">
+		 <iframe src="https://www.youtube.com/embed/XUGFbBCcIS4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</DIV>
 	
 
 	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></H2></CENTER></P>
@@ -114,9 +114,9 @@
 
 	
 
-	<P CLASS="MediaCenter">
-	 <iframe width="560" height="240" src="https://www.youtube.com/embed/9GfIm72Ksz0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</P>
+	<DIV class="videowrapper">
+	 <iframe src="https://www.youtube.com/embed/9GfIm72Ksz0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 	
 	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
 
@@ -133,9 +133,9 @@
 		<?= $ImportantDates["NY"]["LongDate"]["FirstSubmitDay"] ?>, and <?= $ImportantDates["NY"]["LongDate"]["LastPetitionDay"] ?>. 
 
 	
-	<P CLASS="MediaCenter">
-	 <iframe width="560" height="240" src="https://www.youtube.com/embed/G0yRhVGz2TM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</P>
+	<DIV class="videowrapper">
+	 <iframe src="https://www.youtube.com/embed/G0yRhVGz2TM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 	
 	<P CLASS="f60 justify">
 		Rep My Block is a community-based system that uses the power of the community. We will setup dropping points throughout the 
@@ -165,9 +165,9 @@
 	</P>
 
 	
-	<P CLASS="MediaCenter">
-	 <iframe width="560" height="240" src="https://www.youtube.com/embed/WXRd6lF3Ix4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</P>
+	<DIV class="videowrapper">
+	 <iframe src="https://www.youtube.com/embed/WXRd6lF3Ix4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 	
 	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
 	</DIV>
@@ -180,9 +180,9 @@
 		</B>Finally!</B> You spend 27 hours completing the previous six steps. <B>It is now time to attend your first meeting!</B>
 	</P>
 
-	<P CLASS="MediaCenter">
-	 <iframe width="560" height="240" src="https://www.youtube.com/embed/ZyKD5H0y0KM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</P>
+	<DIV class="videowrapper">
+	 <iframe src="https://www.youtube.com/embed/ZyKD5H0y0KM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 
 
 	<P CLASS="f60 justify">
@@ -190,9 +190,9 @@
 		<B>you will need to work together to get your ideas across.</B>
 	</P>
 
-	<P CLASS="MediaCenter">
-	 <iframe width="560" height="240" src="https://www.youtube.com/embed/LqOsuibAGNw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</P>
+	<DIV class="videowrapper">
+	 <iframe src="https://www.youtube.com/embed/LqOsuibAGNw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 	
 	<P CLASS="f60 justify">
 		The business of the County Committee meeting is to elect the leadership of the County Party. As a committee member, you will be approached asking to support a candidate. It's the most critical part because it will dictate how the party will behave during the next two-year cycle.
@@ -204,9 +204,9 @@
 		the flyer distributed</B> at the last Manhattan meeting.
 	</P>
 	
-	<P CLASS="MediaCenter">
-	 <iframe width="560" height="240" src="https://www.youtube.com/embed/wPDC_XeTbc4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</P>
+	<DIV class="videowrapper">
+	 <iframe src="https://www.youtube.com/embed/wPDC_XeTbc4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 	
 	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
 	
