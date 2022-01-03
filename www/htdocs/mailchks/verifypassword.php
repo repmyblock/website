@@ -24,6 +24,8 @@
 							"SystemUser_ID" => "TMP",
 							"Password" => $URIEncryptedString["PasswordToCheck"],
 							"SystemTemporaryEmail" => $ret["SystemTemporaryUser_email"],
+							"EmailVerified" => $ret["SystemTemporaryUser_emailverified"],
+							"EmailLink" => $ret["SystemTemporaryUser_emaillinkid"],
 						);
 					break;
 	
@@ -40,6 +42,8 @@
 							"SystemUser_ID" => $URIEncryptedString["UserID"],
 							"Password" => $URIEncryptedString["PasswordToCheck"],
 							"SystemTemporaryEmail" => $ret["SystemTemporaryUser_email"],
+							"EmailVerified" => $ret["SystemTemporaryUser_emailverified"],
+							"EmailLink" => $ret["SystemTemporaryUser_emaillinkid"],
 						);
 					break;
 				}
@@ -57,7 +61,7 @@
 
 <div class="main">
 	
-	<H1>Verify the email address</H1>
+	<H1>Activate your account</H1>
 	
 	<?php if (! empty ($error_msg)) {
 		echo "<P>" . $error_msg . "</P>";	

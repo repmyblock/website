@@ -39,8 +39,9 @@
 		$EmailAddress = $URIEncryptedString["SystemTemporaryEmail"];
 		
 	}
-
-		
+	
+	WriteStderr($EmailVerifiedType, "Email Verified Type");
+	
 	$NumberOfAddressesOnDistrict = 0;				
 
 	/* Define the boxes here before we set the menu */

@@ -9,28 +9,56 @@
 	if (! empty ($_GET["k"])) {
 		$hashkey = substr( $_GET["k"], 0, 32);  
 		$username = substr( $_GET["k"], 32, strlen($_GET["k"]) - 32);
+	
+		// I don't need to present the stuff if it's there.
+	
+		$r = new login();
+		$result = $r->CheckUsername($username);
+		WriteStderr($result, "CheckUsernameInformation " . $username);
+		
+		if ( ! empty ($result["SystemUser_emaillinkid"])) {
+			$TypeTable = "Final";
+			$SystemHashKey = $result["SystemUser_emaillinkid"];		
+			$PasswordToCheck = $result["SystemUser_password"];
+			$IDToPass = $result["SystemUser_ID"];
+			
+		} else {
+			$TypeTable = "Temp";		
+			$SystemHashKey = $result["SystemTemporaryUser_emaillinkid"];
+			$PasswordToCheck = $result["SystemTemporaryUser_password"];
+			$IDToPass = $result["SystemTemporaryUser_ID"];
+		}
+		
+		$VariableToPass = array( 
+			"UserID" => $IDToPass,
+			"PasswordToCheck" => $PasswordToCheck,
+			"TypeTable" => $TypeTable
+		);				
+	
+		header("Location: /" . CreateEncoded($VariableToPass, $VariableToRemove) . "/mailchks/verifypassword");
+		exit();
+		
 	}
 	
 	if ( ! empty ($_POST["username"])) { $username = $_POST["username"]; }
 	if ( ! empty ($_POST["hashkey"])) {	$hashkey = $_POST["hashkey"]; }
-
 	if ( ! empty ($_POST["username"])) {
 		
 		$r = new login();
 		$result = $r->CheckUsername($_POST["username"]);
 		WriteStderr($result, "CheckUsernameInformation " . $_POST["username"]);
 		
-		if ( ! empty ($result["SystemTemporaryUser_emaillinkid"] )) {
-			$TypeTable = "Temp";		
-			$SystemHashKey = $result["SystemTemporaryUser_emaillinkid"];
-			$PasswordToCheck = $result["SystemTemporaryUser_password"];
-			$IDToPass = $result["SystemTemporaryUser_ID"];
-			
-		} else {
+		if ( ! empty ($result["SystemUser_emaillinkid"] )) {
 			$TypeTable = "Final";
 			$SystemHashKey = $result["SystemUser_emaillinkid"];		
 			$PasswordToCheck = $result["SystemUser_password"];
 			$IDToPass = $result["SystemUser_ID"];
+			
+		} else {
+			$TypeTable = "Temp";		
+			$SystemHashKey = $result["SystemTemporaryUser_emaillinkid"];
+			$PasswordToCheck = $result["SystemTemporaryUser_password"];
+			$IDToPass = $result["SystemTemporaryUser_ID"];
 		}
 		
 		$VariableToPass = array( 
