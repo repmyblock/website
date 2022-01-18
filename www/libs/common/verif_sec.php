@@ -66,13 +66,11 @@ function EncryptURL($string = "") {
   openssl_get_publickey($PubKey);
 
   $MyString = "LastTimeUser=" . time();
-    
+
   if ( ! empty ($string)) {
   	$MyString .= "&" . $string;
   }
-    
-  WriteStderr($MyString, $_SERVER['DOCUMENT_URI'] . " Encrypting");
-    
+        
 	$SizeMessage = strlen($MyString);
   $encpayload = "";
   $blocktext = "";
@@ -91,9 +89,10 @@ function EncryptURL($string = "") {
     		echo $msg . "<br />\n";
     	}
     }
+    
     $encpayload .= $encblocktext;
   }
-  
+    
   $MyString = rawurlencode(base64_encode(pack ("Na*", $blockct, $encpayload)));
   WriteStderr($MyString, $_SERVER['DOCUMENT_URI'] . " Encrypted String");
   return $MyString;
@@ -105,7 +104,9 @@ function DecryptURL ( $sealed ) {
   global $PrivKey;
   openssl_get_privatekey ($PrivKey);
   $finaltext = "";
-
+  
+  if ($sealed[0] != "A" && $sealed[1] != "A" ) return;
+  
   $arr = unpack('Nblockct/a*', base64_decode(rawurldecode($sealed)));
   $blockct = $arr['blockct'];
   $encpayload=$arr[1];

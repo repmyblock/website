@@ -201,7 +201,7 @@ function SendForgotLogin($to, $hashtable) {
 	$BotArray["sendemail"] =  $to;
 
   $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
-	$linktoverify = $FrontEndWebsite . "/exp/" . $hashtable . "/forgotpwd_recover";
+	$linktoverify = $FrontEndWebsite . "/" . $hashtable . "/exp/forgot/pwdrecover";
 	
 	$WelcomeLine = "Hello";
 	
