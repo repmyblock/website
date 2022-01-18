@@ -1,11 +1,18 @@
 <?php
 	WriteStderr($rmbperson, "RMBPerson in Menu");
 	
-	if (empty ($URIEncryptedString["EDAD"])) { 
-		$MenuDescription = "District Not Defined";
+	
+	if (empty ($rmbperson["SystemUser_EDAD"])) { 
+		if (empty ($URIEncryptedString["EDAD"])) { 
+			$MenuDescription = "District Not Defined";
+		} else {
+			$MenuDescription = ParseEDAD($URIEncryptedString["EDAD"]);
+		} 
 	} else {
-		$MenuDescription = ParseEDAD($URIEncryptedString["EDAD"]);
+		$MenuDescription = ParseEDAD($rmbperson["SystemUser_EDAD"]);
 	} 
+	
+	
 	
 	if ($MobileDisplay == true) { 
 	$DIVCol="col-12";
