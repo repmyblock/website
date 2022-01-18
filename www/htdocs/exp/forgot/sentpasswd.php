@@ -15,7 +15,9 @@
 		<DIV>
 			<P CLASS="f40">
 				If you don't receive an email in the next few hours, 
-				please sent an email to passwordissues@repmyblock.nyc
+				
+				<A HREF="mailto:passwordissues@<?=  $MailFromDomain ?>?subject=Problem with my password&body=Explain the situation here ..."><B>please send an email to  
+								passwordissues@<?=  $MailFromDomain ?></B></A>.
 			</P>
 		</DIV>
 		

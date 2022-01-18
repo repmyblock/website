@@ -1,7 +1,7 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
 	$Menu = "downloads";
-	$BigMenu = "represent";	
+	// $BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
@@ -47,7 +47,7 @@
 				<P CLASS="f40">
 					Once you collect the  <?= $NumberOfSignatures ?> plus a few more, you need to wait until April 1<sup>st</sup> to take them
 					to the board of elections. <B>Just follow the 
-					<A HREF="/exp/<?= $k ?>/howto">instruction posted on the FAQ</A>.</B>
+					<A HREF="/<?= $k ?>/exp/toplinks/howto">instruction posted on the FAQ</A>.</B>
 				</P>
 
 				<P CLASS="f40">

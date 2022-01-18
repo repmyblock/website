@@ -38,9 +38,9 @@
 
 		
 
-		<P CLASS="f60 justify">
+		<P CLASS="f40">
 			We will send you a link to the email address you 
-			registered so you can reset your password.
+			registered so you can send your username.
 		</P>
 
 	<P CLASS="f80">
@@ -49,14 +49,15 @@
 	</P>
 			
 	<P>
-		<INPUT TYPE="Submit" NAME="signin" VALUE="Reset my password">
+		<INPUT TYPE="Submit" NAME="signin" VALUE="Locate my username">
 	</P>
 			
 		</FORM>
 	
-	<P CLASS="f60 justify">
-		If you don't receive a link in the next few hours, send an 
-		email to passwordissues@repmyblock.nyc.
+	<P CLASS="f40">
+		If you don't receive a link in the next few hours, 
+		<A HREF="mailto:passwordissues@<?=  $MailFromDomain ?>?subject=Problem with my username&body=Explain the situation here ..."><B>please send an email to  
+								passwordissues@<?=  $MailFromDomain ?></B></A>.
 	</P>
 	
 </DIV>

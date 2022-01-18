@@ -12,6 +12,9 @@
 	$rmb = new RepMyBlock();
 	
 	if ( $URIEncryptedString["SystemUser_ID"] != "TMP") {
+		
+		WriteStderr("I am in URI not TMP");
+		
 		$rmbperson = $rmb->FindPersonUser($URIEncryptedString["SystemUser_ID"]);
 		// $NumberPetitions = $rmb->GetPetitionsSumary($URIEncryptedString["SystemUser_ID"]);	
 		WriteStderr($rmbperson, "rmbperson");
@@ -34,6 +37,9 @@
 		$LinkNameToEmail = $rmbperson["SystemUser_emaillinkid"];
 
 	} else {
+		
+		WriteStderr("I am in URI is TMP");
+		
 		$EmailVerifiedType = $URIEncryptedString["EmailVerified"];
 		$LinkNameToEmail = $URIEncryptedString["EmailLink"];
 		$EmailAddress = $URIEncryptedString["SystemTemporaryEmail"];
@@ -45,7 +51,7 @@
 	$NumberOfAddressesOnDistrict = 0;				
 
 	/* Define the boxes here before we set the menu */
-	if (empty ($URIEncryptedString["EDAD"])) { 	
+	if (empty ($rmbperson["SystemUser_EDAD"])) { 	
 		$BoxSignatures = "Not defined"; 
 		$BoxInDistrict = "Number of voters";
 		$NumberOfElectors = "Not defined";
@@ -78,7 +84,7 @@
 				</div>
 				
 				<?php if ($MenuDescription == "District Not Defined") { ?>
-					<P>
+					<P CLASS="f80">
 						<B>
 							<A HREF="/<?= $k ?>/lgd/profile/profile">Please update your Personal Profile so 
 							we can complete the summary information</A>.
