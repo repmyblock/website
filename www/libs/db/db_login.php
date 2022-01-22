@@ -11,7 +11,7 @@ class login extends queries {
 	 	$this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
-  function RegisterUser($Username, $Email, $Password, $Type) {
+  function RegisterUser($Username, $Email, $Password, $Type, $Refer = NULL) {
   	
   	if ( empty ($Username) || empty ($Email) || empty ($Password)) return 0;
   	
@@ -41,7 +41,7 @@ class login extends queries {
 		}
 		
 		if ( empty($ret)) {
-			$ret = $this->AddEmailUsernamePassword($Email, $Username, $Password, $hashtable);		
+			$ret = $this->AddEmailUsernamePassword($Email, $Username, $Password, $hashtable, $Refer);		
 			if ( empty ($ret["SystemTemporaryUser_ID"])) {
 				return array("Problem" => "Problem saving the Email");
 			}
@@ -162,18 +162,26 @@ class login extends queries {
 		return $this->_return_nothing($sql,  $sql_vars);
 	}
 	
-	function AddEmailUsernamePassword($Email, $Username, $Password, $hashtable = "") {
+	function AddEmailUsernamePassword($Email, $Username, $Password, $hashtable = NULL, $reference = NULL) {
 		$HashPass = password_hash($Password, PASSWORD_DEFAULT);
 		
-		$sql = "INSERT INTO SystemTemporaryUser SET SystemTemporaryUser_username = :username, " . 
-						"SystemTemporaryUser_password = :password, SystemTemporaryUser_email = :Email, SystemTemporaryUser_createtime = NOW()";
+		$sql = "INSERT INTO SystemTemporaryUser SET SystemTemporaryUser_username = :username," . 
+						"SystemTemporaryUser_password = :password, SystemTemporaryUser_email = :Email,"; 
+						
 		$sql_vars = array(':username' => $Username, ':password' => $HashPass, 
 											'Email' => $Email);
 		
 		if ( ! empty ($hashtable)) {
-			$sql .= ", SystemTemporaryUser_emaillinkid = :Hash ";
+			$sql .= "SystemTemporaryUser_emaillinkid = :Hash,";
 			$sql_vars["Hash"] = $hashtable;
 		}		
+		
+		if ( ! empty ($reference)) {
+			$sql .= "SystemTemporaryUser_reference = :Refer,";
+			$sql_vars["Refer"] = $reference;
+		}		
+		
+		$sql .= "SystemTemporaryUser_createtime = NOW()";
 		
 		$this->_return_nothing($sql,  $sql_vars);
 

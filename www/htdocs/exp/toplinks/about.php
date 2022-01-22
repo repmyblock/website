@@ -13,9 +13,7 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
 
 	/* User is logged */
-	
 ?>
-
 
 <div class="main">
 	<DIV CLASS="intro center">
@@ -35,9 +33,6 @@
 	</DIV>
 	
 	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
-
-
 </div>
-
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

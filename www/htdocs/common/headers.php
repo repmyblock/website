@@ -2,14 +2,20 @@
 	error_reporting(E_ERROR | E_PARSE);
 	if ( preg_match('/Mobile/', $_SERVER['HTTP_USER_AGENT'])) { $MobileDisplay = true; }
 	//$MobileDisplay = true; 
+	
+	
+		
 	if ( ! empty ($k) && ($URIEncryptedString["SystemUser_ID"] > 0 ||
 												$URIEncryptedString["SystemUser_ID"] == "TMP")) { 
 		$MenuLogin = "logged"; 
 		$middleuri = rawurlencode($k);	
 		$logourl = "/" . $k . "/lgd/summary/summary";
 	} else {
-		$middleuri = "web";
-		$logourl = "/";
+		if ( empty ($URIEncryptedString) && empty ($middleuri) && ! empty ($k)) {
+			$middleuri = $k;
+		}
+		if (empty ($middleuri)) { $middleuri = "web"; };
+		$logourl = "/" . $middleuri . "/exp/index";
 	}
 	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png"; }	
 	

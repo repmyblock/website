@@ -5,10 +5,20 @@
 		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";	
-	
+
 		$r = new login();	
+		
+		// Check who we assign the registered user.
+		
+		
+		if (! empty($k) && $k != "web") {
+			$Refer = $k;
+		}
+		
 		$result = $r->RegisterUser(trim($_POST["username"]), trim($_POST["emailaddress"]), 
-																trim($_POST["password"]), "Register");
+																trim($_POST["password"]), "Register", $Refer);
+																
+		
 																
 		if ( empty ($result["USERNAME"]) && empty ($result["EMAIL"])) {
 		
