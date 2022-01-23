@@ -9,8 +9,9 @@
 	$r = new OutragedDems();
 	$voters = $r->ListVoterForCandidates($URIEncryptedString["Candidate_ID"]);
 	
-	//echo "<PRE>" . print_r($voters, 1) . "</PRE>";
-
+	
+	//echo "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
+	//exit();
 /*
 		[DataHouse_Apt] => 44
 		[DataDistrictTemporal_GroupID] => 

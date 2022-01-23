@@ -166,7 +166,7 @@ class OutragedDems extends queries {
            "LEFT JOIN DataLastName ON (VotersIndexes.DataLastName_ID = DataLastName.DataLastName_ID) " . 
            "LEFT JOIN DataFirstName ON (VotersIndexes.DataFirstName_ID = DataFirstName.DataFirstName_ID) " . 
            "LEFT JOIN DataMiddleName ON (VotersIndexes.DataMiddleName_ID = DataMiddleName.DataMiddleName_ID) " . 
-           "WHERE Voters_Status = 'Active' OR Voters_Status = 'Inactive' " . 
+           "WHERE (Voters_Status = 'Active' OR Voters_Status = 'Inactive') " . 
            "AND Candidate.Candidate_ID = :CandidateID";
 		$sql_vars = array("CandidateID" => $CandidateID);		
 		return $this->_return_multiple($sql, $sql_vars);
