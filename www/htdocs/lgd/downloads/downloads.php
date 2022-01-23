@@ -35,13 +35,14 @@
 						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/<?= $rmbperson["DataState_Abbrev"] ?>/E<?= $result[0]["Candidate_ID"] ?>/petition">blank petition</A>
 						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/<?= $rmbperson["DataState_Abbrev"] ?>/E<?= $result[0]["Candidate_ID"] ?>/petition"><i class="fa fa-download" aria-hidden="true"></i></A> 
 						
-						<?php /*
+						
 						
 						and a
 						
-						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/<?= $rmbperson["DataState_Abbrev"] ?>/<?= $NewKEncrypt ?>/voterlist">list of voters</A>
-						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/<?= $rmbperson["DataState_Abbrev"] ?>/<?= $NewKEncrypt ?>/voterlist"><i class="fa fa-download" aria-hidden="true"></i></A>
-						*/ ?>
+						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/rmb/<?= $NewKEncrypt ?>/voterlist">list of voters</A>
+						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/rmb/<?= $NewKEncrypt ?>/voterlist"><i class="fa fa-download" aria-hidden="true"></i></A>
+						
+				
 				</P>
 
 				<P CLASS="f40">
