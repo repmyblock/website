@@ -95,7 +95,7 @@ class OutragedDems extends queries {
 	}
 	
 	function ListCandidatePetitionSet($CanPetitionSet_ID) {
-		$sql = "SELECT * FROM CanPetitionSet " .
+		echo $sql = "SELECT * FROM CanPetitionSet " .
 						"LEFT JOIN Candidate ON (CanPetitionSet.Candidate_ID = Candidate.Candidate_ID) " . 
 						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = CanPetitionSet.DataCounty_ID) " .
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
@@ -153,8 +153,25 @@ class OutragedDems extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	
-	
+	function ListVoterForCandidates($CandidateID) {
+		$sql = "SELECT * FROM Candidate " . 
+           "LEFT JOIN Voters ON (Candidate.CandidateElection_DBTable = Voters.ElectionsDistricts_DBTable  " . 
+									           "AND Candidate.CandidateElection_DBTableValue = Voters.ElectionsDistricts_DBTableValue " . 
+									           "AND Candidate.Candidate_Party = Voters.Voters_RegParty) " . 
+           "LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " . 
+           "LEFT JOIN DataAddress ON (DataAddress.DataAddress_ID = DataHouse.DataAddress_ID) " . 
+           "LEFT JOIN DataStreet ON (DataStreet.DataStreet_ID = DataAddress.DataStreet_ID) " . 
+           "LEFT JOIN DataCity ON (DataCity.DataCity_ID = DataAddress.DataCity_ID) " . 
+           "LEFT JOIN VotersIndexes ON (VotersIndexes.VotersIndexes_ID = Voters.VotersIndexes_ID) " . 
+           "LEFT JOIN DataLastName ON (VotersIndexes.DataLastName_ID = DataLastName.DataLastName_ID) " . 
+           "LEFT JOIN DataFirstName ON (VotersIndexes.DataFirstName_ID = DataFirstName.DataFirstName_ID) " . 
+           "LEFT JOIN DataMiddleName ON (VotersIndexes.DataMiddleName_ID = DataMiddleName.DataMiddleName_ID) " . 
+           "WHERE Voters_Status = 'Active' OR Voters_Status = 'Inactive' " . 
+           "AND Candidate.Candidate_ID = :CandidateID";
+		$sql_vars = array("CandidateID" => $CandidateID);		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+  
 	function ListVoterCandidate($Candidate_ID) {
 		$sql = "SELECT * FROM CandidatePetition where Candidate_ID = :CandidateID";
 		$sql_vars = array("CandidateID" => $Candidate_ID);				
