@@ -93,7 +93,7 @@
 	}
 	*/
 	
-	$Result = $rmb->SearchUsers($DatedFiles);
+	$Result = $rmb->SearchUsers();
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 

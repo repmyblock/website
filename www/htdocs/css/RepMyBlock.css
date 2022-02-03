@@ -3,6 +3,10 @@
 body {margin: 0;}
 div {font-family: 'Montserrat', sans-serif;color:#16317D!important;}
 
+.iconDetails{height:200px;padding: 10px 10px 5px 5px;} 
+.container2{vertical-align:top;display: inline-block;}
+.container3{vertical-align:top;padding: 10px 10px 5px 5px;}
+
 a {text-decoration: none;}
 
 p.f80bold {font-size:26px; font-weight: 600;}

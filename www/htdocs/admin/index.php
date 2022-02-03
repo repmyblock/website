@@ -27,16 +27,16 @@
 		} else if ($VerifVoter == true) {
 			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
 		} 
-	?>          
+	?>
  
   <dl class="form-group">
-	 		<A HREF="/admin/<?= $k ?>/userlookup" class="mobilemenu">RepMyBlock User</A><BR>	
- 			<A HREF="/admin/<?= $k ?>/voterlookup">Voter Lookup</A><BR>
-  		<A HREF="/admin/<?= $k ?>/track">Petitions Tracker</A><BR>	
-  		<A HREF="/admin/<?= $k ?>/setup_elections">Election Maintenance</A><BR>	
-  		<A HREF="/admin/<?= $k ?>/setup_positions">Position Maintenance</A><BR>	
-  		<A HREF="/admin/<?= $k ?>/setup_petitions">Setup Petitions</A><BR>	
-  		<A HREF="/admin/<?= $k ?>/integrity_verif">Verify Data Integrity</A><BR>	
+	 		<A HREF="/<?= $k ?>/admin/userlookup" class="mobilemenu">RepMyBlock User</A><BR>	
+ 			<A HREF="/<?= $k ?>/admin/voterlookup">Voter Lookup</A><BR>
+  		<A HREF="/<?= $k ?>/admin/track">Petitions Tracker</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/setup_elections">Election Maintenance</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/setup_positions">Position Maintenance</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/setup_petitions">Setup Petitions</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/integrity_verif">Verify Data Integrity</A><BR>	
     </dd>
   </dl>
 

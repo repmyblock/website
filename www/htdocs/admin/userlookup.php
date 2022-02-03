@@ -10,10 +10,10 @@
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	
 	$rmb = new repmyblock();
-	$Party = NewYork_PrintParty($UserParty);
+	$Party = PrintParty($UserParty);
 	
 	if (! empty($_POST)) {		
-		header("Location: /admin/" .  CreateEncoded ( array( 
+		header("Location: /" .  CreateEncoded ( array( 
 								"Query_Username" => $_POST["Username"],
 								"Query_Email" => $_POST["Email"],
 								"Query_FirstName" => $_POST["FirstName"],
@@ -30,7 +30,7 @@
 						    "LastName" => $URIEncryptedString["LastName"],
 						    "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
 						   	"SystemAdmin" => $URIEncryptedString["SystemAdmin"]
-					)) . "/userlist");
+					)) . "/admin/userlist");
 		exit();
 	}
 
