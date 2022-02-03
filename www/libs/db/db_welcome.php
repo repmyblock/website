@@ -12,6 +12,19 @@ class welcome extends queries {
 	 	$this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
+  function CandidatesInfo($CandidateID = NULL) {
+		$sql = "SELECT * FROM CandidateProfile ";
+		
+		if (! empty ($CandidateID)) {
+			$sql .= "WHERE Candidate_ID = :CandidateID";
+			$sql_vars = array("CandidateID" => $CandidateID);
+			return $this->_return_simple($sql, $sql_vars);
+		} 
+
+		return $this->_return_multiple($sql);
+	}
+	
+  
   function FindCandidate($CandidateID) {  	
 		$sql = "SELECT * FROM Candidate " . 
 						"WHERE Candidate_ID = :CandidateID";

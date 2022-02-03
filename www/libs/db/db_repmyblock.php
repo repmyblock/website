@@ -214,17 +214,100 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
-	function ListCandidatePetitions($Date) {
-		$sql = "SELECT * FROM CandidatePetitionSet " . 
-						"LEFT JOIN CandidateGroup ON (CandidateGroup.CandidatePetitionSet_ID = CandidatePetitionSet.CandidatePetitionSet_ID) " .
-						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CandidateGroup.Candidate_ID) " .
-						"LEFT JOIN DataCounty ON (CandidateGroup.DataCounty_ID = DataCounty.DataCounty_ID) " .
-						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.CandidateElection_DBTable = Candidate.CandidateElection_DBTable) " .
-						"WHERE CandidatePetitionSet_TimeStamp > :Date " . 
-						"ORDER BY CandidatePetitionSet.CandidatePetitionSet_ID DESC";
-		$sql_vars = array('Date' => $Date);
-		return $this->_return_multiple($sql, $sql_vars);
+	function ListCandidatePetitions($CandidateID = NULL) {
+		$sql = "SELECT * FROM Candidate " . 
+						"LEFT JOIN CandidateProfile ON " . 
+						"(Candidate.Candidate_ID = CandidateProfile.Candidate_ID) ";
+		
+		if (! empty ($CandidateID)) {
+			$sql .= "WHERE Candidate.Candidate_ID = :CandidateID";
+			$sql_vars = array("CandidateID" => $CandidateID);
+			return $this->_return_simple($sql, $sql_vars);
+		}
+		
+		return $this->_return_multiple($sql);
 	}
+	
+	function ListCandidateProfile($CandidateID = NULL) {
+		$sql = "SELECT * FROM CandidateProfile ";
+		
+		if (! empty ($CandidateID)) {
+			$sql .= "WHERE Candidate_ID = :CandidateID";
+			$sql_vars = array("CandidateID" => $CandidateID);
+			return $this->_return_simple($sql, $sql_vars);
+		}
+		
+		return $this->_return_multiple($sql);
+	}
+	
+	function updatecandidateprofile($Candidate_ID, $CandidateProfile) {
+	
+		if ($Candidate_ID > 0) {
+			
+			$MatchTableName = array(
+				"PicFile" => "CandidateProfile_PicFileName", 
+				"PDFFile" => "CandidateProfile_PDFFileName", 
+				"Fist"	 =>  "CandidateProfile_FirstName", 
+				"Last"	 => "CandidateProfile_LastName", 
+				"Full"	 =>  "CandidateProfile_Alias", 
+				"URL"	 =>  "CandidateProfile_Website", 
+				"Email"	 => "CandidateProfile_Email", 
+				"Twitter"	 => "CandidateProfile_Twitter", 
+				"Facebook"	 => "CandidateProfile_Facebook", 
+				"Instagram"	 => "CandidateProfile_Instagram", 
+				"TikTok"	 => "CandidateProfile_TikTok", 
+				"YouTube"	 => "CandidateProfile_YouTube", 
+				"Ballotpedia"	 => "CandidateProfile_BallotPedia", 
+				"Phone"	 => "CandidateProfile_PhoneNumber", 
+				"Fax"	 => "CandidateProfile_FaxNumber", 
+				"Platform"	 => "CandidateProfile_Statement"			
+			);
+			
+			
+			$return = $this->ListCandidateProfile($Candidate_ID);	
+			# This is to set the collums that changed.
+			foreach ($CandidateProfile as $index => $var) {			
+				if ( $var == $return[$MatchTableName[$index]]) {
+					unset ($CandidateProfile[$index]);
+				}
+			}
+									
+			if ( empty ($return)) {	$sql = "INSERT INTO"; } 
+			else { $sql = "UPDATE"; }
+			$sql .= " CandidateProfile SET ";
+			$sql_vars = array("Candidate_ID" => $Candidate_ID);
+			$FirstTime = 0;
+			
+			
+			$firsttime = 0;
+			foreach ( $CandidateProfile as $index => $var) {
+				if ( ! empty ($var)) {
+					if ( $firsttime ) { $sql .= ", "; }				
+					$sql .= $MatchTableName[$index] . " = :" . $index; 
+					$sql_vars[$index] =	$CandidateProfile[$index]; 
+					$firsttime = 1;
+				}
+			}
+			
+			## Add the null tables at the end;
+			foreach ( $CandidateProfile as $index => $var) {
+				if ( empty ($CandidateProfile[$index])) {
+					if ( $firsttime ) { $sql .= ", "; }	
+					$sql .= $MatchTableName[$index] . " = NULL";
+					$firsttime = 1;
+				}
+			}
+			
+			if ( empty ($return)) {	$sql .= " ,Candidate_ID = :Candidate_ID"; }
+			else { $sql .= " WHERE Candidate_ID = :Candidate_ID"; }
+			
+			if (! $firsttime) return;
+			return $this->_return_nothing($sql, $sql_vars);
+		}
+		
+	}	
+    
+ 
 	
 	function ListCandidateInformation($SystemUserID) {
 		$sql = "SELECT * FROM Candidate " . 
@@ -767,9 +850,16 @@ class RepMyBlock extends queries {
 						"SystemUserVoter_Email = :Email, SystemUserVoter_action = :Type, " . 
 						"SystemUserVoter_Date = NOW(), SystemUserVoter_IP = :IP, SystemUser_ID = :SystemUserID";
 		$sql_vars = array('Email' => $Email, 'Username' => $Username, 'Type' => $Type, 'IP' => $_SERVER['REMOTE_ADDR'], 'SystemUserID' => $SystemUserID);
-		$this->_return_nothing($sql,  $sql_vars);
+		return $this->_return_nothing($sql,  $sql_vars);
 	}
 	
+	
+	function SearchUsers() {
+		
+		$sql = "SELECT * FROM SystemUser";
+		return $this->_return_multiple($sql);
+		
+	}	
 	
 	/* Custom SQL Statement to minimize the number of question based on logic. */
 		
