@@ -30,6 +30,17 @@
 		<B>The time commitment is about 32 hours every two years or about 3 minutes a day.</B>
 	</P>
 			
+			
+	<P CLASS="BckGrndElement f80">CANDIDATES VOTER GUIDE</P>
+
+	<P>
+		<A HREF="/<?= $middleuri ?>/exp/voter/guide">
+			<H2>Download the New York State RepMyBlock Voter Guide</H2>
+		</a>
+
+		
+	</P>
+			
 		
 	<P CLASS="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
@@ -46,8 +57,8 @@
 	
 		<BR>
 
-		
-
+	
+	
 	<P CLASS="BckGrndElement f80">ZOOM WITH PAPERBOY LOVE PRINCE</P>
 
 	<P CLASS="f40">

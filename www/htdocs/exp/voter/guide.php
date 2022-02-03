@@ -73,12 +73,6 @@
 <p>
 <DIV CLASS="right f80">Notice to voters and candidates</DIV>
 
-
-<P>
-	Any candidate can update the voter guide by updating their information by
-	<A HREF="/<?= $middleuri ?>/exp/register/register">registering</A>. 
-</P>
-
 <P>
 	If you are a voter and would like to receive an update on the election in your 
 	district, you can <A HREF="/<?= $middleuri ?>/exp/register/register">register</A>, 
@@ -88,6 +82,11 @@
 <P>
 	We do not sell your information to any candidate, and we don't track you as per 
 	our <A HREF="/<?= $middleuri ?>/policies/privacy">Privacy Policy</A>.
+</P>
+
+<P>
+	Any candidate can update the voter guide by updating their information by
+	<A HREF="/<?= $middleuri ?>/exp/register/register">registering</A>. 
 </P>
 
 
