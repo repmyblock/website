@@ -34,7 +34,9 @@
 	*/
 
 	$Today = date("Ymd_Hi");
-	$OutputFilename = "WalkSheet_" . $voters[0]["CandidateElection_DBTable"] . $voters[0]["CandidateElection_DBTableValue"] . "_" . $Today . ".pdf";
+	$OutputFilename = "WalkSheet_" . $voters[0]["CandidateElection_DBTable"] . 
+										$voters[0]["CandidateElection_DBTableValue"] . "_" . 
+										$Today . ".pdf";
 	
 	WriteStderr($voters, "voters");
 	
@@ -125,25 +127,27 @@ New York, NY 10031
     [DataMiddleName_Text] => J
     [DataMiddleName_Compress] => j
 )
-
 */
-			
 			if ( ! empty ($person)) {
 				$FixedAddress = preg_replace('!\s+!', ' ', $person["DataStreet_Name"] );
-				$FixedApt = preg_replace('!\s+!', '', $person["DataHouse_Apt"] );
-				$Address[$FixedAddress][$person["DataAddress_HouseNumber"]]["PrintAddress"] = ucwords(strtolower(trim( $person["DataAddress_HouseNumber"] . " " . $person["DataStreet_Name"] )));
-				$Address[$FixedAddress][$person["DataAddress_HouseNumber"]][$FixedApt][$person["Voters_Status"]][$person["VotersIndexes_UniqStateVoterID"]] =	$person["DataFirstName_Text"] . " " . $person["DataMiddleName_Text"] . " " . $person["DataLastName_Text"];
-				
-				
-
-				
+				$FixedApt = strtoupper(preg_replace('!\s+!', '', $person["DataHouse_Apt"] ));
+				$Address[$FixedAddress][$person["DataAddress_HouseNumber"]]["PrintAddress"] = 
+											ucwords(strtolower(trim($person["DataAddress_HouseNumber"] . " " . 
+											$person["DataStreet_Name"] )));
+				$Address[$FixedAddress][$person["DataAddress_HouseNumber"]]
+								[$FixedApt][$person["Voters_Status"]]
+								[$person["VotersIndexes_UniqStateVoterID"]] =	$person["DataFirstName_Text"] . " " . 
+																															$person["DataMiddleName_Text"] . " " . 
+																															$person["DataLastName_Text"];
+									
 				// The reason for this is that the CandidatePetition_ID is unique enough.
-				$Age[$person["VotersIndexes_UniqStateVoterID"]] = $person["CandidatePetition_Age"];
         $Gender[$person["VotersIndexes_UniqStateVoterID"]] = $person["Voters_Gender"];
+    		$interval = date_diff(date_create(date('Y-m-d')), date_create($person["VotersIndexes_DOB"]));    		
+    		$Age[$person["VotersIndexes_UniqStateVoterID"]] = $interval->y;
 			}
 		}
 	}
-	
+
 	$PageSize = "letter";
 	$pdf = new PDF('P','mm', $PageSize);
 	
@@ -154,7 +158,6 @@ New York, NY 10031
 		$RestOfLine = " AD: " . intval($Keywords[1]) . " ED: " . intval($Keywords[2]);
 		$pdf->Text_PubDate_XLoc = 133;
 	}
-		
 	
 	$pdf->Text_PubDate = date("M j, Y \a\\t g:i a") . $RestOfLine;
 	$pdf->Text_CandidateName = $voters[0]["Candidate_DispName"];
@@ -189,78 +192,65 @@ New York, NY 10031
   $Counter = 0;
 	$ResetApt = 0;
 	
+	
+	$LineLoc = 110; $LineTop = 28;
+	$pdf->Line($LineLoc, $LineTop, $LineLoc, $LineTop + 230);
+	$Alternate = 0;
+	
 	if ( ! empty ($Address)) {
 		foreach ($Address as $AddressLine => $ArrayOne) {
+			ksort($ArrayOne);
 			if ( ! empty ($ArrayOne)) {
 				foreach ($ArrayOne as $HomeNumber => $ArrayTwo) {
-					$pdf->SetFont('Arial', 'B', 16);
-					$pdf->Write(7, $ArrayTwo["PrintAddress"] );	
-					$pdf->Ln(2);
-								
+					ksort($ArrayTwo);
+					
+					PrintAddress($Alternate, $pdf, $ArrayTwo["PrintAddress"]);
+					
 					if ( ! empty ($ArrayTwo)) {
 						foreach ($ArrayTwo as $ApartementNumber => $ArrayThree) {
-							if ( ! empty ($ArrayThree)) {
-							
-								$ResetApt = 1;
-								if ( $ApartementNumber != "PrintAddress") {
-									
-									if ($pdf->GetY() > 256 ) {
-										 $pdf->AddPage();
-									}
-										
-									if ( ! empty ($ApartementNumber)) {			
-										//$pdf->Ln(2);
-										$pdf->SetFont('Arial', '', 12);
-										$pdf->SetX(7);
-										$pdf->Write(2, "Apartment: " );
-										$pdf->SetFont('Arial', 'B', 12);
-										$pdf->Write(2, $ApartementNumber);
-										$pdf->Ln(6);
+							if ( ! empty ($ArrayThree)) {					
+								
+								// Print Apt if there is one.
+								if ( $ApartementNumber != "PrintAddress") {					
+									if ( ! empty ($ApartementNumber)) {
+										PrintApt($Alternate, $pdf, $ApartementNumber);
 									} 
 									$pdf->SetFont('Arial', '', 10);
 		
 									// Names and status.
 									foreach ($ArrayThree as $Status => $ArrayFour) {
 										if (! empty ($ArrayFour)) {
-											foreach($ArrayFour as $IDToUse => $PersonVoters) {			
+								
+											foreach($ArrayFour as $IDToUse => $PersonVoters) {
+												
+												// This is the page control				
+												if ($pdf->GetY() > 256) {				
+																				
+													if ($Alternate == 0) {
+														$pdf->SetY($LineTop - 0.5);
+														$Alternate = 1;
+													} else { 
+														$pdf->AddPage();
+														$pdf->Line($LineLoc, $LineTop, $LineLoc, $LineTop + 230);
+														$Alternate = 0;
+													} 
+												
+													PrintAddress($Alternate, $pdf, $ArrayTwo["PrintAddress"]);
+													PrintApt($Alternate, $pdf, $ApartementNumber);
+													
+												}
 												
 												// How far are we from the end?
-												$VoterPrintLine = $PersonVoters . " - " . $Gender[$IDToUse] . " " . $Age[$IDToUse];
-												$LenghtString = $pdf->GetStringWidth($VoterPrintLine);
+												$VoterPrintLine = $PersonVoters . " - " . strtoupper($Gender[$IDToUse][0]) . $Age[$IDToUse];
 												
-												if (($pdf->GetX() + $LenghtString) > 180 && $ResetApt == 0) {
-													$ResetApt = 1;
-													$pdf->Ln(5);
-												}
-												
-												if ( $ResetApt == 1 ) {
-													$pdf->SetX(10);
-												}
-												
-												$ResetApt = 0;
-											
-												$pdf->SetFont('ZapfDingbats','', 15);
-												$pdf->Write(1, "o" );												
-												$pdf->SetFont('Arial', '', 10);
-												$pdf->Write(1, " " );	
-												
-												if ( $Status == "Inactive") { $pdf->SetTextColor(255, 0, 0); }
-												$pdf->Write(1, $VoterPrintLine . "  ");
-												if ( $Status == "Inactive") { $pdf->SetTextColor(0); }
-							 	
+												PrintVoterLine($Alternate, $pdf, $VoterPrintLine, $Status);											
 											}
 										}	
 									}	
-								}
-								
-									
-								$pdf->Ln(7);
-								
-								
+								}									
 							}
 						}					
 					}
-					//$pdf->Ln(1);
 				}				
 			}			
 		}
@@ -271,6 +261,47 @@ $pdf->Output("I", $OutputFilename);
 function Redact ($string) {
 	return str_repeat("X", strlen($string)); ;
 	return $string;
+}
+
+function PrintAddress($Alternate, $pdf, $PrintAddress) {
+	$pdf->Ln(1);
+	if ($Alternate == 1) { $pdf->SetX(110); }
+	$pdf->SetFont('Arial', 'B', 16);
+	$pdf->Write(7, $PrintAddress);	
+	$pdf->Ln(2);
+}
+
+function PrintApt($Alternate, $pdf, $ApartementNumber) {
+	$pdf->Ln(7);
+	if ($Alternate == 1) { $pdf->SetX(110); }
+	$pdf->SetFont('Arial', '', 12);										
+	$pdf->Write(2, "Apartment: " );
+	$pdf->SetFont('Arial', 'B', 12);
+	$pdf->Write(2, $ApartementNumber);
+	$pdf->Ln(1);		
+	$pdf->Ln(5);											
+}
+
+function PrintVoterLine($Alternate, $pdf, $VoterPrintLine, $Status) {
+	$LenghtString = $pdf->GetStringWidth($VoterPrintLine);
+	
+	if ($Alternate == 1) { 
+		if ($pdf->GetX() + 110 + $LenghtString > 214 ) { $pdf->Ln(5); } 
+		$pdf->SetX(110);
+	} else {
+		if ($pdf->GetX() + $LenghtString > 104 ) { $pdf->Ln(5); }
+	}
+
+	$MyGetX = $pdf->GetX();
+
+	$pdf->SetFont('ZapfDingbats','', 15);
+	$pdf->Write(1, "o" );												
+	$pdf->SetFont('Arial', '', 10);
+	$pdf->Write(1, " " );	
+	
+	if ( $Status == "Inactive") { $pdf->SetTextColor(255, 0, 0); }
+	$pdf->Write(1, $VoterPrintLine . "  ");
+	if ( $Status == "Inactive") { $pdf->SetTextColor(0); }
 }
 
 ?>

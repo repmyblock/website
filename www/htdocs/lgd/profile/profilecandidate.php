@@ -28,6 +28,9 @@
 	$rmbcandidate = $rmb->ListCandidateInformation($URIEncryptedString["SystemUser_ID"]);
 	$result = $rmb->ListElectedPositions($rmbperson["DataState_Abbrev"]);
 	
+	
+	WriteStderr($rmbcandidate, "RMBCandidate");
+	
 	if (! empty($result)) {
 		foreach($result as $var) {
 			if (! empty ($var)) {
@@ -37,7 +40,7 @@
 				// This is a hack to not repeat the the position. 	
 				foreach ($rmbcandidate as $vor) {
 					if ($vor["CandidateElection_DBTable"] == $var["ElectionsPosition_DBTable"] && $vor["CandidateGroup_Party"] == $var["ElectionsPosition_Party"]) {
-						$Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["NOTSHOW"] = 1;
+						$Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["NOTSHOW"] = $vor["Candidate_ID"];
 					}	
 				}
 			}
@@ -67,41 +70,13 @@
 				<?php	PlurialMenu($k, $TopMenus);	?>
 			  <div class="clearfix gutter d-flex flex-shrink-0">
 			  	
-<style>
- /* Style the buttons that are used to open and close the accordion panel */
-.accordeonbutton {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 3px;
-  /* width: 100%; */
-  text-align: left;
-  border: none;
-  outline: none;
-  transition: 0.4s;
-}
-
-/* Add a background color to the button if it is clicked on 
-(add the .active class with JS), and when you move the mouse over it (hover) */
-.accordeonbutton:hover {
-  background-color: #ccc;
-}
-
-/* Style the accordion panel. Note: hidden by default */
-.panels {
-  /* padding: 0 18px; */
-  /* background-color: white; */
- 	/* display: none; */
- 	overflow: hidden;
-} 
-</style>
-
-<div class="row">
-  <div class="main">
+	<div class="row">
+  	<div class="main">
 
 		<P>
 			<B><FONT COLOR=BROWN>If you are a candidate for higher office, please send an email to 
-			</FONT> <A HREF="mailto:candidate@repmyblock.org">candidate@repmyblock.org</A> <FONT COLOR=BROWN>to access the obnibus petitions.</FONT></B>
+			</FONT> <A HREF="mailto:candidate@repmyblock.org">candidate@repmyblock.org</A> 
+			<FONT COLOR=BROWN>to access the obnibus petitions.</FONT></B>
 		</P>
 
 
@@ -127,15 +102,12 @@
 					//if ( ! empty ($PartyPosition)) {
 						if ( $PartyPosition == "party") {
 ?>
-					
 						<div class="list-group-item filtered f60">
-								
-							<span><B><?= ucfirst($PartyPosition) ?></B></span>  
-							     			
-						</div>					
-							
-					
-<?php				
+							<span><B><?= ucfirst($PartyPosition) ?></B></span>  						     			
+						</div>
+<?php
+
+						WriteStderr($Positions, "Positions order");
 						foreach ($Positions as $Pos => $Explain) {
 					 		// if (! empty ($Pos)) { 
 					 		if ($Pos == "County Committee") { ?>
@@ -149,6 +121,16 @@
 										<?php /* <A HREF="/<?= $k ?>/lgd/downloads/downloads">Go to the download page to get the petition.</A> */ ?>
 									<?php } ?>
 										&nbsp;&nbsp;<B><?= $Pos ?></B>
+									
+									<?php if (! empty ($Explain[$URIEncryptedString["UserParty"]]["NOTSHOW"])) { ?>										
+										<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="/<?= CreateEncoded ( array( 
+																					"SystemUser_ID" => $rmbperson["SystemUser_ID"],
+																			    "Candidate_ID" => $Explain[$URIEncryptedString["UserParty"]]["NOTSHOW"],
+																			    "FileNameName" => $rmbcandidate[0]["Candidate_DispName"],		
+																			    "FileNameStateID" => $rmbcandidate[0]["Candidate_UniqStateVoterID"],	
+																				)); ?>/lgd/profile/updatecandidateprofile">Update your <?= $Pos ?> candidate profile</A>
+									<?php } ?>
+										
 									<DIV CLASS="f40"><?= $Explain[$URIEncryptedString["UserParty"]]["Desc"] ?></DIV>
 								</div>			
 <?php					}	  
