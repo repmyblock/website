@@ -10,61 +10,47 @@
 	
 	// Put the POST HERE because we need to reread the data 
 	if ( ! empty ($_POST)) {	
-		
-		echo "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
-				
-		echo "This is the POST of the Candidate Profile<BR>";
-		echo "<PRE>" . print_r($_POST, 1) . "</PRE>";
-		echo 'Here is some more debugging info:';
-		echo "<PRE>" . print_r($_FILES, 1) . "</PRE>";
-		
+			
 		$FileName = preg_replace("/[^A-Za-z0-9]/",'', $URIEncryptedString["FileNameName"]);
 		$StateID = preg_replace("/^[A-Za-z][A-Za-z]0+(?!$)/", '', $URIEncryptedString["FileNameStateID"]);
     
-		
 		// This is to deal with the Picture itself and we must check it's type image/<something else>
-		print "Analyzing picture: " . $_FILES["filepicture"]["type"] . "<BR>";
-		if (preg_match("#image/(.*)#", $_FILES["filepicture"]["type"], $matches, PREG_OFFSET_CAPTURE)) {
-			$suffix = $matches[1][0];			
-			$PictureFilename = "CAN" . $URIEncryptedString["Candidate_ID"] . "_" . $FileName . "_" . $StateID . "." . $suffix;
-			preg_match('/(.{4})(.{4})(.{4})/', md5($PictureFilename), $matches, PREG_OFFSET_CAPTURE);
-			$md5structure = $matches[1][0] . "/" . $matches[2][0] . "/" . $matches[3][0];
-			$structure = $GeneralUploadDir . "/shared/pics/" . $md5structure . "/";
-			mkdir($structure, 0777, true);
-			$PicFilePath = $md5structure . "/" . $PictureFilename;
-			print "PicFilePath: " . $PicFilePath . "<BR>";
-			
-			if (move_uploaded_file($_FILES['filepicture']['tmp_name'], $structure . $PictureFilename)) {
-		    echo "File is valid, and was successfully uploaded.\n";
+		if (! empty ($_FILES["filepicture"]["type"])) {
+			if (preg_match("#image/(.*)#", $_FILES["filepicture"]["type"], $matches, PREG_OFFSET_CAPTURE)) {
+				$suffix = $matches[1][0];			
+				$PictureFilename = "CAN" . $URIEncryptedString["Candidate_ID"] . "_" . $FileName . "_" . $StateID . "." . $suffix;
+				preg_match('/(.{4})(.{4})(.{4})/', md5($PictureFilename), $matches, PREG_OFFSET_CAPTURE);
+				$md5structure = $matches[1][0] . "/" . $matches[2][0] . "/" . $matches[3][0];
+				$structure = $GeneralUploadDir . "/shared/pics/" . $md5structure . "/";
+				mkdir($structure, 0777, true);
+				$PicFilePath = $md5structure . "/" . $PictureFilename;
+				print "PicFilePath: " . $PicFilePath . "<BR>";
+				if (! move_uploaded_file($_FILES['filepicture']['tmp_name'], $structure . $PictureFilename)) {
+					$error_msg = "Problem uploading the picture";
+				} 
 			} else {
-		    echo "Error problem!\n";
+				$error_msg = "Picture file not in jpeg or png format";
+			}
+		} 
+		// This is to deal with the pdf
+		if (! empty ($_FILES["pdfplatform"]["type"])) {
+			if (preg_match("#application/(.*)#", $_FILES["pdfplatform"]["type"], $matches, PREG_OFFSET_CAPTURE)) {
+				$suffix = $matches[1][0];			
+				$PDFFilename = "CAN" . $URIEncryptedString["Candidate_ID"] . "_" . $FileName . "_" . $StateID . "." . $suffix;
+				preg_match('/(.{4})(.{4})(.{4})/', md5($PDFFilename), $matches, PREG_OFFSET_CAPTURE);
+				$md5structure = $matches[1][0] . "/" . $matches[2][0] . "/" . $matches[3][0];
+				$structure = $GeneralUploadDir . "/shared/platforms/" . $md5structure . "/";
+				mkdir($structure, 0777, true);
+				$PDFFilePath = $md5structure . "/" . $PDFFilename;
+				print "PicFilePath: " . $PDFFilePath . "<BR>";
+				if (! move_uploaded_file($_FILES['pdfplatform']['tmp_name'], $structure . $PDFFilename)) {
+				    $error_msg = "Problem uploading the pdf file";
+				}
+			}	else {
+				$error_msg = "You can upload only PDF files.";
 			}
 		}
 		
-		// This is to deal with the pdf
-		print "Analyzing pdf: " . $_FILES["pdfplatform"]["type"] . "<BR>";
-		
-		if (preg_match("#application/(.*)#", $_FILES["pdfplatform"]["type"], $matches, PREG_OFFSET_CAPTURE)) {
-			$suffix = $matches[1][0];			
-			$PDFFilename = "CAN" . $URIEncryptedString["Candidate_ID"] . "_" . $FileName . "_" . $StateID . "." . $suffix;
-			preg_match('/(.{4})(.{4})(.{4})/', md5($PDFFilename), $matches, PREG_OFFSET_CAPTURE);
-			$md5structure = $matches[1][0] . "/" . $matches[2][0] . "/" . $matches[3][0];
-			$structure = $GeneralUploadDir . "/shared/platforms/" . $md5structure . "/";
-			mkdir($structure, 0777, true);
-			$PDFFilePath = $md5structure . "/" . $PDFFilename;
-			print "PicFilePath: " . $PDFFilePath . "<BR>";
-			
-			if (move_uploaded_file($_FILES['pdfplatform']['tmp_name'], $structure . $PDFFilename)) {
-			    echo "File is valid, and was successfully uploaded.\n";
-			} else {
-			    echo "Possible file upload attack!\n";
-			}
-		}	
-		
-		$Command = "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook " . 
-								"-dNOPAUSE -dQUIET -dBATCH -sOutputFile=compressed_PDF_file.pdf CanPro_1_TheoChino.pdf";
-	
-	
 		// Add to the database the following tables.							
 		$CandidateProfile = array(
 				"Fist"	 =>  $_POST["FirstName"],
@@ -86,7 +72,8 @@
 		);
 		
 		$rmb->updatecandidateprofile($URIEncryptedString["Candidate_ID"], $CandidateProfile);
-    
+		echo "Continuing";
+		header("Location:/" . $k . "/lgd/profile/updatecandidateprofile");
 		
 		exit();
 	}
@@ -150,14 +137,14 @@
 							<dl class="form-group col-5 d-inline-block"> 			
 								<dt><label for="user_profile_name">First Name</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="First" value="<?= $CandidateProfile_FirstName ?>" name="FirstName" id="user_profile_name">
+									<input class="form-control" type="text" Placeholder="First" value="<?= $rmbcandidate["CandidateProfile_FirstName"]; ?>" name="FirstName" id="user_profile_name">
 								</dd>
 							</dl>
 							
 							<dl class="form-group col-5 d-inline-block"> 
 								<dt><label for="user_profile_name">Last Name</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="Last"  value="<?= $CandidateProfile_LastName ?>" name="LastName" id="user_profile_name">
+									<input class="form-control" type="text" Placeholder="Last"  value="<?= $rmbcandidate["CandidateProfile_LastName"]; ?>" name="LastName" id="user_profile_name">
 								</dd>
 							</dl>
 							
@@ -199,7 +186,7 @@
 							<dl class="form-group">
 								<dt><label for="user_profile_bio">Campaign Statement.</label></dt>
 								<dd class="user-profile-bio-field-container js-length-limited-input-container">
-									<textarea class="form-control user-profile-bio-field js-length-limited-input" placeholder="Tell us a little bit about yourself" data-input-max-length="160" data-warning-text="{{remaining}} remaining" name="CandidateProfileBio"><?= $CandidateProfile_Statement ?></textarea>
+									<textarea class="form-control user-profile-bio-field js-length-limited-input" placeholder="Tell us a little bit about yourself" data-input-max-length="160" data-warning-text="{{remaining}} remaining" name="CandidateProfileBio"><?= $rmbcandidate["CandidateProfile_Statement"] ?></textarea>
 									<p class="js-length-limited-input-warning user-profile-bio-message d-none"></p>
 								</dd>
 							</dl>
