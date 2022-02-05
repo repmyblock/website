@@ -2,7 +2,8 @@
  * GitHub Light v0.4.1
  * Copyright (c) 2012 - 2017 GitHub, Inc.
  * Licensed under MIT (https://github.com/primer/github-syntax-theme-generator/blob/master/LICENSE)
- */.pl-c{color:#6a737d}
+ */
+.pl-c{color:#6a737d}
 .pl-c1,.pl-s .pl-v{color:#005cc5}
 .pl-e,.pl-en{color:#6f42c1}
 .pl-s .pl-s1,.pl-smi{color:#24292e}
@@ -651,13 +652,13 @@
 .offset-xl-10{margin-left:83.33333%!important}
 .offset-xl-11{margin-left:91.66667%!important}}
 .menu{margin-bottom:15px;list-style:none;background-color:#fff;border:1px solid #d1d5da;border-radius:3px}
-.menu-item{position:relative;display:block;padding:8px 10px;border-bottom:1px solid #e1e4e8}
+.menu-item{display:block;padding:8px 10px;border-bottom:1px solid #e1e4e8}
 .menu-item:first-child{border-top:0;border-top-right-radius:2px}
 .menu-item:first-child,.menu-item:first-child:before{border-top-left-radius:2px}
 .menu-item:last-child{border-bottom:0;border-bottom-right-radius:2px}
 .menu-item:last-child,.menu-item:last-child:before{border-bottom-left-radius:2px}
 .menu-item:hover{text-decoration:none;background-color:#f6f8fa}
-.menu-item.selected{font-weight:600;color:#24292e;cursor:default;background-color:#fff}
+.menu-item.selected{position:relative;font-weight:600;color:#24292e;cursor:default}
 .menu-item.selected:before{position:absolute;top:0;bottom:0;left:0;width:2px;content:"";background-color:#e36209}
 .menu-item .octicon{width:16px;margin-right:5px;color:#24292e;text-align:center}
 .menu-item .Counter{float:right;margin-left:5px}

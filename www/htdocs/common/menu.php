@@ -49,11 +49,11 @@
 	$DIVCol="col-9";
 	?>
 <div class="col-3 float-left pr-4">
-	  <nav class="menu position-relative" aria-label="Personal settings" data-pjax>
+	  <nav class="menu" aria-label="Personal settings" data-pjax>
 	    <h3 class="menu-heading"><?= $MenuDescription ?></h3>
 			<?php if ( ! empty ($rmbperson["SystemUser_Priv"]) ) { ?>
 		 		<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_SUMMARY ) { ?><a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/summary/summary">Summary</a><?php } ?>
-		    <a class="<?php if ( $Menu == "candidates" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/candidates/list">Candidates</a>
+		    <a class="<?php if ( $Menu == "candidates" ) { echo "selected "; } ?>menu-item" href="/<?= $k ?>/lgd/candidates/list">Candidates</a>
 		    <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DISTRICT ) { ?><a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/district/district">District</a><?php } ?>
 	 			<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PLEDGES ) { ?><a class="<?php if ( $Menu == "pledge" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/pledges/pledges">Pledges</a><?php } ?>
 	    	<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PETITIONS ) { ?><a class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/petitions/petitions">Petitions</a><?php } ?>

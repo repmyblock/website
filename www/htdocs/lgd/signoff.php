@@ -12,4 +12,7 @@
 <P>
 	<CENTER><H1>Signed Off</H1></CENTER>
 </P>
+<P>
+	<CENTER><H1><A HREF="/">Click here to return to the main menu</H1></CENTER>
+</P>
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>
