@@ -215,12 +215,12 @@ class RepMyBlock extends queries {
 	}
 	
 	function ListCandidatePetitions($CandidateID = NULL) {
-		$sql = "SELECT * FROM Candidate " . 
-						"LEFT JOIN CandidateProfile ON " . 
+		$sql = "SELECT * FROM CandidateProfile " . 
+						"LEFT JOIN Candidate ON " . 
 						"(Candidate.Candidate_ID = CandidateProfile.Candidate_ID) ";
 		
 		if (! empty ($CandidateID)) {
-			$sql .= "WHERE Candidate.Candidate_ID = :CandidateID";
+			$sql .= "WHERE CandidateProfile.Candidate_ID = :CandidateID";
 			$sql_vars = array("CandidateID" => $CandidateID);
 			return $this->_return_simple($sql, $sql_vars);
 		}

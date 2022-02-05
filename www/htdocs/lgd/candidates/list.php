@@ -43,19 +43,32 @@
 									if ( ! empty ($var)) {
 				?>	
 				<P>
-					
-					Picutre; <?= $var["Candidate_StatementPicFileName"] ?><BR>					
-					<B><FONT SIZE=+1><?= $var["Candidate_DispName"] ?></FONT></B>
-					<I>(<?= PrintParty($var["Candidate_Party"]); ?>)</I>
-				</P>			
-				
-				<P>
-					<B>Website:</B> <A TARGET="CandidateWebsite" HREF="https://<?= $var["Candidate_StatementWebsite"] ?>"><?= $var["Candidate_StatementWebsite"] ?></A><BR>	
-					<B>Email:</B> <A TARGET="CandidateWebsite" HREF="mailto://<?= $var["Candidate_StatementEmail"] ?>"><?= $var["Candidate_StatementEmail"] ?></A><BR>
-					<B>Twitter:</B> <A TARGET="CandidateWebsite" HREF="https://twitter.com/<?= $var["Candidate_StatementTwitter"] ?>">@<?= $var["Candidate_StatementTwitter"] ?></A><BR>
-					<B>Campaign Phone Number:</B> <?= $var["Candidate_StatementPhoneNumber"] ?><BR>
-					<B>Candidate Statement</B><BR>
-					<UL><?= $var["Candidate_StatementText"] ?></UL>
+					<DIV class='container2'>
+						<DIV style="float:left;">
+							<IMG SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $var["CandidateProfile_PicFileName"] ?>" class='iconDetails'>
+						</DIV>	
+						<DIV class='container3'>
+							<FONT SIZE=+1><B><?= $var["CandidateProfile_Alias"] ?></B></FONT><BR>
+							<I>Running for Democratic Party County Commmittee Member for the 2nd Electoral District in the 71st Assembly District.</I>
+							<BR>
+							<P>
+								<B>Website:</B> <A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?= $var["CandidateProfile_Website"] ?></A> - 
+					      <B>Email:</B> <A TARGET="NEW" HREF="mailto:<?= $var["CandidateProfile_Email"] ?>"><?= $var["CandidateProfile_Email"] ?></A><BR>
+					      <A TARGET="NEW" HREF="https://twitter.com/<?= $var["CandidateProfile_Twitter"] ?>">@<?= $var["CandidateProfile_Twitter"] ?></A> - 
+					     	<A TARGET="NEW" HREF="https://facebook.com/<?= $var["CandidateProfile_Facebook"] ?>"><?= $var["CandidateProfile_Facebook"] ?></A> - 
+					      <A TARGET="NEW" HREF="https://instagram.com/<?= $var["CandidateProfile_Instagram"] ?>">@<?= $var["CandidateProfile_Instagram"] ?></A> - 
+					      <?= $var["CandidateProfile_TikTok"] ?> - 
+					      <?= $var["CandidateProfile_YouTube"] ?> - 
+					      <?= $var["CandidateProfile_BallotPedia"] ?><BR>
+					      <B>Telephone:</B> <?= $var["CandidateProfile_PhoneNumber"] ?> - 
+					      <?= $var["CandidateProfile_FaxNumber"] ?><BR>
+					      <?= $var["CandidateProfile_Statement"] ?><BR>
+				      </P>
+							<B>Download:</B> 
+							<A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Platform</A>
+							<A TARGET="PDFPetition" HREF="<?= $FrontEndStatic ?>/petiton/<?= $var["CandidateProfile_PDFFileName"] ?>">Petition</A></B><BR>
+						</DIV>
+					</DIV>
 				</P>
 
 				<?php
