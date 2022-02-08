@@ -1,125 +1,43 @@
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-
-	if ( ! empty ($_POST["SaveInfo"])) {
-		
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";	
-
-		$r = new login();	
-		
-		// Check who we assign the registered user.
-		
-		
-		if (! empty($k) && $k != "web") {
-			$Refer = $k;
-		}
-		
-		$result = $r->RegisterUser(trim($_POST["username"]), trim($_POST["emailaddress"]), 
-																trim($_POST["password"]), "Register", $Refer);
-																
-		
-																
-		if ( empty ($result["USERNAME"]) && empty ($result["EMAIL"])) {
-		
-			require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
-			SendWelcomeEmail($result["SystemTemporaryUser_email"], $result["SystemTemporaryUser_emaillinkid"], 
-											$result["SystemTemporaryUser_username"], $infoarray = ""); 
-	
-			$VariableToPass = array( 
-				"Email" => $result["SystemTemporaryUser_email"],
-				"Username" => $result["SystemTemporaryUser_username"]
-			);
-	
-			header("Location: /" . CreateEncoded($VariableToPass) . "/exp/register/doneregister");
-			
-	
-			exit();
-
-			if ( ! $result ) {
-				$URLToEncrypt = "emailaddress=" . $_POST["emailaddress"];
-												
-				// The reason for no else is that the code supposed to go away.		
-				if ( $_POST["login"] == "password") {
-					header("Location:/register/password/?k=" . EncryptURL($URLToEncrypt));
-					exit();
-				}
-				
-				if ( $_POST["login"] == "email") {
-					header("Location: /register/emaillink/?k=" . EncryptURL($URLToEncrypt));
-					exit();
-				}
-			} else {
-				header("Location:/register/sending/?k=" . EncryptURL($URLToEncrypt));
-				exit();
-			}	
-			// If we are here which we should never be we need to send user to problem loop
-			exit();
-		}
-	}
-
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
-	
+		
+	$MailToText = "mailto:notif@repmyblock.org?" . 
+								"subject=Send me a Rep My Block registration invite&" . 
+								"body=DO CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
 ?>
 <DIV class="main">
 		
-	<DIV CLASS="right f80">Register</DIV>
-
-	<FORM METHOD="POST" ACTION="">	
-		<INPUT TYPE="hidden" NAME="login" VALUE="password" CHECKED>	
-			
-		<?php
-		
-			if ($result["USERNAME"] == 1) {
-				echo "<P CLASS=\"f60\">";
-				echo "<B><FONT COLOR=BROWN>The USERNAME " . $_POST["username"] . " already exist</FONT></B><BR>";
-				echo "</P>";
-			}
-			
-			if ($result["EMAIL"] == 1) {
-				echo "<P CLASS=\"f60\">";
-				echo "<B><FONT COLOR=BROWN>The EMAIL " . $_POST["emailaddress"] . " already exist</FONT></B><BR>";
-				echo "</P>";
-			}
-		?>
-		
-		<P CLASS="f80">
-			<DIV CLASS="f80">Email:</DIV> 
-			<DIV><INPUT CLASS="" type="<?= $TypeEmail ?>" autocorrect="off" autocapitalize="none" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
-		</P>
-			
-		<P CLASS="f80">
-			<DIV CLASS="f80">Username:</DIV>
-			<DIV><INPUT CLASS="" type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>"></DIV>
-		</P>
-		
-		<P CLASS="f40">
-			Choose a username that contains only letters and numbers, or
-			use your email address.
-		</P>
-		
-		<P CLASS="f80">
-			<DIV CLASS="f80">Password:</DIV>
-			<DIV><INPUT CLASS="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE="<?= $_POST["password"] ?>"><DIV>
-		</P>
-		
-		<P CLASS="f80">
-			<DIV CLASS="f80">Verify Password:</DIV>
-			<DIV><INPUT CLASS="" TYPE="password" NAME="verifypassword" PLACEHOLDER=" verify password"  VALUE="<?= $_POST["password"] ?>"></DIV>
-		</P>
+	<P>
+		<DIV CLASS="right f80">Register</DIV>
+	</P>
 	
-		<P>
-			<DIV><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Register"></DIV>
-		</P>
-		
-		<P CLASS="f40">
-			By clicking the "Register" button, you are creating a 
-			RepMyBlock account, and you agree to RepMyBlock's 
-			<A HREF="/<?= $middleuri ?>/policies/terms">Terms of Use</A> and 
-			<A HREF="/<?= $middleuri ?>/policies/privacy">Privacy Policy.</A>
-		</P>
+	<P>
+		<A HREF="<?= $MailToText ?>">To register, 
+			send an email to <B>NOTIF@REPMBYLOCK.ORG</B> with the subject <I>"Send me a Rep My 
+			Block registration invite"</I>
+			to receive a link with the registration information.
+		</A>
+	</P>
+	
+	<P>
+		The reason we ask that you request a link by emailing <B><A HREF="<?= $MailToText ?>">notif@repmyblock.org</A></B>
+		is to combat spam registrations.
+	</P>
+	
+	<P>
+		If you made several requests, <A HREF="/<?= $middleuri ?>/register/investigate">click here to let 
+		us know to investigate</A>.
+	</P>
+	
+	<P CLASS="f40">
+		By clicking the "Register" button, you are creating a 
+		RepMyBlock account, and you agree to RepMyBlock's 
+		<A HREF="/<?= $middleuri ?>/policies/terms">Terms of Use</A> and 
+		<A HREF="/<?= $middleuri ?>/policies/privacy">Privacy Policy.</A>
+	</P>
 
 	</FORM>
 </DIV>
