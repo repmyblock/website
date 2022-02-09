@@ -14,17 +14,17 @@
 		<DIV CLASS="right f80">Register</DIV>
 	</P>
 	
+	<P CLASS="f40">
+		We ask that you request a link by emailing <B><A HREF="<?= $MailToText ?>">notif@repmyblock.org</A></B>
+		is to combat spam registrations.
+	</P>
+	
 	<P CLASS="f60">
 		<A HREF="<?= $MailToText ?>">To register, 
 			send an email to <B>NOTIF@REPMBYLOCK.ORG</B> with the subject <I>"Send me a Rep My 
 			Block registration invite"</I>
 			to receive a link with the registration information.
 		</A>
-	</P>
-	
-	<P CLASS="f40">
-		The reason we ask that you request a link by emailing <B><A HREF="<?= $MailToText ?>">notif@repmyblock.org</A></B>
-		is to combat spam registrations.
 	</P>
 	
 	<P CLASS="f40">
