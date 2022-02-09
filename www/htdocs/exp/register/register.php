@@ -28,6 +28,11 @@
 	</P>
 	
 	<P CLASS="f40">
+		<B>Don't forget to check your SPAM folder.</B>		
+	</P>
+
+	
+	<P CLASS="f40">
 		If you made several requests, <A HREF="/<?= $middleuri ?>/register/investigate">click here to let 
 		us know to investigate</A>.
 	</P>
