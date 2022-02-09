@@ -14,7 +14,7 @@
 		<DIV CLASS="right f80">Register</DIV>
 	</P>
 	
-	<P>
+	<P CLASS="f60">
 		<A HREF="<?= $MailToText ?>">To register, 
 			send an email to <B>NOTIF@REPMBYLOCK.ORG</B> with the subject <I>"Send me a Rep My 
 			Block registration invite"</I>
@@ -22,12 +22,12 @@
 		</A>
 	</P>
 	
-	<P>
+	<P CLASS="f60">
 		The reason we ask that you request a link by emailing <B><A HREF="<?= $MailToText ?>">notif@repmyblock.org</A></B>
 		is to combat spam registrations.
 	</P>
 	
-	<P>
+	<P CLASS="f60">
 		If you made several requests, <A HREF="/<?= $middleuri ?>/register/investigate">click here to let 
 		us know to investigate</A>.
 	</P>
