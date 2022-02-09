@@ -22,12 +22,12 @@
 		</A>
 	</P>
 	
-	<P CLASS="f60">
+	<P CLASS="f40">
 		The reason we ask that you request a link by emailing <B><A HREF="<?= $MailToText ?>">notif@repmyblock.org</A></B>
 		is to combat spam registrations.
 	</P>
 	
-	<P CLASS="f60">
+	<P CLASS="f40">
 		If you made several requests, <A HREF="/<?= $middleuri ?>/register/investigate">click here to let 
 		us know to investigate</A>.
 	</P>
