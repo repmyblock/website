@@ -42,7 +42,7 @@
 					<A HREF="/<?= CreateEncoded ( array( 	
 													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 													"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
-													"UserDetail" => $URIEncryptedString["SystemUser_ID"],
+													"UserDetail" => $var["SystemUser_ID"],
 													"MenuDescription" => $URIEncryptedString["MenuDescription"],						
 													)); ?>/admin/userdetail">Get Detail</A>
 			
