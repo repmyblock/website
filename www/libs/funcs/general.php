@@ -220,7 +220,11 @@ function PrintReferer($order = 0) {
 	return 	$_SERVER['HTTP_REFERER'];
 }
 
-function formatPhoneNumber($phoneNumber) {
+function MatchPriviledges($TotalPriv, $PrivToCheck) {	
+	return (($PrivToCheck & $TotalPriv) == $PrivToCheck);
+}
+
+function FormatPhoneNumber($phoneNumber) {
     $phoneNumber = preg_replace('/[^0-9]/','',$phoneNumber);
 
     if(strlen($phoneNumber) > 10) {

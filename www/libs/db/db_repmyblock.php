@@ -854,12 +854,37 @@ class RepMyBlock extends queries {
 	}
 	
 	
-	function SearchUsers() {
-		
+	function SearchUsers($UserID = NULL) {	
 		$sql = "SELECT * FROM SystemUser";
-		return $this->_return_multiple($sql);
 		
+		if ( ! empty ($UserID)) {
+			$sql .= " WHERE SystemUser_ID = :UserID";
+			$sql_vars = array ("UserID" => $UserID);
+			return $this->_return_simple($sql, $sql_vars);
+		}
+		
+		return $this->_return_multiple($sql);
 	}	
+	
+	function SearchTempUsers($UserID = NULL) {	
+		$sql = "SELECT * FROM SystemTemporaryUser";
+		
+		if ( ! empty ($UserID)) {
+			$sql .= " WHERE SystemTemporaryUser_ID = :UserID";
+			$sql_vars = array ("UserID" => $UserID);
+			return $this->_return_simple($sql, $sql_vars);
+		}
+		
+		return $this->_return_multiple($sql);
+	}	
+	
+	
+	
+	function ReturnPrivCodes () {
+		$sql = "SELECT * FROM AdminCode";
+		return $this->_return_multiple($sql);
+	}	
+	
 	
 	/* Custom SQL Statement to minimize the number of question based on logic. */
 		
