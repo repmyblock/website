@@ -1,5 +1,5 @@
 <?php
-
+const PERM_SUPERUSER = 4294967295;
 const PERM_MENU_PROFILE = 1;
 const PERM_MENU_SUMMARY = 2;
 const PERM_MENU_DISTRICT = 4;
@@ -9,7 +9,6 @@ const PERM_MENU_TEAM = 32;
 const PERM_MENU_MESSAGES = 64;
 const PERM_MENU_DOWNLOADS = 128;
 const PERM_MENU_PLEDGES = 256;
-
 const PERM_ADMIN_MENU = 512;
 const PERM_ADMIN_RAWDB = 1024;
 const PERM_ADMIN_ASSIGNPRIV = 2048;
@@ -221,7 +220,7 @@ function PrintReferer($order = 0) {
 }
 
 function MatchPriviledges($TotalPriv, $PrivToCheck) {	
-	return (($PrivToCheck & $TotalPriv) == $PrivToCheck);
+	return ((intval($PrivToCheck) & intval($TotalPriv)) != 0);
 }
 
 function FormatPhoneNumber($phoneNumber) {

@@ -8,8 +8,38 @@
 
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();	
-	$var = $rmb->SearchUsers($URIEncryptedString["UserDetail"]);
+
+	$result = $rmb->SearchUsers($URIEncryptedString["UserDetail"]);
 	$privcodes = $rmb->ReturnPrivCodes();
+	
+	$TheNewK = CreateEncoded ( array( 		
+			"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+			"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+			"UserDetail" => $URIEncryptedString["UserDetail"],
+			"MenuDescription" => $URIEncryptedString["MenuDescription"],	
+	));
+
+	if ( ! empty ($_POST)) {
+		
+		print "<PRE>" . print_r($_POST, 1) . "</PRE>";
+		$TotalPrivs = 0;
+		
+		if ( ! empty ($_POST["Priviledges"])) {
+			foreach ($_POST["Priviledges"] as $var) {
+				if ($var == PERM_SUPERUSER) { $TotalPrivs = $var; }
+				else { $TotalPrivs += $var; }
+			}
+			print "Total Privs: $TotalPrivs for " . $URIEncryptedString["UserDetail"];
+			$rmb->UpdateSystemSetPriv($URIEncryptedString["UserDetail"], $TotalPrivs);
+		} else if ( $result["SystemUser_Priv"] > 0) {
+			$rmb->UpdateSystemSetPriv($URIEncryptedString["UserDetail"], 0);
+		}
+			
+		header("Location: /" . $TheNewK . "/admin/userdetail");			
+		exit();
+	}
+	
+	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
@@ -32,26 +62,30 @@
 				<div class="col-12">
 				  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 			
-			
-						
-					<?php	
-					
-					
-					
-							if ( ! empty ($var)) { 
-								
-				?>
-				
-				<div class="list-group-item f60">SystemUser_ID: <FONT COLOR=BROWN><?= $var["SystemUser_ID"] ?></FONT></div>
-				<div class="list-group-item f60">SystemUserProfile_ID: <FONT COLOR=BROWN><?= $var["SystemUserProfile_ID"] ?></FONT></div>
-				<div class="list-group-item f60">SystemUser_createtime <FONT COLOR=BROWN><?= $var["SystemUser_createtime"] ?></div>
-				<div class="list-group-item f60">SystemUser_lastlogintime <FONT COLOR=BROWN><?= $var["SystemUser_lastlogintime"] ?></div>
-			
-				<div class="list-group-item f60">First Name <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_FirstName"] ?>"></div>
-				<div class="list-group-item f60">Last Name <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_LastName"] ?>"></div>
+				<?php	if ( ! empty ($result)) { ?>
+
+				<div class="list-group-item f60">
+					First Name <INPUT TYPE="TEXT" VALUE="<?= $result["SystemUser_FirstName"] ?>">
+					Last Name <INPUT TYPE="TEXT" VALUE="<?= $result["SystemUser_LastName"] ?>">
+				</div>
+
+				<div class="list-group-item f60">
+						SystemUser_ID: <FONT COLOR=BROWN><?= $result["SystemUser_ID"] ?></FONT>
+						SystemUserProfile_ID: <FONT COLOR=BROWN><?= $result["SystemUserProfile_ID"] ?></FONT>
+					<BR>
+						Last Login <FONT COLOR=BROWN><?= PrintDateTime($result["SystemUser_lastlogintime"]); ?></FONT>
+						Create Time <FONT COLOR=BROWN><?= PrintDateTime($result["SystemUser_createtime"]); ?></FONT>
+					<BR>
+						Voters State ID <FONT COLOR=BROWN><?= $result["Voters_UniqStateVoterID"] ?></FONT>
+						RMB Voters ID <FONT COLOR=BROWN><?= $result["Voters_ID"] ?></FONT>
+					<BR>
+						EDAD <FONT COLOR=BROWN><?= $result["SystemUser_EDAD"] ?></FONT>
+						Num Voters <FONT COLOR=BROWN><?= $result["SystemUser_NumVoters"] ?></FONT>
+						Party <FONT COLOR=BROWN><?= $result["SystemUser_Party"] ?></FONT>
+				</div>
 
 				<div class="list-group-item f60">Priv 
-					<FONT COLOR=BROWN><?= $var["SystemUser_Priv"] ?></FONT>
+					<FONT COLOR=BROWN><?= $result["SystemUser_Priv"] ?></FONT>
 					<UL>
 					<?php
 						if ( ! empty ($privcodes)) { 	
@@ -59,50 +93,81 @@
 								if (! empty ($privar)) {
 					?>					
 						
-					<INPUT TYPE="checkbox" name="Priviledges[]" value="<?= $privar["AdminCode_Code"] ?>"<?php if (MatchPriviledges($var["SystemUser_Priv"], $privar["AdminCode_Code"]) == 1) { echo " CHECKED"; } ?>>
-						&nbsp;<?= $privar["AdminCode_ProgName"] ?><BR>											
+					<INPUT TYPE="checkbox" name="Priviledges[]" value="<?= $privar["AdminCode_Code"] ?>"<?php if (MatchPriviledges($result["SystemUser_Priv"], $privar["AdminCode_Code"]) == 1) { echo " CHECKED"; } ?>>&nbsp;<?= $privar["AdminCode_ProgName"] ?><BR>											
 					<?php			
 								}
 							}
 						}					
 					?>
+					<BR>
+					<INPUT TYPE="checkbox" name="Priviledges[]" value="<?= PERM_SUPERUSER ?>"<?php if ($result["SystemUser_Priv"] == PERM_SUPERUSER) { echo " CHECKED"; } ?>>&nbsp;PERM_SUPERUSER
+
+					
 				</UL>
 					</div>
 				
-				<div class="list-group-item f60">username <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_username"] ?>"></div>
-				<div class="list-group-item f60">email <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_email"] ?>"></div>
-				<div class="list-group-item f60">emailverified <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_emailverified"] ?>"></div>
+				<div class="list-group-item f60">
+					Username <INPUT TYPE="TEXT" VALUE="<?= $result["SystemUser_username"] ?>">
+					Email <INPUT TYPE="TEXT" VALUE="<?= $result["SystemUser_email"] ?>">
+				</div>
+				<div class="list-group-item f60">Email Verified 
+					<SELECT NAME="emailverified">
+						<OPTION VALUE="">&nbsp;</OPTION>
+						<OPTION VALUE="no"<?php if ($result["SystemUser_emailverified"] == "no") { echo " SELECTED"; } ?>>No</OPTION>
+						<OPTION VALUE="link"<?php if ($result["SystemUser_emailverified"] == "link") { echo " SELECTED"; } ?>>Link</OPTION>
+						<OPTION VALUE="reply"<?php if ($result["SystemUser_emailverified"] == "reply") { echo " SELECTED"; } ?>>Reply</OPTION>
+						<OPTION VALUE="both"<?php if ($result["SystemUser_emailverified"] == "both") { echo " SELECTED"; } ?>>Both</OPTION>
+					</SELECT>
+				</DIV>
+				
 				<div class="list-group-item f60">password <INPUT TYPE="TEXT" VALUE=""></div>
 				
-				<div class="list-group-item f60">Voters_ID <INPUT TYPE="TEXT" VALUE="<?= $var["Voters_ID"] ?>"></div>
-				<div class="list-group-item f60">Voters_UniqStateVoterID <INPUT TYPE="TEXT" VALUE="<?= $var["Voters_UniqStateVoterID"] ?>"></div>
-				<div class="list-group-item f60">EDAD <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_EDAD"] ?>"></div>
-				<div class="list-group-item f60">NumVoters <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_NumVoters"] ?>"></div>
-				<div class="list-group-item f60">Party <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_Party"] ?>"></div>
-				<div class="list-group-item f60">ComplexMenu <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_ComplexMenu"] ?>"></div>
 				
-			
-				<div class="list-group-item f60">login method <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_loginmethod"] ?>"></div>
-				<div class="list-group-item f60">email link id <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_emaillinkid"] ?>"></div>
-				<div class="list-group-item f60">mobile phone <INPUT TYPE="TEXT" VALUE="<?= FormatPhoneNumber($var["SystemUser_mobilephone"]) ?>"></div>
-				<div class="list-group-item f60">mobile verified <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_mobileverified"] ?>"></div>
-				<div class="list-group-item f60">facebook username <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_facebookusername"] ?>"></div>
-				<div class="list-group-item f60">facebook verified <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_facebookverified"] ?>"></div>
-				<div class="list-group-item f60">google username <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_googleusername"] ?>"></div>
-				<div class="list-group-item f60">google verified <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_googleverified"] ?>"></div>
-				<div class="list-group-item f60">Google MAP ID api <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_googleapimapid"] ?>"></div>
-							
-							
-				
-		
-		
-																	
-			<?php
-
-		
-		echo "</TR></TABLE>";
-		
-	} else { ?>
+				<div class="list-group-item f60">
+					Login method
+					<SELECT NAME="ComplexMenu ">
+						<OPTION VALUE="">&nbsp;</OPTION>
+						<OPTION VALUE="yes"<?php if ($result["SystemUser_loginmethod"] == "password") { echo " SELECTED"; } ?>>Password</OPTION>
+						<OPTION VALUE="no"<?php if ($result["SystemUser_loginmethod"] == "emaillink") { echo " SELECTED"; } ?>>Email Link</OPTION>
+					</SELECT>
+					Complex Menu 
+					<SELECT NAME="ComplexMenu ">
+						<OPTION VALUE="">&nbsp;</OPTION>
+						<OPTION VALUE="yes"<?php if ($result["SystemUser_ComplexMenu"] == "yes") { echo " SELECTED"; } ?>>Yes</OPTION>
+						<OPTION VALUE="no"<?php if ($result["SystemUser_ComplexMenu"] == "no") { echo " SELECTED"; } ?>>No</OPTION>
+					</SELECT>
+				</DIV>
+				<div class="list-group-item f60">Email link id <INPUT TYPE="TEXT" VALUE="<?= $result["SystemUser_emaillinkid"] ?>"></div>
+				<div class="list-group-item f60">
+					Mobile phone <INPUT TYPE="TEXT" VALUE="<?= FormatPhoneNumber($result["SystemUser_mobilephone"]) ?>">
+					Mobile verified 						
+					<SELECT NAME="MobileVerified">
+						<OPTION VALUE="">&nbsp;</OPTION>
+						<OPTION VALUE="yes"<?php if ($result["SystemUser_mobileverified"] == "yes") { echo " SELECTED"; } ?>>Yes</OPTION>
+						<OPTION VALUE="no"<?php if ($result["SystemUser_mobileverified"] == "no") { echo " SELECTED"; } ?>>No</OPTION>
+					</SELECT>
+				</div>
+				<div class="list-group-item f60">
+					Facebook Username <INPUT TYPE="TEXT" VALUE="<?= $result["SystemUser_facebookusername"] ?>">
+					Facebook Verified 
+						<SELECT NAME="FacebookVerified">
+							<OPTION VALUE="">&nbsp;</OPTION>
+							<OPTION VALUE="yes"<?php if ($result["SystemUser_facebookverified"] == "yes") { echo " SELECTED"; } ?>>Yes</OPTION>
+							<OPTION VALUE="no"<?php if ($result["SystemUser_facebookverified"] == "no") { echo " SELECTED"; } ?>>No</OPTION>
+						</SELECT>
+				</div>
+				<div class="list-group-item f60">
+					Google Username <INPUT TYPE="TEXT" VALUE="<?= $result["SystemUser_googleusername"] ?>">
+					Google verified 
+						<SELECT NAME="GoogleVerified">
+							<OPTION VALUE="">&nbsp;</OPTION>
+							<OPTION VALUE="yes"<?php if ($result["SystemUser_googleverified"] == "yes") { echo " SELECTED"; } ?>>Yes</OPTION>
+							<OPTION VALUE="no"<?php if ($result["SystemUser_googleverified"] == "no") { echo " SELECTED"; } ?>>No</OPTION>
+						</SELECT>
+				</div>
+				<div class="list-group-item f60">Googlemap API ID <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_googleapimapid"] ?>"></div>
+				<div class="list-group-item f60"><button type="submit" class="btn btn-primary mobilemenu">Submit</BUTTON></DIV>
+	<?php	} else { ?>
 			<div class="list-group-item f60">
 				No user found.
 			</div>
@@ -117,20 +182,8 @@
 	<BR>
 	
 	
-	<?php 
-			
-					$TheNewK = CreateEncoded ( array( 		
-					"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-					"&SystemAdmin" => $URIEncryptedString["SystemAdmin"],
-					"&FirstName" => $URIEncryptedString["FirstName"],
-					"&LastName" => $URIEncryptedString["LastName"],
-					"&UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
-					"&UserParty" => $URIEncryptedString["UserParty"],
-					"&MenuDescription" => $URIEncryptedString["MenuDescription"]
-					));
-	?>
 				
-	<B><A HREF="/<?= $TheNewK ?>/lgd/team/admin">Look for a new voter</A></B>
+	<B><A HREF="/<?= $TheNewK ?>/admin/userlookup">Look for a new voter</A></B>
 	
 	
 			</DIV>

@@ -45,14 +45,8 @@
 													"UserDetail" => $var["SystemUser_ID"],
 													"MenuDescription" => $URIEncryptedString["MenuDescription"],						
 													)); ?>/admin/userdetail">Get Detail</A>
-			
-			<BR>
-			
-			
-			
-			
-			
-		</div>
+				
+				</div>
 		
 		
 		

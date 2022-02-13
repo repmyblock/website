@@ -798,6 +798,14 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
+	function UpdateSystemSetPriv($SystemUserID, $PrivModification) {
+		if ( $SystemUserID > 0 ) {
+			$sql = "UPDATE SystemUser SET SystemUser_Priv = :AddPriv WHERE SystemUser_ID = :SystemID";
+			$sql_vars = array("SystemID" => $SystemUserID, "AddPriv" => $PrivModification);
+			return $this->_return_nothing($sql, $sql_vars);
+		}
+	}
+	
 	function UpdateSystemPriv($SystemUserID, $PrivModification) {
 		if ( $SystemUserID > 0 ) {
 			$sql = "UPDATE SystemUser SET SystemUser_Priv = SystemUser_Priv";

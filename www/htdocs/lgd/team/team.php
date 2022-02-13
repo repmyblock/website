@@ -8,7 +8,7 @@
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
-	$Party = NewYork_PrintParty($UserParty);
+	$Party = PrintParty($UserParty);
 
 	$TopMenus = array ( 
 						array("k" => $k, "url" => "team", "text" => "Pledges"),
@@ -52,16 +52,7 @@
   		<A HREF="/admin/<?= $k ?>/track">Track Petitions</A><BR>	
   <?php	} ?>
    		
-   		
-		
 
-     
-  
-		
-
-			
-		
-		
 
 		<B>List of voters in your area.</B>	
 		
