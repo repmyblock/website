@@ -44,32 +44,13 @@
   <dl class="form-group">
   	<dt><label for="user_profile_email">Team building</label></dt>
     <dd class="d-inline-block">       	
-    	<?php /*
-   		<A HREF="">Send me a petition by email that I can foward</A><BR>
-   		<A HREF="/lgd/voters/?k=<?= $k ?> mobilemenu">Send a petition to a verified voter</A><BR>
-   	  */ ?>
-	<?php	if ( $SystemAdmin == $FullAdminRights && ! empty ($FullAdminRights)) { ?>
-	<BR>
-  		<A HREF="/admin/<?= $k ?>/index" class="mobilemenu">Admin Screen</A><BR>	
-  		<A HREF="/admin/<?= $k ?>/track">Track Petitions</A><BR>	
-  <?php	} ?>
-   		
-   		
-		
-
-     
-  
-		
-
-			
-		
-		
-
+    	
+   	
 		<B>List of voters in your area.</B>	
 		
 	
 		<P>
-			<A HREF="<?= $k ?>/target">Create a petition set with the voters you want to target</A><BR>		
+			<A HREF="/<?= $k ?>/lgd/team/target">Create a petition set with the voters you want to target</A><BR>		
 		</P>
 		
 		<b>This is a list of petition set created</b>

@@ -10,9 +10,11 @@
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	$Party = PrintParty($UserParty);
 
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($UserParty);
+
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
@@ -39,7 +41,7 @@
 				if ( empty ($Petitions)) { ?>    
 			    <div class="Box-body text-center py-6 js-collaborated-repos-empty">
 			      You have not yet setup your petitions 
-			    	<a href="/lgd/<?= $k ?>/profilecandidate"><B>you can setup it up here</B></a>.
+			    	<a href="/lgd/<?= $k ?>/petitions/setup"><B>you can setup it up here</B></a>.
 			    		
 			    </div>
 			<?php } 
