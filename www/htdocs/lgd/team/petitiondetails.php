@@ -3,45 +3,39 @@
 	// $BigMenu = "represent";
 	$Menu = "team";  
 	
- 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
-	WriteStderr($URIEncryptedString, "URIEncryptedString");	
+	
+	if ( ! empty ($_POST)) {		
+		WriteStderr($_POST, "Input \$_POST and creating the whole petition.");
 		
-	if ( ! empty ($_POST)) {
-		WriteStderr($_POST, "Input \$_POST");
-		echo "creating the petition details.";
-		print "<PRE>" . print_r($_POST, 1) . "</PRE>";
-		
-		print "Finding the CandidateElection_ID which is the label on the petition<BR>";
 		$ElectionsTypes = $rmb->ListElectedPositions(NULL, NULL, $_POST["ElectionType"]);
-		
-		print "ElectionsTypes: <PRE>" . print_r($ElectionsTypes, 1) . "</PRE>";
+		WriteStderr($ElectionsTypes, "ElectionsTypes");	
 		
 		$CandidateElection = $rmb->CandidateElection($ElectionsTypes[0]["ElectionsPosition_DBTable"], 
-																								 trim($_POST["DistrictID"]), NULL, NULL, $_POST["ElectionData"]);
-															
-		print "ElectionsTypes: <PRE>" . print_r($CandidateElection, 1) . "</PRE>";
-		
-		$CandidateElection = array(
-					"ElectionID" => $_POST["ElectionData"], 
-					"PosText" => $ElectionsTypes[0]["ElectionsPosition_Name"],
-					"PetText" => "Temporary placeholder for " . $ElectionsTypes[0]["ElectionsPosition_State"] . 
-												" District " . trim($_POST["DistrictID"]) . 
-												" for the position of " . $ElectionsTypes[0]["ElectionsPosition_Name"],
-					"Number" => 1,
-					"Order" => $ElectionsTypes[0]["ElectionsPosition_Name"], 
-					"Display" => 'no', 
-					"DBTable" => $ElectionsTypes[0]["ElectionsPosition_DBTable"],
-					"DBValue" => trim($_POST["DistrictID"])
+																								 trim($_POST["DistrictID"]), NULL, NULL, 
+																								 $_POST["ElectionData"]);
+		WriteStderr($CandidateElection, "CandidateElection");	
+		if ( empty ($CandidateElection)) {
+
+			WriteStderr($CandidateElection, "CandidateElection is empty\n");	
+			$CandidateElection = array(
+						"ElectionID" => $_POST["ElectionData"], 
+						"PosText" => $ElectionsTypes[0]["ElectionsPosition_Name"],
+						"PetText" => "Temporary placeholder for " . $ElectionsTypes[0]["ElectionsPosition_State"] . 
+													" District " . trim($_POST["DistrictID"]) . 
+													" for the position of " . $ElectionsTypes[0]["ElectionsPosition_Name"],
+						"Number" => 1,
+						"Order" => $ElectionsTypes[0]["ElectionsPosition_Order"], 
+						"Display" => 'no', 
+						"DBTable" => $ElectionsTypes[0]["ElectionsPosition_DBTable"],
+						"DBValue" => trim($_POST["DistrictID"])
 			);
 			
-			$Parties = $rmb->ListParties(NULL, NULL, $_POST["PartyID"]);
-			print "Parties: <PRE>" . print_r($Parties, 1) . "</PRE>";
-			
+			$Parties = $rmb->ListParties(NULL, NULL, $_POST["PartyID"]);		
 			switch ($ElectionsTypes[0]["ElectionsPosition_Type"]) {
 				case "office":
 					$CandidateElection["PosType"] = "electoral";
@@ -51,38 +45,49 @@
 					$CandidateElection["Party"] = $Parties[0]["PartyData_Abbrev"];
 					break;
 			}
-					
-					
-			print "CandidateElection: <PRE>" . print_r($CandidateElection, 1) . "</PRE>";
-			$CandidateElection = $rmb->InsertCandidateElection($CandidateElectionData);
+						
+			WriteStderr($CandidateElection, "CandidateElection Before InsertCandidateElection\n");	
+			$CandidateElectionData = $rmb->InsertCandidateElection($CandidateElection);
+			$CandidateElection["CandidateElection_ID"] = $CandidateElectionData["CandidateElection_ID"];
+			WriteStderr($CandidateElectionData, "Finished InsertCandidateElection(): CandidateElectionData\n");	
 
-/*
-			CandidateElection_ID
-			Candidate_Party
-			CandidateElection_DBTable
-			CandidateElection_DBTableValue
-			Candidate_Status pending
-	*/
+		} else {
+			$Parties = $rmb->ListParties(NULL, NULL, $_POST["PartyID"]);
+			$CandidateElection["Party"] = $Parties[0]["DataParty_Abbrev"];
+			$CandidateElection["DBTable"] = $CandidateElection[0]["CandidateElection_DBTable"];
+			$CandidateElection["DBValue"]	= $CandidateElection[0]["CandidateElection_DBTableValue"];
+			$CandidateElection["CandidateElection_ID"] = $CandidateElection[0]["CandidateElection_ID"];
+		}
 			
-		/* $Address = $_POST["Address1"];
-		if ( ! empty ($_POST["Address2"])) { $Address .= "\n" . $_POST["Address2"]; }
-		if ( ! empty ($_POST["Address3"])) { $Address .= "\n" . $_POST["Address3"]; }
-		*/
+	 	$Address = $URIEncryptedString["CPrep_Address1"];
+		if ( ! empty ($URIEncryptedString["CPrep_Address2"])) { $Address .= "\n" . $URIEncryptedString["CPrep_Address2"]; }
+		if ( ! empty ($URIEncryptedString["CPrep_Address3"])) { $Address .= "\n" . $URIEncryptedString["CPrep_Address3"]; }
 		
-		//$return = $rmb->InsertCandidate($URIEncryptedString["SystemUser_ID"], NULL, NULL, NULL, 
-		//											NULL, NULL, $_POST["FullName"],
-		//												$Address, NULL, NULL,	NULL, NULL);		
-		//$MatchTableName = array(
-		//	"Fist"	 =>  $_POST["FirstName"], 
-		//	"Last"	 => $_POST["LastName"], 
-		//	"Full"	 =>  $_POST["FullName"], 
-		//	"Email"	 => $_POST["Email"],
-		//);
-														
-		//$profile_candidate = $rmb->updatecandidateprofile($return["Candidate_ID"], $MatchTableName);		
-		//$rmb->addcandidateprofileid($return["Candidate_ID"], $profile_candidate["CandidateProfile_ID"]);
+		$return = $rmb->InsertCandidate($URIEncryptedString["SystemUser_ID"], NULL, NULL, NULL, 
+																		$CandidateElection["CandidateElection_ID"], $CandidateElection["Party"], 
+																		$URIEncryptedString["CPrep_Full"],
+																		$Address, $CandidateElection["DBTable"], 
+																		$CandidateElection["DBValue"],	NULL, "pending", $_POST["Label"]);		
 		
+		$MatchTableName = array(
+			"Fist"	 => $URIEncryptedString["CPrep_First"], 
+			"Last"	 => $URIEncryptedString["CPrep_Last"], 
+			"Full"	 => $URIEncryptedString["CPrep_Full"], 
+			"Email"	 => $URIEncryptedString["CPrep_Email"],
+		);
+
+		WriteStderr($return, "Return of InsertCandidate()");
+
+		$profile_candidate = $rmb->updatecandidateprofile($return["Candidate_ID"], $MatchTableName);	
+		WriteStderr($profile_candidate, "profile_candidate\n");		
+		$rmb->addcandidateprofileid($return["Candidate_ID"], $profile_candidate["CandidateProfile_ID"]);
 	
+		if ($_POST["Comittee"] == "on") {
+			header("Location: /" . $k . "/lgd/team/petitioncommittee");
+			exit();
+		}
+
+		header("Location: /" . $k . "/lgd/team/teamcandidate");
 		exit();
 	}
 		
