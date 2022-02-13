@@ -20,13 +20,13 @@
 								"Candidate_ID" => $return["Candidate_ID"],
 								"CandidateProfile_ID" => $profile_candidate["CandidateProfile_ID"],
 								"PetitionStateID" => $_POST["ElectionStateID"],
-								"CandidatePrep_First"	 => trim($_POST["FirstName"]), 
-								"CandidatePrep_Last"	 => trim($_POST["LastName"]), 
-								"CandidatePrep_Full"	 => trim($_POST["FullName"]), 
-								"CandidatePrep_Email"	 => trim($_POST["Email"]),
-								"CandidatePrep_Address1"	 => trim($_POST["Address1"]),
-								"CandidatePrep_Address2"	 => trim($_POST["Address2"]),
-								"CandidatePrep_Address3"	 => trim($_POST["Address3"]),
+								"CPrep_First"	=> trim($_POST["FirstName"]), 
+								"CPrep_Last"	=> trim($_POST["LastName"]), 
+								"CPrep_Full"	=> trim($_POST["FullName"]), 
+								"CPrep_Email"	=> trim($_POST["Email"]),
+								"CPrep_Address1" => trim($_POST["Address1"]),
+								"CPrep_Address2" => trim($_POST["Address2"]),
+								"CPrep_Address3" => trim($_POST["Address3"]),
 							)) . "/lgd/team/petitiondetails");
 		exit();
 	}
@@ -65,9 +65,8 @@
 	
 						<?= $error_msg ?>
 						
-						
 						<P>
-							<A HREF="/<?= $k ?>/lgd/team/petitionbypass">Bypass Voter Search to create a petition</A>	
+							<A HREF="/<?= $k ?>/lgd/team/target">Use the automatic petition verificator</A>								
 						</P>
 	
 					  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
@@ -101,6 +100,7 @@
 									<dt><label for="user_profile_name">Petition State</label><DT>
 									<dd>
 										<SELECT NAME="ElectionStateID">
+											<OPTION VALUE="">&nbsp;</OPTION>
 										<?php if (! empty ($states)) {
 														foreach ($states as $var) {
 															if ( ! empty ($var)) { ?>

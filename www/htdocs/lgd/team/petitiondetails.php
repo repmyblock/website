@@ -56,20 +56,22 @@
 			print "CandidateElection: <PRE>" . print_r($CandidateElection, 1) . "</PRE>";
 			$CandidateElection = $rmb->InsertCandidateElection($CandidateElectionData);
 
-
+/*
 			CandidateElection_ID
 			Candidate_Party
 			CandidateElection_DBTable
 			CandidateElection_DBTableValue
 			Candidate_Status pending
+	*/
 			
-				$Address = $_POST["Address1"];
+		/* $Address = $_POST["Address1"];
 		if ( ! empty ($_POST["Address2"])) { $Address .= "\n" . $_POST["Address2"]; }
 		if ( ! empty ($_POST["Address3"])) { $Address .= "\n" . $_POST["Address3"]; }
+		*/
 		
 		//$return = $rmb->InsertCandidate($URIEncryptedString["SystemUser_ID"], NULL, NULL, NULL, 
-													NULL, NULL, $_POST["FullName"],
-														$Address, NULL, NULL,	NULL, NULL);		
+		//											NULL, NULL, $_POST["FullName"],
+		//												$Address, NULL, NULL,	NULL, NULL);		
 		//$MatchTableName = array(
 		//	"Fist"	 =>  $_POST["FirstName"], 
 		//	"Last"	 => $_POST["LastName"], 
