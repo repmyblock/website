@@ -1,19 +1,21 @@
 <?php
-	$BigMenu = "represent";
-	$Menu = "team";  
-	if ( ! empty ($k)) { $MenuLogin = "logged"; }
+	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
+	$Menu = "team";
+	// $BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_voterlist.php";	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";	
 	
 	$r = new voterlist();
+	$rmb = new repmyblock();
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$result = $r->GetSignedElectors($Candidate_ID);
 	$EncryptURL = EncryptURL("CandidateID=" . $Candidate_ID . "&PetitionSetID=" . $CandidatePetitionSet_ID);
 	
 	$TopMenus = array ( 
-						array("k" => $k, "url" => "team", "text" => "Pledges"),
-						array("k" => $k, "url" => "teampetitions", "text" => "Manage Petitions"),
-						array("k" => $k, "url" => "teamcandidate", "text" => "Other Candidates")
+						array("k" => $k, "url" => "team/team", "text" => "Manage Pledges"),
+						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
+						array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
 					);			
 	WriteStderr($TopMenus, "Top Menu");		
 	

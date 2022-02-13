@@ -1,19 +1,20 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
 	$Menu = "team";
-	$BigMenu = "represent";	
+	// $BigMenu = "represent";	
 	 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($UserParty);
 
-	$TopMenus = array ( 
-						array("k" => $k, "url" => "team", "text" => "Pledges"),
-						array("k" => $k, "url" => "teampetitions", "text" => "Manage Petitions"),
-						array("k" => $k, "url" => "teamcandidate", "text" => "Other Candidates")
+	$TopMenus = array ( 						
+						array("k" => $k, "url" => "team/team", "text" => "Manage Pledges"),
+						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
+						array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
 					);			
 	WriteStderr($TopMenus, "Top Menu");		
 
@@ -42,11 +43,11 @@
   <dl class="form-group">
   	<dt><label for="user_profile_email">Team building</label></dt>
     <dd class="d-inline-block">       	
-    	<?php /*
+    
    		<A HREF="">Send me a petition by email that I can foward</A><BR>
    		<A HREF="/lgd/voters/?k=<?= $k ?> mobilemenu">Send a petition to a verified voter</A><BR>
-   	  */ ?>
-	<?php	if ( $SystemAdmin == $FullAdminRights && ! empty ($FullAdminRights)) { ?>
+   	
+   	<?php	if ( $SystemAdmin == $FullAdminRights && ! empty ($FullAdminRights)) { ?>
 	<BR>
   		<A HREF="/admin/<?= $k ?>/index" class="mobilemenu">Admin Screen</A><BR>	
   		<A HREF="/admin/<?= $k ?>/track">Track Petitions</A><BR>	
@@ -87,17 +88,9 @@
 		</P>				
 		
 		<P>
-		<b><A HREF="<?= $k ?>/managesignedvoters">Manage your signed voters</A></FONT></B>
+		<b><A HREF="<?= $k ?>/team/managesignedvoters">Manage your signed voters</A></FONT></B>
 		</P>
 		
-		
-		<P>
-		<b><A HREF="">Candidates running in your district.</A></FONT></B>
-		</P>
-		
-		<UL>
-			* None.
-		</UL>
 
     </dd>
   </dl>

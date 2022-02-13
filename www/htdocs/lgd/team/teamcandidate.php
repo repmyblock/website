@@ -1,19 +1,21 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
 	$Menu = "team";
-	$BigMenu = "represent";	
+	// $BigMenu = "represent";	
 	 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
-	$Party = NewYork_PrintParty($UserParty);
+	WriteStderr($URIEncryptedString, "URIEncryptedString");	
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	$Party = PrintParty($UserParty);
 
 	$TopMenus = array ( 
-						array("k" => $k, "url" => "team", "text" => "Pledges"),
-						array("k" => $k, "url" => "teampetitions", "text" => "Manage Petitions"),
-						array("k" => $k, "url" => "teamcandidate", "text" => "Other Candidates")
+						array("k" => $k, "url" => "team/team", "text" => "Manage Pledges"),
+						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
+						array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
 					);			
 	WriteStderr($TopMenus, "Top Menu");		
 
