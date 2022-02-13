@@ -36,7 +36,7 @@
 	$states = $rmb->ListStates();
 
 	$TopMenus = array ( 
-						array("k" => $k, "url" => "team/team", "text" => "Manage Pledges"),
+						array("k" => $k, "url" => "team/index", "text" => "Manage Pledges"),
 						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
 						array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
 					);			
