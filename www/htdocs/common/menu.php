@@ -1,7 +1,6 @@
 <?php
 	WriteStderr($rmbperson, "RMBPerson in Menu");
 	
-	
 	if (empty ($rmbperson["SystemUser_EDAD"])) { 
 		if (empty ($URIEncryptedString["EDAD"])) { 
 			$MenuDescription = "District Not Defined";

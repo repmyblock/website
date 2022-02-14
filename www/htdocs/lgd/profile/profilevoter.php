@@ -9,7 +9,6 @@
   if (empty ($URIEncryptedString["VotersIndexes_ID"])) { header("Location: /" . $k . "/lgd/profile/input"); exit(); }
 	
 	$rmb = new repmyblock();
-	
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
 	//	$rmbperson = $rmb->SearchVotersBySingleIndex($URIEncryptedString["VotersIndexes_ID"], $DatedFiles);
 	//$rmbperson = $rmb->SearchVoterDBbyNYSID($URIEncryptedString["UniqNYSVoterID"], $DatedFiles);

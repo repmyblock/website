@@ -7,18 +7,18 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
+  WipeURLEncrypted();
 	$rmb = new repmyblock();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($UserParty);
 
 	$TopMenus = array ( 						
-						array("k" => $k, "url" => "team/index", "text" => "Manage Pledges"),
-						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-						array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
-					);			
+		array("k" => $k, "url" => "team/index", "text" => "Manage Pledges"),
+		array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
+		array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
+	);
+								
 	WriteStderr($TopMenus, "Top Menu");		
-
-				
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 

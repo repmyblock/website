@@ -132,8 +132,6 @@ if ( ! empty ($result[0]["Candidate_DispName"])) {
 
 $Petition_FileName .= date("Ymd_Hi") . ".pdf";
 
-
-
 if ( ! empty ($result)) {
 	foreach ($result as $var) {
 		if (! empty ($var)) {

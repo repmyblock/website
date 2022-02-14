@@ -271,8 +271,9 @@ class RepMyBlock extends queries {
 	}
 	
 	function InsertCandidateElection($CandidateElectionData) {
-		
+			
 		if (! empty ($CandidateElectionData["ElectionID"])) {
+			$sql = "INSERT INTO CandidateElection SET ";
 			$MatchTableName = array(
 					"ElectionID" => "Elections_ID", 
 					"PosType" => "CandidateElection_PositionType", 
@@ -288,7 +289,20 @@ class RepMyBlock extends queries {
 					"DBValue" => "CandidateElection_DBTableValue", 
 					"NbrVoters" => "CandidateElection_CountVoter"
 			);
+			
+			$firsttime = 0;
+			foreach ($MatchTableName as $index => $var) {			
+				if (! empty ($CandidateElectionData[$index])) { 
+					if ($firsttime == 0) { $firsttime = 1;} else { $sql .= ", "; }
+					$sql .= $var . " = :" . $index;
+				}
+			}
 		}
+		
+		$this->_return_nothing($sql, $CandidateElectionData);
+		
+		$sql = "SELECT LAST_INSERT_ID() as CandidateElection_ID";
+		return $this->_return_simple($sql); 	
 	}
 	
 	function updatecandidateprofile($Candidate_ID, $CandidateProfile) {
@@ -475,13 +489,14 @@ class RepMyBlock extends queries {
 	
 	
 	function InsertCandidate($SystemUserID, $UniqNYSVoterID, $RawVoterID, $DataCountyID, $CandidateElectionID, $Party, $DisplayName,
-														$Address, $DBTable, $DBValue,	$StatsVoters, $Status) {
+														$Address, $DBTable, $DBValue,	$StatsVoters, $Status, $NameSet = NULL) {
 															
 		$sql = "INSERT INTO Candidate SET SystemUser_ID = :SystemUserID, Candidate_UniqStateVoterID = :UniqNYSVoterID, " .
 						"Voter_ID = :RawVoterID, DataCounty_ID = :DataCountyID," .
 						"CandidateElection_ID = :CandidateElectionID, Candidate_Party = :Party, Candidate_DispName = :DisplayName, " .
 						"Candidate_DispResidence = :Address, CandidateElection_DBTable = :DBTable, " .
-						"CandidateElection_DBTableValue = :DBValue, Candidate_StatsVoters = :StatsVoters,  Candidate_Status = :Status";
+						"CandidateElection_DBTableValue = :DBValue, Candidate_StatsVoters = :StatsVoters, " . 
+						"Candidate_Status = :Status";
 						
 		$sql_vars = array("SystemUserID" => $SystemUserID, "UniqNYSVoterID" => $UniqNYSVoterID, 
 											"RawVoterID" => $RawVoterID, "DataCountyID" => $DataCountyID, 
@@ -489,6 +504,11 @@ class RepMyBlock extends queries {
 											"Party" => $Party, "DisplayName" =>  $DisplayName, 
 											"Address" => $Address, "DBTable" => $DBTable, "DBValue" => $DBValue, 
 											"StatsVoters" => $StatsVoters, "Status" => $Status);
+											
+		if ( $NameSet != NULL ) {
+			$sql .= ", Candidate_PetitionNameset = :NameSet";
+			$sql_vars["NameSet"] = $NameSet;
+		}
 		
 		$this->_return_nothing($sql, $sql_vars);
 		
@@ -884,14 +904,9 @@ class RepMyBlock extends queries {
 						"LEFT JOIN DataCity ON (DataCity.DataCity_ID = DataAddress.DataCity_ID) " .
 						"LEFT JOIN DataDistrictTemporal on (DataHouse.DataDistrictTemporal_GroupID = DataDistrictTemporal.DataDistrictTemporal_GroupID) " .
 						"LEFT JOIN DataDistrict ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .		
-						"LEFT JOIN DataCounty ON (DataDistrict.DataCounty_ID = DataCounty.DataCounty_ID) " .				
-
-						
+						"LEFT JOIN DataCounty ON (DataDistrict.DataCounty_ID = DataCounty.DataCounty_ID) " .
 						"WHERE SystemUser_ID = :SystemID";
-		$sql_vars = array("SystemID" => $SystemUserID);
-		
-		WriteStderr($sql, "sql");
-		
+		$sql_vars = array("SystemID" => $SystemUserID);		
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	

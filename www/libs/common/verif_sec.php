@@ -98,7 +98,7 @@ function EncryptURL($string = "") {
   return $MyString;
 }
 
-function DecryptURL ( $sealed ) {
+function DecryptURL ($sealed) {
   // $sealed and $env_key are assumed to contain the sealed data
   // and our envelope key, both given to us by the sealer.
   global $PrivKey;
@@ -127,6 +127,16 @@ function DecryptURL ( $sealed ) {
   }
   
   return($finaltext);
+}
+
+
+function WipeURLEncrypted($WhatToKeep = NULL, $WhatToRemove = NULL) {
+	global $k, $URIEncryptedString;
+
+	if (! empty ($URIEncryptedString)) {
+		$URIEncryptedString = array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"]);
+		$k = CreateEncoded ( array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"]));
+	}
 }
 
 function CreateThePassword ($Password) {
