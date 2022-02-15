@@ -9,6 +9,7 @@
 
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Result = $rmb->SearchUsers();
 	$TempResult = $rmb->SearchTempUsers();
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";

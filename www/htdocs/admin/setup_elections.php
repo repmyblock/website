@@ -10,10 +10,10 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	$rmb = new repmyblock();
-
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
+	$rmb = new repmyblock();	
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	$Party = PrintParty($URIEncryptedString["UserParty"]);
 	
 	if ( ! empty ($_POST)) {
 		header("Location: /admin/" . $k  . "/add_position");
@@ -22,7 +22,13 @@
 
 	$result = $rmb->ListElectedPositions($State);
 	WriteStderr($result, "ListElectedPositions");
-			
+	
+	$TopMenus = array ( 						
+		array("k" => $k, "url" => "../admin/setup_elections", "text" => "Race Type"),
+		array("k" => $k, "url" => "../admin/setup_dates", "text" => "Elections Dates"),
+		array("k" => $k, "url" => "../admin/setup_candidate", "text" => "Candidate Profile")
+	);
+	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
@@ -35,22 +41,8 @@
 			  <div class="Subhead mt-0 mb-0">
 			    <h2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</h2>
 			  </div>
-     
-<?php 
-				if ($VerifEmail == true) { 
-					include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
-				} else if ($VerifVoter == true) {
-					include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
-				} 
-?>		
-  
-				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
-					<div class="UnderlineNav-body">
-						<a href="/admin/<?= $k ?>/setup_elections" class="mobilemenu UnderlineNav-item select">Race Type</a>
-						<a href="/admin/<?= $k ?>/setup_dates" class="mobilemenu UnderlineNav-item">Elections Dates</a>
-						<a href="/admin/<?= $k ?>/setup_candidate" class="mobilemenu UnderlineNav-item selected">Candidate Profile</a>
-					</div>
-				</nav>
+				
+				<?php	PlurialMenu($k, $TopMenus); ?>    
 
 			  <div class="clearfix gutter d-flex flex-shrink-0">
 	

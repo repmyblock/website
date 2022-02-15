@@ -38,9 +38,12 @@ switch ($Variable) {
   case 'person';
   	$result = $r->ListCandidatePetition($Candidate_ID, "published");
   	if ( ! empty ($result)) {
-  		$result[0]["CandidateSet_ID"] = 1;
-			$result[0]["CandidateParty"] = PrintPartyAdjective($result[0]["Candidate_Party"]);
-			$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
+  		
+  		for ($i = 0; $i < count($result); $i++) { 	 		
+	  		$result[$i]["CandidateSet_ID"] = 1;	
+				$result[$i]["CandidateParty"] = PrintPartyAdjective($result[0]["Candidate_Party"]);
+				$result[$i]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
+			}
 			$pdf->BarCode = "P" . $SystemUser_ID;
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
 		}
@@ -82,8 +85,8 @@ switch ($Variable) {
 		$result[0]["Candidate_DispName"] = "Your name here";
 		$result[0]["CandidateElection_PetitionText"] = "The election type here";
 		$result[0]["Candidate_DispResidence"] = "Your address here";
-		$result[0]["CandidateWitness_FullName"] = "Committee to replace here";
-		$result[0]["CandidateWitness_Residence"] = "Address of committee person";
+		$result[0]["CandidateComRplce_FullName"] = "Committee to replace here";
+		$result[0]["CandidateComRplce_Residence"] = "Address of committee person";
 		$result[0]["CandidatePetition_VoterCounty"] = "A COUNTY NAME";
 		$result[0]["CandidateParty"] = "Democratic";
 		$pdf->Watermark = "Demo Petition / Not Valid";
@@ -98,8 +101,8 @@ switch ($Variable) {
 		$result[0]["Candidate_DispName"] = "Your name here\n";
 		$result[0]["CandidateElection_PetitionText"] = "Member of the Democratic or Republican Party County Committee from the XXth election district in the XXth assembly district Your County, New York State";
 		$result[0]["Candidate_DispResidence"] = "Your address here";
-		// $result[0]["CandidateWitness_FullName"] = "Committee to replace here";
-		// $result[0]["CandidateWitness_Residence"] = "Address of committee person";
+		$result[0]["CandidateComRplce_FullName"] = "Committee to replace here";
+		$result[0]["CandidateComRplce_Residence"] = "Address of committee person";
 		$result[0]["CandidatePetition_VoterCounty"] = "a New York City";
 		$result[0]["CandidateParty"] = "Democratic or Republican";
 		$pdf->Watermark = "Demo Petition / Not Valid";
@@ -140,9 +143,9 @@ if ( ! empty ($result)) {
 			$PetitionData[$var["CandidateSet_ID"]]["CandidateName"]	= $var["Candidate_DispName"];
 			$PetitionData[$var["CandidateSet_ID"]]["CandidatePositionName"]	= $var["CandidateElection_PetitionText"];
 			$PetitionData[$var["CandidateSet_ID"]]["CandidateResidence"] = $var["Candidate_DispResidence"];
-			if ( ! empty($var["CandidateWitness_FullName"])) {					
-				$PetitionData[$var["CandidateSet_ID"]]["Witness_FullName"][$var["CandidateWitness_ID"]] = $var["CandidateWitness_FullName"];
-				$PetitionData[$var["CandidateSet_ID"]]["Witness_Residence"][$var["CandidateWitness_ID"]] = $var["CandidateWitness_Residence"];
+			if ( ! empty($var["CandidateComRplce_FullName"])) {					
+				$PetitionData[$var["CandidateSet_ID"]]["ComReplace_FullName"][$var["CandidateComRplce_ID"]] = $var["CandidateComRplce_FullName"];
+				$PetitionData[$var["CandidateSet_ID"]]["ComReplace_Residence"][$var["CandidateComRplce_ID"]] = $var["CandidateComRplce_Residence"];
 			}
 		}
 	}
@@ -161,14 +164,14 @@ if ( ! empty ($PetitionData)) {
 				$pdf->Residence[$TotalCandidates] = $key["CandidateResidence"];
 				$pdf->PositionType[$TotalCandidates] = $key["PositionType"];
 				
-				if ( ! empty ($key["Witness_FullName"])) {
+				if ( ! empty ($key["ComReplace_FullName"])) {
 					$pdf->Appointments[$TotalCandidates] = "";
 					$comma_first = 0;
-					foreach ($key["Witness_FullName"] as $klo => $vir) {
+					foreach ($key["ComReplace_FullName"] as $klo => $vir) {
 						if ($comma_first == 1) {
 							$pdf->Appointments[$TotalCandidates] .= ", ";
 						}
-						$pdf->Appointments[$TotalCandidates] .= $vir . ", " . $key["Witness_Residence"][$klo];						
+						$pdf->Appointments[$TotalCandidates] .= $vir . ", " . $key["ComReplace_Residence"][$klo];						
 						$comma_first = 1;
 					}						
 				}
@@ -180,9 +183,7 @@ if ( ! empty ($PetitionData)) {
 }
 
 
-
 $pdf->NumberOfCandidates = $TotalCandidates;
-
 
 if ($pdf->NumberOfCandidates > 1) { 
 	$pdf->PluralCandidates = "s"; 
@@ -206,12 +207,12 @@ $pdf->CandidateNomination .= " or for election to a party position of such party
 //$pdf->WitnessResidence = "_______________________________________________________"; 
 
 $pdf->TodayDateText = "Date: " . date("F _________ , Y"); 
-$pdf->TodayDateText = "Date: " . $WritenSignatureMonth . " _______ , 2021";
+$pdf->TodayDateText = "Date: " . $WritenSignatureMonth . " _______ , " . date("Y");
 $pdf->County = $result[0]["CandidatePetition_VoterCounty"];
 $pdf->City = "City of New York";
 
-$pdf->City = "____________________"; 
-$pdf->County = "__________________"; 
+$pdf->City = "__________"; 
+$pdf->County = "_____"; 
 
 if ( $PageSize == "letter") {
 	$NumberOfLines = 12 - $pdf->NumberOfCandidates;
@@ -292,7 +293,7 @@ while ( $done == 1) {
 	$pdf->SetTextColor(190);
 
 	$pdf->SetFont('Arial','I',8);		
-	$pdf->SetXY( 41,  $YLocation + 0.8);
+	$pdf->SetXY( 41,  $YLocation + 0.4);
 	$pdf->Write(0, "Print your name here:");
 
 	$pdf->SetFont('Arial','',8);
@@ -311,6 +312,10 @@ while ( $done == 1) {
 	}
 	
 }
+
+$pdf->Line($pdf->Line_Left, $YLocation + 2, $pdf->Line_Right, $YLocation + 2);
+$pdf->LocationOfFooter = $YLocation + 6.5;
+$pdf->BottonPt = $YLocation + 1.9;
 
 $pdf->Output("I", $Petition_FileName);
 

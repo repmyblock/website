@@ -1,13 +1,15 @@
 <?php
 	$Menu = "admin";
 	$BigMenu = "represent";	
-		 
+
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
-
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	if (empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
+
+	$rmb = new repmyblock();
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
   
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
@@ -31,11 +33,11 @@
  
   <dl class="form-group">
 	 		<A HREF="/<?= $k ?>/admin/userlookup" class="mobilemenu">RepMyBlock User</A><BR>	
- 			<A HREF="/<?= $k ?>/admin/voterlookup">Voter Lookup</A><BR>
+ 			<A HREF="/<?= $k ?>/admin/voterlist">Voter Lookup</A><BR>
   		<A HREF="/<?= $k ?>/admin/track">Petitions Tracker</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_elections">Election Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_positions">Position Maintenance</A><BR>	
-  		<A HREF="/<?= $k ?>/admin/setup_petitions">Setup Petitions</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/setup_petitions">Petition Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/integrity_verif">Verify Data Integrity</A><BR>	
     </dd>
   </dl>

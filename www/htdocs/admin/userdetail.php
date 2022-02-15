@@ -8,7 +8,7 @@
 
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();	
-
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$result = $rmb->SearchUsers($URIEncryptedString["UserDetail"]);
 	$privcodes = $rmb->ReturnPrivCodes();
 	

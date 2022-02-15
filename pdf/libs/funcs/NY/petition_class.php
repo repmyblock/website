@@ -17,13 +17,7 @@ class PDF_Multi extends PDF_Code128 {
 		$YLocation = $this->GetY();
 		$this->SetTextColor(0);
 		
-		if (! empty ($this->Watermark)) {
-			$this->SetFont('Arial','B',50);
-    	$this->SetTextColor(255,192,203);
-   		$this->RotatedText(35,190, $this->Watermark, 45);
-   		$this->RotatedText(40,210, "Election will be held in 2022", 45);
-   		$this->SetTextColor(0,0,0);
-		}
+		
 
 		if (! empty ($this->DemoPrint)) {		
 			$this->SetXY(125, 1);
@@ -119,6 +113,8 @@ class PDF_Multi extends PDF_Code128 {
 	    	" Party, as a committee to fill vacancies in accordance with the provisions of the Election Law.", 0);
 	    */
 	    
+	  
+	    
 	    $YLocation = $this->GetY() - 1.5 ;
 	    $Botton_Corner_Y = $this->GetY();
  		}
@@ -164,7 +160,7 @@ class PDF_Multi extends PDF_Code128 {
 									
 			$YLocation = $YLocation_new + 0.7;   
 			$this->Line($this->Line_Left, $YLocation - 0.1, $this->Line_Right, $YLocation - 0.1); 
-		 	$this->SetY($YLocation);	
+		 	$this->SetY($YLocation);
 
 		 	// Here I need to put the pieces.
 		 	$this->Line($this->Line_Left, $MyTop - 0.1, $this->Line_Left, $YLocation - 0.1); 
@@ -184,6 +180,8 @@ class PDF_Multi extends PDF_Code128 {
 	    
 	    $YLocation = $this->GetY() - 1.5 ;
 	    $Botton_Corner_Y = $this->GetY();
+	    	 	  
+		  
 	    
    	}
    	
@@ -205,23 +203,28 @@ class PDF_Multi extends PDF_Code128 {
    
    	$YLocation = $this->GetY() - 3.5;
    	$this->Line($this->Line_Left, $YLocation, $this->Line_Right, $YLocation);
+   	
+   	$this->MyTopFor = $YLocation;
 		
 		//$this->Line($this->Line_Left, $Botton_Corner_Y, $this->Line_Right, $Botton_Corner_Y - 0.3);
 		//$this->Line($this->Line_Left,	 $Botton_Corner_Y + 6.1, $this->Line_Right, $Botton_Corner_Y + 6.1);
-
- 		$this->Line($this->Line_Left,   $YLocation, $this->Line_Left, $this->BottonPt);
- 		$this->Line(40,  $YLocation, 40,  $this->BottonPt);
- 		$this->Line(120, $YLocation, 120, $this->BottonPt);
- 		$this->Line(190, $YLocation, 190, $this->BottonPt);
- 		$this->Line($this->Line_Right, $YLocation, $this->Line_Right, $this->BottonPt);
-    $this->Line($this->Line_Left, $this->BottonPt, $this->Line_Right, $this->BottonPt);
-    
 	}
 
 	// Page footer
 	function Footer()	{
+
+		//$this->LocationOfFooter = -44;		
+		// Let see moving the square at the end
+		$this->Line($this->Line_Left, $this->MyTopFor, $this->Line_Left, $this->BottonPt);
+ 		$this->Line(40,  $this->MyTopFor, 40,  $this->BottonPt);
+ 		$this->Line(120, $this->MyTopFor, 120, $this->BottonPt);
+ 		$this->Line(190, $this->MyTopFor, 190, $this->BottonPt);
+ 		$this->Line($this->Line_Right, $this->MyTopFor, $this->Line_Right, $this->BottonPt);
+		// $this->Line($this->Line_Left, $this->BottonPt, $this->Line_Right, $this->BottonPt);
+	
 		$this->SetTextColor(0);
-		$this->SetY(-44);
+
+		$this->SetY($this->LocationOfFooter);
    	$YLocation = $this->GetY() - 1.9;
 		
 		if ( empty ($this->WitnessName)) {
@@ -262,25 +265,29 @@ class PDF_Multi extends PDF_Code128 {
 		}
 
 		$this->SetFont('Arial','I',14);
-		$this->SetXY( 124,  $YLocation + 30 );
+		$this->SetXY( 150,  $YLocation + 30 );
 		$this->Write(0, 'Signature of witness');
 		
 		$this->SetFont('Arial','',8);
 		$this->SetTextColor(0);
 
-		$this->SetY(-11);
+		$this->SetY(-15);
 		$this->SetFont('Arial','B',13);
 		$this->Cell(0,0,	$this->TodayDateText);
+		$this->SetY(-12.5);
 		$this->SetFont('Arial','',8);
 		$this->Cell(0,0, "_________________________________________________________", 0, 0, 0);
 		
-		$this->SetXY(40, -15);
-		$this->Cell(40,10, "City", 0, 'L', 0);
-		$this->Cell(40,10, "County", 0, 'L', 0);
+		$this->SetXY(20, -14);
+		$this->Cell(40,10, "City:", 0, 'L', 0);
+
+		$this->SetXY(60, -14);
+		$this->Cell(40,10, "County:", 0, 'L', 0);
 		
-		$this->SetXY(40, -12 );
+		$this->SetXY(40, -14 );
 		$this->SetFont('Arial','B',8);
 		$this->Cell(40, 10, $this->City, 0, 'C', 0);
+		$this->SetXY(69, -14 );
 		$this->Cell(40, 10, $this->County, 0, 'C', 0);
 		
 		$this->SetXY(160, -7 );
@@ -307,6 +314,34 @@ class PDF_Multi extends PDF_Code128 {
  	   }
 		
 		$this->SetTextColor(0);
+		
+		if ( empty ($this->party) || empty ($this->ElectionDate)) {
+		  	$this->SetXY(0,0);
+				$this->SetFont('Arial','B',80);
+	    	$this->SetTextColor(255,0,0);
+	   		$this->RotatedText(25,90, "VOID", 45);
+	   		$this->RotatedText(25,150, "DO NOT USE", 45);
+				if ( empty ($this->ElectionDate)) {
+		   		$this->RotatedText(30,210, "DATE IS MISSING" , 45);				
+				} else {
+		   		$this->RotatedText(30,210, "PARTY IS MISSING" , 45);
+		   	}
+	   		$this->RotatedText(40,270, "FROM PETITION", 45);
+	   		$this->RotatedText(140,260, "VOID", 45);
+	   		$this->SetTextColor(0,0,0);
+		} else {
+		
+			if (! empty ($this->Watermark)) {
+				$this->SetXY(0,0);	
+				$this->SetFont('Arial','B',50);
+	    	$this->SetTextColor(255,192,203);
+	   		$this->RotatedText(35,190, $this->Watermark, 45);
+	   		$this->RotatedText(40,210, "Election will be held in 2022", 45);
+	   		$this->SetTextColor(0,0,0);
+			}
+		
+		}
+	
 	}
 	
 	function Rotate($angle,$x=-1,$y=-1) {

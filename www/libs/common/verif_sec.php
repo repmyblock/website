@@ -132,10 +132,17 @@ function DecryptURL ($sealed) {
 
 function WipeURLEncrypted($WhatToKeep = NULL, $WhatToRemove = NULL) {
 	global $k, $URIEncryptedString;
-
-	if (! empty ($URIEncryptedString)) {
+	
+	if ( ! empty ($URIEncryptedString["SystemAdmin"])) {
+		$SystemAdmin = $URIEncryptedString["SystemAdmin"];
+	}
+	
+	if (! empty ($URIEncryptedString)) {		
 		$URIEncryptedString = array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"]);
-		$k = CreateEncoded ( array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"]));
+		if ( ! empty ($SystemAdmin)) {
+			$URIEncryptedString["SystemAdmin"] = $SystemAdmin;
+		}		
+		$k = CreateEncoded ( $URIEncryptedString );
 	}
 }
 

@@ -1,7 +1,7 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
 	$Menu = "admin";
-	$BigMenu = "represent";	
+	// $BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
@@ -9,9 +9,10 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
+	$Party = PrintParty($URIEncryptedString["UserParty"]);
 
 	$rmb = new RepMyBlock();	
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$result = $rmb->GetPetitionsForCandidate($DatedFiles, 0, $URIEncryptedString["SystemUser_ID"]);
 	
 	if ( ! empty ($result)) {

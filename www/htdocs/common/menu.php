@@ -20,7 +20,7 @@
   <nav class="mobilemenu" aria-label="">
     <h3 class="mobilemenu"><?= $MenuDescription ?></h3>
     <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_SUMMARY ) { ?><a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/summary/summary">Summary</a><?php } ?>
-    <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DISTRICT ) { ?><a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/district/district">District</a><?php } ?>
+    <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DISTRICT ) { ?><a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/district/index">District</a><?php } ?>
     <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PETITIONS ) { ?><a class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/petitions/petitions">Petitions</a><?php } ?>
     <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_VOTERS ) { ?><a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/voters/voterlist">Voters</a><?php } ?>
     <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_TEAM ) { ?><a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/team/index">Team</a><?php } ?>
@@ -53,8 +53,8 @@
 			<?php if ( ! empty ($rmbperson["SystemUser_Priv"]) ) { ?>
 		 		<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_SUMMARY ) { ?><a class="<?php if ( $Menu == "summary" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/summary/summary">Summary</a><?php } ?>
 		    <a class="<?php if ( $Menu == "candidates" ) { echo "selected "; } ?>menu-item" href="/<?= $k ?>/lgd/candidates/list">Candidates</a>
-		    <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DISTRICT ) { ?><a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/district/district">District</a><?php } ?>
-	 			<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PLEDGES ) { ?><a class="<?php if ( $Menu == "pledge" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/pledges/pledges">Pledges</a><?php } ?>
+		    <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DISTRICT ) { ?><a class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/district/index">District</a><?php } ?>
+	 			<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PLEDGES ) { ?><a class="<?php if ( $Menu == "pledge" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/pledges/index">Pledges</a><?php } ?>
 	    	<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PETITIONS ) { ?><a class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/petitions/petitions">Petitions</a><?php } ?>
 	   		<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_VOTERS ) { ?><a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/voters/voterlist">Voters</a><?php } ?>
 	    	<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_TEAM ) { ?><a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/team/index">Team</a><?php } ?>

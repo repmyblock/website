@@ -129,13 +129,14 @@ class OutragedDems extends queries {
 	// This is base on SYstemUser
 	function ListCandidatePetition($CandidateID, $Status = "published") {
 		$sql = "SELECT * FROM Candidate " .
-						// "LEFT JOIN CanWitnessSet ON (CanWitnessSet.Candidate_ID = Candidate.Candidate_ID) " .
-						//"LEFT JOIN CandidateWitness ON (CanWitnessSet.CandidateWitness_ID = CandidateWitness.CandidateWitness_ID) " .
+						"LEFT JOIN CandidateComRplceSet ON (CandidateComRplceSet.Candidate_ID = Candidate.Candidate_ID) " .
+						"LEFT JOIN CandidateComRplce ON (CandidateComRplceSet.CandidateComRplce_ID = CandidateComRplce.CandidateComRplce_ID) " .
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
 						"LEFT JOIN Elections ON (CandidateElection.Elections_ID = Elections.Elections_ID) " . 
 						"LEFT JOIN DataCounty ON (Candidate.DataCounty_ID = DataCounty.DataCounty_ID) " . 
 						"WHERE Candidate.Candidate_ID = :CandidateID AND Candidate_Status = :Status " .
-						"ORDER BY CandidateElection_DisplayOrder, Candidate.Candidate_ID";
+						"ORDER BY CandidateElection_DisplayOrder, CandidateComRplce_Order, Candidate.Candidate_ID ";
+		
 		$sql_vars = array("CandidateID" => $CandidateID, "Status" => $Status);	
 		return $this->_return_multiple($sql, $sql_vars);
 	}

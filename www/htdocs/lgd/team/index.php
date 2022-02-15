@@ -36,9 +36,7 @@
   	<h2 class="Subhead-heading">Team</h2>
 	</div>
 	
-	<?php
-		PlurialMenu($k, $TopMenus);
-?>          
+	<?php	PlurialMenu($k, $TopMenus); ?>          
  
   <dl class="form-group">
   	<dt><label for="user_profile_email">Team building</label></dt>

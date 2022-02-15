@@ -33,7 +33,7 @@
 	$rmb = new repmyblock();
 
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($UserParty);
+	$Party = PrintParty($UserParty);
 
 	if ( ! empty ($URIEncryptedString["Query_NYSBOEID"])) {
 		preg_match('/NY(.*)/', $URIEncryptedString["Query_NYSBOEID"], $matches, PREG_OFFSET_CAPTURE);

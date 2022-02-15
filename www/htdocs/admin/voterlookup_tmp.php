@@ -29,11 +29,16 @@
 		}
 	}
 
-  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	$rmb = new repmyblock();
 
+
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	$Party = PrintParty($UserParty);
+	$rmb = new repmyblock();
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	WriteStderr($URIEncryptedString, "URIEncryptedString");
+	WriteStderr($rmbperson, "rmbperson");
+
 
 	if ( ! empty ($URIEncryptedString["Query_NYSBOEID"])) {
 		preg_match('/NY(.*)/', $URIEncryptedString["Query_NYSBOEID"], $matches, PREG_OFFSET_CAPTURE);
@@ -53,13 +58,15 @@
 																					$URIEncryptedString["Query_ED"], $URIEncryptedString["Query_Congress"]);
 		WriteStderr($Result, "SearchVoter_Dated_DB");
 																				
-	} else {
-		
+	} /* else {
+			
+	echo "JE SUIS ICI<BR>";
+	exit();
 		if (! empty ($URIEncryptedString["Query_AD"]) || ! empty ($URIEncryptedString["Query_ED"])) {	
 			
 			WriteStderr($URIEncryptedString, "URIEncryptedString in the Empty QueryAD and QueryED");
 			
-				header("Location: /admin/" . $k . "/byad");	
+				header("Location: /" . $k . "/admin/byad");	
 				exit();
 				
 				
@@ -70,9 +77,9 @@
 	} 
 	
 
-	if ( empty ($Result)) {
+	if ( ! empty ($Result)) {
 		$ErrorMsg = "Voter not found";		
-		header("Location: /admin/" .  CreateEncoded ( array( 	
+		header("Location: /" .  CreateEncoded ( array( 	
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 								"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
 								"FirstName" => $URIEncryptedString["FirstName"],
@@ -90,10 +97,10 @@
 								"RetReturnNYSBOEID" => $URIEncryptedString["Query_NYSBOEID"],
 								"RetReturnCongress" => $URIEncryptedString["Query_Congress"],
 								"ErrorMsg" => $ErrorMsg								
-					)) . "/voterlookup");
+					)) . "/admin/voterlookup");
 		exit();
 	}
-
+*/
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
