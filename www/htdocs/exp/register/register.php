@@ -16,14 +16,15 @@
 	
 	<P CLASS="f40">
 		We ask that you request a link by emailing <B><A HREF="<?= $MailToText ?>">notif@repmyblock.org</A></B>
-		is to combat spam registrations.
+		with the subject <B><I>"Send me a Rep My 
+		Block registration invite"</I></B> is to combat spam registrations.
 	</P>
 	
 	<P CLASS="f60">
-		<A HREF="<?= $MailToText ?>">To register, 
+		<A HREF="<?= $MailToText ?>">When you 
 			send an email to <B>NOTIF@REPMBYLOCK.ORG</B> with the subject <I>"Send me a Rep My 
 			Block registration invite"</I>
-			to receive a link with the registration information.
+			you will receive a link with the registration information.
 		</A>
 	</P>
 	
