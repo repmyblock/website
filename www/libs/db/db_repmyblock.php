@@ -215,9 +215,6 @@ class RepMyBlock extends queries {
 			$sql .= "ORDER BY ElectionsPosition_Order";
 		} 
 		
-		WriteStderr($sql, "Query in ListElectedPositions");
-		WriteStderr($sql_vars, "Query in ListElectedPositions");
-		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
