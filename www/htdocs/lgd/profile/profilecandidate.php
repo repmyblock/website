@@ -30,6 +30,7 @@
 	
 	
 	WriteStderr($rmbcandidate, "RMBCandidate");
+	WriteStderr($result, "Positions order");
 	
 	if (! empty($result)) {
 		foreach($result as $var) {
@@ -53,7 +54,6 @@
 						array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
 						array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile")
 					);
-	WriteStderr($TopMenus, "Top Menu");			
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
@@ -97,6 +97,9 @@
 	    	
 <?php 			
 			$Counter = 0;
+			
+			
+			
 			if ( ! empty ($Position)) {
 				foreach ($Position as $PartyPosition => $Positions) {
 					//if ( ! empty ($PartyPosition)) {
