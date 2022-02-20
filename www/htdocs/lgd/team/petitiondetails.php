@@ -36,13 +36,15 @@
 			);
 			
 			$Parties = $rmb->ListParties(NULL, NULL, $_POST["PartyID"]);		
+			WriteStderr($ElectionsTypes, "Parties in election type CandidateElection is empty\n");	
+			WriteStderr($Parties, "Parties in election type CandidateElection is empty\n");	
 			switch ($ElectionsTypes[0]["ElectionsPosition_Type"]) {
 				case "office":
 					$CandidateElection["PosType"] = "electoral";
 					break;
 				case "party":
 					$CandidateElection["PosType"] = "party";
-					$CandidateElection["Party"] = $Parties[0]["PartyData_Abbrev"];
+					$CandidateElection["Party"] = $Parties[0]["DataParty_Abbrev"];
 					break;
 			}
 						
