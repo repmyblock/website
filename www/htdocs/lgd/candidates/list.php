@@ -40,7 +40,7 @@
 				
 				<?php if ( ! empty ($result)) {
 								foreach ($result as $var) {
-									if ( ! empty ($var)) {
+									if ( ! empty ($var["CandidateProfile_PublishProfile"] != 'no' || $var["CandidateProfile_PublishPetition"] != 'no')) {
 				?>	
 				<P>
 					<DIV class='container2'>

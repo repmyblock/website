@@ -21,7 +21,9 @@
 	<?php 
 		if (! empty ($result)) {
 			foreach($result as $var) {
-				if ( ! empty ($var)) { 
+				
+				WriteStderr($var, "Voter Guide");
+				if ( $var["CandidateProfile_PublishProfile"] != 'no' || $var["CandidateProfile_PublishPetition"] != 'no') { 
 	?>
 							
 	<P>
