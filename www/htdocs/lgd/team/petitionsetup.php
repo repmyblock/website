@@ -117,7 +117,7 @@
     
 			  <!-- Public Profile -->
 			  <div class="Subhead mt-0 mb-0">
-			    <h2 id="public-profile-heading" class="Subhead-heading">Committee to Replace</h2>
+			    <h2 id="public-profile-heading" class="Subhead-heading">Update election details</h2>
 			  </div>
   
 				<?php	PlurialMenu($k, $TopMenus); ?>
@@ -130,45 +130,107 @@
 						<?= $error_msg ?>
 						
 					  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
-						
-						
 							<div>
-								<dl class="form-group col-3 d-inline-block"> 
-									<dt><label for="user_profile_name">First Name</label><DT>
+								<dl class="form-group col-6 d-inline-block"> 
+									<dt><label for="user_profile_name">Election Date</label></DT>
 									<dd>
-										<input class="form-control" type="text" Placeholder="First" name="FirstName"<?php if (!empty ($FirstName)) { echo " VALUE=" . $FirstName; } ?> id="user_profile_name">
+										<SELECT NAME="ElectionData">
+											<OPTION VALUE="">&nbsp;</OPTION>
+										<?php if (! empty ($ElectionsDates)) {
+														foreach ($ElectionsDates as $var) {
+															if ( ! empty ($var)) { ?>
+																<OPTION VALUE="<?= $var["Elections_ID"] ?>"><?= $var["DataState_Abbrev"] . " - " . 
+																											ucfirst($var["Elections_Type"]) . ": " . $var["Elections_Text"] . 
+																											" (" . $var["Elections_Date"] .")" ?></OPTION>
+										<?php     }
+														}
+													} ?>
+										</SELECT>
+										
 									</dd>
 								</dl>
-			
-								<dl class="form-group col-3 d-inline-block"> 
-									<dt><label for="user_profile_name">Last Name</label><DT>
+						</DIV>
+							
+							<div>
+										
+								<dl class="form-group col-5 d-inline-block"> 
+									<dt><label for="user_profile_name">Election Type</label></DT>
 									<dd>
-										<input class="form-control" type="text" Placeholder="Last" name="LastName"<?php if (!empty ($LastName)) { echo " VALUE=" . $LastName; } ?> id="user_profile_name">
+										<SELECT NAME="ElectionType">
+											<OPTION VALUE="">&nbsp;</OPTION>
+										<?php if (! empty ($ElectionsTypes)) {
+														foreach ($ElectionsTypes as $var) {
+															if ( ! empty ($var)) { ?>
+																<OPTION VALUE="<?= $var["ElectionsPosition_ID"] ?>"><?=  
+																	
+																								$var["ElectionsPosition_Party"] . " " . 
+																											ucfirst($var["ElectionsPosition_Type"]) . ": " . 
+																											$var["ElectionsPosition_Name"] ?>
+																										
+										<?php     }
+														}
+													} ?>
+										</SELECT>
 									</dd>
+								</dl>
+								
+									<dl class="form-group col-1 d-inline-block"> 
+									<dt><label for="user_profile_name">Party</label></DT>
+									<dd>
+										<SELECT NAME="PartyID">
+											<OPTION VALUE="">&nbsp;</OPTION>
+											<?php if (! empty ($Parties)) {
+														foreach ($Parties as $var) {
+															if ( ! empty ($var)) { ?>
+																<OPTION VALUE="<?= $var["DataParty_ID"] ?>"><?= $var["DataParty_Abbrev"] ?>
+																										
+										<?php     }
+														}
+													} ?>
+										</SELECT>
+									</dd>
+								</dl>
+								
+						</DIV>
+						
+							<div>
+								<dl class="form-group col-6 d-inline-block"> 
+									<dt><label for="user_profile_name">Enter the district ID</label>
+										<BR>
+										The District ID follow the format of the Local Board of Elections. 
+									</DT>
+									<dd>
+										<input class="form-control" type="text" Placeholder="District ID" name="DistrictID"<?php if (!empty ($Email)) { echo " VALUE=" . $Email; } ?> id="user_profile_name">
+									</dd>
+									<dt>
+										For County Committee,
+										enter a 5 (or 6) digits number that is 2 (or 3) digits for the Assembly District and 3 digits for the 
+										Election District.
+									</DT>
+									
 								</dl>
 							</DIV>
 										
-							
-							<div>
+										
+						<div>
 								<dl class="form-group col-6 d-inline-block"> 
-									<dt><label for="user_profile_name">Address on petition</label><DT>
+									<dt><label for="user_profile_name">Label the petition</label> <I>(This will allow you to organize them)</I></DT>
 									<dd>
-										<input class="form-control" type="text" Placeholder="Address Line 1" name="Address1"<?php if (!empty ($Address1)) { echo " VALUE=" . $Address1; } ?> id="user_profile_name">
-									</dd>
-									<dd>
-										<input class="form-control" type="text" Placeholder="Address Line 2" name="Address2"<?php if (!empty ($Address2)) { echo " VALUE=" . $Address2; } ?> id="user_profile_name">
+										<input class="form-control" type="text" Placeholder="Petition Label Name" name="Label"<?php if (!empty ($Email)) { echo " VALUE=" . $Email; } ?> id="user_profile_name">
 									</dd>
 								</dl>
 							</DIV>
 									
-							<div>
+									
+								<div>
 								<dl class="form-group col-6 d-inline-block"> 
-									<dt><label for="user_profile_name">Check botton if you need more comittee to replace.</label></DT>
+									<dt><label for="user_profile_name">Check botton if you need a comittee to replace.</label></DT>
 									<dd>
 										<input type="checkbox" name="Comittee"<?php if (!empty ($Email)) { echo " VALUE=" . $Email; } ?> id="user_profile_name">
 									</dd>
 								</dl>
 							</DIV>
+									
 									
 
 								<p><button type="submit" class="btn btn-primary">Setup the candidate petition</button></p>

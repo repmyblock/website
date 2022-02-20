@@ -11,10 +11,9 @@ class login extends queries {
 	 	$this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
-  function RegisterUser($Username, $Email, $Password, $Type, $Refer = NULL) {
+  function RegisterUser($Username, $Email, $Password, $Type, $Refer = NULL, $MailRef = NULL, $VerifEmail = "no") {
   	
   	if ( empty ($Username) || empty ($Email) || empty ($Password)) return 0;
-  	
   	$hashtable = hash("md5", PrintRandomText(40));
   	
   	// Save the entry to keep track.
@@ -41,7 +40,7 @@ class login extends queries {
 		}
 		
 		if ( empty($ret)) {
-			$ret = $this->AddEmailUsernamePassword($Email, $Username, $Password, $hashtable, $Refer);		
+			$ret = $this->AddEmailUsernamePassword($Email, $Username, $Password, $hashtable, $Refer, $MailRef, $VerifEmail);		
 			if ( empty ($ret["SystemTemporaryUser_ID"])) {
 				return array("Problem" => "Problem saving the Email");
 			}
@@ -58,7 +57,8 @@ class login extends queries {
 		$sql = "INSERT INTO SystemUserVoter SET SystemUserVoter_Username = :Username, " .
 						"SystemUserVoter_Email = :Email, SystemUserVoter_action = :Type, " . 
 						"SystemUserVoter_Date = NOW(), SystemUserVoter_IP = :IP, SystemUser_ID = :SystemUserID";
-		$sql_vars = array('Email' => $Email, 'Username' => $Username, 'Type' => $Type, 'IP' => $_SERVER['REMOTE_ADDR'], 'SystemUserID' => $SystemUserID);
+		$sql_vars = array('Email' => $Email, 'Username' => $Username, 'Type' => $Type, 
+											'IP' => $_SERVER['REMOTE_ADDR'], 'SystemUserID' => $SystemUserID);
 		$this->_return_nothing($sql,  $sql_vars);
 	}
 						
@@ -162,14 +162,29 @@ class login extends queries {
 		return $this->_return_nothing($sql,  $sql_vars);
 	}
 	
-	function AddEmailUsernamePassword($Email, $Username, $Password, $hashtable = NULL, $reference = NULL) {
+	function SearchEmailFromIntake($IntakeID, $TypeID = "MailCode") {
+		$sql = "SELECT * FROM SystemUserEmail WHERE ";
+		$sql_vars = array("Intake" => $IntakeID);
+		
+		switch($TypeID) {
+			case "MailCode": $sql .= "SystemUserEmail_MailCode = :Intake"; break;
+			case "ID": $sql .= "SystemUserEmail_ID = :Intake"; break;
+			default: return;
+		}
+
+		return $this->_return_simple($sql, $sql_vars);
+	}
+	
+	function AddEmailUsernamePassword($Email, $Username, $Password, $hashtable = NULL, $reference = NULL, 
+																		$MailRef = NULL, $EmailVerif = "no") {
 		$HashPass = password_hash($Password, PASSWORD_DEFAULT);
 		
 		$sql = "INSERT INTO SystemTemporaryUser SET SystemTemporaryUser_username = :username," . 
-						"SystemTemporaryUser_password = :password, SystemTemporaryUser_email = :Email,"; 
+						"SystemTemporaryUser_password = :password, SystemTemporaryUser_email = :Email," .
+						"SystemTemporaryUser_emailverified = :EmailVerif,";
 						
 		$sql_vars = array(':username' => $Username, ':password' => $HashPass, 
-											'Email' => $Email);
+											'Email' => $Email, "EmailVerif" => $EmailVerif);
 		
 		if ( ! empty ($hashtable)) {
 			$sql .= "SystemTemporaryUser_emaillinkid = :Hash,";
@@ -179,6 +194,11 @@ class login extends queries {
 		if ( ! empty ($reference)) {
 			$sql .= "SystemTemporaryUser_reference = :Refer,";
 			$sql_vars["Refer"] = $reference;
+		}		
+		
+		if ( ! empty ($reference)) {
+			$sql .= "SystemTemporaryUser_mailID = :MailRef,";
+			$sql_vars["MailRef"] = $MailRef;
 		}		
 		
 		$sql .= "SystemTemporaryUser_createtime = NOW()";

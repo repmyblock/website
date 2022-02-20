@@ -885,9 +885,9 @@ function SendInviteToEnroll($to, $campaign, $campaignemail, $volunteer) {
 function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {	
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	
-	$FromAddress = "infos@" . $MailFromDomain;
+	$FromAddress = "notifs@" . $MailFromDomain;
   $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
-  $emailsubject= "=?utf-8?b?" . base64_encode("Verify your email address on Rep My Block.") . "?=";
+  $emailsubject= "=?utf-8?b?" . base64_encode("Welcome! Please verify your email address on Rep My Block.") . "?=";
 
 	$BotArray["sendemail"] =  $to;
 	
@@ -909,7 +909,7 @@ function SendWelcomeEmail($to, $hashtable, $username, $infoarray = "") {
 					"Before you can activate your account, we need to verify your email address.\n\n"  .
 					
 					"The activation process is a two step process. First you need to click on the verify button " .
-					"and then you will need to forward this email to notif@" .  $MailFromDomain . "\n\n" .
+					"and then you will need to reply to this email to notif@" .  $MailFromDomain . "\n\n" .
 					
 					"Please verify your email address by clicking on this link: " .
 					$linktoverify . "\n\n" .

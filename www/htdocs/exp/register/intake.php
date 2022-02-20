@@ -1,39 +1,46 @@
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";
+	$r = new login();	
 
+	if (! empty($k) && $k != "web") {
+		
+		preg_match('/ml(.*)/', $k, $matches, PREG_OFFSET_CAPTURE);
+		$result = $r->SearchEmailFromIntake($matches[1][0]);
+	} else {
+		
+		header("Location: /invalidcode/exp/register/register");
+		exit();
+	}
+	
 	if ( ! empty ($_POST["SaveInfo"])) {
-		
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";	
-
-		$r = new login();	
-		
 		// Check who we assign the registered user.
+		if (! empty($k) && $k != "web") {	$Refer = $k; }
 		
+		$res = $r->SearchEmailFromIntake(trim($_POST["SystemUserEmail_ID"]), "ID");
 		
-		if (! empty($k) && $k != "web") {
-			$Refer = $k;
+		if ( $res["SystemUserEmail_AddFrom"] != $_POST["AddFrom"]) {
+			header("Location: /emaildontmatch/exp/register/register");
+			exit();
 		}
 		
-		$result = $r->RegisterUser(trim($_POST["username"]), trim($_POST["emailaddress"]), 
-																trim($_POST["password"]), "Register", $Refer);
-																
-		
-																
+		$result = $r->RegisterUser(trim($_POST["username"]), $res["SystemUserEmail_AddFrom"], 
+																trim($_POST["password"]), "Register", $Refer, 
+																$res["SystemUserEmail_MailCode"], "both");
+																																
 		if ( empty ($result["USERNAME"]) && empty ($result["EMAIL"])) {
-		
+
 			require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
 			SendWelcomeEmail($result["SystemTemporaryUser_email"], $result["SystemTemporaryUser_emaillinkid"], 
-											$result["SystemTemporaryUser_username"], $infoarray = ""); 
-	
+												$result["SystemTemporaryUser_username"], $infoarray = ""); 
+
 			$VariableToPass = array( 
 				"Email" => $result["SystemTemporaryUser_email"],
 				"Username" => $result["SystemTemporaryUser_username"]
 			);
-	
+
 			header("Location: /" . CreateEncoded($VariableToPass) . "/exp/register/doneregister");
-			
-	
 			exit();
 
 			if ( ! $result ) {
@@ -68,7 +75,8 @@
 	<DIV CLASS="right f80">Register</DIV>
 
 	<FORM METHOD="POST" ACTION="">	
-		<INPUT TYPE="hidden" NAME="login" VALUE="password" CHECKED>	
+		<INPUT TYPE="hidden" NAME="SystemUserEmail_ID" VALUE="<?= $result["SystemUserEmail_ID"] ?>" CHECKED>	
+		<INPUT TYPE="hidden" NAME="AddFrom" VALUE="<?= $result["SystemUserEmail_AddFrom"] ?>" CHECKED>	
 			
 		<?php
 		
@@ -85,9 +93,11 @@
 			}
 		?>
 		
+
+	
 		<P CLASS="f80">
-			<DIV CLASS="f80">Email:</DIV> 
-			<DIV><INPUT CLASS="" type="<?= $TypeEmail ?>" autocorrect="off" autocapitalize="none" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
+			<DIV CLASS="f80">Email:</DIV>
+			<DIV><?= $result["SystemUserEmail_AddFrom"] ?><DIV>				
 		</P>
 			
 		<P CLASS="f80">

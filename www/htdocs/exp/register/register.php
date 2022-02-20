@@ -5,7 +5,7 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 		
 	$MailToText = "mailto:notif@repmyblock.org?" . 
-								"subject=Send me a Rep My Block registration invite&" . 
+								"subject=I want to run&" . 
 								"body=DO CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
 ?>
 <DIV class="main">
@@ -16,26 +16,23 @@
 	
 	<P CLASS="f40">
 		We ask that you request a link by emailing <B><A HREF="<?= $MailToText ?>">notif@repmyblock.org</A></B>
-		with the subject <B><I>Send me a Rep My 
-		Block registration invite</I></B> is to combat spam registrations.
+		with the subject <B><FONT COLOR=BROWN>I WANT TO RUN</FONT></B> is to combat spam registrations.
+	</P>
+	
+	<P CLASS="f80">
+		<A HREF="<?= $MailToText ?>">When you 
+			send an email to <B>NOTIF@REPMBYLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO RUN</FONT>"</A>,
+			you will receive a link with the registration information.
 	</P>
 	
 	<P CLASS="f60">
-		<A HREF="<?= $MailToText ?>">When you 
-			send an email to <B>NOTIF@REPMBYLOCK.ORG</B> with the subject <I>"Send me a Rep My 
-			Block registration invite"</I>
-			you will receive a link with the registration information.
-		</A>
-	</P>
-	
-	<P CLASS="f40">
-		<B>Don't forget to check your SPAM folder.</B>		
+		<B>Check your SPAM folder.</B>
 	</P>
 
 	
 	<P CLASS="f40">
-		If you made several requests, <A HREF="/<?= $middleuri ?>/register/investigate">click here to let 
-		us know to investigate</A>.
+		If you made several requests, <A HREF="/<?= $middleuri ?>/register/investigate">click here to alert us 
+		and we will investigate</A>.
 	</P>
 	
 	<P CLASS="f40">

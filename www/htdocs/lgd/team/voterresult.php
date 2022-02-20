@@ -1,36 +1,32 @@
 <?php
-	$Menu = "profile";  
-	$BigMenu = "represent";
+	$Menu = "team";  
+	//$BigMenu = "represent";
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
-	
-
-							
+		
 	if ( ! empty ($_POST)) {
 		WriteStderr($_POST, "Post");
 		if ($_POST["voterreg"] == "yes") {
+			
+
 		 
-			//I don't care anymore about the number of voters in the district.
-			$NumberOfVoterInDistrict = $rmb->FindVotersForEDAD($_POST["ElectionsDistricts_DBTable"], 
-																													$_POST["ElectionsDistricts_DBTableValue"], $_POST["Voters_RegParty"]);	
-			$rmb->UpdateSystemUserWithVoterCard($_POST["SystemUser_ID"], $_POST["Voters_ID"], 
-																					$_POST["VotersIndexes_UniqStateVoterID"], $_POST["ElectionsDistricts_DBTableValue"], 
-																					$_POST["Voters_RegParty"], 
-																					count($NumberOfVoterInDistrict));
-																							
+			//I don't care anymore about the number of voters in the district.																						
 			header("Location: /" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $_POST["SystemUser_ID"],
-									"FirstName" => $_POST["FirstName"], 
-									"LastName" => $_POST["LastName"],
 									"VotersIndexes_ID" => $_POST["Voters_ID"],
-									"UniqNYSVoterID" => $_POST["VotersIndexes_UniqStateVoterID"],
-									"EDAD" => $_POST["ElectionsDistricts_DBTable"], 
-									"UserParty" => $_POST["Voters_RegParty"]
-						)) . "/lgd/profile/profilevoter");
+									"UniqNYSVoterID" => $_POST["VotersIndexes_UniqStateVoterID"],						
+							    "PetitionStateID" => $_POST["ElectionStateID"],
+							    "CPrep_First" => $_POST["CPrep_First"],
+							    "CPrep_Last" => $_POST["CPrep_Last"],
+							    "CPrep_Full" => $_POST["CPrep_Full"],
+							    "CPrep_Email" => $_POST["CPrep_Email"],
+							    "CPrep_Address1" => $_POST["CPrep_Address1"],
+							    "CPrep_Address2" => $_POST["CPrep_Address2"],
+						)) . "/lgd/team/petitionsetup");
 			exit();
 		}
 	}
@@ -43,7 +39,7 @@
 	} 
 	
 		
-	
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$rmbvoters = $rmb->ReturnVoterIndex($URIEncryptedString["VotersIndexes_ID"]);
 	WriteStderr($rmbvoters, "ReturnIndex");
 	
@@ -122,7 +118,16 @@
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTableValue"] ?>" NAME="ElectionsDistricts_DBTableValue">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_ID"] ?>" NAME="Voters_ID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $URIEncryptedString["SystemUser_ID"] ?>" NAME="SystemUser_ID">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_RegParty"] ?>" NAME="Voters_RegParty">				
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_RegParty"] ?>" NAME="Voters_RegParty">			
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataState_ID"]?>" NAME="ElectionStateID">	
+				
+				
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataFirstName_Text"]?>" NAME="CPrep_First">	
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataLastName_Text"]?>" NAME="CPrep_Last">	
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataFirstName_Text"] ?> <?= $var["DataMiddleName_Text"] ?> <?= $var["DataLastName_Text"] ?> <?= $var["VotersIndexes_Suffix"] ?>" NAME="CPrep_Full">	
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var[""]?>" NAME="CPrep_Email">	
+				
+				
 				
 				<div class="list-group-item f60">
 					<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
@@ -130,14 +135,14 @@
 					<BR><BR>
 					
 					<TABLE BORDER=1>
-									<TR>
-										<TH style="padding:0px 10px;">Board of Election ID #</TH>
-									</TR>
-									
-									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $var["Voters_CountyVoterNumber"] ?></TD>
-									</TR>
-								</TABLE>
+						<TR>
+							<TH style="padding:0px 10px;">Board of Election ID #</TH>
+						</TR>
+						
+						<TR ALIGN=CENTER>
+							<TD style="padding:0px 10px;"><?= $var["Voters_CountyVoterNumber"] ?></TD>
+						</TR>
+					</TABLE>
 					<BR>
 					<TABLE BORDER=1>
 					<TR>
@@ -174,9 +179,6 @@
 					</TR>
 				</TABLE>
 				
-				
-	
-				
 				<BR>
 				<TABLE BORDER=1>
 					<TR>
@@ -200,20 +202,31 @@
 					</TR>
 					<TR>
 						<TD style="padding:0px 10px;">		
-							<?php if (! empty ($var["DataAddress_HouseNumber"])) echo $var["DataAddress_HouseNumber"]; ?>
-							<?php if (! empty ($var["DataAddress_FracAddress"]))  echo $var["DataAddress_FracAddress"]; ?>
-							<?php if (! empty ($var["DataAddress_PreStreet"])) echo $var["DataAddress_PreStreet"]; ?>
-							<?php if (! empty ($var["DataStreet_Name"])) echo $var["DataStreet_Name"]; ?>
-							<?php if (! empty ($var["DataAddress_PostStreet"])) echo $var["DataAddress_PostStreet"]; ?>
-							<?php if (! empty ($var["DataHouse_Apt"])) echo " - Apt " .  strtoupper($var["DataHouse_Apt"]); ?>
+							<?php 
+								$Address1 = ""; 
+								if (! empty ($var["DataAddress_HouseNumber"])) $Address1 .= $var["DataAddress_HouseNumber"]; 
+								if (! empty ($var["DataAddress_FracAddress"])) $Address1 .= $var["DataAddress_FracAddress"];
+								if (! empty ($var["DataAddress_PreStreet"])) $Address1 .= $var["DataAddress_PreStreet"];
+							 	if (! empty ($var["DataStreet_Name"])) $Address1 .= $var["DataStreet_Name"];
+								if (! empty ($var["DataAddress_PostStreet"])) $Address1 .= $var["DataAddress_PostStreet"];
+								if (! empty ($var["DataHouse_Apt"])) $Address1 .= " - Apt " .  strtoupper($var["DataHouse_Apt"]);
+							?>
+							<?= $Address1 ?>
 							<BR>
-							<?= $var["DataCity_Name"] ?>, NY
-							<?= $var["DataAddress_zipcode"] ?>
+							<?php $Address2 = $var["DataCity_Name"] . ", NY " . $var["DataAddress_zipcode"]; ?>
+							<?= $Address2 ?>
 							<?php if (! empty ($var["DataAddress_zip4"])) echo " - " . $var["DataAddress_zip4"]; ?>
+						
 							<BR>
 						</TD>
 					</TR>
 				</TABLE>
+				
+				<INPUT TYPE="HIDDEN" VALUE="<?= $Address1 ?>" NAME="CPrep_Address1">	
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var[""]?>" NAME="CPrep_Address2">	
+				
+				
+				
 				<BR>
 				<TABLE BORDER=1>
 				<TR>
