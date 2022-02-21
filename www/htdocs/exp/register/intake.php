@@ -8,6 +8,14 @@
 		
 		preg_match('/ml(.*)/', $k, $matches, PREG_OFFSET_CAPTURE);
 		$result = $r->SearchEmailFromIntake($matches[1][0]);
+		
+		print "<PRE>" . print_r($result, 1) . "</PRE>";
+		
+		if ( empty ($result)) {
+			header("Location: /invalidcode/exp/register/register");
+			exit();		
+		}
+		
 	} else {
 		
 		header("Location: /invalidcode/exp/register/register");

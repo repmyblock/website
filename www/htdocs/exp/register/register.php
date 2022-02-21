@@ -14,6 +14,21 @@
 		<DIV CLASS="right f80">Register</DIV>
 	</P>
 	
+	<?php if ($k == "invalidcode") { ?>
+		
+		<P CLASS="f60">
+			<B><FONT COLOR=brown>The code you were given is invalid.</FONT></B> 
+		</P>
+		
+		
+		<P CLASS="f40">	
+			In order to use the RepMyBlock website you must register by sending an email
+			and following the registration process.
+		</P>
+		
+	<?php } ?>
+	
+	
 	<P CLASS="f40">
 		We ask that you request a link by emailing <B><A HREF="<?= $MailToText ?>">notif@repmyblock.org</A></B>
 		with the subject <B><FONT COLOR=BROWN>I WANT TO RUN</FONT></B> is to combat spam registrations.
