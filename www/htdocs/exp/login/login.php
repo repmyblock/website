@@ -22,19 +22,19 @@
 			
 			// Since the person just logged in, 
 			
-			if ( $resultPass["SystemTemporaryUser_ID"] > 0 && empty ($resultPass["SystemUser_ID"])) {
+			if ( $resultPass["SystemUserTemporary_ID"] > 0 && empty ($resultPass["SystemUser_ID"])) {
 				// This is in case 
 				
 				WriteStderr($resultPass, "ResultPass before writing variable.");
 				
 				$VariableToPass = array( 
 					"SystemUser_ID" => "TMP",
-					"SystemTemporaryID" => $resultPass["SystemTemporaryUser_ID"],
-					"SystemTemporaryEmail" => $resultPass["SystemTemporaryUser_email"],
+					"SystemTemporaryID" => $resultPass["SystemUserTemporary_ID"],
+					"SystemTemporaryEmail" => $resultPass["SystemUserTemporary_email"],
 					"ProfileCreate" => "yes",
 					"SystemUser_Priv" => 1,
-			    "EmailLink" => $resultPass["SystemTemporaryUser_emaillinkid"],
-			    "EmailVerified" => $resultPass["SystemTemporaryUser_emailverified"]
+			    "EmailLink" => $resultPass["SystemUserTemporary_emaillinkid"],
+			    "EmailVerified" => $resultPass["SystemUserTemporary_emailverified"]
 				);
 				
 			} else {

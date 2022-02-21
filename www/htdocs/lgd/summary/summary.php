@@ -64,10 +64,7 @@
 		$DayToGo = intval(($ImportantDates[$VoterState]["UNIX"]["LastPetitionDay"] - time()) / 86400);
 		$DateToWait = $ImportantDates[$VoterState]["LongDate"]["FirstSubmitDay"]; /// This need to be calculated.
 	}	
-	
-	
-
-	
+		
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
@@ -86,8 +83,9 @@
 				<?php if ($MenuDescription == "District Not Defined") { ?>
 					<P CLASS="f80">
 						<B>
-							<A HREF="/<?= $k ?>/lgd/profile/profile">Please update your Personal Profile so 
-							we can complete the summary information</A>.
+							<A HREF="/<?= $k ?>/lgd/profile/user">Before you can use the system,
+								you need to update your Personal Profile, verify your voter profile,
+								and then create a candidate profile</A>.
 						</B>
 					</P>							
 				<?php } ?>

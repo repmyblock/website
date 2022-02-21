@@ -29,11 +29,20 @@
 		}
 
 		if ( $URIEncryptedString["SystemUser_ID"] == "TMP") {
-			$rmbperson = $rmb->CreateSystemUserAndUpdateProfile($URIEncryptedString["SystemTemporaryEmail"], $ProfileArray, $rmbperson);		
-			$URIEncryptedString["SystemUser_ID"] = $rmbperson["SystemUser_ID"];
-    	$URIEncryptedString["FirstName"] = $rmbperson["SystemUser_FirstName"];
-    	$URIEncryptedString["LastName"] = $rmbperson["SystemUser_LastName"];
-    	$URIEncryptedString["SystemAdmin"] = $rmbperson["SystemUser_Priv"];
+			
+			$mytmp = $rmb->SearchTempUsers($URIEncryptedString["SystemUserTemporary_ID"]);
+			if ( empty ($mytmp)) {
+				$rmbperson = $rmb->CreateSystemUserAndUpdateProfile($URIEncryptedString["SystemTemporaryEmail"], $ProfileArray, $rmbperson);				
+				$URIEncryptedString["SystemUser_ID"] = $rmbperson["SystemUser_ID"];
+    	} else {
+    		$rmbperson = $rmb->UpdatePersonUserProfile($mytmp[0]["SystemUser_ID"], $ProfileArray, $rmbperson);   		
+	    	$URIEncryptedString["SystemUser_ID"] = $mytmp[0]["SystemUser_ID"];
+    	}
+ 
+  		$URIEncryptedString["FirstName"] = $rmbperson["SystemUser_FirstName"];
+  		$URIEncryptedString["LastName"] = $rmbperson["SystemUser_LastName"];
+  		$URIEncryptedString["SystemAdmin"] = $rmbperson["SystemUser_Priv"];
+    	
     } else {
 			$rmbperson = $rmb->UpdatePersonUserProfile($URIEncryptedString["SystemUser_ID"], $ProfileArray, $rmbperson);
 		}

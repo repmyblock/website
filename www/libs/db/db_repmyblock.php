@@ -945,19 +945,19 @@ class RepMyBlock extends queries {
 		if ( ! empty ($ProfileArray["Change"]["SystemUser_LastName"])) { $sql .= ", SystemUser_LastName"; $sql_vars["LastName"] = $ProfileArray["Change"]["SystemUser_LastName"]; }
 																		
 		$sql .= ") " .
-					 "SELECT SystemTemporaryUser_email, SystemTemporaryUser_emailverified, SystemTemporaryUser_username, " . 
-									"SystemTemporaryUser_password, SystemTemporaryUser_emaillinkid, NOW(), NOW(), " . (PERM_MENU_PROFILE + PERM_MENU_SUMMARY);
+					 "SELECT SystemUserTemporary_email, SystemUserTemporary_emailverified, SystemUserTemporary_username, " . 
+									"SystemUserTemporary_password, SystemUserTemporary_emaillinkid, NOW(), NOW(), " . (PERM_MENU_PROFILE + PERM_MENU_SUMMARY);
 									
 		if ( ! empty ($ProfileArray["Change"]["SystemUser_FirstName"])) { $sql .= ", :FirstName"; }
 		if ( ! empty ($ProfileArray["Change"]["SystemUser_LastName"])) { $sql .= ", :LastName"; }
 									
-		$sql .= " FROM SystemTemporaryUser WHERE SystemTemporaryUser_email = :TempEmail"; 
+		$sql .= " FROM SystemUserTemporary WHERE SystemUserTemporary_email = :TempEmail"; 
 		$this->_return_nothing($sql, $sql_vars);		
 	
 		$sql = "SELECT LAST_INSERT_ID() as SystemUser_ID";
 		$ret = $this->_return_simple($sql);
 
-		$sql = "UPDATE SystemTemporaryUser SET SystemUser_ID = :SystemUserID,  SystemTemporaryUser_password = null, SystemTemporaryUser_emaillinkid = null WHERE SystemTemporaryUser_email = :TempEmail"; 
+		$sql = "UPDATE SystemUserTemporary SET SystemUser_ID = :SystemUserID,  SystemUserTemporary_password = null, SystemUserTemporary_emaillinkid = null WHERE SystemUserTemporary_email = :TempEmail"; 
 		$sql_vars = array("TempEmail" => $TempEmail, "SystemUserID" => $ret["SystemUser_ID"]);
 		$this->_return_nothing($sql, $sql_vars);	
 		
@@ -988,10 +988,10 @@ class RepMyBlock extends queries {
 	}	
 	
 	function SearchTempUsers($UserID = NULL) {	
-		$sql = "SELECT * FROM SystemTemporaryUser";
+		$sql = "SELECT * FROM SystemUserTemporary";
 		
 		if ( ! empty ($UserID)) {
-			$sql .= " WHERE SystemTemporaryUser_ID = :UserID";
+			$sql .= " WHERE SystemUserTemporary_ID = :UserID";
 			$sql_vars = array ("UserID" => $UserID);
 			return $this->_return_simple($sql, $sql_vars);
 		}

@@ -7,6 +7,10 @@
 	$MailToText = "mailto:notif@repmyblock.org?" . 
 								"subject=I want to run&" . 
 								"body=DO CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
+								
+	$MultipleMailToText = "mailto:infos@repmyblock.org?" . 
+								"subject=Multiple users for one account&" . 
+								"body=Please enable the multipleusers for one account feature.";							
 ?>
 <DIV class="main">
 		
@@ -14,7 +18,8 @@
 		<DIV CLASS="right f80">Register</DIV>
 	</P>
 	
-	<?php if ($k == "invalidcode") { ?>
+	<?php switch($k) { 
+		case "invalidcode": ?>
 		
 		<P CLASS="f60">
 			<B><FONT COLOR=brown>The code you were given is invalid.</FONT></B> 
@@ -26,7 +31,28 @@
 			and following the registration process.
 		</P>
 		
-	<?php } ?>
+	<?php break;
+		case "emailreg": ?>
+		
+		<P CLASS="f60">
+			<B><FONT COLOR=brown>That email address is already in our database.</FONT></B> 
+		</P>
+		
+		
+		<P CLASS="f40">	
+			Use the <A HREF="/<?= $k ?>/exp/forgot/forgotpwd">forgot my password</A> or the 
+			<A HREF="/<?= $k ?>/exp/forgot/forgotuser">forgot the username</A> screen to 
+			retreive your information.
+		</P>
+		
+		<P CLASS="f40">	
+			If two people in the same household use the same email, send us an email 
+			at <A HREF="<?= $MultipleMailToText ?>">infos@repmyblock.org</A></B> to enable 
+			the <B>multiple users under same email</B> feature.
+		</P>
+		
+	<?php break; 
+	} ?>
 	
 	
 	<P CLASS="f40">

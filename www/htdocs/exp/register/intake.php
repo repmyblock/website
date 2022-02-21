@@ -9,11 +9,20 @@
 		preg_match('/ml(.*)/', $k, $matches, PREG_OFFSET_CAPTURE);
 		$result = $r->SearchEmailFromIntake($matches[1][0]);
 		
-		print "<PRE>" . print_r($result, 1) . "</PRE>";
-		
 		if ( empty ($result)) {
 			header("Location: /invalidcode/exp/register/register");
 			exit();		
+		}
+		
+		print "<PRE>" . print_r($result, 1) . "</PRE>";
+		// Check that the email is not in the userdatabase.
+		
+		$DBInfo = $r->CheckBothSystemUserTable ($result["SystemUserEmail_AddFrom"], "Email");
+
+		
+		print "DB Info: <PRE>" . print_r($DBInfo, 1) . "</PRE>";
+		if ( ! empty ($DBInfo)) {
+			header("Location: /emailreg/exp/register/register");		
 		}
 		
 	} else {
