@@ -90,7 +90,7 @@
 	
 	if ($rmbperson["SystemUser_emailverified"] == "both") {
 		$TopMenus = array ( 
-									array("k" => $k, "url" => "profile/profile", "text" => "Public Profile"),
+									array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
 									array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"), 
 									array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile")
 								);

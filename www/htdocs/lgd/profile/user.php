@@ -45,8 +45,7 @@
 											$rmbperson["SystemUser_username"], $infoarray); 
 		}	
 	}
-	
-	
+
 	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
 	
 	if ( $URIEncryptedString["SystemUser_ID"] == "TMP" ) {
@@ -91,7 +90,7 @@
 		
 		if ($rmbperson["SystemUser_emailverified"] == "both") {
 			$TopMenus = array ( 
-										array("k" => $k, "url" => "profile/profile", "text" => "Public Profile"),
+										array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
 										array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"), 
 										array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile")
 									);
@@ -111,12 +110,19 @@
 			  <div class="Subhead mt-0 mb-0">
 			    <h2 id="public-profile-heading" class="Subhead-heading">Personal Profile</h2>
 			  </div>
-			     
-			<?php
-			 	PlurialMenu($k, $TopMenus);
-			?>
-		
+
+			<?php	PlurialMenu($k, $TopMenus); ?>
+
 				<div class="col-12">
+
+			     
+			<?php if (empty ($TopMenus)) { ?>
+				<P>
+					<B>You need to fill in your first and last name to enable other screens.</B>
+				</P>
+			<?php } ?>
+			     
+		
 					<form class="edit_user" id="" aria-labelledby="public-profile-heading" action="" accept-charset="UTF-8" method="post">
 						
 						<div>
