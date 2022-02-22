@@ -13,14 +13,8 @@
 			header("Location: /invalidcode/exp/register/register");
 			exit();		
 		}
-		
-		print "<PRE>" . print_r($result, 1) . "</PRE>";
-		// Check that the email is not in the userdatabase.
-		
-		$DBInfo = $r->CheckBothSystemUserTable ($result["SystemUserEmail_AddFrom"], "Email");
 
-		
-		print "DB Info: <PRE>" . print_r($DBInfo, 1) . "</PRE>";
+		$DBInfo = $r->CheckBothSystemUserTable ($result["SystemUserEmail_AddFrom"], "Email");
 		if ( ! empty ($DBInfo)) {
 			header("Location: /emailreg/exp/register/register");		
 		}
@@ -31,57 +25,67 @@
 		exit();
 	}
 	
+	
+	
+	
 	if ( ! empty ($_POST["SaveInfo"])) {
-		// Check who we assign the registered user.
-		if (! empty($k) && $k != "web") {	$Refer = $k; }
 		
-		$res = $r->SearchEmailFromIntake(trim($_POST["SystemUserEmail_ID"]), "ID");
+		if ( $_POST["password"] != $_POST["verifypassword"]) {
+			$result["PASSWORDNOTMATCH"] = 1;
+
+		} else {
 		
-		if ( $res["SystemUserEmail_AddFrom"] != $_POST["AddFrom"]) {
-			header("Location: /emaildontmatch/exp/register/register");
-			exit();
-		}
-		
-		$result = $r->RegisterUser(trim($_POST["username"]), $res["SystemUserEmail_AddFrom"], 
-																trim($_POST["password"]), "Register", $Refer, 
-																$res["SystemUserEmail_MailCode"], "both");
-																																
-		if ( empty ($result["USERNAME"]) && empty ($result["EMAIL"])) {
-
-			require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
-			SendWelcomeEmail($result["SystemTemporaryUser_email"], $result["SystemTemporaryUser_emaillinkid"], 
-												$result["SystemTemporaryUser_username"], $infoarray = ""); 
-
-			$VariableToPass = array( 
-				"Email" => $result["SystemTemporaryUser_email"],
-				"Username" => $result["SystemTemporaryUser_username"]
-			);
-
-			header("Location: /" . CreateEncoded($VariableToPass) . "/exp/register/doneregister");
-			exit();
-
-			if ( ! $result ) {
-				$URLToEncrypt = "emailaddress=" . $_POST["emailaddress"];
-												
-				// The reason for no else is that the code supposed to go away.		
-				if ( $_POST["login"] == "password") {
-					header("Location:/register/password/?k=" . EncryptURL($URLToEncrypt));
-					exit();
-				}
-				
-				if ( $_POST["login"] == "email") {
-					header("Location: /register/emaillink/?k=" . EncryptURL($URLToEncrypt));
-					exit();
-				}
-			} else {
-				header("Location:/register/sending/?k=" . EncryptURL($URLToEncrypt));
+			// Check who we assign the registered user.
+			if (! empty($k) && $k != "web") {	$Refer = $k; }
+			
+			$res = $r->SearchEmailFromIntake(trim($_POST["SystemUserEmail_ID"]), "ID");
+			
+			if ( $res["SystemUserEmail_AddFrom"] != $_POST["AddFrom"]) {
+				header("Location: /emaildontmatch/exp/register/register");
 				exit();
-			}	
-			// If we are here which we should never be we need to send user to problem loop
-			exit();
+			}
+			
+			$result = $r->RegisterUser(trim($_POST["username"]), $res["SystemUserEmail_AddFrom"], 
+																	trim($_POST["password"]), "Register", $Refer, 
+																	$res["SystemUserEmail_MailCode"], "both");
+																																	
+			if ( empty ($result["USERNAME"]) && empty ($result["EMAIL"])) {
+	
+				require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
+				SendWelcomeEmail($result["SystemTemporaryUser_email"], $result["SystemTemporaryUser_emaillinkid"], 
+													$result["SystemTemporaryUser_username"], $infoarray = ""); 
+	
+				$VariableToPass = array( 
+					"Email" => $result["SystemTemporaryUser_email"],
+					"Username" => $result["SystemTemporaryUser_username"]
+				);
+	
+				header("Location: /" . CreateEncoded($VariableToPass) . "/exp/register/doneregister");
+				exit();
+	
+				if ( ! $result ) {
+					$URLToEncrypt = "emailaddress=" . $_POST["emailaddress"];
+													
+					// The reason for no else is that the code supposed to go away.		
+					if ( $_POST["login"] == "password") {
+						header("Location:/register/password/?k=" . EncryptURL($URLToEncrypt));
+						exit();
+					}
+					
+					if ( $_POST["login"] == "email") {
+						header("Location: /register/emaillink/?k=" . EncryptURL($URLToEncrypt));
+						exit();
+					}
+				} else {
+					header("Location:/register/sending/?k=" . EncryptURL($URLToEncrypt));
+					exit();
+				}	
+				// If we are here which we should never be we need to send user to problem loop
+				exit();
+			}
 		}
 	}
-
+	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
@@ -96,6 +100,12 @@
 		<INPUT TYPE="hidden" NAME="AddFrom" VALUE="<?= $result["SystemUserEmail_AddFrom"] ?>" CHECKED>	
 			
 		<?php
+		
+			if ($result["PASSWORDNOTMATCH"] == 1) {
+				echo "<P CLASS=\"f60\">";
+				echo "<B><FONT COLOR=BROWN>The password don't match.</FONT></B><BR>";
+				echo "</P>";
+			}
 		
 			if ($result["USERNAME"] == 1) {
 				echo "<P CLASS=\"f60\">";

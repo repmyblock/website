@@ -1,5 +1,14 @@
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+	
+	switch($k) { 
+		case "invalidcode": 
+		case "emailreg": 
+			$oldk = $k;
+			$k = "web";
+		break;
+	}
+		
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
@@ -18,7 +27,7 @@
 		<DIV CLASS="right f80">Register</DIV>
 	</P>
 	
-	<?php switch($k) { 
+	<?php switch($oldk) { 
 		case "invalidcode": ?>
 		
 		<P CLASS="f60">

@@ -89,23 +89,10 @@ class login extends queries {
 	}
 	
 	function CheckBothSystemUserTable ($InTake, $TypeID = NULL) {
-		
-		print "InTake: $InTake<BR>";
-		
 		$ret = $this->CheckSystemUserTable($InTake, $TypeID);
-		
-		print "Found in normal window: <PRE>--->" . print_r($ret, 1) . "<----</PRE>";
-		
-		
 		if ( empty ($ret)) {
-			print "Gone in the Temporary windows with TYpe ID: $TypeID<BR>";
 			$ret = $this->CheckSystemUserTempTable($InTake, $TypeID);
-			print "Found in temporary window: <PRE>" . print_r($ret, 1) . "</PRE>";
 		}
-		
-		print "Found in temporary window: <PRE>" . print_r($ret, 1) . "</PRE>";
-		
-		exit();
 		return $ret;
 	}
 	
@@ -123,9 +110,6 @@ class login extends queries {
 	}
 	
 	function CheckSystemUserTable ($Intake, $TypeID = NULL) {
-		
-		print "<FONT COLOR=RED>Intake: $Intake <BR> TypeID: $TypeID<BR></font>";
-		
 		if ( ! empty ($TypeID)) {
 			$sql = "SELECT * FROM SystemUser WHERE ";
 			$sql_vars = array("Intake" => $Intake);
@@ -134,9 +118,6 @@ class login extends queries {
 				case "ID": $sql .= "SystemUser_ID = :Intake"; break;
 				default: return;
 			}
-			
-			print "SSQL: $sql<BR>";
-			
 			return $this->_return_simple($sql, $sql_vars);			
 		}
 	}
