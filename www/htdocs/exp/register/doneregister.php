@@ -6,10 +6,9 @@
 <div class="row">
 	<div class="main">
 		<P CLASS="f60">
-			We just sent you another email with the instructions on how to proceed with the 
-			registration. <FONT COLOR=BROWN>You won't be able</FONT> to continue using the 
-			Rep My Block until you complete the second 
-			email verification.
+			We just sent you another email with the instructions on completing the registration. 
+			<FONT COLOR=BROWN>You won't be able</FONT> to fully continue 
+			using the Rep My Block until you complete the second email verification.
 		</P>
 		
 		<P CLASS="f60">

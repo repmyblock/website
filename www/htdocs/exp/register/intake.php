@@ -30,10 +30,14 @@
 	
 	if ( ! empty ($_POST["SaveInfo"])) {
 		
+		
 		if ( $_POST["password"] != $_POST["verifypassword"]) {
 			$result["PASSWORDNOTMATCH"] = 1;
 
-		} else {
+		} else if ( strlen($_POST["password"]) < 8) {
+			$result["PASSWORDTOOSHORT"] = 1;
+						
+		}	else {
 		
 			// Check who we assign the registered user.
 			if (! empty($k) && $k != "web") {	$Refer = $k; }
@@ -101,6 +105,12 @@
 			
 		<?php
 		
+			if ($result["PASSWORDTOOSHORT"] == 1) {
+				echo "<P CLASS=\"f60\">";
+				echo "<B><FONT COLOR=BROWN>The password is too short. It need at least 8 characters.</FONT></B><BR>";
+				echo "</P>";
+			}
+		
 			if ($result["PASSWORDNOTMATCH"] == 1) {
 				echo "<P CLASS=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The password don't match.</FONT></B><BR>";
@@ -139,12 +149,12 @@
 		
 		<P CLASS="f80">
 			<DIV CLASS="f80">Password:</DIV>
-			<DIV><INPUT CLASS="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE="<?= $_POST["password"] ?>"><DIV>
+			<DIV><INPUT CLASS="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE=""><DIV>
 		</P>
 		
 		<P CLASS="f80">
 			<DIV CLASS="f80">Verify Password:</DIV>
-			<DIV><INPUT CLASS="" TYPE="password" NAME="verifypassword" PLACEHOLDER=" verify password"  VALUE="<?= $_POST["password"] ?>"></DIV>
+			<DIV><INPUT CLASS="" TYPE="password" NAME="verifypassword" PLACEHOLDER=" verify password"  VALUE=""></DIV>
 		</P>
 	
 		<P>
