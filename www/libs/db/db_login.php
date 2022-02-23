@@ -131,13 +131,12 @@ class login extends queries {
 	function SearchEmailFromIntake($IntakeID, $TypeID = "MailCode") {
 		$sql = "SELECT * FROM SystemUserEmail WHERE ";
 		$sql_vars = array("Intake" => $IntakeID);
-		
+				
 		switch($TypeID) {
 			case "MailCode": $sql .= "SystemUserEmail_MailCode = :Intake"; break;
 			case "ID": $sql .= "SystemUserEmail_ID = :Intake"; break;
 			default: return;
 		}
-
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
