@@ -26,16 +26,14 @@
 	}
 	
 	
-	
-	
 	if ( ! empty ($_POST["SaveInfo"])) {
 		
 		
 		if ( $_POST["password"] != $_POST["verifypassword"]) {
-			$result["PASSWORDNOTMATCH"] = 1;
+			$retreguser["PASSWORDNOTMATCH"] = 1;
 
 		} else if ( strlen($_POST["password"]) < 8) {
-			$result["PASSWORDTOOSHORT"] = 1;
+			$retreguser["PASSWORDTOOSHORT"] = 1;
 						
 		}	else {
 		
@@ -49,25 +47,25 @@
 				exit();
 			}
 			
-			$result = $r->RegisterUser(trim($_POST["username"]), $res["SystemUserEmail_AddFrom"], 
+			$retreguser = $r->RegisterUser(trim($_POST["username"]), $res["SystemUserEmail_AddFrom"], 
 																	trim($_POST["password"]), "Register", $Refer, 
 																	$res["SystemUserEmail_MailCode"], "both");
 																																	
-			if ( empty ($result["USERNAME"]) && empty ($result["EMAIL"])) {
+			if ( empty ($retreguser["USERNAME"]) && empty ($retreguser["EMAIL"])) {
 	
 				require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
-				SendWelcomeEmail($result["SystemTemporaryUser_email"], $result["SystemTemporaryUser_emaillinkid"], 
-													$result["SystemTemporaryUser_username"], $infoarray = ""); 
+				SendWelcomeEmail($retreguser["SystemTemporaryUser_email"], $retreguser["SystemTemporaryUser_emaillinkid"], 
+													$retreguser["SystemTemporaryUser_username"], $infoarray = ""); 
 	
 				$VariableToPass = array( 
-					"Email" => $result["SystemTemporaryUser_email"],
-					"Username" => $result["SystemTemporaryUser_username"]
+					"Email" => $retreguser["SystemTemporaryUser_email"],
+					"Username" => $retreguser["SystemTemporaryUser_username"]
 				);
 	
 				header("Location: /" . CreateEncoded($VariableToPass) . "/exp/register/doneregister");
 				exit();
 	
-				if ( ! $result ) {
+				if ( ! $retreguser ) {
 					$URLToEncrypt = "emailaddress=" . $_POST["emailaddress"];
 													
 					// The reason for no else is that the code supposed to go away.		
@@ -105,25 +103,25 @@
 			
 		<?php
 		
-			if ($result["PASSWORDTOOSHORT"] == 1) {
+			if ($retreguser["PASSWORDTOOSHORT"] == 1) {
 				echo "<P CLASS=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The password is too short. It need at least 8 characters.</FONT></B><BR>";
 				echo "</P>";
 			}
 		
-			if ($result["PASSWORDNOTMATCH"] == 1) {
+			if ($retreguser["PASSWORDNOTMATCH"] == 1) {
 				echo "<P CLASS=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The password don't match.</FONT></B><BR>";
 				echo "</P>";
 			}
 		
-			if ($result["USERNAME"] == 1) {
+			if ($retreguser["USERNAME"] == 1) {
 				echo "<P CLASS=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The USERNAME " . $_POST["username"] . " already exist</FONT></B><BR>";
 				echo "</P>";
 			}
 			
-			if ($result["EMAIL"] == 1) {
+			if ($retreguser["EMAIL"] == 1) {
 				echo "<P CLASS=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The EMAIL " . $_POST["emailaddress"] . " already exist</FONT></B><BR>";
 				echo "</P>";
