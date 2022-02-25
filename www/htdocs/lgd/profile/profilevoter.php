@@ -4,6 +4,7 @@
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
+	include_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php"; 
 	
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   if (empty ($URIEncryptedString["VotersIndexes_ID"])) { header("Location: /" . $k . "/lgd/profile/input"); exit(); }
@@ -16,7 +17,24 @@
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	WriteStderr($rmbperson, "SearchUserVoterCard");
 	
+	if ( ! empty ($_POST)) {
+		$ret = $rmb->FindTemporaryDistrict($URIEncryptedString["SystemUser_ID"]);
+		if ( empty ($ret)) {
+			$rmb->UpdateTempDistrict("insert", $URIEncryptedString["SystemUser_ID"],
+															 $_POST["AD"], $_POST["ED"], $_POST["CG"], $_POST["SE"]);			
+		} else {
+			$rmb->UpdateTempDistrict("update", $URIEncryptedString["SystemUser_ID"],
+															 $_POST["AD"], $_POST["ED"], $_POST["CG"], $_POST["SE"], 
+															 $ret["SystemUserSelfDistrict_ID"]);			
+		}
+					
+		$ErrorMsg = "<FONT COLOR=GREEN><B>The District Information was manually updated</B></FONT>";
+	}
 	
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	WriteStderr($rmbperson, "SearchUserVoterCard");
+	
+
 	// Need to go find the right data.
 
 	$TopMenus = array ( 
@@ -38,9 +56,16 @@
 			    <h2 id="public-profile-heading" class="Subhead-heading">Voter Profile</h2>
 			  </div>
 			     
-			<?php
-			 	PlurialMenu($k, $TopMenus);
-			?>
+			<?php	PlurialMenu($k, $TopMenus); ?>
+
+			<?php if (! empty ($ErrorMsg)) { ?>
+				
+				<div class="mt-0 mb-0">
+			    <h3 id="" class="Subhead-heading"><?= $ErrorMsg ?></h3>
+			  </div>
+				
+			<?php } ?>
+
 
 				<div class="Box">
 					<div class="Box-header pl-0">
@@ -91,18 +116,82 @@
 										<TH style="padding:0px 10px;">Assembly</TH>
 										<TH style="padding:0px 10px;">Electoral</TH>
 										<TH style="padding:0px 10px;">Congress</TH>
-										<TH style="padding:0px 10px;">County</TH>
+										<TH style="padding:0px 10px;">Senate</TH>
 									</TR>
+									
+									<?php
+									if ( ! empty ($rmbperson["SystemUserSelfDistrict_AD"]) && 
+											$rmbperson["SystemUserSelfDistrict_AD"] != $rmbperson["DataDistrict_StateAssembly"]) {
+										$ADPrinted = "<FONT COLOR=RED><S>" . $rmbperson["DataDistrict_StateAssembly"] . "</S></FONT> <B>" . $rmbperson["SystemUserSelfDistrict_AD"] . "</B>";
+									} else {
+										$ADPrinted = $rmbperson["DataDistrict_StateAssembly"];
+									}
+									
+									if ( ! empty ($rmbperson["SystemUserSelfDistrict_ED"]) && 
+											$rmbperson["SystemUserSelfDistrict_ED"] != $rmbperson["DataDistrict_Electoral"]) {
+										$EDPrinted = "<FONT COLOR=RED><S>" . $rmbperson["DataDistrict_Electoral"] . "</S></FONT> <B>" . $rmbperson["SystemUserSelfDistrict_ED"] . "</B>";
+									} else {
+										$EDPrinted = $rmbperson["DataDistrict_Electoral"];
+									}
+									
+									if ( ! empty ($rmbperson["SystemUserSelfDistrict_CG"]) && 
+											$rmbperson["SystemUserSelfDistrict_CG"] != $rmbperson["DataDistrict_Congress"]) {
+										$CGPrinted = "<FONT COLOR=RED><S>" . $rmbperson["DataDistrict_Congress"] . "</S></FONT> <B>" . $rmbperson["SystemUserSelfDistrict_CG"] . "</B>";
+									} else {
+										$CGPrinted = $rmbperson["DataDistrict_Congress"];
+									}
+									
+									if ( ! empty ($rmbperson["SystemUserSelfDistrict_SN"]) && 
+											$rmbperson["SystemUserSelfDistrict_SN"] != $rmbperson["DataDistrict_SenateSenate"]) {
+										$SNPrinted = "<FONT COLOR=RED><S>" . $rmbperson["DataDistrict_SenateSenate"] . "</S></FONT> <B>" . $rmbperson["SystemUserSelfDistrict_SN"] . "</B>";
+									} else {
+										$SNPrinted = $rmbperson["DataDistrict_SenateSenate"];
+									}
+									
+									?>
+																		
 									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_StateAssembly"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Electoral"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Congress"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataCounty_Name"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $ADPrinted ?></TD>
+										<TD style="padding:0px 10px;"><?= $EDPrinted ?></TD>
+										<TD style="padding:0px 10px;"><?= $CGPrinted ?></TD>
+										<TD style="padding:0px 10px;"><?= $SNPrinted ?></TD>
 									</TR>
 								</TABLE>
-								
 									<BR>
+									<P>
+										Because of the resitricting, we need you to verify your Assembly district
+										and Electoral district manually using the Board of Election website at
+										<B><A HREF="<?= $VoterRegWebsite["NY"] ?>" TARGET="BOENYS"><?= $VoterRegWebsite["NY"] ?></A></B>
+										and 
+										enter the information below. 		
+									</P>
+								
+									<FORM ACTION="" METHOD="POST">
+								
+										<TABLE BORDER=1>
+									<TR>
+										<TH style="padding:0px 10px;">Assembly</TH>
+										<TH style="padding:0px 10px;">Electoral</TH>
+										<TH style="padding:0px 10px;">Congress</TH>
+										<TH style="padding:0px 10px;">Senate</TH>
+									</TR>
+									<TR ALIGN=CENTER>
 									
+										<TD style="padding:0px 10px;"><INPUT TYPE="TEXT" SIZE="2" NAME="AD" VALUE="<?= $rmbperson["SystemUserSelfDistrict_AD"] ?>"></TD>
+										<TD style="padding:0px 10px;"><INPUT TYPE="TEXT" SIZE="2" NAME="ED" VALUE="<?= $rmbperson["SystemUserSelfDistrict_ED"] ?>"></TD>
+										<TD style="padding:0px 10px;"><INPUT TYPE="TEXT" SIZE="2" NAME="CG" VALUE="<?= $rmbperson["SystemUserSelfDistrict_CG"] ?>"></TD>
+										<TD style="padding:0px 10px;"><INPUT TYPE="TEXT" SIZE="2" NAME="SE" VALUE="<?= $rmbperson["SystemUserSelfDistrict_SN"] ?>"></TD>
+									</TR>
+								</TABLE>
+									<BR>
+								<TABLE CLASS="BORDERLESS" BORDER=0>
+									<TR CLASS="BORDERLESS" >
+										<TD CLASS="BORDERLESS" >
+										<button type="submit" class="btn btn-primary" name="electinfo" value="yes">Update District Info</button>
+									</TD></TR></TABLE>
+								<BR>
+								
+								</FORM>
 													
 									<TABLE BORDER=1>
 									<TR>
@@ -125,19 +214,23 @@
 										</TD>
 									</TR>
 								</TABLE>
+								
+								
+								
+								
 								<BR>
 									<TABLE BORDER=1>
 									<TR>
 										<TH style="padding:0px 10px;">Legis #</TH>
 										<TH style="padding:0px 10px;">Town</TH>
 										<TH style="padding:0px 10px;">Ward</TH>
-										<TH style="padding:0px 10px;">Senate</TH>
+										<TH style="padding:0px 10px;">County</TH>
 									</TR>
 									<TR ALIGN=CENTER>
 										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Legislative"] ?></TD>
 										<TD style="padding:0px 10px;"><?= $rmbperson["Raw_Voter_TownCity"] ?></TD>
 										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Ward"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_SenateSenate"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataCounty_Name"] ?></TD>
 									</TR>
 								</TABLE>
 									<BR>

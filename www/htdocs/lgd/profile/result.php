@@ -5,6 +5,7 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 
+
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 	
@@ -187,6 +188,13 @@
 					</TR>
 				</TABLE>
 				<BR>
+				
+				<P>
+					Because of the resitricting, we need you to verify your Assembly district
+					and Electoral district manually on the next page.					
+				</P>
+				
+				
 						
 				<TABLE BORDER=1>
 					<TR>
