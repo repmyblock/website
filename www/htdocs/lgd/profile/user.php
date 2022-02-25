@@ -8,11 +8,13 @@
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();	
 	
+	
 	// Put the POST HERE because we need to reread the data 
 	if ( ! empty ($_POST)) {	
+		
 		$ProfileArray = array (	"bio" => $_POST["profile_bio"], 
-														"URL"=> $_POST["URL"],
-														"Location" => $_POST["Location"]);
+                            "URL"=> $_POST["URL"],
+                            "Location" => $_POST["Location"]);
 
 		if ( $rmbperson["SystemUser_FirstName"] != $_POST["FirstName"] ) {
 			$ProfileArray["Change"]["SystemUser_FirstName"] = $_POST["FirstName"];
@@ -30,8 +32,10 @@
 
 		if ( $URIEncryptedString["SystemUser_ID"] == "TMP") {
 			
-			$mytmp = $rmb->SearchTempUsers($URIEncryptedString["SystemUserTemporary_ID"]);
-			if ( empty ($mytmp)) {
+			$mytmp = $rmb->SearchTempUsers($URIEncryptedString["SystemTemporaryID"]);			
+			WriteStderr($mytmp, "SystemUserID ==> TMP with " . $URIEncryptedString["SystemTemporaryID"]);
+
+			if ( empty ($mytmp["SystemUser_ID"])) {
 				$rmbperson = $rmb->CreateSystemUserAndUpdateProfile($URIEncryptedString["SystemTemporaryEmail"], $ProfileArray, $rmbperson);				
 				$URIEncryptedString["SystemUser_ID"] = $rmbperson["SystemUser_ID"];
     	} else {
@@ -51,10 +55,11 @@
 			$infoarray["FirstName"] = $rmbperson["SystemUser_FirstName"];
 			require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";			
 			SendChangeEmail($rmbperson["SystemUser_email"], $rmbperson["SystemUser_emaillinkid"], 
-											$rmbperson["SystemUser_username"], $infoarray); 
+                      $rmbperson["SystemUser_username"], $infoarray); 
 		}	
 	}
-
+	
+	
 	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
 	
 	if ( $URIEncryptedString["SystemUser_ID"] == "TMP" ) {
