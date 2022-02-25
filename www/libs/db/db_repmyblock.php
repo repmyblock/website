@@ -10,7 +10,7 @@ class RepMyBlock extends queries {
 	  $DebugInfo["Flag"] = $debug;
 	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
-  
+
  	function database_showtables() {
   	$sql = "SHOW TABLES";
   	return $this->_return_multiple($sql);	
@@ -906,7 +906,8 @@ class RepMyBlock extends queries {
 						"LEFT JOIN DataDistrictTemporal on (DataHouse.DataDistrictTemporal_GroupID = DataDistrictTemporal.DataDistrictTemporal_GroupID) " .
 						"LEFT JOIN DataDistrict ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .		
 						"LEFT JOIN DataCounty ON (DataDistrict.DataCounty_ID = DataCounty.DataCounty_ID) " .
-						"WHERE SystemUser_ID = :SystemID";
+						"LEFT JOIN SystemUserSelfDistrict ON (SystemUser.SystemUser_ID = SystemUserSelfDistrict.SystemUser_ID) " . 
+						"WHERE SystemUser.SystemUser_ID = :SystemID";
 		$sql_vars = array("SystemID" => $SystemUserID);		
 		return $this->_return_simple($sql, $sql_vars);
 	}
@@ -999,6 +1000,41 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql);
 	}	
 	
+	function UpdateTempDistrict($Type, $SystemUser_ID, $AD, $ED, $CG, $SN, $SystemID = NULL) {
+		
+		switch($Type) {
+			case "insert":
+				$sql = "INSERT INTO SystemUserSelfDistrict SET ";
+				break;
+				
+			case "update":
+				$sql = "UPDATE SystemUserSelfDistrict SET ";
+				$sql_end = " WHERE SystemUserSelfDistrict_ID = :SysDisID";
+				$sql_vars = array("SysDisID" => $SystemID);
+				break;
+		}
+	
+		// There will be a bug to fix which is how to delete an entry. - Need to think about it.
+		if (empty ($sql)) return $this->FindTemporaryDistrict($SystemUserID);			
+		if (! empty ($AD)) { $sql .= "SystemUserSelfDistrict_AD = :AD"; $sql_vars["AD"] = intval($AD); $comma = 1;}
+		if ($comma == 1) { $sql .= ", "; $comma = 0; }
+		if (! empty ($ED)) { $sql .= "SystemUserSelfDistrict_ED = :ED"; $sql_vars["ED"] = intval($ED); $comma = 1;}
+		if ($comma == 1) { $sql .= ", "; $comma = 0; }
+		if (! empty ($CG)) { $sql .= "SystemUserSelfDistrict_CG = :CG"; $sql_vars["CG"] = intval($CG); $comma = 1;}
+		if ($comma == 1) { $sql .= ", "; $comma = 0; }
+		if (! empty ($SN)) { $sql .= "SystemUserSelfDistrict_SN = :SN"; $sql_vars["SN"] = intval($SN); $comma = 1;}
+		if ($comma == 1) { $sql .= ", "; $comma = 0; }		
+		if (! empty ($SystemUser_ID)) { $sql .= "SystemUser_ID = :SystemUser_ID"; $sql_vars["SystemUser_ID"] = $SystemUser_ID;}
+
+		$sql .= $sql_end;
+		return $this->_return_nothing($sql, $sql_vars);
+	}
+	
+	function FindTemporaryDistrict($SystemUserID) {
+		$sql = "SELECT * FROM SystemUserSelfDistrict WHERE SystemUser_ID = :SystemUserID";
+		$sql_vars = array("SystemUserID" => $SystemUserID);
+		return $this->_return_simple($sql, $sql_vars);
+	}
 	
 	
 	function ReturnPrivCodes () {

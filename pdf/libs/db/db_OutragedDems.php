@@ -127,17 +127,23 @@ class OutragedDems extends queries {
 	}
 	
 	// This is base on SYstemUser
-	function ListCandidatePetition($CandidateID, $Status = "published") {
+	function ListCandidatePetition($CandidateID, $Status = NULL) {
 		$sql = "SELECT * FROM Candidate " .
 						"LEFT JOIN CandidateComRplceSet ON (CandidateComRplceSet.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CandidateComRplce ON (CandidateComRplceSet.CandidateComRplce_ID = CandidateComRplce.CandidateComRplce_ID) " .
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
 						"LEFT JOIN Elections ON (CandidateElection.Elections_ID = Elections.Elections_ID) " . 
 						"LEFT JOIN DataCounty ON (Candidate.DataCounty_ID = DataCounty.DataCounty_ID) " . 
-						"WHERE Candidate.Candidate_ID = :CandidateID AND Candidate_Status = :Status " .
-						"ORDER BY CandidateElection_DisplayOrder, CandidateComRplce_Order, Candidate.Candidate_ID ";
+						"WHERE Candidate.Candidate_ID = :CandidateID ";
+		$sql_vars = array("CandidateID" => $CandidateID);
 		
-		$sql_vars = array("CandidateID" => $CandidateID, "Status" => $Status);	
+		if ( ! empty ($Status)) {					
+			$sql .= "AND Candidate_Status = :Status ";
+			$sql_vars["Status"] = $Status;	
+		}
+										
+		$sql .= "ORDER BY CandidateElection_DisplayOrder, CandidateComRplce_Order, Candidate.Candidate_ID ";
+		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	

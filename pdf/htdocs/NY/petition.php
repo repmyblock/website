@@ -28,17 +28,29 @@ if (strlen($k < 20)) {
 $pdf->Watermark = "VOID - Do not use"; 
 $WritenSignatureMonth = "March";
 $Variable = "demo-CC";
-	
+
 if (is_numeric($CanPetitionSet_ID)) { $Variable = "petid"; }
 if (is_numeric($CandidatePetitionSet_ID)) { $Variable = "setid"; }	
 if (is_numeric($Candidate_ID)) { $Variable = "person"; }
 if (is_numeric($SystemUser_ID)) { $Variable = "person"; }
 
+if ( ! empty ($URIEncryptedString)) {
+	if (! empty ($URIEncryptedString["Candidate_ID"])) {
+		$Candidate_ID = $URIEncryptedString["Candidate_ID"];
+		$Variable = "person";
+	}
+}
+	
 switch ($Variable) {
   case 'person';
-  	$result = $r->ListCandidatePetition($Candidate_ID, "published");
+  
+	  if ( $URIEncryptedString["PendingBypass"] == "yes" ) {
+	  	$result = $r->ListCandidatePetition($Candidate_ID);	  	
+	  } else {
+	  	$result = $r->ListCandidatePetition($Candidate_ID, "published");
+	  }
+	  
   	if ( ! empty ($result)) {
-  		
   		for ($i = 0; $i < count($result); $i++) { 	 		
 	  		$result[$i]["CandidateSet_ID"] = 1;	
 				$result[$i]["CandidateParty"] = PrintPartyAdjective($result[0]["Candidate_Party"]);
@@ -48,7 +60,9 @@ switch ($Variable) {
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
 		}
 		
-		if ( $result[0]["Candidate_Status"] == "published") break;
+		$pdf->Watermark = "VOID - Do not use " . $result[0]["Candidate_Status"]; 
+				
+		if ( $result[0]["Candidate_Status"] == "published" || $URIEncryptedString["PendingBypass"] == "yes") break;
 		goto democc;
 		break;
 		
@@ -63,7 +77,7 @@ switch ($Variable) {
 			if ($result[0]["CandidateGroup_Watermark"] == 'no') { $pdf->Watermark = NULL; }	
 		}
 	
-		if ( $result[0]["Candidate_Status"] == "published") break;
+		if ( $result[0]["Candidate_Status"] == "published" || $URIEncryptedString["PendingBypass"] == "yes") break;
 		goto democc;
 		break;
 							
@@ -75,7 +89,8 @@ switch ($Variable) {
 			$pdf->BarCode = $result[0]["CanPetitionSet_ID"];
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
 		}
-		if ( $result[0]["Candidate_Status"] == "published") break;
+		
+		if ( $result[0]["Candidate_Status"] == "published" || $URIEncryptedString["PendingBypass"] == "yes") break;
 		
 	case 'demo-single':
 		demosingle:

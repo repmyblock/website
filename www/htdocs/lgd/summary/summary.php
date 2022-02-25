@@ -26,7 +26,7 @@
 		$VoterState = $matches[1][0];
 		$Party = PrintParty($rmbperson["SystemUser_Party"]);		
 		$NumberOfElectors = $rmbperson["SystemUser_NumVoters"];
-		$NumberOfSignatures = intval($NumberOfElectors * $SignaturesRequired) + 1;
+		$NumberOfSignatures = intval($NumberOfElectors * $SigsRequired["NY"]) + 1;
 		$Progress = round ((($NumberPetitions["CandidateSigned"] / $NumberOfElectors) * 100), 2);
 		
 		$PersonFirstName = $rmbperson["SystemUser_FirstName"];

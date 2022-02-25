@@ -68,13 +68,18 @@
 			if ( ! empty ($result) ) {
 				foreach ($result as $var) {
 					if ( ! empty ($var)) {
-						$NewKEncrypt = EncryptURL($NewK . "&CandidatePetitionSet_ID=" . $var["CandidatePetitionSet_ID"] . 
-																											   "&Candidate_ID=" . $var["Candidate_ID"] );
+						
+						$NewKEncrypt = CreateEncoded(array(
+														"CandidatePetitionSet_ID" => $var["CandidatePetitionSet_ID"],	
+														"Candidate_ID=" => $var["Candidate_ID"],
+														"Candidate_ID" => $Decrypted_k									
+													));
+						
 		?>				
 						<A HREF="<?= $NewKEncrypt ?>/printpetitionset">Petition set created 
 							on <?= PrintShortDate($var["CandidatePetitionSet_TimeStamp"]) ?> at 
 							<?= PrintShortTime($var["CandidatePetitionSet_TimeStamp"]) ?></A>
-						<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/petitions/?k=<?= $NewKEncrypt ?>"><i class="fa fa-download"></i></A> 
+						<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/petitions/"><i class="fa fa-download"></i></A> 
 						<A HREF="<?= $NewKEncrypt  ?>/emailpetition"><i class="fa fa-share"></i></A>																													
 						<BR>
 		<?php

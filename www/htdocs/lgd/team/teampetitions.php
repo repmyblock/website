@@ -47,16 +47,21 @@
 		<?php 
 			if ( ! empty ($ListPetitions) ) {
 				foreach ($ListPetitions as $var) {
-					if ( ! empty ($var)) {
-						$NewKEncrypt = EncryptURL($NewK . "&CandidatePetitionSet_ID=" . $var["CandidatePetitionSet_ID"] . 
-																											   "&Candidate_ID=" . $var["Candidate_ID"] );
+					if ($var["Candidate_Status"] != "deleted") {
+						
+							
+						$NewKEncrypt = CreateEncoded(array(
+														"CandidatePetitionSet_ID" => $var["CandidatePetitionSet_ID"],	
+														"Candidate_ID" => $var["Candidate_ID"],	
+														"PendingBypass" => "yes"								
+													));
 		?>
 						
-		<?= $var["Candidate_PetitionNameset"] ?> in <?= $var["Candidate_Status"] ?> status.</A>
+		<?= $var["Candidate_DispName"] ?>	(<?= $var["Candidate_PetitionNameset"] ?>)		
+						
+		 in <?= $var["Candidate_Status"] ?> status.</A>
 							
-		<?php if ($var["Candidate_Status"] == "published") { ?>	
-			<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/NY/E<?= $var["Candidate_ID"] ?>/petition"><i class="fa fa-download"></i></A> 
-		<?php } ?>																																																
+			<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/NY/<?= $NewKEncrypt ?>/petition"><i class="fa fa-download"></i></A> 
 							<BR>
 		<?php
 					}

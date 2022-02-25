@@ -12,6 +12,10 @@
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$result = $rmb->ListCandidateInformation($URIEncryptedString["SystemUser_ID"]);	
 	
+	include_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php";  
+	$NumberOfElectors = $rmbperson["SystemUser_NumVoters"];
+	$NumberOfSignatures = intval($NumberOfElectors * $SigsRequired["NY"]) + 1;
+	
 	WriteStderr($result, "Result");
 		
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
@@ -44,11 +48,34 @@
 						
 				
 				</P>
+				
+				<P CLASS="f40">
+					If the petition says <B>VOID</B> in red or pink, do not use it. Send us an email to
+					<B><A HREF="mailto:petitionvoid@repmyblock.org">petitionvoid@repmyblock.org</A></B> 
+					with a copy of the petition so we can investigate the matter.
+				</P>
 
 				<P CLASS="f40">
-					Once you collect the  <?= $NumberOfSignatures ?> plus a few more, you need to wait until April 1<sup>st</sup> to take them
-					to the board of elections. <B>Just follow the 
+					Once you printed the petition, all you need to do is to collect <?= $NumberOfSignatures ?> from the 
+					list of voters. In this video, Paperboy Prince explain how easy is to collect the signatures.
+				</P>
+
+
+				<DIV class="videowrapper">
+					<CENTER>
+				 		<iframe src="https://www.youtube.com/embed/XUGFbBCcIS4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					</CENTER>
+				</DIV>
+
+				<P CLASS="f40">
+					Once you collected the  <?= $NumberOfSignatures ?> or more signatures, you need to wait until 
+					April 1<sup>st</sup> to take them to the board of elections. <B>Just follow the 
 					<A HREF="/<?= $k ?>/exp/toplinks/howto">instruction posted on the FAQ</A>.</B>
+				</P>
+				
+				<P CLASS="f40">
+					If you petitioned with another candidate, contact that other candidate directly to get the specific 
+					instructions for turning in your petitons.
 				</P>
 
 				<P CLASS="f40">
