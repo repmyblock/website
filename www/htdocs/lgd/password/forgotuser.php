@@ -15,7 +15,7 @@
 	
 	
 	if ( empty ($result)) {
-		header("Location: /" . $middleuri . "/lgd/password/couldnotfind");
+		header("Location: /web/lgd/password/couldnotfind");
 		exit();
 	}
 	 
