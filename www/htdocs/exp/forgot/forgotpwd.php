@@ -1,8 +1,7 @@
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";
-  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+
 
 	$r = new login();
 
@@ -18,8 +17,8 @@
 
 			require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";	
 			$result = $r->CheckUsername($_POST["username"]);
-
-			SendForgotLogin($result["SystemUser_email"],  $hashtable, $result["SystemUser_username"]);
+			
+			SendForgotLogin($result["SystemUser_email"],  $hashtable);
 			header("Location: sentpasswd");
 			
 			exit();

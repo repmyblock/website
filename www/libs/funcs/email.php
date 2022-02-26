@@ -446,8 +446,7 @@ function SendForgotUsername($to, $hashtable) {
 	$emailsubject= "=?utf-8?b?".base64_encode("Username Recovery Email.")."?=";
 	
 
-	$linktoverify = $FrontEndWebsite . "/login/forgotuser/recover/?hashkey=" . $hashtable .
-									"&email=" . rawurlencode($to);       
+	$linktoverify = $FrontEndWebsite . "/" . $hashtable . rawurlencode($to) . "/lgd/password/forgotuser";       
 
 	$BotArray["sendemail"] = $to;
   $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	

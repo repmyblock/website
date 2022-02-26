@@ -20,7 +20,7 @@
 		
 		<P CLASS="f60">
 			If you want to help grow the project, 
-			<B><A HREF="/web/volunteer/tothecause">please check the volunteer page</A></B>.
+			<B><A HREF="/<?= $middleuri ?>/volunteer/tothecause">please check the volunteer page</A></B>.
 		</P>
 
 </DIV>

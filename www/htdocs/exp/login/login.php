@@ -9,12 +9,12 @@
 		
 		### I need to check the username and password.
 		$resultPass = $r->CheckUsernamePassword($_POST["username"], $_POST["password"]);
-		
 		WriteStderr($resultPass, "ResultPass");
 		
+		if (! empty($URIEncryptedString["UserName"])) { $PrintUsername = $URIEncryptedString["UserName"]; }
+		if (! empty ($_POST["username"])) {	$PrintUsername = $_POST["username"]; }
 		
 		if ( ! empty ($resultPass)) {			
-
 			// This is a hack to deal with the fact that the database need to be rebuilt.
 			// So we need to get the rest in the RawDatabase
 			// $ResultRawInfo = $r->FindVotersFromNYSUniq($resultPass["Raw_Voter_UniqNYSVoterID"], $DatedFiles);
@@ -76,7 +76,7 @@
 			<FORM METHOD="POST" ACTION="">
 					<P CLASS="f80">
 						Username:
-						<INPUT TYPE="<?= $TypeUsername ?>" NAME="username"  autocorrect="off" autocapitalize="none" VALUE="<?= $_POST["username"] ?>" placeholder="Username">
+						<INPUT TYPE="<?= $TypeUsername ?>" NAME="username"  autocorrect="off" autocapitalize="none" VALUE="<?= $PrintUsername ?>" placeholder="Username">
 					<P>
 						
 					<P CLASS="f80">

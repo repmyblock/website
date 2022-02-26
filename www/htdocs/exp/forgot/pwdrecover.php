@@ -8,7 +8,7 @@
 	
 	// Check that the hash code exist.
 
-	$hashkey = $_GET["info"]; 
+	$hashkey = $k; 
 	if ( ! empty ($_POST["hashkey"])) {	$hashkey = $_POST["hashkey"]; }
 	
 
@@ -17,14 +17,16 @@
 				
 		if ($_POST["hashkey"] == $result["SystemUser_emaillinkid"]) {
 			
-			$URLToEncrypt = "SystemUser_ID=" . $result["SystemUser_ID"] . 
-											"&password=" . $result["SystemUser_password"] .
-											"&systemuserid=" . $result["SystemUser_ID"] .
-											"&hashkey=" . $_POST["hashkey"] . 
-											"&username=" . $_POST["username"];
+			echo "I am here ...<BR>";
+		
 			// The reason for no else is that the code supposed to go away.
-
-			header("Location: /lgd/" . rawurlencode(EncryptURL($URLToEncrypt)) . "/forgotpwd_recover_password");
+			header("Location: /" . CreateEncoded ( array( 
+														"SystemUser_ID" => $result["SystemUser_ID"],
+														"password" => $result["SystemUser_password"],
+														"systemuserid" => $result["SystemUser_ID"],
+														"hashkey" => $_POST["hashkey"],
+														"username" => $_POST["username"],
+										 )) . "/lgd/password/forgotpwd_recover_password");
 			exit();
 		}
 						
