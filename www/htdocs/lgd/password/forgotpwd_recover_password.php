@@ -2,7 +2,7 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	
-	if ( $SystemUser_ID > 0) {
+	if ( $URIEncryptedString["SystemUser_ID"] > 0) {
 
 
 		if ( ! empty ($_POST["SaveInfo"])) {
@@ -20,22 +20,28 @@
 																
 				if (strlen($_POST["password"]) < 8) {
 		    	$ErrorMessage = "<FONT COLOR=RED><B>Password too short!<BR>Password must at least 8 characters!</B></FONT>";
-		    } else if (!preg_match("#[0-9]+#", $_POST["password"])) {
+		    } /* else if (!preg_match("#[0-9]+#", $_POST["password"])) {
 	    		$ErrorMessage = "<FONT COLOR=RED><B>Password must include at least one number!</B></FONT>";
 				} else if (!preg_match("#[a-zA-Z]+#", $_POST["password"])) {
 		    	$ErrorMessage = "<FONT COLOR=RED><B>Password must include at least one letter!</B></FONT>";
-		    } else {
+		    }*/ else {
 		    	
 					$hashtable = hash("md5", PrintRandomText(40));
-					$r->UpdateUsernamePassword($SystemUser_ID, $username, $_POST["password"], $hashtable );
+					$r->UpdateUsernamePassword($URIEncryptedString["SystemUser_ID"], $URIEncryptedString["username"], 
+																			$_POST["password"], $URIEncryptedString["hashtable"] );
 				
-					$URLToEncrypt = "SystemUser_ID=" . $SystemUser_ID . "&RawVoterID=" . $RawVoterID . 
-												"&DatedFiles=" . $DatedFiles . 
-												"&ElectionDistrict=" . $ElectionDistrict . "&AssemblyDistrict=" . $AssemblyDistrict . 
-												"&FirstName=" . $FirstName . "&LastName=" . $LastName;
+				
 	
 											
-					header("Location: /lgd/" . rawurlencode(EncryptURL($URLToEncrypt)) . "/forgotpwd_recover_password_done");
+					header("Location: /" . CreateEncoded ( array( 
+																					"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+																					"RawVoterID" => $URIEncryptedString["RawVoterID"],
+																					"DatedFiles" => $URIEncryptedString["DatedFiles"], 
+																					"ElectionDistrict" => $URIEncryptedString["ElectionDistrict"],
+																					"AssemblyDistrict" => $URIEncryptedString["AssemblyDistrict"], 
+																					"FirstName" => $URIEncryptedString["FirstName"],
+																					"LastName" => $URIEncryptedString["LastName"],
+																		)) . "/lgd/password/forgotpwd_recover_password_done");
 					exit();
 				}
 			} else {

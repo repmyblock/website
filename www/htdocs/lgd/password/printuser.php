@@ -4,14 +4,14 @@
 ?>
 <DIV class="main">
 		
-	<DIV CLASS="right f80">Forgot Password</DIV>
+	<DIV CLASS="right f80">Forgot My Username</DIV>
 
 		<P CLASS="f60">
-			The password was changed.
+			Your username is <B><?= $URIEncryptedString["UserName"] ?></B>
 		</P>
 	
 		<p CLASS="f60">
-			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
+			<A HREF="/<?= $k ?>/exp/login/login">Click here to the login page.</A>
 		</P>
 	</DIV>
 	
