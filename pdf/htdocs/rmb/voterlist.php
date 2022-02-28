@@ -7,12 +7,23 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/voterlist_class.php';
 
 	$r = new OutragedDems();
-	$voters = $r->ListVoterForCandidates($URIEncryptedString["Candidate_ID"]);
+	
+		
+	if ($URIEncryptedString["DataDistrict_ID"] > 0) {
+		$voters = $r->ListVotersForDataDistrict($URIEncryptedString["DataDistrict_ID"]);
+		$PreparedFor = $URIEncryptedString["PreparedFor"];
+
+		
+	} else {
+		$voters = $r->ListVoterForCandidates($URIEncryptedString["Candidate_ID"]);	
+		$PreparedFor = $voters[0]["Candidate_DispName"];
+		
+	}
 	
 	
-	//echo "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
-	//exit();
+	
 /*
+
 		[DataHouse_Apt] => 44
 		[DataDistrictTemporal_GroupID] => 
 		[DataDistrictTown_ID] => 
@@ -160,7 +171,7 @@ New York, NY 10031
 	}
 	
 	$pdf->Text_PubDate = date("M j, Y \a\\t g:i a") . $RestOfLine;
-	$pdf->Text_CandidateName = $voters[0]["Candidate_DispName"];
+	$pdf->Text_CandidateName = $PreparedFor;
 	$pdf->Text_ElectionDate = $ElectionDate;
 	$pdf->Text_PosType = $voters[0]["CandidateElection_PositionType"];
   $pdf->Text_Party = $voters[0]["CandidateElection_Party"];

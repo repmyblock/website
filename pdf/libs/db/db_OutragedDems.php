@@ -179,6 +179,32 @@ class OutragedDems extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
   
+  function ListVotersForDataDistrict($DataDistrictID) {
+  	
+  	if ( $DataDistrictID > 0) {
+  		
+  		$sql = "SELECT * " .
+							"FROM RepMyBlock.DataDistrict " .
+							"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
+							"LEFT JOIN DataDistrictCycle ON (DataDistrictCycle.DataDistrictCycle_ID = DataDistrictTemporal.DataDistrictCycle_ID) " .
+							"LEFT JOIN DataHouse ON (DataHouse.DataDistrictTemporal_GroupID = DataDistrictTemporal.DataDistrictTemporal_GroupID) " .
+							"LEFT JOIN Voters ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
+							"LEFT JOIN DataAddress ON (DataAddress.DataAddress_ID = DataHouse.DataAddress_ID)   " .
+							"LEFT JOIN DataStreet ON (DataStreet.DataStreet_ID = DataAddress.DataStreet_ID)  " .
+							"LEFT JOIN DataCity ON (DataCity.DataCity_ID = DataAddress.DataCity_ID) " .
+							"LEFT JOIN VotersIndexes ON (VotersIndexes.VotersIndexes_ID = Voters.VotersIndexes_ID)   " .
+							"LEFT JOIN DataLastName ON (VotersIndexes.DataLastName_ID = DataLastName.DataLastName_ID)  " .
+							"LEFT JOIN DataFirstName ON (VotersIndexes.DataFirstName_ID = DataFirstName.DataFirstName_ID)  " .
+							"LEFT JOIN DataMiddleName ON (VotersIndexes.DataMiddleName_ID = DataMiddleName.DataMiddleName_ID)   " .
+							"WHERE (Voters_Status = 'Active' OR Voters_Status = 'Inactive') " .
+							"AND DataDistrict.DataDistrict_ID = :District";
+			$sql_vars = array("District" => $DataDistrictID);		
+			return $this->_return_multiple($sql, $sql_vars);
+		}	
+	}
+  
+  
+  
 	function ListVoterCandidate($Candidate_ID) {
 		$sql = "SELECT * FROM CandidatePetition where Candidate_ID = :CandidateID";
 		$sql_vars = array("CandidateID" => $Candidate_ID);				

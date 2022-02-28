@@ -891,6 +891,57 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql);		
 	}
 	
+	Function GetWalkSheetInfo ($DataDistrictID) {
+		if ( $DataDistrictID > 0 ) {
+			$sql = "SELECT * FROM DataDistrict " .
+						"LEFT JOIN DataDistrictTemporal ON " . 
+						"(DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
+						"LEFT JOIN DataDistrictCycle ON " .
+						"(DataDistrictCycle.DataDistrictCycle_ID = DataDistrictTemporal.DataDistrictCycle_ID) " . 
+						"WHERE DataDistrict.DataDistrict_ID = :District";
+			$sql_vars = array("District" => $DataDistrictID);
+			return $this->_return_multiple($sql, $sql_vars);					
+		}		
+	}
+	
+
+	function ListEDByDistricts($DistrictCycle, $DistrictType, $DistrictValue)	{
+		$sql = "SELECT DISTINCT DataDistrict.DataDistrict_ID, DataDistrict_Electoral AS ED, DataDistrict_StateAssembly AS AD ";
+	
+		switch ($DistrictType) {
+			case "AD":
+				$sql .= ", DataDistrict_StateAssembly AS District ";
+				$sql_vars = array("CycleID" => $DistrictCycle, "AD" => $DistrictValue);
+				$sql_query = "AND DataDistrict_StateAssembly = :AD ";
+				break;
+			
+			case "CG":
+				$sql .= ", DataDistrict_Congress AS District ";
+				$sql_vars = array("CycleID" => $DistrictCycle, "CG" => $DistrictValue);
+				$sql_query = "AND DataDistrict_Congress = :CG ";
+				break;
+				
+			case "SN":
+				$sql .= ", DataDistrict_SenateSenate AS District ";
+				$sql_vars = array("CycleID" => $DistrictCycle, "SN" => $DistrictValue);
+				$sql_query = "AND DataDistrict_SenateSenate = :SN ";
+				break;
+		}
+		
+		$sql .= "FROM RepMyBlock.DataDistrict " . 
+						"LEFT JOIN DataDistrictTemporal ON " . 
+						"(DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
+						"LEFT JOIN DataDistrictCycle ON " .
+						"(DataDistrictCycle.DataDistrictCycle_ID = DataDistrictTemporal.DataDistrictCycle_ID) ";
+		
+		$sql .= "WHERE DataDistrictCycle.DataDistrictCycle_ID = :CycleID ";
+		$sql .= $sql_query;		
+		$sql .= "ORDER BY DataDistrict_StateAssembly, DataDistrict_Electoral";
+	
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	
 	function SearchUserVoterCard($SystemUserID) {
 		$sql = "SELECT * FROM SystemUser " .
 						"LEFT JOIN Voters ON (Voters.Voters_ID = SystemUser.Voters_ID) " . 
