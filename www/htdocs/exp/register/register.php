@@ -14,7 +14,7 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 		
 	$MailToText = "mailto:notif@repmyblock.org?" . 
-								"subject=I want to run&" . 
+								"subject=I want to petition&" . 
 								"body=DO CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
 								
 	$MultipleMailToText = "mailto:infos@repmyblock.org?" . 
@@ -63,19 +63,14 @@
 	<?php break; 
 	} ?>
 	
+
+	<P CLASS="f80">
+		<A HREF="<?= $MailToText ?>">Please  
+			send an email to <B>NOTIF@REPMBYLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO RUN</FONT>"</A>
+			and you will receive a link with the registration information.
+	</P>
 	
 	<P CLASS="f40">
-		We ask that you request a link by emailing <B><A HREF="<?= $MailToText ?>">notif@repmyblock.org</A></B>
-		with the subject <B><FONT COLOR=BROWN>I WANT TO RUN</FONT></B> is to combat spam registrations.
-	</P>
-	
-	<P CLASS="f80">
-		<A HREF="<?= $MailToText ?>">When you 
-			send an email to <B>NOTIF@REPMBYLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO RUN</FONT>"</A>,
-			you will receive a link with the registration information.
-	</P>
-	
-	<P CLASS="f60">
 		<B>Check your SPAM folder.</B>
 	</P>
 
