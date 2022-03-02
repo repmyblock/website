@@ -63,10 +63,9 @@
 	<?php break; 
 	} ?>
 	
-
 	<P CLASS="f80">
 		<A HREF="<?= $MailToText ?>">Please  
-			send an email to <B>NOTIF@REPMBYLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO RUN</FONT>"</A>
+			send an email to <B>NOTIF@REPMBYLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO PETITION</FONT>"</A>
 			and you will receive a link with the registration information.
 	</P>
 	
