@@ -16,7 +16,7 @@ if (strlen($k < 20)) {
 	preg_match('/([pse])(\d*)/i', $k, $matches, PREG_OFFSET_CAPTURE);
 	switch ($matches[1][0]) {
 		case 'p': case 'P': $CanPetitionSet_ID = intval($matches[2][0]); break;
-		case 's': case 'S': $CandidatePetitionSet_ID = intval($matches[2][0]); break;
+		case 's': case 'S': $CandidateSet_ID = intval($matches[2][0]); break;
 		case 'e': case 'E': $Candidate_ID = intval($matches[2][0]); break;
 	}
 } else {
@@ -30,7 +30,7 @@ $WritenSignatureMonth = "March";
 $Variable = "demo-CC";
 
 if (is_numeric($CanPetitionSet_ID)) { $Variable = "petid"; }
-if (is_numeric($CandidatePetitionSet_ID)) { $Variable = "setid"; }	
+if (is_numeric($CandidateSet_ID)) { $Variable = "setid"; }	
 if (is_numeric($Candidate_ID)) { $Variable = "person"; }
 if (is_numeric($SystemUser_ID)) { $Variable = "person"; }
 
@@ -67,15 +67,24 @@ switch ($Variable) {
 		break;
 		
 	case 'setid';
-		$result = $r->ListPetitionSet($CandidatePetitionSet_ID);
-		WriteStderr($result, "Result in SetID of the petition");
+	 	if ( $URIEncryptedString["PendingBypass"] == "yes" ) {
+	  	$result = $r->ListPetitionGroup($CandidateSet_ID); 	
+	  } else {
+	  	$result = $r->ListPetitionGroup($CandidateSet_ID, "published");
+	  }
+	
 		if ( ! empty ($result)) {
-			$result[0]["CandidateParty"] = PrintPartyAdjective($result[0]["CandidateGroup_Party"]);
-			$result[0]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
-			$pdf->BarCode = "S" . $result[0]["CandidateSet_ID"];
+			for ($i = 0; $i < count($result); $i++) { 	 		
+	  		$result[$i]["CandidateSet_ID"] = 1;	
+				$result[$i]["CandidateParty"] = PrintPartyAdjective($result[0]["Candidate_Party"]);
+				$result[$i]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
+			}
+			
+			$pdf->BarCode = "S" . $CandidateSet_ID;
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);		
 			if ($result[0]["CandidateGroup_Watermark"] == 'no') { $pdf->Watermark = NULL; }	
 		}
+	
 	
 		if ( $result[0]["Candidate_Status"] == "published" || $URIEncryptedString["PendingBypass"] == "yes") break;
 		goto democc;

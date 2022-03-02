@@ -57,33 +57,34 @@
 					    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
 					      We don't know your district <a href="/voter">create one</a>?
 					    </div>
-	    
-	    
-	    
-<?php 			
-			$Counter = 0;
-			if ( ! empty ($result)) {
-				foreach ($result as $var) {
-?>		
-	<div class="flex-items-left">
-	 	<span class="ml-4 flex-items-baseline"><A HREF="/<?= CreateEncoded (
-				array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
-							"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-							"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates">Select</A></span>
-		<span class="ml-4"><?= PrintDate($var["Elections_Date"]) ?></span>
-	  <span class="ml-4 ext-gray"><?= $var["CandidateElection_DBTable"] ?></span>
-	 	<span class="ml-4 user-mention"><?= $var["CandidateElection_DBTableValue"] ?></span>
-	  <span class="ml-4"><?= $var["Candidate_DispName"] ?></span>
-	</div>
- 
-						
-<?php
-				}
-			} 
-?>
 
-	
-
+							<?php 			
+										$Counter = 0;
+										if ( ! empty ($result)) {
+											foreach ($result as $var) {
+							?>		
+								<div class="flex-items-left">
+								 	<span class="ml-4 flex-items-baseline"><A HREF="/<?= CreateEncoded (
+											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+														"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates">Select</A></span>
+														
+									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/NY/<?= CreateEncoded (
+											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+														"Candidate_ID" => $var["Candidate_ID"])); ?>/petition">Petition</A></span>
+														
+									<span class="ml-4"><?= PrintDate($var["Elections_Date"]) ?></span>
+								  <span class="ml-4 ext-gray"><?= $var["CandidateElection_DBTable"] ?></span>
+								 	<span class="ml-4 user-mention"><?= $var["CandidateElection_DBTableValue"] ?></span>
+								  <span class="ml-4"><?= $var["Candidate_DispName"] ?></span>
+								</div>
+							 
+													
+							<?php
+											}
+										} 
+							?>
 
 							</div>
 							<BR>

@@ -126,6 +126,22 @@ class OutragedDems extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
+	function ListPetitionGroup($GroupID, $Status = NULL) {
+		$sql = "SELECT * FROM CandidateGroup " .
+						"LEFT JOIN Candidate ON (CandidateGroup.Candidate_ID = Candidate.Candidate_ID) " . 
+						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = CandidateGroup.DataCounty_ID) " .
+						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
+						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+						"LEFT JOIN CandidateComRplceSet ON (CandidateComRplceSet.Candidate_ID = Candidate.Candidate_ID) " .
+						"LEFT JOIN CandidateComRplce ON (CandidateComRplceSet.CandidateComRplce_ID = CandidateComRplce.CandidateComRplce_ID) " .
+						"WHERE CandidateGroup.CandidateSet_ID = :CandidateGroup_ID " .
+						"ORDER BY CandidateElection_DisplayOrder ASC";
+						
+		$sql_vars = array("CandidateGroup_ID" => $GroupID);
+		return $this->_return_multiple($sql, $sql_vars);
+		
+	}
+	
 	// This is base on SYstemUser
 	function ListCandidatePetition($CandidateID, $Status = NULL) {
 		$sql = "SELECT * FROM Candidate " .

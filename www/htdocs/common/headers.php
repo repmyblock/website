@@ -95,7 +95,7 @@
 
 <div class="navbar">
 <?php if ( $MenuLogin == "logged") { ?>
-  <a href="/<?= $k ?>/lgd/profile/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
+  <a href="/<?= $k ?>/lgd/profile/user" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
 <?php /*  <a href="/<?= $middleuri ?>/exp/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
 <?php /*  <a href="/<?= $k ?>/lgd/voters"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a> */ ?>
   <a href="/<?= $k ?>/training/steps/torun"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
