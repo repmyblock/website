@@ -74,10 +74,15 @@
 														"CandidateSet_ID" => $var["CandidateSet_ID"],	
 														"Candidate_ID" => $var["Candidate_ID"],	
 														"PendingBypass" => "yes"								
-													)); ?>/petition">Select</A></span>
+													)); ?>/petition">Single</A></span>
+													
+		<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/NY/<?= CreateEncoded(array(
+														"CandidateSet_ID" => $var["CandidateSet_ID"],	
+														"PendingBypass" => "yes"								
+													)); ?>/petition">Set</A></span>
 	 	<span class="ml-4 user-mention"><?= $var["CandidateSet_ID"] ?></span>
 	 	<span class="ml-4 user-mention"><?= $var["CandidatePositions_Type"] ?></span>
-	  <span class="ml-4 ext-gray"><?= $var["CandidatePositions_Name"] ?></span>
+	  <span class="ml-4 ext-gray"><?= $var["Candidate_PetitionNameset"] ?></span>
 	  <span class="ml-4"><?= $var["Candidate_DispName"] ?></span>
 	</div>
 					
@@ -101,8 +106,7 @@
 </DIV>
 </DIV>
 </DIV>
-
-[CandidateGroup_ID] => 15
+<PRE>	  [CandidateGroup_ID] => 15
             [CandidateSet_ID] => 15
             [Candidate_ID] => 17
             [CandidateGroup_Order] => 1
@@ -150,7 +154,9 @@
             [Voters_ID] => 
             [CandidateComRplce_FullName] => Jose Ramon Burgos
             [CandidateComRplce_Residence] => 125 E. 118th Street, New York, NY 10035
-        )
+            
+            
+</PRE>
 
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

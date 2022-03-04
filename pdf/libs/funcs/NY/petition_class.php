@@ -293,6 +293,12 @@ class PDF_Multi extends PDF_Code128 {
 		$this->SetXY(160, -7 );
 		$this->SetFont('Arial','',13);
 		$this->Cell(0, 0,	"SHEET No. ______ ");
+		
+		$this->SetXY(5, -7 );
+		$this->SetFont('Arial','',8);
+		$this->Cell(0, 0, $this->BarCode);
+	
+	
 	
 		//A,C,B sets
 		if (! empty ($this->BarCode)) {

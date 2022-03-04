@@ -25,6 +25,8 @@ if (strlen($k < 20)) {
 	$WaterMarkVoid = trim($_GET["Watermark"]);
 }
 
+WriteStderr($URIEncryptedString, "PDF Petition");
+
 $pdf->Watermark = "VOID - Do not use"; 
 $WritenSignatureMonth = "March";
 $Variable = "demo-CC";
@@ -39,6 +41,12 @@ if ( ! empty ($URIEncryptedString)) {
 		$Candidate_ID = $URIEncryptedString["Candidate_ID"];
 		$Variable = "person";
 	}
+	
+	if ( ! empty ($URIEncryptedString["CandidateSet_ID"])) {
+		$CandidateSet_ID = $URIEncryptedString["CandidateSet_ID"];
+		$Variable = "setid";
+	}
+	
 }
 	
 switch ($Variable) {
@@ -72,6 +80,8 @@ switch ($Variable) {
 	  } else {
 	  	$result = $r->ListPetitionGroup($CandidateSet_ID, "published");
 	  }
+	  
+	  WriteStderr($result, "Result Set ID");
 	
 		if ( ! empty ($result)) {
 			for ($i = 0; $i < count($result); $i++) { 	 		
@@ -137,7 +147,7 @@ switch ($Variable) {
 
 $pdf->county = $result[0]["CandidatePetition_VoterCounty"];
 $pdf->party = $result[0]["CandidateParty"];
-$pdf->ElectionDate = $ElectionDate;
+$pdf->ElectionDate =  PrintShortDate($result[0]["Elections_Date"]);
 
 $Petition_FileName = "";
 if ( ! empty ($result[0]["Candidate_UniqNYSVoterID"])) {
@@ -162,18 +172,20 @@ $Petition_FileName .= date("Ymd_Hi") . ".pdf";
 if ( ! empty ($result)) {
 	foreach ($result as $var) {
 		if (! empty ($var)) {
-			$PetitionData[$var["CandidateSet_ID"]]["TotalPosition"] = $var["CandidateElection_Number"];
-			$PetitionData[$var["CandidateSet_ID"]]["PositionType"]	= $var["CandidateElection_PositionType"];
-			$PetitionData[$var["CandidateSet_ID"]]["CandidateName"]	= $var["Candidate_DispName"];
-			$PetitionData[$var["CandidateSet_ID"]]["CandidatePositionName"]	= $var["CandidateElection_PetitionText"];
-			$PetitionData[$var["CandidateSet_ID"]]["CandidateResidence"] = $var["Candidate_DispResidence"];
+			$PetitionData[$var["CandidateGroup_ID"]]["TotalPosition"] = $var["CandidateElection_Number"];
+			$PetitionData[$var["CandidateGroup_ID"]]["PositionType"]	= $var["CandidateElection_PositionType"];
+			$PetitionData[$var["CandidateGroup_ID"]]["CandidateName"]	= $var["Candidate_DispName"];
+			$PetitionData[$var["CandidateGroup_ID"]]["CandidatePositionName"]	= $var["CandidateElection_PetitionText"];
+			$PetitionData[$var["CandidateGroup_ID"]]["CandidateResidence"] = $var["Candidate_DispResidence"];
 			if ( ! empty($var["CandidateComRplce_FullName"])) {					
-				$PetitionData[$var["CandidateSet_ID"]]["ComReplace_FullName"][$var["CandidateComRplce_ID"]] = $var["CandidateComRplce_FullName"];
-				$PetitionData[$var["CandidateSet_ID"]]["ComReplace_Residence"][$var["CandidateComRplce_ID"]] = $var["CandidateComRplce_Residence"];
+				$PetitionData[$var["CandidateGroup_ID"]]["ComReplace_FullName"][$var["CandidateComRplce_ID"]] = $var["CandidateComRplce_FullName"];
+				$PetitionData[$var["CandidateGroup_ID"]]["ComReplace_Residence"][$var["CandidateComRplce_ID"]] = $var["CandidateComRplce_Residence"];
 			}
 		}
 	}
 }
+
+WriteStderr($PetitionData, "Petition Data");
 
 $Counter = 1;
 $TotalCandidates = 0;
@@ -205,6 +217,9 @@ if ( ! empty ($PetitionData)) {
 		}
 	}
 }
+
+WriteStderr($TotalCandidates, "Total candidates");
+
 
 
 $pdf->NumberOfCandidates = $TotalCandidates;
@@ -264,13 +279,17 @@ $Counter = 0;
 
 $TotalCountName = count($Name);
 
+$DateForCounter = " ___ / ___ / " . date("Y");
+$DateForCounter = date("m") . " / ___ / " . date("Y");
+
+
 for ($i = 0; $i < $TotalCountName; $i++) {
 	$Counter++;
 	$YLocation = $pdf->GetY();
 
 	$pdf->SetFont('Arial', '', 10);
 	$pdf->SetY($YLocation - 13);
-	$pdf->Cell(38, 0, $Counter  . ". ___ / ___ / " . date("Y"), 0, 0, 'L', 0);	
+	$pdf->Cell(38, 0, $Counter . ". " . $DateForCounter, 0, 0, 'L', 0);	
 	
 	$pdf->SetX(195);
 	$pdf->Cell(38, 0, $County[$i], 0, 0, 'L', 0);
@@ -325,7 +344,7 @@ while ( $done == 1) {
 	
 	$pdf->SetXY( 6,  $YLocation - 4 );
 	$pdf->SetFont('Arial', '', 10);
-	$pdf->Cell(38, 0, $Counter . ". ___ / ___ / ". date("Y"), 0, 0, 'L', 0);
+	$pdf->Cell(38, 0, $Counter . ". " . $DateForCounter, 0, 0, 'L', 0);
 
 	$pdf->SetY($YLocation+0.8);	
 		

@@ -135,8 +135,10 @@ class OutragedDems extends queries {
 						"LEFT JOIN CandidateComRplceSet ON (CandidateComRplceSet.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CandidateComRplce ON (CandidateComRplceSet.CandidateComRplce_ID = CandidateComRplce.CandidateComRplce_ID) " .
 						"WHERE CandidateGroup.CandidateSet_ID = :CandidateGroup_ID " .
-						"ORDER BY CandidateElection_DisplayOrder ASC";
+						"ORDER BY CandidateGroup_Order ASC, CandidateComRplce_Order ASC";
 						
+		WriteStderr($sql, "ListPetitionGroup for $GroupID");				
+		
 		$sql_vars = array("CandidateGroup_ID" => $GroupID);
 		return $this->_return_multiple($sql, $sql_vars);
 		
