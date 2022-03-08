@@ -89,7 +89,7 @@ function myFunctionCopy(value) {
 				
 				
 				<P CLASS="f60">
-					<B><A HREF="">Share the documentary with friends and familly.</A></B>
+					<B><A HREF="/<?= $k ?>/exp/register/movie" TARGET="foward">Share the documentary with friends and familly.</A></B>
 				</P>
 				
 				</P>
@@ -133,7 +133,7 @@ function myFunctionCopy(value) {
 				</P>
 	
 				<P>
-					<B><A HREF="">Share the documentary with friends and familly.</A></B>
+					<B><A HREF="/<?= $k ?>/exp/register/movie" TARGET="foward">Share the documentary with friends and familly.</A></B>
 				</P>
 	
 				<?php } ?>

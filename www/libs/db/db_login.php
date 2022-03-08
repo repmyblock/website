@@ -280,7 +280,7 @@ class login extends queries {
 																		"SystemUser_createtime, SystemUser_lastlogintime, SystemUser_Priv"; 
 		$sql .= ") " .
 					 "SELECT SystemUserTemporary_email, :TypeEmail, SystemUserTemporary_username, " . 
-									"SystemUserTemporary_password, NOW(), NOW(), " . (PERM_MENU_PROFILE + PERM_MENU_SUMMARY);
+									"SystemUserTemporary_password, NOW(), NOW(), " . (PERM_MENU_PROFILE + PERM_MENU_SUMMARY + PERM_MENU_DOCU);
 		$sql .= " FROM SystemUserTemporary WHERE SystemUserTemporary_email = :TempEmail"; 
 		$sql_vars = array("TempEmail" => $TempEmail, "TypeEmail" => $TypeEmailVerif);																	
 		$this->_return_nothing($sql, $sql_vars);		
