@@ -12,6 +12,7 @@ const PERM_MENU_PLEDGES = 256;
 const PERM_ADMIN_MENU = 512;
 const PERM_ADMIN_RAWDB = 1024;
 const PERM_ADMIN_ASSIGNPRIV = 2048;
+const PERM_MENU_DOCU = 4096;
 
 function ordinal($number) {
   $ends = array('th','st','nd','rd','th','th','th','th','th','th');

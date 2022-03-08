@@ -10,6 +10,21 @@ class RepMyBlock extends queries {
 	  $DebugInfo["Flag"] = $debug;
 	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
+  
+  function RecordWatch($SystemID, $FullName, $Email) {
+		$sql = "INSERT INTO ZeMovieWtchd SET SystemUser_ID = :SystemUser, " .
+						"ZeMovieWtchd_FullName = :FullName, " .
+						"ZeMovieWtchd_Email = :Email, ZeMovieWtchd_Time = NOW()";
+		$sql_vars = array("SystemUser" => $SystemID, 
+											"FullName" => $FullName, "Email" => $Email);
+		return $this->_return_nothing($sql, $sql_vars);
+	}
+	
+	function GetMoviePassword() { 
+		$sql = "SELECT * FROM ZeMoviePwd;";
+		return $this->_return_simple($sql);
+	}
+
 
  	function database_showtables() {
   	$sql = "SHOW TABLES";
