@@ -70,7 +70,7 @@
 	
 	<P CLASS="f40">
 		You can get more info about the documentary by visiting the filmmaker go fund me page at 
-		<B><A HREF="https://www.gofundme.com/f/county-film" TARGET=GOFUND>https://www.gofundme.com/f/county-film</B></A>
+		<B><A HREF="https://www.gofundme.com/f/county-film" TARGET=GOFUND>https://www.gofundme.com/f/county-film</B></A>.
 	</P>
 	
 	<P CLASS="f80">
