@@ -93,7 +93,14 @@
 	<P>
 		<CENTER><A HREF="<?= $MultipleMailToText ?>"><IMG SRC="https://static.repmyblock.nyc/pics/paste/DeadMembers.jpg" WIDTH=75%></A></CENTER>
 	</P>
-	
+
+	<P>		
+		<CENTER>
+			<DIV class="videowrapper">
+			 <iframe width="560" height="315" src="https://www.youtube.com/embed/cP5PMTccc1k?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</DIV>		
+		</CENTER>
+	</P>
 	
 	
 	<P CLASS="f40">
