@@ -67,8 +67,15 @@
 	<?php break; 
 	} ?>
 	
+	<P CLASS="f60">
+		<B>COUNTY: A Documentary (2022)</B> - an investigative and advocacy piece, a story of activism, 
+		suppression and intrigue, driven by grassroots organizers in NYC who have been working to unveil 
+		this system and engage the public with the smallest, most fundamental building block of our 
+		democracy.
+	</P>
 	
-	<P CLASS="f40">
+	
+	<P CLASS="f60">
 		You can get more info about the documentary by visiting the filmmaker go fund me page at 
 		<B><A HREF="https://www.gofundme.com/f/county-film" TARGET=GOFUND>https://www.gofundme.com/f/county-film</B></A>.
 	</P>
