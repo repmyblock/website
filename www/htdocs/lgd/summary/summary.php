@@ -82,6 +82,14 @@
 				
 				<?php if ($MenuDescription == "District Not Defined") { ?>
 					<P CLASS="f80">
+						
+						<B>
+							<A HREF="/<?= $k ?>/lgd/profile/user">To watch the documentary, you
+								just need to save your first and last name in the personal profile</A>.
+						</B>
+					</P>
+					
+					<P>
 						<B>
 							<A HREF="/<?= $k ?>/lgd/profile/user">Before you can use the system,
 								you need to update your Personal Profile, verify your voter profile,

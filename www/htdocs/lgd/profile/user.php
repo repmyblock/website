@@ -132,7 +132,10 @@
 			     
 			<?php if (empty ($TopMenus)) { ?>
 				<P>
-					<B>You need to fill in your first and last name to enable other screens.</B>
+					<B>
+						You <FONT COLOR=BROWN>just</FONT> need to fill in your <FONT COLOR=BROWN>first</FONT> 
+						and <FONT COLOR=BROWN>last</FONT> name to enable other screens.
+					</B>
 				</P>
 			<?php } ?>
 			     
@@ -154,6 +157,8 @@
 									<input class="form-control" type="text" Placeholder="Last"  value="<?= $PersonLastName ?>" name="LastName" id="user_profile_name">
 								</dd>
 							</dl>
+							
+							<p><button type="submit" class="btn btn-primary">Update profile</button></p>
 							
 							<dl class="form-group">
 								<dt><label for="user_profile_blog">Email</label></dt>

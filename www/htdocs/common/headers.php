@@ -2,9 +2,7 @@
 	error_reporting(E_ERROR | E_PARSE);
 	if ( preg_match('/Mobile/', $_SERVER['HTTP_USER_AGENT'])) { $MobileDisplay = true; }
 	//$MobileDisplay = true; 
-	
-	
-		
+
 	if ( ! empty ($k) && ($URIEncryptedString["SystemUser_ID"] > 0 ||
 												$URIEncryptedString["SystemUser_ID"] == "TMP")) { 
 		$MenuLogin = "logged"; 

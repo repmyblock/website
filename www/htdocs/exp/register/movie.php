@@ -1,4 +1,8 @@
 <?php
+	$HeaderTwitter = 1;
+	$HeaderTwitterPicLink = "https://static.repmyblock.nyc/pics/paste/DeadMembers.jpg";
+	$HeaderTwitterDesc = "Are you alive? Don't let dead committee members decide for you. Watch the documentary!";                 
+          
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
 	switch($k) { 
@@ -78,6 +82,12 @@
 	<P CLASS="f40">
 		Don't forget to check <B>your SPAM folder</B> for the registration email from us.
 	</P>
+	
+	<P>
+		<CENTER><A HREF="<?= $MultipleMailToText ?>"><IMG SRC="https://static.repmyblock.nyc/pics/paste/DeadMembers.jpg" WIDTH=75%></A></CENTER>
+	</P>
+	
+	
 	
 	<P CLASS="f40">
 		If you made several requests, <A HREF="/<?= $middleuri ?>/register/investigate">click here to alert us 
