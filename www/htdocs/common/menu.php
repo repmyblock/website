@@ -24,6 +24,7 @@
     <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PETITIONS ) { ?><a class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/petitions/petitions">Petitions</a><?php } ?>
     <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_VOTERS ) { ?><a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/voters/voterlist">Voters</a><?php } ?>
     <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_TEAM ) { ?><a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/team/index">Team</a><?php } ?>
+   	<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DOCU ) { ?><a class="<?php if ( $Menu == "documentary" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/documentary/county">Documentary</a><?php } ?>
     <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_MESSAGES ) { ?><a class="<?php if ( $Menu == "messages" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/messages/messages">Messages</a><?php } ?>
     <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DOWNLOADS ) { ?><a class="<?php if ( $Menu == "downloads" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/downloads/downloads">Downloads</a><?php } ?>
   	<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PROFILE ) { ?><a class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?>mobilemenu" href="/<?= $k ?>/lgd/profile/user">Personal Profile</a><?php } ?>
@@ -58,6 +59,7 @@
 	    	<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PETITIONS ) { ?><a class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/petitions/petitions">Petitions</a><?php } ?>
 	   		<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_VOTERS ) { ?><a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/voters/voterlist">Voters</a><?php } ?>
 	    	<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_TEAM ) { ?><a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/team/index">Team</a><?php } ?>
+	    	<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DOCU ) { ?><a class="<?php if ( $Menu == "documentary" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/documentary/county">Documentary</a><?php } ?>
 	    	<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_MESSAGES ) { ?><a class="<?php if ( $Menu == "messages" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/messages/messages">Messages</a><?php } ?>
 	    	<?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DOWNLOADS ) { ?><a class="<?php if ( $Menu == "downloads" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/downloads/downloads">Downloads</a><?php } ?>
 		  </nav>
