@@ -89,15 +89,11 @@
 	<P CLASS="f40">
 		Don't forget to check <B>your SPAM folder</B> for the registration email from us.
 	</P>
-	
-	<P>
-		<CENTER><A HREF="<?= $MultipleMailToText ?>"><IMG SRC="https://static.repmyblock.nyc/pics/paste/DeadMembers.jpg" WIDTH=75%></A></CENTER>
-	</P>
 
 	<P>		
 		<CENTER>
 			<DIV class="videowrapper">
-			 <iframe width="560" height="315" src="https://www.youtube.com/embed/cP5PMTccc1k?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			 <iframe width="560" height="315" src="https://www.youtube.com/embed/_DVyS5m7dQs?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			</DIV>		
 		</CENTER>
 	</P>
