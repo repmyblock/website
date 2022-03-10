@@ -11,6 +11,32 @@ class OutragedDems extends queries {
 	  	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
+  function SearchInRawNYSFile($DataSearch) {
+   	
+   	$sqlquery = ""; $sql_vars = array();
+		$sql = "SELECT * FROM VotersRaw_NY WHERE (Status = 'A' OR Status = 'I') ";
+  	
+  	foreach ($DataSearch as $Param => $Search) {
+			$sqlquery .= " AND ";
+  		switch ($Param) {
+  			case "AD": $sqlquery .= "AssemblyDistr = :AD"; $sql_vars["AD"] = $Search; break;
+  			case "ED": $sqlquery .= "ElectDistr = :ED"; $sql_vars["ED"] = $Search; break;
+  			case "CD": $sqlquery .= "CountyCode = :CD"; $sql_vars["CD"] = $Search; break;
+  			case "LG": $sqlquery .= "LegisDistr = :LG"; $sql_vars["LG"] = $Search; break;
+  			case "TW": $sqlquery .= "TownCity = :TW"; $sql_vars["TW"] = $Search; break;
+  			case "WD": $sqlquery .= "Ward = :WD"; $sql_vars["WD"] = $Search; break;
+  			case "CG": $sqlquery .= "CongressDistr = :CG"; $sql_vars["CG"] = $Search; break;
+  			case "SD": $sqlquery .= "SenateDistr = :SD"; $sql_vars["SD"] = $Search; break;
+  			case "PT": $sqlquery .= "EnrollPolParty = :PT"; $sql_vars["PT"] = $Search; break;
+  		}
+  	}
+  	
+  	$sql .= $sqlquery; 	
+  	WriteStderr($sql, "SearchInRawNYSFile SQL");
+  	WriteStderr($sql_vars, "SearchInRawNYSFile SQL VARS");
+  	return $this->_return_multiple($sql, $sql_vars);  	
+  }
+  
   function UpdateCandidatePetitionHash($NYS, $Candidate_LocalHash) {
   	$sql = "UPDATE Candidate SET Candidate_LocalHash = NULL " .
   					"WHERE Candidate_UniqNYSVoterID = :NYS AND Candidate_LocalHash = :LocalHash";
@@ -27,42 +53,6 @@ class OutragedDems extends queries {
 		
 		$sql_vars = array('NYS' => $NYS, 'LocalHash' => $Candidate_LocalHash);											
 		return $this->_return_multiple($sql,  $sql_vars);
-	}
-	
-	function GetListAddresses($DatedFiles, $ResHouseNumber, $ResStreetName, $ResZip, $ResApt = NULL) {
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-
-		$sql = "SELECT * FROM " . $TableVoter . " WHERE " . 
-						"Raw_Voter_ResHouseNumber = :Number AND " .
-						"Raw_Voter_ResStreetName = :Name AND " .
-						"Raw_Voter_ResZip = :ZIP";
-		$sql_vars = array("Number" => $ResHouseNumber, "Name" => $ResStreetName, "ZIP" => $ResZip);	 					
-		return $this->_return_multiple($sql,  $sql_vars); 	
-	}
-
-	
-	function FindRawVoterbyID($DatedFiles, $VoterID) {
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_ID = :VoterID";	
-		$sql_vars = array('VoterID' => $VoterID);											
-		return $this->_return_multiple($sql,  $sql_vars);
-	}
-	
-	function FindRawVoterbyADED($DatedFiles, $EDDist, $ADDist, $Party, $order = 0) {
-		$TableVoter = "Raw_Voter_" . $DatedFiles;
-		$sql = "SELECT * FROM " . $TableVoter . " WHERE Raw_Voter_AssemblyDistr = :AssDist AND Raw_Voter_EnrollPolParty = :Party";	
-		$sql_vars = array('AssDist' => $ADDist, 'Party' => $Party);		
-		
-		if ( ! empty ($EDDist)) {
-			$sql .= " AND Raw_Voter_ElectDistr = :EleDist";
-			$sql_vars["EleDist"] = $EDDist;		
-		}		
-		
-		if ( $order > 0) {
-			$sql .= " ORDER BY Raw_Voter_ResStreetName, Raw_Voter_ResHouseNumber, Raw_Voter_ResApartment";
-		}
-			
-		return $this->_return_multiple($sql,  $sql_vars);		
 	}
 	
 	function ShowPetitionsForUser($UniqID) {
@@ -236,11 +226,11 @@ class OutragedDems extends queries {
 
 	function DB_ReturnAddressLine1($vor) {
 		$Address_Line1 = "";
-		if ( ! empty ($vor["Raw_Voter_ResHouseNumber"])) { $Address_Line1 .= $vor["Raw_Voter_ResHouseNumber"] . " "; }		
-		if ( ! empty ($vor["Raw_Voter_ResFracAddress"])) { $Address_Line1 .= $vor["Raw_Voter_ResFracAddress"] . " "; }		
-		if ( ! empty ($vor["Raw_Voter_ResPreStreet"])) { $Address_Line1 .= $vor["Raw_Voter_ResPreStreet"] . " "; }		
-		$Address_Line1 .= $vor["Raw_Voter_ResStreetName"] . " ";
-		if ( ! empty ($vor["Raw_Voter_ResPostStDir"])) { $Address_Line1 .= $vor["Raw_Voter_ResPostStDir"] . " "; }		
+		if ( ! empty ($vor["ResHouseNumber"])) { $Address_Line1 .= $vor["ResHouseNumber"] . " "; }		
+		if ( ! empty ($vor["ResFracAddress"])) { $Address_Line1 .= $vor["ResFracAddress"] . " "; }		
+		if ( ! empty ($vor["ResPreStreet"])) { $Address_Line1 .= $vor["ResPreStreet"] . " "; }		
+		$Address_Line1 .= $vor["ResStreetName"] . " ";
+		if ( ! empty ($vor["ResPostStDir"])) { $Address_Line1 .= $vor["ResPostStDir"] . " "; }		
 		//if ( ! empty ($vor["Raw_Voter_ResApartment"])) { $Address_Line1 .= "- Apt. " . $vor["Raw_Voter_ResApartment"]; }
 		$Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
 		return $Address_Line1;
@@ -248,31 +238,31 @@ class OutragedDems extends queries {
   
   function DB_ReturnAddressLine1Apt($vor) {
 		$Address_Line1 = "";
-		if ( ! empty ($vor["Raw_Voter_ResHouseNumber"])) { $Address_Line1 .= $vor["Raw_Voter_ResHouseNumber"] . " "; }		
-		if ( ! empty ($vor["Raw_Voter_ResFracAddress"])) { $Address_Line1 .= $vor["Raw_Voter_ResFracAddress"] . " "; }		
-		if ( ! empty ($vor["Raw_Voter_ResPreStreet"])) { $Address_Line1 .= $vor["Raw_Voter_ResPreStreet"] . " "; }		
-		$Address_Line1 .= $vor["Raw_Voter_ResStreetName"] . " ";
-		if ( ! empty ($vor["Raw_Voter_ResPostStDir"])) { $Address_Line1 .= $vor["Raw_Voter_ResPostStDir"] . " "; }		
-		if ( ! empty ($vor["Raw_Voter_ResApartment"])) { $Address_Line1 .= "- Apt. " . $vor["Raw_Voter_ResApartment"]; }
+		if ( ! empty ($vor["ResHouseNumber"])) { $Address_Line1 .= $vor["ResHouseNumber"] . " "; }		
+		if ( ! empty ($vor["ResFracAddress"])) { $Address_Line1 .= $vor["ResFracAddress"] . " "; }		
+		if ( ! empty ($vor["ResPreStreet"])) { $Address_Line1 .= $vor["ResPreStreet"] . " "; }		
+		$Address_Line1 .= $vor["ResStreetName"] . " ";
+		if ( ! empty ($vor["ResPostStDir"])) { $Address_Line1 .= $vor["ResPostStDir"] . " "; }		
+		if ( ! empty ($vor["ResApartment"])) { $Address_Line1 .= "- Apt. " . $vor["ResApartment"]; }
 		$Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
 		return $Address_Line1;
   }
   
   function DB_ReturnAddressLine2($vor) {
-  	$Address_Line2 = $vor["Raw_Voter_ResCity"] . ", NY " . $vor["Raw_Voter_ResZip"];
+  	$Address_Line2 = $vor["ResCity"] . ", NY " . $vor["ResZip"];
     return $Address_Line2;
   }
   
   function DB_ReturnAddressCity($vor) {
-  	return ucwords(strtolower(trim($this->DB_ReturnAddressLine1($vor) . "(" . $vor["Raw_Voter_ResCity"] . " Zip:" . $vor["Raw_Voter_ResZip"] . ")")));
+  	return ucwords(strtolower(trim($this->DB_ReturnAddressLine1($vor) . "(" . $vor["ResCity"] . " Zip:" . $vor["ResZip"] . ")")));
   }
   
 	
 	function DB_ReturnFullName($vor) {
-		$FullName = $vor["Raw_Voter_FirstName"] . " ";
-		if ( ! empty ($vor["Raw_Voter_MiddleName"])) { $FullName .= substr($vor["Raw_Voter_MiddleName"], 0, 1) . ". "; }
-		$FullName .= $vor["Raw_Voter_LastName"] ." ";
-		if ( ! empty ($vor["Raw_Voter_Suffix"])) { $FullName .= $vor["Raw_Voter_Suffix"]; }				
+		$FullName = $vor["FirstName"] . " ";
+		if ( ! empty ($vor["MiddleName"])) { $FullName .= substr($vor["MiddleName"], 0, 1) . ". "; }
+		$FullName .= $vor["LastName"] ." ";
+		if ( ! empty ($vor["Suffix"])) { $FullName .= $vor["Suffix"]; }				
 		$FullName = ucwords(strtolower($FullName));
 		return $FullName;
 	}	
