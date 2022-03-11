@@ -25,6 +25,8 @@
 		$WalkSheetUser["CandidateElection_DBTable"] = "ADED";
 		$WalkSheetUser["CandidateElection_DBTableValue"] = sprintf("%2d%03d", $URIEncryptedString["AD"], $URIEncryptedString["ED"]);
 				
+		$WalkSheetUser["Candidate_ID"] = $URIEncryptedString["Party"] . $URIEncryptedString["SystemID"];
+				
 	} else {
 
 		

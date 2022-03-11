@@ -20,7 +20,8 @@
 											"PreparedFor" => $_POST["PetitionFor"],
 											"ED" => $URIEncryptedString["ED"],
 										  "AD" => $URIEncryptedString["AD"],
-										  "Party" => $rmbperson["SystemUser_Party"]
+										  "Party" => $rmbperson["SystemUser_Party"],
+										  "SystemID" => $rmbperson["SystemUser_ID"]
 										));
 		
 		header("Location: " . $FrontEndPDF . "/rmb/" . $NewKEncrypt . "/voterlist");	
