@@ -15,6 +15,16 @@
 		$voters = $r->ListVotersForDataDistrict($URIEncryptedString["DataDistrict_ID"]);
 		$PreparedFor = $URIEncryptedString["PreparedFor"];
 		
+		$DataQuery = array("AD" => intval($URIEncryptedString["AD"]), "ED" => intval($URIEncryptedString["ED"]), 
+												"PT" => $URIEncryptedString["Party"]);
+		$voters = $r->SearchInRawNYSFile($DataQuery);
+		$PreparedFor = $URIEncryptedString["PreparedFor"];
+		$ElectionDate = PrintShortDate($WalkSheetUser["Elections_Date"]);
+		
+		
+		$WalkSheetUser["CandidateElection_DBTable"] = "ADED";
+		$WalkSheetUser["CandidateElection_DBTableValue"] = sprintf("%2d%03d", $URIEncryptedString["AD"], $URIEncryptedString["ED"]);
+				
 	} else {
 
 		
@@ -45,7 +55,7 @@
 	
 	$FileTitle = preg_replace('/[^a-zA-Z0-9]/', '', $PreparedFor);
 	$Today = date("Ymd_Hi");
-	$OutputFilename = "WalkSheet_" . $Today . "_" . $FileTitle . "_" . $WalkSheetUser["CandidateElection_DBTable"] . 
+	$OutputFilename = "WalkSheet_" . $FileTitle . "_" . $Today . "_" . $WalkSheetUser["CandidateElection_DBTable"] . 
 										$WalkSheetUser["CandidateElection_DBTableValue"] . 
 										".pdf";
 	
@@ -105,7 +115,7 @@
 	
 	$RestOfLine = "";
 	$pdf->Text_PubDate_XLoc = 153;
-	if ( $WalkSheetUser["CandidateElection_DBTable"] = "EDAD") {
+	if ( $WalkSheetUser["CandidateElection_DBTable"] = "ADED") {
 		preg_match('/(\d\d)(\d\d\d)/', $WalkSheetUser["CandidateElection_DBTableValue"], $Keywords);
 		$RestOfLine = " AD: " . intval($Keywords[1]) . " ED: " . intval($Keywords[2]);
 		$pdf->Text_PubDate_XLoc = 133;

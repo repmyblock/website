@@ -70,9 +70,12 @@
 														"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates">Select</A></span>
 														
 									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/NY/<?= CreateEncoded (
+											array("Candidate_ID" => $var["Candidate_ID"])); ?>/petition" TARGET=NEW>Petition</A></span>
+														
+									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/rmb/<?= CreateEncoded (
 											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-														"Candidate_ID" => $var["Candidate_ID"])); ?>/petition">Petition</A></span>
+														"Candidate_ID" => $var["Candidate_ID"])); ?>/voterlist" TARGET=NEW>Walk Sheet</A></span>					
 														
 									<span class="ml-4"><?= PrintDate($var["Elections_Date"]) ?></span>
 								  <span class="ml-4 ext-gray"><?= $var["CandidateElection_DBTable"] ?></span>

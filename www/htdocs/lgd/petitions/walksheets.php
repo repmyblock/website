@@ -17,21 +17,16 @@
 	
 		$NewKEncrypt = CreateEncoded (array(
 											"DataDistrict_ID" => $URIEncryptedString["DataDistrict_ID"],
-											"PreparedFor" => $_POST["PetitionFor"]
+											"PreparedFor" => $_POST["PetitionFor"],
+											"ED" => $URIEncryptedString["ED"],
+										  "AD" => $URIEncryptedString["AD"],
+										  "Party" => $rmbperson["SystemUser_Party"]
 										));
 		
 		header("Location: " . $FrontEndPDF . "/rmb/" . $NewKEncrypt . "/voterlist");	
-
-		
-		echo "<PRE>" . print_r($_POST, 1) . '</PRE>';
-		echo "<PRE>" . print_r($rmbwalksheet, 1) . '</PRE>';
 		exit();
-		
 	}
-	
-	
-//	
-	
+
 	
 	$Party = PrintParty($UserParty);
 

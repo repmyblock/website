@@ -6,6 +6,8 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
+	
+	WriteStderr($Result, "I am starting the Voter List");
 
 	if ( ! empty ($_POST)) {
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";
@@ -45,7 +47,7 @@
 			$ErrorMsg = "The NYS Voter ID is invalid";
 		}
 			
-	} elseif (! empty ($URIEncryptedString["Query_LastName"])) {
+	} else if (! empty ($URIEncryptedString["Query_LastName"])) {
 		$Result = $rmb->SearchVoter_Dated_DB($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, $DatedFilesID,
 																					$URIEncryptedString["Query_FirstName"], $URIEncryptedString["Query_LastName"], NULL,
 																					$URIEncryptedString["Query_ZIP"], $URIEncryptedString["Query_COUNTY"],
@@ -69,7 +71,7 @@
 		}
 	} 
 	
-
+	
 	if ( empty ($Result)) {
 		$ErrorMsg = "Voter not found";		
 		header("Location: /admin/" .  CreateEncoded ( array( 	
@@ -93,6 +95,7 @@
 					)) . "/voterlookup");
 		exit();
 	}
+	
 
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
