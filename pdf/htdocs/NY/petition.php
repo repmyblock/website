@@ -71,8 +71,11 @@ switch ($Variable) {
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
 		}
 		
-		$pdf->Watermark = "VOID - Do not use " . $result[0]["Candidate_Status"]; 
-				
+		if ($result[0]["Candidate_Watermark"] == 'no') { $pdf->Watermark = NULL; }	
+		else {
+			$pdf->Watermark = "VOID - Do not use " . $result[0]["Candidate_Status"]; 
+		}
+			
 		if ( $result[0]["Candidate_Status"] == "published" || $URIEncryptedString["PendingBypass"] == "yes") break;
 		goto democc;
 		break;
