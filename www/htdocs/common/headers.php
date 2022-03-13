@@ -32,6 +32,7 @@
 		<meta name="twitter:site" content="@RepMyBlock" />
 		<meta name="twitter:image" content="<?= $HeaderTwitterPicLink ?>" />
 		<meta name="twitter:creator" content="@RepMyBlock" />
+    <meta name="Description" CONTENT="A website to prepare political state nominating petitions to run for party and elected office.">
 		<TITLE>Rep My Block - Represent My Block - Nominate A Candidate</TITLE>
 		<link rel="icon" href="/images/favicon/favicon.ico" type="image/x-icon">
 		<link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon">

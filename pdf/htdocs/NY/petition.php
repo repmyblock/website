@@ -56,7 +56,10 @@ switch ($Variable) {
 	  	$result = $r->ListCandidatePetition($Candidate_ID);	  	
 	  } else {
 	  	$result = $r->ListCandidatePetition($Candidate_ID, "published");
+	  	WriteStderr($result, "PDF Petition RESULT IN Person");
 	  }
+	  
+		$result[0]["CandidateGroup_ID"] = 1;
 	  
   	if ( ! empty ($result)) {
   		for ($i = 0; $i < count($result); $i++) { 	 		
@@ -64,7 +67,7 @@ switch ($Variable) {
 				$result[$i]["CandidateParty"] = PrintPartyAdjective($result[0]["Candidate_Party"]);
 				$result[$i]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
 			}
-			$pdf->BarCode = "P" . $SystemUser_ID;
+			$pdf->BarCode = "P" . $Candidate_ID;
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
 		}
 		

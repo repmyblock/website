@@ -21,8 +21,6 @@
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 			<div class="col-9 float-left">
-    
-
 				<div class="Subhead">
 			  	<h2 class="Subhead-heading">Walk Sheets</h2>
 				</div>
