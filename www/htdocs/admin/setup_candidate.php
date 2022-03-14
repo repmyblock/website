@@ -88,22 +88,17 @@
 									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-														"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>CRU Form</A></span>					
+														"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/CRU_PreFile" TARGET=NEW>CRU Form</A></span>					
 
 									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-														"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>Cover Sheet</A></span>					
+														"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Cover Sheet</A></span>					
 
 									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-														"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>Narrow</A></span>					
-									
-														
-
-								 
-								  
+														"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Narrow</A></span>						  
 								</div>
 							 
 													
