@@ -20,7 +20,7 @@
 	WriteStderr($result, "ListCandidates");
 	
 	$TopMenus = array ( 						
-		array("k" => $k, "url" => "../admin/setup_candidate", "text" => "Candidate Profile")
+		array("k" => $k, "url" => "../admin/setup_candidate", "text" => "Candidate Profile"),
 		array("k" => $k, "url" => "../admin/setup_dates", "text" => "Elections Dates"),
 		array("k" => $k, "url" => "../admin/setup_elections", "text" => "Race Type"),
 	);
