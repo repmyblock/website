@@ -20,9 +20,9 @@
 	WriteStderr($result, "ListCandidates");
 	
 	$TopMenus = array ( 						
-		array("k" => $k, "url" => "../admin/setup_elections", "text" => "Race Type"),
-		array("k" => $k, "url" => "../admin/setup_dates", "text" => "Elections Dates"),
 		array("k" => $k, "url" => "../admin/setup_candidate", "text" => "Candidate Profile")
+		array("k" => $k, "url" => "../admin/setup_dates", "text" => "Elections Dates"),
+		array("k" => $k, "url" => "../admin/setup_elections", "text" => "Race Type"),
 	);
 	
 
@@ -63,11 +63,19 @@
 										if ( ! empty ($result)) {
 											foreach ($result as $var) {
 							?>		
+							
+							
+							
 								<div class="flex-items-left">
+							
+						
+							
 								 	<span class="ml-4 flex-items-baseline"><A HREF="/<?= CreateEncoded (
 											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-														"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates">Select</A></span>
+														"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates"><?= $var["Candidate_DispName"] ?></A></span>
+						 <span class="ml-4 ext-gray"><?= $var["CandidateElection_DBTable"] ?></span>
+						 	<span class="ml-4 user-mention"><?= $var["CandidateElection_DBTableValue"] ?></span>
 														
 									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 											array("Candidate_ID" => $var["Candidate_ID"])); ?>/NY/petition" TARGET=NEW>Petition</A></span>
@@ -76,11 +84,26 @@
 											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
 														"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>Walk Sheet</A></span>					
+									
+									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+														"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>CRU Form</A></span>					
+
+									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+														"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>Cover Sheet</A></span>					
+
+									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+														"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>Narrow</A></span>					
+									
 														
-									<span class="ml-4"><?= PrintDate($var["Elections_Date"]) ?></span>
-								  <span class="ml-4 ext-gray"><?= $var["CandidateElection_DBTable"] ?></span>
-								 	<span class="ml-4 user-mention"><?= $var["CandidateElection_DBTableValue"] ?></span>
-								  <span class="ml-4"><?= $var["Candidate_DispName"] ?></span>
+
+								 
+								  
 								</div>
 							 
 													

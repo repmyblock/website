@@ -35,7 +35,7 @@
 	 		<A HREF="/<?= $k ?>/admin/userlookup" class="mobilemenu">RepMyBlock User</A><BR>	
  			<A HREF="/<?= $k ?>/admin/voterlist">Voter Lookup</A><BR>
   		<A HREF="/<?= $k ?>/admin/track">Petitions Tracker</A><BR>	
-  		<A HREF="/<?= $k ?>/admin/setup_elections">Election Maintenance</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/setup_candidates">Election Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_positions">Position Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_petitions">Petition Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/integrity_verif">Verify Data Integrity</A><BR>	
