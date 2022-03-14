@@ -79,7 +79,7 @@
 				</P>
 				
 				<P CLASS="f40">
-					<B>Download : <A TARGET="BLANKPETITION3" HREF="<?= $FrontEndPDF ?>/E<?= $result[0]["CandidatePetitionSet_ID"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/CRU_PreFile">the Petition-Pre Assigned form</A></B> and 
+					<B>Download : <A TARGET="BLANKPETITION3" HREF="<?= $FrontEndPDF ?>/E<?= $result[0]["Candidate_ID"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/NYC/CRU_PreFile">the Petition-Pre Assigned form</A></B> and 
 					mail it to the Candidate Record Unit of the Board of Election.
 				</P>
 				
