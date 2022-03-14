@@ -24,6 +24,13 @@
 			in New York State. Running for President of the United States, City Council, 
 			or County Committee follow the same process. 			
 		</P>
+		
+		<P CLASS="f40">
+			Rep My Block strives to simplify the process of running through a streamlined 
+			petitioning process from other antiquated options in use for decades.
+		</P>
+		
+		
 	</DIV>
 	
 	<H2>Yes, I want to run</H2>
@@ -158,10 +165,12 @@
 	</DIV>
 	
 	<P CLASS="f40 justify">
-		Rep My Block is a community-based system that uses the power of the community. We can set 
-		up dropping points throughout the community and submit the petitions for you. All you will 
-		need to do is to staple your petition together and drop them at a drop-off location. Here 
-		is how to properly file your petition sheets with the Board of Election.
+		Rep My Block is a community-based system that uses the power of the community.
+		We can set up dropping points throughout the community and submit the petitions 
+		for you. All you will need to do is to staple your petition together and drop 
+		them at a drop-off location. Here is how to properly file your petition sheets 
+		with the Board of Election.
+
 
 	</P>
 
@@ -170,22 +179,22 @@
 		
 
 
-	<H2>The Sixth Step</H2>
+	<H2> Election Day</H2>
 	
 	
 	<P CLASS="f40 justify">
-		This is the exciting step where you run for County Committee! Remind your neighbors to vote for you 
-		on <?= $ImportantDates["NY"]["LongDate"]["PrimaryElection"] ?> <I>(be sure to collect their contact 
-		info during petitioning)</I>.
+		In this exciting step where you run for County Committee! Remind your neighbors to vote for 
+		you on <?= $ImportantDates["NY"]["LongDate"]["PrimaryElection"] ?> <I>(be sure to collect 
+			their contact info during petitioning)</I>.
 	</P>
 	
 	<P CLASS="f40 justify">
-		The night before, we suggest that you post flyers around your district to remind your voters to vote for you. 	
+		The night before, we suggest posting flyers around your district to remind your voters to vote for you.  	
 	</P>
 	
 	<P CLASS="f40 justify">
-		Rep My Block resources will have a few tools to help you create a quick flier to post around your block. We 
-		also explain the Department of Sanitation rules about postering.
+		Rep My Block resources will have a few tools to help you create a quick flyer to post around your block. 
+		We also explain the Department of Sanitation rules about postering.
 	</P>
 
 	

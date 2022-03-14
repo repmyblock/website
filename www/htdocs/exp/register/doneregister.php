@@ -14,7 +14,21 @@
 		<p CLASS="f80">
 			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
 		</P>
-	
+		
+		
+		<p CLASS="f60">
+			The instructional video will show you what to expect once you login for the first time.
+		</P>
+			
+		</P>
+		<CENTER>
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/7_A5JlEyMc8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</CENTER>
+		</P>
+		
+		<p CLASS="f80">
+			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
+		</P>
 		
 	</DIV>
 </DIV>
