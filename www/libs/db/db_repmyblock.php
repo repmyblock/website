@@ -732,6 +732,12 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
+	
+	function SearchRawVoterInfo($UniqNYSVoterID) { 
+		$sql = "SELECT * FROM VotersRaw_NY WHERE UniqNYSVoterID = :Uniq";
+		$sql_vars = array("Uniq" => $UniqNYSVoterID);		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
 
 	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED, $Party, $VoterCount = 0) {
 		$sql = "UPDATE SystemUser SET Voters_UniqStateVoterID = :NYSVoterID, SystemUser_EDAD = :EDAD, SystemUser_Party = :Party, " . 

@@ -36,15 +36,15 @@
 				?>	
 				<P CLASS="f60">
 						Download a 
-						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/<?= $rmbperson["DataState_Abbrev"] ?>/E<?= $result[0]["Candidate_ID"] ?>/petition">blank petition</A>
-						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/<?= $rmbperson["DataState_Abbrev"] ?>/E<?= $result[0]["Candidate_ID"] ?>/petition"><i class="fa fa-download" aria-hidden="true"></i></A> 
+						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/E<?= $result[0]["Candidate_ID"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/petition">blank petition</A>
+						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/E<?= $result[0]["Candidate_ID"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/petition"><i class="fa fa-download" aria-hidden="true"></i></A> 
 						
 						
 						
 						and a
 						
-						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/rmb/<?= $NewKEncrypt ?>/voterlist">list of voters</A>
-						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/rmb/<?= $NewKEncrypt ?>/voterlist"><i class="fa fa-download" aria-hidden="true"></i></A>
+						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/<?= $NewKEncrypt ?>/rmb/voterlist">list of voters</A>
+						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/<?= $NewKEncrypt ?>/rmb/voterlist"><i class="fa fa-download" aria-hidden="true"></i></A>
 						
 				
 				</P>

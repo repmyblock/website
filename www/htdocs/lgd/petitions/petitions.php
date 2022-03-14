@@ -25,14 +25,12 @@
 			  	<h2 class="Subhead-heading">Walk Sheets</h2>
 				</div>
 				
-			
 			  <div class="Box">
 					<div class="Box-header pl-0">
 						<div class="table-list-filters d-flex">
 							<div class="table-list-header-toggle states flex-justify-start pl-3">Walk Sheets</div>
 						</div>
 			    </div>
-			    
 			    
 			    <div class="Box-body  py-6 js-collaborated-repos-empty">
 			    	<FORM ACTION="" METHOD="POST">

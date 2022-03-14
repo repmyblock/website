@@ -24,7 +24,7 @@
 										  "SystemID" => $rmbperson["SystemUser_ID"]
 										));
 		
-		header("Location: " . $FrontEndPDF . "/rmb/" . $NewKEncrypt . "/voterlist");	
+		header("Location: " . $FrontEndPDF . "/" . $NewKEncrypt . "/rmb/voterlist");	
 		exit();
 	}
 
