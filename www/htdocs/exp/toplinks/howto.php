@@ -6,7 +6,7 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
 
 	/* User is logged */
-	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php";	
 ?>
 
 <div class="main">
@@ -20,19 +20,17 @@
 		</P>
 
 		<P CLASS="f40">
-			The filing period will begin on <B>March 30<SUP>th</SUP></B> and end at midnight on April 2<SUP>nd</SUP>. 
-			<B>You do not need to drop your petitions before March 30<SUP>th</SUP>.</B>
+			The filing period will begin on <B><?= $ImportantDates["NY"]["LongDate"]["FirstSubmitDay"]?></B> 
+			and end at midnight on <?= $ImportantDates["NY"]["LongDate"]["LastPetitionDay"] ?>. 
+			<B>You do not need to drop your petitions before <?= $ImportantDates["NY"]["LongDate"]["FirstSubmitDay"]?>.</B>
 		<BR>
 			Before you drop your petitions, you will need to apply for a Pre Assigned ID Number by 
-			<B><A HREF="<?= $FrontEndPDF ?>/NYS/NYC/CRU_PreFile/" TARGET="CRU">completing the Petition Pre Assigned Identification Number Application</A></B>
+			<B><A HREF="<?= $FrontEndPDF ?>/BLANK/NY/NYC/CRU_PreFile" TARGET="CRU">completing the Petition Pre Assigned Identification Number Application</A></B>
 			and mailing it to the Candidate Record Unit at the Board of Election.
 		<BR>
 		 <I>(If you have used the RepMyBlock system, <A HREF="/<?= $middleuri ?>/exp/login/login"><B>log into your account</B></A> to download a custom pre-filed one.)</I>
 		</P>
-		
-		<P>
-			<IMG SRC="/images/BOECalendar.png">
-		</P>
+	
 	</DIV>
 	</DIV>
 </div>
