@@ -21,7 +21,7 @@
 
 		<P CLASS="f40">
 			The filing period will begin on <B><?= $ImportantDates["NY"]["LongDate"]["FirstSubmitDay"]?></B> 
-			and end at midnight on <?= $ImportantDates["NY"]["LongDate"]["LastPetitionDay"] ?>. 
+			and end at midnight on <B><?= $ImportantDates["NY"]["LongDate"]["LastPetitionDay"] ?></B>. 
 			<B>You do not need to drop your petitions before <?= $ImportantDates["NY"]["LongDate"]["FirstSubmitDay"]?>.</B>
 		<BR>
 			Before you drop your petitions, you will need to apply for a Pre Assigned ID Number by 
