@@ -7,7 +7,7 @@
 
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	$rmb = new repmyblock();
+	$rmb = new RepMyBlock();
 	
 	$TopMenus = array ( 
 								array("k" => $k, "url" => "/profile/user", "text" => "Public Profile"),
@@ -64,6 +64,12 @@
 			}
 		}
 	}
+	
+	
+	// To be removed later on when I finihs fixing the table.
+	$RawVoterNY = $rmb->SearchRawVoterInfo($rmbvoters["VotersIndexes_UniqStateVoterID"]);
+	$RawVoterNY = $RawVoterNY[0];
+	WriteStderr($RawVoterNY, "RawVoterNY");
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
@@ -169,7 +175,7 @@
 					</TR>
 				</TABLE>
 				
-				
+				  
 	
 				
 				<BR>
@@ -181,21 +187,25 @@
 						<TH style="padding:0px 10px;">County</TH>
 					</TR>
 					<TR ALIGN=CENTER>
-						<TD style="padding:0px 10px;"><?= $var["DataDistrict_StateAssembly"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["DataDistrict_Electoral"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["DataDistrict_Congress"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["DataCounty_Name"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $RawVoterNY["AssemblyDistr"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $RawVoterNY["ElectDistr"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $RawVoterNY["CongressDistr"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $RawVoterNY["DataCounty_Name"] ?></TD>
+
+<?php /* This is the original to return to place late on.  
+					//	<TD style="padding:0px 10px;"><? = $var["DataDistrict_StateAssembly"] ? ></TD>
+				//		<TD style="padding:0px 10px;"><? = $var["DataDistrict_Electoral"] ? ></TD>
+				//		<TD style="padding:0px 10px;"><? = $var["DataDistrict_Congress"] ? ></TD>
+				//		<TD style="padding:0px 10px;"><? = $var["DataCounty_Name"] ? ></TD>
+					*/	 ?>
+						
 					</TR>
 				</TABLE>
 				<BR>
 				
-				<P>
-					Because of the resitricting, we need you to verify your Assembly district
-					and Electoral district manually on the next page.					
-				</P>
 				
 				
-						
+				    
 				<TABLE BORDER=1>
 					<TR>
 						<TH style="padding:0px 10px;">Address</TH>
@@ -225,12 +235,23 @@
 					<TH style="padding:0px 10px;">Senate</TH>
 				</TR>
 				<TR ALIGN=CENTER>
-					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Legislative"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $var["DataDistrict_TownCity"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Ward"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $var["DataDistrict_SenateSenate"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $RawVoterNY["LegisDistr"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $RawVoterNY["TownCity"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $RawVoterNY["Ward"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $RawVoterNY["SenateDistr"] ?></TD>
+					
+					
+					<?php /* Return to original later
+						<TD style="padding:0px 10px;"><? = $var["DataDistrict_Legislative"] ?></TD>
+					<TD style="padding:0px 10px;"><? = $var["DataDistrict_TownCity"] ?></TD>
+					<TD style="padding:0px 10px;"><? = $var["DataDistrict_Ward"] ?></TD>
+					<TD style="padding:0px 10px;"><? = $var["DataDistrict_SenateSenate"] ?></TD>
+					*/ ?>
 				</TR>
 			</TABLE>
+			
+			     
+							
 			
 			<BR>
 			<TABLE BORDER=1>

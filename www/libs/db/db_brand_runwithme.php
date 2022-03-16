@@ -26,8 +26,8 @@ class runwithme extends queries {
 	} 
 	
 	
-	function FindNeibors($NYSID, $HseNbr, $FracAddress, $Apt, $PreStreet, $StreetName, $PostStreet, $City, $Zip, $DatedFile) {
-		$sql = "SELECT * FROM $DatedFile " . 
+	function FindNeibors($NYSID) {
+		$sql = "SELECT * FROM VotersRaw_NY" . 
 						"WHERE (Raw_Voter_Status = 'ACTIVE' OR Raw_Voter_Status = 'INACTIVE') " . 
 						"AND Raw_Voter_ResStreetName = :StreetName AND Raw_Voter_ResZip = :Zip";
 		$sql_vars = array("StreetName" => $StreetName, "Zip" => $Zip);

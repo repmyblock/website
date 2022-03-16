@@ -39,6 +39,7 @@
   		<A HREF="/<?= $k ?>/admin/setup_positions">Position Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_petitions">Petition Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/integrity_verif">Verify Data Integrity</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/createcruform">Create a NYC CRU id form</A><BR>	
     </dd>
   </dl>
 
