@@ -63,9 +63,6 @@
 										if ( ! empty ($result)) {
 											foreach ($result as $var) {
 							?>		
-							
-							
-							
 								<div class="flex-items-left">	
 									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array("Candidate_ID" => $var["Candidate_ID"])); ?>/NY/petition" TARGET=NEW>Pets</A>
@@ -97,8 +94,7 @@
 													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
 													"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates"><?= $var["Candidate_DispName"] ?></A></span>
 								</div>
-							 
-													
+
 							<?php
 											}
 										} 
