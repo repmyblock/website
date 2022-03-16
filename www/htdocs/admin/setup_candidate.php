@@ -72,12 +72,12 @@
 							
 						
 									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
-											array("Candidate_ID" => $var["Candidate_ID"])); ?>/NY/petition" TARGET=NEW>Petition</A>
+											array("Candidate_ID" => $var["Candidate_ID"])); ?>/NY/petition" TARGET=NEW>Pets</A>
 														
 								<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-														"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>Walk Sheet</A></span>					
+														"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>WlkShts</A></span>					
 									
 									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
