@@ -66,42 +66,36 @@
 							
 							
 							
-								<div class="flex-items-left">
-							
-						
-							
-						
+								<div class="flex-items-left">	
 									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
-											array("Candidate_ID" => $var["Candidate_ID"])); ?>/NY/petition" TARGET=NEW>Pets</A>
+										array("Candidate_ID" => $var["Candidate_ID"])); ?>/NY/petition" TARGET=NEW>Pets</A>
 														
-								<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
-											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
-														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-														"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>WlkShts</A></span>					
+									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>WlkShts</A>
+												
+									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/CRU_PreFile" TARGET=NEW>CRUFm</A>
+												
+									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Cvr Shts</A>
 									
-									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
-											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
-														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-														"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/CRU_PreFile" TARGET=NEW>CRU Form</A>
-														
-										<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
-												array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
-															"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-															"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Cvr Shts</A>
-										
-										<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
-												array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
-															"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-															"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>(Nrow)</A></span>						  
-								
-									<span class="ml-4 ext-gray"><?= $var["CandidateElection_DBTable"] ?> <?= $var["CandidateElection_DBTableValue"] ?></span>
+									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>(Nrow)</A>
+				
+									<?= $var["CandidateElection_DBTable"] ?> <?= $var["CandidateElection_DBTableValue"] ?></span>
 						 	
 									<span class="ml-4 flex-items-baseline"><A HREF="/<?= CreateEncoded (
-											array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
-														"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-														"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates"><?= $var["Candidate_DispName"] ?></A></span>
-						 
-														
+										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates"><?= $var["Candidate_DispName"] ?></A></span>
 								</div>
 							 
 													
