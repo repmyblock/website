@@ -76,7 +76,7 @@
 		<P>
 			<B><FONT COLOR=BROWN>If you are a candidate for higher office, please send an email to 
 			</FONT> <A HREF="mailto:candidate@repmyblock.org">candidate@repmyblock.org</A> 
-			<FONT COLOR=BROWN>to access the obnibus petitions.</FONT></B>
+			<FONT COLOR=BROWN>to access the omnibus petitions.</FONT></B>
 		</P>
 
 
