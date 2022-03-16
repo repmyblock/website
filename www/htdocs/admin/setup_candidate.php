@@ -87,12 +87,12 @@
 										<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 												array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 															"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-															"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Cover Sheet</A>
+															"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Cvr Shts</A>
 										
 										<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 												array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 															"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-															"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Narrow</A></span>						  
+															"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>(Nrow)</A></span>						  
 								
 									<span class="ml-4 ext-gray"><?= $var["CandidateElection_DBTable"] ?> <?= $var["CandidateElection_DBTableValue"] ?></span>
 						 	
