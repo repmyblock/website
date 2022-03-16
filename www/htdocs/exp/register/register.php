@@ -30,7 +30,7 @@
 	<?php switch($oldk) { 
 		case "invalidcode": ?>
 		
-		<P CLASS="f60">
+		<P CLASS="f80">
 			<B><FONT COLOR=brown>The code you were given is invalid.</FONT></B> 
 		</P>
 		
@@ -40,10 +40,16 @@
 			and following the registration process.
 		</P>
 		
+		<P CLASS="f80">
+			<A HREF="<?= $MailToText ?>">Please  
+			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO PETITION</FONT>"</A>
+			and you will receive a link with the registration information.
+		</P>
+		
 	<?php break;
 		case "emailreg": ?>
 		
-		<P CLASS="f60">
+		<P CLASS="f80">
 			<B><FONT COLOR=brown>That email address is already in our database.</FONT></B> 
 		</P>
 		
@@ -61,7 +67,7 @@
 		</P>
 		
 	<?php break; 
-	} ?>
+		default: ?>
 	
 	<P CLASS="f80">
 		<A HREF="<?= $MailToText ?>">Please  
@@ -73,6 +79,9 @@
 		<B>Check your SPAM folder.</B>
 	</P>
 
+
+	<?php break; 
+	} ?>
 	
 	<P CLASS="f40">
 		If you made several requests, <A HREF="/<?= $middleuri ?>/register/investigate">click here to alert us 
