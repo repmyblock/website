@@ -8,6 +8,9 @@ class RepMyBlock extends queries {
 	  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
 	  $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
 	  $DebugInfo["Flag"] = $debug;
+	  
+	  WriteStderr($DebugInfo, "RepMyBlock ->");	
+	  
 	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
@@ -744,6 +747,12 @@ class RepMyBlock extends queries {
 		$sql_vars = array("Uniq" => $UniqNYSVoterID);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
+	
+	
+	function GetAdminStats() {
+		$sql = "SELECT * FROM SystemStats";
+		return $this->_return_multiple($sql);		
+	}
 
 	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED, $Party, $VoterCount = 0) {
 		$sql = "UPDATE SystemUser SET Voters_UniqStateVoterID = :NYSVoterID, SystemUser_EDAD = :EDAD, SystemUser_Party = :Party, " . 
@@ -951,7 +960,7 @@ class RepMyBlock extends queries {
 		}		
 	}
 	
-
+	
 	function ListEDByDistricts($DistrictCycle, $DistrictType, $DistrictValue)	{
 		$sql = "SELECT DISTINCT DataDistrict.DataDistrict_ID, DataDistrict_Electoral AS ED, DataDistrict_StateAssembly AS AD ";
 	
@@ -984,6 +993,42 @@ class RepMyBlock extends queries {
 		$sql .= "WHERE DataDistrictCycle.DataDistrictCycle_ID = :CycleID ";
 		$sql .= $sql_query;		
 		$sql .= "ORDER BY DataDistrict_StateAssembly, DataDistrict_Electoral";
+	
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	
+
+	function ListRawNYEDByDistricts( $DistrictType, $DistrictValue)	{
+	
+		$sql = "SELECT AssemblyDistr AS AD, ElectDistr AS ED";
+
+		switch ($DistrictType) {
+			case "AD":
+				$sql .= ", AssemblyDistr AS District ";
+				$sql_vars = array( "AD" => $DistrictValue);
+				$sql_query = "AND AssemblyDistr = :AD ";
+				$sql_group = "GROUP BY ElectDistr";
+				break;
+			
+			case "CG":
+				$sql .= ", CongressDistr AS District ";
+				$sql_vars = array( "CG" => $DistrictValue);
+				$sql_query = "AND CongressDistr = :CG ";
+				$sql_group = "GROUP BY ElectDistr, AssemblyDistr";
+				break;
+				
+			case "SN":
+				$sql .= ", SenateDistr AS District ";
+				$sql_vars = array( "SN" => $DistrictValue);
+				$sql_query = "AND SenateDistr = :SN ";
+				$sql_group = "GROUP BY ElectDistr, AssemblyDistr";
+				break;
+		}
+		
+		$sql .= "FROM VotersRaw_NY WHERE Status = 'A' ";
+		$sql .= $sql_query;		
+		$sql .= $sql_group . " ORDER BY AssemblyDistr, CAST(ElectDistr as unsigned)";
 	
 		return $this->_return_multiple($sql, $sql_vars);
 	}
