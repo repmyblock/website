@@ -11,7 +11,13 @@
   $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
   
   if ( ! empty ($_POST)) {
-  	$result = $rmb->ListEDByDistricts(1, trim($_POST["TYPE"]), intval($_POST["VALUE"]));
+  	
+  	if ( ! empty ($_POST["TYPE"]) && ! empty ($_POST["VALUE"])) {
+	  	$result = $rmb->ListRawNYEDByDistricts(trim($_POST["TYPE"]), intval($_POST["VALUE"]));
+  	} else {
+  		$ErrorMsg = "The Search cannot be empty";
+  	}	
+
   }
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
@@ -34,16 +40,24 @@
 			    
 			    <div class="Box-body  py-6 js-collaborated-repos-empty">
 			    	<FORM ACTION="" METHOD="POST">
+			    		
+			    	<?php if ( ! empty ($ErrorMsg)) {
+			    		
+			    		echo "<B><FONT COLOR=BROWN>" . $ErrorMsg . "</FONT><BR>";
+			    		
+			    	} ?>
+			    		
+			    		
 			    	
 			     	<SELECT NAME="TYPE">
 			     		<OPTION>&nbsp;</OPTION>	
-			     		<OPTION VALUE="AD">State Assembly District</OPTION>	
-			     		<OPTION VALUE="SN">State Senatorial District</OPTION>	
-			     		<OPTION VALUE="CG">Congressional District</OPTION>	
+			     		<OPTION VALUE="AD"<?php if ($_POST["TYPE"] == "AD") { echo " SELECTED"; } ?>>State Assembly District</OPTION>	
+			     		<OPTION VALUE="SN"<?php if ($_POST["TYPE"] == "SN") { echo " SELECTED"; } ?>>State Senatorial District</OPTION>	
+			     		<OPTION VALUE="CG"<?php if ($_POST["TYPE"] == "CG") { echo " SELECTED"; } ?>>Congressional District</OPTION>	
 			    <?php /* 		<OPTION VALUE="County">County District</OPTION>	*/ ?>
 			     	</SELECT>
 			     	
-			     	<INPUT TYPE="TEXT" NAME="VALUE" SIZE=5>
+			    	<INPUT TYPE="TEXT" NAME="VALUE" SIZE=5 VALUE="<?= $_POST["VALUE"] ?>">
 		     	 	<button type="submit" class="btn btn-primary">Get the list of Walk Sheets</button>
 			     	</FORM>
 				</P>	
