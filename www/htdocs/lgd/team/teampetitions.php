@@ -61,7 +61,7 @@
 						
 		 in <?= $var["Candidate_Status"] ?> status.</A>
 							
-			<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/NY/<?= $NewKEncrypt ?>/petition"><i class="fa fa-download"></i></A> 
+			<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= $NewKEncrypt ?>/NY/petition"><i class="fa fa-download"></i></A> 
 							<BR>
 		<?php
 					}

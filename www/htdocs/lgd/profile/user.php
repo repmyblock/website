@@ -170,6 +170,8 @@
 <?php						} ?>
 							</dl>
 							
+							
+		<?php					/*
 							<dl class="form-group">
 								<dt><label for="user_profile_bio">Bio - Please write any notes to the organizers.</label></dt>
 								<dd class="user-profile-bio-field-container js-length-limited-input-container">
@@ -196,6 +198,8 @@
 								<a href="https://github.com/site/privacy">privacy statement</a>
 								to learn more about how we use this information.
 							</p>
+							
+							*/ ?>
 							
 							<p><button type="submit" class="btn btn-primary">Update profile</button></p>
 						</div>
