@@ -16,7 +16,7 @@
 		//$rmbwalksheet = $rmb->GetWalkSheetInfo($URIEncryptedString["DataDistrict_ID"]);
 	
 		$NewKEncrypt = CreateEncoded (array(
-											"DataDistrict_ID" => $URIEncryptedString["DataDistrict_ID"],
+											"DataDistrict_ID" => "1",
 											"PreparedFor" => $_POST["PetitionFor"],
 											"ED" => $URIEncryptedString["ED"],
 										  "AD" => $URIEncryptedString["AD"],

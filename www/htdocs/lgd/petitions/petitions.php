@@ -67,9 +67,15 @@
 		
 				<div class="js-collaborated-repos">
 			        
-			<?php if ( ! empty ($result)) {
+			<?php 
+				WriteStderr($result, "ReturnTeamInfo");
+				
+			if ( ! empty ($result)) {
 				 	foreach ($result as $Pet) {
-				 		if (! empty ($Pet)) { ?>
+				 		if (! empty ($Pet)) { 
+				 			
+				 			
+				 			?>
 				
 				 			
 							<div class="Box-row simple public js-collab-repo" data-repo-id="43183710" data-owner-id="5959961">
