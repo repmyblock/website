@@ -12,8 +12,8 @@
 	WriteStderr($URIEncryptedString, "URIEncryptedString");
 		
 	if ($URIEncryptedString["DataDistrict_ID"] > 0) {
-		$voters = $r->ListVotersForDataDistrict($URIEncryptedString["DataDistrict_ID"]);
-		$PreparedFor = $URIEncryptedString["PreparedFor"];
+		// $voters = $r->ListVotersForDataDistrict($URIEncryptedString["DataDistrict_ID"]);
+		//$PreparedFor = $URIEncryptedString["PreparedFor"];
 		
 		$DataQuery = array("AD" => intval($URIEncryptedString["AD"]), "ED" => intval($URIEncryptedString["ED"]), 
 												"PT" => $URIEncryptedString["Party"]);
