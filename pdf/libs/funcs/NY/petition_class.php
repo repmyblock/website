@@ -196,7 +196,7 @@ class PDF_Multi extends PDF_Code128 {
 		$this->Cell(35, 8, "Date" ,0, 0, 'C', 0);
 		$this->Cell(75, 8, "Signature / Name of Signer", 0, 0, 'C', 0);
 		$this->Cell(74, 8, "Residence", 0, 0, 'C', 0);
-		$this->Cell(20, 8, "County", 0, 0, 'C', 0);
+		$this->Cell(20, 8, $this->TypeOfTown, 0, 0, 'C', 0);
 		$this->Ln(4.5);
    
    	$this->YLocation = $this->GetY();
@@ -321,7 +321,7 @@ class PDF_Multi extends PDF_Code128 {
 		
 		$this->SetTextColor(0);
 		
-		if ( empty ($this->party) || empty ($this->ElectionDate)) {
+		if ( empty ($this->party) || empty ($this->ElectionDate) || empty ($this->county) || empty ($this->TypeOfTown)) {
 		  	$this->SetXY(0,0);
 				$this->SetFont('Arial','B',80);
 	    	$this->SetTextColor(255,0,0);
@@ -329,6 +329,8 @@ class PDF_Multi extends PDF_Code128 {
 	   		$this->RotatedText(25,150, "DO NOT USE", 45);
 				if ( empty ($this->ElectionDate)) {
 		   		$this->RotatedText(30,210, "DATE IS MISSING" , 45);				
+				} else if ( empty ($this->county) || empty ($this->TypeOfTown)) {
+					$this->RotatedText(28,210, "COUNTY IS MISSING", 45);
 				} else {
 		   		$this->RotatedText(30,210, "PARTY IS MISSING" , 45);
 		   	}

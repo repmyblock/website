@@ -155,6 +155,23 @@ $pdf->county = $result[0]["CandidatePetition_VoterCounty"];
 $pdf->party = $result[0]["CandidateParty"];
 $pdf->ElectionDate =  PrintShortDate($result[0]["Elections_Date"]);
 
+
+// This is to control the TOWN or COUNTY depending of where the petition
+// is circulated.
+switch ($pdf->county) {
+	case "Bronx":
+	case "New York":
+	case "Richmond":
+	case "Queens":
+	case "Kings":
+		$pdf->TypeOfTown = "County";
+		break;
+
+	default:
+		$pdf->TypeOfTown = "Town";
+		break;
+}
+
 $Petition_FileName = "";
 if ( ! empty ($result[0]["Candidate_UniqNYSVoterID"])) {
 	preg_match('/^NY0+(.*)/', $result[0]["Candidate_UniqNYSVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
@@ -258,6 +275,11 @@ $pdf->City = "City of New York";
 
 $pdf->City = "__________"; 
 $pdf->County = "_____"; 
+
+
+
+
+
 
 if ( $PageSize == "letter") {
 	$NumberOfLines = 12 - $pdf->NumberOfCandidates;

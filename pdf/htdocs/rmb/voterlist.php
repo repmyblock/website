@@ -58,8 +58,7 @@
 	$FileTitle = preg_replace('/[^a-zA-Z0-9]/', '', $PreparedFor);
 	$Today = date("Ymd_Hi");
 	$OutputFilename = "WalkSheet_" . $FileTitle . "_" . $Today . "_" . $WalkSheetUser["CandidateElection_DBTable"] . 
-										$WalkSheetUser["CandidateElection_DBTableValue"] . 
-										".pdf";
+										$WalkSheetUser["CandidateElection_DBTableValue"] . ".pdf";
 	
 	if (! empty ($voters)) {
 		foreach ($voters as $person) {
