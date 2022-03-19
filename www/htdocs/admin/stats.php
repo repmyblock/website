@@ -13,30 +13,7 @@
 
 	$rmb = new RepMyBlock();	
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-	$result = $rmb->GetPetitionsForCandidate($DatedFiles, 0, $URIEncryptedString["SystemUser_ID"]);
-	
-	if ( ! empty ($result)) {
-		foreach ($result as $var) {
-			if ( ! empty ($var)) {
-
-				$MyAddressToUse = $var["Raw_Voter_ResHouseNumber"] . " " . 
-													$var["Raw_Voter_ResStreetName"];
-
-				if ( empty ($Counter[$MyAddressToUse] )) {
-					$Counter[$MyAddressToUse] = 0;
-				}
-				
-				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Petition_ID"] = $var["Candidate_ID"];
-				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_ID"] = $var["VotersIndexes_UniqNYSVoterID"];
-				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_FullName"] = $var["CandidatePetition_VoterFullName"];
-				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_Address"] = "Apt " . $var["Raw_Voter_ResApartment"];
-				$Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Full_Elector_Address"] = $var["Raw_Voter_ResHouseNumber"] . " " . $var["Raw_Voter_ResStreetName"];
-			}			
-			
-			$Counter[$MyAddressToUse]++;
-		}	
-	}
-
+	$result = $rmb->GetAdminStats();
 			
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ($MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
@@ -53,7 +30,7 @@
 <div class="<?= $Cols ?> float-left">
 	
 	<div class="Subhead">
-  	<h2 class="Subhead-heading">Petition Trackers</h2>
+  	<h2 class="Subhead-heading">Statistics</h2>
 	</div>
 
 	<?php 
@@ -90,12 +67,12 @@
       function drawChart() {
       	
         var data = google.visualization.arrayToDataTable([
-        ['Dates', 'New Regs', 'Conversions', ''], 
+        ['Dates', 'New Regs', 'Temp Conv', 'Final Conv'], 
         <?php 
         	if ( ! empty ($result)) {
         		foreach ($result as $var) {
         			if ( ! empty ($var)) {        				
-        				echo "['" . $var["SystemStats_Date"] . "'," . $var["SystemStats_MovRequest"] . "," . $var["SystemStats_EmailTempConv"] . "," . $var["SystemStats_EmailPermConv"] . "],\n";
+        				echo "['" . $var["SystemStats_Date"] . "'," . $var["SystemStats_EmailRcvd"] . "," . $var["SystemStats_EmailTempConv"] . "," . $var["SystemStats_EmailPermConv"] . "],\n";
         			}
         		}
         	}

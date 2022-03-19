@@ -4,108 +4,87 @@
 	// $BigMenu = "represent";	
 	 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_teams.php"; 
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   WipeURLEncrypted();
-	$rmb = new repmyblock();
+  
+	$rmb = new Teams();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	$rmbteam = $rmb->SearchUsersForMyTeam($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($UserParty);
+	
+	WriteStderr($rmbteam, "RMB Team");
 
 	$TopMenus = array ( 						
-		array("k" => $k, "url" => "team/index", "text" => "Manage Pledges"),
+		array("k" => $k, "url" => "team/index", "text" => "Team Members"),
 		array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-		array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
+		array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Team")
 	);
-								
-	WriteStderr($TopMenus, "Top Menu");		
+										
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
 <div class="row">
   <div class="main">
-
-
-
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-
-
-<div class="col-9 float-left">
-
-	<div class="Subhead">
-  	<h2 class="Subhead-heading">Team</h2>
-	</div>
-	
-	<?php	PlurialMenu($k, $TopMenus); ?>          
- 
-  <dl class="form-group">
-  	<dt><label for="user_profile_email">Team building</label></dt>
-    <dd class="d-inline-block">       	
+  		<div class="<?= $Cols ?> float-left">
     
-   		<A HREF="">Send me a petition by email that I can foward</A><BR>
-   		<A HREF="/lgd/voters/?k=<?= $k ?> mobilemenu">Send a petition to a verified voter</A><BR>
-   	
-   	<?php	if ( $SystemAdmin == $FullAdminRights && ! empty ($FullAdminRights)) { ?>
-	<BR>
-  		<A HREF="/admin/<?= $k ?>/index" class="mobilemenu">Admin Screen</A><BR>	
-  		<A HREF="/admin/<?= $k ?>/track">Track Petitions</A><BR>	
-  <?php	} ?>
-   		
+			  <!-- Public Profile -->
+			  <div class="Subhead mt-0 mb-0">
+			    <h2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</h2>
+			  </div>
+     
+				<?php	PlurialMenu($k, $TopMenus); ?>   
 
+			  <div class="clearfix gutter d-flex flex-shrink-0">
 
-		<B>List of voters in your area.</B>	
-		
-	
-		<P>
-			<A HREF="<?= $k ?>/target">Create a petition set with the voters you want to target</A><BR>		
-		</P>
-		
-		<b>This is a list of petition set created</b>
-		
-		<P>
-		
-		<?php 
-			if ( ! empty ($result) ) {
-				foreach ($result as $var) {
-					if ( ! empty ($var)) {
-						
-						$NewKEncrypt = CreateEncoded(array(
-														"CandidatePetitionSet_ID" => $var["CandidatePetitionSet_ID"],	
-														"Candidate_ID=" => $var["Candidate_ID"],
-														"Candidate_ID" => $Decrypted_k									
-													));
-						
-		?>				
-						<A HREF="<?= $NewKEncrypt ?>/printpetitionset">Petition set created 
-							on <?= PrintShortDate($var["CandidatePetitionSet_TimeStamp"]) ?> at 
-							<?= PrintShortTime($var["CandidatePetitionSet_TimeStamp"]) ?></A>
-						<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/petitions/"><i class="fa fa-download"></i></A> 
-						<A HREF="<?= $NewKEncrypt  ?>/emailpetition"><i class="fa fa-share"></i></A>																													
-						<BR>
-		<?php
-					}
-				}
-			}
-		?>
+				<div class="row">
+				  <div class="main">
+						<FORM ACTION="" METHOD="POST">
+						<div class="Box">
+					  	<div class="Box-header pl-0">
+					    	<div class="table-list-filters d-flex">
+					  			<div class="table-list-header-toggle states flex-justify-start pl-3">Candidate List</div>
+					  		</div>
+					    </div>
+				    
+					    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
+					      We don't know your district <a href="/voter">create one</a>?
+					    </div>
+					    
+					  
+							<?php 			
+										$Counter = 0;
+										if ( ! empty ($rmbteam)) {
+											foreach ($rmbteam as $var) {
+							?>		
+								<div class="flex-items-left">	
+									<span class="ml-4 flex-items-baseline"><?= $var["SystemUser_FirstName"] . " " . 
+																															$var["SystemUser_FirstName"] . 
+																															" Email: " .  $var["SystemUser_email"] ?></span>
+						 	
+									<span class="ml-4 flex-items-baseline"><A HREF="/<?= CreateEncoded (
+										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates"><?= $var["Candidate_DispName"] ?></A></span>
+								</div>
 
-		</P>				
-		
-		<P>
-		<b><A HREF="<?= $k ?>/team/managesignedvoters">Manage your signed voters</A></FONT></B>
-		</P>
-		
+							<?php
+											}
+										} 
+							?>
 
-    </dd>
-  </dl>
-    
-			
-	
+							</div>
+							<BR>
 
+					</div>
+					</FORM>
+			</div>
+		</DIV>
+	</DIV>
+	</DIV>
 </DIV>
-</DIV>
-</DIV>
-</DIV>
-
 
 
 
