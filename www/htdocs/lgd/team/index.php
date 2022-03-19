@@ -32,7 +32,7 @@
     
 			  <!-- Public Profile -->
 			  <div class="Subhead mt-0 mb-0">
-			    <h2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</h2>
+			    <h2 id="public-profile-heading" class="Subhead-heading">Team Membership</h2>
 			  </div>
      
 				<?php	PlurialMenu($k, $TopMenus); ?>   
@@ -45,7 +45,7 @@
 						<div class="Box">
 					  	<div class="Box-header pl-0">
 					    	<div class="table-list-filters d-flex">
-					  			<div class="table-list-header-toggle states flex-justify-start pl-3">Candidate List</div>
+					  			<div class="table-list-header-toggle states flex-justify-start pl-3">Team Profile for <?= $rmbteam[0]["Team_Name"] ?></div>
 					  		</div>
 					    </div>
 				    
@@ -59,15 +59,36 @@
 										if ( ! empty ($rmbteam)) {
 											foreach ($rmbteam as $var) {
 							?>		
-								<div class="flex-items-left">	
-									<span class="ml-4 flex-items-baseline"><?= $var["SystemUser_FirstName"] . " " . 
-																															$var["SystemUser_FirstName"] . 
-																															" Email: " .  $var["SystemUser_email"] ?></span>
-						 	
-									<span class="ml-4 flex-items-baseline"><A HREF="/<?= CreateEncoded (
+							
+							
+		
+							<div class="flex-items-left">	
+								<span class="ml-4 flex-items-baseline">
+							
+							
+							<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-													"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates"><?= $var["Candidate_DispName"] ?></A></span>
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist">Walkshet</A>
+							
+
+							<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/petition">Petition</A>
+
+								
+									<?= $var["SystemUser_FirstName"] . " " . $var["SystemUser_LastName"] ?>
+																															
+							<?php /*<A HREF="/<?= CreateEncoded (
+										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/lgd/team/teamateinfo">Setup</A>
+																															*/ ?>
+									<?=  $var["SystemUser_Party"] ?>																		
+																															</span>
+						 	
+									
 								</div>
 
 							<?php

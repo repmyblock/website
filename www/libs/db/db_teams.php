@@ -42,11 +42,14 @@ class Teams extends RepMyBlock {
 	}
 	
 	function SearchUsersForMyTeam($SystemUser_ID) {
-		$sql = "SELECT * FROM Team " .
-						"LEFT JOIN TeamMember ON (Team.Team_ID = TeamMember.Team_ID) " . 
-						"LEFT JOIN SystemUser ON (SystemUser.SystemUser_ID = TeamMember.SystemUser_ID) " . 
-//						"LEFT JOIN Candidate ON (SystemUser.SystemUser_ID = TeamMember.SystemUser_ID) " . 
-						"WHERE Team.SystemUser_ID = :SystemID";
+		$sql = "SELECT *, SystemUser.SystemUser_ID AS SystemIDFromTeam FROM Team " .
+						"LEFT JOIN TeamMember ON (Team.Team_ID = TeamMember.Team_ID) " .
+						"LEFT JOIN SystemUser ON (SystemUser.SystemUser_ID = TeamMember.SystemUser_ID) " .
+						"LEFT JOIN Candidate ON (Candidate.Candidate_UniqStateVoterID = SystemUser.Voters_UniqStateVoterID AND Candidate.Team_ID = Team.Team_ID) " .
+						"LEFT JOIN CandidateGroup ON (Candidate.Candidate_ID = CandidateGroup.Candidate_ID) " .
+						"WHERE Team.SystemUser_ID = :SystemID AND Candidate.Candidate_UniqStateVoterID IS NOT NULL";
+		WriteStderr($sql, "ListActiveTeam");	
+						
 		$sql_vars = array("SystemID" => $SystemUser_ID);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}

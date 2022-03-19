@@ -155,7 +155,7 @@
 				<DIV>
 					<div class="list-group-item filtered f60">
 	    			<span><INPUT TYPE="CHECKBOX" NAME="TeamIDRmval[]" VALUE="<?= $var["Team_ID"] ?>"></span>			
-						<span><B><?= $var["Team_Name"] ?></B></span> running for <span>Congress</span> 
+						<span><B><?= $var["Team_Name"] ?></B></span>
 					</div>
  				</DIV>
 
@@ -165,7 +165,7 @@
 					</DIV>
 								
 				<dl class="form-group col-3 d-inline-block"> 
-					<dt><p><button type="submit" class="btn btn-primary">Remove me from the selected campaigns</button></p></DT>
+					<dt><p><button type="submit" class="btn btn-primary">Request information from selected campaigns</button></p></DT>
 				</dl>
 				
 				<?php } else { ?> 		
