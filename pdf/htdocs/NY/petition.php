@@ -276,15 +276,9 @@ $pdf->City = "City of New York";
 $pdf->City = "__________"; 
 $pdf->County = "_____"; 
 
-
-
-
-
-
 if ( $PageSize == "letter") {
 	$NumberOfLines = 12 - $pdf->NumberOfCandidates;
-	$pdf->BottonPt = 240.4;
-	
+	$pdf->BottonPt = 240.4;	
 	$pdf->BottonPt = 232;
 	$Botton =  216.9;
 	

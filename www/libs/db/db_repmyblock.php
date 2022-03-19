@@ -997,8 +997,6 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	
-
 	function ListRawNYEDByDistricts( $DistrictType, $DistrictValue)	{
 	
 		$sql = "SELECT AssemblyDistr AS AD, ElectDistr AS ED";
@@ -1032,7 +1030,6 @@ class RepMyBlock extends queries {
 	
 		return $this->_return_multiple($sql, $sql_vars);
 	}
-	
 	
 	function SearchUserVoterCard($SystemUserID) {
 		$sql = "SELECT * FROM SystemUser " .
