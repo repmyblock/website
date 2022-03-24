@@ -132,7 +132,7 @@ class RepMyBlock extends queries {
 						"LEFT JOIN Voters ON (Voters.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " . 
 						
 						// This will need to be removed once I finish fixing the CD ROM.
-						"LEFT JOIN VotersRaw_NY ON (VotersRaw_NY.UniqNYSVoterID = VotersIndexes_UniqStateVoterID) " . 
+						"LEFT JOIN VotersRaw_NYS ON (VotersRaw_NYS.UniqNYSVoterID = VotersIndexes_UniqStateVoterID) " . 
 						
 						"WHERE DataFirstName_Compress LIKE :FirstName AND " . 
 						"DataLastName_Compress LIKE :LastName";
@@ -741,8 +741,8 @@ class RepMyBlock extends queries {
 	
 	
 	function SearchRawVoterInfo($UniqNYSVoterID) { 
-		$sql = "SELECT * FROM VotersRaw_NY " . 
-						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_BOEID = VotersRaw_NY.CountyCode) " .										
+		$sql = "SELECT * FROM VotersRaw_NYS " . 
+						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_BOEID = VotersRaw_NYS.CountyCode) " .										
 						"WHERE UniqNYSVoterID = :Uniq AND Status = 'A'";
 		$sql_vars = array("Uniq" => $UniqNYSVoterID);		
 		return $this->_return_multiple($sql, $sql_vars);
@@ -1024,7 +1024,7 @@ class RepMyBlock extends queries {
 				break;
 		}
 		
-		$sql .= "FROM VotersRaw_NY WHERE Status = 'A' ";
+		$sql .= "FROM VotersRaw_NYS WHERE Status = 'A' ";
 		$sql .= $sql_query;		
 		$sql .= $sql_group . " ORDER BY AssemblyDistr, CAST(ElectDistr as unsigned)";
 	

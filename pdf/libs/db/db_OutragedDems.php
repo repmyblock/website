@@ -14,7 +14,7 @@ class OutragedDems extends queries {
   function SearchInRawNYSFile($DataSearch) {
    	
    	$sqlquery = ""; $sql_vars = array();
-		$sql = "SELECT * FROM VotersRaw_NY WHERE (Status = 'A' OR Status = 'I') ";
+		$sql = "SELECT * FROM VotersRaw_NYS WHERE (Status = 'A' OR Status = 'I') ";
   	
   	foreach ($DataSearch as $Param => $Search) {
 			$sqlquery .= " AND ";
