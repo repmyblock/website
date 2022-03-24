@@ -90,9 +90,21 @@ switch ($Variable) {
 	  WriteStderr($result, "Result Set ID");
 	
 		if ( ! empty ($result)) {
-			for ($i = 0; $i < count($result); $i++) { 	 		
-	  		$result[$i]["CandidateSet_ID"] = 1;	
-				$result[$i]["CandidateParty"] = PrintPartyAdjective($result[0]["Candidate_Party"]);
+			for ($i = 0; $i < count($result); $i++) {
+	  		$result[$i]["CandidateSet_ID"] = 1;
+	  		
+	  		
+	  		
+	  		if ( $result[0]["Candidate_Party"] == "BLK" ) {
+	  			$pdf->PetitionType = "independent";
+	  			$pdf->EmblemFontType = $result[0]["CandidatePartySymbol_Font"];
+					$pdf->EmblemFontSize = $result[0]["CandidatePartySymbol_Size"];
+					$pdf->PartyEmblem = $result[0]["CandidatePartySymbol_Char"];
+					$result[$i]["CandidateParty"] = $result[0]["Candidate_FullPartyName"];				
+	  		} else {
+	  			$result[$i]["CandidateParty"] = PrintPartyAdjective($result[0]["Candidate_Party"]);	
+	  		}
+	  		
 				$result[$i]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
 			}
 			

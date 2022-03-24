@@ -124,6 +124,7 @@ class OutragedDems extends queries {
 						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN CandidateComRplceSet ON (CandidateComRplceSet.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CandidateComRplce ON (CandidateComRplceSet.CandidateComRplce_ID = CandidateComRplce.CandidateComRplce_ID) " .
+						"LEFT JOIN CandidatePartySymbol ON (CandidatePartySymbol.CandidatePartySymbol_ID = Candidate.CandidatePartySymbol_ID) " .
 						"WHERE CandidateGroup.CandidateSet_ID = :CandidateGroup_ID " .
 						"ORDER BY CandidateGroup_Order ASC, CandidateComRplce_Order ASC";
 						
@@ -142,6 +143,7 @@ class OutragedDems extends queries {
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
 						"LEFT JOIN Elections ON (CandidateElection.Elections_ID = Elections.Elections_ID) " . 
 						"LEFT JOIN DataCounty ON (Candidate.DataCounty_ID = DataCounty.DataCounty_ID) " . 
+						"LEFT JOIN CandidatePartySymbol ON (CandidatePartySymbol.CandidatePartySymbol_ID = Candidate.CandidatePartySymbol_ID) " .
 						"WHERE Candidate.Candidate_ID = :CandidateID ";
 		$sql_vars = array("CandidateID" => $CandidateID);
 		

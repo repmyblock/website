@@ -7,10 +7,13 @@ class PDF extends FPDF {
 	var $Col1 = 6; var $Col2 = 61; var $Col3 = 150;
 	var $SizeCol1 = 55; var $SizeCol2 = 89; var $SizeCol3 = 59;
   var $Line_Left = 6; var $Line_Right = 209; var $Line_Col1 = 61; var $Line_Col2 = 150;
+  
 	//$Botton_Corner_Y = 0;
 	 
 	// Page header
 	function Header()	{
+		
+		$i = 0;
 
 		if (! empty ($this->Watermark)) {
 			$this->SetFont('Arial','B',50);
@@ -56,7 +59,7 @@ class PDF extends FPDF {
   	$this->Ln(2.8);
 	    			
 	  $this->Line($this->Line_Left, $YLocation - 0.1, $this->Line_Right, $YLocation - 0.1); 
- 			
+
    	$this->SetFont('Arial','B',11);
 		$this->SetXY($this->Col1, $YLocation + 0.3 );
 		$this->MultiCell($this->SizeCol1, 3.5, $this->Candidate[$i], 0, 'C', 0);
@@ -96,12 +99,12 @@ class PDF extends FPDF {
    	$this->MultiCell(0, 10,  "Identification Numbers: ______________________");
    	
    	$this->MultiCell(0, 10,  "The petition contains the number, or in excess of the number, " . 
-   												"of valid signatures required by the Election Law.Contact ");
+   												"of valid signatures required by the Election Law.  ");
    	
-   	$this->MultiCell(0, 10,  "Person to Correct Deficiencies:Name: _____________");
-   	$this->MultiCell(0, 10, "Residence Address:____________________________________________");
-   	$this->MultiCell(0, 10, "Phone:_____________");
-   	$this->MultiCell(0, 10,  "Email: ______________________");
+   	$this->MultiCell(0, 10,  "Contact person to Correct Deficiencies:\n    Name: Theo Chino");
+   	$this->MultiCell(0, 10, "    Residence Address: 640 Riverside Drive - 10B, New York, NY 10031");
+   	$this->MultiCell(0, 10, "    Phone: (929) 359-3349");
+   	$this->MultiCell(0, 10,  "    Email: theo@repmyblock.org");
    	
    	$this->MultiCell(0, 10,  "I hereby authorize that notice of any determination made by the Board of Elections " . 
    												"be transmitted to the person name above:");

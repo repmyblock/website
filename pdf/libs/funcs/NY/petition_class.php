@@ -34,31 +34,52 @@ class PDF_Multi extends PDF_Code128 {
     $this->SetFont('Arial','B',12);
     $this->Cell(0,0, strtoupper($this->party) . " PARTY",0,0,'C');
     $this->Ln(4);
-		$this->Cell(0,0, "Designating Petition - " . $this->county . ' County',0,0,'C');
+    
+    if ($this->PetitionType == "independent") {
+      $this->Cell(0,0, "Independent Nominating Petition",0,0,'C');
+	  } else {
+			$this->Cell(0,0, "Designating Petition - " . $this->county . ' County',0,0,'C');
+    }
     $this->Ln(3);    
     
     $this->SetFont('Arial','B',8);
     $this->Cell(36,2.8, 'To the Board of Elections:');
     $this->SetFont('Arial','',8);
-		$this->Cell(192,2.8, 
-			"I, the undersigned, do hereby state that I am a duly " . 
-			"enrolled voter of the " . $this->party . " Party " .
-			"and entitled to vote at the next ");
-		$this->Ln(2.8);
-		  
-		$this->MultiCell(0,2.8, 
-			"primary election of such party, to be held on " . 
-			$this->ElectionDate . "; that my place of residence is truly " . 
-			"stated opposite my signature hereto, and I do hereby designate " .
-			"the following named person" . $this->PluralCandidates . " as " .
-			$this->PluralAcandidates . " candidate" . $this->PluralCandidates . " for ". 
-			"the " . $this->CandidateNomination);
-    $this->Ln(2.8);
-    
+
+		if ($this->PetitionType == "independent") {
+    	
+ 			$this->write(3, 
+				"I, the undersigned, do hereby state that I am a registered voter of the political unit for " .
+				"which a nomination for public office is hereby being made, that my present place of residence " . 
+				"is truly stated opposite my signature hereto, and that I do hereby nominate the following " . 
+				"named person as a candidate for election to public office to be voted for at the election " . 
+				"to be held on the " . $this->ElectionDate . ", and that I select the name " . $this->party . 
+				" as the name of the independent body making the nomination and ");
+				
+			if ( ! empty ($this->EmblemFontType)) {
+				$this->AddFont($this->EmblemFontType,'', $this->EmblemFontType . ".php");
+				$this->SetFont($this->EmblemFontType,'', $this->EmblemFontSize);
+				$this->Write(3, $this->PartyEmblem);
+			}
+			
+			$this->SetFont('Arial','', 8);		
+			$this->Write(3, " as the emblem of such body.");
+			
+		} else {
+			
+			$this->write(3, "I, the undersigned, do hereby state that I am a duly " . 
+				"enrolled voter of the " . $this->party . " Party " .
+				"and entitled to vote at the next primary election of such party, to be held on " . 
+				$this->ElectionDate . "; that my place of residence is truly " . 
+				"stated opposite my signature hereto, and I do hereby designate " .
+				"the following named person" . $this->PluralCandidates . " as " .
+				$this->PluralAcandidates . " candidate" . $this->PluralCandidates . " for ". 
+				"the " . $this->CandidateNomination);
+			
+		}			
+    $this->Ln(5);
 		$YLocation_new = $Top_Corner_Y = $this->GetY() - 1.5;   
-	
  		$this->SetY($Top_Corner_Y);
- 		
  		
  		### Just to get a blank petition
  		if ( $this->NumberOfCandidates == 0) {
@@ -241,28 +262,60 @@ class PDF_Multi extends PDF_Code128 {
 		$this->Cell(0,0, "STATEMENT OF WITNESS", 0, 1, 'C');		
 		$this->SetFont('Arial','',10);
 		$this->Ln(1);
-		$this->MultiCell(0, 4.2, 
-			"I, " . $this->WitnessName . " state: I am a duly qualified voter of the State of New York and am an " . 
-			"enrolled voter of the " . $this->party . " Party. I now reside at " . $this->WitnessResidence . ". Each " . 
-			"of the individuals whose names are subscribed to this petition sheet " . 
-			"containing ____ signatures, subscribed the same in my presence on the dates above indicated " . 
-			"and identified himself or herself to be the individual who signed this sheet. I understand that this " .
-			"statement will be accepted for all purposes as the equivalent of an affidavit and, " .
-			"if it contains a material false statement, shall subject me to the " . 
-			"same penalties as if I had been duly sworn.", 0, 'L', 0);
 		
-		$this->SetFont('Arial','I',8);
-		$this->SetTextColor(200);
+		if ($this->PetitionType == "independent") {
+	  	
+	  	/* Independent witness statement */
+			
+			$this->MultiCell(0, 4.2, 
+			"I, " . $this->WitnessName . " state: I am a duly qualified voter of the State of New York.  " . 
+			"I now reside at " . $this->WitnessResidence .  
+			". Each of the individuals whose names are subscribed to this petition sheet containing " .
+			"____ signatures, subscribed the same in my presence on the dates above indicated " . 
+			"and identified himself or herself to be the individual who signed this sheet. I understand " . 
+			"that this statement will be accepted for all purposes as the equivalent of an affidavit and, " . 
+			"if it contains a material false statement, " . 
+			"shall subject me to the same penalties as if I had been duly sworn.", 0, 'L', 0);
+		
+			$this->SetFont('Arial','I',8);
+			$this->SetTextColor(200);
 
-		if ( $EmptyWitnessName == true) {
-			$this->SetXY( 8,  $YLocation + 5 );
-			$this->Write(0, 'Name of witness');
-		}
+			if ( $EmptyWitnessName == true) {
+				$this->SetXY( 8,  $YLocation + 5 );
+				$this->Write(0, 'Name of witness');
+			}
 
-		if ( $EmptyWitnessResidence == true) {
-			$this->SetXY( 92,  $YLocation + 9 );
-			$this->Write(0, 'Residence address, also post office if not identical');
+			if ( $EmptyWitnessResidence == true) {
+				$this->SetXY(20,  $YLocation + 9 );
+				$this->Write(0, 'Residence address, also post office if not identical');
+			}
+			
+		} else {
+		
+			$this->MultiCell(0, 4.2, 
+				"I, " . $this->WitnessName . " state: I am a duly qualified voter of the State of New York and am an " . 
+				"enrolled voter of the " . $this->party . " Party. I now reside at " . $this->WitnessResidence . ". Each " . 
+				"of the individuals whose names are subscribed to this petition sheet " . 
+				"containing ____ signatures, subscribed the same in my presence on the dates above indicated " . 
+				"and identified himself or herself to be the individual who signed this sheet. I understand that this " .
+				"statement will be accepted for all purposes as the equivalent of an affidavit and, " .
+				"if it contains a material false statement, shall subject me to the " . 
+				"same penalties as if I had been duly sworn.", 0, 'L', 0);
+	
+			$this->SetFont('Arial','I',8);
+			$this->SetTextColor(200);
+
+			if ( $EmptyWitnessName == true) {
+				$this->SetXY( 8,  $YLocation + 5 );
+				$this->Write(0, 'Name of witness');
+			}
+
+			if ( $EmptyWitnessResidence == true) {
+				$this->SetXY( 92,  $YLocation + 9 );
+				$this->Write(0, 'Residence address, also post office if not identical');
+			}
 		}
+		
 
 		$this->SetFont('Arial','I',14);
 		$this->SetXY( 150,  $YLocation + 30 );

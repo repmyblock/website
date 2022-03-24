@@ -6,31 +6,37 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/NY/coversheet_class.php';
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
-	#$r = new OutragedDems();
-
-	#$result = $r->ListCandidatePetition($SystemUser_ID, "published");
+	$r = new OutragedDems();
 
 	
-	#			$PetitionData[$var["CanPetitionSet_ID"]]["TotalPosition"] = $var["CandidateElection_Number"];
-	#			$PetitionData[$var["CanPetitionSet_ID"]]["PositionType"]	= $var["CandidateElection_PositionType"];
-	#			$PetitionData[$var["CanPetitionSet_ID"]]["CandidateName"]	= $var["Candidate_DispName"];
-	#			$PetitionData[$var["CanPetitionSet_ID"]]["CandidatePositionName"]	= $var["CandidateElection_PetitionText"];
-	#			$PetitionData[$var["CanPetitionSet_ID"]]["CandidateResidence"] = $var["Candidate_DispResidence"];
-	#			$PetitionData[$var["CanPetitionSet_ID"]]["Witness_FullName"][$var["CandidateWitness_ID"]] = $var["CandidateWitness_FullName"];
-	#			$PetitionData[$var["CanPetitionSet_ID"]]["Witness_Residence"][$var["CandidateWitness_ID"]] = $var["CandidateWitness_Residence"];
-		
 	$PageSize = "letter";
 	$pdf = new PDF('P','mm', $PageSize);
 
-	if (
-			$result[0]["CandidatePetition_VoterCounty"] == "New York" || 
-			$result[0]["CandidatePetition_VoterCounty"] == "Richmond"
-		) {
-		$pdf->Watermark = "Demo Petition / Not Valid";
-	}
-
 	$Counter = 1;
-	$TotalCandidates = 1;
+	$TotalCandidates = 0;
+	
+	
+	if ( ! empty ($URIEncryptedString)) {
+		if (! empty ($URIEncryptedString["Candidate_ID"])) {
+			$Candidate_ID = $URIEncryptedString["Candidate_ID"];
+			$result = $r->ListCandidatePetition($Candidate_ID);	  	
+			$var = $result[0];
+			
+			$var["CanPetitionSet_ID"] = 1;
+			#echo "<PRE>"  . print_r($var, 1) . "</PRE>";
+			
+		
+			$PetitionData[$var["CanPetitionSet_ID"]]["TotalPosition"] = $var["CandidateElection_Number"];
+			$PetitionData[$var["CanPetitionSet_ID"]]["PositionType"]	= $var["CandidateElection_PositionType"];
+			$PetitionData[$var["CanPetitionSet_ID"]]["CandidateName"]	= $var["Candidate_DispName"];
+			$PetitionData[$var["CanPetitionSet_ID"]]["CandidatePositionName"]	= $var["CandidateElection_PetitionText"];
+			$PetitionData[$var["CanPetitionSet_ID"]]["CandidateResidence"] = $var["Candidate_DispResidence"];
+			
+		}
+	}
+	
+	
+	#echo "<PRE>"  . print_r($PetitionData, 1) . "</PRE>";
 	
 	$i = 0;
 	if ( ! empty ($PetitionData)) {
@@ -38,22 +44,16 @@
 					
 			if ( ! empty ($var)) {
 				if ( is_array($key)) {
- 					$pdf->Candidate[$TotalCandidates] =  "Candidate Name";
- 					$pdf->RunningFor[$TotalCandidates] =  "Position Name";
-					$pdf->Residence[$TotalCandidates] = $key["CandidateResidence"];
-					$pdf->PositionType[$TotalCandidates] = $key["PositionType"];
 					
-					$pdf->Appointments[$TotalCandidates] = "";
-					$comma_first = 0;
-					foreach ($key["Witness_FullName"] as $klo => $vir) {
-						if ($comma_first == 1) {
-							$pdf->Appointments[$TotalCandidates] .= ", ";
-						}
-						$pdf->Appointments[$TotalCandidates] .= $vir . ", " . $key["Witness_Residence"][$klo];						
-						$comma_first = 1;
-					}						
-					$TotalCandidates++;	
-				
+					#print "<PRE>" . print_r($key, 1) . "</PRE>";
+					
+ 					$pdf->Candidate[$TotalCandidates] =  $key["CandidateName"];
+ 					$pdf->RunningFor[$TotalCandidates] =  $key["CandidatePositionName"];
+					$pdf->Residence[$TotalCandidates] = $key["CandidateResidence"];
+					$pdf->PositionType[$TotalCandidates] = $key["PositionType"];					
+					#print "Total Candidates; $TotalCandidates\n";
+	
+					$TotalCandidates++;
 				}
 			}
 		}
@@ -62,7 +62,7 @@
 	$pdf->NumberOfCandidates = $TotalCandidates;
 	$pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
 	$pdf->party = "Democratic";
-	$pdf->ElectionDate = "June 25th, 2019";
+	$pdf->ElectionDate = "June 8th, 2022";
 	
 	if ($pdf->NumberOfCandidates > 1) { 
 		$pdf->PluralCandidates = "s"; 
@@ -81,12 +81,9 @@
 
 	// Need to fix that.
 	
-	$pdf->WitnessName = "________________________________________"; 
-	$pdf->WitnessResidence = "_______________________________________________________"; 
-	
+
 	
 	$pdf->TodayDateText = "Date: " . date("F _________ , Y"); 
-	$pdf->TodayDateText = "Date: April _______ , 2019";
 	$pdf->County = $result[0]["CandidatePetition_VoterCounty"];
 	$pdf->City = "City of New York";
 	
@@ -112,13 +109,7 @@
   $Counter = 0;
 
 	// Need to calculate the number of empty line.
-	
 	$TotalCountName = count($Name);
-	
- 
-	
-	
-	
 	$pdf->Output("I", "CoverSheet.pdf");
 
 function Redact ($string) {
