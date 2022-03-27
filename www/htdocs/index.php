@@ -13,12 +13,24 @@
 
 <div class="main">
 	<CENTER>
+		
+		<P CLASS="BlueBox">
+		<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">ACT NOW! 
+			PETITIONING RUNS FROM<BR>MARCH 1<SUP>st</SUP>, 2022 TO APRIL 7<SUP>th</SUP>, 2022.</a>
+	</P>
+
 			
 	<P CLASS="BckGrndElement f80">WHAT IS THE COUNTY COMMITTEE</P>
 
 	<P CLASS="f60">
 		<B>The County Committee is the body that elects the chair of the County Chair.</B>
 	</P>
+	
+	<P>
+		<DIV class="videowrapper">
+	 		<iframe src="https://www.youtube.com/embed/CD3dwRtVY64?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
+</P>
 	
 		<P CLASS="f40">
 		The most important job of the County Committee member is to elect the County Chair of the party and 
@@ -44,11 +56,7 @@
 		
 	<P CLASS="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
-	<P CLASS="BlueBox">
-		<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">ACT NOW! 
-			PETITIONING RUNS FROM<BR>MARCH 1<SUP>st</SUP>, 2022 TO APRIL 7<SUP>th</SUP>, 2022.</a>
-	</P>
-
+	
 
 		<DIV CLASS="f60">
 		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/register" CLASS="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
@@ -70,24 +78,32 @@
 		to vote. <B>Democracy depends on it!</B>
 	</P>
 	
-		<P>
+	<P>
 		<P CLASS="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
 	</P>
-		
+	
+		<P>
 	<DIV class="videowrapper">
 	 		<iframe src="https://www.youtube.com/embed/KtYLNV3_npk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
-		
-<P CLASS="f40">	
+</P>
+	
+			<P>
+		<P CLASS="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
+	</P>
+
+	
+	<P CLASS="BckGrndElement f80">THE STRUCTURE OF THE COUNTY COMMITTEE</P>
+	<P CLASS="f40">	
 		<B>Ben Yee</B> present the Stucture of the Manhattan County Committee. There are slight different from one county to the other, but the basic 
 		logic is the same. If you are outside New York, you can find the process by googling <B>"County Chair"</B> and the name of your party.
 	</P>
 	
-	<P CLASS="BckGrndElement f80">THE STRUCTURE OF THE COUNTY COMMITTEE</P>
-	
+	<P>
 	<DIV class="videowrapper">
 	 <iframe width="560" height="315" src="https://www.youtube.com/embed/MgAY-Ipyk1Q?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
+	</P>
 	
 	<P>
 		<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">To access voters lists, register and log into the Rep My Block website</A></P>
