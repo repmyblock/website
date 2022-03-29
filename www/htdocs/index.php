@@ -13,13 +13,11 @@
 
 <div class="main">
 	<CENTER>
-		
-		<P CLASS="BlueBox">
+	<P CLASS="BlueBox">
 		<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">ACT NOW! 
-			PETITIONING RUNS FROM<BR>MARCH 1<SUP>st</SUP>, 2022 TO APRIL 7<SUP>th</SUP>, 2022.</a>
+		PETITIONING RUNS FROM<BR>MARCH 1<SUP>st</SUP>, 2022 TO APRIL 7<SUP>th</SUP>, 2022.</a>
 	</P>
-
-			
+	
 	<P CLASS="BckGrndElement f80">WHAT IS THE COUNTY COMMITTEE</P>
 
 	<P CLASS="f60">

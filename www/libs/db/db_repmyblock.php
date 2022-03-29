@@ -570,6 +570,7 @@ class RepMyBlock extends queries {
 		$sql = "SELECT * FROM Candidate " . 
 						"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
 						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+						"LEFT JOIN FillingDoc ON (FillingDoc.Candidate_ID = Candidate.Candidate_ID) " . 
 						"ORDER BY Elections_Date DESC, CandidateElection.CandidateElection_DBTable, CandidateElection.CandidateElection_DBTableValue";
 		return $this->_return_multiple($sql);
 	}

@@ -80,6 +80,12 @@ function PrintDate($Date) {
 	}
 }
 
+function PrintNormalDate($Date) {
+	if ( ! empty ($Date)) {
+		return date("m / d / Y", strtotime( $Date ));
+	}
+}
+
 function PrintDateTime($Date) {
 	if ( ! empty ($Date)) {
 		return date("m.d.y h:i a", strtotime( $Date ));

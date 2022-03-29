@@ -31,6 +31,16 @@ $pdf->Watermark = "VOID - Do not use";
 $WritenSignatureMonth = "March";
 $Variable = "demo-CC";
 
+// Setup for empty petition.
+$pdf->WitnessName = "________________________________________"; 
+$pdf->WitnessResidence = "_______________________________________________________";
+$pdf->TodayDateText = "Date: " . date("F _________ , Y"); 
+$pdf->TodayDateText = "Date: " . $WritenSignatureMonth . " _______ , " . date("Y");
+$pdf->City = "____________"; 
+$pdf->County = "________"; 
+$DateForCounter = " ___ / ___ / " . date("Y");
+$DateForCounter = date("m") . " / ____ / " . date("Y"); 
+
 if (is_numeric($CanPetitionSet_ID)) { $Variable = "petid"; }
 if (is_numeric($CandidateSet_ID)) { $Variable = "setid"; }	
 if (is_numeric($Candidate_ID)) { $Variable = "person"; }
@@ -46,7 +56,6 @@ if ( ! empty ($URIEncryptedString)) {
 		$CandidateSet_ID = $URIEncryptedString["CandidateSet_ID"];
 		$Variable = "setid";
 	}
-	
 }
 	
 switch ($Variable) {
@@ -75,7 +84,7 @@ switch ($Variable) {
 		else {
 			$pdf->Watermark = "VOID - Do not use " . $result[0]["Candidate_Status"]; 
 		}
-			
+
 		if ( $result[0]["Candidate_Status"] == "published" || $URIEncryptedString["PendingBypass"] == "yes") break;
 		goto democc;
 		break;
@@ -92,9 +101,6 @@ switch ($Variable) {
 		if ( ! empty ($result)) {
 			for ($i = 0; $i < count($result); $i++) {
 	  		$result[$i]["CandidateSet_ID"] = 1;
-	  		
-	  		
-	  		
 	  		if ( $result[0]["Candidate_Party"] == "BLK" ) {
 	  			$pdf->PetitionType = "independent";
 	  			$pdf->EmblemFontType = $result[0]["CandidatePartySymbol_Font"];
@@ -112,8 +118,7 @@ switch ($Variable) {
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);		
 			if ($result[0]["CandidateGroup_Watermark"] == 'no') { $pdf->Watermark = NULL; }	
 		}
-	
-	
+		
 		if ( $result[0]["Candidate_Status"] == "published" || $URIEncryptedString["PendingBypass"] == "yes") break;
 		goto democc;
 		break;
@@ -167,6 +172,19 @@ $pdf->county = $result[0]["CandidatePetition_VoterCounty"];
 $pdf->party = $result[0]["CandidateParty"];
 $pdf->ElectionDate =  PrintShortDate($result[0]["Elections_Date"]);
 
+// This is for the Custom Data stuff
+
+if ( ! empty ($URIEncryptedString["CustomData"] )) {
+	$DateForCounter = $URIEncryptedString["CustomDataDate"]; 
+	$pdf->WitnessName = $URIEncryptedString["CustomDataWitnessName"];
+	$pdf->WitnessResidence = $URIEncryptedString["CustomDataWitnessResidence"];
+	$pdf->City = $URIEncryptedString["CustomDataCity"];
+	$pdf->County = $URIEncryptedString["CustomDataCounty"];
+	//$pdf->County = $result[0]["CandidatePetition_VoterCounty"];
+	$MyCustomAddress = $URIEncryptedString["CustomDataCustomAddress"];
+	$MyCustomCounty = $URIEncryptedString["CustomDataCustomCounty"];
+	$MyCustomCountyFontSize = $URIEncryptedString["CustomDataCountyFontSize"];
+}
 
 // This is to control the TOWN or COUNTY depending of where the petition
 // is circulated.
@@ -277,16 +295,6 @@ $pdf->CandidateNomination = "nomination of such party for public office";
 $pdf->CandidateNomination .= " or for election to a party position of such party.";
 
 // Need to fix that.
-//$pdf->WitnessName = "________________________________________"; 
-//$pdf->WitnessResidence = "_______________________________________________________"; 
-
-$pdf->TodayDateText = "Date: " . date("F _________ , Y"); 
-$pdf->TodayDateText = "Date: " . $WritenSignatureMonth . " _______ , " . date("Y");
-$pdf->County = $result[0]["CandidatePetition_VoterCounty"];
-$pdf->City = "City of New York";
-
-$pdf->City = "__________"; 
-$pdf->County = "_____"; 
 
 if ( $PageSize == "letter") {
 	$NumberOfLines = 12 - $pdf->NumberOfCandidates;
@@ -312,10 +320,6 @@ $Counter = 0;
 // Need to calculate the number of empty line.
 
 $TotalCountName = count($Name);
-
-$DateForCounter = " ___ / ___ / " . date("Y");
-$DateForCounter = date("m") . " / ___ / " . date("Y");
-
 
 for ($i = 0; $i < $TotalCountName; $i++) {
 	$Counter++;
@@ -373,9 +377,23 @@ while ( $done == 1) {
 	$pdf->SetXY( 41,  $YLocation + 0.4);
 	$pdf->Write(0, "Print your name here:");
 
-	$pdf->SetFont('Arial','',8);
+	
 	$pdf->SetTextColor(0);
 	
+ 	if ( ! empty ($MyCustomCounty)) {
+		$pdf->SetFont('Arial','B', $MyCustomCountyFontSize);
+		$pdf->SetXY(195, $YLocation - 4);
+		$pdf->Cell(38, 0, $MyCustomCounty, 0, 0, 'L', 0);
+	}
+	
+	
+	if ( ! empty ($MyCustomAddress)) {
+		$pdf->SetFont('Arial','',12);
+		$pdf->SetXY(121, $YLocation - 9);
+		$pdf->MultiCell(73, 5, $MyCustomAddress, 0, 'L', 0);
+	}
+	
+	$pdf->SetFont('Arial','',8);
 	$pdf->SetXY( 6,  $YLocation - 4 );
 	$pdf->SetFont('Arial', '', 10);
 	$pdf->Cell(38, 0, $Counter . ". " . $DateForCounter, 0, 0, 'L', 0);

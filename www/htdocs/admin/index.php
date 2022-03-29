@@ -36,6 +36,7 @@
  			<A HREF="/<?= $k ?>/admin/voterlist">Voter Lookup</A><BR>
   		<A HREF="/<?= $k ?>/admin/track">Petitions Tracker</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_candidate">Candidates Maintenance</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/setup_petitionset">Petition Set Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_positions">Position Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_petitions">Petition Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/integrity_verif">Verify Data Integrity</A><BR>	

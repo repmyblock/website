@@ -339,9 +339,9 @@ class PDF_Multi extends PDF_Code128 {
 		
 		$this->SetXY(40, -14 );
 		$this->SetFont('Arial','B',8);
-		$this->Cell(40, 10, $this->City, 0, 'C', 0);
+		$this->Cell(40, 10, $this->City, 0, 'L', 0);
 		$this->SetXY(69, -14 );
-		$this->Cell(40, 10, $this->County, 0, 'C', 0);
+		$this->Cell(45, 10, $this->County, 0, 'L', 0);
 		
 		$this->SetXY(160, -7 );
 		$this->SetFont('Arial','',13);

@@ -21,10 +21,33 @@ $pdf->Election = "PRIMARY";
 $pdf->DateEvent = $ElectionDateShort;
 $pdf->PartyName = "";
 
+if ( ! empty ($URIEncryptedString)) {
+	$pdf->SpecialRequest = $URIEncryptedString["SpecialRequest"];
+	$pdf->DateEvent = $URIEncryptedString["DateEvent"];
+	$pdf->PrintName = $URIEncryptedString["PrintName"];
+	$pdf->AddressLine1 = $URIEncryptedString["AddressLine1"];
+	$pdf->AddressLine2 = $URIEncryptedString["AddressLine2"];
+	$pdf->Representing = $URIEncryptedString["Representing"];
+	$pdf->PetWithoutID = $URIEncryptedString["PetWithoutID"];
+	$pdf->Election = $URIEncryptedString["Election"];
+	$pdf->PartyName = $URIEncryptedString["PartyName"];
+	$pdf->XonDesign = $URIEncryptedString["XonDesign"];
+	$pdf->XonIndepend = $URIEncryptedString["XonIndepend"];
+	$pdf->XonOpportunity = $URIEncryptedString["XonOpportunity"];
+	$pdf->TotalBX = $URIEncryptedString["TotalBX"] > 0 ? number_format($URIEncryptedString["TotalBX"]) : NULL;
+	$pdf->TotalNY = $URIEncryptedString["TotalNY"] > 0 ? number_format($URIEncryptedString["TotalNY"]): NULL;
+	$pdf->TotalKG = $URIEncryptedString["TotalKG"] > 0 ? number_format($URIEncryptedString["TotalKG"]): NULL;
+	$pdf->TotalQN = $URIEncryptedString["TotalQN"] > 0 ? number_format($URIEncryptedString["TotalQN"]): NULL;
+	$pdf->TotalRC = $URIEncryptedString["TotalRC"] > 0 ? number_format($URIEncryptedString["TotalRC"]): NULL;
+	$pdf->Total = number_format($URIEncryptedString["TotalBX"] + $URIEncryptedString["TotalNY"] + $URIEncryptedString["TotalKG"] + $URIEncryptedString["TotalQN"] + $URIEncryptedString["TotalRC"]);
+	// $pdf->BarCode = "1999/1/1";
+	
+}
+
 if (is_numeric($CanPetitionSet_ID)) { 
 	$r = new OutragedDems();
 	$result = $r->ListCandidatePetitionSet($CanPetitionSet_ID);
-
+	
 	if ( ! empty ($result)) {
 		$result = $result[0];
 		$pdf->BarCode = $result["CanPetitionSet_ID"] . "#000000";

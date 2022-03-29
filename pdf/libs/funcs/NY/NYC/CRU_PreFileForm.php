@@ -76,6 +76,8 @@ class PDF_Multi extends PDF_Code128 {
     $this->SetXY(105, 123);  $this->Cell(120, 4, $this->AddressLine2, 0, 0,'L');	
     $this->SetXY(105, 131);  $this->Cell(120, 4, $this->Representing, 0, 0,'L');
     
+    $this->SetXY(79, 82); $this->MultiCell(0, 4, $this->SpecialRequest , 0, 'L');	
+    
 		// Arial 16 BOLD
  		$this->SetFont('Arial','B',16);
     $this->SetXY(120, 165); $this->Cell(120, 4,$this->PetWithoutID, 0, 0,'C'); ;
@@ -92,17 +94,15 @@ class PDF_Multi extends PDF_Code128 {
 
 		$this->SetXY(27, 89); $this->Cell(34, 10, $DatePrintEvent, 0, 0, 'C');		
 
-    $this->SetXY(25, 115); $this->Cell(15, 8, $this->TotalBX, 1, 0, 'C');	
-    $this->SetXY(25, 123); $this->Cell(15, 8, $this->TotalNY, 1, 0, 'C');	
-    $this->SetXY(25, 131); $this->Cell(15, 8, $this->TotalKG, 1, 0, 'C');	
-    $this->SetXY(25, 139); $this->Cell(15, 8, $this->TotalQN, 1, 0, 'C');	
-    $this->SetXY(25, 147); $this->Cell(15, 8, $this->TotalRC, 1, 0, 'C');	
-    $this->SetXY(25, 155); $this->Cell(15, 8, $this->Total, 1, 0, 'C');	
-	
-	
-	
+    $this->SetXY(25, 115); $this->Cell(24, 8, $this->TotalBX, 1, 0, 'R');	
+    $this->SetXY(25, 123); $this->Cell(24, 8, $this->TotalNY, 1, 0, 'R');	
+    $this->SetXY(25, 131); $this->Cell(24, 8, $this->TotalKG, 1, 0, 'R');	
+    $this->SetXY(25, 139); $this->Cell(24, 8, $this->TotalQN, 1, 0, 'R');	
+    $this->SetXY(25, 147); $this->Cell(24, 8, $this->TotalRC, 1, 0, 'R');	
+    $this->SetXY(25, 155); $this->Cell(24, 8, $this->Total, 1, 0, 'R');	
+
     $this->SetFont('Arial','',8);  
-   	$this->Rect(10, 107, 30, 8, 'FD');
+   	$this->Rect(10, 107, 39, 8, 'FD');
 		$this->Rect(80, 104, 120, 66, 'D');
 		$this->Rect(10, 184, 190, 74, 'D');
 		
@@ -122,7 +122,6 @@ class PDF_Multi extends PDF_Code128 {
 	 	$this->Line(10, 229,  200, 229); 
 	 	$this->Line(10, 244,  200, 244); 
 	 	
-			
  		$this->SetTextColor(242);
  		$this->SetFont('Arial','', 45);
 		$this->SetXY(100, 153 );
