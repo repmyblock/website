@@ -11,30 +11,26 @@
 					$StringURL .= "NYSID[" . $Counter . "]=$NYSID&Witness[" . $Counter . "]=" . $_POST["Witness"][$index] . "&";
 					$Counter++;
 				}
-				
 			}
-			
 			
 			header("Location: /" . CreateEncoded (
 														array("FirstName" => trim($_POST["FirstName"]),	
 																	"LastName" => trim($_POST["LastName"]))) .
-						"/brand/RunWithMe/prepwitness");
+														"/brand/RunWithMe/prepwitness");
 			exit();
+			
 		}
-		
-		
 		exit();
 	}
 	
-	if ( ! empty ($_GET["k"])) {
-		
+	if ( ! empty ($_GET["k"])) {		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_runwithme.php";	
 					
 		$r = new runwithme();	
-		//$result = $r->FindNeibors($URIEncryptedString["NYSID"]);	
-		
+		$result = $r->FindNeibors($URIEncryptedString["NYSID"]);
+		WriteStderr($URIEncryptedString["NYSID"], "Neighbors ... ");
 		
 		/*												
 		if ( empty ($result)) {
@@ -43,10 +39,8 @@
 			exit();
 		}
 		*/
-		
 	}
 	
-
 	$imgtoshow = "/brand/RunWithMe/RunWithMe.png";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
@@ -77,18 +71,17 @@
 			$Counter = 1;
 			if ( ! empty ($result)) {
 				foreach  ($result as $var) {
-					if ( ! empty ($var) && $URIEncryptedString["NYSID"] != $var["Raw_Voter_UniqNYSVoterID"]) {
+					if ( ! empty ($var) && $URIEncryptedString["NYSID"] != $var["UniqNYSVoterID"]) {
 ?>
 
-			
 			<TR>
 				<TD ALIGN=CENTER>
-					<INPUT TYPE="checkbox" NAME="NYSID[<?= $Counter ?>]" VALUE="<?= $var["Raw_Voter_UniqNYSVoterID"] ?>">
-					<INPUT TYPE="hidden" NAME="Witness[<?= $Counter ?>]" VALUE="<?= $var["Raw_Voter_FirstName"] . " " . $var["Raw_Voter_LastName"] ?>">
+					<INPUT TYPE="checkbox" NAME="NYSID[<?= $Counter ?>]" VALUE="<?= $var["UniqNYSVoterID"] ?>">
+					<INPUT TYPE="hidden" NAME="Witness[<?= $Counter ?>]" VALUE="<?= $var["FirstName"] . " " . $var["LastName"] ?>">
 				</TD>
-				<TD ALIGN=CENTER><?= $var["Raw_Voter_ResApartment"] ?></TD>
-				<TD><?= ucwords($var["Raw_Voter_FirstName"]) ?></TD>			
-				<TD><?= ucwords($var["Raw_Voter_LastName"]) ?></TD>
+				<TD ALIGN=CENTER><?= $var["ResApartment"] ?></TD>
+				<TD><?= ucwords($var["FirstName"]) ?></TD>			
+				<TD><?= ucwords($var["LastName"]) ?></TD>
 			</TR>
 		
 <?php					
@@ -104,20 +97,7 @@
 			<DIV>
 				<INPUT CLASS="" TYPE="Submit" NAME="checkoneyes" VALUE="Prepare the petition">
 			</DIV>
-			
-		   
-		 
-			 
-		   
-     
-	
 		</P>
-						
-
-
-
-		
-
 	</FORM>
 </DIV>
 		

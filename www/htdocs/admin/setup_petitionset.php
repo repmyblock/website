@@ -75,15 +75,15 @@
 										<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array(
 												"CandidateSet_ID" => $var["CandidateSet_ID"],
-												//"CustomData" => "YES",
-												//"CustomDataDate" => date("m") . " / 28 / " . date("Y"),
-												//"CustomDataWitnessName" => "Theo Bruce Chino Tavarez",
-												//"CustomDataWitnessResidence" => "640 Riverside Drive, 10B, New York, NY 10031",
-												//"CustomDataCity" => "New York City",
-												//"CustomDataCounty" => "New York",
-												//"CustomDataCustomAddress" => "640 Riverside Drive - Apt ____\nNew York, NY 10031",
-												//"CustomDataCustomCounty" => "NY",
-												//"CustomDataCountyFontSize" => 18,	
+												"CustomData" => "YES",
+												"CustomDataDate" => date("m / d / Y"),
+												"CustomDataWitnessName" => "Theo Bruce Chino Tavarez",
+												"CustomDataWitnessResidence" => "640 Riverside Drive, 10B, New York, NY 10031",
+												"CustomDataCity" => "New York City",
+												"CustomDataCounty" => "New York",
+												"CustomDataCustomAddress" => "34__ Broadway - Apt ____\nNew York, NY 10031",
+												"CustomDataCustomCounty" => "NY",
+												"CustomDataCountyFontSize" => 18,	
 											)
 										); ?>/NY/petition" TARGET=NEW>Petitions</A>
 														

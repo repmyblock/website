@@ -27,17 +27,14 @@ class runwithme extends queries {
 	
 	
 	function FindNeibors($NYSID) {
-		$sql = "SELECT * FROM VotersRaw_NYS " . 
-						"WHERE (Raw_Voter_Status = 'ACTIVE' OR Raw_Voter_Status = 'INACTIVE') " . 
-						"AND Raw_Voter_ResStreetName = :StreetName AND Raw_Voter_ResZip = :Zip";
-		$sql_vars = array("StreetName" => $StreetName, "Zip" => $Zip);
+		$sql = "SELECT * FROM VotersRaw_NYS WHERE UniqNYSVoterID = :NYSID AND (Status = 'A' OR Status = 'I')";
+		$sql_vars = array("NYSID" => $NYSID);	
+		$ret = $this->_return_simple($sql, $sql_vars);	
 		
-		if (! empty ($HseNbr)) {
-			$sql .= " AND Raw_Voter_ResHouseNumber = :HseNbr";
-			$sql_vars["HseNbr"] = $HseNbr;
-		}				
-		
-		$sql .= " ORDER BY CAST(Raw_Voter_ResHouseNumber AS UNSIGNED), Raw_Voter_ResApartment";
+		$sql = "SELECT * FROM VotersRaw_NYS WHERE (Status = 'A' OR Status = 'I') " . 
+						"AND ResStreetName = :Res AND ResZip = :Zip AND EnrollPolParty = :Party AND ResHouseNumber = :House " . 
+						"ORDER BY CAST(ResHouseNumber AS UNSIGNED), ResApartment ";
+		$sql_vars = array("Res" => $ret["ResStreetName"], "Zip" => $ret["ResZip"], "Party" => $ret["EnrollPolParty"], "House" => $ret["ResHouseNumber"]);	
 		return $this->_return_multiple($sql, $sql_vars);	
 	} 
 	
@@ -46,6 +43,8 @@ class runwithme extends queries {
 						"LEFT JOIN PetitionSigners ON (PetitionSigners.PetitionGroup_ID = PetitionGroup.PetitionGroup_ID) " . 
 						"WHERE PetitionGroup_OwnerUniqID = :Uniq";
 		$sql_vars = array("Uniq" => $UniqID);
+	
+		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	

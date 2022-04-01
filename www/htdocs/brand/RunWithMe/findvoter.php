@@ -12,7 +12,6 @@
 		exit();
 	}
 
-	
 	if ( ! empty ($_GET["k"])) {
 		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
@@ -51,7 +50,6 @@
 				<B>Please select the one that is you.</B>
        		
        <?php } ?>
-    	
 		</P>
 
 		<P>
