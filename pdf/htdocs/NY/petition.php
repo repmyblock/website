@@ -28,7 +28,7 @@ if (strlen($k < 20)) {
 WriteStderr($URIEncryptedString, "PDF Petition");
 
 $pdf->Watermark = "VOID - Do not use"; 
-$WritenSignatureMonth = "March";
+$WritenSignatureMonth = date("F");
 $Variable = "demo-CC";
 
 // Setup for empty petition.
