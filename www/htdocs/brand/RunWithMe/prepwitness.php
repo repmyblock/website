@@ -11,6 +11,8 @@
 					
 			$r = new runwithme();	
 			
+			WriteStderr($_POST, "Post From Prep Witnesses ");
+			
 			// Do the witness first.
 			$SignatureGroup[0] = $_POST["NYSID"];
 		//	$r->SavePetitionGroup($SignatureGroup, $_POST["Witness"], $_POST["NYSID"], $CandidateID, "Raw_Voter_" . $DatedFiles);

@@ -81,7 +81,7 @@
 												"CustomDataWitnessResidence" => "640 Riverside Drive, 10B, New York, NY 10031",
 												"CustomDataCity" => "New York City",
 												"CustomDataCounty" => "New York",
-												"CustomDataCustomAddress" => "34__ Broadway - Apt ____\nNew York, NY 10031",
+												"CustomDataCustomAddress" => "__ Riverside Boulevard - Apt ____\nNew York, NY 10069",
 												"CustomDataCustomCounty" => "NY",
 												"CustomDataCountyFontSize" => 18,	
 											)
