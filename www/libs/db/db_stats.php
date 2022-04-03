@@ -28,6 +28,20 @@ class stats extends queries {
 		return $this->_return_multiple($sql);
 	}
 	
+	/*
+			SELECT AssemblyDistr, ElectDistr,  
+			COUNT(IF(EnrollPolParty = 'DEM' AND Status = 'A',1 , NULL)) AS 'DEM Active', 
+			COUNT(IF(EnrollPolParty = 'DEM' ,1 , NULL)) AS DEM, 
+			(CEILING(COUNT(IF(EnrollPolParty = 'DEM' AND Status = 'A',1 , NULL)) * .05)) AS 'DEM Sigs', 
+			COUNT(IF(EnrollPolParty = 'REP' AND Status = 'A',1 , NULL)) AS 'REP Active' ,  
+			COUNT(IF(EnrollPolParty = 'REP',1 , NULL)) AS REP, 
+			(CEILING(COUNT(IF(EnrollPolParty = 'REP' AND Status = 'A',1 , NULL)) * .05)) AS 'REP Sigs', 
+			COUNT(EnrollPolParty) AS TOTAL 
+			FROM RepMyBlock.VotersRaw_NYS 
+			WHERE (Status = 'A' OR Status = 'I') 
+			GROUP BY AssemblyDistr, ElectDistr
+	*/
+	
 	function CountSignaturesRequired($AD = NULL, $ED = NULL) {
 		$sql = "SELECT AssemblyDistr, ElectDistr, " . 
 						"COUNT(IF(EnrollPolParty = 'DEM' AND Status = 'A',1 , NULL)) AS 'DEM Active', " . 

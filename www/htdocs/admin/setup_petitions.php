@@ -106,57 +106,5 @@
 </DIV>
 </DIV>
 </DIV>
-<PRE>	  [CandidateGroup_ID] => 15
-            [CandidateSet_ID] => 15
-            [Candidate_ID] => 17
-            [CandidateGroup_Order] => 1
-            [DataCounty_ID] => 120
-            [CandidateGroup_Party] => DEM
-            [CandidateGroup_Watermark] => yes
-            [SystemUser_ID] => 1
-            [CandidateProfile_ID] => 3
-            [Candidate_PetitionNameset] => Luis Tejeada Assembly Petition
-            [Candidate_UniqStateVoterID] => 
-            [Voter_ID] => 
-            [CandidateElection_ID] => 15688
-            [Candidate_Party] => DEM
-            [Candidate_FullPartyName] => 
-            [PartySymbol_ID] => 
-            [Candidate_DisplayMap] => 
-            [Candidate_DispName] => Luis M. Tejada 
-            [Candidate_DispResidence] => 157-10 Riverside Drive West - Apt 5N New York, NY 10031
-            [CandidateElection_DBTable] => AD
-            [CandidateElection_DBTableValue] => 71
-            [Candidate_StatsVoters] => 
-            [Candidate_Status] => pending
-            [Candidate_LocalHash] => 
-            [Candidate_NominatedBy] => 
-            [DataState_ID] => 1
-            [DataCounty_Name] => New York
-            [DataCounty_BOEID] => 31
-            [Elections_ID] => 1371
-            [CandidateElection_PositionType] => electoral
-            [CandidateElection_Party] => 
-            [CandidateElection_Text] => New York State Assembly
-            [CandidateElection_PetitionText] => Member of the New York State Assembly for the 71th Assembly District New York County, New York State
-            [CandidateElection_URLExplain] => 
-            [CandidateElection_Number] => 1
-            [CandidateElection_DisplayOrder] => 600
-            [CandidateElection_Display] => no
-            [CandidateElection_Sex] => 
-            [CandidateElection_CountVoter] => 
-            [Elections_Text] => 2022 New York State Primary
-            [Elections_Date] => 2022-06-28
-            [Elections_Type] => primary
-            [CandidateComRplceSet_ID] => 1
-            [CandidateComRplce_ID] => 1
-            [CandidateComRplce_Order] => 1
-            [Voters_ID] => 
-            [CandidateComRplce_FullName] => Jose Ramon Burgos
-            [CandidateComRplce_Residence] => 125 E. 118th Street, New York, NY 10035
-            
-            
-</PRE>
-
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>
