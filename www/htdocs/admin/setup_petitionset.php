@@ -77,11 +77,11 @@
 												"CandidateSet_ID" => $var["CandidateSet_ID"],
 												"CustomData" => "YES",
 												"CustomDataDate" => date("m / d / Y"),
-												"CustomDataWitnessName" => "Theo Bruce Chino Tavarez",
+												"CustomDataWitnessName" => "Maria Josefa Malaga Aragon",
 												"CustomDataWitnessResidence" => "640 Riverside Drive, 10B, New York, NY 10031",
 												"CustomDataCity" => "New York City",
 												"CustomDataCounty" => "New York",
-												"CustomDataCustomAddress" => "644 Riverside Drive - Apt ____\nNew York, NY 10031",
+												"CustomDataCustomAddress" => "640 Riverside Drive - Apt ____\nNew York, NY 10031",
 												"CustomDataCustomCounty" => "NY",
 												"CustomDataCountyFontSize" => 18,	
 											)
