@@ -68,13 +68,13 @@ class PDF_Multi extends PDF_Code128 {
 		} else {
 			
 			$this->write(3, "I, the undersigned, do hereby state that I am a duly " . 
-				"enrolled voter of the " . $this->party . " Party " .
-				"and entitled to vote at the next primary election of such party, to be held on " . 
-				$this->ElectionDate . "; that my place of residence is truly " . 
-				"stated opposite my signature hereto, and I do hereby designate " .
-				"the following named person" . $this->PluralCandidates . " as " .
-				$this->PluralAcandidates . " candidate" . $this->PluralCandidates . " for ". 
-				"the " . $this->CandidateNomination);
+												"enrolled voter of the " . $this->party . " Party " .
+												"and entitled to vote at the next primary election of such party, to be held on " . 
+												$this->ElectionDate . "; that my place of residence is truly " . 
+												"stated opposite my signature hereto, and I do hereby designate " .
+												"the following named person" . $this->PluralCandidates . " as " .
+												$this->PluralAcandidates . " candidate" . $this->PluralCandidates . " for ". 
+												"the " . $this->CandidateNomination);
 			
 		}			
     $this->Ln(5);
@@ -133,9 +133,7 @@ class PDF_Multi extends PDF_Code128 {
 	    	"I do hereby appoint " . $this->Appointments[$i] . " all of whom are enrolled voters of the " . $this->party . 
 	    	" Party, as a committee to fill vacancies in accordance with the provisions of the Election Law.", 0);
 	    */
-	    
-	  
-	    
+	   
 	    $YLocation = $this->GetY() - 1.5 ;
 	    $Botton_Corner_Y = $this->GetY();
  		}

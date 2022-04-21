@@ -14,28 +14,58 @@
 
 	$Counter = 1;
 	$TotalCandidates = 0;
-	
-	
+
 	if ( ! empty ($URIEncryptedString)) {
 		if (! empty ($URIEncryptedString["Candidate_ID"])) {
 			$Candidate_ID = $URIEncryptedString["Candidate_ID"];
-			$result = $r->ListCandidatePetition($Candidate_ID);	  	
+			$result = $r->ListCandidatePetitionFilingID($Candidate_ID);	  	
 			$var = $result[0];
-			
 			$var["CanPetitionSet_ID"] = 1;
-			#echo "<PRE>"  . print_r($var, 1) . "</PRE>";
-			
-		
 			$PetitionData[$var["CanPetitionSet_ID"]]["TotalPosition"] = $var["CandidateElection_Number"];
 			$PetitionData[$var["CanPetitionSet_ID"]]["PositionType"]	= $var["CandidateElection_PositionType"];
 			$PetitionData[$var["CanPetitionSet_ID"]]["CandidateName"]	= $var["Candidate_DispName"];
 			$PetitionData[$var["CanPetitionSet_ID"]]["CandidatePositionName"]	= $var["CandidateElection_PetitionText"];
 			$PetitionData[$var["CanPetitionSet_ID"]]["CandidateResidence"] = $var["Candidate_DispResidence"];
 			
+			$var["Candidate_Agent"] = "Theo Chino";
+			if ( empty ($var["Candidate_Agent"])) {
+				$pdf->SignatureLine = $var["Candidate_DispName"];		
+			} else {
+				$pdf->SignatureLine = $var["Candidate_Agent"] . " for the candidate " . $var["Candidate_DispName"];		
+			}
+			
 		}
 	}
 	
+	if ( $URIEncryptedString["AmmendCoverSheet"] == "yes") {
+		$pdf->typepetition = "AMENDED ";
+		$pdf->AmendedmentCoverSheet = 'yes';
+	}
 	
+	
+	
+	$NumbersOfVolumesPetitions = 0;
+	$VolumesID = "";
+	$pdf->PetitionsGroups = "Candidate: P" . $URIEncryptedString["Candidate_ID"] . " - Petitions: ";
+	
+	if ( ! empty ($result)) {
+		foreach ($result as $var) {
+			if ( ! empty ($var)) {
+				$PetitionsSet[$var["CandidateSet_ID"]] = 1;
+				$VolumesID .= $var["FillingTrack_BOEID"] . " ";		
+				$NumbersOfVolumesPetitions++;		
+			}
+		}
+
+		foreach ($PetitionsSet as $var => $index) {			
+			$pdf->PetitionsGroups .= "S" . $var . " ";
+		}
+	}
+
+	$pdf->NumbersOfVolumesPetitions = 	$NumbersOfVolumesPetitions;
+  $pdf->VolumesIDs = $VolumesID;
+	
+
 	#echo "<PRE>"  . print_r($PetitionData, 1) . "</PRE>";
 	
 	$i = 0;
@@ -44,20 +74,19 @@
 					
 			if ( ! empty ($var)) {
 				if ( is_array($key)) {
-					
 					#print "<PRE>" . print_r($key, 1) . "</PRE>";
-					
  					$pdf->Candidate[$TotalCandidates] =  $key["CandidateName"];
  					$pdf->RunningFor[$TotalCandidates] =  $key["CandidatePositionName"];
 					$pdf->Residence[$TotalCandidates] = $key["CandidateResidence"];
 					$pdf->PositionType[$TotalCandidates] = $key["PositionType"];					
 					#print "Total Candidates; $TotalCandidates\n";
-	
 					$TotalCandidates++;
 				}
 			}
 		}
-	}
+	}	
+	
+	
 	
 	$pdf->NumberOfCandidates = $TotalCandidates;
 	$pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
@@ -80,6 +109,13 @@
  	$pdf->CandidateNomination .= " or for election to a party position of such party.";
 
 	// Need to fix that.
+	
+	$pdf->Person = "Theo Chino";
+	$pdf->Address = "640 Riverside Drive - 10B\nNew York, NY 10031";
+ 	$pdf->Phone = "(929) 359-3349";
+  $pdf->Email = "theo@repmyblock.org";
+   	
+	
 	
 
 	
@@ -110,7 +146,11 @@
 
 	// Need to calculate the number of empty line.
 	$TotalCountName = count($Name);
-	$pdf->Output("I", "CoverSheet.pdf");
+	
+	$Filename = "CoverSheet_" . $pdf->typepetition . $pdf->Candidate[0]  . "_" . $pdf->PetitionsGroups;
+	$Filename = preg_replace('/\s+/', '_', $Filename);
+	
+	$pdf->Output("I", $Filename . ".pdf");
 
 function Redact ($string) {
 	return str_repeat("X", strlen($string)); ;

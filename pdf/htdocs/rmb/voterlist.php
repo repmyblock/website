@@ -16,7 +16,9 @@
 		//$PreparedFor = $URIEncryptedString["PreparedFor"];
 		
 		$DataQuery = array("AD" => intval($URIEncryptedString["AD"]), "ED" => intval($URIEncryptedString["ED"]), 
-												"PT" => $URIEncryptedString["Party"]);
+												//"PT" => $URIEncryptedString["Party"]
+												);
+												
 		$voters = $r->SearchInRawNYSFile($DataQuery);
 		$PreparedFor = $URIEncryptedString["PreparedFor"];
 		$ElectionDate = PrintShortDate($WalkSheetUser["Elections_Date"]);

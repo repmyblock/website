@@ -7,13 +7,13 @@ class PDF extends FPDF {
 	var $Col1 = 6; var $Col2 = 61; var $Col3 = 150;
 	var $SizeCol1 = 55; var $SizeCol2 = 89; var $SizeCol3 = 59;
   var $Line_Left = 6; var $Line_Right = 209; var $Line_Col1 = 61; var $Line_Col2 = 150;
-  
 	//$Botton_Corner_Y = 0;
+	
 	 
 	// Page header
 	function Header()	{
-		
-		$i = 0;
+
+		$i= 0;
 
 		if (! empty ($this->Watermark)) {
 			$this->SetFont('Arial','B',50);
@@ -24,8 +24,8 @@ class PDF extends FPDF {
 		}
 		
     $this->SetFont('Arial','B',24);
-    $this->Ln(15);
-    $this->Cell(0,0, "DESIGNATING PETITION COVER SHEET",0,0,'C');
+    $this->Ln(25);
+    $this->Cell(0,0, $this->typepetition . "PETITION COVER SHEET",0,0,'C');
     $this->Ln(13);
     $this->Cell(0,0, strtoupper($this->party) . " PARTY",0,0,'C');		
     $this->Ln(15);    
@@ -40,12 +40,12 @@ class PDF extends FPDF {
   
   	$this->Line($this->Line_Left, $YLocation - 0.1,  $this->Line_Right, $YLocation - 0.1); 
 
-    $this->SetFont('Arial','B',8);
+    $this->SetFont('Arial','B', 8);
     $this->SetXY($this->Col1, $YLocation );
     $this->MultiCell($this->SizeCol1, 4, "NAME" . strtoupper($this->PluralCandidates) . " OF CANDIDATE" . strtoupper($this->PluralCandidates), 0, 'C');
 
     $this->SetXY($this->Col2, $YLocation );
-    $this->MultiCell($this->SizeCol2, 4, $this->RunningForHeading[$this->PositionType[$i]], 0, 'C');
+    $this->MultiCell($this->SizeCol2, 4, $this->RunningForHeading[$this->PositionType[0]], 0, 'C');
 
 	 	$this->SetXY($this->Col3, $YLocation );
 	 	$this->MultiCell($this->SizeCol3, 4, "PLACE" . strtoupper($this->PluralCandidates) . " OF RESIDENCE", 0, 'C');
@@ -59,21 +59,36 @@ class PDF extends FPDF {
   	$this->Ln(2.8);
 	    			
 	  $this->Line($this->Line_Left, $YLocation - 0.1, $this->Line_Right, $YLocation - 0.1); 
-
+ 			
    	$this->SetFont('Arial','B',11);
 		$this->SetXY($this->Col1, $YLocation + 0.3 );
-		$this->MultiCell($this->SizeCol1, 3.5, $this->Candidate[$i], 0, 'C', 0);
+		$this->MultiCell($this->SizeCol1, 5, $this->Candidate[$i], 0, 'C', 0);
 		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
 
-		$this->SetFont('Arial','', 9);   	   		
+		$this->SetFont('Arial','', 11);   	   		
 		$this->SetXY($this->Col2, $YLocation );
- 		$this->MultiCell($this->SizeCol2, 3.5, $this->RunningFor[$i], 0, 'C', 0);
+ 		$this->MultiCell($this->SizeCol2, 5, $this->RunningFor[$i], 0, 'C', 0);
 		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
 								
 		$this->SetXY($this->Col3, $YLocation );
-		$this->MultiCell($this->SizeCol3, 3.5, $this->Residence[$i], 0, 'C', 0);
+		$this->MultiCell($this->SizeCol3, 5, $this->Residence[$i], 0, 'C', 0);
 		if ( $YLocation_new < $this->GetY()) { $YLocation_new = $this->GetY(); }
 
+									
+	/*		
+	
+		
+ 					$pdf->Candidate[$TotalCandidates] =  $key["CandidateName"];
+ 					$pdf->RunningFor[$TotalCandidates] =  $key["CandidatePositionName"];
+					$pdf->Residence[$TotalCandidates] = $key["CandidateResidence"];
+					$pdf->PositionType[$TotalCandidates] = $key["PositionType"];					
+		
+			$PetitionData[$var["CanPetitionSet_ID"]]["TotalPosition"] = $var["CandidateElection_Number"];
+			$PetitionData[$var["CanPetitionSet_ID"]]["PositionType"]	= $var["CandidateElection_PositionType"];
+			$PetitionData[$var["CanPetitionSet_ID"]]["CandidateName"]	= $var["Candidate_DispName"];
+			$PetitionData[$var["CanPetitionSet_ID"]]["CandidatePositionName"]	= $var["CandidateElection_PetitionText"];
+			$PetitionData[$var["CanPetitionSet_ID"]]["CandidateResidence"] = $var["Candidate_DispResidence"];
+	*/
 									
 		$YLocation = $YLocation_new + 0.7;   
 		$this->Line($this->Line_Left, $YLocation - 0.1, $this->Line_Right, $YLocation - 0.1); 
@@ -92,41 +107,72 @@ class PDF extends FPDF {
     
     $Botton_Corner_Y = $this->GetY();
 
-
- $this->Ln(15);  
+ 		$this->Ln(8);  
 		$this->SetFont('Arial','', 15);  
-		$this->MultiCell(0, 10,  "Total Number of Volumes in the Petition: 1");
-   	$this->MultiCell(0, 10,  "Identification Numbers: ______________________");
+		$this->MultiCell(0, 10,  "Total Number of Volumes in the Petition: " . $this->NumbersOfVolumesPetitions);
+		
+		$this->Ln(3);  
+		
+   	$this->MultiCell(0, 6, "Identification Numbers:");
+ 
+	 	$this->SetFont('Arial','', 12);
+ 		$this->SetX(20);
+   	$this->MultiCell(0, 5,  $this->VolumesIDs, '', 'L');
    	
-   	$this->MultiCell(0, 10,  "The petition contains the number, or in excess of the number, " . 
-   												"of valid signatures required by the Election Law.  ");
+   	$this->Ln(4.5);
+   	$this->SetFont('Arial','B', 12);  
+   	$this->MultiCell(0, 5,  "The petition contains the number, or in excess of the number, " . 
+   												"of valid signatures required by the Election Law.");
+		$this->Ln(4.5);
    	
-   	$this->MultiCell(0, 10,  "Contact person to Correct Deficiencies:\n    Name: Theo Chino");
-   	$this->MultiCell(0, 10, "    Residence Address: 640 Riverside Drive - 10B, New York, NY 10031");
-   	$this->MultiCell(0, 10, "    Phone: (929) 359-3349");
-   	$this->MultiCell(0, 10,  "    Email: theo@repmyblock.org");
+   	$this->SetFont('Arial','', 12);  
    	
-   	$this->MultiCell(0, 10,  "I hereby authorize that notice of any determination made by the Board of Elections " . 
-   												"be transmitted to the person name above:");
+   	$this->SetX(20);
+   	$this->MultiCell(0, 5, "Contact person to correct deficiencies: " . $this->Person);
+		$this->SetX(20);
+   	$this->MultiCell(0, 5, "Residence address: ");
+ 		$this->SetX(40);
+   	$this->MultiCell(0, 5,  $this->Address, '', 'L');
+		$this->SetX(20);
+   	$this->MultiCell(0, 5, "Phone: " . $this->Phone);
+		$this->SetX(20);
+   	$this->MultiCell(0, 5, "Email: " . $this->Email);
    	
-   #$this->Ln(1);
+   	$this->Ln(4.5);
+   	
+ 	 	$this->SetFont('Arial','B', 12); 
+   	$this->MultiCell(0, 5,  "I hereby authorize that notice of any determination made by the Board of Elections " . 
+   												"be transmitted to the person name above.");
+   	
+  	#$this->Ln(1);
+		if ( $this->AmendedmentCoverSheet == 'yes' ) {
+			$this->Ln(7);
+			$this->MultiCell(0, 5,  "This is to certify that I am authorized to file this amended cover sheet.");			
+		}
     
    
 		$this->Ln(4.5);
 		$this->MultiCell(0, 10,  "Candidate or Agent");
    
+   
+   	$this->Ln(15);
+		$this->MultiCell(0, 1,  "___________________________________________");
 		
-    
+		$this->SetFont('Arial','', 9);
+		$this->MultiCell(0, 10,  $this->SignatureLine);
 	}
 
 	// Page footer
 	function Footer()	{
 		
-		$this->SetY(-37);
-   	$YLocation = $this->GetY() - 1.9;
 		
-	
 		
+		
+		
+		$this->SetY(-7);
+		
+		$this->SetFont('Arial','I', 7); 
+		$this->MultiCell(0, 5, $this->PetitionsGroups);
 		
 
 
