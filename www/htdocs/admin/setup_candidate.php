@@ -119,6 +119,12 @@
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
 													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>(Nrow)</A>
+													
+									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+													"AmmendCoverSheet" => "yes",
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Amend</A>
 				
 									<?= $var["CandidateElection_DBTable"] ?> <?= $var["CandidateElection_DBTableValue"] ?></span>
 						 	
