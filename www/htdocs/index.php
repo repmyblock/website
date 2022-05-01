@@ -1,21 +1,18 @@
 <?php 
 	$BigMenu = "home";
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
-	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
-	
-
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	/* User is logged */
 ?>
-
 
 <div class="main">
 	<CENTER>
 	<P CLASS="BlueBox">
-		<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">ACT NOW! 
-		PETITIONING RUNS FROM<BR>MARCH 1<SUP>st</SUP>, 2022 TO APRIL 7<SUP>th</SUP>, 2022.</a>
+		<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">
+				How to run for County Committee?<BR>Click here!
+		</a>
 	</P>
 	
 	<P CLASS="BckGrndElement f80">WHAT IS THE COUNTY COMMITTEE</P>
