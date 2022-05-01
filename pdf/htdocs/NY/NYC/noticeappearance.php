@@ -8,7 +8,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/NY/NYC/PetHearing_Notic
 require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
 
 $r = new OutragedDems();
-$result = $r->SelectObjections(2);
+$result = $r->SelectObjections($k);
 
 //echo "<PRE>";
 //print_r($result);
@@ -17,8 +17,7 @@ $result = $r->SelectObjections(2);
 $PageSize = "letter";
 $pdf = new PDF_Multi('P','mm', $PageSize);
 //$pdf = new PDF('P','mm', $PageSize);
-
-$CanPetitionSet_ID = trim($_GET["petid"]);
+//$CanPetitionSet_ID = trim($_GET["petid"]);
 
 
 $pdf->AliasNbPages();
