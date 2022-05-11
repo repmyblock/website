@@ -261,19 +261,39 @@ class PDF_Multi extends PDF_Code128 {
 		$this->SetFont('Arial','',10);
 		$this->Ln(1);
 		
-		if ($this->PetitionType == "independent") {
+		if ($this->PetitionType == "independent" || $this->PetitionType == "nonresident") {
 	  	
 	  	/* Independent witness statement */
 			
-			$this->MultiCell(0, 4.2, 
-			"I, " . $this->WitnessName . " state: I am a duly qualified voter of the State of New York.  " . 
-			"I now reside at " . $this->WitnessResidence .  
-			". Each of the individuals whose names are subscribed to this petition sheet containing " .
-			"____ signatures, subscribed the same in my presence on the dates above indicated " . 
-			"and identified himself or herself to be the individual who signed this sheet. I understand " . 
-			"that this statement will be accepted for all purposes as the equivalent of an affidavit and, " . 
-			"if it contains a material false statement, " . 
-			"shall subject me to the same penalties as if I had been duly sworn.", 0, 'L', 0);
+			if ( $this->PetitionSubType == "nonresident") {
+				
+				$this->MultiCell(0, 4.2, 
+				"I, " . $this->WitnessName . " I am a citizen of the United States of America who is duly qualified to " . 
+				"register to vote in the State of New York but not so registered, or who would be duly qualified to register " . 
+				"to vote in the State of New York if I were a New York resident, and I consent to the jurisdiction of the " . 
+				"courts of New York in resolving any disputes concerning the witnessing of petition signatures. I further " . 
+				"consent to service of the subpoena on a person of suitable age and discretion at the following New York " . 
+				"address, which may be considered my actual place of business for this purpose. " . 
+				"I now reside at " . $this->WitnessResidence .  
+				". Each of the individuals whose names are subscribed to this petition sheet containing ____ signatures, " . 
+				"subscribed the same in my presence on the dates above indicated and identified himself or herself to be " .
+				"the individual who signed this sheet. I understand that this statement will be accepted for all purposes " . 
+				"as the equivalent of an affidavit and, if it contains a materially false statement, shall subject me to " . 
+				"the same penalties as if I had been duly sworn.", 0, 'L', 0);
+				
+			} else {
+			
+				$this->MultiCell(0, 4.2, 
+				"I, " . $this->WitnessName . " state: I am a duly qualified voter of the State of New York.  " . 
+				"I now reside at " . $this->WitnessResidence .  
+				". Each of the individuals whose names are subscribed to this petition sheet containing " .
+				"____ signatures, subscribed the same in my presence on the dates above indicated " . 
+				"and identified himself or herself to be the individual who signed this sheet. I understand " . 
+				"that this statement will be accepted for all purposes as the equivalent of an affidavit and, " . 
+				"if it contains a material false statement, " . 
+				"shall subject me to the same penalties as if I had been duly sworn.", 0, 'L', 0);
+			
+			}
 		
 			$this->SetFont('Arial','I',8);
 			$this->SetTextColor(200);
