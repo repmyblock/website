@@ -9,10 +9,6 @@
 		break;
 	}
 
-	if ($k != "web") {
-		print "TEAM: <B>$k</B>";
-	}
-
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
