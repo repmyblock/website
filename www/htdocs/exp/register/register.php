@@ -8,9 +8,7 @@
 			$k = "web";
 		break;
 	}
-
 	
-
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
@@ -24,9 +22,7 @@
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";
 		$r = new login();
 		$result = $r->CheckForValidityOfTeam($k);
-		
-		print "<PRE>" . print_r($result, 1) . "</PRE>";
-		
+
 		if ( $result["Team_Active"] == "yes")  {
 			$MailToText .= " for team " . $k;
 			$MailURLText = " FOR TEAM <FONT COLOR=BLUE>" . $k . "</FONT>";

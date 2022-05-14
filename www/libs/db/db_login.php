@@ -54,7 +54,7 @@ class login extends queries {
   }
   
   function CheckForValidityOfTeam($Team) {
-  	$sql = "SELECT * FROM Team WHERE Team_AccessCode = :TeamName";
+  	$sql = "SELECT * FROM Team WHERE Team_WebCode = :TeamName";
   	$sql_vars = array("TeamName" => $Team);
   	return $this->_return_simple($sql, $sql_vars);
   }
