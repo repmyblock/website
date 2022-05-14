@@ -17,8 +17,10 @@ class RMB_Admin extends RepMyBlock {
 		$sql .= ":AddPriv ";
 		$sql_vars = array("AddPriv" => $PrivModification);
 		
+		$sql .= "WHERE SystemUser_Priv != 4294967295 ";
+		
 		if ( $SystemUserID > 0 ) {
-			$sql .= "WHERE SystemUser_ID = :SystemID";
+			$sql .= "AND SystemUser_ID = :SystemID";
 			$sql_vars["SystemID"] = $SystemUserID;
 		}
 
