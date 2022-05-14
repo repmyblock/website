@@ -6,11 +6,11 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_district.php";  
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-	$rmb = new repmyblock();
+	$rmb = new RMBdistrict();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($UserParty);
 	
@@ -30,6 +30,8 @@
 				<div class="Subhead">
 					<h2 class="Subhead-heading">District</h2>
 				</div>
+				
+				
 			
 				<?php 
 					if ($VerifEmail == true) { 
@@ -50,7 +52,23 @@
 				        			County Committee Members: <?= $CommitteeMembers ?><BR>
 				        			Assembly District Part <?= $AssemblyPart ?>: <?= $DistrictLeaders ?>
 				        		</DD>
+				        		
+				        		<DIV>
+											<A HREF="/<?=  CreateEncoded ( array( 
+													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+													"Raw_Voter_ID" => $URIEncryptedString["Raw_Voter_ID"],
+													"FirstName" => $URIEncryptedString["SystemUser_FirstName"],
+													"LastName" => $URIEncryptedString["SystemUser_LastName"],
+													"VotersIndexes_ID" => $URIEncryptedString["VotersIndexes_ID"],
+													"UniqNYSVoterID" => $URIEncryptedString["Raw_Voter_UniqNYSVoterID"],
+													"UserParty" => $URIEncryptedString["Raw_Voter_RegParty"],
+													"SystemAdmin" => $URIEncryptedString["SystemUser_Priv"]
+													)) ?>/lgd/district/results">Results per districts</A>
+									  </DIV>
+				
 				          </dl>
+				          
+				         
 							</DIV>
 					</DIV>
 				</DIV>

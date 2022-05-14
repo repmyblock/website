@@ -18,8 +18,21 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 		
 	$MailToText = "mailto:notif@repmyblock.org?" . 
-								"subject=I want to see the documentary&" . 
-								"body=DO CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
+								"subject=I want to see the documentary";
+	
+	if ( $k != "web") {
+		// Check for the team.
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";
+		$r = new login();	
+		$result = $r->CheckForValidityOfTeam($k);	
+		if ( $result["Team_Active"] == "yes")  {
+			$MailToText .= " for team " . $k;
+			$MailURLText = " FOR TEAM <FONT COLOR=BLUE>" . $k . "</FONT>";
+		}
+	}
+								 
+	$MailToText .= "&body=DO CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
 								
 	$MultipleMailToText = "mailto:infos@repmyblock.org?" . 
 								"subject=Multiple users for one account&" . 
@@ -81,9 +94,9 @@
 	</P>
 	
 	<P CLASS="f80">
-		<A HREF="<?= $MailToText ?>">Please  
-			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO SEE</FONT>"</A>
-			and you will receive a link with the registration information to see the documentary.
+			<A HREF="<?= $MailToText ?>">Click on this link to open you mail program or
+			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO SEE<?= $MailURLText ?></FONT>"</A>
+			and you will receive a link with the registration information.
 	</P>
 	
 	<P CLASS="f40">

@@ -1088,7 +1088,7 @@ class RepMyBlock extends queries {
 																		
 		$sql .= ") " .
 					 "SELECT SystemUserTemporary_email, SystemUserTemporary_emailverified, SystemUserTemporary_username, " . 
-									"SystemUserTemporary_password, SystemUserTemporary_emaillinkid, NOW(), NOW(), " . (PERM_MENU_PROFILE + PERM_MENU_SUMMARY + PERM_MENU_DOCU);
+									"SystemUserTemporary_password, SystemUserTemporary_emaillinkid, NOW(), NOW(), " . (PERM_MENU_PROFILE + PERM_MENU_SUMMARY /*+ PERM_MENU_DOCU */);
 									
 		if ( ! empty ($ProfileArray["Change"]["SystemUser_FirstName"])) { $sql .= ", :FirstName"; }
 		if ( ! empty ($ProfileArray["Change"]["SystemUser_LastName"])) { $sql .= ", :LastName"; }

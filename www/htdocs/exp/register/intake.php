@@ -48,9 +48,12 @@
 			}
 			
 			$retreguser = $r->RegisterUser(trim($_POST["username"]), $res["SystemUserEmail_AddFrom"], 
-																	trim($_POST["password"]), "Register", $Refer, 
+																	trim($_POST["password"]), "Register", $res["SystemUserEmail_WebCode"], 
 																	$res["SystemUserEmail_MailCode"], "both");
-																																	
+																	
+			WriteStderr($retreguser , "RegisterUser");
+																	
+																											
 			if ( empty ($retreguser["USERNAME"]) && empty ($retreguser["EMAIL"])) {
 	
 				require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
@@ -88,6 +91,7 @@
 		}
 	}
 	
+	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
@@ -96,11 +100,22 @@
 <DIV class="main">
 		
 	<DIV CLASS="right f80">Register</DIV>
-
+	
+	<?php if ( ! empty($result["SystemUserEmail_WebCode"])) { ?>
+		You are joining <B><?= $result["Team_Name"] ?></B> team. <BR>
+		<?php if ( ! empty ($result["SystemUser_ID"])) { ?>
+			RepMyBlock will be sharing your 
+			information with the group team leader, <B><?= $result["SystemUser_FirstName"] . " " . $result["SystemUser_LastName"] ?></B>.
+	<?php } } ?>
+	
 	<FORM METHOD="POST" ACTION="">	
 		<INPUT TYPE="hidden" NAME="SystemUserEmail_ID" VALUE="<?= $result["SystemUserEmail_ID"] ?>" CHECKED>	
 		<INPUT TYPE="hidden" NAME="AddFrom" VALUE="<?= $result["SystemUserEmail_AddFrom"] ?>" CHECKED>	
-			
+		<?php if ( ! empty ($result["SystemUserEmail_WebCode"])) { ?>
+		<INPUT TYPE="hidden" NAME="TeamWebCode" VALUE="<?= $result["SystemUserEmail_WebCode"] ?>" CHECKED>	
+		<INPUT TYPE="hidden" NAME="TeamWebCodeID" VALUE="<?= $result["Team_ID"] ?>" CHECKED>	
+		<?php } ?>
+	
 		<?php
 		
 			if ($retreguser["PASSWORDTOOSHORT"] == 1) {

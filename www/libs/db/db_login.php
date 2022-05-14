@@ -52,6 +52,12 @@ class login extends queries {
 
 		return $ret;	  	
   }
+  
+  function CheckForValidityOfTeam($Team) {
+  	$sql = "SELECT * FROM Team WHERE Team_AccessCode = :TeamName";
+  	$sql_vars = array("TeamName" => $Team);
+  	return $this->_return_simple($sql, $sql_vars);
+  }
 
 	function SaveInscriptionRecord ($Email, $Username, $Type = "Other", $SystemUserID = NULL) {
 		$sql = "INSERT INTO SystemUserVoter SET SystemUserVoter_Username = :Username, " .
@@ -129,7 +135,10 @@ class login extends queries {
 	}
 	
 	function SearchEmailFromIntake($IntakeID, $TypeID = "MailCode") {
-		$sql = "SELECT * FROM SystemUserEmail WHERE ";
+		$sql = "SELECT * FROM SystemUserEmail " . 
+						"LEFT JOIN Team ON (Team.Team_WebCode = SystemUserEmail.SystemUserEmail_WebCode) " .
+						"LEFT JOIN SystemUser ON (SystemUser.SystemUser_ID = Team.SystemUser_ID) " .	
+						"WHERE ";
 		$sql_vars = array("Intake" => $IntakeID);
 				
 		switch($TypeID) {
@@ -137,6 +146,7 @@ class login extends queries {
 			case "ID": $sql .= "SystemUserEmail_ID = :Intake"; break;
 			default: return;
 		}
+		
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	

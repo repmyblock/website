@@ -82,16 +82,16 @@
 				
 				<?php if ($MenuDescription == "District Not Defined") { ?>
 					<P CLASS="f80">
-						
+						<?php /*	
 						<B>
 							<A HREF="/<?= $k ?>/lgd/profile/user">To watch the documentary, you
 								just need to save your first and last name in the personal profile</A>.
 						</B>
 					</P>
-					
+					*/ ?>
 					<P>
 						<B>
-							<A HREF="/<?= $k ?>/lgd/profile/user">Before you can use the system,
+							<A HREF="/<?= $k ?>/lgd/profile/user"><FONT COLOR=BROWN>Before you can use the system</FONT>,
 								you need to update your Personal Profile, verify your voter profile,
 								and then create a candidate profile</A>.
 						</B>
