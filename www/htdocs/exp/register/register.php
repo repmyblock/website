@@ -9,12 +9,19 @@
 		break;
 	}
 
+	
+
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 
 	$MailToText = "mailto:notif@repmyblock.org?" .
 								"subject=I want to petition";
+	
+	if ($k != "web") {
+		print "TEAM: <B>$k</B>";
+	}
+	
 	
 	if ( $k != "web") {
 		// Check for the team.
