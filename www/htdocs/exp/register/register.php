@@ -18,17 +18,15 @@
 	$MailToText = "mailto:notif@repmyblock.org?" .
 								"subject=I want to petition";
 	
-	if ($k != "web") {
-		print "TEAM: <B>$k</B>";
-	}
-	
-	
 	if ( $k != "web") {
 		// Check for the team.
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";
 		$r = new login();
 		$result = $r->CheckForValidityOfTeam($k);
+		
+		print "<PRE>" . print_r($result, 1) . "</PRE>";
+		
 		if ( $result["Team_Active"] == "yes")  {
 			$MailToText .= " for team " . $k;
 			$MailURLText = " FOR TEAM <FONT COLOR=BLUE>" . $k . "</FONT>";
