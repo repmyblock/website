@@ -127,6 +127,7 @@
 											<TH style="padding:0px 10px;">AD</TH>
 											<TH style="padding:0px 10px;">ED</TH>
 											<TH style="padding:0px 10px;">TOWN</TH>
+											<TH style="padding:0px 10px;">&nbsp;</TH>
 										</TR>
 									
 									
@@ -162,7 +163,7 @@
 								</TABLE>
 								
 								<P>
-									<I>Members in red have not be authorized by an admin.</B>
+									<I>Members in red have not been authorized by an admin.</B>
 								</P>
 								
 										</span>

@@ -19,13 +19,19 @@ class RMBdistrict extends RepMyBlock {
 	}		
 	
 	function ListResultsByEDAD($AD, $ED) {
-		$sql = "SELECT * FROM DataDistrict " .
-						"LEFT JOIN ElectResult ON (ElectResult.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
-						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = ElectResult.CandidateElection_ID) " .
-						"LEFT JOIN Elections ON (CandidateElection.Elections_ID = Elections.Elections_ID) " .
-						"LEFT JOIN ElectResultAdmin ON (ElectResult.ElectResultAdmin_ID = ElectResultAdmin.ElectResultAdmin_ID) " .
-						"WHERE DataDistrict_StateAssembly = :AD AND DataDistrict_Electoral = :ED";
+		$sql = "SELECT * FROM DataDistrict  " .
+							"LEFT JOIN ElectResult ON (ElectResult.DataDistrict_ID = DataDistrict.DataDistrict_ID)  " .
+							"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = ElectResult.CandidateElection_ID)  " .
+							"LEFT JOIN Elections ON (CandidateElection.Elections_ID = Elections.Elections_ID)  " .
+							"LEFT JOIN ElectResultAdmin ON (ElectResult.ElectResultAdmin_ID = ElectResultAdmin.ElectResultAdmin_ID)  " .
+
+							"LEFT JOIN ElectResultCandidate ON (ElectResult.ElectResult_ID = ElectResultCandidate.ElectResult_ID ) " .
+							"LEFT JOIN Candidate ON (Candidate.Candidate_ID = ElectResultCandidate.Candidate_ID) " .
+
+						"WHERE DataDistrict_StateAssembly = :AD AND DataDistrict_Electoral = :ED " . 
+						"ORDER BY Elections_Date DESC, CandidateElection.CandidateElection_DBTable, Elections.Elections_ID, ElectResultCandidate_Count DESC  ";
 	
+		
 		$sql_vars = array("AD" => $AD, "ED" => $ED);											
 		return $this->_return_multiple($sql, $sql_vars);
 	}	

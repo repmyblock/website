@@ -61,7 +61,7 @@
 						<div class="Box">
 					  	<div class="Box-header pl-0">
 					    	<div class="table-list-filters d-flex">
-					  			<div class="table-list-header-toggle states flex-justify-start pl-3">Team Members <B><?= SystemUser_FirstName  ?></B></div>
+					  			<div class="table-list-header-toggle states flex-justify-start pl-3">Team Members <B><?= $FullName  ?></B></div>
 					  		</div>
 					    </div>
 				    
