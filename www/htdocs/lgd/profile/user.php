@@ -8,10 +8,10 @@
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();	
 	
-	
 	// Put the POST HERE because we need to reread the data 
 	if ( ! empty ($_POST)) {	
 		
+		// This is where the data in the profile gets updated.
 		$ProfileArray = array (	"bio" => $_POST["profile_bio"], 
                             "URL"=> $_POST["URL"],
                             "Location" => $_POST["Location"]);
@@ -38,11 +38,23 @@
 			if ( empty ($mytmp["SystemUser_ID"])) {
 				$rmbperson = $rmb->CreateSystemUserAndUpdateProfile($URIEncryptedString["SystemTemporaryEmail"], $ProfileArray, $rmbperson);				
 				$URIEncryptedString["SystemUser_ID"] = $rmbperson["SystemUser_ID"];
+    	
+    		// If the person is part of the team, 
+	  		if ( ! empty ($mytmp["SystemUserTemporary_reference"])) {
+	  			
+	  			// Check that a team exist with that code.
+	 				$TeamWebCode = $rmb->FindCampaignFromWebCode($mytmp["SystemUserTemporary_reference"]);
+	  			WriteStderr($TeamWebCode, "WebCode");
+	  			
+	  			$rmb->SaveTeamInfo($rmbperson["SystemUser_ID"] , $TeamWebCode["Team_ID"], NULL, 'no');
+	  			
+	  		}
+	  		
     	} else {
     		$rmbperson = $rmb->UpdatePersonUserProfile($mytmp[0]["SystemUser_ID"], $ProfileArray, $rmbperson);   		
 	    	$URIEncryptedString["SystemUser_ID"] = $mytmp[0]["SystemUser_ID"];
     	}
- 
+    	
   		$URIEncryptedString["FirstName"] = $rmbperson["SystemUser_FirstName"];
   		$URIEncryptedString["LastName"] = $rmbperson["SystemUser_LastName"];
   		$URIEncryptedString["SystemAdmin"] = $rmbperson["SystemUser_Priv"];
@@ -59,24 +71,22 @@
 		}	
 	}
 	
-	
 	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
 	
 	if ( $URIEncryptedString["SystemUser_ID"] == "TMP" ) {
-	
-		$PersonEmail = $URIEncryptedString["SystemTemporaryEmail"];
-		$EncodeString =
+		$PersonEmail = $URIEncryptedString["SystemTemporaryEmail"];	
+		// Something is not right here with all those SystemUser_ID ... 
+		// Why is that here? 5/14/2022 - Theo
+		$k = CreateEncoded (
 					array( 
 						"SystemUser_ID" => $rmbperson["SystemUser_ID"],
 				    "SystemUser_ID" => $rmbperson["SystemTemporaryEmail"],
 				    "SystemUser_ID" => $rmbperson["ProfileCreate"],
 				    "SystemUser_ID" => $rmbperson["SystemUser_Priv"]
-					);	
-		$k = CreateEncoded ($EncodeString);	
+					)
+		);	
 		
 	} else {
-		
-	
 		WriteStderr($rmbperson, "rmbperson array");
 		
 		$PersonFirstName = $rmbperson["SystemUser_FirstName"];
@@ -86,7 +96,7 @@
 		$PersonURL       = $rmbperson["SystemUserProfile_URL"];
 		$PersonLocation  = $rmbperson["SystemUserProfile_Location"];
 			
-		$EncodeString =
+		$k = CreateEncoded (
 					array( 
 						"SystemUser_ID" => $rmbperson["SystemUser_ID"],	
 						"FirstName" => $PersonFirstName, 
@@ -96,8 +106,8 @@
 						"MenuDescription" => $URIEncryptedString["MenuDescription"],
 						"SystemPriv" => $URIEncryptedString["SystemUser_Priv"],
 						"EDAD" => $URIEncryptedString["EDAD"]
-					);
-		$k = CreateEncoded ($EncodeString);
+					)
+		);
 		
 		if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 		$Party = PrintParty($UserParty);

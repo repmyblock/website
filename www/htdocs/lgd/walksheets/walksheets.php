@@ -1,6 +1,6 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
-	$Menu = "petitions";
+	$Menu = "walksheets";
 	$BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	

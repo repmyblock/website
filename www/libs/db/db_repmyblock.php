@@ -2,6 +2,9 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/mysql/queries.php";
 global $DB;
 
+// This are functions used by various pages. 
+// If the Function is not used by multiple pages, then it's proper location is in the DB_<NAME_OF_PAGE>.php
+
 class RepMyBlock extends queries {
 
   function RepMyBlock ($debug = 0, $DBFile = "DB_OutragedDems") {
@@ -13,6 +16,36 @@ class RepMyBlock extends queries {
 	  
 	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
+  
+  // These function are from DB_TEAMS but it's being used by user.php so back in main.
+  function FindCampaignFromWebCode ($TeamWebCode) {
+		$sql = "SELECT * FROM Team WHERE Team_WebCode = :TeamWebCode";
+		$sql_vars = array("TeamWebCode" => $TeamWebCode);
+	 	return $this->_return_simple($sql, $sql_vars);
+	}
+	
+	function SaveTeamInfo($SystemUser_ID, $Team_ID, $Priv = NULL, $Active = 'yes') {
+		 $ret = $this->ReturnTeamInfo($SystemUser_ID, $Team_ID);
+		 if (empty ($ret)) {			
+			$sql = "INSERT INTO TeamMember SET SystemUser_ID = :SystemUser, Team_ID = :TeamID, " . 
+						 "TeamMember_Active = :Active, TeamMember_ApprovedDate = NOW()";
+			$sql_vars = array("SystemUser" => $SystemUser_ID, "TeamID" => $Team_ID, "Active" => $Active);
+			//				"TeamMember_Active = :Active, TeamMember_Privs = :Privs, " .
+			//				"TeamMember_ApprovedBy = :App_SystemID, TeamMember_ApprovedNote = :App_Note, ";	
+			WriteStderr($sql, "ReturnTeamInfo");	
+			return $this->_return_nothing($sql, $sql_vars);						
+		}
+	}
+	
+	function ReturnTeamInfo($SystemUser_ID, $Team_ID, $Active = 'yes') {
+		$sql = "SELECT * FROM TeamMember WHERE SystemUser_ID = :SystemUser AND Team_ID = :TeamID AND TeamMember_Active = :Active";
+		$sql_vars = array("SystemUser" => $SystemUser_ID, "TeamID" => $Team_ID, "Active" => $Active);
+		return $this->_return_simple($sql, $sql_vars);
+	}
+  
+  // Unorganized functions.
+  
+  
   
   function RecordWatch($SystemID, $FullName, $Email) {
 		$sql = "INSERT INTO ZeMovieWtchd SET SystemUser_ID = :SystemUser, " .
@@ -56,6 +89,8 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}  
    
+   
+ 
  
    
   function FindPersonUser($SystemUserID) {
