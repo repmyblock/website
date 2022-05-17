@@ -25,10 +25,8 @@
 		$rmbteam = $rmb->ListMyTeam($URIEncryptedString["SystemUser_ID"]);
 		WriteStderr($rmbteam, "RMB Team");
 	}
-	
-	
+
 	if ( ! empty ($URIEncryptedString["Team_ID"])) {
-		
 		$rmbteaminfo = $rmb->ListAllInfoForTeam($URIEncryptedString["Team_ID"]);
 		WriteStderr($rmbteaminfo, "RMB Team Info");
 		
@@ -40,8 +38,6 @@
 		$ActiveTeam_ID = $rmbteam[0]["Team_ID"];
 		$rmbteaminfo = $rmb->ListAllInfoForTeam($ActiveTeam_ID);
 	}
-
-	
 
 	$TopMenus = array ( 						
 		array("k" => $k, "url" => "team/index", "text" => "Team Members"),
@@ -103,10 +99,13 @@
 					  		</div>
 					    </div>
 				    
-					    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
-					      We don't know your district <a href="/voter">create one</a>?
+			
+			
+					    <div class="Box-body  js-collaborated-repos-empty">
+					      <A HREF="unsigned">List Unsigned Users</A>
 					    </div>
 					    
+							    
 					  
 							<?php 			
 										$Counter = 0;
@@ -115,7 +114,7 @@
 							?>		
 							
 							
-		
+		<div class="Box-body  js-collaborated-repos-empty">
 							<div class="flex-items-left">	
 								<span class="ml-4 flex-items-baseline">
 									
@@ -176,7 +175,7 @@
 										} 
 							?>
 
-							</div>
+							</div></div>
 							<BR>
 
 					</div>

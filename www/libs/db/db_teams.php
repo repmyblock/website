@@ -62,6 +62,16 @@ class Teams extends RepMyBlock {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
+	
+	function ListUnsignedMembers($TeamID) {
+		$sql = "SELECT * FROM RepMyBlock.Team " .
+						"LEFT JOIN SystemUserEmail ON (SystemUserEmail.SystemUserEmail_WebCode = Team.Team_WebCode) " .
+						"WHERE Team_ID = :TeamCode " .
+						"ORDER BY SystemUserEmail_Received DESC";
+		$sql_vars = array("TeamCode" => $TeamID);
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
 }
 ?>
 
