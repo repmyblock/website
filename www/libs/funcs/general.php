@@ -138,6 +138,30 @@ function ParseEDAD ($string) {
 	return sprintf('AD %02d / ED %03d', $Keywords[1], $Keywords[2]);
 }
 
+function MergeEncode($VariableToPass, $VariableToRemove = "LastTimeUser") {
+	$URLString = "";
+	
+	global $URIEncryptedString;
+	$VariableToPass = array_replace($URIEncryptedString, $VariableToPass);
+	
+	if ( ! empty ($VariableToPass)) {
+		foreach ($VariableToPass as $var => $value) {
+			if ($var != $VariableToRemove) {
+				if ( ! empty ($value)) {
+					if (! empty($URLString)) { $URLString .= "&"; }
+					$URLString .= $var . "=" . $value;
+					if ( $Developping == 1) {	
+						error_log ("Create Encoded Var: $var\tValue: $value");	
+					}
+				}
+			}
+		}		
+	}
+	
+	WriteStderr($URLString, "URLString");
+	return rawurlencode(EncryptURL($URLString));
+}
+
 function CreateEncoded($VariableToPass, $VariableToRemove = "") {
 	$URLString = "";
 	

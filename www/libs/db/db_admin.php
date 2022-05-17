@@ -2,7 +2,7 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
 global $DB;
 
-class RMB_Admin extends RepMyBlock {
+class RMBAdmin extends RepMyBlock {
   
 	function ListAllAdminCodes() {
 		$sql = "SELECT * FROM AdminCode";							
@@ -26,6 +26,18 @@ class RMB_Admin extends RepMyBlock {
 
 		return $this->_return_nothing($sql, $sql_vars);
 	}	
+	
+	function ReturnTeamMembership($SystemUserID) {
+		$sql = "SELECT * FROM TeamMember WHERE SystemUser_ID = :SysID";	
+		$sql_vars = array("SysID" => $SystemUserID);
+		return $this->_return_nothing($sql, $sql_vars);
+	}
+	
+	function ListsTeams() {
+		$sql = "SELECT * FROM Team";	
+		return $this->_return_multiple($sql);
+	}
+	
 
 }
 ?>

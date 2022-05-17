@@ -2,7 +2,6 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
 
 global $DB;
-
 class RMBpledges extends RepMyBlock {
 	function ListBuildingsByADED($AD, $ED) {		
 		$sql = "SELECT DISTINCT DataAddress.DataAddress_ID, DataAddress_HouseNumber, DataAddress_FracAddress, DataAddress_PreStreet, " . 

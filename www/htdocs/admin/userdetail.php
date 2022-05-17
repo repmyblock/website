@@ -4,14 +4,17 @@
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_admin.php";
 
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	$rmb = new repmyblock();	
+	$rmb = new RMBAdmin();	
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$result = $rmb->SearchUsers($URIEncryptedString["UserDetail"]);
 	$privcodes = $rmb->ReturnPrivCodes();
+	$teammember = $rmb->ReturnTeamMembership($URIEncryptedString["UserDetail"]);
+	$teams = $rmb->ListsTeams();
 	
+
 	$TheNewK = CreateEncoded ( array( 		
 			"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 			"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
@@ -105,6 +108,30 @@
 					
 				</UL>
 					</div>
+					
+					<div class="list-group-item f60">Team Membership
+					<PRE><?= print_r($teammember,1 ) ?></PRE>
+					<UL>
+					<?php
+						if ( ! empty ($teams )) { 	
+							foreach ($teams  as $teaminfo) {
+								if (! empty ($teaminfo)) {
+					?>					
+					<INPUT TYPE="checkbox" name="TeamMembership[<?= $teaminfo["Team_ID"]  ?>]" value="<?= $teaminfo["Team_ID"] ?>"<?php if ($teaminfo["Team_ID"] == 1) { echo " CHECKED"; } ?>>&nbsp;<?= $teaminfo["Team_Name"] ?>										
+					Active: <INPUT TYPE="checkbox" name="TeamMembershipActive[<?= $teaminfo["Team_ID"]  ?>]" value="<?= $teaminfo["Team_ID"] ?>"<?php if ($teaminfo["Team_ID"] == 1) { echo " CHECKED"; } ?>>
+					<BR>
+
+					<?php			
+								}
+							}
+						}					
+					?>
+					<BR>
+
+					
+				</UL>
+					</div>
+					
 				
 				<div class="list-group-item f60">
 					Username <INPUT TYPE="TEXT" VALUE="<?= $result["SystemUser_username"] ?>">

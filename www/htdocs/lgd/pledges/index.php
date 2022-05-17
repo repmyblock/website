@@ -6,11 +6,27 @@
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
+
+	if (! empty ($_POST["SearchBuilding"])) {
+		header("Location: /" . MergeEncode(
+																array("SearchedAD" => intval($_POST["AD"]), 
+																			"SearchedED" => intval($_POST["ED"]))) . "/lgd/pledges/index");
+		exit();
+	}
+
 	$rmb = new RMBpledges();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($UserParty);
 	
-	$result = $rmb->ListBuildingsByADED($rmbperson["DataDistrict_StateAssembly"], $rmbperson["DataDistrict_Electoral"]);
+	if ( empty ($URIEncryptedString["SearchedAD"])) {
+		$SearchAD = $rmbperson["DataDistrict_StateAssembly"];
+		$SearchED = $rmbperson["DataDistrict_Electoral"];
+	} else {		
+		$SearchAD = $URIEncryptedString["SearchedAD"];
+		$SearchED = $URIEncryptedString["SearchedED"];
+	}
+	
+	$result = $rmb->ListBuildingsByADED($SearchAD, $SearchED);
 	WriteStderr($result, "Buildings in District");
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
@@ -28,9 +44,20 @@
 					<B>Building in the districts</B>
 				</P>
 				
+				<FORM ACTION="" METHOD="POST">
+				
 				<div class="list-group-item filtered">
-					<BR>			
-												
+					
+					<TABLE WIDTH=100%>
+						<TR ALIGN=CENTER>
+							<TH style="padding:0px 10px;">AD</TH><TD><INPUT TYPE="INPUT" NAME="AD" VALUE="<?= $SearchAD ?>" SIZE=2></TD>								
+							<TH style="padding:0px 10px;">ED</TD><TD><INPUT TYPE="INPUT" NAME="ED" VALUE="<?= $SearchED ?>" SIZE=2></TD>
+							<TH style="padding:0px 10px;"><INPUT TYPE="SUBMIT" NAME="SearchBuilding" VALUE="Search buildings" SIZE=2></TH>
+						</TR>
+					</TABLE>
+				</DIV>
+					
+												<div class="list-group-item filtered">
 					<TABLE BORDER=1>
 					<TR>
 						<TH style="padding:0px 10px;">House</TH>
@@ -66,6 +93,7 @@
 					
 					</TABLE>
 				</div>
+				</FORM>
 		</div>
 	</DIV>
 </DIV>
