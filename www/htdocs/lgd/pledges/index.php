@@ -40,14 +40,18 @@
 					<h2 class="Subhead-heading">Pledges</h2>
 				</div>
 				
+			
+						<div class="Box">
+					  	<div class="Box-header ">
+					    	
+				
 				<P>
 					<B>Building in the districts</B>
 				</P>
 				
 				<FORM ACTION="" METHOD="POST">
 				
-				<div class="list-group-item filtered">
-					
+			
 					<TABLE WIDTH=100%>
 						<TR ALIGN=CENTER>
 							<TH style="padding:0px 10px;">AD</TH><TD><INPUT TYPE="INPUT" NAME="AD" VALUE="<?= $SearchAD ?>" SIZE=2></TD>								
@@ -56,8 +60,11 @@
 						</TR>
 					</TABLE>
 				</DIV>
+						
+					  		
+					   
 					
-												<div class="list-group-item filtered">
+				<div class="list-group-item filtered">
 					<TABLE BORDER=1>
 					<TR>
 						<TH style="padding:0px 10px;">House</TH>

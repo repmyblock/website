@@ -1,20 +1,19 @@
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	$imgtoshow = "/brand/RunWithMe/RunWithMe.png";
+	$imgtoshow = "/brand/socialist/Socialists.png";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
-	<DIV CLASS="right f80">Run With Me</DIV>
+	<DIV CLASS="right f80">Help put Socialists candidates on the ballot!</DIV>
 	
 			<P CLASS="f50">
-				Paperboy Prince is running for Congress in every Congressional District, and you can 
-				access his website at <a href="https://paperboyprince.com/volunteer">https://paperboyprince.com/volunteer</a>	</FONT>
+				Social Democrats of America is running a few candidates for congress and we need your help to get them on the ballot.
 			</P>
 			
 			<P CLASS="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/RunWithMe/download">Click here to download a petition to put Paperboy Love Prince on the June Ballot</A>
+				<A HREF="/<?= $middleuri ?>/brand/socialist/download">Click here to download a petition to put a Socialist candidate on the August Ballot</A>
 			</P>
 			
 			<P CLASS="f60">

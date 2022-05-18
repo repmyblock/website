@@ -1,18 +1,35 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
-	$Menu = "admin";
+	$Menu = "district";
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_district.php";  
 
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}
+	
+		if (! empty ($_POST["SearchBuilding"])) {
+		header("Location: /" . MergeEncode(
+																array("SearchedAD" => intval($_POST["AD"]), 
+																			"SearchedED" => intval($_POST["ED"]))) . "/lgd/district/results");
+		exit();
+	}
+
 	$rmb = new RMBdistrict();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
 	
-	$result = $rmb->ListResultsByEDAD(intval($rmbperson["DataDistrict_StateAssembly"]), intval($rmbperson["DataDistrict_Electoral"]) );
+	if ( empty ($URIEncryptedString["SearchedAD"])) {
+		$SearchAD = $rmbperson["DataDistrict_StateAssembly"];
+		$SearchED = $rmbperson["DataDistrict_Electoral"];
+	} else {		
+		$SearchAD = $URIEncryptedString["SearchedAD"];
+		$SearchED = $URIEncryptedString["SearchedED"];
+	}
+
+	$result = $rmb->ListResultsByEDAD($SearchAD, $SearchED );
 	WriteStderr($result, "Candidates in the Loop");
+
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
@@ -35,11 +52,26 @@
 				  <div class="main">
 						<FORM ACTION="" METHOD="POST">
 						<div class="Box">
-					  	<div class="Box-header pl-0">
-					    	<div class="table-list-filters d-flex">
-					  			<div class="table-list-header-toggle states flex-justify-start pl-3">Results for 
-					  				<B>AD <?= $result[0]["DataDistrict_StateAssembly"] ?></B> and
-					  				<B>ED	<?= $result[0]["DataDistrict_Electoral"] ?></B></div>
+					  	<div class="Box-header ">
+					    	<div class="table-list-filters">
+					    		<P>
+					  			<div class="table-list-header-toggle states">Results for 
+					  				<B>AD <?= $SearchAD ?></B> and
+					  				<B>ED	<?= $SearchED ?></B>
+					  			<P>		
+					  				
+					<TABLE WIDTH=100%>
+						<TR ALIGN=CENTER>
+							<TH style="padding:0px 10px;">AD</TH><TD><INPUT TYPE="INPUT" NAME="AD" VALUE="<?= $SearchAD ?>" SIZE=2></TD>								
+							<TH style="padding:0px 10px;">ED</TD><TD><INPUT TYPE="INPUT" NAME="ED" VALUE="<?= $SearchED ?>" SIZE=2></TD>
+							<TH style="padding:0px 10px;"><INPUT TYPE="SUBMIT" NAME="SearchBuilding" VALUE="Display Results" SIZE=2></TH>
+						</TR>
+					</TABLE>
+					</P>
+					</div>
+					  
+					
+									</DIV>	
 					  		</div>
 					    </div>
 				    
