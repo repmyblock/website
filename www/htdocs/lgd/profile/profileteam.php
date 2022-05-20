@@ -112,7 +112,7 @@
 				<DIV>
 					<div class="list-group-item filtered f60">
 	    			<span><INPUT TYPE="CHECKBOX" NAME="TeamIDRmval[]" VALUE="<?= $var["Team_ID"] ?>"></span>			
-						<span><B><?= $var["Team_Name"] ?></B></span> running for <span>Congress</span> 
+						<span><?= $var["Team_Name"] ?></span> 
 					</div>
  				</DIV>
  				
