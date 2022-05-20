@@ -16,7 +16,7 @@
 			header("Location: /" . CreateEncoded (
 														array("FirstName" => trim($_POST["FirstName"]),	
 																	"LastName" => trim($_POST["LastName"]))) .
-														"/brand/socialist/prepwitness");
+														"/brand/gop/prepwitness");
 			exit();
 			
 		}

@@ -5,7 +5,7 @@
 		// find which one is the right one.
 		WriteStderr($_POST, "Result of Post:");
 		if (! empty ($_POST["checkoneyes"])) {
-			header("Location: /" . CreateEncoded (array("NYSID" => trim($_POST["NYSID"]))) . "/brand/socialist/neighbors");
+			header("Location: /" . CreateEncoded (array("NYSID" => trim($_POST["NYSID"]))) . "/brand/gop/neighbors");
 		} else {					
 			header("Location: ../");
 		}
@@ -19,7 +19,7 @@
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";	
 					
 		$r = new RepMyBlock();	
-		$result = $r->QueryVoterFile("SocDemAmerica", $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
+		$result = $r->QueryVoterFile("GOP", $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
 																
 		if ( empty ($result)) {
 			$error_msg = "Could not find the voter. Check the name.";

@@ -23,7 +23,7 @@
 			
 			header("Location: /" . CreateEncoded (
 														array("NYSID" => trim($_POST["NYSID"]))) .
-																	"/brand/socialist/preshowpdf");
+																	"/brand/gop/preshowpdf");
 			
 				
 		}
