@@ -87,7 +87,7 @@
 									"DataDistrict_ID" => $Pet["DataDistrict_ID"], 
 									"ED" => $Pet["ED"],
 									"AD" => $Pet["AD"]
-									)) ?>/lgd/petitions/walksheets">Download walksheet</A>	
+									)) ?>/lgd/walksheets/walksheets">Download walksheet</A>	
 							</div>
 			<?php 	}
 						}
