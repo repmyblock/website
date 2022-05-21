@@ -213,7 +213,7 @@ class PDF_Multi extends PDF_Code128 {
     
     $this->SetFont('Arial','B',13);
 		$this->Cell(35, 8, "Date" ,0, 0, 'C', 0);
-		$this->Cell(75, 8, "Signature / Name of Signer", 0, 0, 'C', 0);
+		$this->Cell(75, 8, "Name of Signer / Signature", 0, 0, 'C', 0);
 		$this->Cell(74, 8, "Residence", 0, 0, 'C', 0);
 		$this->Cell(20, 8, $this->TypeOfTown, 0, 0, 'C', 0);
 		$this->Ln(4.5);
