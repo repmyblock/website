@@ -31,7 +31,7 @@
 			This is a fast moving election so we created a WhatsApp and Telegram group to notify of database changes.<BR>
 			<I>
 				WhatsApp: <A HREF="https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8">https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8</A><BR>
-				Telegram: <A RHEF="https://t.me/+hJgN1aRJFqU2MTAx">https://t.me/+hJgN1aRJFqU2MTAx</A>
+				Telegram: <A HREF="https://t.me/+hJgN1aRJFqU2MTAx">https://t.me/+hJgN1aRJFqU2MTAx</A>
 			</I>
 		</P>
 
