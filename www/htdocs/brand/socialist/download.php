@@ -26,7 +26,8 @@
 	
 			
 		<P CLASS="f60 p20">
-			To prepare the petition, we need to verify your Voter Registration. Please enter your first and last name.
+			To prepare the petition, we need to verify your Voter Registration. 
+			Please enter the first and last name of the person you want to verify.
 		</P>
 
 		<?php if ( ! empty($error_msg)) { ?>
