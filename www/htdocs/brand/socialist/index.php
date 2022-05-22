@@ -13,7 +13,8 @@
 			</P>
 			
 			<P CLASS="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/socialist/download">Click here to download a petition to put a Socialist candidate on the August Ballot</A>
+				<A HREF="/<?= $middleuri ?>/brand/socialist/download">Click here to verify if a voter can sign a petition for a Socialist 
+					candidate on the August Ballot</A>
 			</P>
 			
 			<P CLASS="f60">
