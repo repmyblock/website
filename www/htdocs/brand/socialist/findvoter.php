@@ -23,10 +23,10 @@
 																
 		if ( empty ($result)) {
 			$error_msg = "Could not find the voter. Check the name.";
-			#header("Location: ../download/?k=" . EncryptURL("error_msg=" . $error_msg));
-			#exit();
+			header("Location: ../download/?k=" . EncryptURL("error_msg=" . $error_msg));
+			exit();
 		}
-		
+		/*
 		header("Location: " . $FrontEndPDF . "/" . CreateEncoded (
 														array("NYSID" => trim($_POST["NYSID"]),
 																	"Intrustions" => "yes",
@@ -34,7 +34,7 @@
 																	)) .
 																	"/NY/packet");
 		exit();
-		
+		*/
 	}
 	
   $now = new DateTime(); // Used to figure out the age.
@@ -135,7 +135,7 @@
 				<TD><?= ucwords($var["LastName"]) ?></TD>			
 				<TD><?= ucwords($var["FirstName"]) ?></TD>
 				<TD><?= ucwords($var["ResStreetName"]) ?></TD>
-				<TD ALIGN=CENTER><?= $result[0]["CongressDistr"] ?></TD>
+				<TD ALIGN=CENTER><?= $var["CongressDistr"] ?></TD>
 				<TD ALIGN=CENTER><?= $var["ResZip"] ?></TD>
 				<TD ALIGN=CENTER><?= $difference->y; ?></TD>				
 				<TD ALIGN=CENTER><?= $gender ?></TD>
