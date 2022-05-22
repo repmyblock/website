@@ -102,7 +102,7 @@
 			
 			&nbsp;<BR>
 
-<?/* 
+<?php /* 
 			<DIV>
 				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="checkoneyes" VALUE="Yes">
 				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="checkoneno" VALUE="No">
@@ -167,7 +167,7 @@
 			
 			&nbsp;<BR>
 
-<?/*
+<?php /*
 			<DIV>
 				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="checkoneyes" VALUE="That is me">
 				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="checkoneno" VALUE="None of them are me">
