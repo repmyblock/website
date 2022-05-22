@@ -5,7 +5,7 @@
 		// find which one is the right one.
 		WriteStderr($_POST, "Result of Post:");
 		
-		if ( ! empty ($_POST["searchanothername"]))
+		if ( ! empty ($_POST["searchanothername"])) {
 			header("Location: /web/brand/socialist/download");
 			exit;
 		}
