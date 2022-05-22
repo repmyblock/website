@@ -29,7 +29,8 @@
 																
 		if ( empty ($result)) {
 			$error_msg = "Could not find the voter. Check the name.";
-			header("Location: ../download/?k=" . EncryptURL("error_msg=" . $error_msg));
+			header("Location: /" . CreateEncoded (array("error_msg" => $error_msg)) .
+																	"/brand/socialist/download");
 			exit();
 		}
 		/*
