@@ -27,14 +27,6 @@
 			
 		<P CLASS="f60 p20">
 			To prepare the petition, we need to verify your Voter Registration. Please enter your first and last name.
-		<BR><BR>
-			Because of the fast moving pace of the petition period, we created a WhatsApp and Telegram group to notify 
-			of changes in the data. <B>This is a very low notification group <I>(a message every two days around 7:30 pm New York Time)</I>.</B> 
-			We'll send updates on the availability of the petitions and how to give them to the various SDA comrades.<BR>
-			<I>
-				WhatsApp: <A TARGET="NewWhat" HREF="https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8">https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8</A><BR>
-				Telegram: <A TARGET="NewTel" HREF="https://t.me/+hJgN1aRJFqU2MTAx">https://t.me/+hJgN1aRJFqU2MTAx</A>
-			</I>
 		</P>
 
 		<?php if ( ! empty($error_msg)) { ?>
@@ -58,6 +50,22 @@
 		
 		<P>
 			<DIV><INPUT CLASS="" TYPE="Submit" NAME="CheckRegistration" VALUE="Check My Voter Registration"></DIV>
+		</P>
+		
+		
+		<P CLASS="f60 p20">
+			Because of the fast moving pace of the petition period, we created a WhatsApp and Telegram group to notify 
+			of changes in the data. 
+		<BR><BR>
+			<B>This is a very low notification group <I>(a message every two days around 7:30 pm New York Time)</I>.</B> 
+		
+		<BR><BR>
+			
+			We'll send updates on the availability of the petitions and how to give them to the various SDA comrades.<BR>
+			<I>
+				WhatsApp: <A TARGET="NewWhat" HREF="https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8">https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8</A><BR>
+				Telegram: <A TARGET="NewTel" HREF="https://t.me/+hJgN1aRJFqU2MTAx">https://t.me/+hJgN1aRJFqU2MTAx</A>
+			</I>
 		</P>
 		
 		<P CLASS="f40">
