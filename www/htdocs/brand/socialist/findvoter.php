@@ -4,6 +4,12 @@
 	if ( ! empty ($_POST)) {
 		// find which one is the right one.
 		WriteStderr($_POST, "Result of Post:");
+		
+		if ( ! empty ($_POST["searchanothername"]))
+			header("Location: /web/brand/socialist/download");
+			exit;
+		}
+		
 		if (! empty ($_POST["checkoneyes"])) {
 			header("Location: /" . CreateEncoded (array("NYSID" => trim($_POST["NYSID"]))) . "/brand/socialist/neighbors");
 		} else {					
@@ -83,8 +89,8 @@
 			</TR>
 			
 			<TR>
-				<TD><?= ucwords($result[0]["LastName"]) ?></TD>			
-				<TD><?= ucwords($result[0]["FirstName"]) ?></TD>
+				<TD><?= ucwords($result[0]["FirstName"]) ?></TD>			
+				<TD><?= ucwords($result[0]["LastName"]) ?></TD>
 				<TD><?= ucwords($result[0]["ResStreetName"]) ?></TD>
 				<TD ALIGN=CENTER><?= $result[0]["ResZip"] ?></TD>
 				<TD ALIGN=CENTER><?= $result[0]["CongressDistr"] ?></TD>
@@ -96,9 +102,16 @@
 			
 			&nbsp;<BR>
 
+<?/* 
 			<DIV>
 				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="checkoneyes" VALUE="Yes">
 				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="checkoneno" VALUE="No">
+			</DIV>
+			*/ ?>
+			
+			
+					<DIV>
+				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="searchanothername" VALUE="Search another name">
 			</DIV>
 			
        <?php } else { 
@@ -132,8 +145,8 @@
 				<TD ALIGN=CENTER> 
 					<INPUT TYPE="radio" NAME="NYSID" VALUE="<?= $var["UniqNYSVoterID"] ?>">	
 				</TD>
-				<TD><?= ucwords($var["LastName"]) ?></TD>			
-				<TD><?= ucwords($var["FirstName"]) ?></TD>
+				<TD><?= ucwords($var["FirstName"]) ?></TD>			
+				<TD><?= ucwords($var["LastName"]) ?></TD>
 				<TD><?= ucwords($var["ResStreetName"]) ?></TD>
 				<TD ALIGN=CENTER><?= $var["CongressDistr"] ?></TD>
 				<TD ALIGN=CENTER><?= $var["ResZip"] ?></TD>
@@ -154,10 +167,17 @@
 			
 			&nbsp;<BR>
 
+<?/*
 			<DIV>
 				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="checkoneyes" VALUE="That is me">
 				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="checkoneno" VALUE="None of them are me">
 			</DIV>
+		*/ ?>
+			
+				<DIV>
+				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="searchanothername" VALUE="Search another name">
+			</DIV>
+			
 		</P>
 						
 <?php   } ?>
