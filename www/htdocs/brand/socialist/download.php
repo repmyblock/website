@@ -27,9 +27,9 @@
 			Please enter the first and last name of the person you want to verify.
 		</P>
 
-		<?php if ( ! empty($error_msg)) { ?>
+		<?php if ( ! empty($URIEncryptedString["error_msg"])) { ?>
 			<P CLASS="f60">
-				<FONT COLOR="BROWN"><B><?= $error_msg ?></B></FONT>
+				<FONT COLOR="BROWN"><B><?= $URIEncryptedString["error_msg"] ?></B></FONT>
 			</P>
 		<?php } ?>
 						
