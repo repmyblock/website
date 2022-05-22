@@ -61,8 +61,17 @@
 			<?php } else if (count($result) > 1) { ?>
 	
 				We found <?= count($result) ?> voters with the same name.<BR>
-				<B>Please select the one that is you.</B>
-       		
+				<?php /* <B>Please select the one that is you.</B> */ ?>
+				
+				<BR>
+				If you recognize anyone and they live in <B>Congressional District</B> 7, 8, 9, 10, 11, 12, 13, and 14, there is
+				a high probability that they can sign a petition for the SDA candidates.
+
+				<BR><BR>
+				Please stay posted by joining either the 
+			 	<A TARGET="NewWhat" HREF="https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8">WhatsApp</A> or 
+				<A TARGET="NewTel" HREF="https://t.me/+hJgN1aRJFqU2MTAx">Telegram</A> channels.
+				       		
        <?php } ?>
 		</P>
 
