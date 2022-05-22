@@ -14,7 +14,7 @@
 																	"Intrustions" => "yes",
 																	"PetType" => "prefiled"
 																	)) .
-																	"/NY/petition");
+																	"/NY/packet");
 	
 	
 	exit();

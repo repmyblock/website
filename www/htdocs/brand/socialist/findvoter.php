@@ -23,9 +23,17 @@
 																
 		if ( empty ($result)) {
 			$error_msg = "Could not find the voter. Check the name.";
-			header("Location: ../download/?k=" . EncryptURL("error_msg=" . $error_msg));
-			exit();
+			#header("Location: ../download/?k=" . EncryptURL("error_msg=" . $error_msg));
+			#exit();
 		}
+		
+		header("Location: " . $FrontEndPDF . "/" . CreateEncoded (
+														array("NYSID" => trim($_POST["NYSID"]),
+																	"Intrustions" => "yes",
+																	"PetType" => "prefiled"
+																	)) .
+																	"/NY/packet");
+		exit();
 		
 	}
 	
@@ -69,6 +77,7 @@
 				<TH>Last Name</TH>
 				<TH>Street Address</TH>
 				<TH>Zipcode</TH>
+				<TH>Congress District</TH>
 				<TH>Age</TH>				
 				<TH>Gender</TH>
 			</TR>
@@ -78,8 +87,10 @@
 				<TD><?= ucwords($result[0]["FirstName"]) ?></TD>
 				<TD><?= ucwords($result[0]["ResStreetName"]) ?></TD>
 				<TD ALIGN=CENTER><?= $result[0]["ResZip"] ?></TD>
+				<TD ALIGN=CENTER><?= $result[0]["CongressDistr"] ?></TD>
 				<TD ALIGN=CENTER><?= $difference->y; ?></TD>				
 				<TD ALIGN=CENTER><?= $gender ?></TD>
+				
 			</TR>
 			</TABLE>
 			
@@ -102,6 +113,7 @@
 				<TH>First Name</TH>			
 				<TH>Last Name</TH>
 				<TH>Street Address</TH>
+				<TH>Congress District</TH>
 				<TH>Zipcode</TH>
 				<TH>Age</TH>				
 				<TH>Gender</TH>
@@ -123,6 +135,7 @@
 				<TD><?= ucwords($var["LastName"]) ?></TD>			
 				<TD><?= ucwords($var["FirstName"]) ?></TD>
 				<TD><?= ucwords($var["ResStreetName"]) ?></TD>
+				<TD ALIGN=CENTER><?= $result[0]["CongressDistr"] ?></TD>
 				<TD ALIGN=CENTER><?= $var["ResZip"] ?></TD>
 				<TD ALIGN=CENTER><?= $difference->y; ?></TD>				
 				<TD ALIGN=CENTER><?= $gender ?></TD>
