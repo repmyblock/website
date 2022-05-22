@@ -27,9 +27,7 @@
 			
 		<P CLASS="f60 p20">
 			To prepare the petition, we need to verify your Voter Registration. Please enter your first and last name.
-		</P>
-		
-		<P CLASS="f60 p20">
+		<BR><BR>
 			This is a fast moving election so we created a WhatsApp and Telegram group to notify of database changes.<BR>
 			<B>WhatsApp:</B> <A HREF="https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8">https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8</A><BR>
 			<B>Telegram:</B> <A RHEF="https://t.me/+hJgN1aRJFqU2MTAx">https://t.me/+hJgN1aRJFqU2MTAx</A>
