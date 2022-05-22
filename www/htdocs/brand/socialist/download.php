@@ -32,8 +32,8 @@
 			of changes in the data. <B>This is a very low notification group <I>(a message every two days around 7:30 pm New York Time)</I>.</B> 
 			We'll send updates on the availability of the petitions and how to give them to the various SDA comrades.<BR>
 			<I>
-				WhatsApp: <A HREF="https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8">https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8</A><BR>
-				Telegram: <A HREF="https://t.me/+hJgN1aRJFqU2MTAx">https://t.me/+hJgN1aRJFqU2MTAx</A>
+				WhatsApp: <A TARGET="NewWhat" HREF="https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8">https://chat.whatsapp.com/EDKNVkzhlEyI9qvUXqu5S8</A><BR>
+				Telegram: <A TARGET="NewTel" HREF="https://t.me/+hJgN1aRJFqU2MTAx">https://t.me/+hJgN1aRJFqU2MTAx</A>
 			</I>
 		</P>
 
