@@ -19,7 +19,7 @@ switch($Type) {
 $PageSize = array( 8 * $Multi , 11 * $Multi);
 #$PageSize = "letter";
 //$pdf = new PDF_Multi('L','mm', $PageSize);
-$pdf = new PDF('P','pt', $PageSize);
+$pdf = new PDF_VoterList('P','pt', $PageSize);
 
 $CanPetitionSet_ID = trim($_GET["petid"]);
 // $pdf->DateEvent = $ElectionDateShort;

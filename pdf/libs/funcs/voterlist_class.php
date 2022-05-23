@@ -1,7 +1,7 @@
 <?php
-require($_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/fpdf181/fpdf.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/fpdf181/fpdf.php');
 
-class PDF extends FPDF {
+class PDF_VoterList extends FPDF {
 	
 	var $angle=0;
 	var $Col1 = 6; var $Col2 = 61; var $Col3 = 150;

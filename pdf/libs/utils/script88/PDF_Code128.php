@@ -39,7 +39,7 @@
 *   206     FNC1            FNC1
 *******************************************************************************/
 
-require $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/fpdf181/fpdf.php';
+require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/fpdf181/fpdf.php';
 
 class PDF_Code128 extends FPDF {
 

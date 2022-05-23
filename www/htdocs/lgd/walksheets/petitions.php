@@ -53,15 +53,28 @@
 			     		<OPTION>&nbsp;</OPTION>	
 			     		<OPTION VALUE="AD"<?php if ($_POST["TYPE"] == "AD") { echo " SELECTED"; } ?>>State Assembly District</OPTION>	
 			     		<OPTION VALUE="SN"<?php if ($_POST["TYPE"] == "SN") { echo " SELECTED"; } ?>>State Senatorial District</OPTION>	
-			     		<OPTION VALUE="CG"<?php if ($_POST["TYPE"] == "CG") { echo " SELECTED"; } ?>>Congressional District</OPTION>	
+			      <?php /* 	 		<OPTION VALUE="CG"<?php if ($_POST["TYPE"] == "CG") { echo " SELECTED"; } ?>>Congressional District</OPTION>	*/ ?>
 			    <?php /* 		<OPTION VALUE="County">County District</OPTION>	*/ ?>
 			     	</SELECT>
 			     	
+			    
+			     	
 			    	<INPUT TYPE="TEXT" NAME="VALUE" SIZE=5 VALUE="<?= $_POST["VALUE"] ?>">
-		     	 	<button type="submit" class="btn btn-primary">Get the list of Walk Sheets</button>
-			     	</FORM>
+		     	 	
+			     	
 				</P>	
-			    		
+				<p>	
+			    		 	<SELECT NAME="PARTY">
+			     		<OPTION VALUE="ALL"<?php if ($_POST["PARTY"] == "ALL") { echo " SELECTED"; } ?>>All Parties</OPTION>	
+			     		<OPTION VALUE="DEM"<?php if ($_POST["PARTY"] == "DEM") { echo " SELECTED"; } ?>>Democratic</OPTION>	
+			     		<OPTION VALUE="REP"<?php if ($_POST["PARTY"] == "REP") { echo " SELECTED"; } ?>>Republican</OPTION>	
+			     		<OPTION VALUE="WOR"<?php if ($_POST["PARTY"] == "WOR") { echo " SELECTED"; } ?>>Working Families</OPTION>	
+			     		<OPTION VALUE="CON"<?php if ($_POST["PARTY"] == "CON") { echo " SELECTED"; } ?>>Conservative</OPTION>	
+			    <?php /* 		<OPTION VALUE="County">County District</OPTION>	*/ ?>
+			     	</SELECT>
+			     	<button type="submit" class="btn btn-primary">Get the list of Walk Sheets</button>
+			    	</p>
+			    		</FORM>
 			    		
 			    </div>
 		
@@ -86,7 +99,8 @@
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 									"DataDistrict_ID" => $Pet["DataDistrict_ID"], 
 									"ED" => $Pet["ED"],
-									"AD" => $Pet["AD"]
+									"AD" => $Pet["AD"],
+									"PARTY" => $_POST["PARTY"]
 									)) ?>/lgd/walksheets/walksheets">Download walksheet</A>	
 							</div>
 			<?php 	}

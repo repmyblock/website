@@ -20,7 +20,7 @@
 											"PreparedFor" => $_POST["PetitionFor"],
 											"ED" => $URIEncryptedString["ED"],
 										  "AD" => $URIEncryptedString["AD"],
-										  //"Party" => $rmbperson["SystemUser_Party"],
+										  "Party" => $URIEncryptedString["PARTY"],
 										  "SystemID" => $rmbperson["SystemUser_ID"]
 										));
 		

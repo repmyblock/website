@@ -9,7 +9,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.ph
 
 $r = new OutragedDems();
 $PageSize = "letter";
-$pdf = new PDF_Multi('P','mm', $PageSize);
+$pdf = new PDF_NY_Petition('P','mm', $PageSize);
 
 // Faut que je travaille avec K.
 if (strlen($k < 20)) {

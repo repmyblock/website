@@ -1,10 +1,10 @@
 <?php
 
 #require($_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/fpdf181/fpdf.php');
-require $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
+require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
 
 #class PDF extends FPDF {
-class PDF_Multi extends PDF_Code128 {
+class PDF_NY_Petition extends PDF_Code128 {
 	
 	var $angle=0;
 	var $Col1 = 6; var $Col2 = 61; var $Col3 = 150;

@@ -15,9 +15,11 @@
 		// $voters = $r->ListVotersForDataDistrict($URIEncryptedString["DataDistrict_ID"]);
 		//$PreparedFor = $URIEncryptedString["PreparedFor"];
 		
-		$DataQuery = array("AD" => intval($URIEncryptedString["AD"]), "ED" => intval($URIEncryptedString["ED"]), 
-												//"PT" => $URIEncryptedString["Party"]
-												);
+	
+		
+		$DataQuery = array("AD" => intval($URIEncryptedString["AD"]), "ED" => intval($URIEncryptedString["ED"]));
+												
+		if ($URIEncryptedString["Party"] != "ALL") { $DataQuery["PT"] = $URIEncryptedString["Party"]; }
 												
 		$voters = $r->SearchInRawNYSFile($DataQuery);
 		$PreparedFor = $URIEncryptedString["PreparedFor"];
@@ -114,7 +116,7 @@
 	}
 
 	$PageSize = "letter";
-	$pdf = new PDF('P','mm', $PageSize);
+	$pdf = new PDF_VoterList('P','mm', $PageSize);
 	
 	$RestOfLine = "";
 	$pdf->Text_PubDate_XLoc = 153;
