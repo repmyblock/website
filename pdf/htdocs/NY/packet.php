@@ -1,38 +1,40 @@
 <?php
-//date_default_timezone_set('America/New_York'); 
-
+//date_default_timezone_set('America/New_York');
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/voterlist_class.php';
 require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/NY/petition_class.php';
 require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
-
+require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/fpdf_libs/fpdf_merge/fpdf_merge.php';
 
 $DB_Type = "DBRaw";
-
 $r = new OutragedDems();
 $PageSize = "letter";
-$pdfPetition = new PDF_Petition('P','mm', $PageSize);
+$pdfPetition = new PDF_NY_Petition('P','mm', $PageSize);
 $pdfVoterList = new PDF_VoterList('P', 'mm', $PageSize);
 
-
+// echo "<PRE>" . print_r($_GET, 1) . "</PRE>";
+// exit();
 // Faut que je travaille avec K.
+
 if (strlen($k < 20)) {
+	
 	preg_match('/([pse])(\d*)/i', $k, $matches, PREG_OFFSET_CAPTURE);
 	switch ($matches[1][0]) {
 		case 'p': case 'P': $CanPetitionSet_ID = intval($matches[2][0]); break;
 		case 's': case 'S': $CandidateSet_ID = intval($matches[2][0]); break;
 		case 'e': case 'E': $Candidate_ID = intval($matches[2][0]); break;
 	}
+	
 } else {
 	$CanPetitionSet_ID = trim($_GET["petid"]);
 	$CandidatePetitionSet_ID = trim($_GET["setid"]);
 	$WaterMarkVoid = trim($_GET["Watermark"]);
+	
 }
 
 WriteStderr($URIEncryptedString, "PDF Petition");
-
 $pdfPetition->Watermark = "VOID - Do not use"; 
 $WritenSignatureMonth = date("F");
 $Variable = "demo-CC";
@@ -45,7 +47,7 @@ $pdfPetition->TodayDateText = "Date: " . $WritenSignatureMonth . " _______ , " .
 $pdfPetition->City = "____________"; 
 $pdfPetition->County = "________"; 
 $DateForCounter = " ___ / ___ / " . date("Y");
-$DateForCounter = date("m") . " / ____ / " . date("Y"); 
+$DateForCounter = date("m") . " / ____ / " . date("Y");
 
 if (is_numeric($CanPetitionSet_ID)) { $Variable = "petid"; }
 if (is_numeric($CandidateSet_ID)) { $Variable = "setid"; }	
@@ -63,7 +65,7 @@ if ( ! empty ($URIEncryptedString)) {
 		$Variable = "setid";
 	}
 }
-	
+
 switch ($Variable) {
   case 'person';
   
@@ -137,7 +139,6 @@ switch ($Variable) {
 			$pdfPetition->BarCode = $result[0]["CanPetitionSet_ID"];
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
 		}
-		
 		if ( $result[0]["Candidate_Status"] == "published" || $URIEncryptedString["PendingBypass"] == "yes") break;
 		
 	case 'demo-single':
@@ -278,9 +279,6 @@ if ( ! empty ($PetitionData)) {
 }
 
 WriteStderr($TotalCandidates, "Total candidates");
-
-
-
 $pdfPetition->NumberOfCandidates = $TotalCandidates;
 
 if ($pdfPetition->NumberOfCandidates > 1) { 
@@ -294,14 +292,12 @@ if ($pdfPetition->NumberOfCandidates > 1) {
 $pdfPetition->RunningForHeading["electoral"] = "PUBLIC OFFICE" . strtoupper($pdf->PluralCandidates);
 $pdfPetition->RunningForHeading["party"] = "PARTY POSITION" . strtoupper($pdf->PluralCandidates);
 $pdfPetition->RunningForHeading["demo"] = "A PARTY POSITION OR A PUBLIC OFFICE" . strtoupper($pdf->PluralCandidates);
-
-
 $pdfPetition->CandidateNomination = "nomination of such party for public office";
+
 // Add or the if both.	
 $pdfPetition->CandidateNomination .= " or for election to a party position of such party.";
 
 // Need to fix that.
-
 if ( $PageSize == "letter") {
 	$NumberOfLines = 12 - $pdf->NumberOfCandidates;
 	$pdfPetition->BottonPt = 240.4;	
@@ -311,6 +307,7 @@ if ( $PageSize == "letter") {
 } else if ( $PageSize = "legal") {
 	$NumberOfLines = 23;
 	$pdfPetition->BottonPt = 236;
+	
 }
 
 $pdfPetition->AliasNbPages();
@@ -319,6 +316,9 @@ $pdfPetition->SetLeftMargin(5);
 $pdfPetition->SetRightMargin(5);
 $pdfPetition->SetAutoPageBreak(1, 38);
 $pdfPetition->AddPage();
+
+
+WriteStderr($TotalCandidates, "Finished the AddPage(): Total Candidates: ");
 
 // This is the meat of the petition.	
 $Counter = 0;
@@ -358,19 +358,20 @@ for ($i = 0; $i < $TotalCountName; $i++) {
 // This is the last 
 // $pdf->YLocation 
 
-$done = 1;	
+
+WriteStderr($TotalCandidates, "Just done the first loop\n");
+
+$done = 0;	
 while ( $done == 1) {
 	$Counter++;
 	$YLocation = $pdfVoterList->GetY();
 	
-	// Above line.	
+	// Above line.
 	$pdfPetition->Line($pdfPetition->Line_Left, $YLocation + 2, $pdfPetition->Line_Right, $YLocation + 2);
-	
 	$YLocation += 13;
+	
 	$pdfPetition->SetXY($pdfPetition->Line_Left, $YLocation - 4);
-	
 	$pdfPetition->Line($pdfPetition->Line_Left + 36, $YLocation - 1.5, $pdfPetition->Line_Right - 91, $YLocation - 1.5);
-	
 	$pdfPetition->SetTextColor(220);
 
 	$pdfPetition->SetFont('Arial','I',20);
@@ -378,11 +379,9 @@ while ( $done == 1) {
 	$pdfPetition->Write(0, 'Sign here');
 	
 	$pdfPetition->SetTextColor(190);
-
 	$pdfPetition->SetFont('Arial','I',8);		
 	$pdfPetition->SetXY( 41,  $YLocation + 0.4);
 	$pdfPetition->Write(0, "Print your name here:");
-
 	
 	$pdfPetition->SetTextColor(0);
 	
@@ -391,8 +390,7 @@ while ( $done == 1) {
 		$pdfPetition->SetXY(195, $YLocation - 4);
 		$pdfPetition->Cell(38, 0, $MyCustomCounty, 0, 0, 'L', 0);
 	}
-	
-	
+
 	if ( ! empty ($MyCustomAddress)) {
 		$pdfPetition->SetFont('Arial','',12);
 		$pdfPetition->SetXY(121, $YLocation - 9);
@@ -403,25 +401,22 @@ while ( $done == 1) {
 	$pdfPetition->SetXY( 6,  $YLocation - 4 );
 	$pdfPetition->SetFont('Arial', '', 10);
 	$pdfPetition->Cell(38, 0, $Counter . ". " . $DateForCounter, 0, 0, 'L', 0);
+	$pdfPetition->SetY($YLocation+0.8);
 
-	$pdfPetition->SetY($YLocation+0.8);	
-		
 	if ($pdfPetition->GetY() > 218) {
 		$done = 0;
 	} else {
 		$pdfPetition->SetXY($pdfPetition->Line_Left, $YLocation);				
 	}
-	
 }
 
+WriteStderr($TotalCandidates, "Done second part\n");
 $pdfPetition->Line($pdf->Line_Left, $YLocation + 2, $pdf->Line_Right, $YLocation + 2);
 $pdfPetition->LocationOfFooter = $YLocation + 6.5;
 $pdfPetition->BottonPt = $YLocation + 1.9;
 
-
 ##################### ADD PAGE FOR THE VOTER LIST
-
-	
+	WriteStderr("######################################## SECOND PART #########################################\n", "Second");	
 	WriteStderr($URIEncryptedString, "URIEncryptedString");
 		
 	if ($URIEncryptedString["DataDistrict_ID"] > 0) {
@@ -635,10 +630,22 @@ $pdfPetition->BottonPt = $YLocation + 1.9;
 			}			
 		}
 	}
-	
-$pdfVoterList->Output("I", $OutputFilename);
-#$pdfPetition->Output("I", $Petition_FileName);
 
+$merge = new FPDF_Merge();
+$MyMerge = intval($_GET["MyMerge"]);
+if ( $MyMerge == 0) {
+	fwrite($myfile, "<h1>Dynamic</h1>");
+	$OUTPUTPDF_VoterList = $pdfVoterList->Output('s');
+	$OUTPUTPDF_Petition = $pdfPetition->Output('s');
+	$merge->add_string($OUTPUTPDF_VoterList);
+	$merge->add_string($OUTPUTPDF_Petition);
+} else { 
+	fwrite($myfile, "<h1>Static</h1>");
+	$merge->add('PacketPage_VoterList.pdf');
+	$merge->add('PacketPage_petition.pdf');
+}
+$merge->output();	
+fclose($myfile);
 
 function PrintAddress($Alternate, $pdf, $PrintAddress) {
 	$pdf->Ln(6);
@@ -680,13 +687,8 @@ function PrintVoterLine($Alternate, $pdf, $VoterPrintLine, $Status) {
 	if ( $Status == "I") { $pdf->SetTextColor(0); }
 }
 
-
-
-
 function Redact ($string) {
 	return str_repeat("X", strlen($string)); ;
 	return $string;
 }
-
 ?>
-

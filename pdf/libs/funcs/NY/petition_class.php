@@ -16,9 +16,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 	function Header()	{
 		$YLocation = $this->GetY();
 		$this->SetTextColor(0);
-		
-		
-
+	
 		if (! empty ($this->DemoPrint)) {		
 			$this->SetXY(125, 1);
 			$this->SetFont('Arial', 'B', 15);
@@ -30,7 +28,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 		}
 		
 		$this->SetFont('Arial','',10);
-		
+			
     $this->SetFont('Arial','B',12);
     $this->Cell(0,0, strtoupper($this->party) . " PARTY",0,0,'C');
     $this->Ln(4);
@@ -211,20 +209,7 @@ class PDF_NY_Petition extends PDF_Code128 {
     
     $this->Ln(1);
     
-    $this->SetFont('Arial','B',13);
-		$this->Cell(35, 8, "Date" ,0, 0, 'C', 0);
-		$this->Cell(75, 8, "Name of Signer / Signature", 0, 0, 'C', 0);
-		$this->Cell(74, 8, "Residence", 0, 0, 'C', 0);
-		$this->Cell(20, 8, $this->TypeOfTown, 0, 0, 'C', 0);
-		$this->Ln(4.5);
-   
-   	$this->YLocation = $this->GetY();
-   
-   	$YLocation = $this->GetY() - 3.5;
-   	$this->Line($this->Line_Left, $YLocation, $this->Line_Right, $YLocation);
-   	
-   	$this->MyTopFor = $YLocation;
-		
+
 		//$this->Line($this->Line_Left, $Botton_Corner_Y, $this->Line_Right, $Botton_Corner_Y - 0.3);
 		//$this->Line($this->Line_Left,	 $Botton_Corner_Y + 6.1, $this->Line_Right, $Botton_Corner_Y + 6.1);
 	}
@@ -234,12 +219,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 
 		//$this->LocationOfFooter = -44;		
 		// Let see moving the square at the end
-		$this->Line($this->Line_Left, $this->MyTopFor, $this->Line_Left, $this->BottonPt);
- 		$this->Line(40,  $this->MyTopFor, 40,  $this->BottonPt);
- 		$this->Line(120, $this->MyTopFor, 120, $this->BottonPt);
- 		$this->Line(190, $this->MyTopFor, 190, $this->BottonPt);
- 		$this->Line($this->Line_Right, $this->MyTopFor, $this->Line_Right, $this->BottonPt);
-		// $this->Line($this->Line_Left, $this->BottonPt, $this->Line_Right, $this->BottonPt);
+
 	
 		$this->SetTextColor(0);
 
