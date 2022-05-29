@@ -33,9 +33,32 @@
  *  $merge->add('/tmp/pdf-1.pdf');
  *  $merge->add('/tmp/pdf-2.pdf');
  *  $merge->output('/tmp/pdf-merge.pdf'); // or $merge->output(); to open it directly in the browser
+ 
+ 
+ 
+$merge = new FPDF_Merge();
+$MyMerge = intval($_GET["MyMerge"]);
+
+if ( $MyMerge == 0) {
+	$OUTPUTPDF_VoterList = $pdfVoterList->Output('s');
+	$OUTPUTPDF_Petition = $pdfPetition->Output('s');
+	$merge->add_string($OUTPUTPDF_VoterList);
+	$merge->add_string($OUTPUTPDF_Petition);
+} else { 
+	$merge->add('PacketPage_VoterList.pdf');
+	$merge->add('PacketPage_petition.pdf');
+}
+
+$merge->output();
+ 
+ 
+ 
  *  
  **/
-    class FPDF_Merge{
+ 
+
+		
+	  class FPDF_Merge{
         const   TYPE_NULL       = 0,
                 TYPE_TOKEN      = 1,
                 TYPE_REFERENCE  = 2,
@@ -47,14 +70,14 @@
                 TYPE_ARRAY      = 8,
                 TYPE_DICTIONARY = 9,
                 TYPE_STREAM     = 10;
-                
+                 
         private $buffer, $compress, $fonts, $objects, $pages, $ref, $n, $xref;
                 
         /**************************************************
         /*                    CONSTRUCTOR
         /**************************************************/
         
-        public function __construct(){
+        public function __construct() {
             $this->buffer   = '';
             $this->fonts    = array();
             $this->objects  = array();
@@ -181,10 +204,6 @@
             if (!isset($xref[$index])){
                 $this->error('reference d\'object inconnue');
             }
-            
-            //print "<BR>GetObject Function: <BR>";
-            //print "INDEX: $index<BR>";
-            //print "<PRE>" . print_r($xref, 1) . "</PRE>";
              
             fseek($f, $xref[$index]);
             
@@ -192,17 +211,12 @@
             $len    = 0;
             $offset = 0;
             $expLen = 1024;
-            do{
+            do {
                 $prev = $len;
                 $data .= fread($f, $expLen);
-                
-                $this->print_hex($data, "Lecture du data");
-                
                 $len = strlen($data);
                 $p = strpos($data, "endobj", $offset);
-                
-                $this->print_hex($p, "Lecture du P");
-                
+                                
                 if ($p !== false){
                     if ( $data[$p-1] !== "\n" ){
                         $offset = $p + 6;
@@ -249,7 +263,6 @@
                     $type = self::TYPE_STREAM;
                 }
                 if ( $includeSubObject ){
-  	              	echo "Suis-je dans dictionary?<BR>";
  	                  $dictionary = $this->_resolveValues($f, $xref, $dictionary);
                 }
             } else {
@@ -268,50 +281,19 @@
             if (!isset($xref[$index])){
                 $this->error('reference d\'object inconnue');
             }
-            
-            //print "<BR>GetStrObject Function: <BR>";
-            //print "INDEX: $index<BR>";
-            //print "<PRE>" . print_r($xref, 1) . "</PRE>";
-            
-            // This need to be studied.
-            #fseek($f, $xref[$index]);
+
             $LocalString = substr($string, $xref[$index]);
-           	//$this->print_hex($LocalString, "Lecture du string data avant boucle");
-            
+           
             $data   = '';
             $len    = 0;
             $offset = 0;
             $expLen = 1024;
             
-            do {
-                $prev = $len;
-                //  $data .= fread($f, $expLen);
-                $data .= substr($LocalString, 0, $expLen);
-               
-                $this->print_hex($data, "Lecture du string data");
-                
-                $len = strlen($data);
-                $p = strpos($data, "endobj", $offset);
-                $this->print_hex($p, "Lecture du P");
-                
-                if ($p !== false){
-                    if ( $data[$p-1] !== "\n" ){
-                        $offset = $p + 6;
-                        $p = false;
-                    } else {
-                        if ($len < $p + 8){
-                            $data .= fread($f, 1);
-                            $aata .= substr($string, 1);
-                            $len = strlen($data);
-                        }
-                        if ($data[$p+6] !== "\n"){
-                            $offset = $p + 6; // not the endobj markup, maybe a string content
-                            $p = false;
-                        }
-                    }
-                }
-                $expLen *= 2;
-            } while( ($p === false) && ($prev !== $len) );
+            $prev = $len;
+            $p = strpos($LocalString, "endobj", $offset);
+						$data .= substr($LocalString, 0, $p);
+						$len = strlen($data);
+            
             
             if ($p === false){
                 $this->error('object ['.$index.'] non trouve');
@@ -341,8 +323,6 @@
                     $type = self::TYPE_STREAM;
                 }
                 if ( $includeSubObject ){
-                		//echo "Suis-je dans dictionary?<BR>";
-                	
                     $dictionary = $this->_resolveStrValues($string, $xref, $dictionary);
                 }
             } else {
@@ -352,8 +332,6 @@
         }
         
         private function _resolveValues($f, $xref, $item){
-        	print "Je suis dans _resolveValues<BR>";
-        	
         	switch($item[0]){
                 case self::TYPE_REFERENCE:
                     $object = $this->getObject($f, $xref, $item[1], true);
@@ -384,10 +362,7 @@
         }
         
         private function _resolveStrValues($string, $xref, $item){
-        	
-        	//print "Je suis dans _resolveStrValues<BR>";
-        	
-            switch($item[0]){
+           switch($item[0]){
                 case self::TYPE_REFERENCE:
                     $object = $this->getStrObject($string, $xref, $item[1], true);
                     if ($object[0] === self::TYPE_TOKEN){
@@ -416,14 +391,11 @@
         }
          
         private function getResources($f, $xref, $page){
-        	print "Entry dans getRessouces<BR>";
-        	
             if ($page[0] !== self::TYPE_DICTIONARY){
                 $this->error('getResources necessite un dictionaire');
             }
             if (isset($page[1]['/Resources'])){
                 if ($page[1]['/Resources'][0] === self::TYPE_REFERENCE){
-                	print "Je retourne dans getObject<BR>";
                     return $this->getObject($f, $xref, $page[1]['/Resources'][1]);
                 } else {
                     return array($page[1]['/Resources'][1]);
@@ -435,13 +407,10 @@
         }
        
         private function getStrResources($string, $xref, $page){
-        	//print "Entry dans getStrRessouces<BR>";
-        	
             if ($page[0] !== self::TYPE_DICTIONARY){
                 $this->error('getResources necessite un dictionaire');
             }
             if (isset($page[1]['/Resources'])){
-               	//print "Je retourne dans getObject<BR>";
                 if ($page[1]['/Resources'][0] === self::TYPE_REFERENCE){
                     return $this->getStrObject($string, $xref, $page[1]['/Resources'][1]);
                 } else {
@@ -453,10 +422,7 @@
             return null;
         }
         
-        private function getContent($f, $xref, $page){
-        	 print "Entry dans getContent<BR>";       	
-
-        	
+        private function getContent($f, $xref, $page){        	
             if ($page[0] !== self::TYPE_DICTIONARY){
                 $this->error('getContent necessite un dictionaire');
             }
@@ -468,7 +434,6 @@
         }
         
         private function getStrContent($string, $xref, $page){
-        	print "Entry dans getStrContent<BR>";
             if ($page[0] !== self::TYPE_DICTIONARY){
                 $this->error('getContent necessite un dictionaire');
             }
@@ -480,9 +445,7 @@
         }
  
         private function _getContent($f, $xref, $content){
-        	print "Entry dans _getContent<BR>";
-        	
-            $stream = '';
+           $stream = '';
             if ($content[0] === self::TYPE_REFERENCE){
                 $stream .= $this->getStream($f, $xref, $this->getObject($f, $xref, $content[1]));
             } else if ($content[0] === self::TYPE_ARRAY){
@@ -496,10 +459,9 @@
         }
        
         private function _getStrContent($string, $xref, $content){
-        	print "Entry dans _getStrContent<BR>";
             $stream = '';
             if ($content[0] === self::TYPE_REFERENCE){
-                $stream .= $this->getStream($f, $xref, $this->getStrObject($string, $xref, $content[1]));
+                $stream .= $this->getStrStream($string, $xref, $this->getStrObject($string, $xref, $content[1]));
             } else if ($content[0] === self::TYPE_ARRAY){
                 foreach($content[1] as $sub){
                     $stream .= $this->_getStrContent($string, $xref, $sub);
@@ -511,8 +473,7 @@
         }
 
         private function getCompression($f, $xref, $item){
-        	print "Entry dans getCompression<BR>";
-            if ($item[0] === self::TYPE_TOKEN){
+           if ($item[0] === self::TYPE_TOKEN){
                 return array($item[1]);
             } else if ($item[0] === self::TYPE_ARRAY){
                 $r = array();
@@ -527,7 +488,6 @@
         }
         
         private function getStrCompression($string, $xref, $item){
-        	print "Entry dans getStrCompression<BR>";
             if ($item[0] === self::TYPE_TOKEN){
                 return array($item[1]);
             } else if ($item[0] === self::TYPE_ARRAY){
@@ -543,44 +503,41 @@
         }
 
         private function getStream($f, $xref, $item){
-        	        	print "Entry dans getStream<BR>";
-
-            $methods = isset($item[1][1]['/Filter']) ? $this->getCompression($f, $xref, $item[1][1]['/Filter']) : array();
-            
-            $raw = $item[2];
-            foreach($methods as $method){
-                switch ($method) {
-                    case '/FlateDecode':
-                    	if (function_exists('gzuncompress')) {
-                            $raw = !empty($raw) ? @gzuncompress($raw) : '';
-                        } else {
-                            $this->error('gzuncompress necessaire pour decompresser ce stream');
-                        }
-                        if ($raw === false) {
-                        	$this->error('erreur de decompression du stream');
-                        }
-                    break;
-                    default:
-                        $this->error($method . ' necessaire pour decompresser ce stream');
-                }
-            }
-            return $raw;
-        }
+          $methods = isset($item[1][1]['/Filter']) ? $this->getCompression($f, $xref, $item[1][1]['/Filter']) : array();
+          $raw = $item[2];
+          foreach($methods as $method){
+              switch ($method) {
+                  case '/FlateDecode':
+                  	if (function_exists('gzuncompress')) {
+                		  $raw = !empty($raw) ? @gzuncompress($raw) : '';
+	                  } else {
+                      $this->error('gzuncompress necessaire pour decompresser ce stream');
+  	                }
+    	              if ($raw === false) {
+      	            	$this->error('erreur de decompression du stream');
+        	          }
+                  break;
+                  default:
+                    $this->error($method . ' necessaire pour decompresser ce stream');
+              }
+          }
+          return $raw;
+      	}
         
         private function getStrStream($string, $xref, $item){
-        	        	print "Entry dans getStrStream<BR>";
-
             $methods = isset($item[1][1]['/Filter']) ? $this->getStrCompression($string, $xref, $item[1][1]['/Filter']) : array();
-            
+                      
             $raw = $item[2];
             foreach($methods as $method){
                 switch ($method) {
                     case '/FlateDecode':
+                                     
                     	if (function_exists('gzuncompress')) {
-                            $raw = !empty($raw) ? @gzuncompress($raw) : '';
+                    		  $raw = !empty($raw) ? @gzuncompress($raw) : '';
                         } else {
-                            $this->error('gzuncompress necessaire pour decompresser ce stream');
+                           $this->error('gzuncompress necessaire pour decompresser ce stream');
                         }
+                        
                         if ($raw === false) {
                         	$this->error('erreur de decompression du stream');
                         }
@@ -780,12 +737,10 @@
         public function add_string( $string ){
             
             $fileLength = strlen($string); //FileLength peut etre important
-            //print "fileLength: $fileLength<BR>";
-                     
+                    
             // Localisation de xref
             //-------------------------------------------------
             
-            fseek($f, -128, SEEK_END);
             $data = substr($string, -128);
 
             $p = strripos($data, 'startxref');
@@ -801,10 +756,6 @@
             //-------------------------------------------------
             
             // faut qu'il cherche le machin 
-        		           
-            //print "posStartxref: $posStartxref<BR>\n";
-            //print "Startxref: $startxref<BR>";
-  
             $data = substr($string, $startxref, $posStartxref - $startxref);
            
              // extraction du trailer
@@ -817,10 +768,7 @@
             $len = strlen($dataTrailer);
             $off = 0;
             $trailer = $this->parse($dataTrailer, $len, $off);
-            
-            $this->print_hex($data, "STRING FILE");
-						
-            
+                       
             // extraction du xref
             //-------------------------------------------------
             
@@ -857,13 +805,10 @@
 
             $root = $this->getStrObject($string, $xref, $trailer[1]['/Root'][1]);
             $root = $root[1][1];
-            
-            //print "Root:<PRE>" . print_r($root, 1) . "</PRE><BR>";
-            
+                        
             $pages = $this->getStrObject($string, $xref, $root['/Pages'][1]);
             $pages = $pages[1][1];
             
-           // print "Pages:<PRE>" . print_r($pages, 1) . "</PRE><BR>";
                         
             foreach($pages['/Kids'][1] as $kid){
                 $kid = $this->getStrObject($string, $xref, $kid[1]);
@@ -948,8 +893,7 @@
             fseek($f, 0, SEEK_END);
             $fileLength = ftell($f);
             
-           // print "fileLength: $fileLength<BR>";
-            
+           
             // Localisation de xref
             //-------------------------------------------------
             
@@ -969,11 +913,7 @@
             
             // extraction de xref + trailer
             //-------------------------------------------------
-            
-            
-            //print "posStartxref: $posStartxref<BR>\n";
-            //print "Startxref: $startxref<BR>";
-            
+                       
             fseek($f, $startxref);
             $data = fread($f, $posStartxref - $startxref);
                        
@@ -987,7 +927,6 @@
             $len = strlen($dataTrailer);
             $off = 0;
             $trailer = $this->parse($dataTrailer, $len, $off);
-            $this->print_hex($data, "ACTUAL FILE");
 						
             // extraction du xref
             //-------------------------------------------------
@@ -1025,14 +964,8 @@
 
             $root = $this->getObject($f, $xref, $trailer[1]['/Root'][1]);
             $root = $root[1][1];
-            
-            //print "Second Root:<PRE>" . print_r($root, 1) . "</PRE><BR>";
-                       
-            $pages = $this->getObject($f, $xref, $root['/Pages'][1]);
+           	$pages = $this->getObject($f, $xref, $root['/Pages'][1]);
             $pages = $pages[1][1];
-            
-            //print "Pages:<PRE>" . print_r($pages, 1) . "</PRE><BR>";
-           	
             
             foreach($pages['/Kids'][1] as $kid){
                 $kid = $this->getObject($f, $xref, $kid[1]);
@@ -1110,17 +1043,13 @@
         }
         
         public function output($filename = null){
-            $this->_out('%PDF-1.6');
-            
-            $this->_putObjects();
-            
-            $rsRef = $this->_putResources();
-            
-            $ptRef = $this->_newobj(true);
-            
-            $kids = array();
-            
-            // Ajout des pages 
+	        $this->_out('%PDF-1.6');
+	        $this->_putObjects();            
+	        $rsRef = $this->_putResources();
+	        $ptRef = $this->_newobj(true);
+	        $kids = array();
+	        
+	        // Ajout des pages 
         	$n = count($this->pages);
         	for($i=0; $i<$n; $i++){
                 $ctRef = $this->_addObj(array(), $this->pages[$i]['content']);
@@ -1157,8 +1086,8 @@
                     )
             );
             $ctRef = $this->_newobj();
-        	$this->_out($this->_toStream($ctDico));
-    		$this->_out('endobj');
+						$this->_out($this->_toStream($ctDico));
+						$this->_out('endobj');
     		
     		// Ajout du xref
             $xrefOffset = strlen($this->buffer);
@@ -1167,13 +1096,13 @@
             $this->_out('0 ' . ($count+1));
             $this->_out('0000000000 65535 f ');
             for($i=0; $i<$count; $i++){
-                $this->_out(sprintf('%010d 00000 n ',$this->xref[$i+1]));
+            	$this->_out(sprintf('%010d 00000 n ',$this->xref[$i+1]));
             }
             
             // Ajout du trailer
             $dico = array(
-                '/Size' => array(self::TYPE_NUMERIC, 1+count($this->xref)),
-                '/Root' => array(self::TYPE_REFERENCE, $ctRef)
+	            '/Size' => array(self::TYPE_NUMERIC, 1+count($this->xref)),
+	            '/Root' => array(self::TYPE_REFERENCE, $ctRef)
             );
             $this->_out('trailer');
             $this->_out($this->_toStream(array(self::TYPE_DICTIONARY, $dico)));
@@ -1185,26 +1114,17 @@
             $this->_out('%%EOF');
             
             if ($filename === null){
-                header('Content-Type: application/pdf');
-				header('Content-Length: '.strlen($this->buffer));
-				header('Cache-Control: private, max-age=0, must-revalidate');
-				header('Pragma: public');
-				ini_set('zlib.output_compression','0');
-                
-                echo $this->buffer;
-                die;
+	            header('Content-Type: application/pdf');
+							header('Content-Length: '.strlen($this->buffer));
+							header('Cache-Control: private, max-age=0, must-revalidate');
+							header('Pragma: public');
+							ini_set('zlib.output_compression','0');
+	            
+	            echo $this->buffer;
+	            die;
             } else {
-                file_put_contents($filename, $this->buffer);
+							file_put_contents($filename, $this->buffer);
             }
-        }
-        
-        public function print_hex($string, $explain = null) { 
-          //echo "HEX $explain:<UL>";
-          //  for ($i = 0; $i < strlen($string); $i++) {
-					//	   echo str_pad(dechex(ord($string[$i])), 2, '0', STR_PAD_LEFT);
-					//	   echo " ";
-					//	}
-					//echo "</UL>";
         }
     }
 ?>
