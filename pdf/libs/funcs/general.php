@@ -73,4 +73,9 @@ function PrintPartyAdjective($Party) {
 		case 'SAM': return "SAM"; break;
 	}
 }
+
+function Redact ($string) {
+	return str_repeat("X", strlen($string)); ;
+	return $string;
+}
 ?>
