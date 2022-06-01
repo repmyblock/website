@@ -9,7 +9,7 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	
-	$rmb = new RMB_Admin();
+	$rmb = new RMBAdmin();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($UserParty);
 	

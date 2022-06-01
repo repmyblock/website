@@ -1,11 +1,10 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	$Menu = "admin";
-	$BigMenu = "represent";	
-	
+
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_admin.php"; 
 
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();

@@ -8,7 +8,6 @@
 
 <CENTER><h2>404 - Page not found</h2>
 
-
 <P><BR>
 	This page used to exist but doesn't anymore.<BR>Please email us at 
 	info at the domain name for this website so we can check why the 

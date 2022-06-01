@@ -1,14 +1,16 @@
 <?php
-	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	$Menu = "admin";
-	$BigMenu = "represent";	
+		 
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_admin.php"; 
 	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
-	
-	WriteStderr($Result, "I am starting the Voter List");
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 
+
+	$rmb = new RMBAdmin();
+	
 	if ( ! empty ($_POST)) {
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";
 
@@ -30,51 +32,38 @@
 			}
 		}
 	}
-
-  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	$rmb = new repmyblock();
-
-	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-	$Party = PrintParty($UserParty);
-
-	if ( ! empty ($URIEncryptedString["Query_NYSBOEID"])) {
-		preg_match('/NY(.*)/', $URIEncryptedString["Query_NYSBOEID"], $matches, PREG_OFFSET_CAPTURE);
-	 	if (is_numeric($matches[1][0])) {
-			$NYSBOEID_padded = "NY" . str_pad($matches[1][0], 18, "0", STR_PAD_LEFT);
-			$Result = $rmb->SearchVoter_Dated_NYSBOEID($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, 
-																								$DatedFilesID, $NYSBOEID_padded);
-		} else {
-			$ErrorMsg = "The NYS Voter ID is invalid";
-		}
-			
-	} else if (! empty ($URIEncryptedString["Query_LastName"])) {
-		$Result = $rmb->SearchVoter_Dated_DB($URIEncryptedString["UniqNYSVoterID"], $DatedFiles, $DatedFilesID,
-																					$URIEncryptedString["Query_FirstName"], $URIEncryptedString["Query_LastName"], NULL,
-																					$URIEncryptedString["Query_ZIP"], $URIEncryptedString["Query_COUNTY"],
-																					$URIEncryptedString["Query_PARTY"], $URIEncryptedString["Query_AD"],
-																					$URIEncryptedString["Query_ED"], $URIEncryptedString["Query_Congress"]);
-		WriteStderr($Result, "SearchVoter_Dated_DB");
-																				
-	} else {
-		
-		if (! empty ($URIEncryptedString["Query_AD"]) || ! empty ($URIEncryptedString["Query_ED"])) {	
-			
-			WriteStderr($URIEncryptedString, "URIEncryptedString in the Empty QueryAD and QueryED");
-			
-				header("Location: /admin/" . $k . "/byad");	
-				exit();
-				
-				
-				
-		} else {	
-			$ErrorMsg = "There is an error, a field is empty";
-		}
-	} 
 	
+	// This is the query search.
+	if ( $URIEncryptedString["Query_DBType"] == "RawDB") {
+		
+		// need to calculate the County Code from $URIEncryptedString["Query_COUNTY"] to
+		//CountyCode
+		
+		$QueryFields = array(	
+			"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+			"FirstName" => $URIEncryptedString["Query_FirstName"], 
+			"LastName" => $URIEncryptedString["Query_LastName"],
+			"ResZip" => $URIEncryptedString["Query_ZIP"], 
+			"CountyCode" => $CountyCode,
+			"EnrollPolParty" => $URIEncryptedString["Query_PARTY"], 
+			"AssemblyDistr" => $URIEncryptedString["Query_AD"],
+			"ElectDistr" => $URIEncryptedString["Query_ED"], 
+			"CongressDistr" => $URIEncryptedString["Query_Congress"]
+		);
+		
+		$Result = $rmb->SearchVoter_Dated_DB($QueryFields);
+		WriteStderr($Result, "SearchVoter_Dated_DB");
+		
+	} else {	
+		$ErrorMsg = "There is an error, a field is empty";
+	} 
+
+
+	$Party = PrintParty($UserParty);
 	
 	if ( empty ($Result)) {
 		$ErrorMsg = "Voter not found";		
-		header("Location: /admin/" .  CreateEncoded ( array( 	
+		header("Location: /" .  CreateEncoded ( array( 	
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 								"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
 								"FirstName" => $URIEncryptedString["FirstName"],
@@ -92,7 +81,7 @@
 								"RetReturnNYSBOEID" => $URIEncryptedString["Query_NYSBOEID"],
 								"RetReturnCongress" => $URIEncryptedString["Query_Congress"],
 								"ErrorMsg" => $ErrorMsg								
-					)) . "/voterlookup");
+					)) . "/admin/voterlookup");
 		exit();
 	}
 	

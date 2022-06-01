@@ -40,9 +40,7 @@
   		<A HREF="/<?= $k ?>/admin/setup_positions">Position Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_petitions">Petition Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/integrity_verif">Verify Data Integrity</A><BR>	
-  		<A HREF="/<?= $k ?>/admin/createcruform">Create a NYC CRU id form</A><BR>	
-  		<A HREF="/<?= $k ?>/admin/createcover">Create coversheet</A><BR>	
-  		<A HREF="/<?= $k ?>/admin/stats">Stats</A><BR>	
+ 	 		<A HREF="/<?= $k ?>/admin/stats">Stats</A><BR>	
     </dd>
   </dl>
 

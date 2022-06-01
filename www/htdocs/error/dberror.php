@@ -4,16 +4,27 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
 ?>
 
-<P><BR><BR></P>
+<P><BR></P>
 
-<CENTER><h2>Database Error - Problem with the Database</h2>
+<P>
+<CENTER><h2>Database Error - Catastrophic problem with the Database</h2>
 
+<?php if (! empty ($URIEncryptedString["error_msg"])) { ?>
+<H3><FONT COLOR=BROWN><?= $URIEncryptedString["error_msg"] ?></FONT></H3>
+<?php } else { ?>
 
 <P><BR>
 	This is a database error. Please check in a few hours.<BR>
 	The administrators have been notified.
-	</P>	
+</P>	
+<?php } ?>
+
 </CENTER>
+</P>
+
+<P><BR></P>
+
+
 <?php
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; 
 ?>
