@@ -38,6 +38,37 @@ class RMBAdmin extends RepMyBlock {
 		return $this->_return_multiple($sql);
 	}
 	
+	
+	function SearchVoter_Dated_DB($QueryFields) {
+		
+		print "Search Voter Dated DB: <PRE>" . print_r($QueryFields, 1) . "</PRE>";
+		
+		$sql = "SELECT * FROM NY_Raw_20220516 WHERE ";
+		$sql .= "LastName = :LastName ";
+		$sql .= "AND FirstName =: FirstName ";
+		
+		$sql_vars = array(
+			"FirstName" => $QueryFields["FirstName"], 
+			"LastName" => $QueryFields["LastName"],
+						
+			//	"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+			//	"FirstName" => $URIEncryptedString["Query_FirstName"], 
+			//	"LastName" => $URIEncryptedString["Query_LastName"],
+			//	"ResZip" => $URIEncryptedString["Query_ZIP"], 
+			//	"CountyCode" => $CountyCode,
+			//	"EnrollPolParty" => $URIEncryptedString["Query_PARTY"], 
+			//	"AssemblyDistr" => $URIEncryptedString["Query_AD"],
+			//	"ElectDistr" => $URIEncryptedString["Query_ED"], 
+			//  "CongressDistr" => $URIEncryptedString["Query_Congress"]
+				
+		);
+
+		return $this->_return_multiple($sql, $sql_vars);
+		
+		exit();
+		
+	}
+	
 
 }
 ?>

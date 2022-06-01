@@ -2,9 +2,8 @@
 
 // This the the logic for populating the candidate field
 if ( ! empty ($CandidateLogic)) {
+	
 	// I need to create the candidate list
-
-
 	if ( ! empty ($CandidateLogic["Position"])) {
 		foreach ($CandidateLogic["Position"] as $index => $var) {
 			if ( ! empty ($var)) {				
@@ -14,9 +13,7 @@ if ( ! empty ($CandidateLogic)) {
 																				$CandidateLogic["ElectDistr"]);
 						$ElectionInfo = $rmb->GetElectionInfo_NewYork_CountyCommittee($CandidateLogic["EnrollPolParty"],
 																																					$CandidateLogic["Gender"], $EDAD);	
-																																					
-					
-																																					
+																																																																					
 						// If it's empty we can add the candidate
 						if ( empty ($ElectionInfo[0]["Candidate_ID"])) {
 							$Candidate_ID = $rmb->InsertCandidate_NewYork_CountyCommittee(
@@ -24,8 +21,7 @@ if ( ! empty ($CandidateLogic)) {
 														$DatedFilesID, $ElectionInfo[0]["CandidateElection_ID"], $EDAD, 
 														$CandidateLogic["EnrollPolParty"], $CandidateLogic["PetitionName"],
 														$CandidateLogic["PetitionAddress"], $CandidateLogic["CountyCode"]);
-						
-						
+														
 							// Now we need to add the voter list for this person
 							$InfoArray["Election"] = "CC";
 							$InfoArray["ElectDistr"] = $CandidateLogic["ElectDistr"];

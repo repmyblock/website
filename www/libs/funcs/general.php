@@ -27,7 +27,7 @@ function WriteStderr($Data, $Message = "") {
 	global $Developping;
 	 
 	// if using NGNIX + FPM, check your
-	// /var/log/php/ftp-error.log file and not web error.log 
+	// /var/log/php/ftp-error.log file and not web error.log
 	 
 	// Need to save the information
 	if ( $Developping == 1) {	
