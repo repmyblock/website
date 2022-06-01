@@ -3,7 +3,7 @@
 // Make sure the name of the function name matches the file name version_<uniqname>.php.
 
 // Built by Theo Chino for the 2021 petitioning season.
-function version_2022 ($pdf, $InfoArray) {
+function version_NY_2022 ($pdf, $InfoArray) {
 	
 	// Header of the petition.
 	$pdf->SetFont('Arial','B',13);

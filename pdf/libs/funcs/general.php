@@ -78,4 +78,45 @@ function Redact ($string) {
 	return str_repeat("X", strlen($string)); ;
 	return $string;
 }
+
+function PrintAddress($Alternate, $pdf, $PrintAddress) {
+	$pdf->Ln(6);
+	if ($Alternate == 1) { $pdf->SetX(110); }
+	$pdf->SetFont('Arial', 'B', 16);
+	$pdf->Write(7, $PrintAddress);	
+	$pdf->Ln(2);
+}
+
+function PrintApt($Alternate, $pdf, $ApartementNumber) {
+	$pdf->Ln(6);
+	if ($Alternate == 1) { $pdf->SetX(110); }
+	$pdf->SetFont('Arial', '', 12);										
+	$pdf->Write(2, "Apartment: " );
+	$pdf->SetFont('Arial', 'B', 12);
+	$pdf->Write(2, $ApartementNumber);
+	$pdf->Ln(6);													
+}
+
+function PrintVoterLine($Alternate, $pdf, $VoterPrintLine, $Status) {
+	$LenghtString = $pdf->GetStringWidth($VoterPrintLine);
+	
+	if ($Alternate == 1) { 
+		if ($pdf->GetX() + 110 + $LenghtString > 214 ) { $pdf->Ln(5); } 
+		$pdf->SetX(110);
+	} else {
+		if ($pdf->GetX() + $LenghtString > 104 ) { $pdf->Ln(5); }
+	}
+
+	$MyGetX = $pdf->GetX();
+
+	$pdf->SetFont('ZapfDingbats','', 15);
+	$pdf->Write(1, "o" );												
+	$pdf->SetFont('Arial', '', 10);
+	$pdf->Write(1, " " );	
+	
+	if ( $Status == "I") { $pdf->SetTextColor(255, 0, 0); }
+	$pdf->Write(1, $VoterPrintLine . "  ");
+	if ( $Status == "I") { $pdf->SetTextColor(0); }
+}
+
 ?>

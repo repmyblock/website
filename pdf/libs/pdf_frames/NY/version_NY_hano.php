@@ -3,7 +3,7 @@
 // Make sure the name of the function name matches the file name version_<uniqname>.php.
 
 // Built by Mike Hano for 2022.
-function version_hano ($pdf, $InfoArray) {
+function version_NY_hano ($pdf, $InfoArray) {
 
 	
 	for ($i = 0; $i < $TotalCountName; $i++) {
@@ -61,7 +61,7 @@ function version_hano ($pdf, $InfoArray) {
 		
 		$pdf->SetFont('Arial','B',17);
 		$pdf->SetXY($pdf->Line_Left + 148, $YLocation + 6);
-		$pdf->MultiCell(40, 3.3, "   /      / 2022", 0, 'R', 0);
+		$pdf->MultiCell(40, 3.3, "    /     / 2022", 0, 'R', 0);
 		
 		$pdf->Rect($pdf->Line_Left + 3, $YLocation + 2,  $pdf->Line_Right - $pdf->Line_Left - 2 , 18);
 		$pdf->Line($pdf->Line_Left + 3, $YLocation + 12, $pdf->Line_Right - 14 , $YLocation + 12);
@@ -75,20 +75,28 @@ function version_hano ($pdf, $InfoArray) {
 		$pdf->SetXY($pdf->Line_Left + 4, $YLocation + 15.5);
 		$pdf->MultiCell(21, 3.3, "Address", 0, 'L', 0);
 		
+		
+		
 		$pdf->SetFont('Arial','',10);
-		$pdf->SetXY($pdf->Line_Left + 110, $YLocation + 15.5);
+		
+		//$pdf->SetXY($pdf->Line_Left + 50, $YLocation + 15.5);
+		//$pdf->Cell(21, 3.3, "Riverside rive", 0, 'R', 0);
+		
+		$pdf->SetXY($pdf->Line_Left + 90, $YLocation + 15.5);
 		$pdf->Cell(21, 3.3, "Apt", 0, 'L', 0);
 		$pdf->SetXY($pdf->Line_Left + 150, $YLocation + 15.5);
-		$pdf->Cell(21, 3.3, "New York, NY, ", 0, 'L', 0);
+		
+		//$pdf->Cell(21, 3.3, "New York, NY, 10031 ", 0, 'L', 0);
+		$pdf->Cell(21, 3.3, "New York, NY,  ", 0, 'L', 0);
 		
 		$pdf->SetFont('Arial','',10);
 		$pdf->SetXY($pdf->Line_Left + 198, $YLocation +5);
 		$pdf->Cell(5, 0, "County", 0, 0, 'R', 0);
 		
-		$pdf->SetFont('Arial','B',10);
-		//$pdf->SetXY($pdf->Line_Left + 198, $YLocation +12);	
+		$pdf->SetFont('Arial','B',14);
+		$pdf->SetXY($pdf->Line_Left + 196, $YLocation +12);	
 		//$pdf->RotatedText($pdf->Line_Left + 193, $YLocation + 19, "BRONX", 50);
-		//$pdf->Cell(5, 0, "BRONX", 0, 0, 'R', 0);
+		//$pdf->Cell(5, 0, "NY", 0, 0, 'R', 0);
 
 		//$pdf->Line($pdf->Line_Left + 13,  $YLocation + 2, $pdf->Line_Left + 13, $YLocation + 2);
 	
