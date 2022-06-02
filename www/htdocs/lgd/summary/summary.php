@@ -1,7 +1,6 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }  
 	$Menu = "summary";
-	$BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
@@ -65,7 +64,11 @@
 		$DateToWait = $ImportantDates[$VoterState]["LongDate"]["FirstSubmitDay"]; /// This need to be calculated.
 	}	
 		
+		
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
+	
+	
+	
 ?>
 
 <div class="row">
@@ -74,7 +77,7 @@
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 
 
-			<div class="col-9 float-left">
+			<div class="col-full float-left">
 			
 				<div class="Subhead">
 			  	<h2 class="Subhead-heading">Summary</h2>
@@ -173,4 +176,5 @@
 		</DIV>
 	</DIV>
 </DIV>
+
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

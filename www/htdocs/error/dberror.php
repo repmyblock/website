@@ -7,11 +7,12 @@
 <P><BR></P>
 
 <P>
-<CENTER><h2>Database Error - Catastrophic problem with the Database</h2>
+<CENTER>
+	<h2>Database Error - Catastrophic problem with the Database</h2>
 
-<?php if (! empty ($URIEncryptedString["error_msg"])) { ?>
-<H3><FONT COLOR=BROWN><?= $URIEncryptedString["error_msg"] ?></FONT></H3>
-<?php } else { ?>
+	<?php if (! empty ($URIEncryptedString["error_msg"])) { ?>
+		<H3><FONT COLOR=BROWN><?= $URIEncryptedString["error_msg"] ?></FONT></H3>
+	<?php } else { ?>
 
 <P><BR>
 	This is a database error. Please check in a few hours.<BR>

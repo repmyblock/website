@@ -9,6 +9,12 @@ div {font-family: 'Montserrat', sans-serif;color:#16317D!important;}
 
 a {text-decoration: none;}
 
+h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:0}
+h1{font-size:32px}
+h1,h2{font-weight:600}h2{font-size:24px}h3{font-size:20px}
+h3,h4{font-weight:600}h4{font-size:16px}h5{font-size:14px}h5,h6{font-weight:600}
+h6{font-size:12px}p{margin-top:0;margin-bottom:10px}small{font-size:90%}
+
 p.f80bold {font-size:26px; font-weight: 600;}
 p.f80 {font-size:18px; font-weight: 600;}
 p.f60 {font-size:14px; font-weight: 500;}
@@ -28,6 +34,8 @@ div.f50 {font-size:13px; padding: 10px 5px;}
 table.f50 td, th, tr { border: 1px solid black; font-size:14px; padding: 15px; border-spacing: 10px;}
 table.f50 table { width: 100%; table-layout: fixed;}
 table.f50 td, th { padding: 5px; text-align: center;}
+
+.col-full{width:75%}
 
 
 #VoterTable	{	border:1px solid #000;	border-collapse:collapse;	font-size:13px;	text-align:left; }
@@ -171,5 +179,25 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 .register input[type=email], select, textarea {font-size: 40px;padding: 12px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
 .register input[type=submit] {font-size: 40px;background-color: #EE2E62;color: white;padding: 12px 20px;border: none;cursor: pointer;}
 .register input[type=submit]:hover {font-size: 40px;background-color: #EE2E62;color: #16317D;}
+
+
+.h1{font-size:26px!important}@media (min-width:768px){.h1{font-size:32px!important}}
+.h2{font-size:22px!important}@media (min-width:768px){.h2{font-size:24px!important}}
+.h3{font-size:18px!important}@media (min-width:768px){.h3{font-size:20px!important}}
+.h4{font-size:16px!important}
+.h5{font-size:14px!important}
+.h6{font-size:12px!important}
+.h1,.h2,.h3,.h4,.h5,.h6{font-weight:600!important}
+.f1{font-size:26px!important}@media (min-width:768px){.f1{font-size:32px!important}}
+.f2{font-size:22px!important}@media (min-width:768px){.f2{font-size:24px!important}}
+.f3{font-size:18px!important}@media (min-width:768px){.f3{font-size:20px!important}}
+.f4{font-size:16px!important}@media (min-width:768px){.f4{font-size:16px!important}}
+.f5{font-size:14px!important}
+.f6{font-size:12px!important}
+.f00-light{font-size:40px!important;font-weight:300!important}@media (min-width:768px){.f00-light{font-size:48px!important}}
+.f0-light{font-size:32px!important;font-weight:300!important}@media (min-width:768px){.f0-light{font-size:40px!important}}
+.f1-light{font-size:26px!important;font-weight:300!important}@media (min-width:768px){.f1-light{font-size:32px!important}}
+.f2-light{font-size:22px!important;font-weight:300!important}@media (min-width:768px){.f2-light{font-size:24px!important}}
+.f3-light{font-size:18px!important;font-weight:300!important}@media (min-width:768px){.f3-light{font-size:20px!important}}
 
 

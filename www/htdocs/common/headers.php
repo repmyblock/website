@@ -19,7 +19,7 @@
 	
 	if ( empty ($HeaderTwitter)) {
 		$HeaderTwitterPicLink = "https://static.repmyblock.nyc/pics/paste/PoliticalMachineKeepEngagementLow.jpg";
-		$HeaderTwitterDesc = "Registrations for the 2022 Citywide Republican and Democratic county committee. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; its their backbone. The &hellip; Continue reading Rep My Block &rarr;";
+		$HeaderTwitterDesc = "Registrations for the 2023 Citywide Republican and Democratic county committee. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; its their backbone. The &hellip; Continue reading Rep My Block &rarr;";
 	}
 	
 ?><!DOCTYPE html>
@@ -33,7 +33,7 @@
 		<meta name="twitter:image" content="<?= $HeaderTwitterPicLink ?>" />
 		<meta name="twitter:creator" content="@RepMyBlock" />
     <meta name="Description" CONTENT="A website to prepare political state nominating petitions to run for party and elected office.">
-		<TITLE>Rep My Block - Represent My Block - Nominate A Candidate</TITLE>
+		<TITLE>Rep My Block - Represent My Block</TITLE>
 		<link rel="icon" href="/images/favicon/favicon.ico" type="image/x-icon">
 		<link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="/images/icons/css/all.min.css" >		
@@ -42,7 +42,7 @@
 <?php if ($MapShow == true) { ?>
 		<link rel="stylesheet" href="/javascript/ol/openlayer/ol.css" type="text/css">
 <?php } ?>
-	  <link rel="dns-prefetch" href="https://www.repmyblock.nyc">
+	  <link rel="dns-prefetch" href="https://www.repmyblock.org">
 
 <?php	if ($MobileDisplay == true) { ?>
 		<!--- Mobile Check --->
@@ -50,7 +50,8 @@
 <?php 	} else { ?>
 		<!--- Not Mobile Check --->
 		<link rel="stylesheet" type="text/css" href="/css/RepMyBlock.css" />		
-<?php } ?>		<link rel="stylesheet" type="text/css" href="/css/FrameWorks.css">		
+<?php } ?>		
+		<link rel="stylesheet" type="text/css" href="/css/FrameWorks.css">		
 
 
 <?php if ($MapShow == true) { ?>
