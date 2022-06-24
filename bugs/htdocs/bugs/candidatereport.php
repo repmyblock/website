@@ -43,7 +43,7 @@
 									"BrwLanguage=" . $_POST["LANGUAGE"] . "&" .	"BrwTime=" . $_POST["BUGREQUESTIME"] . "&" .
 									"RequestTime=" . $_POST["PageRequestTime"] . "&" . "Ticket=" . $TicketNumber["TicketID"];
     
-    $URLService = "https://upload.repmyblock.nyc/trac.php?SystemID=" . $_POST["SystemID"] . "&Version=" . $_POST["Version"] . 
+    $URLService = "https://upload.repmyblock.org/trac.php?SystemID=" . $_POST["SystemID"] . "&Version=" . $_POST["Version"] . 
     							"&Ticket=" . $TicketNumber["TicketID"];
     							
 		$ch = curl_init();

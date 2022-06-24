@@ -12,7 +12,7 @@
 		</P>
 		
 		<P>
-			This bug was assigned # <B><?= $bugnumber ?></B> and <B><A HREF="https://trac.repmyblock.nyc/ticket/<?= $bugnumber ?>">you can access your bug repport here</A></B><BR>
+			This bug was assigned # <B><?= $bugnumber ?></B> and <B><A HREF="https://trac.repmyblock.org/ticket/<?= $bugnumber ?>">you can access your bug repport here</A></B><BR>
 		</P>
 		
 		<P>
@@ -22,7 +22,7 @@
 		
 		<P>
 			I will work on fixing it as soon as possible and I'll send you an email as soon as it is fixed.<BR>
-			<A><A HREF="https://trac.repmyblock.nyc/report/1">You can view the whole list of bugs here</A><BR>
+			<A><A HREF="https://trac.repmyblock.org/report/1">You can view the whole list of bugs here</A><BR>
 		</P>
 		
 		<P>

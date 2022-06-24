@@ -15,7 +15,7 @@
 		<meta name="twitter:description" content="The Paperboy Games is a mix of artistery and political debates where every candidate is given a chance to debate publicly their oponent." />
 		<meta name="twitter:title" content="Rep My Block - Rep My Block" />
 		<meta name="twitter:site" content="@RepMyBlock" />
-		<meta name="twitter:image" content="https://www.repmyblock.nyc/paperboygames/Meta_Twitter_Image_PaperBoyGames.png" />
+		<meta name="twitter:image" content="https://www.repmyblock.org/paperboygames/Meta_Twitter_Image_PaperBoyGames.png" />
 		<meta name="twitter:creator" content="@RepMyBlock" />
 		<TITLE>Rep My Block - Represent My Block - Nominate A Candidate</TITLE>
 		<link rel="icon" href="/pics/favicon/favicon.ico" type="image/x-icon">
@@ -23,7 +23,7 @@
 		<link rel="stylesheet" type="text/css" href="/pics/icons/css/all.min.css" >		
 		<link rel="stylesheet" type="text/css" href="/font/montserrat.css">
 		<link rel="stylesheet" type="text/css" href="/css/Primer.css">		
-	  <link rel="dns-prefetch" href="https://www.repmyblock.nyc">
+	  <link rel="dns-prefetch" href="https://www.repmyblock.org">
 
 <?php	if ($MobileDisplay == true) { ?>
 		<!--- Mobile Check --->

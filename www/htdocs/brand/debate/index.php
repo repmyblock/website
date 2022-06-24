@@ -20,7 +20,7 @@
 		to give a voice to every local candidate and also be entertaining.
 	</P>
 	
-	<P>If you like to chalenge your chalenger, please email Theo Chino at <B>theo@repmyblock.nyc</B></P>
+	<P>If you like to chalenge your chalenger, please email Theo Chino at <B>theo@repmyblock.org</B></P>
 	
 	<P>
 	<A HREF="../debate">I am a candidate and would like to participate.</A><BR>

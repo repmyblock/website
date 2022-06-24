@@ -33,7 +33,7 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetXY(125, 1);
 			$this->SetFont('Arial', 'B', 15);
 			$this->SetTextColor(0,0,255);
-			$this->Link(125, 1, 90, 10, "https://repmyblock.nyc/exp/multipetition/propose");
+			$this->Link(125, 1, 90, 10, "https://repmyblock.org/exp/multipetition/propose");
  	   	$this->MultiCell(90, 5, "Click here for more information on how to participate.", 0, 'R');
  	   	$this->SetTextColor(0); 	   	
  	   	$this->SetXY($this->Col1, $YLocation);
@@ -314,13 +314,13 @@ class PDF_Multi extends PDF_Code128 {
 			$this->SetFont('Arial','B',19);
 			$this->SetTextColor(255,0,0);
 			$this->SetXY(40, 50);
-			$this->Link(40, 50, 80, 30, "https://repmyblock.nyc/exp/multipetition/propose");
+			$this->Link(40, 50, 80, 30, "https://repmyblock.org/exp/multipetition/propose");
  	   	$this->MultiCell(80, 8, "We'll provide you the list of " . $this->party . 
 				 	   									" voters to ask for signatures.", 0, 'C');
 
 			$this->SetTextColor(0,0,255);
 			$this->SetXY(120, 132.5);
-			$this->Link(120, 130, 70, 25, "https://repmyblock.nyc/exp/multipetition/propose");
+			$this->Link(120, 130, 70, 25, "https://repmyblock.org/exp/multipetition/propose");
  	   	$this->MultiCell(70, 8.2, "Petitioning will start in February 2022 until March 2022", 0, 'C'); 	   									
  	   }
 		

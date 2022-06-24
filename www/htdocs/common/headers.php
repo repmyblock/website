@@ -18,7 +18,7 @@
 	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png"; }	
 	
 	if ( empty ($HeaderTwitter)) {
-		$HeaderTwitterPicLink = "https://static.repmyblock.nyc/pics/paste/PoliticalMachineKeepEngagementLow.jpg";
+		$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/PoliticalMachineKeepEngagementLow.jpg";
 		$HeaderTwitterDesc = "Registrations for the 2023 Citywide Republican and Democratic county committee. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; its their backbone. The &hellip; Continue reading Rep My Block &rarr;";
 	}
 	

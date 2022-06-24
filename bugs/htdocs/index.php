@@ -1,1 +1,1 @@
-<?php header("Location: https://trac.repmyblock.nyc"); ?>
+<?php header("Location: https://trac.repmyblock.org"); ?>

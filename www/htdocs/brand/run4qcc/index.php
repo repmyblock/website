@@ -9,7 +9,7 @@
 
 <FOnT COLOR=BLUE>
 <P>
-Register on the RepMyBlock website at <A HREF="https://repmyblock.nyc/register/">https://repmyblock.nyc/register</A> 
+Register on the RepMyBlock website at <A HREF="https://repmyblock.org/register/">https://repmyblock.org/register</A> 
 to download your Walk Sheet. 
 </P>
 

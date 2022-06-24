@@ -17,7 +17,7 @@
 		<meta name="twitter:description" content="Registrations for the 2021 Citywide Republican county committee and 2021 Manhattan and Staten Island Democratic county committee have started. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; its their backbone. The &hellip; Continue reading Rep My Block &rarr;" />
 		<meta name="twitter:title" content="Rep My Block - Rep My Block" />
 		<meta name="twitter:site" content="@RepMyBlock" />
-		<meta name="twitter:image" content="https://static.repmyblock.nyc/pics/paste/PoliticalMachineKeepEngagementLow.jpg" />
+		<meta name="twitter:image" content="https://static.repmyblock.org/pics/paste/PoliticalMachineKeepEngagementLow.jpg" />
 		<meta name="twitter:creator" content="@RepMyBlock" />
 		<TITLE>Rep My Block - Represent My Block - Nominate A Candidate</TITLE>
 		<link rel="icon" href="/images/favicon/favicon.ico" type="image/x-icon">
@@ -28,7 +28,7 @@
 <?php if ($MapShow == true) { ?>
 		<link rel="stylesheet" href="/javascript/ol/openlayer/ol.css" type="text/css">
 <?php } ?>
-	  <link rel="dns-prefetch" href="https://www.repmyblock.nyc">
+	  <link rel="dns-prefetch" href="https://www.repmyblock.org">
 
 <?php	if ($MobileDisplay == true) { ?>
 		<!--- Mobile Check --->
