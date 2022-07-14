@@ -6,7 +6,7 @@
  		header("Location: /web/exp/index");
  		exit();
  	} else {
- 		header("Location: /" . $_GET['brand'] . "/exp/index");
+ 		header("Location: /" . rawurlencode($_GET['brand']) . "/exp/index");
  		exit();
  	} 	
 ?>
