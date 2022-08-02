@@ -92,7 +92,7 @@
 						</B>
 					</P>
 					*/ ?>
-					<P>
+					<P CLASS="f40">
 						<B>
 							<A HREF="/<?= $k ?>/lgd/profile/user"><FONT COLOR=BROWN>Before you can use the system</FONT>,
 								you need to update your Personal Profile, verify your voter profile,
