@@ -6,6 +6,8 @@
 		case "emailreg": 
 			$oldk = $k;
 			$k = "web";
+		case "donotcall":
+			$oldk = $k;
 		break;
 	}
 	
@@ -14,7 +16,7 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 
 	$MailToText = "mailto:notif@repmyblock.org?" .
-								"subject=I want to petition";
+								"subject=";
 	
 	if ( $k != "web") {
 		// Check for the team.
@@ -24,8 +26,15 @@
 		$result = $r->CheckForValidityOfTeam($k);
 
 		if ( $result["Team_Active"] == "yes")  {
-			$MailToText .= " for team " . $k;
-			$MailURLText = " FOR TEAM <FONT COLOR=BLUE>" . $k . "</FONT>";
+			
+			if ($k == "donotcall") {
+				$MailToText .= "Add me to the " . $k;
+				$MailURLText = "<FONT COLOR=BLUE>" . $k . "</FONT>";
+			
+			} else {
+				$MailToText .= "I want to petition for team " . $k;
+				$MailURLText = "I want to petition FOR TEAM <FONT COLOR=BLUE>" . $k . "</FONT>";
+			}
 		}
 	}
 	
@@ -42,6 +51,23 @@
 	</P>
 	
 	<?php switch($oldk) { 
+		case "donotcall": ?>
+		
+			
+		<P CLASS="f40">	
+			In order to use the RepMyBlock website you must register by sending an email
+			and following the registration process.
+		</P>
+		
+		<P CLASS="f80">
+			<A HREF="<?= $MailToText ?>">Click on this link to open you mail program or
+			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>ADD ME TO THE <?= $MailURLText ?></FONT>"</A>
+			and you will receive a link with the registration information to be added in the Do Not Call List.
+		</P>
+		
+		
+		
+	<?php break;
 		case "invalidcode": ?>
 		
 		<P CLASS="f80">
