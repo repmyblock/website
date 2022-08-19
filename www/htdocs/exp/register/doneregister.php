@@ -21,9 +21,11 @@
 		</P>
 			
 		</P>
-		<CENTER>
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/7_A5JlEyMc8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-		</CENTER>
+		
+		<DIV class="videowrapper">
+	 		<iframe src="https://www.youtube.com/embed/7_A5JlEyMc8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</DIV>
+
 		</P>
 		
 		<p CLASS="f80">

@@ -18,9 +18,9 @@
 
 
 <div class="main">
-	<DIV CLASS="intro center">
+	<DIV CLASS="intro ">
 		<P>
-			<h1 CLASS="intro">Volunteer to the cause.</H1>
+			<h1 CLASS="intro center">Volunteer to the cause</H1>
 		</P>
 		
 		<P CLASS="f60">
@@ -33,15 +33,15 @@
 				programmers. <B>And politicians!</B>
 			</P>
 			
-			<P CLASS="f40">
+			<P CLASS="f60">
 				<B>It's important that each volunteer understanding that:</B>
-				<OL>
+				<UL CLASS="f40">
 					<LI>Everyone is welcome to donate their talent and noone will be judged for the quality of the work.</LI>
 					<LI>Each donation will go into a virtual bucket for evaluation and triage.</LI>
 					<LI>Each donation will be credited to the rightfull owner and the anyonymity of each volunteer will be respected.</LI>
 					<LI>Each volunteer will never be required to accomplish a task on the project; except if a letter of 
 						recomendation is sought.</LI>
-				</OL>
+				</UL>
 			
 			</P>
 			
@@ -66,8 +66,8 @@
 				sound or act crazy, it's because the position can push them to the brink of sanity.
 			</P>
 			
-			<P>
-				<H2>Artists, Writers, and Video producers</h2>
+			<P CLASS="f40">
+				<H2><P CLASS="f60">Artists, Writers, and Video producers</P></h2>
 			</P>
 			
 			<P CLASS="f40">

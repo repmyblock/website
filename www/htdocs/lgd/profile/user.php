@@ -142,7 +142,7 @@
 
 			     
 			<?php if (empty ($TopMenus)) { ?>
-				<P>
+				<P CLASS="f40">
 					<B>
 						You <FONT COLOR=BROWN>just</FONT> need to fill in your <FONT COLOR=BROWN>first</FONT> 
 						and <FONT COLOR=BROWN>last</FONT> name to enable other screens.
@@ -151,29 +151,32 @@
 			<?php } ?>
 			     
 		
-					<form class="edit_user" id="" aria-labelledby="public-profile-heading" action="" accept-charset="UTF-8" method="post">
+					<form id="" action="" accept-charset="UTF-8" method="post">
 						
 						<div>
 							
 							<dl class="form-group col-5 d-inline-block"> 			
-								<dt><label for="user_profile_name">First Name</label><DT>
+								<dt><label CLASS="f40" for="user_profile_name">First Name</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="First" value="<?= $PersonFirstName ?>" name="FirstName" id="user_profile_name">
+									<input class="" type="text" Placeholder="First" value="<?= $PersonFirstName ?>" name="FirstName" id="">
 								</dd>
 							</dl>
 							
 							<dl class="form-group col-5 d-inline-block"> 
-								<dt><label for="user_profile_name">Last Name</label><DT>
+								<dt><label CLASS="f40" for="user_profile_name">Last Name</label><DT>
 								<dd>
-									<input class="form-control" type="text" Placeholder="Last"  value="<?= $PersonLastName ?>" name="LastName" id="user_profile_name">
+									<input class="" type="text" Placeholder="Last"  value="<?= $PersonLastName ?>" name="LastName" id="">
 								</dd>
 							</dl>
+							<P>
+								<INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Update profile">
+							</P>
 							
-							<p><button type="submit" class="btn btn-primary">Update profile</button></p>
+				
 							
 							<dl class="form-group">
-								<dt><label for="user_profile_blog">Email</label></dt>
-								<dd><input class="form-control" type="text" value="<?= $PersonEmail ?>" name="Email" id="user_profile_blog"></dd>
+								<dt><label  CLASS="f40" for="user_profile_blog">Email</label></dt>
+								<dd><input class="" type="text" value="<?= $PersonEmail ?>" name="Email" id=""></dd>
 <?php 					if ($rmbperson["ChangeEmail"] == 1) { ?>
 									<dt><label for="user_profile_blog"><FONT COLOR=GREEN><B>Email was changed, please verify your email.</B></FONT></label></dt>
 <?php 					} else if ( $rmbperson["ChangeEmail"] == -1) { ?>
@@ -212,7 +215,7 @@
 							
 							*/ ?>
 							
-							<p><button type="submit" class="btn btn-primary">Update profile</button></p>
+							<p><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Update profile"></p>
 						</div>
 					</form>    
 				</div>

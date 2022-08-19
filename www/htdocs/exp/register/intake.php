@@ -147,7 +147,7 @@
 	
 		<P CLASS="f80">
 			<DIV CLASS="f80">Email:</DIV>
-			<DIV><?= $result["SystemUserEmail_AddFrom"] ?><DIV>				
+			<DIV CLASS="f60"><?= $result["SystemUserEmail_AddFrom"] ?><DIV>				
 		</P>
 			
 		<P CLASS="f80">

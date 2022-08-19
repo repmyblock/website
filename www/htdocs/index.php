@@ -55,7 +55,7 @@
 
 		<DIV CLASS="f60">
 		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/register" CLASS="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
-		<A class="action-nominate" HREF="/<?= $middleuri ?>/exp/propose/nomination" CLASS="NomCandidate"><img class="action-nominate" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
+		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/propose/nomination" CLASS="NomCandidate"><img class="action-runfor" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
 	</DIV>
 	
 		<BR>

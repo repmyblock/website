@@ -109,6 +109,8 @@ a {text-decoration: none;}
 a.btn {-webkit-appearance: button;-moz-appearance: button;appearance: button;text-decoration: none;color: initial;}
 */
 
+
+
 .success {border-color: #4CAF50;color: #EE2E62;}
 .success:hover {background-color: #4CAF50;color: white;}
 .info {border-color: #2196F3;color: dodgerblue;}
@@ -122,7 +124,10 @@ a.btn {-webkit-appearance: button;-moz-appearance: button;appearance: button;tex
 
 .header { padding: 0px;background: #FCED00;color: #FCED00;}
 
-img.header-logo{float: none;background-color: #000000;}
+img.header-logo{float: none;background-color: #000000;width: 160px;}
+img.action-runfor{float: none;background-color: #000000;width: 40%;}
+
+
 
 .navbar {overflow: hidden;background-color: #FCED00;position: sticky;position: -webkit-sticky;top: 0;}
 .navbar a {font-size: 60px;font-weight: 700;float: right;display: block;color: #16317D;padding: 3px 20px 3px 10px;text-decoration: none;}
