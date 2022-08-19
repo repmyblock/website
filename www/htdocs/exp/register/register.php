@@ -35,6 +35,8 @@
 				$MailToText .= "I want to petition for team " . $k;
 				$MailURLText = "I want to petition FOR TEAM <FONT COLOR=BLUE>" . $k . "</FONT>";
 			}
+		} else {
+			$MailToText .= "I want to petition";
 		}
 	}
 	
