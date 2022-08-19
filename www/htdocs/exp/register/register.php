@@ -38,7 +38,7 @@
 			$MailToText .= "I want to petition";
 		}
 	} else {
-			$MailToText .= "I want to petition";
+		$MailToText .= "I want to petition";
 	}
 	
 	$MailToText .= "&body=DO CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
