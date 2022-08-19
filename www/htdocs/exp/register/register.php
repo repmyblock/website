@@ -26,7 +26,6 @@
 		$result = $r->CheckForValidityOfTeam($k);
 
 		if ( $result["Team_Active"] == "yes")  {
-			
 			if ($k == "donotcall") {
 				$MailToText .= "Add me to the " . $k;
 				$MailURLText = "<FONT COLOR=BLUE>" . $k . "</FONT>";
@@ -38,6 +37,8 @@
 		} else {
 			$MailToText .= "I want to petition";
 		}
+	} else {
+			$MailToText .= "I want to petition";
 	}
 	
 	$MailToText .= "&body=DO CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
