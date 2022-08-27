@@ -102,11 +102,14 @@
 	<DIV CLASS="right f80">Register</DIV>
 	
 	<?php if ( ! empty($result["SystemUserEmail_WebCode"])) { ?>
+		<P CLASS="f40">
 		You are joining <B><?= $result["Team_Name"] ?></B> team. <BR>
 		<?php if ( ! empty ($result["SystemUser_ID"])) { ?>
 			RepMyBlock will be sharing your 
 			information with the group team leader, <B><?= $result["SystemUser_FirstName"] . " " . $result["SystemUser_LastName"] ?></B>.
-	<?php } } ?>
+	<?php } ?>
+	</P>
+	<?php } ?>
 	
 	<FORM METHOD="POST" ACTION="">	
 		<INPUT TYPE="hidden" NAME="SystemUserEmail_ID" VALUE="<?= $result["SystemUserEmail_ID"] ?>" CHECKED>	
