@@ -136,8 +136,8 @@
 								<dt class="mobilemenu"><label for="user_profile_name">County</label><DT>
 								<dd>
 									<SELECT CLASS="mobilebig" NAME="COUNTY">
-									<OPTION VALUE="">Whole State</OPTION>
-									<OPTION VALUE="NYC"<?php if ($FormFieldCounty == "NYC"  || empty ($FormFieldCounty)) { echo " SELECTED"; } ?>>New York City</OPTION>
+									<OPTION VALUE=""<?php if (empty ($FormFieldCounty)) { echo " SELECTED"; } ?>>Whole State</OPTION>
+									<OPTION VALUE="NYC"<?php if ($FormFieldCounty == "NYC") { echo " SELECTED"; } ?>>New York City</OPTION>
 									<OPTION VALUE="BQK"<?php if ($FormFieldCounty == "BQK") { echo " SELECTED"; } ?>>Bronx, Queens, and Kings</OPTION>
 									<OPTION VALUE="03"<?php if ($FormFieldCounty == "03") { echo " SELECTED"; } ?>>Bronx County (the Bronx)</OPTION>
 									<OPTION VALUE="31"<?php if ($FormFieldCounty == "31") { echo " SELECTED"; } ?>>New York County (Manhattan)</OPTION>
