@@ -5,9 +5,9 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
-	$r = new welcome();	
-	
-	$result = $r->CandidatesInfo();
+	$r = new welcome(0);	
+	$result = $r->CandidatesForElection();
+	WriteStderr($result, "Voter Guide");
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
 
@@ -16,14 +16,19 @@
  	<DIV class="panels">		
 	
 	<P>
-	<H2>New York Primary: June 18<SUP>th</SUP>, 2022</H2>
+	
 	
 	<?php 
 		if (! empty ($result)) {
 			foreach($result as $var) {
 				
 				WriteStderr($var, "Voter Guide");
-				if ( $var["CandidateProfile_PublishProfile"] != 'no' || $var["CandidateProfile_PublishPetition"] != 'no') { 
+				if ( ! empty ($var)) {
+					
+					print "<H2>" . PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"] . "</H2>";
+					
+					
+				// if ( $var["CandidateProfile_PublishProfile"] != 'no' || $var["CandidateProfile_PublishPetition"] != 'no') { 
 	?>
 							
 	<P>
@@ -34,7 +39,7 @@
 			<DIV class='container3'>
 					<P>
 							<FONT SIZE=+1><B><?= $var["CandidateProfile_Alias"] ?></B></FONT><BR>
-							<I>Running for <?= $var["CandidateElection_ID"] ?></I>
+							<I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
 					</P>
 					
 							<P>
@@ -55,7 +60,9 @@
 					      <?php if (! empty ($var["CandidateProfile_FaxNumber"])) { print $var["CandidateProfile_FaxNumber"]; }  ?><BR>
 				      </P>
 						
-				<A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Download <?= $var["CandidateProfile_Alias"] ?>'s Platform</A>
+				<?php if ( ! empty ($var["CandidateProfile_PDFFileName"])) { ?>						
+					<A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Download <?= $var["CandidateProfile_Alias"] ?>'s Platform</A>
+				<?php } ?>
 			</DIV>
 		</DIV>
 	</P>

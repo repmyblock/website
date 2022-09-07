@@ -23,6 +23,20 @@ class welcome extends queries {
 
 		return $this->_return_multiple($sql);
 	}
+
+	function CandidatesForElection($ElectionDateFrom = NULL, $ElectionDateTo = NULL, $ElectionState = NULL) {
+		$sql = "SELECT * FROM Elections " .
+						"LEFT JOIN CandidateElection ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+						"LEFT JOIN Candidate ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
+						"LEFT JOIN CandidateProfile ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " .
+					 "WHERE Elections_Date  > \"2021-01-01\" AND CandidateProfile_PublishProfile = \"yes\" " . 
+							"ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder";
+			
+			$sql_vars = array();
+		
+
+		return $this->_return_multiple($sql, $sql_vars);
+	}
 	
   
   function FindCandidate($CandidateID) {  	
