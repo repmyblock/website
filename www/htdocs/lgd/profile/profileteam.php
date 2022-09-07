@@ -107,7 +107,7 @@
 			<?php 			
 					if ( ! empty ($rmbteams)) {
 						foreach ($rmbteams as $var) {
-							if ( ! empty ($var["SystemUser_ID"]) && $var["Team_Public"] == "public") {
+							if ( ! empty ($var["SystemUser_ID"])) {
 			?>		
 				<DIV>
 					<div class="list-group-item filtered f60">
