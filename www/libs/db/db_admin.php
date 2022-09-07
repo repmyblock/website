@@ -29,7 +29,21 @@ class RMBAdmin extends RepMyBlock {
 	function ReturnTeamMembership($SystemUserID) {
 		$sql = "SELECT * FROM TeamMember WHERE SystemUser_ID = :SysID";	
 		$sql_vars = array("SysID" => $SystemUserID);
-		return $this->_return_nothing($sql, $sql_vars);
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	function ReturnTeamInformation($TeamID) {
+		$sql = "SELECT * FROM TeamMember " . 
+						"LEFT JOIN SystemUser ON (TeamMember.SystemUser_ID = SystemUser.SystemUser_ID) " . 
+						"LEFT JOIN Team ON (Team.Team_ID = TeamMember.Team_ID) " . 
+						"LEFT JOIN Voters ON (Voters.Voters_UniqStateVoterID = SystemUser.Voters_UniqStateVoterID) " .
+						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
+						"LEFT JOIN DataDistrictTown ON (DataHouse.DataDistrictTown_ID = DataDistrictTown.DataDistrictTown_ID) " .
+						"LEFT JOIN DataDistrictTemporal ON (DataHouse.DataDistrictTemporal_GroupID = DataDistrictTemporal.DataDistrictTemporal_GroupID) " .
+						"LEFT JOIN DataDistrict ON (DataDistrict.DataDistrict_ID = DataDistrictTemporal.DataDistrict_ID) " .
+						"WHERE TeamMember.Team_ID = :TeamID";	
+		$sql_vars = array("TeamID" => $TeamID);
+		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
 	function ListsTeams() {

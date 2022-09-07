@@ -11,17 +11,26 @@
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$result = $rmb->SearchUsers($URIEncryptedString["UserDetail"]);
 	$privcodes = $rmb->ReturnPrivCodes();
-	$teammember = $rmb->ReturnTeamMembership($URIEncryptedString["UserDetail"]);
 	$teams = $rmb->ListsTeams();
 	
-
 	$TheNewK = CreateEncoded ( array( 		
 			"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 			"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
 			"UserDetail" => $URIEncryptedString["UserDetail"],
 			"MenuDescription" => $URIEncryptedString["MenuDescription"],	
 	));
-
+	
+	// Transform the TeamMembers into
+	$teammember = $rmb->ReturnTeamMembership($URIEncryptedString["UserDetail"]);
+	if (! empty ($teammember)) {
+		$TeamMembership = array();
+		foreach ($teammember as $index => $var) {
+			if ( empty ($var["TeamMember_RemovedDate"])) {
+				$TeamMembership[$var["Team_ID"]] = $index;				
+			}
+		}
+	}
+	
 	if ( ! empty ($_POST)) {
 		
 		print "<PRE>" . print_r($_POST, 1) . "</PRE>";
@@ -38,8 +47,10 @@
 			$rmb->UpdateSystemSetPriv($URIEncryptedString["UserDetail"], 0);
 		}
 			
+			
+					exit();
 		header("Location: /" . $TheNewK . "/admin/userdetail");			
-		exit();
+
 	}
 	
 	
@@ -109,16 +120,35 @@
 				</UL>
 					</div>
 					
+
+					
 					<div class="list-group-item f60">Team Membership
-					<PRE><?= print_r($teammember,1 ) ?></PRE>
+
+						
 					<UL>
 					<?php
 						if ( ! empty ($teams )) { 	
 							foreach ($teams  as $teaminfo) {
-								if (! empty ($teaminfo)) {
-					?>					
-					<INPUT TYPE="checkbox" name="TeamMembership[<?= $teaminfo["Team_ID"]  ?>]" value="<?= $teaminfo["Team_ID"] ?>"<?php if ($teaminfo["Team_ID"] == 1) { echo " CHECKED"; } ?>>&nbsp;<?= $teaminfo["Team_Name"] ?>										
-					Active: <INPUT TYPE="checkbox" name="TeamMembershipActive[<?= $teaminfo["Team_ID"]  ?>]" value="<?= $teaminfo["Team_ID"] ?>"<?php if ($teaminfo["Team_ID"] == 1) { echo " CHECKED"; } ?>>
+								if ( $teaminfo["Team_Active"] == "yes") {
+						
+									$CheckBoxOptions = NULL;
+									if ( $teaminfo["SystemUser_ID"] == $result["SystemUser_ID"]) {
+											$CheckBoxOptions = "onclick=\"return false;\" disabled=\"disabled\"";
+									} 
+									
+									if ($TeamMembership[$teaminfo["Team_ID"]] > 0) {
+											$CheckBoxOptions .= " CHECKED";
+									}
+						
+					?>
+									
+					<INPUT TYPE="checkbox" name="TeamMembership[<?= $teaminfo["Team_ID"]  ?>]" value="<?= $teaminfo["Team_ID"] ?>"<?= $CheckBoxOptions ?>>&nbsp;<?= $teaminfo["Team_Name"] ?>										
+					
+					
+					<?php
+						if (! empty ($teammember[$TeamMembership[$teaminfo["Team_ID"]]]) || ! empty ($CheckBoxOptions)) { ?>		
+							- Active: <INPUT TYPE="checkbox" name="TeamMembershipActive[<?= $teaminfo["Team_ID"]  ?>]" value="<?= $teaminfo["Team_ID"] ?>"<?php if ($teammember[$TeamMembership[$teaminfo["Team_ID"]]]["TeamMember_Active"] == "yes") { echo " CHECKED"; } ?>>
+					<?php } ?>
 					<BR>
 
 					<?php			
