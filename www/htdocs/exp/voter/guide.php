@@ -32,22 +32,24 @@
 				<IMG SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $var["CandidateProfile_PicFileName"] ?>" class='iconDetails'>
 			</DIV>	
 			<DIV class='container3'>
-				<FONT SIZE=+1><B><?= $var["CandidateProfile_Alias"] ?></B></FONT><BR>
-				<I>Running for Democratic Party County Commmittee Member for the 2nd Electoral District in the 71st Assembly District.</I>
-				<BR>
-				<P>
-					<B>Website:</B> <A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?= $var["CandidateProfile_Website"] ?></A> - 
-		      <B>Email:</B> <A TARGET="NEW" HREF="mailto:<?= $var["CandidateProfile_Email"] ?>"><?= $var["CandidateProfile_Email"] ?></A><BR>
-		      <A TARGET="NEW" HREF="https://twitter.com/<?= $var["CandidateProfile_Twitter"] ?>">@<?= $var["CandidateProfile_Twitter"] ?></A> - 
-		     	<A TARGET="NEW" HREF="https://facebook.com/<?= $var["CandidateProfile_Facebook"] ?>"><?= $var["CandidateProfile_Facebook"] ?></A> - 
-		      <A TARGET="NEW" HREF="https://instagram.com/<?= $var["CandidateProfile_Instagram"] ?>">@<?= $var["CandidateProfile_Instagram"] ?></A> - 
-		      <?= $var["CandidateProfile_TikTok"] ?> - 
-		      <?= $var["CandidateProfile_YouTube"] ?> - 
-		      <?= $var["CandidateProfile_BallotPedia"] ?><BR>
-		      <B>Telephone:</B> <?= $var["CandidateProfile_PhoneNumber"] ?> - 
-		      <?= $var["CandidateProfile_FaxNumber"] ?><BR>
-		      <?= $var["CandidateProfile_Statement"] ?><BR>
-	      </P>
+				
+							<FONT SIZE=+1><B><?= $var["CandidateProfile_Alias"] ?></B></FONT><BR>
+							<I>Running for <?= $var["CandidateElection_ID"] ?></I>
+							<BR>
+							<P>
+								<?php if (! empty ($var["CandidateProfile_Website"])) { ?><B>Website:</B> <A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?= $var["CandidateProfile_Website"] ?></A> -<?php } ?> 
+					      <?php if (! empty ($var["CandidateProfile_Email"])) { ?><B>Email:</B> <A TARGET="NEW" HREF="mailto:<?= $var["CandidateProfile_Email"] ?>"><?= $var["CandidateProfile_Email"] ?></A><BR><?php } ?>
+					      <?php if (! empty ($var["CandidateProfile_Twitter"])) { ?><A TARGET="NEW" HREF="https://twitter.com/<?= $var["CandidateProfile_Twitter"] ?>">@<?= $var["CandidateProfile_Twitter"] ?></A> -<?php } ?> 
+					     	<?php if (! empty ($var["CandidateProfile_Facebook"])) { ?><A TARGET="NEW" HREF="https://facebook.com/<?= $var["CandidateProfile_Facebook"] ?>"><?= $var["CandidateProfile_Facebook"] ?></A> -<?php } ?> 
+					      <?php if (! empty ($var["CandidateProfile_Instagram"])) { ?><A TARGET="NEW" HREF="https://instagram.com/<?= $var["CandidateProfile_Instagram"] ?>">@<?= $var["CandidateProfile_Instagram"] ?></A> -<?php } ?> 
+					      <?php if (! empty ($var["CandidateProfile_TikTok"])) { print $var["CandidateProfile_TikTok"] . " - "; } ?> 
+					      <?php if (! empty ($var["CandidateProfile_YouTube"])) { print $var["CandidateProfile_YouTube"] . " - "; }  ?>
+					      <?php if (! empty ($var["CandidateProfile_BallotPedia"])) { print $var["CandidateProfile_BallotPedia"]; } ?><BR>
+					      <?php if (! empty ($var["CandidateProfile_PhoneNumber"])) { print "<B>Telephone:</B> " . $var["CandidateProfile_PhoneNumber"] . " - "; }  ?>
+					      <?php if (! empty ($var["CandidateProfile_FaxNumber"])) { print $var["CandidateProfile_FaxNumber"]; }  ?><BR>
+					      <?php if (! empty ($var["CandidateProfile_Statement"])) { print $var["CandidateProfile_Statement"]; }  ?><BR>
+				      </P>
+						
 				<A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Download <?= $var["CandidateProfile_Alias"] ?>'s Platform</A>
 			</DIV>
 		</DIV>

@@ -88,12 +88,14 @@
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
 	$Party = PrintParty($UserParty);
 	
-	if ($rmbperson["SystemUser_emailverified"] == "both") {
-		$TopMenus = array ( 
-									array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
-									array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"), 
-									array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile")
-								);
+	if ($rmbperson["SystemUser_emailverified"] == "both") {								
+		$TopMenus = array (
+						array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
+						array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
+						array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile"),
+						array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
+		);
+								
 	}							
 	
 
