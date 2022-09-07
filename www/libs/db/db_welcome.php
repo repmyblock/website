@@ -29,11 +29,19 @@ class welcome extends queries {
 						"LEFT JOIN CandidateElection ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN Candidate ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
 						"LEFT JOIN CandidateProfile ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " .
-					 "WHERE Elections_Date  > \"2021-01-01\" AND CandidateProfile_PublishProfile = \"yes\" " . 
-							"ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder";
-			
-			$sql_vars = array();
-		
+					 "WHERE CandidateProfile_PublishProfile = \"yes\"";
+		$sql_vars = array();
+					 
+		if ( ! empty ($ElectionDateFrom)) {			
+			if ( $ElectionDateFrom == "NOW") {
+				$sql .= " AND Elections_Date >= NOW()";
+			} else {
+				$sql .= " AND Elections_Date >= :ElectionDateFrom";
+				$sql_vars["ElectionDateFrom"] = $ElectionDateFrom;
+			}
+		}
+					 
+		$sql .= "ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder";
 
 		return $this->_return_multiple($sql, $sql_vars);
 	}
