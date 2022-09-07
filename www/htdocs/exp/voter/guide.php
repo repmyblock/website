@@ -70,8 +70,12 @@
 	<?php
 				}
 			}
-		}
+		} else {
 	?>
+		<H2>The guide is empty at this time.</H2>
+		
+	
+	<?php } ?>
 	</P>
 
 <P>
