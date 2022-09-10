@@ -10,9 +10,9 @@
 ?>			
 
 <P>
-	<CENTER><H1>Signed Off</H1></CENTER>
+	<CENTER><H1 CLASS="f80">Signed Off</H1></CENTER>
 </P>
 <P>
-	<CENTER><H1><A HREF="/">Click here to return to the main menu</H1></CENTER>
+	<CENTER><H1 CLASS="f60"><A HREF="/">Click here to return to the main menu</H1></CENTER>
 </P>
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

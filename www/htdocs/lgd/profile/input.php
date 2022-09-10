@@ -37,7 +37,7 @@
 		switch(count($result)) {
 			case 0:
 				//echo "Did not find anything\n";
-				$error_msg = "<FONT COLOR=BROWN><B>This person is not in the database.</B></FONT>";
+				$error_msg = "<div class=\"f40\"><FONT COLOR=BROWN><B>This person is not in the database.</B></FONT></DIV>";
 				break;			
 			
 			case 1:				
@@ -113,15 +113,15 @@
 	
 					  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 							<div>
-								<dl class="form-group col-3 d-inline-block"> 
-									<dt><label for="user_profile_name">First Name</label><DT>
+								<dl class="form-group col-5 d-inline-block"> 
+									<dt><label for="user_profile_name" CLASS="f40">First Name</label><DT>
 									<dd>
 										<input class="form-control" type="text" Placeholder="First" name="FirstName"<?php if (!empty ($FirstName)) { echo " VALUE=" . $FirstName; } ?> id="user_profile_name">
 									</dd>
 								</dl>
 			
-								<dl class="form-group col-3 d-inline-block"> 
-									<dt><label for="user_profile_name">Last Name</label><DT>
+								<dl class="form-group col-5 d-inline-block"> 
+									<dt><label for="user_profile_name" CLASS="f40">Last Name</label><DT>
 									<dd>
 										<input class="form-control" type="text" Placeholder="Last" name="LastName"<?php if (!empty ($LastName)) { echo " VALUE=" . $LastName; } ?> id="user_profile_name">
 									</dd>
@@ -129,16 +129,16 @@
 							</DIV>
 			
 							<DIV>
-								<dt><label for="user_profile_email">Date of Birth</label></dt>	
-								<dl class="form-group col-1 d-inline-block">
+								<dt><label for="user_profile_email" CLASS="f40">Date of Birth</label></dt>	
+								<dl class="form-group col-3 d-inline-block">
 									<dd>
-										<input class="form-control" type="text" name="Day" id="" Placeholder="Day"<?= $SizeField ?>>
+										<input CLASS="f40" class="form-control" type="text" name="Day" id="" Placeholder="Day"<?= $SizeField ?>>
 									</DD>
 								</DL>  
 							
-								<dl class="form-group col-2  d-inline-block">      
+								<dl class="f40 form-group col-3  d-inline-block">      
 									<DD>
-										<select class="form-select" name="Month" id="">
+										<select CLASS="f40" class="form-select" name="Month" id="">
 											<option value="">Select month</option>
 											<option value="01">January</option>
 											<option value="02">February</option>
@@ -156,13 +156,13 @@
 									</DD>
 								</DL>  
 			
-								<dl class="form-group col-1  d-inline-block">      
+								<dl class="form-group col-3  d-inline-block">      
 									<DD>
-										<input class="form-control" type="text" Placeholder="Year" name="Year" id=""<?= $SizeField ?>>
+										<input CLASS="f40" class="form-control" type="text" Placeholder="Year" name="Year" id=""<?= $SizeField ?>>
 									<dd>
 								</dl>
 			
-								<p><button type="submit" class="btn btn-primary">Search Voter Registration</button></p>
+								<p><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Search Voter Registration"></p>
 			
 							</form> 
 			

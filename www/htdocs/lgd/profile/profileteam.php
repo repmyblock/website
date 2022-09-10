@@ -58,6 +58,7 @@
 					);
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
+	
 ?>
 <div class="row">
   <div class="main">
@@ -69,30 +70,33 @@
 			    <h2 id="public-profile-heading" class="Subhead-heading">Team Profile</h2>
 			  </div>
      
-				<?php	PlurialMenu($k, $TopMenus);	?>
+				<?php	PlurialMenu($k, $TopMenus);	?>	
 			  <div class="clearfix gutter d-flex flex-shrink-0">
 			  	
 	<div class="row">
   	<div class="main">
 
-		<P>
+		
+		<DIV CLASS="f40">
 			<B><FONT COLOR=BROWN>If you are part of a team, your team leader will supply you a code</A>
 		</FONT> </B>
-		</P>
+		</DIV>
+
+
 
 
 		<FORM ACTION="" METHOD="POST">
 			
 				<div>
-					<dl class="form-group col-3 d-inline-block"> 
-						<dt><label for="user_profile_name">Team Code</label><DT>
+					<dl> 
+						<dt><label for="user_profile_name" CLASS="f60">Team Code</label><DT>
 						<dd>
-							<input class="form-control" type="text" Placeholder="Enter code" name="TeamCode"<?php if (!empty ($TeamCode)) { echo " VALUE=" . $TeamCode; } ?> id="user_profile_name">
+							<input class="form-control f40" type="text" Placeholder="Enter code" name="TeamCode"<?php if (!empty ($TeamCode)) { echo " VALUE=" . $TeamCode; } ?> id="user_profile_name">
 						</dd>
 					</dl>
 
-					<dl class="form-group col-3 d-inline-block"> 
-						<dt><p><button type="submit" class="btn btn-primary">Apply the Team Code</button></p></DT>
+					<dl> 
+						<dt><p><INPUT type="submit" class="" value="Apply the Team Code"></p></DT>
 					</dl>
 				</DIV>
 			
@@ -100,7 +104,7 @@
 		<div class="Box">
 	  	<div class="Box-header pl-0">
 	    	<div class="table-list-filters d-flex">
-	  			<div class="table-list-header-toggle states flex-justify-start pl-3">Teams</div>
+	  			<div class="table-list-header-toggle states flex-justify-start pl-3 f60">Teams</div>
 	  		</div>
 	    </div>
 	    
@@ -110,8 +114,8 @@
 							if ( ! empty ($var["SystemUser_ID"])) {
 			?>		
 				<DIV>
-					<div class="list-group-item filtered f60">
-	    			<span><INPUT TYPE="CHECKBOX" NAME="TeamIDRmval[]" VALUE="<?= $var["Team_ID"] ?>"></span>			
+					<div class="list-group-item filtered f50">
+	    			<span><INPUT class="f50" TYPE="CHECKBOX" NAME="TeamIDRmval[]" VALUE="<?= $var["Team_ID"] ?>"></span>			
 						<span><?= $var["Team_Name"] ?></span> 
 					</div>
  				</DIV>
@@ -121,8 +125,8 @@
 					
 					</DIV>
 								
-				<dl class="form-group col-3 d-inline-block"> 
-					<dt><p><button type="submit" class="btn btn-primary">Remove me from the selected campaigns</button></p></DT>
+				<dl class=""> 
+					<dt><p><input type="submit" class="" VALUE="Remove me from the selected campaigns"></p></DT>
 				</dl>
 				
 				<?php } else { ?> 				
@@ -142,7 +146,7 @@
 	 			<div class="Box">
 			  	<div class="Box-header pl-0">
 			    	<div class="table-list-filters d-flex">
-			  			<div class="table-list-header-toggle states flex-justify-start pl-3">Campaigns Seeking Voluteers</div>
+			  			<div class="table-list-header-toggle states flex-justify-start pl-3 f60">Campaigns Seeking Voluteers</div>
 		  		</div>
 		    </div>
 		    
@@ -164,8 +168,8 @@
 					
 					</DIV>
 								
-				<dl class="form-group col-3 d-inline-block"> 
-					<dt><p><button type="submit" class="btn btn-primary">Request information from selected campaigns</button></p></DT>
+				<dl class=""> 
+					<dt><p><INPUT type="submit" class="" VALUE="Request information from selected campaigns"></p></DT>
 				</dl>
 				
 				<?php } else { ?> 		
@@ -178,11 +182,12 @@
  				
  				</DIV>
 			<?php } ?> 	
-	 			
+	 		
 
 </div>
-</FORM>
+	</FORM>
 </div>
+</DIV>
 </DIV>
 </DIV>
 </DIV>

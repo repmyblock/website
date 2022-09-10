@@ -74,25 +74,25 @@
 	<div class="row">
   	<div class="main">
 
-		<P>
+
+		<DIV  CLASS="f40">
 			<B><FONT COLOR=BROWN>If you are a candidate for higher office, please send an email to 
 			</FONT> <A HREF="mailto:candidate@repmyblock.org">candidate@repmyblock.org</A> 
 			<FONT COLOR=BROWN>to access the omnibus petitions.</FONT></B>
-		</P>
-
+	</DIV>
 
 		<FORM ACTION="" METHOD="POST">
 		<div class="Box">
 	  	<div class="Box-header pl-0">
 	    	<div class="table-list-filters d-flex">
-	  			<div class="table-list-header-toggle states flex-justify-start pl-3">Open positions to run for in the <?= $Party ?> Party<BR>
+	  			<div class="f40 table-list-header-toggle states flex-justify-start pl-3">Open positions to run for in the <?= $Party ?> Party<BR>
 	
 	  				
 	  				</div>
 	  		</div>
 	    </div>
     
-	    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
+	    <div class="f40 Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
 	      We don't know your district <a href="/voter">create one</a>?
 	    </div>
 	    	
@@ -155,6 +155,7 @@
 </div>
 </FORM>
 </div>
+</DIV>
 </DIV>
 </DIV>
 </DIV>

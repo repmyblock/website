@@ -59,7 +59,7 @@
 				<div class="Box">
 					<div class="Box-header pl-0">
 						<div class="table-list-filters d-flex">
-							<div class="table-list-header-toggle states flex-justify-start pl-3">Voter Card</div>
+							<div class="table-list-header-toggle states flex-justify-start pl-3 f60">Voter Card</div>
 						</div>
 					</div>
 				
@@ -69,7 +69,7 @@
 					
 					<div id="voters">
 											
-						<div class="list-group-item filtered">
+						<div class="list-group-item filtered f40">
 							
 							<?php 
 								// This need to be updated for the right state						

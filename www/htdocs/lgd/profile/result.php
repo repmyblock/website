@@ -9,15 +9,16 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new RepMyBlock();
 	
-	$TopMenus = array ( 
-								array("k" => $k, "url" => "/profile/user", "text" => "Public Profile"),
-								array("k" => $k, "url" => "/profile/profilevoter", "text" => "Voter Profile"),
-								array("k" => $k, "url" => "/profile/profilecandidate", "text" => "Candidate Profile")
-							);
+	$TopMenus = array (
+						array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
+						array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
+						array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile"),
+						array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
+					);
 							
 	if ( ! empty ($_POST)) {
 		WriteStderr($_POST, "Post");
-		if ($_POST["voterreg"] == "yes") {
+		if ($_POST["voterreg"] == "This is my voter registration card") {
 		 
 			//I don't care anymore about the number of voters in the district.
 			$NumberOfVoterInDistrict = $rmb->FindVotersForEDAD($_POST["ElectionsDistricts_DBTable"], 
@@ -72,7 +73,7 @@
 	WriteStderr($RawVoterNY, "RawVoterNY");
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
-	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
+	if ( $MobileDisplay == true) { $Cols = "col-9"; } else { $Cols = "col-9"; }
 ?>
 <div class="row">
   <div class="main">
@@ -88,10 +89,10 @@
 			PlurialMenu($k, $TopMenus);
 ?>
 			     
-				<div class="Box">
+				<div class="">
 					<div class="Box-header pl-0">
 						<div class="table-list-filters d-flex">
-							<div class="table-list-header-toggle states flex-justify-start pl-3">Voter Card</div>
+							<div class="table-list-header-toggle states flex-justify-start pl-3 f60">Voter Card</div>
 						</div>
 					</div>
 				
@@ -125,7 +126,7 @@
 				<INPUT TYPE="HIDDEN" VALUE="<?= $URIEncryptedString["SystemUser_ID"] ?>" NAME="SystemUser_ID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_RegParty"] ?>" NAME="Voters_RegParty">				
 				
-				<div class="list-group-item f60">
+				<div class="f60">
 					<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
 					<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $var["Voters_Status"] ?></FONT>
 					<BR><BR>
@@ -138,7 +139,7 @@
 									<TR ALIGN=CENTER>
 										<TD style="padding:0px 10px;"><?= $var["Voters_CountyVoterNumber"] ?></TD>
 									</TR>
-								</TABLE>
+					</TABLE>
 					<BR>
 					<TABLE BORDER=1>
 					<TR>
@@ -155,6 +156,7 @@
 					</TR>
 				</TABLE>
 				<BR>
+				
 				<TABLE BORDER=1>
 					<TR>
 						<TH style="padding:0px 10px;">Date of Birth</TH>
@@ -183,24 +185,33 @@
 					<TR>
 						<TH style="padding:0px 10px;">Assembly<BR>District</TH>
 						<TH style="padding:0px 10px;">Electoral<BR>District</TH>
-						<TH style="padding:0px 10px;">Congress</TH>
-						<TH style="padding:0px 10px;">County</TH>
+
 					</TR>
+					
 					<TR ALIGN=CENTER>
 						<TD style="padding:0px 10px;"><?= $RawVoterNY["AssemblyDistr"] ?></TD>
 						<TD style="padding:0px 10px;"><?= $RawVoterNY["ElectDistr"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $RawVoterNY["CongressDistr"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $RawVoterNY["DataCounty_Name"] ?></TD>
-
-<?php /* This is the original to return to place late on.  
-					//	<TD style="padding:0px 10px;"><? = $var["DataDistrict_StateAssembly"] ? ></TD>
-				//		<TD style="padding:0px 10px;"><? = $var["DataDistrict_Electoral"] ? ></TD>
-				//		<TD style="padding:0px 10px;"><? = $var["DataDistrict_Congress"] ? ></TD>
-				//		<TD style="padding:0px 10px;"><? = $var["DataCounty_Name"] ? ></TD>
-					*/	 ?>
-						
+					
 					</TR>
 				</TABLE>
+				
+				<BR>
+				
+				<BR>
+				<TABLE BORDER=1>
+					<TR>
+					
+						<TH style="padding:0px 10px;">Congress</TH>
+						<TH style="padding:0px 10px;">County</TH>
+					</TR>
+					
+					<TR ALIGN=CENTER>
+						
+						<TD style="padding:0px 10px;"><?= $RawVoterNY["CongressDistr"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $RawVoterNY["DataCounty_Name"] ?></TD>
+					</TR>
+				</TABLE>
+				
 				<BR>
 				
 				
@@ -240,13 +251,6 @@
 					<TD style="padding:0px 10px;"><?= $RawVoterNY["Ward"] ?></TD>
 					<TD style="padding:0px 10px;"><?= $RawVoterNY["SenateDistr"] ?></TD>
 					
-					
-					<?php /* Return to original later
-						<TD style="padding:0px 10px;"><? = $var["DataDistrict_Legislative"] ?></TD>
-					<TD style="padding:0px 10px;"><? = $var["DataDistrict_TownCity"] ?></TD>
-					<TD style="padding:0px 10px;"><? = $var["DataDistrict_Ward"] ?></TD>
-					<TD style="padding:0px 10px;"><? = $var["DataDistrict_SenateSenate"] ?></TD>
-					*/ ?>
 				</TR>
 			</TABLE>
 			
@@ -280,8 +284,10 @@
 					<div id="">
 						<BR>
 						<p>
-							&nbsp;<button type="submit" class="btn btn-primary" name="voterreg" value="yes">This is my voter registration card</button>
-							<button type="submit" class="btn btn-primary" name="voterreg" value="not">NOT my registration card</button>
+						<INPUT type="submit" class="" name="voterreg" VALUE="This is my voter registration card">
+					</P>
+					<P>
+							<INPUT type="submit" class="" name="voterreg"  VALUE="This is NOT my registration card">
 						</P>
 					</DIV>
 				</div>
@@ -290,6 +296,6 @@
 				</DIV>
 				</DIV>
 				</DIV>
-				
+			</DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

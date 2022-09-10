@@ -34,12 +34,13 @@
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
+	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
 ?>
 
 <div class="row">
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-			<div class="col-9 float-left">
+			<div class="<?= $Cols ?> float-left">
     
 
 				<div class="Subhead">
@@ -50,20 +51,24 @@
 			  <div class="Box">
 					<div class="Box-header pl-0">
 						<div class="table-list-filters d-flex">
-							<div class="table-list-header-toggle states flex-justify-start pl-3">Prepare a walksheet</div>
+							<div class="table-list-header-toggle states flex-justify-start pl-3 f60">Prepare a walksheet</div>
 						</div>
 			    </div>
 			    
 			    
-			    <div class="Box-body py-6 js-collaborated-repos-empty">
+			    <div class="f40 Box-body py-6 js-collaborated-repos-empty">
 			    	<FORM ACTION="" METHOD="POST">
+			    		<P>
 				    	Download Walksheet for Assembly District
 				    	<B><?= $URIEncryptedString["AD"] ?></B> 
-				    	and Electoral District <B><?= $URIEncryptedString["ED"] ?></B>
-				    	<BR>
-				    	Enter the name of the person who will use the walk sheet:<BR>
+				    	and Electoral District <B><?= $URIEncryptedString["ED"] ?>.</B>
+				    </P>
+				    	
+				    	<P>
+				    	Enter the name of the person who will use the walk sheet:
+				    </P>
 				      <INPUT TYPE="TEXT" NAME="PetitionFor">
-				      <button type="submit" class="btn btn-primary">Prepare the Walk Sheet</button>
+				      <INPUT TYPE="submit" class="" value="Prepare the Walk Sheet">
 				    </FORM>
 			    		
 			    
