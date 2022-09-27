@@ -12,7 +12,7 @@
 		</P>
 		
 		<P>
-			This bug was assigned # <B><?= $bugnumber ?></B> and <B><A HREF="https://trac.repmyblock.org/ticket/<?= $bugnumber ?>">you can access your bug repport here</A></B><BR>
+			This bug was assigned # <B><?= $bugnumber ?></B> and <B><A TARGET="TRACBUG" HREF="https://trac.repmyblock.org/ticket/<?= $bugnumber ?>">you can access your bug repport here</A></B><BR>
 		</P>
 		
 		<P>
