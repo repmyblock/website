@@ -32,10 +32,8 @@
 		</P>
 		
 		<P>
-			<DIV class="videowrapper">
-				<CENTER>
+			<DIV class="videowrapper center">
 					<iframe src="https://www.youtube.com/embed/9GfIm72Ksz0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-				</CENTER>
 			</DIV>
 		</P>
 		

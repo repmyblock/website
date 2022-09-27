@@ -28,78 +28,64 @@
 		<P CLASS="f40">
 			Rep My Block strives to simplify the process of running through a streamlined 
 			petitioning process from other antiquated options in use for decades.
-		</P>
-		
-		
+		</P>		
 	</DIV>
 	
 	<H2>Yes, I want to run</H2>
 	
-		<P CLASS="f40 justify">
-			The first step is merely saying, I am doing it. The process is designed  
-			to dissuade people from running through a convoluted process. We built this website to 
-			streamline the process to remove as many obstacles as possible that prevent everyday 
-			citizens from running.
-		</P>
-		
-		<P CLASS="f40 justify">
-			The party, like any Non-Profit Organization or For-Profit Corporation, has bylaws. 
-			You can find the bylaws of the various Democratic, Republican, Conservative and Working 
-			Families Parties County Committee at the Board of Election. 
-			<I>(We are working on getting the Bylaws from the other parties, and we will publish 
-		them as soon as we have them.)</I>
-		</P>
-		
-		<DIV class="videowrapper">
-			<CENTER>
-				<iframe src="https://www.youtube.com/embed/MgAY-Ipyk1Q?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</CENTER>
-		</DIV>
-		
-		<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
+	<P CLASS="f40 justify">
+		The first step is merely saying, I am doing it. The process is designed  
+		to dissuade people from running through a convoluted process. We built this website to 
+		streamline the process to remove as many obstacles as possible that prevent everyday 
+		citizens from running.
+	</P>
 	
-
-
+	<P CLASS="f40 justify">
+		The party, like any Non-Profit Organization or For-Profit Corporation, has bylaws. 
+		You can find the bylaws of the various Democratic, Republican, Conservative and Working 
+		Families Parties County Committee at the Board of Election. 
+		<I>(We are working on getting the Bylaws from the other parties, and we will publish 
+	them as soon as we have them.)</I>
+	</P>
+	
+	<DIV class="videowrapper center">
+			<iframe src="https://www.youtube.com/embed/MgAY-Ipyk1Q?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
+	
+	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
 
 	<H2>Voter Registration Verification</H2>
+
+	<P CLASS="f40 justify">
+		Congratulations, youve  decided to run! Before you start, we need to verify 
+		that your voter registration with the Board of Election is valid and correct. 
+		Through Rep My Block you can verify that you are registered in an electoral 
+		party based on your convictions.
+
+	</P>
 	
-
-		<P CLASS="f40 justify">
-			Congratulations, youve  decided to run! Before you start, we need to verify 
-			that your voter registration with the Board of Election is valid and correct. 
-			Through Rep My Block you can verify that you are registered in an electoral 
-			party based on your convictions.
-
-		</P>
+	<P CLASS="f40 justify">
+		If you are not registered to vote or are not registered in a party, you can 
+		<A HREF="https://vote.nyc/page/register-vote" TARGET=NEW>download and 
+		print a form</A> or go to the 
+		<A HREF="https://dmv.ny.gov/more-info/electronic-voter-registration-application" TARGET="NEW">DMV website</A> 
+		and register. 
+	</P>
+	
 		
-		<P CLASS="f40 justify">
-			If you are not registered to vote or are not registered in a party, you can 
-			<A HREF="https://vote.nyc/page/register-vote" TARGET=NEW>download and 
-			print a form</A> or go to the 
-			<A HREF="https://dmv.ny.gov/more-info/electronic-voter-registration-application" TARGET="NEW">DMV website</A> 
-			and register. 
-		</P>
-		
-			
-		<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
-
-
-
+	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
+	
 	<H2>Petitioning</H2>
 	
-		
 	<P CLASS="f40 justify">
 		This step is <?= $ImportantDates["NY"]["CycleLength"] ?> days long in <?= $ImportantDates["NY"]["Cycle"] ?>, 
 		it will span from <?= $ImportantDates["NY"]["LongDate"]["FirstPetitionDay"] ?>, 
 		to <?= $ImportantDates["NY"]["LongDate"]["LastPetitionDay"] ?>.  
 		Rep My Block will supply a list of registered voters in your district. 
 	</P>
-	
 
-	<DIV class="videowrapper">
-			<CENTER>
+	<DIV class="videowrapper center">
 	 <iframe src="https://www.youtube.com/embed/cizp2jVf-Yk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</CENTER>
 	</DIV>
 	
 	<P CLASS="f40 justify">
@@ -109,19 +95,13 @@
 		the hope of collecting enough valid signatures <I>(defined by office and district)</I>. This alone 
 		saves time and energy. Rep My Block petitions have already earned reliability status by 
 		holding up in challenges.
-
 	</P>	
 	
-	<DIV class="videowrapper">
-			<CENTER>
+	<DIV class="videowrapper center">
 		 <iframe src="https://www.youtube.com/embed/XUGFbBCcIS4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</CENTER>
-		</DIV>
+	</DIV>
 	
-
 	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></H2></CENTER></P>
-
-
 
 	<H2>Prepare for Filing</H2>
 	
@@ -135,33 +115,21 @@
 		questions, a volunteer will be able to answer you put them together.	
 	</P>
 
-	
-
-	<DIV class="videowrapper">
-			<CENTER>
-	 <iframe src="https://www.youtube.com/embed/9GfIm72Ksz0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</CENTER>
+	<DIV class="videowrapper center">
+		<iframe src="https://www.youtube.com/embed/9GfIm72Ksz0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
 	
 	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
-
 	
-	
-
-
 	<H2>Filing with the BoE</H2>
-	
-	
+
 	<P CLASS="f40 justify">
 		Head to the Board of Election and drop off your properly bound petitions between 
 		<?= $ImportantDates["NY"]["LongDate"]["FirstSubmitDay"] ?>, and 
 		<?= $ImportantDates["NY"]["LongDate"]["LastPetitionDay"] ?>. 
-
-	
-	<DIV class="videowrapper">
-			<CENTER>
-	 <iframe src="https://www.youtube.com/embed/G0yRhVGz2TM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</CENTER>
+		
+	<DIV class="videowrapper center">
+		<iframe src="https://www.youtube.com/embed/G0yRhVGz2TM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
 	
 	<P CLASS="f40 justify">
@@ -170,17 +138,11 @@
 		for you. All you will need to do is to staple your petition together and drop 
 		them at a drop-off location. Here is how to properly file your petition sheets 
 		with the Board of Election.
-
-
 	</P>
 
 	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
 	
-		
-
-
 	<H2> Election Day</H2>
-	
 	
 	<P CLASS="f40 justify">
 		In this exciting step where you run for County Committee! Remind your neighbors to vote for 
@@ -197,16 +159,11 @@
 		We also explain the Department of Sanitation rules about postering.
 	</P>
 
-	
-	<DIV class="videowrapper">
-			<CENTER>
-	 <iframe src="https://www.youtube.com/embed/WXRd6lF3Ix4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</CENTER>
+	<DIV class="videowrapper center">
+		<iframe src="https://www.youtube.com/embed/WXRd6lF3Ix4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
 	
 	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
-
-
 
 	<H2>Success!</H2>
 	
@@ -215,22 +172,17 @@
 		<B>It is now time to attend your first meeting!</B>
 	</P>
 
-	<DIV class="videowrapper">
-			<CENTER>
-	 <iframe src="https://www.youtube.com/embed/ZyKD5H0y0KM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-				</CENTER>
-</DIV>
-
+	<DIV class="videowrapper center">
+		<iframe src="https://www.youtube.com/embed/ZyKD5H0y0KM?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
 
 	<P CLASS="f40 justify">
 		By now, Rep My Block will have connected you with other County Committee members that hopefully share 
 		your vision, and together you work to get your ideas across.
 	</P>
 
-	<DIV class="videowrapper">
-			<CENTER>
-	 <iframe src="https://www.youtube.com/embed/LqOsuibAGNw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</CENTER>
+	<DIV class="videowrapper center">
+		<iframe src="https://www.youtube.com/embed/LqOsuibAGNw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
 	
 	<P CLASS="f40 justify">
@@ -248,15 +200,10 @@
 		the videos of those meetings.
 	</P>
 	
-	<DIV class="videowrapper">
-			<CENTER>
-	 <iframe src="https://www.youtube.com/embed/wPDC_XeTbc4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</CENTER>
+	<DIV class="videowrapper center">
+		<iframe src="https://www.youtube.com/embed/wPDC_XeTbc4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
 	
 	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
-
-
-
-
+	
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

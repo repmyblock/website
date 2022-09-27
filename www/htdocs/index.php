@@ -7,13 +7,34 @@
 	/* User is logged */
 ?>
 
-<div class="main">
-	<CENTER>
+<div class="main center">
+
 	<P CLASS="BlueBox">
 		<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">
 				How to run for County Committee?<BR>Click here!
 		</a>
 	</P>
+	
+	<P CLASS="BckGrndElement f80">CANDIDATES VOTER GUIDE</P>
+
+	<P>
+		<A HREF="/<?= $middleuri ?>/exp/voter/guide">
+			<H2>Download the New York State RepMyBlock Voter Guide</H2>
+		</a>
+	</P>
+	
+	<P CLASS="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
+
+	
+
+		<DIV CLASS="f60">
+		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/register" CLASS="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
+		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/propose/nomination" CLASS="NomCandidate"><img class="action-runfor" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
+	</DIV>
+	
+		
+	
+		<BR>
 	
 	<P CLASS="BckGrndElement f80">WHAT IS THE COUNTY COMMITTEE</P>
 
@@ -38,71 +59,16 @@
 	</P>
 			
 			
-	<P CLASS="BckGrndElement f80">CANDIDATES VOTER GUIDE</P>
-
-	<P>
-		<A HREF="/<?= $middleuri ?>/exp/voter/guide">
-			<H2>Download the New York State RepMyBlock Voter Guide</H2>
-		</a>
-
-		
-	</P>
+			
+			
+	
 			
 		
-	<P CLASS="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
-
 	
 
-		<DIV CLASS="f60">
-		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/register" CLASS="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
-		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/propose/nomination" CLASS="NomCandidate"><img class="action-runfor" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
-	</DIV>
-	
-		<BR>
-
 	
 	
-	<P CLASS="BckGrndElement f80">ZOOM WITH PAPERBOY LOVE PRINCE</P>
-
-	<P CLASS="f40">
-		<B>Sal Albanese</B>, <B>Badrun Khan</B>, <B>Ben Yee</B>, <B>Vittoria Fariello</B>, and <B>Jared Rich</B> discuss the 
-		weaponization of the electoral process with Paperboy Love Prince in five one-hour candid chats. These videos were 
-		recorded while Paperboy Love Prince was running for congress, and discovering first-hand, the different steps 
-		involved in running for public office. The goal of these video chats is to demonstrate that there is hope, but 
-		it will require every voter to participate in the political process by going beyond just showing up to the polls 
-		to vote. <B>Democracy depends on it!</B>
-	</P>
 	
-	<P>
-		<P CLASS="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
-	</P>
-	
-		<P>
-	<DIV class="videowrapper">
-	 		<iframe src="https://www.youtube.com/embed/KtYLNV3_npk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</DIV>
-</P>
-	
-			<P>
-		<P CLASS="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
-	</P>
-
-	
-	<P CLASS="BckGrndElement f80">THE STRUCTURE OF THE COUNTY COMMITTEE</P>
-	<P CLASS="f40">	
-		<B>Ben Yee</B> present the Stucture of the Manhattan County Committee. There are slight different from one county to the other, but the basic 
-		logic is the same. If you are outside New York, you can find the process by googling <B>"County Chair"</B> and the name of your party.
-	</P>
-	
-	<P>
-	<DIV class="videowrapper">
-	 <iframe width="560" height="315" src="https://www.youtube.com/embed/MgAY-Ipyk1Q?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</DIV>
-	</P>
-	
-	<P>
-		<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">To access voters lists, register and log into the Rep My Block website</A></P>
-	</P>
 		
 
 <P CLASS="BckGrndElement f80">VOLUNTEER TO MAKE REPMYBLOCK BETTER</P>
