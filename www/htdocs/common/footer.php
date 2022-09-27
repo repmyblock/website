@@ -16,7 +16,7 @@
 <?php } ?>  
 					<A HREF="/<?= $middleuri ?>/exp/toplinks/howto">HOWTO</A>
 					<A HREF="/<?= $middleuri ?>/exp/contact/contact">CONTACT</A>
-					<A HREF="<?= $FrontEndBugs ?>/bugs/<?= CreateEncoded ( array( 	
+					<A TARGET="BUGPAGE" HREF="<?= $FrontEndBugs ?>/bugs/<?= CreateEncoded ( array( 	
 																																	"Referer" =>  $_SERVER['HTTP_REFERER'],
 																																	"URI" => $_SERVER['REQUEST_URI'],
 																																	"DocumentRoot" => $_SERVER['DOCUMENT_ROOT'],
