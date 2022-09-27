@@ -15,12 +15,16 @@
 		</a>
 	</P>
 	
-	<P CLASS="BckGrndElement f80">CANDIDATES VOTER GUIDE</P>
+	<P CLASS="BckGrndElement f80">CANDIDATES VOLUNTEER GUIDE</P>
 
 	<P>
 		<A HREF="/<?= $middleuri ?>/exp/voter/guide">
-			<H2>Download the New York State RepMyBlock Voter Guide</H2>
+			<H2>Download the RepMyBlock Volunteer Guide</H2>
 		</a>
+	</P>
+	
+	<P CLASS="f40">
+		These candidates are running for office and are looking for volunteers to help them.
 	</P>
 	
 	<P CLASS="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
