@@ -8,6 +8,7 @@
 	$BigMenu = "home";
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	
+	$HeaderTwitter = 1; /* This is needed to trigger the different header */
 	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/AboutPageNonPartisan.jpg";
 	$HeaderTwitterDesc = "Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; its their backbone. The &hellip; Continue reading Rep My Block &rarr;";
 	
