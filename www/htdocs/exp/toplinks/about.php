@@ -8,6 +8,9 @@
 	$BigMenu = "home";
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	
+	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/AboutPageNonPartisan.jpg";
+	$HeaderTwitterDesc = "Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; its their backbone. The &hellip; Continue reading Rep My Block &rarr;";
+	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
