@@ -36,13 +36,13 @@
 	
 	<P CLASS="BckGrndElement f80 center">THE MAJOR POLITICAL TENDENCIES</P>
 	
-	<P>
+	<P CLASS="f40">
 		The world is run by various political ideologies competing against each other. Rep My Block 
 		is non-partisan; therefore, we welcome all ideologies and help them contact the local 
 		representatives of those ideologies.
 	</P>
 
-	<P>
+	<P CLASS="f40">
     <UL>
     	<B>Nationalists:</B> <A TARGET="political" HREF="https://www.idgroup.eu">https://www.idgroup.eu</A> - RMB Code: idgroup<BR>
 	    <B>Democrat Union:</B> <A TARGET="political" HREF="https://www.idu.org">https://www.idu.org</A> - RMB Code: idu<BR>
@@ -59,12 +59,12 @@
 		</UL>
 	</P>
 	
-	<P>
+	<P CLASS="f40">
 		The RMB Code is used once you register to let the leader of these groups contact you so you can effectively 
 		organize with them inside the Republican or Democratic parties of the United States.
 	</P>
 	
-	<P>
+	<P CLASS="f40">
 		The goal of Rep My Block is to suppress the role of money in the political conversation while 
 		respecting each individual's ideology without judgment.
 	</P>
