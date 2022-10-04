@@ -1,17 +1,13 @@
 <?php 
-	$BigMenu = "represent";
+	$BigMenu = "howto";
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php";	
-
 	/* User is logged */
-
-
 ?>
-
 
 <div class="main">
 	<DIV CLASS="intro center">

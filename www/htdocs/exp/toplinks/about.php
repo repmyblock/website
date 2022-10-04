@@ -5,7 +5,7 @@
 	* Author: Theo Chino
 	*/
 	
-	$BigMenu = "home";
+	$BigMenu = "about";
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	
 	$HeaderTwitter = 1; /* This is needed to trigger the different header */
@@ -42,22 +42,20 @@
 		representatives of those ideologies.
 	</P>
 
-	<P CLASS="f40">
-    <UL>
-    	<B>Nationalists:</B> <A TARGET="political" HREF="https://www.idgroup.eu">https://www.idgroup.eu</A> - RMB Code: idgroup<BR>
-	    <B>Democrat Union:</B> <A TARGET="political" HREF="https://www.idu.org">https://www.idu.org</A> - RMB Code: idu<BR>
-	    <B>International Alliance of Libertarian Parties:</B> <A TARGET="political" HREF="https://ialp.com">https://ialp.com</A> - RMB Code: libertarians<BR>
-	    <B>Centrist Democrat:</B> <A TARGET="political" HREF="https://www.idc-cdi.com">https://www.idc-cdi.com</A> - RMB Code: idccdi<BR>
-	    <B>Liberals and centrists:</B> <A TARGET="political" HREF="https://liberal-international.org">https://liberal-international.org</A> - RMB Code: liberal<BR>
-	    <B>Progressive Alliance:</B> <A TARGET="political" HREF="https://progressive-alliance.info">https://progressive-alliance.info</A> - RMB Code: progressive<BR>
-	    <B>Social democrats and Socialists:</B> <A TARGET="political" HREF="https://socialistinternational.org">https://socialistinternational.org</A> - RMB Code: socdems<BR>
-	    <B>Greens and regionalists:</B> <A TARGET="political" HREF="https://globalgreens.org">https://globalgreens.org</A> - RMB Code: greens<BR>
-	    <B>Progressive International:</B> <A TARGET="political" HREF="https://progressive.international">https://progressive.international</A> - RMB Code: bernie<BR>
-	    <B>Communists and Workers' parties:</B> <A TARGET="political" HREF="http://www.solidnet.org">http://www.solidnet.org</A> - RMB Code: solidnet<BR>
-	    <B>Socialists Alternative:</B> <A TARGET="political" HREF="https://internationalsocialist.net">https://internationalsocialist.net</A> - RMB Code: socalter<BR>
-	    <B>Pirates:</B> <A TARGET="political" HREF="https://pp-international.net">https://pp-international.net</A> - RMB Code: pirates<BR>
-		</UL>
-	</P>
+  <UL CLASS="f40">
+  	<B>Nationalists:</B> <A TARGET="political" HREF="https://www.idgroup.eu">https://www.idgroup.eu</A> - RMB Code: idgroup<BR>
+    <B>Democrat Union:</B> <A TARGET="political" HREF="https://www.idu.org">https://www.idu.org</A> - RMB Code: idu<BR>
+    <B>International Alliance of Libertarian Parties:</B> <A TARGET="political" HREF="https://ialp.com">https://ialp.com</A> - RMB Code: libertarians<BR>
+    <B>Centrist Democrat:</B> <A TARGET="political" HREF="https://www.idc-cdi.com">https://www.idc-cdi.com</A> - RMB Code: idccdi<BR>
+    <B>Liberals and centrists:</B> <A TARGET="political" HREF="https://liberal-international.org">https://liberal-international.org</A> - RMB Code: liberal<BR>
+    <B>Progressive Alliance:</B> <A TARGET="political" HREF="https://progressive-alliance.info">https://progressive-alliance.info</A> - RMB Code: progressive<BR>
+    <B>Social democrats and Socialists:</B> <A TARGET="political" HREF="https://socialistinternational.org">https://socialistinternational.org</A> - RMB Code: socdems<BR>
+    <B>Greens and regionalists:</B> <A TARGET="political" HREF="https://globalgreens.org">https://globalgreens.org</A> - RMB Code: greens<BR>
+    <B>Progressive International:</B> <A TARGET="political" HREF="https://progressive.international">https://progressive.international</A> - RMB Code: bernie<BR>
+    <B>Communists and Workers' parties:</B> <A TARGET="political" HREF="http://www.solidnet.org">http://www.solidnet.org</A> - RMB Code: solidnet<BR>
+    <B>Socialists Alternative:</B> <A TARGET="political" HREF="https://internationalsocialist.net">https://internationalsocialist.net</A> - RMB Code: socalter<BR>
+    <B>Pirates:</B> <A TARGET="political" HREF="https://pp-international.net">https://pp-international.net</A> - RMB Code: pirates<BR>
+	</UL>
 	
 	<P CLASS="f40">
 		The RMB Code is used once you register to let the leader of these groups contact you so you can effectively 
