@@ -44,7 +44,7 @@
 
   <UL CLASS="f40">
   	<B>Nationalists:</B> <A TARGET="political" HREF="https://www.idgroup.eu">https://www.idgroup.eu</A> - RMB Code: idgroup<BR>
-    <B>Democrat Union:</B> <A TARGET="political" HREF="https://www.idu.org">https://www.idu.org</A> - RMB Code: idu<BR>
+    <B>Democrat Union:</B> <A TARGET="political" HREF="https://www.idu.org">https://www.idu.org</A> - RMB Code: intdu<BR>
     <B>International Alliance of Libertarian Parties:</B> <A TARGET="political" HREF="https://ialp.com">https://ialp.com</A> - RMB Code: libertarians<BR>
     <B>Centrist Democrat:</B> <A TARGET="political" HREF="https://www.idc-cdi.com">https://www.idc-cdi.com</A> - RMB Code: idccdi<BR>
     <B>Liberals and centrists:</B> <A TARGET="political" HREF="https://liberal-international.org">https://liberal-international.org</A> - RMB Code: liberal<BR>
