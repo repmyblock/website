@@ -1,4 +1,4 @@
-<!--- Start Menu --->
+  <!--- Start Menu --->
 <?php
   WriteStderr($rmbperson, "RMBPerson in Menu");
   
@@ -72,4 +72,4 @@
 <?php }
   ### Verification email
   PrintVerifMenu($VerifEmail, $VerifVoter); 
-?>      <!--- End Menu --->
+?>        <!--- End Menu --->
