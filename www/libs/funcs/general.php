@@ -32,7 +32,14 @@ function WriteStderr($Data, $Message = "") {
 	// Need to save the information
 	if ( $Developping == 1) {	
 		if ( ! empty ($Message)) {
-			error_log($Message . ": " . print_r($Data, 1));
+			
+			if (is_array($Data)) {
+				error_log($Message . ": " . print_r($Data, 1));
+			} else {
+				$Data = preg_replace('/\/AAAA.*3D\//', '/[CRYPTED]/', $Data);
+				error_log($Message . ": " . $Data);
+			}
+			
 		} else {
 			error_log("Write Std Error: " . print_r($Data, 1));
 		}
@@ -191,14 +198,16 @@ function PrintVerifMenu($VerifEmail = true, $VerifVoter = true) {
 
 function PlurialMenu($k, $menusarray) {
 	if ( ! empty ($menusarray)) {
-		echo "<nav class=\"UnderlineNav pt-1 mb-4\">\n";
-		echo "  <div class=\"UnderlineNav-body\">\n";
+		echo "\n          <!-- Begin Purial Menu --->\n";
+		echo "          <NAV class=\"UnderlineNav pt-1 mb-4\">\n";
+		echo "            <DIV class=\"UnderlineNav-body\">\n";
 		foreach ($menusarray as $var) {		
 			if ( $_SERVER["PHP_SELF"] == "/lgd/" . $var["url"] . ".php" ) { $selected = " selected"; } else { $selected = ""; }			
-			echo "    <a href=\"/" . $var["k"] . "/lgd/" . $var["url"] . "\" class=\"mobilemenu UnderlineNav-item" .  $selected . "\">" . $var["text"] . "</a>\n";
+			echo "              <A class=\"mobilemenu UnderlineNav-item" .  $selected . "\" href=\"/" . $var["k"] . "/lgd/" . $var["url"] . "\">" . $var["text"] . "</a>\n";
 		}
-		echo "</div>\n";
-		echo "</nav>\n";
+		echo "            </DIV>\n";
+		echo "          </NAV>\n";
+		echo "          <!-- End Purial Menu --->\n";
 	}
 }
 
