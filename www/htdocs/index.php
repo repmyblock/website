@@ -61,21 +61,8 @@
 	<P CLASS="f40">
 		<B>The time commitment is about 32 hours every two years or about 3 minutes a day.</B>
 	</P>
-			
-			
-			
-			
-	
-			
-		
-	
 
-	
-	
-	
-		
-
-<P CLASS="BckGrndElement f80">VOLUNTEER TO MAKE REPMYBLOCK BETTER</P>
+	<P CLASS="BckGrndElement f80">VOLUNTEER TO MAKE REPMYBLOCK BETTER</P>
 
 		<P CLASS="f40">
 			<B>Rep My Block</B> is an unincorporated organization run by volunteers who donate their skills, knowledge, and resources. RepMyBlock is decentralized to avoid political filling requirements.

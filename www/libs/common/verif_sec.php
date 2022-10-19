@@ -1,11 +1,44 @@
 <?php
-error_reporting(E_ERROR | E_PARSE);
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";	
 
 ### This file is the SSL Key used to encrypt the _GET variable.
 date_default_timezone_set('America/New_York'); 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/SSLKeys/SSLInsideKey.php";
+
+// This is the code to make sure that url are good.
+
+if ( $_SERVER["HTTP_HOST"] != $_SERVER["SERVER_NAME"] ) {	
+	$exphost = explode(".", $_SERVER["HTTP_HOST"]);
+	$expuri = explode("/", substr($_SERVER["REQUEST_URI"],1));
+	
+	if ( $exphost[0] != $expuri[0] ) {		
+		if ( ! (str_starts_with($expuri[0], 'AAA') && str_ends_with($expuri[0], '%253D'))) {
+			$expuri[0] = $exphost[0];
+			$newurl = "";
+			foreach ($expuri as $var) {
+				$newurl .= "/" . $var;
+			}
+			header("Location: " . $newurl);
+			exit();
+		}	else {	
+			foreach ($expuri as $var) {
+				$newurl .= "/" . $var;
+			}			
+			header("Location: " . $FrontEndWebsite . $newurl);
+			exit();
+		}	
+	}
+	
+	// Here you verify that the picture is the same.
+	$pathtocheck = $SharedPath . "/teams/" . $expuri[0] . ".png";
+	if (file_exists($pathtocheck)) {
+		$HeaderTwitter = true;
+		$HeaderTwitterTitle = "Theo Chino For NY Public Advocate";
+		$HeaderTwitterPicLink = "https://static.repmyblock.org/shared/teams/" . $expuri[0] . ".png";
+		$HeaderTwitterDesc = "Run for County Committee with Theo Chino for NYC Public Advocate. &hellip; Continue reading on the Rep My Block site &rarr;";
+	}
+}
 
 if ( ! empty ($_POST["k"])) {
 	$k = $_POST["k"];
