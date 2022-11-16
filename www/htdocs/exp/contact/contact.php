@@ -15,7 +15,7 @@
 		</P>
 		
 		<P CLASS="f60">
-			Please email 	<B><A HREF="infos@repmyblock.org">infos@repmyblock.org</A></B> for general inquiries.
+			Please email 	<B><A HREF="mailto:infos@repmyblock.org">infos@repmyblock.org</A></B> for general inquiries.
 		</P>
 		
 		<P CLASS="f60">
