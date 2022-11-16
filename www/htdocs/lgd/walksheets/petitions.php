@@ -1,7 +1,6 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged";  }  
 	$Menu = "walksheets";
-	$BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
