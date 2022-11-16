@@ -202,4 +202,6 @@
 	
 	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
 	
+</DIV>
+	
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
