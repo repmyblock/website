@@ -27,7 +27,7 @@
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 
-	<div class="col-9 float-left">
+	<div class="col-9 float-left f60">
 
 	<div class="Subhead">
   	<h2 class="Subhead-heading">Candidate Team</h2>
@@ -39,12 +39,8 @@
   	<dt><label for="user_profile_email">Create petitions for your team</label></dt>
     <dd class="d-inline-block">       	
 			<A HREF="/<?= $k ?>/lgd/team/target">Create petition</A><BR>		
+			<A HREF="/<?= $k ?>/lgd/team/createteams">Create teams</A><BR>		
 	</DL>
-	
-
-    
-			
-	
 
 </DIV>
 </DIV>

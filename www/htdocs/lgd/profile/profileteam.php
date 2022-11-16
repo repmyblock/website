@@ -1,6 +1,6 @@
 <?php
 	$Menu = "profile";
-	$BigMenu = "represent";
+	$BigMenu = "profile";
 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
@@ -96,7 +96,7 @@
 					</dl>
 
 					<dl> 
-						<dt><p><INPUT type="submit" class="" value="Apply the Team Code"></p></DT>
+						<dt><p><button class="submitred">Apply the Team Code</BUTTON></p></DT>
 					</dl>
 				</DIV>
 			
@@ -126,7 +126,7 @@
 					</DIV>
 								
 				<dl class=""> 
-					<dt><p><input type="submit" class="" VALUE="Remove me from the selected campaigns"></p></DT>
+					<dt><p><button class="submitred">Remove me from the selected campaigns</BUTTON></p></DT>
 				</dl>
 				
 				<?php } else { ?> 				
@@ -167,10 +167,9 @@
 					} ?>
 					
 					</DIV>
-								
-				<dl class=""> 
-					<dt><p><INPUT type="submit" class="" VALUE="Request information from selected campaigns"></p></DT>
-				</dl>
+								<dl class=""> 
+					<dt><p><button class="submitred">Request information from selected campaigns</BUTTON></p></DT>
+				</DL>
 				
 				<?php } else { ?> 		
  				
@@ -184,14 +183,16 @@
 			<?php } ?> 	
 	 		
 
-</div>
+</DIV>
 	</FORM>
-</div>
 </DIV>
 </DIV>
 </DIV>
 </DIV>
 </DIV>
+</DIV>
+
+
 
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

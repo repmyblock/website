@@ -14,6 +14,7 @@
 	WriteStderr($rmbteam, "RMB Team");
 	$ActiveTeam = $rmbteam[0]["Team_Name"];
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
+	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
 
 <div class="row">
@@ -26,14 +27,14 @@
 			    <h2 id="public-profile-heading" class="Subhead-heading">Team Management</h2>
 				</DIV>
 
-				<div class=" mt-0 mb-0">
+				<div class="f60 mt-0 mb-0">
 					<BR>
 		   		 <P><B>Current Team:</B> <?= $ActiveTeam ?></P>
      	</DIV>
 				
 
 
-			  <div class="clearfix gutter d-flex flex-shrink-0">
+			  <div class="clearfix gutter d-flex flex-shrink-0 f40">
 
 				<div class="row">
 				  <div class="main">
@@ -128,7 +129,7 @@
 	</DIV>
 </DIV>
 
-
+</DIV>
 
 
 

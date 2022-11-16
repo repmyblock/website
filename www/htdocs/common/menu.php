@@ -44,7 +44,7 @@
 
             <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DISTRICT ) { ?><A class="<?php if ( $Menu == "district" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/district/index">District</a><?php } ?>
               
-            <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_WALKSHEETS ) { ?><A class="<?php if ( $Menu == "walksheets" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/walksheets/petitions">Walksheets</a><?php } ?>
+            <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_WALKSHEET ) { ?><A class="<?php if ( $Menu == "walksheets" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/walksheets/petitions">Walksheets</a><?php } ?>
               	
             <A class="<?php if ( $Menu == "candidates" ) { echo "selected "; } ?>menu-item" href="/<?= $k ?>/lgd/candidates/list">Candidates</A>
             <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PLEDGES ) { ?><A class="<?php if ( $Menu == "pledge" ) { echo "selected "; } ?>js-selected-navigation-item menu-item" href="/<?= $k ?>/lgd/pledges/index">Pledges</a><?php } ?>

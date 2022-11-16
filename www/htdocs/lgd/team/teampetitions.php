@@ -38,9 +38,9 @@
 			    
 		<?php PlurialMenu($k, $TopMenus); ?>
 		
-		 <dl class="form-group">
+		 <dl class="form-group f60">
   	<dt><label for="user_profile_email">Petition list created</label></dt>
-    <dd class="d-inline-block">       	
+    <dd class="d-inline-block f40">       	
     				
 		<P>
 		

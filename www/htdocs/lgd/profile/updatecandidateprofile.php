@@ -1,6 +1,6 @@
 <?php
   $Menu = "profile";  
-  $BigMenu = "represent";  
+	$BigMenu = "profile";
   
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";  
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
@@ -115,7 +115,7 @@
               <DIV class="main">
                 <FORM ACTION="" METHOD="POST">
 
-                  <P>
+                  <P CLASS="f40">
                     This profile will be presented to every person that visits the Rep My Block website. You 
                     will be able to publish a two-page PDF of your platform that will be used to create a voter 
                     booklet that a voter will download and email.
@@ -127,66 +127,65 @@
          
                   <DIV>
             
-                    <DL class="form-group col-3 d-inline-block">       
+                    <DL class="f40">       
                       <DT><LABEL>First Name</LABEL></DT>
                       <DD>
                         <INPUT class="form-control" type="text" placeholder="First Name" name="FirstName" value="<?= $rmbcandidate["CandidateProfile_FirstName"]; ?>">
                       </DD>
                     </DL>
                       
-                    <DL class="form-group col-3 d-inline-block"> 
+                    <DL class="f40"> 
                       <DT><LABEL>Last Name</LABEL><DT>
                       <DD>
                         <INPUT class="form-control" type="text" placeholder="Last Name" name="LastName" value="<?= $rmbcandidate["CandidateProfile_LastName"]; ?>">
                       </DD>
                     </DL>
                       
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>Public Facing Name</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="Your name to be displayed publicly" name="FullName" value="<?= $rmbcandidate["CandidateProfile_Alias"]; ?>"></DD>
                     </DL>
                       
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>Upload your picture</LABEL></DT>
                       <DD><INPUT type="file" name="filepicture"></DD>
                     </DL>
 
                     <HR>  
            
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>Campaign Email</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="Your campaign email to be shared" name="Email" value="<?= $rmbcandidate["CandidateProfile_Email"]; ?>"></DD>
                     </DL>
                       
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>Campaign Website</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="Your campaign website" name="URL" value="<?= $rmbcandidate["CandidateProfile_Website"]; ?>"></DD>
                     </DL>
                       
                     <HR>  
                     
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>Phone Number</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="Your campaign office phone number" name="PhoneNumber" value="<?= $rmbcandidate["CandidateProfile_PhoneNumber"]; ?>"></DD>
                     </DL>
                       
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>Fax Number</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="Your campaign office fax number" name="FaxNumber" value="<?= $rmbcandidate["CandidateProfile_FaxNumber"]; ?>"></DD>
                     </DL>
 
                     <HR>  
                       
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>Campaign Statement.</LABEL></DT>
-                      <DD class="user-profile-bio-field-container">
+                      <DD class="">
                         <TEXTAREA class="form-control" placeholder="Tell us a little bit about yourself" name="CandidateProfileBio"><?= $rmbcandidate["CandidateProfile_Statement"] ?></TEXTAREA>
-                      <P class="js-length-limited-INPUT-warning user-profile-bio-message d-none"></P>
                       </DD>
-                    </DL>  
+                    </DL> 
                       
                     
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>Upload your PDF platform</LABEL></DT>
                       <DD><INPUT type="file" name="pdfplatform"></DD>
                     </DL>            
@@ -194,37 +193,37 @@
                     <HR> 
   
                       
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>Twitter</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="@" name="Twitter" value="<?= $rmbcandidate["CandidateProfile_Twitter"]; ?>"></DD>
                     </DL>
 
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>Instagram</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="@" name="Instagram" value="<?= $rmbcandidate["CandidateProfile_Instagram"]; ?>"></DD>
                     </DL>
                       
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>Facebook</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="https://facebook.org/" name="Facebook" value="<?= $rmbcandidate["CandidateProfile_Facebook"]; ?>"></DD>
                     </DL>
                       
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>YouTube</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="https://youtube.com" name="YouTube" value="<?= $rmbcandidate["CandidateProfile_YouTube"]; ?>"></DD>
                     </DL>
 
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>TikTok</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="https://tiktok.com" name="TikTok" value="<?= $rmbcandidate["CandidateProfile_TikTok"]; ?>"></DD>
                     </DL>
 
-                    <DL class="form-group">
+                    <DL class="f40">
                       <DT><LABEL>Ballotpedia</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="https://ballotpedia.org" name="Ballotpedia" value="<?= $rmbcandidate["CandidateProfile_BallotPedia"]; ?>"></DD>
                     </DL>
                     
-                    <P class="note mb-2">
+                    <P class="f40">
                       All of the fields on this page are optional and can be deleted at any
                       time, and by filling them out, you're giving us consent to share this
                       data wherever your user profile appears. Please see our
@@ -233,7 +232,7 @@
                     </P>
                     
                       
-                    <P><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Update profile"></P><?php /* <p><button type="submit" class="btn btn-primary">Update profile</button></p> */ ?>
+                    <p><button type="submit" class="submitred">Update profile</button></p>
 
                   </DIV>
                 </FORM>
@@ -244,5 +243,6 @@
         </DIV>
       </DIV>
     </DIV>
+  </DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";  ?>

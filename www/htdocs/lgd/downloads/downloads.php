@@ -19,13 +19,15 @@
 	WriteStderr($result, "Result");
 		
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
+  if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
+
 ?>
 
 <div class="row">
   <div class="main">
 	<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 
-		<div class="col-9 float-left">
+		<div class="<?= $Cols ?> float-left">
 			
 			<div class="Subhead">
 		  	<h2 class="Subhead-heading">Download</h2>
@@ -88,7 +90,6 @@
 		
 	</div>
 </DIV>
-
 
 
 

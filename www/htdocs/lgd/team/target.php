@@ -105,7 +105,7 @@
 
 			  <div class="clearfix gutter d-flex flex-shrink-0">
 		
-					<div class="col-16">
+					<div class="col-16 f40">
 	
 						<?= $error_msg ?>
 						
@@ -139,7 +139,7 @@
 									</DD>
 								</DL>  
 							
-								<dl class="form-group col-2  d-inline-block">      
+								<dl class="form-group col-2  d-inline-block f40">      
 									<DD>
 										<select class="form-select" name="Month" id="">
 											<option value="">Select month</option>
@@ -165,7 +165,7 @@
 									<dd>
 								</dl>
 			
-								<p><button type="submit" class="btn btn-primary">Search Voter Registration</button></p>
+								<p><button type="submit" class="submitred">Search Voter Registration</button></p>
 			
 							</form> 
 			

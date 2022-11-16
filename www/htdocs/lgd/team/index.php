@@ -58,7 +58,7 @@
 			    <h2 id="public-profile-heading" class="Subhead-heading">Team Management</h2>
 				</DIV>
 
-				<div class=" mt-0 mb-0">
+				<div class="f40 mt-0 mb-0">
 					<BR>
 		   		 <P><B>Current Team:</B> <?= $ActiveTeam ?></P>
 
@@ -70,14 +70,14 @@
 						<SELECT  CLASS="mobilebig" NAME="Team_ID">
 							<?php 
 								foreach ($rmbteam as $var) {
-									if (! empty ($var)) { ?>
-								<OPTION VALUE="<?= $var["Team_ID"] ?>"<?php if ($ActiveTeam_ID == $var["Team_ID"]) { echo " SELECTED"; } ?>><?= $var["Team_Name"] ?></OPTION>							
-								<?php
+									if (! empty ($var["Team_ID"])) { ?>
+										<OPTION VALUE="<?= $var["Team_ID"] ?>"<?php if ($ActiveTeam_ID == $var["Team_ID"]) { echo " SELECTED"; } ?>><?= $var["Team_Name"] ?></OPTION>							
+									<?php
+									}
 								}
-							}
 							?>							
 						</SELECT>
-						<button type="submit" class="btn btn-primary mobilemenu">Change Active Team</button>
+						<button type="submit" class="submitred">Change Active Team</button>
 						</FORM>
 					</P>
     
@@ -93,7 +93,7 @@
 				  <div class="main">
 						<FORM ACTION="" METHOD="POST">
 						<div class="Box">
-					  	<div class="Box-header pl-0">
+					  	<div class="Box-header pl-0 f40">
 					    	<div class="table-list-filters d-flex">
 					  			<div class="table-list-header-toggle states flex-justify-start pl-3">Team Members <B><?= $ActiveTeam ?></B></div>
 					  		</div>
@@ -101,7 +101,7 @@
 				    
 			
 			
-					    <div class="Box-body  js-collaborated-repos-empty">
+					    <div class="Box-body  js-collaborated-repos-empty f40">
 					      <A HREF="unsigned">List Unsigned Users</A>
 					    </div>
 					    
@@ -114,9 +114,9 @@
 							?>		
 							
 							
-		<div class="Box-body  js-collaborated-repos-empty">
+						<div class="Box-body js-collaborated-repos-empty">
 							<div class="flex-items-left">	
-								<span class="ml-4 flex-items-baseline">
+								<span class="ml-4 flex-items-baseline f40">
 									
 									<TABLE BORDER=1>
 										<TR>
@@ -186,7 +186,7 @@
 	</DIV>
 </DIV>
 
-
+</DIV>
 
 
 

@@ -42,7 +42,7 @@
 	    <h2 id="public-profile-heading" class="Subhead-heading">Member Info</h2>
 		</DIV>
 
-		<div class=" mt-0 mb-0">
+		<div class=" mt-0 mb-0 f40">
 			<BR><P><B>Current Team:</B> <?= $ActiveTeam ?></P>
  		</DIV>
  
@@ -50,7 +50,7 @@
 
 	  <div class="clearfix gutter d-flex flex-shrink-0">
 
-		<div class="row">
+		<div class="row f40">
 		  <div class="main">
 				<FORM ACTION="" METHOD="POST">
 				<div class="Box">
@@ -229,7 +229,7 @@
 	</DIV>
 </DIV>
 
-
+</DIV>
 
 
 

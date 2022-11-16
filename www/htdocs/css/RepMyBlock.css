@@ -76,6 +76,16 @@ table.f50 td, th { padding: 5px; text-align: center;}
 .btn {border: 2px solid black;background-color: white;color: black;padding: 14px 28px;font-size: 16px;cursor: pointer;}
 a.btn {-webkit-appearance: button;-moz-appearance: button;appearance: button;text-decoration: none;color: initial;}
 
+
+.submitred {
+	background-color: #EE2E62;
+	color: white;padding: 8px 20px;
+	border: none;cursor: pointer;
+}
+
+.submitred:hover {background-color: #EE2E62;color: #16317D}
+
+
 .success {border-color: #4CAF50;color: #EE2E62;}
 .success:hover {background-color: #4CAF50;color: white;}
 .info {border-color: #2196F3;color: dodgerblue;}

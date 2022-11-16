@@ -1,6 +1,6 @@
 <?php
   $Menu = "profile";
-  $BigMenu = "represent";
+  $BigMenu = "profile";
 
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
@@ -132,18 +132,19 @@
             } 
         	}
       } 
-?>                  </DIV>
+?>                  
 
     <?php if ( $ShowRunForSelected == 1 || 1 == 1) { ?>
-    	      <P><BUTTON type="submit" class="btn btn-primary">Run for the selected positions</BUTTON></p> 
+    	      <P><BUTTON type="submit" class="submitred">Run for the selected positions</BUTTON></p> 
    <?php } ?>
              </FORM>
-             
+             </DIV>
               </DIV>
             </DIV>
           </DIV>
         </DIV>
       </DIV>
     </DIV>
+  </DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";  ?>

@@ -59,7 +59,7 @@
 			?>
 
 
-			  <div class="clearfix gutter d-flex flex-shrink-0">
+			  <div class="clearfix gutter d-flex flex-shrink-0 f40">
 		
 					<div class="col-16">
 	
@@ -140,7 +140,7 @@
 							</DIV>
 							
 			
-								<p><button type="submit" class="btn btn-primary">Setup the candidate petition</button></p>
+								<p><button type="submit" class="submitred">Setup the candidate petition</button></p>
 			
 							</form> 
 			
