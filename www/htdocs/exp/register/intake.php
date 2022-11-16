@@ -186,5 +186,9 @@
 
 	</FORM>
 </DIV>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
 		
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
