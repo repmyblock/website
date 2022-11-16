@@ -31,14 +31,14 @@
 				$MailURLText = "<FONT COLOR=BLUE>" . $k . "</FONT>";
 			
 			} else {
-				$MailToText .= "I want to petition for team " . $k;
+				$MailToText .= "I want to register for team " . $k;
 				$MailURLText = " FOR TEAM <FONT COLOR=BLUE>" . $k . "</FONT>";
 			}
 		} else {
-			$MailToText .= "I want to petition";
+			$MailToText .= "I want to register";
 		}
 	} else {
-		$MailToText .= "I want to petition";
+		$MailToText .= "I want to register";
 	}
 	
 	$MailToText .= "&body=DO CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
@@ -85,7 +85,7 @@
 		
 		<P CLASS="f80">
 			<A HREF="<?= $MailToText ?>">Click on this link to open you mail program or
-			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO PETITION<?= $MailURLText ?></FONT>"</A>
+			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO REGISTER<?= $MailURLText ?></FONT>"</A>
 			and you will receive a link with the registration information.
 		</P>
 		
@@ -114,7 +114,7 @@
 	
 	<P CLASS="f80">
 		<A HREF="<?= $MailToText ?>">Click on this link to open you mail program or
-			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO PETITION<?= $MailURLText ?></FONT>"</A>
+			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO REGISTER<?= $MailURLText ?></FONT>"</A>
 			and you will receive a link with the registration information.
 	</P>
 	
