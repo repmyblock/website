@@ -30,23 +30,7 @@
 				<P class="f40">
 		   		 <B>Current Team:</B> <?= $ActiveTeam ?>
 
-				<?php if ( count ($rmbteam) > 1) { ?>
-						<FORM ACTION="" METHOD="POST">
-						<SELECT  class="mobilebig" NAME="Team_ID">
-							<?php 
-								foreach ($rmbteam as $var) {
-									if (! empty ($var["Team_ID"])) { ?>
-										<OPTION VALUE="<?= $var["Team_ID"] ?>"<?php if ($ActiveTeam_ID == $var["Team_ID"]) { echo " SELECTED"; } ?>><?= $var["Team_Name"] ?></OPTION>							
-									<?php
-									}
-								}
-							?>							
-						</SELECT>
-						<button type="submit" class="submitred">Change Active Team</button>
-						</FORM>
-					
-    
-    <?php } ?>
+		
      	</P>
 				
 				<?php	PlurialMenu($k, $TopMenus); ?>   
