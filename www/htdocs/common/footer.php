@@ -1,10 +1,10 @@
     <DIV class="footer">
-      <P CLASS="footerclass1">
-        <DIV CLASS="FooterTitle">REP MY BLOCK</DIV>
-        <DIV CLASS="FooterInfo">Represent Community By Running For County Committee</DIV>
+      <P class="footerclass1">
+        <DIV class="FooterTitle">REP MY BLOCK</DIV>
+        <DIV class="FooterInfo">Represent Community By Running For County Committee</DIV>
       </P>
-      <P CLASS="footerclass2">
-        <DIV CLASS="FooterLinks">
+      <P class="footerclass2">
+        <DIV class="FooterLinks">
 <?php if ( $MenuLogin == "logged") { ?>
           <A<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?> href="/<?= $middleuri ?>/exp/toplinks/about">ABOUT</a>
           <A<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?> href="/<?= $middleuri ?>/training/steps/torun">REPRESENT</a>
@@ -27,12 +27,12 @@
 <?php } else { ?>              
           <A HREF="/<?= $middleuri ?>/exp/login/login">LOGIN</A>
 <?php } ?>        </DIV>
-        <DIV CLASS="FooterSocial">
-          <A TARGET="twitter" CLASS="FooterSocial" HREF="https://twitter.com/RepMyBlock">Twitter</A>
-          <A TARGET="facebook" CLASS="FooterSocial" HREF="https://www.facebook.com/RepMyBlock">Facebook</A>
-          <A TARGET="instagram" CLASS="FooterSocial"  HREF="https://www.instagram.com/RepMyBlockNYC">Instagram</A>
+        <DIV class="FooterSocial">
+          <A TARGET="twitter" class="FooterSocial" HREF="https://twitter.com/RepMyBlock">Twitter</A>
+          <A TARGET="facebook" class="FooterSocial" HREF="https://www.facebook.com/RepMyBlock">Facebook</A>
+          <A TARGET="instagram" class="FooterSocial"  HREF="https://www.instagram.com/RepMyBlockNYC">Instagram</A>
         </DIV>
-        <DIV CLASS="FooterStuff">
+        <DIV class="FooterStuff">
           <I>RepMyBlock is a <A TARGET="ARMBPROJ" HREF="https://github.com/repmyblock">RepMyBlock</A> project.</I>
         </DIV>
       </P>

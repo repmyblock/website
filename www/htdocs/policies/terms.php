@@ -12,12 +12,12 @@
 
 
 <div class="main">
-	<DIV CLASS="intro center">
+	<DIV class="intro center">
 		<P>
-			<h1 CLASS="intro">Terms of Service.</H1>
+			<h1 class="intro">Terms of Service.</H1>
 		</P>
 		
-		<P CLASS="f60">
+		<P class="f60">
 			<B>
 				Rep My Block is a non-partisan effort to collect, organize and make 
 				accessible the full membership of the county committees in New York State. 
@@ -27,14 +27,14 @@
 			</B>
 		</P>
 		
-		<P CLASS="f60">
+		<P class="f60">
 			<B>
 				Terms of service.
 			</B>
 		</P>
 	</DIV>
 	
-	<P CLASS="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
+	<P class="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
 
 
 </div>

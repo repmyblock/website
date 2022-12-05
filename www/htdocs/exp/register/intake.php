@@ -91,7 +91,6 @@
 		}
 	}
 	
-	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
@@ -99,10 +98,10 @@
 ?>
 <DIV class="main">
 		
-	<DIV CLASS="right f80">Register</DIV>
+	<DIV class="right f80">Register</DIV>
 	
 	<?php if ( ! empty($result["SystemUserEmail_WebCode"])) { ?>
-		<P CLASS="f40">
+		<P class="f40">
 		You are joining <B><?= $result["Team_Name"] ?></B> team. <BR>
 		<?php if ( ! empty ($result["SystemUser_ID"])) { ?>
 			RepMyBlock will be sharing your 
@@ -122,62 +121,60 @@
 		<?php
 		
 			if ($retreguser["PASSWORDTOOSHORT"] == 1) {
-				echo "<P CLASS=\"f60\">";
+				echo "<P class=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The password is too short. It need at least 8 characters.</FONT></B><BR>";
 				echo "</P>";
 			}
 		
 			if ($retreguser["PASSWORDNOTMATCH"] == 1) {
-				echo "<P CLASS=\"f60\">";
+				echo "<P class=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The password don't match.</FONT></B><BR>";
 				echo "</P>";
 			}
 		
 			if ($retreguser["USERNAME"] == 1) {
-				echo "<P CLASS=\"f60\">";
+				echo "<P class=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The USERNAME " . $_POST["username"] . " already exist</FONT></B><BR>";
 				echo "</P>";
 			}
 			
 			if ($retreguser["EMAIL"] == 1) {
-				echo "<P CLASS=\"f60\">";
+				echo "<P class=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The EMAIL " . $_POST["emailaddress"] . " already exist</FONT></B><BR>";
 				echo "</P>";
 			}
 		?>
 		
-
-	
-		<P CLASS="f80">
-			<DIV CLASS="f80">Email:</DIV>
-			<DIV CLASS="f60"><?= $result["SystemUserEmail_AddFrom"] ?><DIV>				
+		<P class="f80">
+			<DIV class="f80">Email:</DIV>
+			<DIV class="f60"><?= $result["SystemUserEmail_AddFrom"] ?><DIV>				
 		</P>
 			
-		<P CLASS="f80">
-			<DIV CLASS="f80">Username:</DIV>
-			<DIV><INPUT CLASS="" type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>"></DIV>
+		<P class="f80">
+			<DIV class="f80">Username:</DIV>
+			<DIV><INPUT class="" type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>"></DIV>
 		</P>
 		
-		<P CLASS="f40">
+		<P class="f40">
 			Choose a username that contains only letters and numbers, or
 			use your email address.
 		</P>
 		
-		<P CLASS="f80">
-			<DIV CLASS="f80">Password:</DIV>
-			<DIV><INPUT CLASS="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE=""><DIV>
+		<P class="f80">
+			<DIV class="f80">Password:</DIV>
+			<DIV><INPUT class="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE=""><DIV>
 		</P>
 		
-		<P CLASS="f80">
-			<DIV CLASS="f80">Verify Password:</DIV>
-			<DIV><INPUT CLASS="" TYPE="password" NAME="verifypassword" PLACEHOLDER=" verify password"  VALUE=""></DIV>
+		<P class="f80">
+			<DIV class="f80">Verify Password:</DIV>
+			<DIV><INPUT class="" TYPE="password" NAME="verifypassword" PLACEHOLDER=" verify password"  VALUE=""></DIV>
 		</P>
 	
 		<P>
-			<DIV><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Register"></DIV>
+			<DIV><INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Register"></DIV>
 		</P>
 		
-		<P CLASS="f40">
+		<P class="f40">
 			By clicking the "Register" button, you are creating a 
 			RepMyBlock account, and you agree to RepMyBlock's 
 			<A HREF="/<?= $middleuri ?>/policies/terms">Terms of Use</A> and 

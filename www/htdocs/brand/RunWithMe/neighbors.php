@@ -47,10 +47,10 @@
 <DIV class="main">
 		
 	<FORM METHOD="POST" ACTION="">		
-	<DIV CLASS="right f80">Download a Paperboy Love Prince Petition</DIV>
+	<DIV class="right f80">Download a Paperboy Love Prince Petition</DIV>
 	
 			
-		<P CLASS="f50">
+		<P class="f50">
 			We need to find the voters in your building that you know that
 			can sign a petition.<BR>
 			<B>Select only the voters you know.</B>
@@ -59,7 +59,7 @@
 		<INPUT TYPE="hidden" NAME="NYSID[0]" VALUE="<?= $URIEncryptedString["NYSID"] ?>">
 
 			
-			<TABLE ID="VoterTable">
+			<TABLE id="VoterTable">
 			<TR>
 				<TH>&nbsp;</TH>
 				<TH>Apt</TH>				
@@ -95,7 +95,7 @@
 			&nbsp;<BR>
 
 			<DIV>
-				<INPUT CLASS="" TYPE="Submit" NAME="checkoneyes" VALUE="Prepare the petition">
+				<INPUT class="" TYPE="Submit" NAME="checkoneyes" VALUE="Prepare the petition">
 			</DIV>
 		</P>
 	</FORM>

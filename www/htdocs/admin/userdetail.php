@@ -33,7 +33,7 @@
 	
 	if ( ! empty ($_POST)) {
 		
-		print "<PRE>" . print_r($_POST, 1) . "</PRE>";
+		WriteStderr($_POST, "Setting Up Privleges, Received POST");
 		$TotalPrivs = 0;
 		
 		if ( ! empty ($_POST["Priviledges"])) {
@@ -41,16 +41,14 @@
 				if ($var == PERM_SUPERUSER) { $TotalPrivs = $var; }
 				else { $TotalPrivs += $var; }
 			}
-			print "Total Privs: $TotalPrivs for " . $URIEncryptedString["UserDetail"];
+	
+			WriteStderr($URIEncryptedString["UserDetail"], "Total Privs: $TotalPrivs for ");		
 			$rmb->UpdateSystemSetPriv($URIEncryptedString["UserDetail"], $TotalPrivs);
 		} else if ( $result["SystemUser_Priv"] > 0) {
 			$rmb->UpdateSystemSetPriv($URIEncryptedString["UserDetail"], 0);
 		}
-			
-			
-					exit();
-		header("Location: /" . $TheNewK . "/admin/userdetail");			
-
+		
+		header("Location: /" . $TheNewK . "/admin/userdetail");
 	}
 	
 	

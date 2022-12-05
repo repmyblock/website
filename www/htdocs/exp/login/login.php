@@ -66,20 +66,20 @@
 ?>
 
 <DIV class="main">
-	<DIV CLASS="right f80bold">Login</DIV>
+	<DIV class="right f80bold">Login</DIV>
 
 		<?php if (! empty ($error_msg)) {
-			echo "<P CLASS=\"f80\">" . $error_msg . "</P>";	
+			echo "<P class=\"f80\">" . $error_msg . "</P>";	
 		} ?>
 		
 		<P>
 			<FORM METHOD="POST" ACTION="">
-					<P CLASS="f80">
+					<P class="f80">
 						Username:
 						<INPUT TYPE="<?= $TypeUsername ?>" NAME="username"  autocorrect="off" autocapitalize="none" VALUE="<?= $PrintUsername ?>" placeholder="Username">
 					<P>
 						
-					<P CLASS="f80">
+					<P class="f80">
 						Password: 
 						<INPUT TYPE="password" NAME="password" placeholder="Password">
 					</P>
@@ -92,15 +92,15 @@
 		
 
 		
-		<P CLASS="f60">
+		<P class="f60">
 			<A HREF="/<?= $middleuri ?>/exp/forgot/forgotpwd">I forgot my password</A>
 		</P>
 		
-		<P CLASS="f60">
+		<P class="f60">
 			<A HREF="/<?= $middleuri ?>/exp/forgot/forgotuser">I forgot my username</A>
 		</P>
 		
-		<P CLASS="f60">
+		<P class="f60">
 			<A HREF="/<?= $middleuri ?>/exp/register/register">Register</A>
 		</P>
 

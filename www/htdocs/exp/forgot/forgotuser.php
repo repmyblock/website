@@ -24,11 +24,11 @@
 		
 	<FORM METHOD="POST" ACTION="">					
 		
-		<DIV CLASS="right f80">Forgot Username</DIV>
+		<DIV class="right f80">Forgot Username</DIV>
 
 		<?php 			
 		if ($EmptyEmail == true) {
-			echo "<P CLASS=\"f60\">";
+			echo "<P class=\"f60\">";
 			echo "<B><FONT COLOR=BROWN>The username field is empty.</FONT></B><BR>";
 			echo "</P>";
 		}
@@ -36,14 +36,14 @@
 
 		
 
-		<P CLASS="f40">
+		<P class="f40">
 			We will send you a link to the email address you 
 			registered so you can send your username.
 		</P>
 
-	<P CLASS="f80">
-		<DIV CLASS="f80">Email:</DIV> 
-		<DIV><INPUT CLASS="" type="email" autocorrect="off" autocapitalize="none" NAME="email" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
+	<P class="f80">
+		<DIV class="f80">Email:</DIV> 
+		<DIV><INPUT class="" type="email" autocorrect="off" autocapitalize="none" NAME="email" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
 	</P>
 			
 	<P>
@@ -52,7 +52,7 @@
 			
 		</FORM>
 	
-	<P CLASS="f40">
+	<P class="f40">
 		If you don't receive a link in the next few hours, 
 		<A HREF="mailto:passwordissues@<?=  $MailFromDomain ?>?subject=Problem with my username&body=Explain the situation here ..."><B>please send an email to  
 								passwordissues@<?=  $MailFromDomain ?></B></A>.

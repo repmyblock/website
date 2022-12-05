@@ -6,7 +6,7 @@
 	
 ?>
 <DIV class="main">
-	<DIV CLASS="right f80">A sensible PBA union.</DIV>
+	<DIV class="right f80">A sensible PBA union.</DIV>
 
 		
 			<P>

@@ -11,14 +11,14 @@
 
 <div class="main">
 		<P>
-			<h1 CLASS="intro">Contact</H1>
+			<h1 class="intro">Contact</H1>
 		</P>
 		
-		<P CLASS="f60">
+		<P class="f60">
 			Please email 	<B><A HREF="mailto:infos@repmyblock.org">infos@repmyblock.org</A></B> for general inquiries.
 		</P>
 		
-		<P CLASS="f60">
+		<P class="f60">
 			If you want to help grow the project, 
 			<B><A HREF="/<?= $middleuri ?>/volunteer/tothecause">please check the volunteer page</A></B>.
 		</P>

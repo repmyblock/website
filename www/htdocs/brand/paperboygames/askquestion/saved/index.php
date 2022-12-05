@@ -7,7 +7,7 @@
 		
 ?>
 <DIV class="main">
-	<DIV CLASS="right f80"><FONT SIZE=+3>Paperboys Games</FONT></DIV>
+	<DIV class="right f80"><FONT SIZE=+3>Paperboys Games</FONT></DIV>
 			
 			<BR>
 			

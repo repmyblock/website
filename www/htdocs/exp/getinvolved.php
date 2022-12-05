@@ -46,18 +46,18 @@
 
 <div class="main">
 	<CENTER>
-	<P CLASS="BckGrndCenter">I WANT TO</P>
+	<P class="BckGrndCenter">I WANT TO</P>
 
 	<DIV>
-		<A class="action-runfor" HREF="interested/" CLASS="RunCC"><img class="action-runfor" src="/pics/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
-		<A class="action-nominate" HREF="propose/" CLASS="NomCandidate"><img class="action-nominate" src="/pics/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
+		<A class="action-runfor" HREF="interested/" class="RunCC"><img class="action-runfor" src="/pics/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
+		<A class="action-nominate" HREF="propose/" class="NomCandidate"><img class="action-nominate" src="/pics/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
 	</DIV>
 <?php /*
-	<P CLASS="BlueBox">
+	<P class="BlueBox">
 		<A HREF="interested" class="w3-button w3-bar-item w3-blue w3-hover-text-red BlueBox">ACT NOW! PETITIONING RUNS FROM<BR>FEBRUARY 26 TO APRIL 4, 2019.</a>
 	</P>
 */?>
-	<P CLASS="BckGrndElement">HOW IT WORKS</P>
+	<P class="BckGrndElement">HOW IT WORKS</P>
 
 	<P>
 		<B>The County Committee is the most basic committee of any New York party; it's their backbone.</B>
@@ -69,7 +69,7 @@
 		It's the body that validates the party backroom deals. 
 	</P>
 	
-	<P CLASS="MediaCenter">
+	<P class="MediaCenter">
 	 <iframe width="560" height="315" src="https://www.youtube.com/embed/MnI7iBxCN4A?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</P>
 

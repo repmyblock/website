@@ -88,12 +88,12 @@
 
 	<P>
 			<FORM METHOD="POST" ACTION="">
-					<P CLASS="f80">
+					<P class="f80">
 						Username:
 						<INPUT TYPE="text" NAME="username" VALUE="<?= $username ?>" placeholder="Username">
 					<P>
 						
-					<P CLASS="f80">
+					<P class="f80">
 						Hashkey: 
 						<INPUT TYPE="text" NAME="hashkey" VALUE="<?= $hashkey ?>" SIZE=60 placeholder="Hashkey">
 					</P>

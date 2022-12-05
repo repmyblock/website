@@ -44,16 +44,16 @@
 	<FORM METHOD="POST" ACTION="">
 		<INPUT TYPE="hidden" NAME="hashkey" VALUE="<?= $hashkey ?>">	
 		
-		<DIV CLASS="right f80">Forgot Password</DIV>
+		<DIV class="right f80">Forgot Password</DIV>
 
-			<P CLASS="f60 justify">
+			<P class="f60 justify">
 				After you type your username you
 				will be able to choose a new password.
 			</P>
 			
-			<P CLASS="f80">
-				<DIV CLASS="f80">Username:</DIV> 
-				<DIV><INPUT CLASS="" type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE=""><DIV>
+			<P class="f80">
+				<DIV class="f80">Username:</DIV> 
+				<DIV><INPUT class="" type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE=""><DIV>
 			</P>
 
 			<P>

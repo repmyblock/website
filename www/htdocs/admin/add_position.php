@@ -115,7 +115,7 @@
 								<dl class="form-group col-48 d-inline-block"> 
 								<dt class="mobilemenu"><label for="user_profile_name">Type of Position</label><DT>
 								<dd>
-									<SELECT CLASS="mobilebig" NAME="COUNTY">
+									<SELECT class="mobilebig" NAME="COUNTY">
 									<OPTION VALUE="">&nbsp;</OPTION>
 									<OPTION VALUE="Party Position"<?php if ($FormFieldType == "party") { echo " SELECTED"; } ?>>Party Position</OPTION>
 									<OPTION VALUE="Elected Office"<?php if ($FormFieldType == "office") { echo " SELECTED"; } ?>>Elected Position</OPTION>

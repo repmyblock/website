@@ -67,7 +67,7 @@
 			    <h2 id="public-profile-heading" class="Subhead-heading">Admin Team Management</h2>
 				</DIV>
 
-				<div class=" mt-0 mb-0">
+				<div class="mt-0 mb-0">
 					<BR>
 		   		 <P><B>Current Team:</B> <?= $ActiveTeam ?></P>
 
@@ -76,7 +76,7 @@
 					
 					<P>
 						<FORM ACTION="" METHOD="POST">
-						<SELECT  CLASS="mobilebig" NAME="Team_ID">
+						<SELECT  class="mobilebig" NAME="Team_ID">
 							<?php 
 								foreach ($rmbteam as $var) {
 									if (! empty ($var)) { ?>

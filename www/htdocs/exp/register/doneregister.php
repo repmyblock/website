@@ -7,16 +7,16 @@
 	<div class="main">
 
 
-		<P CLASS="f80">
+		<P class="f80">
 			To continue, login with the credentials you just created.
 		</P>
 		
-		<p CLASS="f80">
+		<p class="f80">
 			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
 		</P>
 		
 		
-		<p CLASS="f60">
+		<p class="f60">
 			The instructional video will show you what to expect once you login for the first time.
 		</P>
 			
@@ -28,7 +28,7 @@
 
 		</P>
 		
-		<p CLASS="f80">
+		<p class="f80">
 			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
 		</P>
 		

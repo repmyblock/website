@@ -13,7 +13,6 @@ class RepMyBlock extends queries {
 	  $DebugInfo["Flag"] = $debug;
 	  
 	  WriteStderr($DebugInfo, "RepMyBlock ->");	
-	  
 	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
@@ -26,6 +25,8 @@ class RepMyBlock extends queries {
 	
 	function SaveTeamInfo($SystemUser_ID, $Team_ID, $Priv = NULL, $Active = 'yes') {
 		 $ret = $this->ReturnTeamInfo($SystemUser_ID, $Team_ID);
+		 WriteStderr($ret, "ReturnTeamInfo");
+		 
 		 if (empty ($ret)) {			
 			$sql = "INSERT INTO TeamMember SET SystemUser_ID = :SystemUser, Team_ID = :TeamID, " . 
 						 "TeamMember_Active = :Active, TeamMember_ApprovedDate = NOW()";

@@ -30,41 +30,41 @@
 ?>
 <DIV class="main">
 		
-	<DIV CLASS="right f80">Waiting in line to vote</DIV>
+	<DIV class="right f80">Waiting in line to vote</DIV>
 
 	
 	
 	<FORM METHOD="POST" ACTION="">	
 
 																					
-		<P CLASS="f60">
+		<P class="f60">
 			Rep My Block will sent you information about the process at the end of December 2020 or January 2021 on 
 			how to get involved. 
 		</P>	
 	
-		<P CLASS="f60">
+		<P class="f60">
 			Please give us either your email or your cell phone number.
 		</P>
 		
-		<P CLASS="f80">
-			<DIV CLASS="f80">Email:</DIV> 
-			<DIV><INPUT CLASS="" type="<?= $TypeEmail ?>" autocorrect="off" autocapitalize="none" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
+		<P class="f80">
+			<DIV class="f80">Email:</DIV> 
+			<DIV><INPUT class="" type="<?= $TypeEmail ?>" autocorrect="off" autocapitalize="none" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
 		</P>
 		
 		<BR>
 		
-		<P CLASS="f80">
-			<DIV CLASS="f80">Cell Phone:</DIV> 
-			<DIV><INPUT CLASS="" type="<?= $TypeTel ?>" autocorrect="off" autocapitalize="none" NAME="cellphone" PLACEHOLDER="1 (212) 555-1212" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
+		<P class="f80">
+			<DIV class="f80">Cell Phone:</DIV> 
+			<DIV><INPUT class="" type="<?= $TypeTel ?>" autocorrect="off" autocapitalize="none" NAME="cellphone" PLACEHOLDER="1 (212) 555-1212" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
 		</P>
 			
 		<BR>
 			
 		<P>
-			<DIV><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Receive Information"></DIV>
+			<DIV><INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Receive Information"></DIV>
 		</P>
 		
-		<P CLASS="f40">
+		<P class="f40">
 			By clicking the <B>"Receiving Information By Email"</B> button, 
 			you are acknoleging to accept to receive email by <?= $CampaignName ?> the campaign. 
 			RepMyBlock is a tool used by <?= $CampaignName ?> and the data available is collected

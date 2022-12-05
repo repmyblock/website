@@ -12,7 +12,7 @@
 ?>
 
 <DIV class="main">		
-	<DIV CLASS="right f80">Voter Guide</DIV>
+	<DIV class="right f80">Voter Guide</DIV>
  	<DIV class="panels">		
 	
 	<P>
@@ -79,14 +79,14 @@
 	</P>
 
 <P>
-	<DIV CLASS="right f60">	
+	<DIV class="right f60">	
 		<A HREF="<?= PrintReferer() ?>">Return to previous menu</A></B>
 	</DIV>
 </P>
 
 	
 <P>
-	<DIV CLASS="right f80">Notice to voters and candidates</DIV>
+	<DIV class="right f80">Notice to voters and candidates</DIV>
 	
 	<P>
 		If you are a voter and would like to receive an update on the election in your 
@@ -105,7 +105,7 @@
 	</P>
 	
 	
-	<DIV CLASS="right f60">	
+	<DIV class="right f60">	
 		<A HREF="<?= PrintReferer() ?>">Return to previous menu</A></B>
 	</DIV>
 		

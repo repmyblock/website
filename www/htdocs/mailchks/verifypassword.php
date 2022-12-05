@@ -71,7 +71,7 @@
 	<P>
 			<FORM METHOD="POST" ACTION="">
 					
-					<P CLASS="f80">
+					<P class="f80">
 						Password: 
 						<INPUT TYPE="password" NAME="password" placeholder="Password">
 					</P>
@@ -83,7 +83,7 @@
 		</P>
 
 	
-	<P CLASS="f60">
+	<P class="f60">
 			<A HREF="/<?= $middleuri ?>/exp/forgot/forgotpwd">I forgot my password</A>
 	</P>
 	

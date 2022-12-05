@@ -110,7 +110,7 @@
 				foreach ($Electors as $Address => $Elector) {
 					if ( ! empty ($Address)) { ?>
 						<div class="list-group-item filtered f60 hundred">
-							<A CLASS="pad40" HREF="open/?k=<?= $k ?>"><i class="fas fa-folder handle"></i></A>							
+							<A class="pad40" HREF="open/?k=<?= $k ?>"><i class="fas fa-folder handle"></i></A>							
 							
 							
 							<?php /* INPUT TYPE="checkbox" NAME="SelectAllAddresses" VALUE="<?= $Address ?>">&nbsp;&nbsp;

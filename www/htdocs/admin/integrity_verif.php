@@ -78,7 +78,7 @@
 							<dl class="form-group col-48 d-inline-block"> 
 								<dt class="mobilemenu"><label for="user_profile_name">Table Name</label><DT>
 								<dd>
-									<SELECT CLASS="mobilebig" NAME="DBTABLE">
+									<SELECT class="mobilebig" NAME="DBTABLE">
 									<OPTION VALUE="">Select a table</OPTION>
 									<?php foreach ($DabataBaseTables as $var) {
 										if ( ! empty($var)) {

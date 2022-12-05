@@ -31,9 +31,9 @@
 ?>
 <DIV class="main">
 		
-	<DIV CLASS="right f80">Share the knowledge</DIV>
+	<DIV class="right f80">Share the knowledge</DIV>
 
-	<P CLASS="f60">
+	<P class="f60">
 			
 			 	<DIV class="panels">		
 				<?php
@@ -57,7 +57,7 @@
 				
 
 
-			<DIV CLASS="right f60">	
+			<DIV class="right f60">	
 			<A HREF="<?= PrintReferer()  ?>">Return to previous menu</A></B>
 		</DIV>
 		</div>

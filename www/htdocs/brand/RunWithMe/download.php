@@ -22,15 +22,15 @@
 ?>
 <DIV class="main">
 		
-	<DIV CLASS="right f80">Download a Paperboy Love Prince Petition</DIV>
+	<DIV class="right f80">Download a Paperboy Love Prince Petition</DIV>
 	
 			
-		<P CLASS="f60 p20">
+		<P class="f60 p20">
 			To prepare the petition, we need to verify your Voter Registration. Please enter your first and last name.
 		</P>
 
 		<?php if ( ! empty($error_msg)) { ?>
-			<P CLASS="f60">
+			<P class="f60">
 				<FONT COLOR="BROWN"><B><?= $error_msg ?></B></FONT>
 			</P>
 		<?php } ?>
@@ -38,21 +38,21 @@
 
 	<FORM METHOD="POST" ACTION="">			
 		
-		<P CLASS="f80">
-			<DIV CLASS="f80">First Name:</DIV> 
-			<DIV><INPUT CLASS="" type="text" autocorrect="off" autocapitalize="none" NAME="FirstName" PLACEHOLDER="First Name" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
+		<P class="f80">
+			<DIV class="f80">First Name:</DIV> 
+			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="FirstName" PLACEHOLDER="First Name" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
 		</P>
 			
-		<P CLASS="f80">
-			<DIV CLASS="f80">Last Name:</DIV>
-			<DIV><INPUT CLASS="" type="text" autocorrect="off" autocapitalize="none" NAME="LastName" PLACEHOLDER="Last Name" VALUE="<?= $_POST["username"] ?>"></DIV>
+		<P class="f80">
+			<DIV class="f80">Last Name:</DIV>
+			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="LastName" PLACEHOLDER="Last Name" VALUE="<?= $_POST["username"] ?>"></DIV>
 		</P>
 		
 		<P>
-			<DIV><INPUT CLASS="" TYPE="Submit" NAME="CheckRegistration" VALUE="Check My Voter Registration"></DIV>
+			<DIV><INPUT class="" TYPE="Submit" NAME="CheckRegistration" VALUE="Check My Voter Registration"></DIV>
 		</P>
 		
-		<P CLASS="f40">
+		<P class="f40">
 			By clicking the "Register" button, you are creating a 
 			RepMyBlock account, and you agree to RepMyBlock's 
 			<A HREF="/text/terms">Terms of Use</A> and 

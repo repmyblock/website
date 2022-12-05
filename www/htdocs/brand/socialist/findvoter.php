@@ -53,9 +53,9 @@
 <DIV class="main">
 		
 	<FORM METHOD="POST" ACTION="">		
-	<DIV CLASS="right f80">Download an Social Democrat of America Petition</DIV>
+	<DIV class="right f80">Download an Social Democrat of America Petition</DIV>
 	
-		<P CLASS="f60 p20">
+		<P class="f60 p20">
 			<?php if (count ($result) == 1) { ?>
 				We found this voter.<BR>
 				<B>Is that you? </B>
@@ -86,7 +86,7 @@
 	
 			<INPUT TYPE="hidden" NAME="NYSID" VALUE="<?= $result[0]["UniqNYSVoterID"] ?>">	
 
-			<TABLE ID="VoterTable" width=100%>
+			<TABLE id="VoterTable" width=100%>
 			<TR>
 				<TH>First Name</TH>			
 				<TH>Last Name</TH>
@@ -113,14 +113,14 @@
 
 <?php /* 
 			<DIV>
-				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="checkoneyes" VALUE="Yes">
-				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="checkoneno" VALUE="No">
+				<INPUT class="votertable" id="votertable" TYPE="Submit" NAME="checkoneyes" VALUE="Yes">
+				<INPUT class="votertable" id="votertable" TYPE="Submit" NAME="checkoneno" VALUE="No">
 			</DIV>
 			*/ ?>
 			
 			
 					<DIV>
-				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="searchanothername" VALUE="Search another name">
+				<INPUT class="votertable" id="votertable" TYPE="Submit" NAME="searchanothername" VALUE="Search another name">
 			</DIV>
 			
        <?php } else { 
@@ -129,7 +129,7 @@
        
       
        
-      <TABLE ID="VoterTable" WIDTH=100%>
+      <TABLE id="VoterTable" WIDTH=100%>
 			<TR>
 				<TH>&nbsp;</TH>
 				<TH>First Name</TH>			
@@ -168,32 +168,24 @@
      }
 }     ?>
 
-
-
-  
-	
 			</TABLE>
 			
 			&nbsp;<BR>
 
 <?php /*
 			<DIV>
-				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="checkoneyes" VALUE="That is me">
-				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="checkoneno" VALUE="None of them are me">
+				<INPUT class="votertable" id="votertable" TYPE="Submit" NAME="checkoneyes" VALUE="That is me">
+				<INPUT class="votertable" id="votertable" TYPE="Submit" NAME="checkoneno" VALUE="None of them are me">
 			</DIV>
 		*/ ?>
 			
 				<DIV>
-				<INPUT CLASS="votertable" id="votertable" TYPE="Submit" NAME="searchanothername" VALUE="Search another name">
+				<INPUT class="votertable" id="votertable" TYPE="Submit" NAME="searchanothername" VALUE="Search another name">
 			</DIV>
 			
 		</P>
 						
 <?php   } ?>
-
-
-
-		
 
 	</FORM>
 </DIV>

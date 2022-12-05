@@ -14,6 +14,7 @@ const PERM_ADMIN_RAWDB = 1024;
 const PERM_ADMIN_ASSIGNPRIV = 2048;
 const PERM_MENU_DOCU = 4096;
 const PERM_MENU_WALKSHEET = 8192;
+const PERM_OPTION_ALLPOS = 16384;
 
 function ordinal($number) {
   $ends = array('th','st','nd','rd','th','th','th','th','th','th');
@@ -199,7 +200,7 @@ function PrintVerifMenu($VerifEmail = true, $VerifVoter = true) {
 function PlurialMenu($k, $menusarray) {
 	if ( ! empty ($menusarray)) {
 		echo "\n          <!-- Begin Purial Menu --->\n";
-		echo "          <NAV class=\"UnderlineNav pt-1 mb-4\">\n";
+		echo "          <NAV class=\"UnderlineNav pt-1 mb-0\">\n";
 		echo "            <DIV class=\"UnderlineNav-body\">\n";
 		foreach ($menusarray as $var) {		
 			if ( $_SERVER["PHP_SELF"] == "/lgd/" . $var["url"] . ".php" ) { $selected = " selected"; } else { $selected = ""; }			

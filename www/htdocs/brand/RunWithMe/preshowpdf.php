@@ -45,7 +45,7 @@
 <DIV class="main">
 		
 	<FORM METHOD="POST" ACTION="">		
-	<DIV CLASS="right f80">Download a Paperboy Love Prince Petition</DIV>
+	<DIV class="right f80">Download a Paperboy Love Prince Petition</DIV>
 	
 		<P>
 			&nbsp;
@@ -101,7 +101,7 @@
 			&nbsp;<BR>
 
 			<DIV>
-				<INPUT CLASS="" TYPE="Submit" NAME="Save" VALUE="Prepare the PDF file">
+				<INPUT class="" TYPE="Submit" NAME="Save" VALUE="Prepare the PDF file">
 			</DIV>
 			
 		   

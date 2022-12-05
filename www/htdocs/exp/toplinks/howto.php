@@ -12,14 +12,14 @@
 <div class="main">
 	<div class="row">
 		<div class="register">				<P>
-			<h1 CLASS="intro">How to file</H1>
+			<h1 class="intro">How to file</H1>
 		</P>
 		
-		<P CLASS="f60">
+		<P class="f60">
 			<B>How to file the documents.</B>
 		</P>
 
-		<P CLASS="f40">
+		<P class="f40">
 			The filing period will begin on <B><?= $ImportantDates["NY"]["LongDate"]["FirstSubmitDay"]?></B> 
 			and end at midnight on <B><?= $ImportantDates["NY"]["LongDate"]["LastPetitionDay"] ?></B>. 
 			<B>You do not need to drop your petitions before <?= $ImportantDates["NY"]["LongDate"]["FirstSubmitDay"]?>.</B>

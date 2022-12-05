@@ -50,19 +50,19 @@
 <DIV class="main">
 		
 	<P>
-		<DIV CLASS="right f80">Register</DIV>
+		<DIV class="right f80">Register</DIV>
 	</P>
 	
 	<?php switch($oldk) { 
 		case "donotcall": ?>
 		
 			
-		<P CLASS="f40">	
+		<P class="f40">	
 			In order to use the RepMyBlock website you must register by sending an email
 			and following the registration process.
 		</P>
 		
-		<P CLASS="f80">
+		<P class="f80">
 			<A HREF="<?= $MailToText ?>">Click on this link to open you mail program or
 			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>ADD ME TO THE <?= $MailURLText ?></FONT>"</A>
 			and you will receive a link with the registration information to be added in the Do Not Call List.
@@ -73,17 +73,17 @@
 	<?php break;
 		case "invalidcode": ?>
 		
-		<P CLASS="f80">
+		<P class="f80">
 			<B><FONT COLOR=brown>The code you were given is invalid.</FONT></B> 
 		</P>
 		
 		
-		<P CLASS="f40">	
+		<P class="f40">	
 			In order to use the RepMyBlock website you must register by sending an email
 			and following the registration process.
 		</P>
 		
-		<P CLASS="f80">
+		<P class="f80">
 			<A HREF="<?= $MailToText ?>">Click on this link to open you mail program or
 			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO REGISTER<?= $MailURLText ?></FONT>"</A>
 			and you will receive a link with the registration information.
@@ -92,18 +92,18 @@
 	<?php break;
 		case "emailreg": ?>
 		
-		<P CLASS="f80">
+		<P class="f80">
 			<B><FONT COLOR=brown>That email address is already in our database.</FONT></B> 
 		</P>
 		
 		
-		<P CLASS="f40">	
+		<P class="f40">	
 			Use the <A HREF="/<?= $k ?>/exp/forgot/forgotpwd">forgot my password</A> or the 
 			<A HREF="/<?= $k ?>/exp/forgot/forgotuser">forgot the username</A> screen to 
 			retreive your information.
 		</P>
 		
-		<P CLASS="f40">	
+		<P class="f40">	
 			If two people in the same household use the same email, send us an email 
 			at <A HREF="<?= $MultipleMailToText ?>">infos@repmyblock.org</A></B> to enable 
 			the <B>multiple users under same email</B> feature.
@@ -112,13 +112,13 @@
 	<?php break; 
 		default: ?>
 	
-	<P CLASS="f80">
+	<P class="f80">
 		<A HREF="<?= $MailToText ?>">Click on this link to open you mail program or
 			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO REGISTER<?= $MailURLText ?></FONT>"</A>
 			and you will receive a link with the registration information.
 	</P>
 	
-	<P CLASS="f40">
+	<P class="f40">
 		<B>Check your SPAM folder.</B>
 	</P>
 
@@ -126,12 +126,12 @@
 	<?php break; 
 	} ?>
 	
-	<P CLASS="f40">
+	<P class="f40">
 		If you made several requests, <A HREF="/<?= $middleuri ?>/register/investigate">click here to alert us 
 		and we will investigate</A>.
 	</P>
 	
-	<P CLASS="f40">
+	<P class="f40">
 		By clicking the "Register" button, you are creating a 
 		RepMyBlock account, and you agree to RepMyBlock's 
 		<A HREF="/<?= $middleuri ?>/policies/terms">Terms of Use</A> and 

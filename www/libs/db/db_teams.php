@@ -19,8 +19,8 @@ class Teams extends RepMyBlock {
 	}
 		
 	function ListActiveTeam($SystemUserID, $Active = 'yes') {		
-		$sql = "SELECT * FROM Team " . 
-						"LEFT JOIN TeamMember ON (TeamMember.Team_ID = Team.Team_ID) " . 
+		$sql = "SELECT *, TeamMember.SystemUser_ID AS SystemIDFromTeam FROM Team " . 
+						"LEFT JOIN TeamMember ON (TeamMember.Team_ID = Team.Team_ID AND TeamMember_Active = 'yes') " . 
 						"WHERE (TeamMember.SystemUser_ID = :SystemUser AND TeamMember_Active = :Active) " .
 						" OR (Team_Public = 'public' AND Team_Active = :Active)";
 						
@@ -38,8 +38,6 @@ class Teams extends RepMyBlock {
 						"LEFT JOIN CandidateGroup ON (Candidate.Candidate_ID = CandidateGroup.Candidate_ID) " .
 						"WHERE Team.SystemUser_ID = :SystemID AND Candidate.Candidate_UniqStateVoterID IS NOT NULL";
 		WriteStderr($sql, "ListActiveTeam");	
-		
-						
 		$sql_vars = array("SystemID" => $SystemUser_ID);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
@@ -70,6 +68,13 @@ class Teams extends RepMyBlock {
 						"ORDER BY SystemUserEmail_Received DESC";
 		$sql_vars = array("TeamCode" => $TeamID);
 		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	function DisableTeamMember($TeamMemberID, $SystemID, $Notes = NULL) {
+		$sql = "UPDATE TeamMember SET TeamMember_Active = 'no', TeamMember_RemovedBy = :SystemUser_ID, TeamMember_RemovedDate = NOW() " .
+						"WHERE TeamMember_ID = :TeamMemberID";
+		$sql_vars = array("TeamMemberID" => $TeamMemberID, "SystemUser_ID" => $SystemID);
+		return $this->_return_nothing($sql, $sql_vars);
 	}
 	
 }

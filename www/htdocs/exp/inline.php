@@ -32,13 +32,13 @@
 ?>
 <DIV class="main">
 		
-	<DIV CLASS="right f80">Waiting in line to vote</DIV>
+	<DIV class="right f80">Waiting in line to vote</DIV>
 
-	<P CLASS="f60">
+	<P class="f60">
 		Would you represent your block?
 	</P>
 
-	<P CLASS="MediaCenter">
+	<P class="MediaCenter">
 		<div>
   <div style="position:relative;padding-top:56.25%;">
 	 <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/MnI7iBxCN4A?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -54,15 +54,15 @@
 																					)))) ?>">
 	
 	<P>
-		<DIV><CENTER><INPUT CLASS="" TYPE="Submit" NAME="NotInterested" VALUE="I am not interested but show me a QR code to share the knowledge"></CENTER></DIV>
+		<DIV><CENTER><INPUT class="" TYPE="Submit" NAME="NotInterested" VALUE="I am not interested but show me a QR code to share the knowledge"></CENTER></DIV>
 	</P>
 	
 	<P>
-		<DIV><CENTER><INPUT CLASS="" TYPE="Submit" NAME="WantToKnowMore" VALUE="I want to know more"></CENTER></DIV>
+		<DIV><CENTER><INPUT class="" TYPE="Submit" NAME="WantToKnowMore" VALUE="I want to know more"></CENTER></DIV>
 	</P>
 	
 	<P>
-		<DIV><CENTER><INPUT CLASS="" TYPE="Submit" NAME="SendMeMoreInfo" VALUE="Send me more information"></CENTER></DIV>
+		<DIV><CENTER><INPUT class="" TYPE="Submit" NAME="SendMeMoreInfo" VALUE="Send me more information"></CENTER></DIV>
 	</P>
 
 	

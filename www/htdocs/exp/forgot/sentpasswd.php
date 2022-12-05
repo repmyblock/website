@@ -4,16 +4,16 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 <DIV class="main">
-	<DIV CLASS="right f80">Forgot Password</DIV>
+	<DIV class="right f80">Forgot Password</DIV>
 
 		<DIV>
-			<P CLASS="f60 justify">
+			<P class="f60 justify">
 				We sent you an email with a link.
 			</P>
 		</DIV>
 		
 		<DIV>
-			<P CLASS="f40">
+			<P class="f40">
 				If you don't receive an email in the next few hours, 
 				
 				<A HREF="mailto:passwordissues@<?=  $MailFromDomain ?>?subject=Problem with my password&body=Explain the situation here ..."><B>please send an email to  

@@ -36,17 +36,15 @@
 <DIV class="main">
 		
 	<FORM METHOD="POST" ACTION="">		
-	<DIV CLASS="right f80">Download an Social Democrat of America Petition</DIV>
-	
-
-		<P CLASS="f50">
+	<DIV class="right f80">Download an Social Democrat of America Petition</DIV>
+		<P class="f50">
 			Which on of these person will you ask to witness your own petition?<BR>
 			<B>You cannot withness your own petition so you need to ask one of these person to do it.</B>
 		</P>
 
 			<INPUT TYPE="hidden" NAME="NYSID" VALUE="<?= $URIEncryptedString["NYSID"][0] ?>">
 				
-			<TABLE  ID="VoterTable">
+			<TABLE id="VoterTable">
 			<TR>
 				<TH>&nbsp;</TH>
 				<TH>Witness</TH>				
@@ -90,7 +88,7 @@
 			&nbsp;<BR>
 
 			<DIV>
-				<INPUT CLASS="" TYPE="Submit" NAME="Save" VALUE="Prepare the PDF file">
+				<INPUT class="" TYPE="Submit" NAME="Save" VALUE="Prepare the PDF file">
 			</DIV>
 			
 		   

@@ -6,12 +6,12 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
-	<DIV CLASS="right f80">Running for Office Training Material</DIV>
+	<DIV class="right f80">Running for Office Training Material</DIV>
 
 
-<h4><P CLASS="f60">The County Committee</P></h4>
+<h4><P class="f60">The County Committee</P></h4>
 
-<P CLASS="f40">
+<P class="f40">
 	<B>Teaser:</B> What is the County Commmittee.
 </P>
 
@@ -21,7 +21,7 @@
 	</DIV>
 </P>
 
-<P CLASS="f40">
+<P class="f40">
 	<B>News Segments:</B> Corruption at the Board of Elections.
 </P>
 
@@ -31,7 +31,7 @@
 	</DIV>
 </P>
 
-<P CLASS="f40">
+<P class="f40">
 	<B>Radio Show:</B> How to Work the Political Machine.
 </P>
 
@@ -44,14 +44,14 @@
 	
 	
 	
-<P CLASS="f40">
+<P class="f40">
 	<B>Buy this Book: How to win an election</B> <I>(for those running for higher office than County Committee.)</I></P>
 	
 	<TABLE style="border:0;">
 		<TR  style="border:0;">
 			<TD VALIGN=TOP><BR><A HREF="https://press.princeton.edu/books/hardcover/9780691154084/how-to-win-an-election"><IMG ALT="Cover How To Win An Election" SRC="/images/HowToWinElection.jpg"></A></TD>
 			<TD>&nbsp;&nbsp;&nbsp;</TD>
-			<TD VALIGN=TOP><P CLASS="f40">How to Win an Election is an ancient Roman guide for campaigning that is as up-to-date as 
+			<TD VALIGN=TOP><P class="f40">How to Win an Election is an ancient Roman guide for campaigning that is as up-to-date as 
 		tomorrow's headlines. In 64 BC when idealist Marcus Cicero, Rome's greatest orator, ran for
 		consul <I>(the highest office in the Republic)</I>, his practical 
 		brother Quintus decided he needed some no-nonsense advice on running a successful campaign. 
@@ -84,11 +84,11 @@
 
 
 
-<h4><P CLASS="f60">The County Committee Zoom with Paperboy hosted by el Chino!</P></h4>
+<h4><P class="f60">The County Committee Zoom with Paperboy hosted by el Chino!</P></h4>
 
 
 
-<P CLASS="f40">
+<P class="f40">
 	<B>Episode #1:</B> Sal Albanese explains the corruption of the New York system.
 </P>
 
@@ -101,7 +101,7 @@
 
 
 
-<P CLASS="f40">
+<P class="f40">
 	<B>Episode #2:</B> Badrun Khan explains the gruling work that goes into petitioning.
 </P>
 
@@ -113,7 +113,7 @@
 
 
 
-<P CLASS="f40">
+<P class="f40">
 	<B>Episode #3:</B> Ben Yee explains the work of the Activist.
 </P>
 
@@ -123,7 +123,7 @@
 	</DIV>
 </P>
 
-<P CLASS="f40">
+<P class="f40">
 	<B>Episode #4:</B> Vittoria Fariello explain the expectation of being elected as a Party Official.
 </P>
 
@@ -133,7 +133,7 @@
 	</DIV>
 </P>
 
-<P CLASS="f40">
+<P class="f40">
 	<B>Episode #5:</B> Jared Rich goes over the inportance of the access of the local press in being considered a viable candidate.
 </P>
 
@@ -143,7 +143,7 @@
 	</DIV>
 </P>
 
-<p CLASS="f40">
+<p class="f40">
 	<B>Episode #6:</B> Dr. Devi Nampiaparampil, Republican candidate for Public Advocate, dive into the road blocks setup by the Campaign Finance Fund.
 </P>
 
@@ -153,7 +153,7 @@
 	</DIV>
 </P>
 			
-			<P CLASS="f40">
+			<P class="f40">
 				Rep My Block is provided Free of Charge to any candidate that wishes to integrate 
 				it's services.
 			</P>

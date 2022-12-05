@@ -11,19 +11,19 @@
 
 
 <div class="main">
-	<DIV CLASS="intro center">
+	<DIV class="intro center">
 		<P>
-			<h1 CLASS="intro">Calendar.</H1>
+			<h1 class="intro">Calendar.</H1>
 		</P>
 		
-		<P CLASS="f60">
+		<P class="f60">
 			<B>
 				Primary Election June 22, 2021 
 				General Election November 2, 2021
 			</B>
 		</P>
 		
-		<P CLASS="f60">
+		<P class="f60">
 			<P>VOTER REGISTRATION FOR PRIMARY</P>
 					Feb 21 List of Registered Voters: Such lists shall be 
 					published before the twenty-first day of February 
@@ -193,7 +193,7 @@
 		</P>
 	</DIV>
 	
-	<P CLASS="f80 center"><A HREF="/register">Register on the Rep My Block website</A></P>
+	<P class="f80 center"><A HREF="/register">Register on the Rep My Block website</A></P>
 
 
 </div>

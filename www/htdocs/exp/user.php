@@ -46,9 +46,9 @@
 ?>
 <DIV class="main">
 		
-	<DIV CLASS="right f80">Information</DIV>
+	<DIV class="right f80">Information</DIV>
 
-	<P CLASS="f40">
+	<P class="f40">
 		Dear <B><?= $FirstName ?></B>, <BR>
 		<BR>you were given this 
 		code by <B><?= $VolunteerName ?></B>, a volunteer
@@ -70,16 +70,16 @@
 																					"U" => $URIEncryptedString["U"],  	
 																					"S" => $URIEncryptedString["S"]
 																		)))) ?>">
-		<P CLASS="f80">
-			<DIV CLASS="f80">Email:</DIV> 
-			<DIV><INPUT CLASS="" type="<?= $TypeEmail ?>" autocorrect="off" autocapitalize="none" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
+		<P class="f80">
+			<DIV class="f80">Email:</DIV> 
+			<DIV><INPUT class="" type="<?= $TypeEmail ?>" autocorrect="off" autocapitalize="none" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
 		</P>
 			
 		<P>
-			<DIV><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Receive Information By Email"></DIV>
+			<DIV><INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Receive Information By Email"></DIV>
 		</P>
 		
-		<P CLASS="f40">
+		<P class="f40">
 			By clicking the <B>"Receiving Information By Email"</B> button, 
 			you are acknoleging to accept to receive email by <?= $CampaignName ?> the campaign. 
 			RepMyBlock is a tool used by <?= $CampaignName ?> and the data available is collected

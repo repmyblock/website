@@ -35,23 +35,23 @@
 <div class="main">
 	
 	<FORM METHOD="POST" ACTION="">
-		<DIV CLASS="right f80">Forgot Password</DIV>
+		<DIV class="right f80">Forgot Password</DIV>
 
 			<?php 			
 			if ($EmptyEmail == true) {
-				echo "<P CLASS=\"f60\">";
+				echo "<P class=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The email address is empty.</FONT></B><BR>";
 				echo "</P>";
 			}
 			?>
 		
-			<P CLASS="f40">
+			<P class="f40">
 				We will send you a link to the email address you 
 				registered so you can reset your password.
 			</P>
 		
-			<P CLASS="f80">
-				<DIV CLASS="f80">Username:</DIV> 
+			<P class="f80">
+				<DIV class="f80">Username:</DIV> 
 				<DIV><INPUT type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>"><DIV>
 			</P>
 
@@ -59,7 +59,7 @@
 				<INPUT TYPE="Submit" NAME="signin" VALUE="Reset my password">
 			</P>
 
-			<P CLASS="f40">
+			<P class="f40">
 				If you don't receive a link in the next few hours, 
 				<A HREF="mailto:passwordissues@<?=  $MailFromDomain ?>?subject=Problem with my username&body=Explain the situation here ..."><B>please send an email to  
 				passwordissues@<?=  $MailFromDomain ?></B></A>.

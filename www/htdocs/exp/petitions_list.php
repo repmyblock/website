@@ -31,10 +31,10 @@
 		<div class="register">			
 			
 		<P>
-			<h1 CLASS="intro">List of Available Petitions</H1>
+			<h1 class="intro">List of Available Petitions</H1>
 		</P>
 		
-		<P CLASS="f60">
+		<P class="f60">
 			<B>
 				<UL>
 		<?php

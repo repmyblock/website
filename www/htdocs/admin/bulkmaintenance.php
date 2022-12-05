@@ -94,7 +94,7 @@
 							<dl class="form-group col-48 d-inline-block"> 
 								<dt class="mobilemenu"><label for="user_profile_name">Action</label><DT>
 								<dd>
-									<SELECT  CLASS="mobilebig" NAME="Action">				
+									<SELECT  class="mobilebig" NAME="Action">				
 										<OPTION VALUE="">&nbsp;</OPTION>						
 										<OPTION VALUE="ADD">Add</OPTION>
 										<OPTION VALUE="REMOVE">Remove</OPTION>
@@ -105,7 +105,7 @@
 								<dl class="form-group col-48 d-inline-block"> 
 								<dt class="mobilemenu"><label for="user_profile_name">Priviledges</label><DT>
 								<dd>
-									<SELECT CLASS="mobilebig" NAME="ChangePriv">
+									<SELECT class="mobilebig" NAME="ChangePriv">
 										<OPTION VALUE="">&nbsp;</OPTION>
 										<?php if ( ! empty ($resultcodes)) {
 														foreach ($resultcodes as $var) {
@@ -131,7 +131,7 @@
 							<dl class="form-group col-48 d-inline-block"> 
 								<dt class="mobilemenu"><label for="user_profile_name">Party</label><DT>
 								<dd>
-									<SELECT  CLASS="mobilebig" NAME="Party">
+									<SELECT  class="mobilebig" NAME="Party">
 										<OPTION VALUE="">&nbsp;</OPTION>		
 										<OPTION VALUE="DEM"<?php if ($FormFieldParty == "DEM") { echo " SELECTED"; } ?>>Democratic</OPTION>
 										<OPTION VALUE="REP"<?php if ($FormFieldParty == "REP") { echo " SELECTED"; } ?>>Republican</OPTION>
