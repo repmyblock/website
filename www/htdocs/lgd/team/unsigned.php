@@ -74,7 +74,7 @@
 							
 		
 							<div class="flex-items-left">	
-								<span class="ml-4 flex-items-baseline">
+								<span class="ml-0 flex-items-baseline">
 									
 									<TABLE BORDER=1>
 										<TR>
