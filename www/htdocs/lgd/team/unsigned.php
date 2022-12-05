@@ -19,22 +19,39 @@
 
 <div class="row">
   <div class="main">
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-  		<div class="<?= $Cols ?> float-left">
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+  		<div class="<?= $Cols ?> float-left col-full">
     
 			  <!-- Public Profile -->
-			  <div class="Subhead mt-0 mb-0">
-			    <h2 id="public-profile-heading" class="Subhead-heading">Team Management</h2>
+			  <div class="Subhead">
+			    <h2 class="Subhead-heading">Team Management</h2>
 				</DIV>
 
-				<div class="f60 mt-0 mb-0">
-					<BR>
-		   		 <P><B>Current Team:</B> <?= $ActiveTeam ?></P>
-     	</DIV>
+				<P class="f40">
+		   		 <B>Current Team:</B> <?= $ActiveTeam ?>
+
+				<?php if ( count ($rmbteam) > 1) { ?>
+						<FORM ACTION="" METHOD="POST">
+						<SELECT  class="mobilebig" NAME="Team_ID">
+							<?php 
+								foreach ($rmbteam as $var) {
+									if (! empty ($var["Team_ID"])) { ?>
+										<OPTION VALUE="<?= $var["Team_ID"] ?>"<?php if ($ActiveTeam_ID == $var["Team_ID"]) { echo " SELECTED"; } ?>><?= $var["Team_Name"] ?></OPTION>							
+									<?php
+									}
+								}
+							?>							
+						</SELECT>
+						<button type="submit" class="submitred">Change Active Team</button>
+						</FORM>
+					
+    
+    <?php } ?>
+     	</P>
 				
+				<?php	PlurialMenu($k, $TopMenus); ?>   
 
-
-			  <div class="clearfix gutter d-flex flex-shrink-0 f40">
+			  <div class="clearfix gutter">
 
 				<div class="row">
 				  <div class="main">
@@ -45,6 +62,9 @@
 					  			<div class="table-list-header-toggle states flex-justify-start pl-3">Team Members <B><?= $ActiveTeam ?></B></div>
 					  		</div>
 					    </div>
+
+
+			
 				    
 			
 			

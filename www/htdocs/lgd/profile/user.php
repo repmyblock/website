@@ -142,7 +142,7 @@
 
 			     
 			<?php if (empty ($TopMenus)) { ?>
-				<P CLASS="f40">
+				<P class="f40">
 					<B>
 						You <FONT COLOR=BROWN>just</FONT> need to fill in your <FONT COLOR=BROWN>first</FONT> 
 						and <FONT COLOR=BROWN>last</FONT> name to enable other screens.
@@ -150,32 +150,28 @@
 				</P>
 			<?php } ?>
 			     
-		
 					<form id="" action="" accept-charset="UTF-8" method="post">
-						
 						<div>
 							
 							<dl class="form-group col-5 d-inline-block"> 			
-								<dt><label CLASS="f40" for="user_profile_name">First Name</label><DT>
+								<dt><label class="f40" for="user_profile_name">First Name</label><DT>
 								<dd>
 									<input class="" type="text" Placeholder="First" value="<?= $PersonFirstName ?>" name="FirstName" id="">
 								</dd>
 							</dl>
 							
 							<dl class="form-group col-5 d-inline-block"> 
-								<dt><label CLASS="f40" for="user_profile_name">Last Name</label><DT>
+								<dt><label class="f40" for="user_profile_name">Last Name</label><DT>
 								<dd>
 									<input class="" type="text" Placeholder="Last"  value="<?= $PersonLastName ?>" name="LastName" id="">
 								</dd>
 							</dl>
 							<P>
-								<INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Update profile">
+								<INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Update profile">
 							</P>
 							
-				
-							
 							<dl class="form-group">
-								<dt><label  CLASS="f40" for="user_profile_blog">Email</label></dt>
+								<dt><label  class="f40" for="user_profile_blog">Email</label></dt>
 								<dd><input class="" type="text" value="<?= $PersonEmail ?>" name="Email" id=""></dd>
 <?php 					if ($rmbperson["ChangeEmail"] == 1) { ?>
 									<dt><label for="user_profile_blog"><FONT COLOR=GREEN><B>Email was changed, please verify your email.</B></FONT></label></dt>
@@ -215,7 +211,7 @@
 							
 							*/ ?>
 							
-							<p><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Update profile"></p>
+							<p><INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Update profile"></p>
 						</div>
 					</form>    
 				</div>

@@ -44,7 +44,7 @@
 			    		
 			    		
 			    	
-			     	<SELECT CLASS="f40 <?= $selCols ?>" NAME="TYPE" PLACEHOLDER="">
+			     	<SELECT class="f40 <?= $selCols ?>" NAME="TYPE" PLACEHOLDER="">
 			     		<OPTION>Select a district type</OPTION>	
 			     		<OPTION VALUE="AD"<?php if ($_POST["TYPE"] == "AD") { echo " SELECTED"; } ?>>State Assembly District</OPTION>	
 			     		<OPTION VALUE="SN"<?php if ($_POST["TYPE"] == "SN") { echo " SELECTED"; } ?>>State Senatorial District</OPTION>	
@@ -54,7 +54,7 @@
 			     	
 			    
 			     	
-			    	<INPUT CLASS="F40" TYPE="TEXT" NAME="VALUE" SIZE=5 PLACEHOLDER="Enter district number" VALUE="<?= $_POST["VALUE"] ?>">
+			    	<INPUT class="F40" TYPE="TEXT" NAME="VALUE" SIZE=5 PLACEHOLDER="Enter district number" VALUE="<?= $_POST["VALUE"] ?>">
 		     	 	
 			     	
 				</P>	

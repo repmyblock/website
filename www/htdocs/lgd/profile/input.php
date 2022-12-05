@@ -114,14 +114,14 @@
 					  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 							<div>
 								<dl class="form-group col-5 d-inline-block"> 
-									<dt><label for="user_profile_name" CLASS="f40">First Name</label><DT>
+									<dt><label for="user_profile_name" class="f40">First Name</label><DT>
 									<dd>
 										<input class="form-control" type="text" Placeholder="First" name="FirstName"<?php if (!empty ($FirstName)) { echo " VALUE=" . $FirstName; } ?> id="user_profile_name">
 									</dd>
 								</dl>
 			
 								<dl class="form-group col-5 d-inline-block"> 
-									<dt><label for="user_profile_name" CLASS="f40">Last Name</label><DT>
+									<dt><label for="user_profile_name" class="f40">Last Name</label><DT>
 									<dd>
 										<input class="form-control" type="text" Placeholder="Last" name="LastName"<?php if (!empty ($LastName)) { echo " VALUE=" . $LastName; } ?> id="user_profile_name">
 									</dd>
@@ -129,16 +129,16 @@
 							</DIV>
 			
 							<DIV>
-								<dt><label for="user_profile_email" CLASS="f40">Date of Birth</label></dt>	
-								<dl class="form-group col-3 d-inline-block">
+								<dt><label for="user_profile_email" class="f40">Date of Birth</label></dt>	
+								<dl class="form-group col-4 d-inline-block">
 									<dd>
-										<input CLASS="f40" class="form-control" type="text" name="Day" id="" Placeholder="Day"<?= $SizeField ?>>
+										<input class="f40" class="" type="text" name="Day" id="" Placeholder="Day"<?= $SizeField ?>>
 									</DD>
 								</DL>  
 							
-								<dl class="f40 form-group col-3  d-inline-block">      
+								<dl class="f40 col-3 d-inline-block">      
 									<DD>
-										<select CLASS="f40" class="form-select" name="Month" id="">
+										<select class="f40" class="form-select" name="Month" id="">
 											<option value="">Select month</option>
 											<option value="01">January</option>
 											<option value="02">February</option>
@@ -158,11 +158,11 @@
 			
 								<dl class="form-group col-3  d-inline-block">      
 									<DD>
-										<input CLASS="f40" class="form-control" type="text" Placeholder="Year" name="Year" id=""<?= $SizeField ?>>
+										<input class="f40" class="form-control" type="text" Placeholder="Year" name="Year" id=""<?= $SizeField ?>>
 									<dd>
 								</dl>
 			
-								<p><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Search Voter Registration"></p>
+								<p><INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Search Voter Registration"></p>
 			
 							</form> 
 			

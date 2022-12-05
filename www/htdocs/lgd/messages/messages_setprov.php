@@ -107,7 +107,7 @@
 								<dl class="form-group col-48 d-inline-block"> 
 								<dt class="mobilemenu"><label for="user_profile_name">County</label><DT>
 								<dd>
-									<SELECT CLASS="mobilebig" NAME="COUNTY">
+									<SELECT class="mobilebig" NAME="COUNTY">
 									<OPTION VALUE="">Whole State</OPTION>
 									<OPTION VALUE="NYC"<?php if ($FormFieldCounty == "NYC"  || empty ($FormFieldCounty)) { echo " SELECTED"; } ?>>New York City</OPTION>
 									<OPTION VALUE="BQK"<?php if ($FormFieldCounty == "BQK") { echo " SELECTED"; } ?>>Bronx, Queens, and Kings</OPTION>
@@ -134,7 +134,7 @@
 							<dl class="form-group col-48 d-inline-block"> 
 								<dt class="mobilemenu"><label for="user_profile_name">Party</label><DT>
 								<dd>
-									<SELECT  CLASS="mobilebig" NAME="Party">
+									<SELECT  class="mobilebig" NAME="Party">
 										<OPTION VALUE="">All</OPTION>
 										<OPTION VALUE="DEM"<?php if ($FormFieldParty == "DEM") { echo " SELECTED"; } ?>>Democratic</OPTION>
 										<OPTION VALUE="REP"<?php if ($FormFieldParty == "REP") { echo " SELECTED"; } ?>>Republican</OPTION>

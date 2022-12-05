@@ -93,7 +93,7 @@
 							<dl class="form-group col-48 d-inline-block"> 
 								<dt class="mobilemenu"><label for="user_profile_name">Running for</label><DT>
 								<dd>
-									<SELECT  CLASS="mobilebig" NAME="Party">
+									<SELECT  class="mobilebig" NAME="Party">
 										<OPTION VALUE="DEM"<?php if ($FormFieldParty == "DEM") { echo " SELECTED"; } ?>>County Committee</OPTION>
 										<OPTION VALUE="REP"<?php if ($FormFieldParty == "REP") { echo " SELECTED"; } ?>>City Council</OPTION>
 									</SELECT>
@@ -131,7 +131,7 @@
 				foreach ($Electors as $Address => $Elector) {
 					if ( ! empty ($Address)) { ?>
 						<div class="list-group-item filtered f60 hundred">
-							<A CLASS="pad40" HREF="/lgd/<?=  CreateEncoded ( array( 
+							<A class="pad40" HREF="/lgd/<?=  CreateEncoded ( array( 
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 									"FirstName" => $URIEncryptedString["FirstName"], 
 									"LastName" => $URIEncryptedString["LastName"],

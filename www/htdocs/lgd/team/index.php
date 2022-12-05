@@ -50,24 +50,20 @@
 
 <div class="row">
   <div class="main">
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-  		<div class="<?= $Cols ?> float-left">
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+  		<div class="<?= $Cols ?> float-left col-full">
     
 			  <!-- Public Profile -->
-			  <div class="Subhead mt-0 mb-0">
-			    <h2 id="public-profile-heading" class="Subhead-heading">Team Management</h2>
+			  <div class="Subhead">
+			    <h2 class="Subhead-heading">Team Management</h2>
 				</DIV>
 
-				<div class="f40 mt-0 mb-0">
-					<BR>
-		   		 <P><B>Current Team:</B> <?= $ActiveTeam ?></P>
+				<P class="f40">
+		   		 <B>Current Team:</B> <?= $ActiveTeam ?>
 
 				<?php if ( count ($rmbteam) > 1) { ?>
-			
-					
-					<P>
 						<FORM ACTION="" METHOD="POST">
-						<SELECT  CLASS="mobilebig" NAME="Team_ID">
+						<SELECT  class="mobilebig" NAME="Team_ID">
 							<?php 
 								foreach ($rmbteam as $var) {
 									if (! empty ($var["Team_ID"])) { ?>
@@ -79,21 +75,20 @@
 						</SELECT>
 						<button type="submit" class="submitred">Change Active Team</button>
 						</FORM>
-					</P>
+					
     
     <?php } ?>
-     	</DIV>
+     	</P>
 				
-     
 				<?php	PlurialMenu($k, $TopMenus); ?>   
 
-			  <div class="clearfix gutter d-flex flex-shrink-0">
+			  <div class="clearfix gutter">
 
 				<div class="row">
 				  <div class="main">
 						<FORM ACTION="" METHOD="POST">
 						<div class="Box">
-					  	<div class="Box-header pl-0 f40">
+					  	<div class="Box-header pl-0">
 					    	<div class="table-list-filters d-flex">
 					  			<div class="table-list-header-toggle states flex-justify-start pl-3">Team Members <B><?= $ActiveTeam ?></B></div>
 					  		</div>
@@ -101,7 +96,7 @@
 				    
 			
 			
-					    <div class="Box-body  js-collaborated-repos-empty f40">
+					    <div class="Box-body  js-collaborated-repos-empty">
 					      <A HREF="unsigned">List Unsigned Users</A>
 					    </div>
 					    
@@ -116,7 +111,7 @@
 							
 						<div class="Box-body js-collaborated-repos-empty">
 							<div class="flex-items-left">	
-								<span class="ml-4 flex-items-baseline f40">
+								<span class="ml-0 flex-items-baseline">
 									
 									<TABLE BORDER=1>
 										<TR>
@@ -145,16 +140,16 @@
 										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["SystemUser_Party"] ?></TD>
 										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["SystemUser_FirstName"] ?></TD>
 										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["SystemUser_LastName"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $var["AD"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $var["ED"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $var["TOWN"] ?></TD>
-										<TH style="padding:0px 10px;"><A HREF="/<?=  CreateEncoded (
+										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["AD"] ?></TD>
+										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["ED"] ?></TD>
+										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["TOWN"] ?></TD>
+										<TD style="padding:0px 10px;<?= $style ?>"><A HREF="/<?=  CreateEncoded (
 																												array( 
 																													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 																													"Team_ID" => $_POST["Team_ID"],
 																											    "TeamMember_ID" => $var["TeamMember_ID"]
 																												)
-																									); ?>/lgd/team/memberinfo"">Member Info</A></TH>
+																									); ?>/lgd/team/memberinfo"">Member Info</A></TD>
 									</TR>
 									
 								<?php } ?>
@@ -162,7 +157,7 @@
 								</TABLE>
 								
 								<P>
-									<I>Members in red have not been authorized by an admin.</B>
+									<I>Members in red have not been authorized by an admin.</I>
 								</P>
 								
 										</span>

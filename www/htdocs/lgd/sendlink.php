@@ -70,16 +70,16 @@
 																						"SendOption" => $URIEncryptedString["SendOption"]
 																			)))) ?>">
 				
-					<P CLASS="f80">
-						<DIV CLASS="f80">Email:</DIV> 
-						<DIV><INPUT CLASS="" type="<?= $TypeEmail ?>" autocorrect="off" autocapitalize="none" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
+					<P class="f80">
+						<DIV class="f80">Email:</DIV> 
+						<DIV><INPUT class="" type="<?= $TypeEmail ?>" autocorrect="off" autocapitalize="none" NAME="emailaddress" PLACEHOLDER="you@email.net" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
 					</P>
 						
 					<P>
-						<DIV><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Send the information By Email"></DIV>
+						<DIV><INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Send the information By Email"></DIV>
 					</P>
 					
-					<P CLASS="f40">
+					<P class="f40">
 						By clicking the <B>"Send Information By Email"</B> button, 
 						you are acknoleging to accept to receive email by <?= $CampaignName ?> the campaign. 
 						RepMyBlock is a tool used by <?= $CampaignName ?> and the data available is collected
@@ -88,7 +88,6 @@
 						<A HREF="/exp/<?= $middleuri ?>/privacy">Privacy Policy.</A>
 					</P>
 
-				
 				</div>
 			</DIV>
 		</FORM>

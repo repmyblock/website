@@ -8,38 +8,54 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_teams.php";
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   
+  
+  $FoundUserInTeam = 0; // This is to print in case I don't find a team.
+  $FoundPublicCampaign = 0;
+  
 	$rmb = new Teams();
 	if ( ! empty ($_POST)) {
-		
+				
 		$Encrypted_URL = $Decrypted_k;
 		foreach ($_POST["PositionRunning"] as $var) {
 			$Encrypted_URL .= "&Position[]=" . $var;
 		}
 		
 		WriteStderr($_POST, "Post in ProfileTeam.php");
+		// This is to remove the users
+		if ( ! empty ( $_POST["TeamIDRmval"])) {
+			foreach ($_POST["TeamIDRmval"] as $var) {
+				$rmb->DisableTeamMember($var, $URIEncryptedString["SystemUser_ID"]);
+			}
+		}
+
+		// This is to add the users
+		if ( ! empty ( $_POST["TeamIDAddtion"])) {
+			foreach ($_POST["TeamIDAddtion"] as $var) {
+				// function SaveTeamInfo($URIEncryptedString["SystemUser_ID"], $var, $Priv = NULL, $Active = 'yes') {
+				$rmb->SaveTeamInfo($URIEncryptedString["SystemUser_ID"], $var, NULL, 'yes');
+			}
+		}
 		
-		$TrimmedAccess = trim($_POST["TeamCode"]);
-		$CampaignTeam = $rmb->FindCampaignFromCode($TrimmedAccess);
-		WriteStderr($CampaignTeam, "CampaignTeam");
-		
-		if ( $CampaignTeam["Team_AccessCode"] == $TrimmedAccess ) {
+		if (! empty($_POST["TeamCode"])) {		
+			$TrimmedAccess = trim($_POST["TeamCode"]);
+			$CampaignTeam = $rmb->FindCampaignFromCode($TrimmedAccess);
+			WriteStderr($CampaignTeam, "CampaignTeam");
+
+			if ( $CampaignTeam["Team_AccessCode"] == $TrimmedAccess ) {
+				WriteStderr($CampaignTeam, "CampaignTeam: " . $URIEncryptedString["SystemUser_ID"] . " CampaignTema: " . $CampaignTeam["Team_ID"]);			
+				$rmb->SaveTeamInfo($URIEncryptedString["SystemUser_ID"], $CampaignTeam["Team_ID"]);
+				header("Location: /" . CreateEncoded ( array( 
+									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+									"SuccessMsg" => "1",
+								))  . "/lgd/profile/profileteam");
+			} 
+		}
 			
-			WriteStderr($CampaignTeam, "CampaignTeam: " . $URIEncryptedString["SystemUser_ID"] . " CampaignTema: " . $CampaignTeam["Team_ID"]);			
-			$rmb->SaveTeamInfo($URIEncryptedString["SystemUser_ID"], $CampaignTeam["Team_ID"]);
-			header("Location: /" . CreateEncoded ( array( 
-								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-								"SuccessMsg" => "1",
-							))  . "/lgd/profile/profileteam");
-			
-		} else {
-			header("Location: /" . CreateEncoded ( array( 
+		header("Location: /" . CreateEncoded ( array( 
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 								"SuccessMsg" => "0",
 								"ErrorMsg" => "Could not find access code",
 							))  . "/lgd/profile/profileteam");
-			
-			
-		}
 		exit();
 	}
 
@@ -77,10 +93,10 @@
   	<div class="main">
 
 		
-		<DIV CLASS="f40">
+		<P class="f40">
 			<B><FONT COLOR=BROWN>If you are part of a team, your team leader will supply you a code</A>
 		</FONT> </B>
-		</DIV>
+		</P>
 
 
 
@@ -89,14 +105,14 @@
 			
 				<div>
 					<dl> 
-						<dt><label for="user_profile_name" CLASS="f60">Team Code</label><DT>
+						<dt><label for="user_profile_name" class="f60">Team Code</label><DT>
 						<dd>
 							<input class="form-control f40" type="text" Placeholder="Enter code" name="TeamCode"<?php if (!empty ($TeamCode)) { echo " VALUE=" . $TeamCode; } ?> id="user_profile_name">
 						</dd>
 					</dl>
 
 					<dl> 
-						<dt><p><button class="submitred">Apply the Team Code</BUTTON></p></DT>
+						<dt><button class="submitred">Apply the Team Code</BUTTON></DT>
 					</dl>
 				</DIV>
 			
@@ -111,37 +127,55 @@
 			<?php 			
 					if ( ! empty ($rmbteams)) {
 						foreach ($rmbteams as $var) {
-							if ( ! empty ($var["SystemUser_ID"])) {
+							if ( $var["SystemIDFromTeam"] == $URIEncryptedString["SystemUser_ID"]) {
+								$FoundUserInTeam = 1;
 			?>		
 				<DIV>
 					<div class="list-group-item filtered f50">
-	    			<span><INPUT class="f50" TYPE="CHECKBOX" NAME="TeamIDRmval[]" VALUE="<?= $var["Team_ID"] ?>"></span>			
+	    			<span><INPUT class="f50" TYPE="CHECKBOX" NAME="TeamIDRmval[]" VALUE="<?= $var["TeamMember_ID"] ?>"></span>			
 						<span><?= $var["Team_Name"] ?></span> 
 					</div>
  				</DIV>
  				
+ 			
+ 				
 			<?php } 
-					} ?>
+					
+			} ?>
 					
 					</DIV>
+								
+				<?php if ($FoundUserInTeam == 1) { ?>
 								
 				<dl class=""> 
 					<dt><p><button class="submitred">Remove me from the selected campaigns</BUTTON></p></DT>
 				</dl>
 				
-				<?php } else { ?> 				
+				
+				
+			<?php }
+				
+				 } 
+				 
+				 if ($FoundUserInTeam == 0) {
+				 
+				 ?> 				
+ 				
  				
  				<DIV>
 					<div class="list-group-item filtered f60">
 	    			<span>You don't belong to any team.</span>			
 					</div>
  				</DIV>
+ 			<BR>
  				
- 				</DIV>
-			<?php } ?> 				
+ 				<?php } ?> 		
  				
  				
-			<BR>			
+				
+ 				
+ 				
+		
 		
 	 			<div class="Box">
 			  	<div class="Box-header pl-0">
@@ -153,13 +187,13 @@
 		    	<?php 			
 					if ( ! empty ($rmbteams)) {
 						foreach ($rmbteams as $var) {
-							if ( empty ($var["SystemUser_ID"]) && $var["Team_Public"] == "public") {
-			?>		
-			
+							if ( empty ($var["SystemIDFromTeam"]) &&  $var["Team_Public"] == "public") {
+							 $FoundPublicCampaign = 1;
+			?>
 				<DIV>
-					<div class="list-group-item filtered f60">
-	    			<span><INPUT TYPE="CHECKBOX" NAME="TeamIDRmval[]" VALUE="<?= $var["Team_ID"] ?>"></span>			
-						<span><B><?= $var["Team_Name"] ?></B></span>
+					<div class="list-group-item filtered f50">
+	    			<span><INPUT TYPE="CHECKBOX" NAME="TeamIDAddtion[]" VALUE="<?= $var["Team_ID"] ?>"></span>			
+						<span><?= $var["Team_Name"] ?></span>
 					</div>
  				</DIV>
 
@@ -167,11 +201,18 @@
 					} ?>
 					
 					</DIV>
+					
+				<?php					if (  $FoundPublicCampaign == 1 ) { ?>
+					
 								<dl class=""> 
 					<dt><p><button class="submitred">Request information from selected campaigns</BUTTON></p></DT>
 				</DL>
 				
-				<?php } else { ?> 		
+				<?php } ?>
+				
+				<?php } 
+				
+					if (  $FoundPublicCampaign == 0 ) { ?> 		
  				
  				<DIV>
 					<div class="list-group-item filtered f60">
@@ -181,6 +222,7 @@
  				
  				</DIV>
 			<?php } ?> 	
+			
 	 		
 
 </DIV>

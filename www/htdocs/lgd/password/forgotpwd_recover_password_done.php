@@ -4,13 +4,13 @@
 ?>
 <DIV class="main">
 		
-	<DIV CLASS="right f80">Forgot Password</DIV>
+	<DIV class="right f80">Forgot Password</DIV>
 
-		<P CLASS="f60">
+		<P class="f60">
 			The password was changed.
 		</P>
 	
-		<p CLASS="f60">
+		<p class="f60">
 			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
 		</P>
 	</DIV>

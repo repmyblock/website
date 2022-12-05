@@ -36,7 +36,7 @@
 					WriteStderr($Decrypted_k, "Decrypted_k:");
 					$NewKEncrypt = CreateEncoded (array("Candidate_ID" => $result[0]["Candidate_ID"]));
 				?>	
-				<P CLASS="f60">
+				<P class="f60">
 						Download a 
 						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/E<?= $result[0]["Candidate_ID"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/petition">blank petition</A>
 						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/E<?= $result[0]["Candidate_ID"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/petition"><i class="fa fa-download" aria-hidden="true"></i></A> 
@@ -51,13 +51,13 @@
 				
 				</P>
 				
-				<P CLASS="f40">
+				<P class="f40">
 					If the petition says <B>VOID</B> in red or pink, do not use it. Send us an email to
 					<B><A HREF="mailto:petitionvoid@repmyblock.org">petitionvoid@repmyblock.org</A></B> 
 					with a copy of the petition so we can investigate the matter.
 				</P>
 
-				<P CLASS="f40">
+				<P class="f40">
 					Once you printed the petition, all you need to do is to collect <?= $NumberOfSignatures ?> from the 
 					list of voters. In this video, Paperboy Prince explain how easy is to collect the signatures.
 				</P>
@@ -69,18 +69,18 @@
 					</CENTER>
 				</DIV>
 
-				<P CLASS="f40">
+				<P class="f40">
 					Once you collected the  <?= $NumberOfSignatures ?> or more signatures, you need to wait until 
 					April 1<sup>st</sup> to take them to the board of elections. <B>Just follow the 
 					<A HREF="/<?= $k ?>/exp/toplinks/howto">instruction posted on the FAQ</A>.</B>
 				</P>
 				
-				<P CLASS="f40">
+				<P class="f40">
 					If you petitioned with another candidate, contact that other candidate directly to get the specific 
 					instructions for turning in your petitons.
 				</P>
 				
-				<P CLASS="f40">
+				<P class="f40">
 					<B>Download : <A TARGET="BLANKPETITION3" HREF="<?= $FrontEndPDF ?>/E<?= $result[0]["Candidate_ID"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/NYC/CRU_PreFile">the Petition-Pre Assigned form</A></B> and 
 					mail it to the Candidate Record Unit of the Board of Election.
 				</P>

@@ -64,31 +64,31 @@
 ?>
 <DIV class="main">
 		
-	<DIV CLASS="right f80">Forgot Password</DIV>
+	<DIV class="right f80">Forgot Password</DIV>
 
 		<FORM METHOD="POST" ACTION="">	
 			<INPUT TYPE="hidden" NAME="login" VALUE="password" CHECKED>	
 				
 			<?php if (! empty ($ErrorMessage)) { 
-				echo "<P CLASS=\"f60\"><FONT COLOR=RED>" . $ErrorMessage . "</FONT></P>";
+				echo "<P class=\"f60\"><FONT COLOR=RED>" . $ErrorMessage . "</FONT></P>";
 			} ?>
 			
-			<P CLASS="f60">
+			<P class="f60">
 				Choose a password that contains only letters and numbers.
 			</P>
 			
-			<P CLASS="f80">
-				<DIV CLASS="f80">Password:</DIV>
-				<DIV><INPUT CLASS="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE=""><DIV>
+			<P class="f80">
+				<DIV class="f80">Password:</DIV>
+				<DIV><INPUT class="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE=""><DIV>
 			</P>
 			
-			<P CLASS="f80">
-				<DIV CLASS="f80">Verify Password:</DIV>
-				<DIV><INPUT CLASS="" TYPE="password" NAME="verifypassword" PLACEHOLDER="verify password"  VALUE=""></DIV>
+			<P class="f80">
+				<DIV class="f80">Verify Password:</DIV>
+				<DIV><INPUT class="" TYPE="password" NAME="verifypassword" PLACEHOLDER="verify password"  VALUE=""></DIV>
 			</P>
 		
 			<P>
-				<DIV><INPUT CLASS="" TYPE="Submit" NAME="SaveInfo" VALUE="Change Password"></DIV>
+				<DIV><INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Change Password"></DIV>
 			</P>
 
 		</FORM>

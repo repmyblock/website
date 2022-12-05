@@ -115,7 +115,7 @@
               <DIV class="main">
                 <FORM ACTION="" METHOD="POST">
 
-                  <P CLASS="f40">
+                  <P class="f40">
                     This profile will be presented to every person that visits the Rep My Block website. You 
                     will be able to publish a two-page PDF of your platform that will be used to create a voter 
                     booklet that a voter will download and email.

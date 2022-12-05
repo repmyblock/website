@@ -60,10 +60,10 @@
 					if ( ! empty ($Address)) { ?>
 						<div class="list-group-item filtered f60 hundred">
 							
-							<A CLASS="pad40" HREF="<?= $k ?>/open"><i class="fas fa-folder handle"></i></A>							
+							<A class="pad40" HREF="<?= $k ?>/open"><i class="fas fa-folder handle"></i></A>							
 							
 							
-					 INPUT TYPE="checkbox" NAME="SelectAllAddresses" VALUE="<?= $Address ?>">&nbsp;&nbsp;
+					 <INPUT TYPE="checkbox" NAME="SelectAllAddresses" VALUE="<?= $Address ?>">&nbsp;&nbsp;
 							<button class="accordeonbutton" id="<?= $Counter++ ?>">Open</button>	
 						
 							<span><B><?= $Address ?></B></span>  	          			

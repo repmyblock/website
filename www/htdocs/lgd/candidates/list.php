@@ -29,11 +29,11 @@
 					WriteStderr($Decrypted_k, "Decrypted_k:");
 					$NewKEncrypt = CreateEncoded (array("Candidate_ID" => $result[0]["Candidate_ID"]));
 				?>	
-				<P CLASS="f60">
+				<P class="f60">
 					This is the current list of candidates that are running for office in New York State.
 				</P>
 
-				<P CLASS="f40">
+				<P class="f40">
 					At this time, these candidates will need to get on the ballot. You can decide to help them
 					by downloading a petition, signing it and returning it to their campaign headquarters.
 				</P>
