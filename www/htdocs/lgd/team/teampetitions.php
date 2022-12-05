@@ -15,9 +15,9 @@
 	$EncryptURL = EncryptURL("CandidateID=" . $Candidate_ID . "&PetitionSetID=" . $CandidatePetitionSet_ID);
 	
 	$TopMenus = array ( 
-		array("k" => $k, "url" => "team/index", "text" => "Manage Pledges"),
+		array("k" => $k, "url" => "team/index", "text" => "Team Members"),
 		array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-		array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
+		array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
 	);			
 	WriteStderr($TopMenus, "Top Menu");		
 	
@@ -29,11 +29,11 @@
 <div class="row">
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-  		<div class="<?= $Cols ?> float-left">
+  		<div class="<?= $Cols ?> float-left col-full">
     
 			  <!-- Public Profile -->
 			  <div class="Subhead mt-0 mb-0">
-			    <h2 id="public-profile-heading" class="Subhead-heading">Manage Petitions</h2>
+			    <h2 class="Subhead-heading">Manage Petitions</h2>
 			  </div>
 			    
 		<?php PlurialMenu($k, $TopMenus); ?>

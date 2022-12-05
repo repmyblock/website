@@ -23,10 +23,17 @@
   		<div class="<?= $Cols ?> float-left col-full">
     
 			  <!-- Public Profile -->
-			  <div class="Subhead">
-			    <h2 class="Subhead-heading">Team Management</h2>
+			  <div class="Subhead mt-0 mb-0">
+			    <h2 class="Subhead-heading">Uncompleted Registrations</h2>
 				</DIV>
+				
+				<?php	PlurialMenu($k, $TopMenus); ?>   
 
+				 <div class="clearfix gutter">
+			  	<div class="row">
+				  <div class="main">
+			  	
+			  		<DIV>
 				<P class="f40">
 		   		 <B>Current Team:</B> <?= $ActiveTeam ?>
 
@@ -135,6 +142,10 @@
 
 </DIV>
 
+</DIV>
 
+</DIV>
+
+</DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

@@ -42,7 +42,7 @@
 	$TopMenus = array ( 						
 		array("k" => $k, "url" => "team/index", "text" => "Team Members"),
 		array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-		array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Team")
+		array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
 	);
 										
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
@@ -54,10 +54,22 @@
   		<div class="<?= $Cols ?> float-left col-full">
     
 			  <!-- Public Profile -->
-			  <div class="Subhead">
+			  <div class="Subhead mt-0 mb-0">
 			    <h2 class="Subhead-heading">Team Management</h2>
 				</DIV>
+				
+			
+				<?php	PlurialMenu($k, $TopMenus); ?>   
+		
+	
+	
+				
 
+			  <div class="clearfix gutter">
+			  	<div class="row">
+				  <div class="main">
+			  	
+			  		<DIV>
 				<P class="f40">
 		   		 <B>Current Team:</B> <?= $ActiveTeam ?>
 
@@ -79,13 +91,9 @@
     
     <?php } ?>
      	</P>
+			</DIV>
+
 				
-				<?php	PlurialMenu($k, $TopMenus); ?>   
-
-			  <div class="clearfix gutter">
-
-				<div class="row">
-				  <div class="main">
 						<FORM ACTION="" METHOD="POST">
 						<div class="Box">
 					  	<div class="Box-header pl-0">

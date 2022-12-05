@@ -16,9 +16,9 @@
 	// WriteStderr($ListPetitions, "ListPetitions");	
 
 	$TopMenus = array ( 
-						array("k" => $k, "url" => "team/index", "text" => "Manage Pledges"),
+						array("k" => $k, "url" => "team/index", "text" => "Team Members"),
 						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-						array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
+						array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
 					);
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
@@ -27,10 +27,10 @@
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 
-	<div class="col-9 float-left f60">
+	<div class="col-9 float-left">
 
-	<div class="Subhead">
-  	<h2 class="Subhead-heading">Candidate Team</h2>
+	<div class="Subhead mt-0 mb-0">
+  	<h2 class="Subhead-heading">Setup Teams</h2>
 	</div>
 	
 	<?php	PlurialMenu($k, $TopMenus); ?>          

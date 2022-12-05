@@ -23,42 +23,47 @@
 
 	}
 
-	$TopMenus = array ( 						
-		array("k" => $k, "url" => "team/index", "text" => "Team Members"),
-		array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-		array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Team")
-	);
-										
+	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
 <div class="row">
   <div class="main">
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-	<div class="<?= $Cols ?> float-left">
-		
-	  <!-- Public Profile -->
-	  <div class="Subhead mt-0 mb-0">
-	    <h2 id="public-profile-heading" class="Subhead-heading">Member Info</h2>
-		</DIV>
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+  		<div class="<?= $Cols ?> float-left col-full">
+    
+			  <!-- Public Profile -->
+			  <div class="Subhead mt-0 mb-0">
+			    <h2 class="Subhead-heading">Voter Information</h2>
+				</DIV>
 
-		<div class=" mt-0 mb-0 f40">
-			<BR><P><B>Current Team:</B> <?= $ActiveTeam ?></P>
- 		</DIV>
- 
-		<?php	PlurialMenu($k, $TopMenus); ?>   
+				 <div class="clearfix gutter">
+			  	<div class="row">
+				  <div class="main">
+			  	
+			  		<DIV>
+				<P class="f40">
+		   		 <B>Current Team:</B> <?= $ActiveTeam ?>
+     	</P>
+				
+			
 
-	  <div class="clearfix gutter d-flex flex-shrink-0">
+			  <div class="clearfix gutter">
 
-		<div class="row f40">
+		<div class="row">
 		  <div class="main">
 				<FORM ACTION="" METHOD="POST">
 				<div class="Box">
 			  	<div class="Box-header pl-0">
 			    	<div class="table-list-filters d-flex">
-			  			<div class="table-list-header-toggle states flex-justify-start pl-3">Team Members <B><?= $FullName  ?></B></div>
+			  			<div class="table-list-header-toggle states flex-justify-start pl-3">Voter Information for <B><?= $FullName  ?></B></div>
 			  		</div>
 			    </div>
+			    
+			     <div class="Box-body  js-collaborated-repos-empty">
+					      <a href="index">Return to previous screen</a>
+					    </div>
+					    
 				    
 			    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
 			      We don't know your district <a href="/voter">create one</a>?
@@ -230,7 +235,9 @@
 </DIV>
 
 </DIV>
-
+</div>
+</div>
+</div>
 
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>
