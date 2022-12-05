@@ -39,7 +39,7 @@
   	<dt><label for="user_profile_email">Create petitions for your team</label></dt>
     <dd class="d-inline-block">       	
 			<A HREF="/<?= $k ?>/lgd/team/target">Create petition</A><BR>		
-			<A HREF="/<?= $k ?>/lgd/team/createteams">Create teams</A><BR>		
+			<?php /* <A HREF="/<?= $k ?>/lgd/team/createteams">Create teams</A><BR>	*/ ?>
 	</DL>
 
 </DIV>
