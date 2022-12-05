@@ -58,7 +58,7 @@
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
 	$Referer = $_SERVER['HTTP_REFERER'];
-	preg_match('/.*\.repmyblock\.nyc\/([^\/]*)\/([^\/]*)\/(.*)/', $_SERVER['HTTP_REFERER'], $matches, PREG_OFFSET_CAPTURE);
+	preg_match('/.*\.repmyblock\.org\/([^\/]*)\/([^\/]*)\/(.*)/', $_SERVER['HTTP_REFERER'], $matches, PREG_OFFSET_CAPTURE);
 	
 	$URLRef = "/" . $matches[1][0] . "/" . $matches[3][0];
 	
