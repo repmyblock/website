@@ -73,60 +73,28 @@ function myFunctionCopy(value) {
 					$NewKEncrypt = CreateEncoded (array("Candidate_ID" => $result[0]["Candidate_ID"]));
 				?>	
 				
-				
-				<?php if (! empty($URIEncryptedString["MovieCode"])) { ?>
-				<P>
-					To watch the documentary, you must press play on the documentary, and then you must 
-					enter <FONT COLOR=BROWN><B><?= $URIEncryptedString["MovieCode"] ?></B></FONT> in the password window.
-				</P>
-		
-				<P>
-				<CENTER>
-					<TD><INPUT TYPE="text" Size=20 id="myInputRMBC0"  value="<?= $URIEncryptedString["MovieCode"] ?>"></TD>
-					<TD>&nbsp;</TD>
-					<TD><button class="btn btn-primary" onclick="myFunctionCopy('myInputRMBC0')">Copy the password to paste in the movie</button></TD>
-				</CENTER>
-				
-				
-				<P class="f60">
-					<B><A HREF="/<?= $k ?>/exp/register/movie" TARGET="foward">Share the documentary with friends and familly.</A></B>
-				</P>
-				
-				</P>
-				
-				<?php } else { ?>
-						<P class="f60">
-					Before you can view <B><I>County: A documentary</I></B>, you must agree that we share your name 
-					and email with the filmmaker.
-				</P>
-				
+							
 				<P>
 					Please consider donating to his project so he can submit his documentary about the County Committee to 
 					various film festivals.	<A HREF="https://www.gofundme.com/f/county-film">The County Go-Fund me page.</A>
 				</P>
 				
 			
-			<?php } ?>
 					
+						<P>
+								<DIV class="videowrapper center">
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/_Tc_99lWfWU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</DIV>
+				</P>
 				
+				<?php /*
 				<P class="f40">
 					<script src="https://fast.wistia.com/embed/medias/qmt1psxdt4.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_qmt1psxdt4 videoFoam=true" style="height:100%;position:relative;width:100%"><div class="wistia_swatch" style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;"><img src="https://fast.wistia.com/embed/medias/qmt1psxdt4/swatch" style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true" onload="this.parentNode.style.opacity=1;" /></div></div></div></div>
 				</P>	
+				*/ ?>
 				
 				
-				<?php if ( empty($URIEncryptedString["MovieCode"])) { ?>
-				
-				<p>
-					
-					<FORM ACTION="" METHOD="POST">
-					<button type="submit" NAME="MOVIE_PASSWORD" class="btn btn-primary">Get the password and accept sharing your info with the filmmaker</button>
-					</FORM>
-				</p>
 			
-				</P>
-				
-				<?php } else { ?>
-				
 				<P>
 					Please consider donating to his project so he can submit his documentary about the County Committee to 
 					various film festivals.	<B><A HREF="https://www.gofundme.com/f/county-film">The County Go-Fund me page.</A></B>
@@ -136,8 +104,7 @@ function myFunctionCopy(value) {
 					<B><A HREF="/<?= $k ?>/exp/register/movie" TARGET="foward">Share the documentary with friends and familly.</A></B>
 				</P>
 	
-				<?php } ?>
-	
+		
 	
 		
 			
