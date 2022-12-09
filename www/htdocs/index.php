@@ -43,7 +43,7 @@
 	<P class="BckGrndElement f80">WHAT IS THE COUNTY COMMITTEE</P>
 
 	<P class="f60">
-		<B>The County Committee is the body that elects the chair of the County Chair.</B>
+		<B>The County Committee is the body that elects the Party County chair.</B>
 	</P>
 	
 	<P>
