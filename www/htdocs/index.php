@@ -43,7 +43,7 @@
 	<P class="BckGrndElement f80">WHAT IS THE COUNTY COMMITTEE</P>
 
 	<P class="f60">
-		<B>The County Committee is the body that elects the Party County chair.</B>
+		<B>The County Committee is the body that elects the party county chair.</B>
 	</P>
 	
 	<P>
@@ -65,7 +65,8 @@
 	<P class="BckGrndElement f80">VOLUNTEER TO MAKE REPMYBLOCK BETTER</P>
 
 		<P class="f40">
-			<B>Rep My Block</B> is an unincorporated organization run by volunteers who donate their skills, knowledge, and resources. RepMyBlock is decentralized to avoid political filling requirements.
+			<B>Rep My Block</B> is an unincorporated organization run by volunteers who donate their skills, knowledge, 
+			and resources. RepMyBlock is decentralized to avoid political filling requirements.
 		</P>
 
 		
