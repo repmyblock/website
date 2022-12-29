@@ -1,4 +1,11 @@
 <?php
+// Variable that need to be set
+$CalculatePHPSelf = "";
+$BetaVersion = "";
+$MapShow = 0;
+$MobileDisplay = 0;
+$Developping = 0;
+
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";	
 
@@ -6,8 +13,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 date_default_timezone_set('America/New_York'); 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/SSLKeys/SSLInsideKey.php";
 
-// This is the code to make sure that url are good.
-
+// This is the code to make sure that url are good
 if ( $_SERVER["HTTP_HOST"] != $_SERVER["SERVER_NAME"] ) {	
 	$exphost = explode(".", $_SERVER["HTTP_HOST"]);
 	$expuri = explode("/", substr($_SERVER["REQUEST_URI"],1));
@@ -59,15 +65,18 @@ WriteStderr($OverAllMicrotimeStart, $_SERVER['DOCUMENT_URI'] . " ---------------
 WriteStderr($k, $_SERVER['DOCUMENT_URI'] . " Received K");
 
 if ( ! empty ($k)) {
-	$Decrypted_k = DecryptURL ( $k );	
+	$Decrypted_k = DecryptURL ( $k );
 	parse_str ( $Decrypted_k, $URIEncryptedString);
 	$k_raw = $k;
-	
 	$k = rawurlencode(rawurlencode($k));
+	WriteStderr($Decrypted_k, $_SERVER['DOCUMENT_URI'] . " Decrypted K");
+	WriteStderr($URIEncryptedString, $_SERVER['DOCUMENT_URI'] . " URIEncryptedString");
+	
+	#if ( isset($URIEncryptedString)) {
+	#	$URIEncryptedString["LastTimeUser"] = time();
+	#	$URIEncryptedString["SystemUser_ID"] = -1;
+	#}	
 }
-
-WriteStderr($Decrypted_k, $_SERVER['DOCUMENT_URI'] . " DecryptedK");
-WriteStderr($URIEncryptedString, $_SERVER['DOCUMENT_URI'] . " URIEncryptedString");
 
 // Check the timestamp before moving on
 $DEBUG["TimePassed"] = $URIEncryptedString["LastTimeUser"];
@@ -82,7 +91,6 @@ if ( (time() - $URIEncryptedString["LastTimeUser"] ) > $TimerToLoggoff  && ! emp
 
 // GetMy PHP SELF ... Need to remove the index.php
 // _SERVER["PHP_SELF"]
-
 if ($CalculatePHPSelf == 1) {
 	preg_match("/(.*)?(\/[^\/]*\.php)$/", $_SERVER["PHP_SELF"], $matches);
 	if ( empty ($matches)) {
@@ -93,7 +101,6 @@ if ($CalculatePHPSelf == 1) {
 }
 
 /* --------- This is the end of the Verif Function ... the rest are functions --------- */
-
 function EncryptURL($string = "") {  	
 	global $PubKey;
   openssl_get_publickey($PubKey);

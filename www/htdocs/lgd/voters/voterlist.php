@@ -9,11 +9,11 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 
 	$rmb = new RepMyBlock();
-	$result = $rmb->GetPetitionsForCandidate(0, $URIEncryptedString["SystemUser_ID"]);
+	#$result = $rmb->GetPetitionsForCandidate(0, $URIEncryptedString["SystemUser_ID"]);
 	
 	if ( empty ($result)) {
 		if ( ! empty ($URIEncryptedString["EDAD"])) {
-			$result = $rmb->FindVotersInRawForEDAD($URIEncryptedString["EDAD"], $URIEncryptedString["UserParty"], $DatedFiles);
+			//$result = $rmb->FindVotersInRawForEDAD($URIEncryptedString["EDAD"], $URIEncryptedString["UserParty"], $DatedFiles);
 			$url = "openwithout";
 		}
 		

@@ -6,33 +6,34 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_admin.php"; 
 	
+ 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
+	
 	if ( ! empty ($_POST)) {
 		WriteStderr($_POST, "POST of VoterLookup");
 		
 		//function MergeEncode($VariableToPass, $VariableToRemove = "LastTimeUser") {
 		header("Location: /" . CreateEncoded ( array( 	
-													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-													"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
-													"UserDetail" => $var["SystemUser_ID"],
-													"MenuDescription" => $URIEncryptedString["MenuDescription"],	
-													"Query_DBType" => "RawDB",
-													"Query_FirstName" => $_POST["FirstName"],
-													"Query_LastName" => $_POST["LastName"],
-													"Query_HouseNumber" => $_POST["HouseNumber"],
-													"Query_Address" => $_POST["Address"],
-													"Query_AD" => $_POST["AD"],
-													"Query_ED" => $_POST["ED"],
-													"Query_ZIP" => $_POST["ZIP"],
-													"Query_COUNTY" => $_POST["COUNTY"],
-													"Query_PARTY" => $_POST["Party"],
-													"Query_NYSBOEID" => $_POST["UniqNYS"],
-													"Query_Congress" => $_POST["Congress"],					
-													)) . "/admin/voterlist");													
+																"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+																"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+																"UserDetail" => $var["SystemUser_ID"],
+																"MenuDescription" => $URIEncryptedString["MenuDescription"],	
+																"Query_FirstName" => $_POST["FirstName"],
+																"Query_LastName" => $_POST["LastName"],
+																"Query_HouseNumber" => $_POST["HouseNumber"],
+																"Query_Address" => $_POST["Address"],
+																"Query_AD" => $_POST["AD"],
+																"Query_ED" => $_POST["ED"],
+																"Query_ZIP" => $_POST["ZIP"],
+																"Query_COUNTY" => $_POST["COUNTY"],
+																"Query_PARTY" => $_POST["Party"],
+																"Query_NYSBOEID" => $_POST["UniqNYS"],
+																"Query_Congress" => $_POST["Congress"],					
+																)) . "/admin/voterlist");													
 		exit();
 	}
 	
-  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
+ 
 	$Party = PrintParty($UserParty);
 	$rmb = new RMBAdmin();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);

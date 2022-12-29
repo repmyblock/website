@@ -29,16 +29,12 @@
 	
 	<P class="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
-	
-
-		<DIV class="f60">
+	<DIV class="f60">
 		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/register" class="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
 		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/propose/nomination" class="NomCandidate"><img class="action-runfor" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
 	</DIV>
 	
-		
-	
-		<BR>
+	<BR>
 	
 	<P class="BckGrndElement f80">WHAT IS THE COUNTY COMMITTEE</P>
 

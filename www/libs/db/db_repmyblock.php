@@ -104,7 +104,6 @@ class RepMyBlock extends queries {
 		$sql = "SELECT * FROM SystemUser " . 
 						"LEFT JOIN SystemUserProfile ON (SystemUser.SystemUserProfile_ID = SystemUserProfile.SystemUserProfile_ID) " . 
 						"LEFT JOIN Voters ON (SystemUser.Voters_ID = Voters.Voters_ID) " . 
-						"LEFT JOIN DataState ON (Voters.DataState_ID = DataState.DataState_ID) " . 
 						"WHERE SystemUser_ID = :ID";	
 		$sql_vars = array(':ID' => $SystemUserID);											
 		return $this->_return_simple($sql,  $sql_vars);		
@@ -778,9 +777,12 @@ class RepMyBlock extends queries {
 	
 	
 	function SearchRawVoterInfo($UniqNYSVoterID) { 
-		$sql = "SELECT * FROM VotersRaw_NYS " . 
-						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_BOEID = VotersRaw_NYS.CountyCode) " .										
-						"WHERE UniqNYSVoterID = :Uniq AND Status = 'A'";
+		
+		$sql = "SELECT * FROM Voters " .  
+						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " . 
+						"LEFT JOIN DataAddress ON (DataHouse.DataAddress_ID = DataAddress.DataAddress_ID) " . 
+						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_BOEID = DataAddress.DataCounty_ID) " .										
+						"WHERE Voters_UniqStateVoterID = :Uniq AND Voters_Status = 'active'";
 		$sql_vars = array("Uniq" => $UniqNYSVoterID);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
@@ -998,7 +1000,7 @@ class RepMyBlock extends queries {
 	}
 	
 	
-	function ListEDByDistricts($DistrictCycle, $DistrictType, $DistrictValue)	{
+	function ListEDByDistricts($DistrictType, $DistrictValue, $DistrictCycle = '2')	{
 		$sql = "SELECT DISTINCT DataDistrict.DataDistrict_ID, DataDistrict_Electoral AS ED, DataDistrict_StateAssembly AS AD ";
 	
 		switch ($DistrictType) {
@@ -1034,7 +1036,7 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	function ListRawNYEDByDistricts( $DistrictType, $DistrictValue)	{
+	function ListRawNYEDByDistricts($DistrictType, $DistrictValue)	{
 	
 		$sql = "SELECT AssemblyDistr AS AD, ElectDistr AS ED";
 
@@ -1072,7 +1074,6 @@ class RepMyBlock extends queries {
 		$sql = "SELECT * FROM SystemUser " .
 						"LEFT JOIN Voters ON (Voters.Voters_ID = SystemUser.Voters_ID) " . 
 						"LEFT JOIN VotersIndexes ON (VotersIndexes.VotersIndexes_ID = Voters.VotersIndexes_ID) " .
-						"LEFT JOIN DataState ON (DataState.DataState_ID = VotersIndexes.DataState_ID) " .
 						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID) " .  
 						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID) " .  
 						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID) " .
@@ -1080,9 +1081,10 @@ class RepMyBlock extends queries {
 						"LEFT JOIN DataAddress ON (DataAddress.DataAddress_ID = DataHouse.DataAddress_ID) " .
 						"LEFT JOIN DataStreet ON (DataAddress.DataStreet_ID = DataStreet.DataStreet_ID) " .
 						"LEFT JOIN DataCity ON (DataCity.DataCity_ID = DataAddress.DataCity_ID) " .
-						"LEFT JOIN DataDistrictTemporal on (DataHouse.DataDistrictTemporal_GroupID = DataDistrictTemporal.DataDistrictTemporal_GroupID) " .
+						"LEFT JOIN DataDistrictTemporal on (DataHouse.DataHouse_ID = DataDistrictTemporal.DataHouse_ID) " .
 						"LEFT JOIN DataDistrict ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .		
 						"LEFT JOIN DataCounty ON (DataDistrict.DataCounty_ID = DataCounty.DataCounty_ID) " .
+						"LEFT JOIN DataState ON (DataState.DataState_ID = DataCounty.DataState_ID) " .
 						"LEFT JOIN SystemUserSelfDistrict ON (SystemUser.SystemUser_ID = SystemUserSelfDistrict.SystemUser_ID) " . 
 						"WHERE SystemUser.SystemUser_ID = :SystemID";
 		$sql_vars = array("SystemID" => $SystemUserID);		

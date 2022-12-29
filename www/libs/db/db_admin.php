@@ -100,31 +100,35 @@ class RMBAdmin extends RepMyBlock {
 			return $this->_return_multiple($sql, $sql_vars);
 		}		
 	}
-
-	function SearchVoter_Dated_DB($QueryFields) {
-		print "Search Voter Dated DB: <PRE>" . print_r($QueryFields, 1) . "</PRE>";
-		$sql = "SELECT * FROM NY_Raw_20220516 WHERE ";
-		$sql .= "LastName = :LastName ";
-		$sql .= "AND FirstName =: FirstName ";
+	
+	function AdminSearchVoterDB($QueryFields) {		
+		$CompressedFirstName = preg_replace("/[^a-zA-Z]+/", "", $QueryFields["FirstName"]);
+		$CompressedLastName = preg_replace("/[^a-zA-Z]+/", "", $QueryFields["LastName"]);
 		
-		$sql_vars = array(
-			"FirstName" => $QueryFields["FirstName"], 
-			"LastName" => $QueryFields["LastName"],
-						
-			//	"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
-			//	"FirstName" => $URIEncryptedString["Query_FirstName"], 
-			//	"LastName" => $URIEncryptedString["Query_LastName"],
-			//	"ResZip" => $URIEncryptedString["Query_ZIP"], 
-			//	"CountyCode" => $CountyCode,
-			//	"EnrollPolParty" => $URIEncryptedString["Query_PARTY"], 
-			//	"AssemblyDistr" => $URIEncryptedString["Query_AD"],
-			//	"ElectDistr" => $URIEncryptedString["Query_ED"], 
-			//  "CongressDistr" => $URIEncryptedString["Query_Congress"]
-				
-		);
-
-		return $this->_return_multiple($sql, $sql_vars);
-		exit();
+		$sql = "SELECT * FROM VotersIndexes " .
+						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID ) " . 
+						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID ) " .
+						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID ) " .
+						"LEFT JOIN Voters ON (Voters.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " . 
+						"LEFT JOIN DataHouse ON (DataHouse.DataHouse_ID = Voters.DataHouse_ID) " .
+						"LEFT JOIN DataAddress ON (DataAddress.DataAddress_ID = DataHouse.DataAddress_ID) " .
+						"LEFT JOIN DataStreet ON (DataStreet.DataStreet_ID = DataAddress.DataStreet_ID) " . 
+						"LEFT JOIN DataCity ON (DataAddress.DataCity_ID = DataCity.DataCity_ID) " . 
+						"LEFT JOIN DataCounty ON (DataAddress.DataCounty_ID = DataCounty.DataCounty_ID) " . 
+						"LEFT JOIN DataState ON (DataState.DataState_ID = DataCounty.DataState_ID) " . 
+						"LEFT JOIN DataDistrictTown ON (DataHouse.DataDistrictTown_ID = DataDistrictTown.DataDistrictTown_ID) " . 
+						"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataHouse_ID = DataHouse.DataHouse_ID) " . 
+						"LEFT JOIN DataDistrict ON (DataDistrict.DataDistrict_ID = DataDistrictTemporal.DataDistrict_ID ) " . 
+						"WHERE DataFirstName_Compress = :FirstName AND " . 
+						"DataLastName_Compress = :LastName ";
+		
+		$sql_vars = array('FirstName' => $CompressedFirstName, 
+											'LastName' => $CompressedLastName);
+											
+		WriteStderr($sql, "SQL request");			
+		return $this->_return_multiple($sql, $sql_vars);		
+		
 	}
+
 }
 ?>

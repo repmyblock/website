@@ -4,12 +4,22 @@
 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
+
+	// Reset
+	WriteStderr($URIEncryptedString, "Before URIEncryptedString");
+	$TempSysID = $URIEncryptedString["SystemUser_ID"];
+	$TempMenuDesc = $URIEncryptedString["MenuDescription"];
+	$TempSystemAdmin = $URIEncryptedString["SystemAdmin"];
+	$URIEncryptedString = array("SystemUser_ID" => $TempSysID, "MenuDescription" => $TempMenuDesc, "SystemAdmin" => $TempSystemAdmin );
+	WriteStderr($URIEncryptedString, "After URIEncryptedString");
+
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	if (empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 
-	$rmb = new repmyblock();
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
+	$rmb = new repmyblock(0);
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	WriteStderr($rmbperson, "After SearchUserVoterCard rmbperson");
   
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
@@ -34,7 +44,7 @@
   <dl class="form-group">
 	 		<A HREF="/<?= $k ?>/admin/userlookup" class="mobilemenu">RepMyBlock User</A><BR>	
  			<A HREF="/<?= $k ?>/admin/team">Team Management</A><BR>
- 			<A HREF="/<?= $k ?>/admin/voterlist">Voter Lookup</A><BR>
+ 			<A HREF="/<?= $k ?>/admin/voterlookup">Voter Lookup</A><BR>
   		<A HREF="/<?= $k ?>/admin/track">Petitions Tracker</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_candidate">Candidates Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_petitionset">Petition Set Maintenance</A><BR>	
@@ -49,10 +59,5 @@
 </DIV>
 </DIV>
 </DIV>
-
-
-
-
-
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

@@ -26,21 +26,25 @@ function ordinal($number) {
 
 function WriteStderr($Data, $Message = "") {	
 	global $Developping;
-	 
+
 	// if using NGNIX + FPM, check your
 	// /var/log/php/ftp-error.log file and not web error.log
-	 
+
 	// Need to save the information
 	if ( $Developping == 1) {	
 		if ( ! empty ($Message)) {
-			
+
 			if (is_array($Data)) {
-				error_log($Message . ": " . print_r($Data, 1));
+				if ( empty ($Data)) {
+					error_log($Message . ": Empty array");
+				} else {
+					error_log($Message . ": " . print_r($Data, 1));
+				}
 			} else {
 				$Data = preg_replace('/\/AAAA.*3D\//', '/[CRYPTED]/', $Data);
 				error_log($Message . ": " . $Data);
 			}
-			
+
 		} else {
 			error_log("Write Std Error: " . print_r($Data, 1));
 		}
@@ -48,13 +52,12 @@ function WriteStderr($Data, $Message = "") {
 }
 
 function PrintRandomText($length = 9) {
-  
   $alpha = "abcdefghijklmnopqrstuvwxyz";
 	$alpha_upper = strtoupper($alpha);
 	$numeric = "0123456789";
 	$special = ".-+=_,!@$#*%<>[]{}";
 	$chars = "";
- 
+
 	if (isset($_POST['length'])){
     // if you want a form like above
     if (isset($_POST['alpha']) && $_POST['alpha'] == 'on') $chars .= $alpha;
@@ -66,13 +69,13 @@ function PrintRandomText($length = 9) {
     // default [a-zA-Z0-9]{9}
     $chars = $alpha . $alpha_upper . $numeric;
 	}
- 
+
 	$len = strlen($chars);
 	$pw = '';
- 
+
 	for ($i=0;$i<$length;$i++)
   	$pw .= substr($chars, rand(0, $len-1), 1);
- 
+
 	// the finished password
 	return str_shuffle($pw); 
 }
@@ -85,7 +88,7 @@ function PrintShortDate($Date) {
 
 function PrintDate($Date) {
 	if ( ! empty ($Date)) {
-		return date("m.d.y", strtotime( $Date ));
+		return date("m.d.Y", strtotime( $Date ));
 	}
 }
 
@@ -142,16 +145,17 @@ function PrintPartyAdjective($Party) {
 }
 
 function ParseEDAD ($string) {
-	preg_match('/(\d\d)(\d\d\d)/', $string, $Keywords);		
+	preg_match('/(\d\d)(\d\d\d)/', $string, $Keywords);
 	return sprintf('AD %02d / ED %03d', $Keywords[1], $Keywords[2]);
 }
 
 function MergeEncode($VariableToPass, $VariableToRemove = "LastTimeUser") {
-	$URLString = "";
-	
+	global $Developping;
 	global $URIEncryptedString;
+
+	$URLString = "";
 	$VariableToPass = array_replace($URIEncryptedString, $VariableToPass);
-	
+
 	if ( ! empty ($VariableToPass)) {
 		foreach ($VariableToPass as $var => $value) {
 			if ($var != $VariableToRemove) {
@@ -159,26 +163,27 @@ function MergeEncode($VariableToPass, $VariableToRemove = "LastTimeUser") {
 					if (! empty($URLString)) { $URLString .= "&"; }
 					$URLString .= $var . "=" . $value;
 					if ( $Developping == 1) {	
-						error_log ("Create Encoded Var: $var\tValue: $value");	
+						error_log ("Create Encoded Var: $var\tValue: $value");
 					}
 				}
 			}
-		}		
+		}
 	}
-	
+
 	WriteStderr($URLString, "URLString");
 	return rawurlencode(EncryptURL($URLString));
 }
 
 function CreateEncoded($VariableToPass, $VariableToRemove = "") {
+	global $Developping;
 	$URLString = "";
-	
+
 	if ( ! empty ($VariableToPass)) {
 		foreach ($VariableToPass as $var => $value) {
 			if ( ! empty ($value)) {
 				if (! empty($URLString)) { $URLString .= "&"; }
 				$URLString .= $var . "=" . $value;
-				if ( $Developping == 1) {	
+				if ( $Developping == 1) {
 					error_log ("Create Encoded Var: $var\tValue: $value");	
 				}
 			}
