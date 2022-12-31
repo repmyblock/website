@@ -19,9 +19,9 @@
 	
 	// Check the other database
 	// To be removed later on when I finihs fixing the table.
-	$RawVoterNY = $rmb->SearchRawVoterInfo($rmbperson["Voters_UniqStateVoterID"]);
-	$RawVoterNY = $RawVoterNY[0];
-	WriteStderr($RawVoterNY, "RawVoterNY");
+	// $RawVoterNY = $rmb->SearchRawVoterInfo($rmbperson["Voters_UniqStateVoterID"]);
+	// $RawVoterNY = $RawVoterNY[0];
+	// WriteStderr($RawVoterNY, "RawVoterNY");
 	
 	// Need to go find the right data.
 
@@ -109,10 +109,10 @@
 									</TR>
 																		
 									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $RawVoterNY["AssemblyDistr"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $RawVoterNY["ElectDistr"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $RawVoterNY["CongressDistr"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $RawVoterNY["DataCounty_Name"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_StateAssembly"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Electoral"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Congress"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataCounty_Name"] ?></TD>
 									</TR>
 								</TABLE>
 									<BR>
@@ -152,10 +152,10 @@
 										<TH style="padding:0px 10px;">Senate</TH>
 									</TR>
 									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $RawVoterNY["LegisDistr"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $RawVoterNY["TownCity"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $RawVoterNY["Ward"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $RawVoterNY["SenateDistr"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Legislative"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrictTown_Name"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Ward"] ?></TD>
+										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_StateSenate"] ?></TD>
 					
 									</TR>
 								</TABLE>

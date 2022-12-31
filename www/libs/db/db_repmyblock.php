@@ -80,19 +80,21 @@ class RepMyBlock extends queries {
  		return $this->_return_multiple($sql, $sql_vars); 
  	}
 
-  function FindVotersForEDAD($District, $ADED, $Party) {  	
-		$sql = "SELECT * FROM Voters WHERE " .
-						"ElectionsDistricts_DBTable = :DISTRICT AND ElectionsDistricts_DBTableValue = :ADED AND Voters_RegParty = :PARTY " .
-						"AND (Voters_Status = 'Active' OR Voters_Status = 'Inactive')";
-		$sql_vars = array("ADED" =>  $ADED, "DISTRICT" => $District, "PARTY" => $Party);	
+  function FindVotersForEDAD($AD, $ED, $Party) {
+		$sql = "SELECT * FROM RepMyBlockTwo.DataDistrict " . 
+						"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
+						"LEFT JOIN Voters ON (DataDistrictTemporal.DataHouse_ID = Voters.DataHouse_ID) " . 
+						"LEFT JOIN DataDistrictCycle ON (DataDistrictTemporal.DataDistrictCycle_ID = DataDistrictCycle.DataDistrictCycle_ID) " . 
+						"WHERE DataDistrict_StateAssembly = :AD and DataDistrict_Electoral = :ED AND " . 
+						"Voters_ID Is not null AND (Voters_Status = \"active\" OR Voters_Status = \"Inactive\") AND " .
+						"Voters_RegParty = :Party AND " . 
+						"(CURDATE() >=DataDistrictCycle_CycleStartDate AND CURDATE() <=DataDistrictCycle_CycleEndDate) IS NULL";		  	
+		$sql_vars = array("AD" =>  $AD, "ED" => $ED, "Party" => $Party);	
 		
 		WriteStderr($sql_vars, "SQL Query: " . $sql);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}  
    
-   
- 
- 
    
   function FindPersonUser($SystemUserID) {
 		$sql = "SELECT * FROM SystemUser WHERE SystemUser_ID = :ID";	
@@ -696,13 +698,13 @@ class RepMyBlock extends queries {
 						"LEFT JOIN Voters ON (Voters.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " . 
 						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " . 
 						"LEFT JOIN DataAddress ON (DataHouse.DataAddress_ID = DataAddress.DataAddress_ID) " .
-						"LEFT JOIN DataStreet ON (DataAddress.DataStreet_ID = DataStreet.DataStreet_ID) " .
 						"LEFT JOIN DataCity ON (DataAddress.DataCity_ID = DataCity.DataCity_ID) " .
-						"LEFT JOIN DataState ON (DataAddress.DataState_ID = DataState.DataState_ID) " .
-						"LEFT JOIN DataDistrictTemporal on (DataHouse.DataDistrictTemporal_GroupID = DataDistrictTemporal.DataDistrictTemporal_GroupID) " .
+						"LEFT JOIN DataStreet ON (DataAddress.DataStreet_ID = DataStreet.DataStreet_ID) " .							
+						"LEFT JOIN DataDistrictTemporal on (DataHouse.DataHouse_ID = DataDistrictTemporal.DataHouse_ID) " .
 						"LEFT JOIN DataDistrict ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .		
-						"LEFT JOIN DataCounty ON (DataDistrict.DataCounty_ID = DataCounty.DataCounty_ID) " .				
-						"WHERE VotersIndexes.VotersIndexes_ID = :SingleIndex";
+						"LEFT JOIN DataCounty ON (DataDistrict.DataCounty_ID = DataCounty.DataCounty_ID) " .	
+						"LEFT JOIN DataState ON (DataCounty.DataState_ID = DataState.DataState_ID) " .
+						"WHERE VotersIndexes.VotersIndexes_ID = :SingleIndex AND Voters_Status = 'Active'";
 						
 		$sql_vars = array("SingleIndex" => $SingleIndex);		
 		return $this->_return_simple($sql, $sql_vars);		
@@ -795,7 +797,7 @@ class RepMyBlock extends queries {
 
 	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED, $Party, $VoterCount = 0) {
 		$sql = "UPDATE SystemUser SET Voters_UniqStateVoterID = :NYSVoterID, SystemUser_EDAD = :EDAD, SystemUser_Party = :Party, " . 
-						"Voters_ID = :Index";
+						"Voters_ID = :Index ";
 		$sql_vars = array("NYSVoterID" => $UniqNYSVoterID,"EDAD" => $ADED, "ID" => $SystemUser_ID, "Party" => $Party, "Index" => $RawVoterID);
 
 
@@ -1085,6 +1087,7 @@ class RepMyBlock extends queries {
 						"LEFT JOIN DataDistrict ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .		
 						"LEFT JOIN DataCounty ON (DataDistrict.DataCounty_ID = DataCounty.DataCounty_ID) " .
 						"LEFT JOIN DataState ON (DataState.DataState_ID = DataCounty.DataState_ID) " .
+						"LEFT JOIN DataDistrictTown ON (DataDistrictTown.DataDistrictTown_ID = DataHouse.DataDistrictTown_ID) " . 
 						"LEFT JOIN SystemUserSelfDistrict ON (SystemUser.SystemUser_ID = SystemUserSelfDistrict.SystemUser_ID) " . 
 						"WHERE SystemUser.SystemUser_ID = :SystemID";
 		$sql_vars = array("SystemID" => $SystemUserID);		

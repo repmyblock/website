@@ -19,12 +19,12 @@
 	if ( ! empty ($_POST)) {
 		WriteStderr($_POST, "Post");
 		if ($_POST["voterreg"] == "This is my voter registration card") {
-		 
-			//I don't care anymore about the number of voters in the district.
-			$NumberOfVoterInDistrict = $rmb->FindVotersForEDAD($_POST["ElectionsDistricts_DBTable"], 
-																													$_POST["ElectionsDistricts_DBTableValue"], $_POST["Voters_RegParty"]);	
+			$NumberOfVoterInDistrict = $rmb->FindVotersForEDAD($_POST["AD"], $_POST["ED"], $_POST["Voters_RegParty"]);	
+			
+			$EDAD =  sprintf('%02d%03d', $_POST["AD"], $_POST["ED"]);
+			
 			$rmb->UpdateSystemUserWithVoterCard($_POST["SystemUser_ID"], $_POST["Voters_ID"], 
-																					$_POST["VotersIndexes_UniqStateVoterID"], $_POST["ElectionsDistricts_DBTableValue"], 
+																					$_POST["VotersIndexes_UniqStateVoterID"], $EDAD, 
 																					$_POST["Voters_RegParty"], 
 																					count($NumberOfVoterInDistrict));
 																							
@@ -34,7 +34,7 @@
 									"LastName" => $_POST["LastName"],
 									"VotersIndexes_ID" => $_POST["Voters_ID"],
 									"UniqNYSVoterID" => $_POST["VotersIndexes_UniqStateVoterID"],
-									"EDAD" => $_POST["ElectionsDistricts_DBTable"], 
+									"EDAD" => $EDAD,
 									"UserParty" => $_POST["Voters_RegParty"]
 						)) . "/lgd/profile/profilevoter");
 			exit();
@@ -118,10 +118,9 @@
 											preg_match('/^NY0+(.*)/', $var["VotersIndexes_UniqStateVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
 											$UniqVoterID = "NY" . $UniqMatches[1][0];
 				?>
-				
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["VotersIndexes_UniqStateVoterID"] ?>" NAME="VotersIndexes_UniqStateVoterID">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTable"] ?>" NAME="ElectionsDistricts_DBTable">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTableValue"] ?>" NAME="ElectionsDistricts_DBTableValue">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataDistrict_StateAssembly"] ?>" NAME="AD">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataDistrict_Electoral"] ?>" NAME="ED">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_ID"] ?>" NAME="Voters_ID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $URIEncryptedString["SystemUser_ID"] ?>" NAME="SystemUser_ID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_RegParty"] ?>" NAME="Voters_RegParty">				
@@ -189,8 +188,8 @@
 					</TR>
 					
 					<TR ALIGN=CENTER>
-						<TD style="padding:0px 10px;"><?= $RawVoterNY["AssemblyDistr"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $RawVoterNY["ElectDistr"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataDistrict_StateAssembly"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataDistrict_Electoral"] ?></TD>
 					
 					</TR>
 				</TABLE>
@@ -207,8 +206,8 @@
 					
 					<TR ALIGN=CENTER>
 						
-						<TD style="padding:0px 10px;"><?= $RawVoterNY["CongressDistr"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $RawVoterNY["DataCounty_Name"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataDistrict_Congress"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataCounty_Name"] ?></TD>
 					</TR>
 				</TABLE>
 				
@@ -246,10 +245,10 @@
 					<TH style="padding:0px 10px;">Senate</TH>
 				</TR>
 				<TR ALIGN=CENTER>
-					<TD style="padding:0px 10px;"><?= $RawVoterNY["LegisDistr"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $RawVoterNY["TownCity"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $RawVoterNY["Ward"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $RawVoterNY["SenateDistr"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Legislative"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["DataDistrictTown_Name"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Ward"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $var["DataDistrict_StateSenate"] ?></TD>
 					
 				</TR>
 			</TABLE>
@@ -265,7 +264,7 @@
 					<TH style="padding:0px 10px;">Judicial</TH>
 				</TR>
 				<TR ALIGN=CENTER>
-					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Council"] ?></TD>
+					<TD style="padding:0px 10px;">&nbsp;<?= $var["DataDistrict_Council"] ?>&nbsp;</TD>
 					<TD style="padding:0px 10px;"><?= $var["DataDistrict_CivilCourt"] ?></TD>
 					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Judicial"] ?></TD>
 				</TR>

@@ -6,32 +6,28 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 if ( ! isset ($RMBBlockInit)) {
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/voterlist_class.php';
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
-	$db_RMB_voterlist = new OutragedDems();
+
+	$db_RMB_voterlist = new OutragedDems(0);
 	$PageSize = "letter";
 	$pdf_RMB_walksheet = new PDF_RMB_VoterList('P','mm', $PageSize);
 	$WalkSheetFrameName = "2022";
 }
 
 $DB_Type = "DBRaw";
-	
 WriteStderr($URIEncryptedString, "URIEncryptedString");
 	
 if ($URIEncryptedString["DataDistrict_ID"] > 0) {
-	// $voters = $r->ListVotersForDataDistrict($URIEncryptedString["DataDistrict_ID"]);
-	//$PreparedFor = $URIEncryptedString["PreparedFor"];
 	
 	$DataQuery = array("AD" => intval($URIEncryptedString["AD"]), "ED" => intval($URIEncryptedString["ED"]));
-											
 	if ($URIEncryptedString["Party"] != "ALL") { $DataQuery["PT"] = $URIEncryptedString["Party"]; }
-											
-	$voters = $r->SearchInRawNYSFile($DataQuery);
+	
+	$voters = $db_RMB_voterlist->SearchVotersFile($DataQuery);										
+	
 	$PreparedFor = $URIEncryptedString["PreparedFor"];
 	$ElectionDate = PrintShortDate($WalkSheetUser["Elections_Date"]);
-	
-	
+
 	$WalkSheetUser["CandidateElection_DBTable"] = "ADED";
-	$WalkSheetUser["CandidateElection_DBTableValue"] = sprintf("%2d%03d", $URIEncryptedString["AD"], $URIEncryptedString["ED"]);
-			
+	$WalkSheetUser["CandidateElection_DBTableValue"] = sprintf("%2d%03d", $URIEncryptedString["AD"], $URIEncryptedString["ED"]);			
 	$WalkSheetUser["Candidate_ID"] = $URIEncryptedString["Party"] . $URIEncryptedString["SystemID"];
 			
 } else {
@@ -56,7 +52,7 @@ if ($URIEncryptedString["DataDistrict_ID"] > 0) {
 	preg_match('/(\d\d)(\d\d\d)/', $WalkSheetUser["CandidateElection_DBTableValue"], $Keywords);		
 	$DataQuery = array("AD" => intval($Keywords[1]), "ED" => intval($Keywords[2]), 
 											"PT" => $WalkSheetUser["CandidateElection_Party"]);
-	$voters = $db_RMB_voterlist->SearchInRawNYSFile($DataQuery);
+	// $voters = $db_RMB_voterlist->SearchInRawNYSFile($DataQuery);
 
 	$PreparedFor = $WalkSheetUser["Candidate_DispName"];
 	$ElectionDate = PrintShortDate($WalkSheetUser["Elections_Date"]);
@@ -65,7 +61,7 @@ if ($URIEncryptedString["DataDistrict_ID"] > 0) {
 $FileTitle = preg_replace('/[^a-zA-Z0-9]/', '', $PreparedFor);
 $Today = date("Ymd_Hi");
 $WalkSheet_FileName = "WalkSheet_" . $FileTitle . "_" . $Today . "_" . $WalkSheetUser["CandidateElection_DBTable"] . 
-									$WalkSheetUser["CandidateElection_DBTableValue"] . ".pdf";
+											$WalkSheetUser["CandidateElection_DBTableValue"] . ".pdf";
 
 if (! empty ($voters)) {
 	foreach ($voters as $person) {

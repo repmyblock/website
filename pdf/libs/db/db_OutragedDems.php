@@ -8,7 +8,7 @@ class OutragedDems extends queries {
 	  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
 	  $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
 	  $DebugInfo["Flag"] = $debug;
-	  	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
+	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
   function SearchInRawNYSFile($DataSearch) {
@@ -37,6 +37,46 @@ class OutragedDems extends queries {
   	return $this->_return_multiple($sql, $sql_vars);  	
   }
   
+  function SearchVotersFile($DataSearch) {
+   	$sqlquery = ""; $sql_vars = array();
+		#$sql = "SELECT * FROM VotersRaw_NYS WHERE (Status = 'A' OR Status = 'I') ";
+		
+		$sql = "SELECT * " .
+							"FROM RepMyBlock.DataDistrict " .
+							"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
+							"LEFT JOIN DataDistrictCycle ON (DataDistrictCycle.DataDistrictCycle_ID = DataDistrictTemporal.DataDistrictCycle_ID) " .
+							"LEFT JOIN DataHouse ON (DataHouse.DataDistrictTemporal_GroupID = DataDistrictTemporal.DataDistrictTemporal_GroupID) " .
+							"LEFT JOIN Voters ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
+							"LEFT JOIN DataAddress ON (DataAddress.DataAddress_ID = DataHouse.DataAddress_ID) " .
+							"LEFT JOIN DataStreet ON (DataStreet.DataStreet_ID = DataAddress.DataStreet_ID) " .
+							"LEFT JOIN DataCity ON (DataCity.DataCity_ID = DataAddress.DataCity_ID) " .
+							"LEFT JOIN VotersIndexes ON (VotersIndexes.VotersIndexes_ID = Voters.VotersIndexes_ID) " .
+							"LEFT JOIN DataLastName ON (VotersIndexes.DataLastName_ID = DataLastName.DataLastName_ID) " .
+							"LEFT JOIN DataFirstName ON (VotersIndexes.DataFirstName_ID = DataFirstName.DataFirstName_ID)  " .
+							"LEFT JOIN DataMiddleName ON (VotersIndexes.DataMiddleName_ID = DataMiddleName.DataMiddleName_ID) " .
+							"WHERE (Voters_Status = 'Active' OR Voters_Status = 'Inactive') ";
+  	
+  	foreach ($DataSearch as $Param => $Search) {
+			$sqlquery .= " AND ";
+  		switch ($Param) {
+  			case "AD": $sqlquery .= "DataDistrict_StateAssembly = :AD"; $sql_vars["AD"] = $Search; break;
+  			case "ED": $sqlquery .= "DataDistrict_Electoral = :ED"; $sql_vars["ED"] = $Search; break;
+  			case "CD": $sqlquery .= "CountyCode = :CD"; $sql_vars["CD"] = $Search; break;
+  			case "LG": $sqlquery .= "LegisDistr = :LG"; $sql_vars["LG"] = $Search; break;
+  			case "TW": $sqlquery .= "TownCity = :TW"; $sql_vars["TW"] = $Search; break;
+  			case "WD": $sqlquery .= "Ward = :WD"; $sql_vars["WD"] = $Search; break;
+  			case "CG": $sqlquery .= "CongressDistr = :CG"; $sql_vars["CG"] = $Search; break;
+  			case "SD": $sqlquery .= "SenateDistr = :SD"; $sql_vars["SD"] = $Search; break;
+  			case "PT": $sqlquery .= "Voters_RegParty = :PT"; $sql_vars["PT"] = $Search; break;
+  		}
+  	}
+  
+  	$sql .= $sqlquery; 	
+  	WriteStderr($sql, "SearchInRawNYSFile SQL");
+  	WriteStderr($sql_vars, "SearchInRawNYSFile SQL VARS");
+  	return $this->_return_multiple($sql, $sql_vars);  	
+  }
+   
   function UpdateCandidatePetitionHash($NYS, $Candidate_LocalHash) {
   	$sql = "UPDATE Candidate SET Candidate_LocalHash = NULL " .
   					"WHERE Candidate_UniqNYSVoterID = :NYS AND Candidate_LocalHash = :LocalHash";
@@ -222,6 +262,7 @@ class OutragedDems extends queries {
 							"LEFT JOIN DataMiddleName ON (VotersIndexes.DataMiddleName_ID = DataMiddleName.DataMiddleName_ID)   " .
 							"WHERE (Voters_Status = 'Active' OR Voters_Status = 'Inactive') " .
 							"AND DataDistrict.DataDistrict_ID = :District";
+							
 			$sql_vars = array("District" => $DataDistrictID);		
 			return $this->_return_multiple($sql, $sql_vars);
 		}	
