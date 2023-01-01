@@ -5,11 +5,108 @@
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php";	
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 	
-	if ( ! empty ($_POST)) {		
+	if ( ! empty ($_POST) || ($URIEncryptedString["PetitionBypass"] == 1)) {
+		$ElectionType = $_POST["ElectionType"];
+		
+		if ( ! empty ($URIEncryptedString["PetitionBypass"])) {
+			echo "I am in the PEtition bypass<BR>";
+			
+			
+			
+				
+			$RMBInformation = $rmb->FindElectionInfoForPetition(
+													$URIEncryptedString["CPrep_District"], 
+													$URIEncryptedString["CPrep_PositionCode"],
+													$URIEncryptedString["CPrep_Party"], 
+													false
+												);
+																																	
+			if ( ! empty ($RMBInformation)) {
+				
+				$ElectionDiff = $RMBInformation[0]["UnixElection_Date"];
+				$UnixElectionDay = $ImportantDates[$URIEncryptedString["CPrep_State"]]["UNIX"]["PrimaryElection"];
+				$DateInStaticFile = date("Y-m-d", $UnixElectionDay);
+				$IndexElectionToCopy = -1;
+				
+				foreach ($RMBInformation as $index => $var) {
+					if (($UnixElectionDay - $var["UnixElection_Date"]) < $ElectionDiff) {
+						$ElectionDiff = $UnixElectionDay - $var["UnixElection_Date"];
+						$IndexElectionToCopy = $index;
+					}
+				}
+			
+				if ($DateInStaticFile != $RMBInformation[$IndexElectionToCopy]["Elections_Date"]) {
+					
+					$CandidateElectionID = $rmb->CreatePositionEntry( array(
+								"Elections_ID" => "1393", 
+								"ElectionsPosition_ID" => $RMBInformation[$IndexElectionToCopy]["ElectionsPosition_ID"], 
+								"CandidateElection_PositionType" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_PositionType"], 
+								"CandidateElection_Party" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_Party"], 
+								"CandidateElection_Text" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_Text"], 
+								"CandidateElection_PetitionText" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_PetitionText"], 
+								"CandidateElection_URLExplain" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_URLExplain"], 
+								"CandidateElection_Number" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_Number"], 
+								"CandidateElection_DisplayOrder" => $RMBInformation[$IndexElectionToCopy]["ElectionsPosition_Order"], 
+								"CandidateElection_Display" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_Display"], 
+								"CandidateElection_Sex" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_Sex"], 
+								"CandidateElection_DBTable" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_DBTable"], 
+								"CandidateElection_DBTableValue" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_DBTableValue"], 
+							)
+					);
+				} else {
+					$CandidateElectionID = $RMBInformation[$IndexElectionToCopy]["CandidateElection_ID"];
+				}
+			
+			
+				// Check that the election was not entered.
+				$PetitionCandidate = $rmb->SearchPetitionCandidate(
+								$URIEncryptedString["SystemUser_ID"], $URIEncryptedString["UniqNYSVoterID"],
+								$URIEncryptedString["Voters_ID"],	$RMBInformation[$IndexElectionToCopy]["DataCounty_ID"],
+								$CandidateElectionID,	$RMBInformation[$IndexElectionToCopy]["CandidateElection_Party"],
+								$URIEncryptedString["CPrep_Full"], $URIEncryptedString["CPrep_Address1"] . "\n" . $URIEncryptedString["CPrep_Address2"], 
+								$RMBInformation[$IndexElectionToCopy]["CandidateElection_DBTable"],
+								$RMBInformation[$IndexElectionToCopy]["CandidateElection_DBTableValue"], "pending", 
+								$URIEncryptedString["Team_ID"]
+							);
+							
+				$PetitionCandidateID = $PetitionCandidate[0]["Candidate_ID"];
+												
+				if ( $CandidateElectionID > 0 && empty ($PetitionCandidate[0]["Candidate_ID"] )) {
+					$PetitionCandidateID = $rmb->InsertCandidate(
+								$URIEncryptedString["SystemUser_ID"], $URIEncryptedString["UniqNYSVoterID"],
+								$URIEncryptedString["Voters_ID"],	$RMBInformation[$IndexElectionToCopy]["DataCounty_ID"],
+								$CandidateElectionID,	$RMBInformation[$IndexElectionToCopy]["CandidateElection_Party"],
+								$URIEncryptedString["CPrep_Full"], $URIEncryptedString["CPrep_Address1"] . "\n" . $URIEncryptedString["CPrep_Address2"], 
+								$RMBInformation[$IndexElectionToCopy]["CandidateElection_DBTable"],
+								$RMBInformation[$IndexElectionToCopy]["CandidateElection_DBTableValue"], NULL, "pending", 
+								$URIEncryptedString["Team_ID"]
+							 );				
+
+				} else {
+					print "Found the Petition " . $PetitionCandidate[0]["Candidate_ID"] . "<BR>";
+				}
+				
+				header("Location: /" . $k . "/lgd/team/teampetitions");
+				
+				exit();
+			} else {
+				
+				echo "Problem finding a template for this position.<BR>";
+				exit();
+				
+				
+			}
+			
+			
+	}
+		
+		
+		
 		WriteStderr($_POST, "Input \$_POST and creating the whole petition.");
 		
 		$ElectionsTypes = $rmb->ListElectedPositions(NULL, NULL, $_POST["ElectionType"]);
@@ -92,7 +189,7 @@
 	}
 		
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-	$ElectionsDates = $rmb->ListElectionsDates(50, 0, true, $URIEncryptedString["PetitionStateID"]);
+	$ElectionsDates = $rmb->ListElectionsDates(50, 0, false, $URIEncryptedString["PetitionStateID"]);
 	$ElectionsTypes = $rmb->ListElectedPositions($URIEncryptedString["PetitionStateID"], "id");
 	$Parties = $rmb->ListParties($URIEncryptedString["PetitionStateID"], true);
 	WriteStderr($ElectionsDates, "ElectionsDates");	

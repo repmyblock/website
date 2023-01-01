@@ -20,8 +20,8 @@
 		exit();
 	}
 
-	$result = $rmb->ListPetitionGroup();
-	WriteStderr($result, "ListElectedPositions");
+	$result = $rmb->ListsTeams();
+	WriteStderr($result, "ListsTeams");
 	
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";

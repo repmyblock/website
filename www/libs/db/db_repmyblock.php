@@ -23,13 +23,13 @@ class RepMyBlock extends queries {
 	 	return $this->_return_simple($sql, $sql_vars);
 	}
 	
-	function SaveTeamInfo($SystemUser_ID, $Team_ID, $Priv = NULL, $Active = 'yes') {
+	function SaveTeamInfo($SystemUser_ID, $Team_ID, $Priv = NULL, $Active = 'pending') {
 		 $ret = $this->ReturnTeamInfo($SystemUser_ID, $Team_ID);
 		 WriteStderr($ret, "ReturnTeamInfo");
 		 
 		 if (empty ($ret)) {			
 			$sql = "INSERT INTO TeamMember SET SystemUser_ID = :SystemUser, Team_ID = :TeamID, " . 
-						 "TeamMember_Active = :Active, TeamMember_ApprovedDate = NOW()";
+						 "TeamMember_Active = :Active, TeamMember_DateRequest = NOW()";
 			$sql_vars = array("SystemUser" => $SystemUser_ID, "TeamID" => $Team_ID, "Active" => $Active);
 			//				"TeamMember_Active = :Active, TeamMember_Privs = :Privs, " .
 			//				"TeamMember_ApprovedBy = :App_SystemID, TeamMember_ApprovedNote = :App_Note, ";	
@@ -258,6 +258,101 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);		
 	}
 	
+	function CreatePositionEntry($DataArray) {
+		$sql = "INSERT INTO CandidateElection SET ";
+		$FirstTime = "";
+		$sql_vars = array();
+		
+		if ( ! empty ($DataArray)) {
+			foreach ($DataArray as $var => $data) {
+				if ( ! empty ($data)) { 
+					if ( $FirstTime == 0 ) { $FirstTime = 1; } else { $sql .= ", "; }
+					$sql .=	$var . " = :" . $var; 
+					$sql_vars[$var] = $data;
+				}
+			}
+		}
+
+		if ( $FirstTime == 1) {
+			$this->_return_nothing($sql, $sql_vars);
+			
+			$sql = "SELECT LAST_INSERT_ID() as CandidateElection_ID";
+			$ret = $this->_return_simple($sql); 	
+			return $ret["CandidateElection_ID"];
+		}
+	}
+	
+	
+	function InsertCandidateElection($CandidateElectionData) {
+			
+		if (! empty ($CandidateElectionData["ElectionID"])) {
+			$sql = "INSERT INTO CandidateElection SET ";
+			$MatchTableName = array(
+					"ElectionID" => "Elections_ID", 
+					"PosType" => "CandidateElection_PositionType", 
+					"Party" => "CandidateElection_Party", 
+					"PosText" => "CandidateElection_Text", 
+					"PetText" => "CandidateElection_PetitionText", 
+					"URLExplain" => "CandidateElection_URLExplain", 
+					"Number" => "CandidateElection_Number", 
+					"Order" => "CandidateElection_DisplayOrder", 
+					"Display" => "CandidateElection_Display", 
+					"Sex" => "CandidateElection_Sex", 
+					"DBTable" => "CandidateElection_DBTable", 
+					"DBValue" => "CandidateElection_DBTableValue", 
+					"NbrVoters" => "CandidateElection_CountVoter"
+			);
+			
+			$firsttime = 0;
+			foreach ($MatchTableName as $index => $var) {			
+				if (! empty ($CandidateElectionData[$index])) { 
+					if ($firsttime == 0) { $firsttime = 1;} else { $sql .= ", "; }
+					$sql .= $var . " = :" . $index;
+				}
+			}
+		}
+		
+		$this->_return_nothing($sql, $CandidateElectionData);
+		
+		$sql = "SELECT LAST_INSERT_ID() as CandidateElection_ID";
+		return $this->_return_simple($sql); 	
+	}
+	
+	
+	function FindElectionInfoForPetition ($DistrictID, $DBTable = NULL, $Party = NULL, $DateToMatch = true) {
+		$sql = "SELECT *, UNIX_TIMESTAMP(Elections_Date) AS UnixElection_Date ";
+		
+		$sql .= ", CONCAT(DataDistrict_StateAssembly, LPAD(DataDistrict_Electoral, 3, 0)) AS ADED ";
+		
+		$sql .=	"FROM DataDistrict LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = DataDistrict.DataCounty_ID) " . 
+						"LEFT JOIN DataState ON (DataState.DataState_ID = DataCounty.DataState_ID) " .
+						"LEFT JOIN ElectionsPosition ON (DataState.DataState_ID = ElectionsPosition.DataState_ID) " . 
+						"LEFT JOIN CandidateElection ON (CandidateElection.ElectionsPosition_ID = ElectionsPosition.ElectionsPosition_ID ";
+						
+		$sql .= "AND ";
+		$sql .= "CandidateElection_DBTableValue = CONCAT(DataDistrict_StateAssembly, LPAD(DataDistrict_Electoral, 3, 0)) ";
+							
+		$sql .=	") " .
+						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) ";
+						
+		$sql .= "WHERE ElectionsPosition_DBTable = :DBTable AND DataDistrict_ID = :DistrictID ";
+		
+		if ( $DateToMatch == true) {
+			$sql .= "AND Elections_Date > CURDATE()";
+		}
+		
+		$sql_vars = array("DBTable" => $DBTable, "DistrictID" => $DistrictID);
+		
+		if ( ! empty ($Party)) {
+			$sql .= " AND ElectionsPosition_Party = :Party";
+			$sql_vars["Party"] = $Party;
+		}
+		
+		$sql .= " LIMIT 100";
+		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
 	
 	function ListPetitionGroup($GroupID = NULL, $Status = NULL) {
 		$sql = "SELECT * FROM CandidateGroup " .
@@ -278,19 +373,36 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);	
 	}
 
-	function ListElectedPositions($state, $StateID = NULL, $PositionID = NULL) {
-		$sql = "SELECT * FROM ElectionsPosition WHERE ";
+	function ListElectedPositions($StateName, $StateID = NULL, $PositionID = NULL, $Party = NULL, $PositionCode = NULL) {
+		$sql = "SELECT * FROM  DataState " .
+						"LEFT JOIN ElectionsPosition ON (DataState.DataState_ID = ElectionsPosition.DataState_ID) " .
+						"WHERE ";
+
+		$sql_vars = array();
+		$and = "";
+		
+		if ( ! empty ($PositionCode )) {
+			$sql .= " ElectionsPosition_DBTable = :PositionCode ";
+			$sql_vars["PositionCode"] = $PositionCode;
+			$and = " AND";
+		}
+		
+		if ( ! empty ($Party)) { 
+			$sql .= $and . " ElectionsPosition_Party = :Party";
+			$sql_vars["Party"] = $Party;
+			$and = " AND ";
+		}
 
 		if ( $PositionID > 0) {
-			$sql .= "ElectionsPosition_ID = :PosID";
-			$sql_vars = array('PosID' => $PositionID);	
+			$sql .= $and . "ElectionsPosition_ID = :PosID";
+			$sql_vars['PosID'] = $PositionID;	
 		} else {
 			if ( $StateID == "id") {
-				$sql .= "DataState_ID = :State ";
+				$sql .= $and . "DataState.DataState_ID = :State ";
 			}	else {	
-				$sql .= "ElectionsPosition_State = :State ";				
+				$sql .= $and . "DataState.DataState_Name = :State ";				
 			}
-			$sql_vars = array('State' => $state);	
+			$sql_vars['State'] = $StateName;	
 			$sql .= "ORDER BY ElectionsPosition_Order";
 		} 
 		
@@ -350,40 +462,7 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql);
 	}
 	
-	function InsertCandidateElection($CandidateElectionData) {
-			
-		if (! empty ($CandidateElectionData["ElectionID"])) {
-			$sql = "INSERT INTO CandidateElection SET ";
-			$MatchTableName = array(
-					"ElectionID" => "Elections_ID", 
-					"PosType" => "CandidateElection_PositionType", 
-					"Party" => "CandidateElection_Party", 
-					"PosText" => "CandidateElection_Text", 
-					"PetText" => "CandidateElection_PetitionText", 
-					"URLExplain" => "CandidateElection_URLExplain", 
-					"Number" => "CandidateElection_Number", 
-					"Order" => "CandidateElection_DisplayOrder", 
-					"Display" => "CandidateElection_Display", 
-					"Sex" => "CandidateElection_Sex", 
-					"DBTable" => "CandidateElection_DBTable", 
-					"DBValue" => "CandidateElection_DBTableValue", 
-					"NbrVoters" => "CandidateElection_CountVoter"
-			);
-			
-			$firsttime = 0;
-			foreach ($MatchTableName as $index => $var) {			
-				if (! empty ($CandidateElectionData[$index])) { 
-					if ($firsttime == 0) { $firsttime = 1;} else { $sql .= ", "; }
-					$sql .= $var . " = :" . $index;
-				}
-			}
-		}
-		
-		$this->_return_nothing($sql, $CandidateElectionData);
-		
-		$sql = "SELECT LAST_INSERT_ID() as CandidateElection_ID";
-		return $this->_return_simple($sql); 	
-	}
+
 	
 	function updatecandidateprofile($Candidate_ID, $CandidateProfile) {
 	
@@ -482,17 +561,18 @@ class RepMyBlock extends queries {
 	}
 	
 	function ListElectionsDates ($limit = 50, $start = 0, $futureonly = false, $StateID = NULL) {
-		$sql = "SELECT * FROM Elections " . 
-						"LEFT JOIN DataState ON (Elections.DataState_ID = DataState.DataState_ID) ";
+		$sql = "SELECT * FROM DataState " . 
+						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.DataState_ID = DataState.DataState_ID) " .
+						"LEFT JOIN CandidateElection ON (ElectionsPosition.ElectionsPosition_ID = CandidateElection.ElectionsPosition_ID) " . 
+						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) ";
 		
 		// Not very elegant but I am tired.
 		if ( $futureonly == true ) {
-			$sql .= "WHERE Elections_Date >= NOW() ";
-			if ( $StateID > 0) { $sql .= "AND Elections.DataState_ID = :StateID "; }
+			$sql .= "WHERE (Elections_Date >= NOW()) ";
+			if ( $StateID > 0) { $sql .= "AND DataState.DataState_ID = :StateID "; }
 		} else {
-			if ( $StateID > 0 ) { $sql .= "WHERE Elections.DataState_ID = :StateID "; }
+			if ( $StateID > 0 ) { $sql .= "WHERE DataState.DataState_ID = :StateID "; }
 		}
-		
 		
 		$sql .= "ORDER BY Elections_Date, Elections_Type LIMIT $start, $limit";	
 
@@ -569,10 +649,10 @@ class RepMyBlock extends queries {
 	
 	
 	function InsertCandidate($SystemUserID, $UniqNYSVoterID, $RawVoterID, $DataCountyID, $CandidateElectionID, $Party, $DisplayName,
-														$Address, $DBTable, $DBValue,	$StatsVoters, $Status, $NameSet = NULL) {
-															
+														$Address, $DBTable, $DBValue,	$StatsVoters, $Status, $TeamID = NULL, $NameSet = NULL) {
+																														
 		$sql = "INSERT INTO Candidate SET SystemUser_ID = :SystemUserID, Candidate_UniqStateVoterID = :UniqNYSVoterID, " .
-						"Voter_ID = :RawVoterID, DataCounty_ID = :DataCountyID," .
+						"Voters_ID = :RawVoterID, DataCounty_ID = :DataCountyID," .
 						"CandidateElection_ID = :CandidateElectionID, Candidate_Party = :Party, Candidate_DispName = :DisplayName, " .
 						"Candidate_DispResidence = :Address, CandidateElection_DBTable = :DBTable, " .
 						"CandidateElection_DBTableValue = :DBValue, Candidate_StatsVoters = :StatsVoters, " . 
@@ -590,12 +670,42 @@ class RepMyBlock extends queries {
 			$sql_vars["NameSet"] = $NameSet;
 		}
 		
+		if ( $TeamID != NULL) {
+			$sql .= ", Team_ID = :TeamID";
+			$sql_vars["TeamID"] = $TeamID;
+		}
+		
 		$this->_return_nothing($sql, $sql_vars);
 		
 		$sql = "SELECT LAST_INSERT_ID() as Candidate_ID";
 		return $this->_return_simple($sql);
 	}
-	
+
+	function SearchPetitionCandidate($SystemUserID, $UniqNYSVoterID, $RawVoterID, $DataCountyID, $CandidateElectionID, 
+																		$Party, $DisplayName,	$Address, $DBTable, $DBValue, $Status, $TeamID = NULL) {
+																														
+		$sql = "SELECT * FROM Candidate WHERE SystemUser_ID = :SystemUserID AND Candidate_UniqStateVoterID = :UniqNYSVoterID AND " .
+						"Voters_ID = :RawVoterID AND  DataCounty_ID = :DataCountyID AND " .
+						"CandidateElection_ID = :CandidateElectionID AND  Candidate_Party = :Party AND  Candidate_DispName = :DisplayName AND  " .
+						"Candidate_DispResidence = :Address AND CandidateElection_DBTable = :DBTable AND  " .
+						"CandidateElection_DBTableValue = :DBValue AND  " . 
+						"Candidate_Status = :Status";
+						
+		$sql_vars = array("SystemUserID" => $SystemUserID, "UniqNYSVoterID" => $UniqNYSVoterID, 
+											"RawVoterID" => $RawVoterID, "DataCountyID" => $DataCountyID, 
+											"CandidateElectionID" => $CandidateElectionID, 
+											"Party" => $Party, "DisplayName" =>  $DisplayName, 
+											"Address" => $Address, "DBTable" => $DBTable, "DBValue" => $DBValue, 
+											"Status" => $Status);
+
+		if ( $TeamID != NULL) {
+			$sql .= " AND Team_ID = :TeamID";
+			$sql_vars["TeamID"] = $TeamID;
+		}
+		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+
 	function CandidateNomination($SystemUserID, $ElectionID, $CandidateID) {
 		$sql = "INSERT INTO CanNomination SET Candidate_ID = :CandidateID, SystemUser_ID = :SystemUserID, CandidateElection_ID = :CandidateElectionID";
 		$sql_vars = array('CandidateID' => $CandidateID, 'SystemUserID' => $SystemUserID, 'CandidateElectionID' => $ElectionID);
@@ -1084,12 +1194,14 @@ class RepMyBlock extends queries {
 						"LEFT JOIN DataStreet ON (DataAddress.DataStreet_ID = DataStreet.DataStreet_ID) " .
 						"LEFT JOIN DataCity ON (DataCity.DataCity_ID = DataAddress.DataCity_ID) " .
 						"LEFT JOIN DataDistrictTemporal on (DataHouse.DataHouse_ID = DataDistrictTemporal.DataHouse_ID) " .
+						"LEFT JOIN DataDistrictCycle on (DataDistrictTemporal.DataDistrictCycle_ID = DataDistrictCycle.DataDistrictCycle_ID) " .
 						"LEFT JOIN DataDistrict ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .		
 						"LEFT JOIN DataCounty ON (DataDistrict.DataCounty_ID = DataCounty.DataCounty_ID) " .
 						"LEFT JOIN DataState ON (DataState.DataState_ID = DataCounty.DataState_ID) " .
 						"LEFT JOIN DataDistrictTown ON (DataDistrictTown.DataDistrictTown_ID = DataHouse.DataDistrictTown_ID) " . 
 						"LEFT JOIN SystemUserSelfDistrict ON (SystemUser.SystemUser_ID = SystemUserSelfDistrict.SystemUser_ID) " . 
-						"WHERE SystemUser.SystemUser_ID = :SystemID";
+						"WHERE SystemUser.SystemUser_ID = :SystemID AND " .
+						"(CURDATE() >= DataDistrictCycle_CycleStartDate AND CURDATE() <= DataDistrictCycle_CycleEndDate) IS NULL";
 		$sql_vars = array("SystemID" => $SystemUserID);		
 		return $this->_return_simple($sql, $sql_vars);
 	}

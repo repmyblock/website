@@ -43,7 +43,8 @@
  
   <dl class="form-group">
 	 		<A HREF="/<?= $k ?>/admin/userlookup" class="mobilemenu">RepMyBlock User</A><BR>	
- 			<A HREF="/<?= $k ?>/admin/team">Team Management</A><BR>
+ 			<A HREF="/<?= $k ?>/admin/team">Team Member Management</A><BR>
+ 			<A HREF="/<?= $k ?>/admin/team_list">Team Setup</A><BR>
  			<A HREF="/<?= $k ?>/admin/voterlookup">Voter Lookup</A><BR>
   		<A HREF="/<?= $k ?>/admin/track">Petitions Tracker</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_candidate">Candidates Maintenance</A><BR>	

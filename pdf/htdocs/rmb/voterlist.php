@@ -10,25 +10,35 @@ if ( ! isset ($RMBBlockInit)) {
 	$db_RMB_voterlist = new OutragedDems(0);
 	$PageSize = "letter";
 	$pdf_RMB_walksheet = new PDF_RMB_VoterList('P','mm', $PageSize);
-	$WalkSheetFrameName = "2022";
+	
+	// This is the date that drive the RMB File in libs/funcs/pdf_frames/version_rmb_<$WalkSheetFrameName>".php
+	$WalkSheetFrameName = "2023";    
 }
 
-$DB_Type = "DBRaw";
 WriteStderr($URIEncryptedString, "URIEncryptedString");
 	
 if ($URIEncryptedString["DataDistrict_ID"] > 0) {
 	
-	$DataQuery = array("AD" => intval($URIEncryptedString["AD"]), "ED" => intval($URIEncryptedString["ED"]));
+	$ReturnDistrictInfo = $db_RMB_voterlist->FindADEDFromDistrict($URIEncryptedString["DataDistrict_ID"]);
+	WriteStderr($ReturnDistrictInfo, "ReturnDistrictInfo");
+
+	$DataQuery = array("AD" => intval($ReturnDistrictInfo["DataDistrict_StateAssembly"]), "ED" => intval($ReturnDistrictInfo["DataDistrict_Electoral"]));
 	if ($URIEncryptedString["Party"] != "ALL") { $DataQuery["PT"] = $URIEncryptedString["Party"]; }
 	
 	$voters = $db_RMB_voterlist->SearchVotersFile($DataQuery);										
 	
 	$PreparedFor = $URIEncryptedString["PreparedFor"];
+	
+	$WalkSheetUser["CandidateElection_PetitionText"] = "County Committee";
+	$WalkSheetUser["Elections_Date"] = "2023-06-21";
+	
 	$ElectionDate = PrintShortDate($WalkSheetUser["Elections_Date"]);
 
 	$WalkSheetUser["CandidateElection_DBTable"] = "ADED";
-	$WalkSheetUser["CandidateElection_DBTableValue"] = sprintf("%2d%03d", $URIEncryptedString["AD"], $URIEncryptedString["ED"]);			
+	$WalkSheetUser["CandidateElection_DBTableValue"] = sprintf("%2d%03d", $DataQuery["AD"], $DataQuery["ED"]);			
 	$WalkSheetUser["Candidate_ID"] = $URIEncryptedString["Party"] . $URIEncryptedString["SystemID"];
+	
+	WriteStderr(count($voters), "The number of voters found in the database");
 			
 } else {
 
@@ -66,51 +76,27 @@ $WalkSheet_FileName = "WalkSheet_" . $FileTitle . "_" . $Today . "_" . $WalkShee
 if (! empty ($voters)) {
 	foreach ($voters as $person) {
 		if ( ! empty ($person)) {
-			switch($DB_Type) {
-				case 'DBRaw':
-					WriteStderr($person, "person");				
-					$FixedAddress = preg_replace('!\s+!', ' ', $person["ResStreetName"] );
-					$FixedApt = strtoupper(preg_replace('!\s+!', '', $person["ResApartment"] ));
-					$Address[$FixedAddress][$person["ResHouseNumber"]]["PrintAddress"] = 
-												ucwords(strtolower(trim($person["ResHouseNumber"] . " " . 
-												$person["ResStreetName"] )));
-					$Address[$FixedAddress][$person["ResHouseNumber"]]
-									[$FixedApt][$person["Status"]]
-									[$person["UniqNYSVoterID"]] =	$person["FirstName"] . " " . 
-																								$person["MiddleName"] . ". " . 
-																								$person["LastName"];
-										
-					// The reason for this is that the CandidatePetition_ID is unique enough.
-	        $Gender[$person["UniqNYSVoterID"]] = $person["Gender"];
-	    		$interval = date_diff(date_create(date('Y-m-d')), date_create($person["DOB"]));    		
-	    		$Age[$person["UniqNYSVoterID"]] = $interval->y;
-				break;
-
-			case 'DBNorm':
-				$FixedAddress = preg_replace('!\s+!', ' ', $person["DataStreet_Name"] );
-				$FixedApt = strtoupper(preg_replace('!\s+!', '', $person["DataHouse_Apt"] ));
-				$Address[$FixedAddress][$person["DataAddress_HouseNumber"]]["PrintAddress"] = 
-											ucwords(strtolower(trim($person["DataAddress_HouseNumber"] . " " . 
-											$person["DataStreet_Name"] )));
-				$Address[$FixedAddress][$person["DataAddress_HouseNumber"]]
-								[$FixedApt][$person["Voters_Status"]]
-								[$person["VotersIndexes_UniqStateVoterID"]] =	$person["DataFirstName_Text"] . " " . 
-																															$person["DataMiddleName_Text"] . " " . 
-																															$person["DataLastName_Text"];
-									
-				// The reason for this is that the CandidatePetition_ID is unique enough.
-        $Gender[$person["VotersIndexes_UniqStateVoterID"]] = $person["Voters_Gender"];
-    		$interval = date_diff(date_create(date('Y-m-d')), date_create($person["VotersIndexes_DOB"]));    		
-    		$Age[$person["VotersIndexes_UniqStateVoterID"]] = $interval->y;
-				break;
-			
-			default:
-				$FixedAddress = "You did not select a DB Type\n";
-				break;
-			}	
-		}
+			$FixedAddress = preg_replace('!\s+!', ' ', $person["DataStreet_Name"] );
+			$FixedApt = strtoupper(preg_replace('!\s+!', '', $person["DataHouse_Apt"] ));
+			$Address[$FixedAddress][$person["DataAddress_HouseNumber"]]["PrintAddress"] = 
+										ucwords(strtolower(trim($person["DataAddress_HouseNumber"] . " " . 
+										$person["DataStreet_Name"] )));
+			$Address[$FixedAddress][$person["DataAddress_HouseNumber"]]
+							[$FixedApt][$person["Voters_Status"]]
+							[$person["VotersIndexes_UniqStateVoterID"]] =	$person["DataFirstName_Text"] . " " . 
+																														$person["DataMiddleName_Text"] . " " . 
+																														$person["DataLastName_Text"];
+								
+			// The reason for this is that the CandidatePetition_ID is unique enough.
+      $Gender[$person["VotersIndexes_UniqStateVoterID"]] = $person["Voters_Gender"];
+  		$interval = date_diff(date_create(date('Y-m-d')), date_create($person["VotersIndexes_DOB"]));    		
+  		$Age[$person["VotersIndexes_UniqStateVoterID"]] = $interval->y;
+		}	
 	}
 }
+
+$InfoArray["Address"] = $Address;
+// WriteStderr($Address, "Address Array");
 
 $PageSize = "letter";
 

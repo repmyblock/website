@@ -61,7 +61,7 @@ function version_NY_hano ($pdf, $InfoArray) {
 		
 		$pdf->SetFont('Arial','B',17);
 		$pdf->SetXY($pdf->Line_Left + 148, $YLocation + 6);
-		$pdf->MultiCell(40, 3.3, "    /     / 2022", 0, 'R', 0);
+		$pdf->MultiCell(40, 3.3, "    /     / 2023", 0, 'R', 0);
 		
 		$pdf->Rect($pdf->Line_Left + 3, $YLocation + 2,  $pdf->Line_Right - $pdf->Line_Left - 2 , 18);
 		$pdf->Line($pdf->Line_Left + 3, $YLocation + 12, $pdf->Line_Right - 14 , $YLocation + 12);

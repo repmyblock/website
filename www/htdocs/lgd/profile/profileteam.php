@@ -32,7 +32,7 @@
 		if ( ! empty ( $_POST["TeamIDAddtion"])) {
 			foreach ($_POST["TeamIDAddtion"] as $var) {
 				// function SaveTeamInfo($URIEncryptedString["SystemUser_ID"], $var, $Priv = NULL, $Active = 'yes') {
-				$rmb->SaveTeamInfo($URIEncryptedString["SystemUser_ID"], $var, NULL, 'yes');
+				$rmb->SaveTeamInfo($URIEncryptedString["SystemUser_ID"], $var, NULL, 'pending');
 			}
 		}
 		
@@ -40,6 +40,15 @@
 			$TrimmedAccess = trim($_POST["TeamCode"]);
 			$CampaignTeam = $rmb->FindCampaignFromCode($TrimmedAccess);
 			WriteStderr($CampaignTeam, "CampaignTeam");
+			
+			if ( ! empty ($CampaignTeam["Team_URLRedirect"])) {
+				header("Location: /" . CreateEncoded ( array( 
+									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+									"SuccessMsg" => "1",
+								))  . $CampaignTeam["Team_URLRedirect"]);
+				exit();				
+			}
+			
 
 			if ( $CampaignTeam["Team_AccessCode"] == $TrimmedAccess ) {
 				WriteStderr($CampaignTeam, "CampaignTeam: " . $URIEncryptedString["SystemUser_ID"] . " CampaignTema: " . $CampaignTeam["Team_ID"]);			
@@ -63,7 +72,7 @@
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
 
 	$rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
-	$rmbteams = $rmb->ListActiveTeam($URIEncryptedString["SystemUser_ID"]);
+	$rmbteams = $rmb->ListTeamsWithMembers($URIEncryptedString["SystemUser_ID"]);
 	WriteStderr($rmbteams, "Teams List");
 	
 	$TopMenus = array (
@@ -128,15 +137,18 @@
 					if ( ! empty ($rmbteams)) {
 						foreach ($rmbteams as $var) {
 							if ( $var["SystemIDFromTeam"] == $URIEncryptedString["SystemUser_ID"]) {
-								$FoundUserInTeam = 1;
+								if ( $var["TeamMember_Active"] == "yes" || $var["TeamMember_Active"] == "pending") {
+									$FoundUserInTeam = 1;
 			?>		
+			
 				<DIV>
-					<div class="list-group-item filtered f50">
-	    			<span><INPUT class="f50" TYPE="CHECKBOX" NAME="TeamIDRmval[]" VALUE="<?= $var["TeamMember_ID"] ?>"></span>			
-						<span><?= $var["Team_Name"] ?></span> 
+					<div class="list-group-item filtered f50">						
+	    				<span><INPUT class="f50" TYPE="CHECKBOX" NAME="TeamIDRmval[]" VALUE="<?= $var["TeamMember_ID"] ?>"></span>			
+							<span><?= $var["Team_Name"] ?></span> <?php if ($var["TeamMember_Active"] == "pending") { ?><I>(pending approval)</I><?php } ?>
+					
 					</div>
  				</DIV>
- 				
+ 					<?php } ?>
  			
  				
 			<?php } 
@@ -187,7 +199,7 @@
 		    	<?php 			
 					if ( ! empty ($rmbteams)) {
 						foreach ($rmbteams as $var) {
-							if ( empty ($var["SystemIDFromTeam"]) &&  $var["Team_Public"] == "public") {
+							if ( (empty ($var["SystemIDFromTeam"]) &&  $var["Team_Public"] == "public") || $var["TeamMember_Active"] == "no") {
 							 $FoundPublicCampaign = 1;
 			?>
 				<DIV>

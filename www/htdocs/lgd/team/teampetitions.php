@@ -44,6 +44,7 @@
     				
 		<P>
 		
+		<UL>
 		<?php 
 			if ( ! empty ($ListPetitions) ) {
 				foreach ($ListPetitions as $var) {
@@ -56,19 +57,37 @@
 														"PendingBypass" => "yes"								
 													));
 		?>
-						
-		<?= $var["Candidate_DispName"] ?>	(<?= $var["Candidate_PetitionNameset"] ?>)		
-						
-		 in <?= $var["Candidate_Status"] ?> status.</A>
+				
+		<LI><A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= $NewKEncrypt ?>/NY/petition">		
+		<?= $var["Candidate_DispName"] ?>
+		<?php if ( ! empty ($var["Candidate_PetitionNameset"])) { echo "(" . $var["Candidate_PetitionNameset"] . ")"; } ?>
+		in <B><?= $var["Candidate_Status"] ?></B> status.</A>
 							
-			<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= $NewKEncrypt ?>/NY/petition"><i class="fa fa-download"></i></A> 
-							<BR>
-		<?php
+			<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= $NewKEncrypt ?>/NY/petition"><i class="fa fa-download"></i></A>
+				
+			<A TARGET="NEWWALKSHEET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded ( array( 
+											"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+											"VoterSystemUser_ID" => $rmbteammember["SystemUser_ID"],
+											"VotersIndexes_ID" => $rmbteammember["Voters_ID"],
+											"UniqNYSVoterID" => $rmbteammember["VotersIndexes_UniqStateVoterID"],						
+									    "PetitionStateID" => $rmbteammember["ElectionStateID"],
+									    "FirstName" => $rmbteammember["DataFirstName_Text"],
+									    "LastName" => $rmbteammember["DataLastName_Text"],
+									    "PreparedFor" => $VoterFullName,
+									    "DataDistrict_ID" => $rmbteammember["DataDistrict_ID"],
+									    "DataDistrictTown_ID" => $rmbteammember["DataDistrictTown_ID"],
+											"Party" => $rmbteammember["Voters_RegParty"],
+											"TeamName" => $ActiveTeam,
+											"TeamPerson" =>  $rmbperson["DataFirstName_Text"] . " " . $rmbperson["DataLastName_Text"],
+								)) . "/rmb/voterlist" ?>">Download a walksheet</A>
+				</LI> 
+				
+									<?php
 					}
 				}
 			}
 		?>
-
+	</UL>
 		</P>				
 		
 

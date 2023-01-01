@@ -7,7 +7,7 @@
 	
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   
-  $rmb = new Teams(0);
+  $rmb = new Teams();
 	
   if (! empty ($_POST)) {
   	WriteStderr($URIEncryptedString, "URIEncryptedString");
@@ -25,34 +25,20 @@
 		$rmbteam = $rmb->ListMyTeam($URIEncryptedString["SystemUser_ID"]);
 		WriteStderr($rmbteam, "RMB Team");
 	}
-	
-	if ( ! empty ($rmbteam)) {
-		foreach ($rmbteam as $var) {
-			
-			switch($var["TeamMember_Active"]) {
-				case "banned": $ShowBannedMenu = 1; break;
-				case "declined": $ShowDeclinedMenu = 1; break;
-				case "no": $ShowUnsignedMenu = 1; break;
-			}
-						
-			$ListTeamNames[$var["TeamMember_Name"]] = $var["Team_ID"];
-			
-		}	
-	}
-	
+
 	if ( ! empty ($URIEncryptedString["Team_ID"])) {
 		$rmbteaminfo = $rmb->ListAllInfoForTeam($URIEncryptedString["Team_ID"]);
 		WriteStderr($rmbteaminfo, "RMB Team Info");
+		
 		$ActiveTeam = $rmbteaminfo[0]["Team_Name"];
 		$ActiveTeam_ID = $URIEncryptedString["Team_ID"];
 	} else {
+		WipeURLEncrypted();
 		$ActiveTeam = $rmbteam[0]["Team_Name"];
 		$ActiveTeam_ID = $rmbteam[0]["Team_ID"];
 		$rmbteaminfo = $rmb->ListAllInfoForTeam($ActiveTeam_ID);
 	}
-	
-	WriteStderr($rmbteaminfo, "RMB Team Info");
-	
+
 	$TopMenus = array ( 						
 		array("k" => $k, "url" => "team/index", "text" => "Team Members"),
 		array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
@@ -87,11 +73,11 @@
 				<P class="f40">
 		   		 <B>Current Team:</B> <?= $ActiveTeam ?>
 
-				<?php if ( count ($ListTeamNames) > 1) { ?>
+				<?php if ( count ($rmbteam) > 1) { ?>
 						<FORM ACTION="" METHOD="POST">
 						<SELECT  class="mobilebig" NAME="Team_ID">
 							<?php 
-								foreach ($ListTeamNames as $index => $var) {
+								foreach ($rmbteam as $var) {
 									if (! empty ($var["Team_ID"])) { ?>
 										<OPTION VALUE="<?= $var["Team_ID"] ?>"<?php if ($ActiveTeam_ID == $var["Team_ID"]) { echo " SELECTED"; } ?>><?= $var["Team_Name"] ?></OPTION>							
 									<?php
@@ -119,53 +105,7 @@
 			
 			
 					    <div class="Box-body  js-collaborated-repos-empty">
-					      <A HREF="/<?= CreateEncoded (
-      																	array( 
-																								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																								"Team_ID" => $ActiveTeam_ID,
-																							)
-																				); ?>/lgd/team/unsigned">Users with incomplete registrations</A>
-												
-												<BR>			
-								
-								<?php if (	$ShowUnsignedMenu == 1) { ?>
-									 
-									 <A HREF="/<?= CreateEncoded (
-      																	array( 
-																								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																								"Team_ID" => $ActiveTeam_ID,
-																							)
-																				); ?>/lgd/team/deregistered">Deregistered users</A>
-									
-									
-								<?php } ?>
-																
-												
-								<?php if (	$ShowDeclinedMenu == 1) { ?>
-									 
-									 <A HREF="/<?= CreateEncoded (
-      																	array( 
-																								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																								"Team_ID" => $ActiveTeam_ID,
-																							)
-																				); ?>/lgd/team/banned">Declined users</A>
-									
-									
-								<?php } ?>
-													
-								<?php if (	$ShowBannedMenu == 1) { ?>
-									 <A HREF="/<?= CreateEncoded (
-      																	array( 
-																								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																								"Team_ID" => $ActiveTeam_ID,
-																							)
-																				); ?>/lgd/team/banned">Banned users</A>
-									
-									
-								<?php } ?>
-								
-								
-																				
+					      <A HREF="unsigned">List Unsigned Users</A>
 					    </div>
 					    
 							    
@@ -189,34 +129,28 @@
 											<TH style="padding:0px 10px;">AD</TH>
 											<TH style="padding:0px 10px;">ED</TH>
 											<TH style="padding:0px 10px;">TOWN</TH>
-											<TH style="padding:0px 10px;">Sigs.</TH>
-											<TH style="padding:0px 10px;">Done</TH>
 											<TH style="padding:0px 10px;">&nbsp;</TH>
 										</TR>
 									
 									
 									<?php 
 										foreach ($rmbteaminfo as $var) { 
-											if ($var["TeamMember_Active"] == "yes" || $var["TeamMember_Active"] == "pending") {
 											
-											if ( $var["TeamMember_Active"] == "pending") {
+											if ( $var["TeamMember_Active"] == "no") {
 												$style = "color:brown;style:bold;background-color:lightgrey;font-weight: bold;";
 											} else {
 												$style = "";
 											}
 											
-											$FoundUserInList = 1;
 											?>
 									
 									<TR ALIGN=CENTER>
 										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["SystemUser_Party"] ?></TD>
 										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["SystemUser_FirstName"] ?></TD>
 										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["SystemUser_LastName"] ?></TD>
-										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["DataDistrict_StateAssembly"] ?></TD>
-										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["DataDistrict_Electoral"] ?></TD>
-										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["DataDistrictTown_Name"] ?></TD>
-										<TD style="padding:0px 10px;<?= $style ?>">0</TD>
-										<TD style="padding:0px 10px;<?= $style ?>">0</TD>
+										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["AD"] ?></TD>
+										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["ED"] ?></TD>
+										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["TOWN"] ?></TD>
 										<TD style="padding:0px 10px;<?= $style ?>"><A HREF="/<?=  CreateEncoded (
 																												array( 
 																													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
@@ -226,16 +160,7 @@
 																									); ?>/lgd/team/memberinfo"">Member Info</A></TD>
 									</TR>
 									
-								<?php }
-							}  
-								
-									if (! $FoundUserInList) {  ?>
-									
-										<TR ALIGN=CENTER>
-										<TD style="align:center;padding:0px 10px;<?= $style ?>" COLSPAN=7>No users defined in the team</TD>
-									</TR>
-									
-							<?php	}  ?>
+								<?php } ?>
 								
 								</TABLE>
 								

@@ -104,6 +104,13 @@ function PrintDateTime($Date) {
 	}
 }
 
+function PrintOnDateTime($Date) {
+	if ( ! empty ($Date)) {
+		return date("\o\\n m.d.y \a\\t h:i a", strtotime( $Date ));
+	}
+}
+
+
 function PrintShortTime($Date) {
 	if ( ! empty ($Date)) {
 		return date("h:i a", strtotime( $Date ));

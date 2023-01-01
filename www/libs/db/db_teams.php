@@ -9,19 +9,30 @@ class Teams extends RepMyBlock {
 		$sql_vars = array("TeamCode" => $TeamCode);
 	 	return $this->_return_simple($sql, $sql_vars);
 	}
-	
+
 	function ListMyTeam($SystemUser_ID) {
-		$sql = "SELECT * FROM TeamMember " .  
-						"LEFT JOIN Team ON (TeamMember.Team_ID = Team.Team_ID) " .
-						"WHERE TeamMember.SystemUser_ID = :SystemUser";
+		$sql = "SELECT * FROM Team " .  
+						"LEFT JOIN TeamMember ON (TeamMember.Team_ID = Team.Team_ID) " .
+						"WHERE TeamMember.SystemUser_ID = :SystemUser OR Team.SystemUser_ID = :SystemUser";
 		$sql_vars = array("SystemUser" => $SystemUser_ID);
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	function ListTeamsWithMembers($SystemUserID) {		
+		$sql = "SELECT *, TeamMember.SystemUser_ID AS SystemIDFromTeam FROM Team " . 
+						"LEFT JOIN TeamMember ON (TeamMember.Team_ID = Team.Team_ID) " . 
+						"WHERE (TeamMember.SystemUser_ID = :SystemUser) OR (Team_Public = 'public')";
+						
+		WriteStderr($sql, "ListActiveTeam");	
+						
+		$sql_vars = array("SystemUser" => $SystemUserID);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 		
 	function ListActiveTeam($SystemUserID, $Active = 'yes') {		
 		$sql = "SELECT *, TeamMember.SystemUser_ID AS SystemIDFromTeam FROM Team " . 
 						"LEFT JOIN TeamMember ON (TeamMember.Team_ID = Team.Team_ID AND TeamMember_Active = 'yes') " . 
-						"WHERE (TeamMember.SystemUser_ID = :SystemUser AND TeamMember_Active = :Active) " .
+						"WHERE (TeamMember.SystemUser_ID = :SystemUser AND (TeamMember_Active = :Active OR TeamMember_Active = 'pending')) " .
 						" OR (Team_Public = 'public' AND Team_Active = :Active)";
 						
 		WriteStderr($sql, "ListActiveTeam");	
@@ -55,27 +66,94 @@ class Teams extends RepMyBlock {
 		$sql = "SELECT * FROM Team " .
 						"LEFT JOIN TeamMember ON (TeamMember.Team_ID = Team.Team_ID) " . 
 						"LEFT JOIN SystemUser ON (TeamMember.SystemUser_ID = SystemUser.SystemUser_ID) " .
-						"WHERE Team.Team_ID = :TeamID";
+						"LEFT JOIN Voters ON (SystemUser.Voters_ID = Voters.Voters_ID) " . 
+						"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataHouse_ID = Voters.DataHouse_ID) " .
+						"LEFT JOIN DataDistrictCycle ON (DataDistrictTemporal.DataDistrictCycle_ID = DataDistrictCycle.DataDistrictCycle_ID) " .
+						"LEFT JOIN DataDistrict ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
+						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
+						"LEFT JOIN DataDistrictTown ON (DataDistrictTown.DataDistrictTown_ID = DataHouse.DataDistrictTown_ID) " .
+						"WHERE Team.Team_ID = :TeamID AND " .
+						"(CURDATE() >= DataDistrictCycle_CycleStartDate AND CURDATE() <= DataDistrictCycle_CycleEndDate) IS NULL";
 		$sql_vars = array("TeamID" => $Team_ID);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
 	
+	function ListBannedMembers($Team_ID) {
+		$sql = "SELECT *, SystemUser.SystemUser_FirstName AS TeamFirst, SystemUser.SystemUser_LastName AS LastLast," . 
+						"Banner.SystemUser_FirstName AS BannerFirst, Banner.SystemUser_LastName AS BannerLast " . 
+						"FROM Team " .  
+						"LEFT JOIN TeamMember ON (TeamMember.Team_ID = Team.Team_ID) " .
+						"LEFT JOIN SystemUser ON (TeamMember.SystemUser_ID = SystemUser.SystemUser_ID) " . 
+						"LEFT JOIN SystemUser AS Banner ON (TeamMember.TeamMember_RemovedBy = Banner.SystemUser_ID) " . 
+						"WHERE Team.Team_ID = :TeamID ORDER BY TeamMember_DateRequest DESC";
+		$sql_vars = array("TeamID" => $Team_ID);		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
 	function ListUnsignedMembers($TeamID) {
-		$sql = "SELECT * FROM RepMyBlock.Team " .
+		$sql = "SELECT * FROM Team " .
 						"LEFT JOIN SystemUserEmail ON (SystemUserEmail.SystemUserEmail_WebCode = Team.Team_WebCode) " .
-						"WHERE Team_ID = :TeamCode " .
+						"WHERE Team.Team_ID = :TeamCode " .
 						"ORDER BY SystemUserEmail_Received DESC";
+						
 		$sql_vars = array("TeamCode" => $TeamID);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	function DisableTeamMember($TeamMemberID, $SystemID, $Notes = NULL) {
-		$sql = "UPDATE TeamMember SET TeamMember_Active = 'no', TeamMember_RemovedBy = :SystemUser_ID, TeamMember_RemovedDate = NOW() " .
-						"WHERE TeamMember_ID = :TeamMemberID";
-		$sql_vars = array("TeamMemberID" => $TeamMemberID, "SystemUser_ID" => $SystemID);
+	function UpdateVolunteerTeam($Action, $TeamMemberID, $SystemID, $Notes = NULL) {				
+		if ($Notes == "") { $Notes = NULL; }
+		if (! empty ($Action)) {		
+			$sql = "UPDATE TeamMember SET TeamMember_Active = :ActiveMode, ";
+			switch ($Action) {
+				case "yes":
+					$sql .= "TeamMember_ApprovedBy = :SystemUser_ID, TeamMember_ApprovedNote = :Note, TeamMember_ApprovedNote = NOW() ";
+					break;
+					
+				case "no":
+				case "banned":
+					$sql .= "TeamMember_RemovedBy = :SystemUser_ID, TeamMember_RemovedNote = :Note, TeamMember_RemovedDate = NOW() ";
+					break;
+					
+				default:
+			 		return NULL;
+			}
+
+			array("TeamMemberID" => $TeamMemberID, "SystemUser_ID" => $SystemID, "ActiveMode" => $Action, "Note" => $Notes);
+
+			$sql .= "WHERE TeamMember_ID = :TeamMemberID";
+			$sql_vars = array("TeamMemberID" => $TeamMemberID, "SystemUser_ID" => $SystemID, "ActiveMode" => $Action, "Note" => $Notes);
+			return $this->_return_nothing($sql, $sql_vars);
+		}
+	}
+	
+	function AddNewTeam($SystemUser_ID, $TypeTeam, $TeamName, $Team_AccessCode, $Team_WebCode, $Team_EmailCode, $Active = 'yes') {
+		$sql = "INSERT INTO Team SET SystemUser_ID = :SystemUserID, Team_Name = :TeamName, Team_AccessCode = :Access, " .
+						"Team_WebCode = :WebCode, Team_EmailCode = :EmailCode, Team_Active = :Active, Team_Public = :TypeTeam, " .
+						"Team_Created = NOW()";
+						
+		$sql_vars = array("SystemUserID" => $SystemUser_ID, "TeamName" => $TeamName, "Access" => $Team_AccessCode, "WebCode" => $Team_WebCode,
+											"EmailCode" => $Team_EmailCode, ":Active" => $Active, "TypeTeam" => $TypeTeam);
+		
 		return $this->_return_nothing($sql, $sql_vars);
 	}
+	
+	function CheckTeamExist($TeamName, $TeamAccessCode) {
+		$sql = "SELECT * FROM Team WHERE " .
+						"Team_Name = :TeamName OR Team_AccessCode = :TeamAccessCode OR Team_WebCode = :TeamAccessCode";
+		$sql_vars = array("TeamName" => $TeamName, "TeamAccessCode" => $TeamAccessCode);
+		return $this->_return_simple($sql, $sql_vars);	
+	}
+
+	function UpdateAutoTeam($PrivModification, $SystemUserID) {
+		if ( $SystemUserID > 0) {
+			$sql = "UPDATE SystemUser SET SystemUser_Priv = SystemUser_Priv";
+			if ($PrivModification >= 0) { $sql .= " | "; } else { $sql .= " & ~"; }
+			$sql .= ":AddPriv WHERE SystemUser_Priv != 4294967295 AND SystemUser_ID = :SystemID";
+			$sql_vars = array("AddPriv" => $PrivModification, "SystemID" => $SystemUserID);
+			return $this->_return_nothing($sql, $sql_vars);
+		}
+	}	
 	
 }
 ?>

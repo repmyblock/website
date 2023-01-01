@@ -37,24 +37,45 @@ class OutragedDems extends queries {
   	return $this->_return_multiple($sql, $sql_vars);  	
   }
   
+  
+  function FindADEDFromDistrict($DataDistrict) {
+  	$sql = "SELECT * FROM DataDistrict WHERE DataDistrict_ID = :DataDistrict";
+  	$sql_vars = array("DataDistrict" => $DataDistrict);
+		return $this->_return_simple($sql, $sql_vars);
+	}
+  
   function SearchVotersFile($DataSearch) {
    	$sqlquery = ""; $sql_vars = array();
 		#$sql = "SELECT * FROM VotersRaw_NYS WHERE (Status = 'A' OR Status = 'I') ";
 		
-		$sql = "SELECT * " .
-							"FROM RepMyBlock.DataDistrict " .
-							"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
-							"LEFT JOIN DataDistrictCycle ON (DataDistrictCycle.DataDistrictCycle_ID = DataDistrictTemporal.DataDistrictCycle_ID) " .
-							"LEFT JOIN DataHouse ON (DataHouse.DataDistrictTemporal_GroupID = DataDistrictTemporal.DataDistrictTemporal_GroupID) " .
-							"LEFT JOIN Voters ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
-							"LEFT JOIN DataAddress ON (DataAddress.DataAddress_ID = DataHouse.DataAddress_ID) " .
-							"LEFT JOIN DataStreet ON (DataStreet.DataStreet_ID = DataAddress.DataStreet_ID) " .
-							"LEFT JOIN DataCity ON (DataCity.DataCity_ID = DataAddress.DataCity_ID) " .
-							"LEFT JOIN VotersIndexes ON (VotersIndexes.VotersIndexes_ID = Voters.VotersIndexes_ID) " .
-							"LEFT JOIN DataLastName ON (VotersIndexes.DataLastName_ID = DataLastName.DataLastName_ID) " .
-							"LEFT JOIN DataFirstName ON (VotersIndexes.DataFirstName_ID = DataFirstName.DataFirstName_ID)  " .
-							"LEFT JOIN DataMiddleName ON (VotersIndexes.DataMiddleName_ID = DataMiddleName.DataMiddleName_ID) " .
-							"WHERE (Voters_Status = 'Active' OR Voters_Status = 'Inactive') ";
+		$sql = "SELECT ";
+		
+		
+		$sql .= "DataHouse.DataHouse_ID, DataHouse_Type, DataHouse_Apt, DataDistrictTown_ID, DataStreetNonStdFormat_ID, " . 
+						"DataAddress_HouseNumber, DataAddress_FracAddress, DataAddress_PreStreet, DataAddress_PostStreet, " . 
+						"DataAddress_zipcode, DataAddress_zip4, " . 
+						"DataStreet_Name, DataCity_Name, Voters_Gender, Voters_UniqStateVoterID, Voters_RegParty, " . 
+						"Voters_Status, Voters_DateInactive, Voters_DatePurged , Voters_RMBActive, Voters_RecFirstSeen, " . 
+						"Voters_RecLastSeen, VotersIndexes_Suffix, VotersIndexes_DOB, VotersIndexes_UniqStateVoterID, " . 
+						"DataLastName_Text, DataFirstName_Text, DataMiddleName_Text "; 
+		
+		
+		$sql .=	"FROM DataDistrict " .
+						"LEFT JOIN DataDistrictTemporal on (DataDistrict.DataDistrict_ID = DataDistrictTemporal.DataDistrict_ID) " .
+						"LEFT JOIN DataDistrictCycle on (DataDistrictTemporal.DataDistrictCycle_ID = DataDistrictCycle.DataDistrictCycle_ID) " .
+						"LEFT JOIN DataHouse ON (DataHouse.DataHouse_ID = DataDistrictTemporal.DataHouse_ID) " .
+						"LEFT JOIN DataAddress ON (DataAddress.DataAddress_ID = DataHouse.DataAddress_ID) " .
+						"LEFT JOIN DataStreet ON (DataStreet.DataStreet_ID = DataAddress.DataStreet_ID) " .
+						"LEFT JOIN DataCity ON (DataCity.DataCity_ID = DataAddress.DataCity_ID) " .
+						"LEFT JOIN Voters ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
+						"LEFT JOIN VotersIndexes ON (VotersIndexes.VotersIndexes_ID = Voters.VotersIndexes_ID) " .
+						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID) " .  
+						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID) " .  
+						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID) " .
+						"WHERE (Voters_Status = 'Active' OR Voters_Status = 'Inactive') AND " . 
+						"(CURDATE() >= DataDistrictCycle_CycleStartDate AND CURDATE() <= DataDistrictCycle_CycleEndDate) IS NULL";
+				
+							
   	
   	foreach ($DataSearch as $Param => $Search) {
 			$sqlquery .= " AND ";
@@ -248,7 +269,7 @@ class OutragedDems extends queries {
   	if ( $DataDistrictID > 0) {
   		
   		$sql = "SELECT * " .
-							"FROM RepMyBlock.DataDistrict " .
+							"FROM DataDistrict " .
 							"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
 							"LEFT JOIN DataDistrictCycle ON (DataDistrictCycle.DataDistrictCycle_ID = DataDistrictTemporal.DataDistrictCycle_ID) " .
 							"LEFT JOIN DataHouse ON (DataHouse.DataDistrictTemporal_GroupID = DataDistrictTemporal.DataDistrictTemporal_GroupID) " .

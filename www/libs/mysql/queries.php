@@ -21,13 +21,20 @@ class queries {
 	// 04/05/2014 - Theo
 		
   function _return_multiple($SQL, $SQL_Vars = "") {
+		$LocalMicrotimeStart = microtime(true);
 		$result = $this->DB->query($SQL, $SQL_Vars, 1, $this->DebugInfo);
+		$LocalMicrotimeEnd = microtime(true);
+  	WriteStderr(($LocalMicrotimeEnd - $LocalMicrotimeStart), "Time Multiple Query: $SQL");
+
 	  return $this->_compress_result($result); 
   }
   
   function _return_simple($SQL, $SQL_Vars = "") {
+  	$LocalMicrotimeStart = microtime(true);
   	$result = $this->DB->query($SQL, $SQL_Vars, 1, $this->DebugInfo);
     $result = $this->_compress_result($result);
+    $LocalMicrotimeEnd = microtime(true);
+  	WriteStderr(($LocalMicrotimeEnd - $LocalMicrotimeStart), "Time Simple Query: $SQL");
     return $result[0]; 
   }
   

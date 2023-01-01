@@ -5,10 +5,10 @@
 	
  
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_teams.php"; 
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	$rmb = new repmyblock();
+	$rmb = new teams();
 	WriteStderr($URIEncryptedString, "URIEncryptedString");	
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($UserParty);
@@ -17,8 +17,35 @@
 	if ( ! empty ($_POST)) {
 		WriteStderr($_POST, "Creating a new team \$_POST");
 
+		echo "<PRE>";
+		print_r($_POST);
+
 		print "I need to verify the team<BR>";
+		$TeamName = trim($_POST["TeamName"]);
+		if ( ctype_alnum($TeamName)) {
+			echo "The string $TeamName has stuff that is not letter<BR>";
+			exit();
+		}
 		
+		$TeamAccessCode = trim($_POST["TeamAccessCode"]);
+			$TeamAccessEmail = $TeamAccessCode . "@team." . $MailFromDomain;
+		if (! filter_var($TeamAccessEmail, FILTER_VALIDATE_EMAIL)) {
+      echo "$TeamAccessEmail: Invalid email format";
+      exit();
+   	}
+
+		$result = $rmb->CheckTeamExist($TeamName, $TeamAccessCode);
+		
+		echo "<PRE>";
+		print_r($result);
+			
+		if ( empty ($result)) {
+			$rmb->AddNewTeam($rmbperson["SystemUser_ID"], "private", $TeamName, $TeamAccessCode, $TeamAccessCode, $TeamAccessEmail);
+			header("Location: index");
+			exit();
+			
+		}
+	
 
 		exit();
 	}
@@ -59,20 +86,25 @@
 								<DL class="form-group col-12 d-inline-block f40">       
 								  <DT><LABEL>Team Name</LABEL></DT>
 								  <DD>
-								    <INPUT class="form-control" type="text" placeholder="Team name" name="TeamName" value="<?= $rmbcandidate["TeamName"]; ?>">
+								  	Give your team a name. Make the name memorable so they will remember.
+								  </DD>
+								  
+								  <DD>
+								    <INPUT class="form-control" type="text" placeholder="Give your team a name" name="TeamName" value="<?= $rmbcandidate["TeamName"]; ?>">
 								  </DD>
 								</DL>
 								  
-								<DL class="form-group col-3 d-inline-block f40"> 
+								<DL class="form-group col-9 d-inline-block f40"> 
 								  <DT><LABEL>Team Access Code</LABEL><DT>
+								  		The access code is the name people will need to enter in the personal profile to get access to your team.
+								  </DD>
 								  <DD>
-								    <INPUT class="form-control" type="text" placeholder="Team Access Code" name="TeamAccessCode" value="<?= $rmbcandidate["TeamAccessCode"]; ?>">
-									</DD>
-								  <DD>
-								    <INPUT TYPE="SUBMIT" VALUE="Check Access Name">
+								    <INPUT class="form-control" type="text" placeholder="Token name" name="TeamAccessCode" value="<?= $rmbcandidate["TeamAccessCode"]; ?>">
 								  </DD>
 								</DL>
 								
+								
+								<?php /*
 								<DL class="form-group col-12 d-inline-block f40"> 
 								  <DT><LABEL>Admin Person</LABEL> must already by part of your team<DT>
 								  <DD>
@@ -81,12 +113,15 @@
 								  </DD>
 								</DL>
 								
+								
+								*/ ?>
+								
 
 							</DIV>
 			
-						
+							<p><button type="submit" class="submitred">Create New Team</button></p>
 			
-								<p><button type="submit" class="submitred">Search Voter Registration</button></p>
+								
 			
 							</form> 
 			

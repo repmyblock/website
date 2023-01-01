@@ -153,6 +153,11 @@
 					<form id="" action="" accept-charset="UTF-8" method="post">
 						<div>
 							
+							<dl class="form-group col-12 d-inline-block"> 
+								<dt><label class="f40" for="user_profile_name">Email Address</label><DT>
+								<dt><?= $PersonEmail ?></dt>
+							</dl>						
+							
 							<dl class="form-group col-5 d-inline-block"> 			
 								<dt><label class="f40" for="user_profile_name">First Name</label><DT>
 								<dd>
@@ -170,6 +175,10 @@
 								<INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Update profile">
 							</P>
 							
+							
+							
+							
+					<?php /*		
 							<dl class="form-group">
 								<dt><label  class="f40" for="user_profile_blog">Email</label></dt>
 								<dd><input class="" type="text" value="<?= $PersonEmail ?>" name="Email" id=""></dd>
@@ -179,6 +188,9 @@
 									<dt><label for="user_profile_blog"><FONT COLOR=BROWN><B>The email <?= $rmbperson["EmailToChangeTo"] ?> already exist in the database.</B></FONT></label></dt>
 <?php						} ?>
 							</dl>
+							
+							
+							*/ ?>
 							
 							
 		<?php					/*
@@ -209,9 +221,11 @@
 								to learn more about how we use this information.
 							</p>
 							
+							<p><INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Update profile"></p>
+							
 							*/ ?>
 							
-							<p><INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Update profile"></p>
+							
 						</div>
 					</form>    
 				</div>

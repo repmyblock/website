@@ -32,7 +32,7 @@ if (strlen($k < 20)) {
 WriteStderr($URIEncryptedString, "PDF Petition");
 
 $pdf_NY_petition->Watermark = "VOID - Do not use"; 
-$WritenSignatureMonth = "June"; // date("F");
+$WritenSignatureMonth = "March"; // date("F");
 $Variable = "demo-CC";
 
 // Setup for empty petition.
@@ -47,12 +47,10 @@ $pdf_NY_petition->County = "________";
 $DateForCounter = " ___ / ___ / " . date("Y");
 $DateForCounter = date("m") . " / ____ / " . date("Y"); 
 
-$pdf_NY_petition->WitnessName = "Theo Chino Tavarez"; 
-$pdf_NY_petition->WitnessResidence = "640 Riverside Drive 10B, New York, NY 10031";
-$pdf_NY_petition->City = "New York"; 
-$pdf_NY_petition->County = "New York"; 
-
-
+#$pdf_NY_petition->WitnessName = "Theo Chino Tavarez"; 
+#$pdf_NY_petition->WitnessResidence = "640 Riverside Drive 10B, New York, NY 10031";
+#$pdf_NY_petition->City = "New York"; 
+#$pdf_NY_petition->County = "New York"; 
 
 if (is_numeric($CanPetitionSet_ID)) { $Variable = "petid"; }
 if (is_numeric($CandidateSet_ID)) { $Variable = "setid"; }	

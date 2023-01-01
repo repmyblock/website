@@ -39,15 +39,32 @@ class RMBAdmin extends RepMyBlock {
 						"LEFT JOIN Voters ON (Voters.Voters_UniqStateVoterID = SystemUser.Voters_UniqStateVoterID) " .
 						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
 						"LEFT JOIN DataDistrictTown ON (DataHouse.DataDistrictTown_ID = DataDistrictTown.DataDistrictTown_ID) " .
-						"LEFT JOIN DataDistrictTemporal ON (DataHouse.DataDistrictTemporal_GroupID = DataDistrictTemporal.DataDistrictTemporal_GroupID) " .
+						"LEFT JOIN DataDistrictTemporal ON (DataHouse.DataHouse_ID = DataDistrictTemporal.DataHouse_ID) " .
 						"LEFT JOIN DataDistrict ON (DataDistrict.DataDistrict_ID = DataDistrictTemporal.DataDistrict_ID) " .
 						"WHERE TeamMember.Team_ID = :TeamID";	
 		$sql_vars = array("TeamID" => $TeamID);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
-	
-	function ListsTeams() {
-		$sql = "SELECT * FROM Team";	
+		
+	function ListsTeams($TeamID = NULL) {
+		$sql = "SELECT * ";
+		
+		if (! empty ($TeamID)) {
+			$sql 	.= ", SystemUser.SystemUser_FirstName AS MasterFirst, SystemUser.SystemUser_LastName AS MasterLast, " .
+								"UserNotif.SystemUser_FirstName as NotifFirst, UserNotif.SystemUser_LastName as NotifLast ";
+		}
+		
+		$sql 	.= "FROM Team LEFT JOIN SystemUser ON (Team.SystemUser_ID = SystemUser.SystemUser_ID) ";
+		
+		if (! empty ($TeamID)) {
+			$sql 	.= "LEFT JOIN AdminNotif ON (Team.Team_ID = AdminNotif.Team_ID) " .
+						"LEFT JOIN SystemUser AS UserNotif ON (UserNotif.SystemUser_ID = AdminNotif.SystemUser_ID) ";
+			$sql .= "WHERE Team.Team_ID = :TeamID";
+			$sql_vars = array("TeamID" => $TeamID);
+			return $this->_return_multiple($sql, $sql_vars);
+		}				
+		
+						
 		return $this->_return_multiple($sql);
 	}
 	
