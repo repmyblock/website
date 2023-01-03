@@ -23,8 +23,9 @@
   } else {
  		$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 		$rmbteam = $rmb->ListMyTeam($URIEncryptedString["SystemUser_ID"]);
-		WriteStderr($rmbteam, "RMB Team");
+		WriteStderr($rmbteam, "RMB Team In the Else from the Post");
 	}
+	
 	
 	if ( ! empty ($rmbteam)) {
 		foreach ($rmbteam as $var) {
@@ -35,10 +36,12 @@
 				case "no": $ShowUnsignedMenu = 1; break;
 			}
 						
-			$ListTeamNames[$var["TeamMember_Name"]] = $var["Team_ID"];
-			
+			$ListTeamNames[$var["Team_Name"]] = $var["Team_ID"];
+		
 		}	
 	}
+	
+	WriteStderr($ListTeamNames, "List of name");
 	
 	if ( ! empty ($URIEncryptedString["Team_ID"])) {
 		$rmbteaminfo = $rmb->ListAllInfoForTeam($URIEncryptedString["Team_ID"]);
@@ -51,7 +54,9 @@
 		$rmbteaminfo = $rmb->ListAllInfoForTeam($ActiveTeam_ID);
 	}
 	
-	WriteStderr($rmbteaminfo, "RMB Team Info");
+	
+	
+	WriteStderr($rmbteaminfo, "RMB Team Member Info");
 	
 	$TopMenus = array ( 						
 		array("k" => $k, "url" => "team/index", "text" => "Team Members"),
@@ -71,14 +76,7 @@
 			  <div class="Subhead mt-0 mb-0">
 			    <h2 class="Subhead-heading">Team Management</h2>
 				</DIV>
-				
-			
 				<?php	PlurialMenu($k, $TopMenus); ?>   
-		
-	
-	
-				
-
 			  <div class="clearfix gutter">
 			  	<div class="row">
 				  <div class="main">
@@ -86,14 +84,17 @@
 			  		<DIV>
 				<P class="f40">
 		   		 <B>Current Team:</B> <?= $ActiveTeam ?>
+		   		 
+		   	<?php WriteStderr($ListTeamNames, "List of name inside the code that are not appearing."); ?>
 
 				<?php if ( count ($ListTeamNames) > 1) { ?>
 						<FORM ACTION="" METHOD="POST">
 						<SELECT  class="mobilebig" NAME="Team_ID">
 							<?php 
-								foreach ($ListTeamNames as $index => $var) {
-									if (! empty ($var["Team_ID"])) { ?>
-										<OPTION VALUE="<?= $var["Team_ID"] ?>"<?php if ($ActiveTeam_ID == $var["Team_ID"]) { echo " SELECTED"; } ?>><?= $var["Team_Name"] ?></OPTION>							
+								foreach ($ListTeamNames as $var => $index) {
+																
+									if (! empty ($var)) { ?>
+										<OPTION VALUE="<?= $index ?>"<?php if ($ActiveTeam_ID == $index) { echo " SELECTED"; } ?>><?= $var ?></OPTION>							
 									<?php
 									}
 								}
