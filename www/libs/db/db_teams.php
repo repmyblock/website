@@ -18,6 +18,13 @@ class Teams extends RepMyBlock {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
+	function ListSystemUserTeam($SystemUser_ID) {
+		$sql = "SELECT * FROM Team " .  
+						"WHERE Team.SystemUser_ID = :SystemUser";
+		$sql_vars = array("SystemUser" => $SystemUser_ID);
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
 	function ListTeamsWithMembers($SystemUserID) {		
 		$sql = "SELECT *, TeamMember.SystemUser_ID AS SystemIDFromTeam FROM Team " . 
 						"LEFT JOIN TeamMember ON (TeamMember.Team_ID = Team.Team_ID) " . 
@@ -77,7 +84,6 @@ class Teams extends RepMyBlock {
 		$sql_vars = array("TeamID" => $Team_ID);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
-	
 	
 	function ListBannedMembers($Team_ID) {
 		$sql = "SELECT *, SystemUser.SystemUser_FirstName AS TeamFirst, SystemUser.SystemUser_LastName AS LastLast," . 

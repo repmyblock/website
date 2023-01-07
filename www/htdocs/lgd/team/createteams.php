@@ -10,53 +10,47 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new teams();
 	WriteStderr($URIEncryptedString, "URIEncryptedString");	
+	
+	// Check that the person is not in a team.
+	$CntMyTeam = $rmb->ListSystemUserTeam($URIEncryptedString["SystemUser_ID"]);
+	WriteStderr($CntMyTeam, "CntTeam To See");	
+	
+	if (! empty ($CntMyTeam)) {
+		header("Location: index");
+		exit();
+	}
+	
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($UserParty);
-
+	WriteStderr($rmbperson, "URIEncryptedString");
 
 	if ( ! empty ($_POST)) {
 		WriteStderr($_POST, "Creating a new team \$_POST");
 
-		echo "<PRE>";
-		print_r($_POST);
-
-		print "I need to verify the team<BR>";
 		$TeamName = trim($_POST["TeamName"]);
 		if ( ctype_alnum($TeamName)) {
-			echo "The string $TeamName has stuff that is not letter<BR>";
-			exit();
+			$ErrorMsg = "<B><FONT COLOR=BROWN>The team name $TeamName is not valid. Please remove any non alphanumeric characters.</FONT></B>";
 		}
 		
 		$TeamAccessCode = trim($_POST["TeamAccessCode"]);
-			$TeamAccessEmail = $TeamAccessCode . "@team." . $MailFromDomain;
+		$TeamAccessEmail = $TeamAccessCode . "@team." . $MailFromDomain;
 		if (! filter_var($TeamAccessEmail, FILTER_VALIDATE_EMAIL)) {
-      echo "$TeamAccessEmail: Invalid email format";
-      exit();
+     $ErrorMsg =  "<B><FONT COLOR=BROWN>The team access code selected</FONT> \"$TeamAccessCode\" <FONT COLOR=BROWN>contain invalid caracters. Only use alphanumeric characters.</FONT></B>";
    	}
 
-		$result = $rmb->CheckTeamExist($TeamName, $TeamAccessCode);
-		
-		echo "<PRE>";
-		print_r($result);
+		if ( empty ($ErrorMsg)) {
+			$result = $rmb->CheckTeamExist($TeamName, $TeamAccessCode);
 			
-		if ( empty ($result)) {
-			$rmb->AddNewTeam($rmbperson["SystemUser_ID"], "private", $TeamName, $TeamAccessCode, $TeamAccessCode, $TeamAccessEmail);
-			header("Location: index");
-			exit();
-			
+			if ( empty ($result)) {
+				$rmb->AddNewTeam($rmbperson["SystemUser_ID"], "private", $TeamName, $TeamAccessCode, $TeamAccessCode, $TeamAccessEmail);
+				header("Location: index");
+				exit();
+			} else {
+				$ErrorMsg = "<B><FONT COLOR=BROWN>The name $TeamAccessCode was already used, please select a different one.</FONT></B>";
+			}
 		}
-	
-
-		exit();
 	}
-
-
-	$TopMenus = array ( 
-						array("k" => $k, "url" => "team/team", "text" => "Manage Pledges"),
-						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-						array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
-					);			
-	WriteStderr($TopMenus, "Top Menu");					
+			
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
 ?>
@@ -79,7 +73,7 @@
 		
 					<div class="col-16">
 	
-						<?= $error_msg ?>
+						<?= $ErrorMsg ?>
 						
 					  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 							<div>
