@@ -178,7 +178,21 @@ class db {
 			}
 		}
 		
-#		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
+		// Check when the last error was printed
+		// get file access/modification times
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";
+		$NotifFile = $DebugInfo["DBErrorsFilename"] . ".notif";
+		if (file_exists($NotifFile)) {			
+			if ( time() - filemtime($NotifFile) > 3600 ) {
+				@file_put_contents ( $NotifFile , date(time()) ,  FILE_APPEND | LOCK_EX );
+				SendDBErrorToAdmin($TransData);
+			}
+		} else {
+			@file_put_contents ( $NotifFile , date(time()) ,  FILE_APPEND | LOCK_EX );
+			SendDBErrorToAdmin($TransData);
+		}
+			
+		#		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 		$error_msg =  "Error with the Database. Admin already notified. Please try in one hour.";
 		$this->ReturnErrorPage($error_msg);
 		exit();

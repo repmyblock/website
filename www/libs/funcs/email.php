@@ -101,6 +101,126 @@ function SendWalkList($to, $emailsubject, $InsideText, $EDAD, $k, $data) {
 	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $html_message);	
 }
 
+function SendDBErrorToAdmin($errordata) {
+	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
+	$TextTime = time ();
+	
+	$FromAddress = "infos@" . $MailFromDomain;
+  $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";                      									
+	$to = "theo@repmyblock.org";
+	$FromAddress = "infos@" . $MailFromDomain;
+  $FullFrom = "RepMyBlock Automated Mail <" . $FromAddress . ">";
+	$emailsubject= "=?utf-8?b?".base64_encode("Database Catastrophic Crash.")."?=";
+	
+
+	$BotArray["sendemail"] =  $to;
+
+  $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
+	$linktoverify = $FrontEndWebsite . "/" . $hashtable . "/exp/forgot/pwdrecover";
+	
+	$WelcomeLine = "Hello";
+	
+	$message = 
+		"Content-Transfer-Encoding: base64\n" .
+		"Content-Type: text/plain; charset=utf-8\n\n" . 
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+					"\n" . $WelcomeLine . ",\n\n" . 
+					"The database crashed and need verification:\n\n " .
+					$errordata . "\n\n" .
+					
+					"['HTTP_HOST']: " . $_SERVER['HTTP_HOST'] . "\n".
+					"['REDIRECT_STATUS']: " . $_SERVER['REDIRECT_STATUS'] . "\n".
+					"['SERVER_NAME']: " . $_SERVER['SERVER_NAME'] . "\n".
+					"['SERVER_PORT']: " . $_SERVER['SERVER_PORT'] . "\n".
+					"['SERVER_ADDR']: " . $_SERVER['SERVER_ADDR']	 . "\n".
+					"['REMOTE_PORT']: " . $_SERVER['REMOTE_PORT']	 . "\n".
+					"['REMOTE_ADDR']: " . $_SERVER['REMOTE_ADDR']	 . "\n".
+					"['SERVER_SOFTWARE']: " . $_SERVER['SERVER_SOFTWARE']	 . "\n".
+					"['GATEWAY_INTERFACE']: " . $_SERVER['GATEWAY_INTERFACE']	 . "\n".
+					"['HTTPS']	: " . $_SERVER['HTTPS']	 . "\n".
+					"['REQUEST_SCHEME']: " . $_SERVER['REQUEST_SCHEME']	 . "\n".
+					"['SERVER_PROTOCOL']: " . $_SERVER['SERVER_PROTOCOL']	 . "\n".
+					"['DOCUMENT_ROOT']: " . $_SERVER['DOCUMENT_ROOT']	 . "\n".
+					"['DOCUMENT_URI']: " . $_SERVER['DOCUMENT_URI']	 . "\n".
+					"['REQUEST_URI']: " . $_SERVER['REQUEST_URI']	 . "\n".
+					"['SCRIPT_NAME']: " . $_SERVER['SCRIPT_NAME']	 . "\n".
+					"['CONTENT_LENGTH']: " . $_SERVER['CONTENT_LENGTH'] . "\n".
+					"['CONTENT_TYPE']: " . $_SERVER['CONTENT_TYPE'] . "\n".
+					"['REQUEST_METHOD']: " . $_SERVER['REQUEST_METHOD'] . "\n".
+					"['QUERY_STRING']: " . $_SERVER['QUERY_STRING'] . "\n".
+					"['SCRIPT_FILENAME']: " . $_SERVER['SCRIPT_FILENAME']	 . "\n".
+					"['PATH_INFO']: " . $_SERVER['PATH_INFO']	 . "\n".
+					"['FCGI_ROLE']: " . $_SERVER['FCGI_ROLE']	 . "\n".
+					"['PHP_SELF']: " . $_SERVER['PHP_SELF']	 . "\n" .
+					
+						// "Once you validate your email, you can share this email with your friends interested to know more.\n" . 
+					"This message was sent to: " . $BotArray["sendemail"] . "\n"
+				)
+			)
+		) . 
+	"\n";
+
+	$html_message = 
+		"Content-Transfer-Encoding: base64\n" .
+		//"Content-Transfer-Encoding: utf-8\n" .
+		"Content-Type: text/html; charset=utf-8\n\n" .	
+		
+		chunk_split (
+			base64_encode(
+				utf8_encode(
+		
+					TopEmail() . 
+					
+					"<P>\n" .
+					"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>" . $WelcomeLine .",</FONT><BR>\n" .
+					"</P>\n" .
+		
+					"<P>\n" .
+					"The database crashed and need verification." .
+					"</P><P>" .
+ 					nl2br(htmlentities($errordata)) .
+					"</P>\n" .
+		
+					"<P>" . 
+					"['HTTP_HOST']: " . $_SERVER['HTTP_HOST'] . "<BR>".
+					"['REDIRECT_STATUS']: " . $_SERVER['REDIRECT_STATUS'] . "<BR>".
+					"['SERVER_NAME']: " . $_SERVER['SERVER_NAME'] . "<BR>".
+					"['SERVER_PORT']: " . $_SERVER['SERVER_PORT'] . "<BR>".
+					"['SERVER_ADDR']: " . $_SERVER['SERVER_ADDR']	 . "<BR>".
+					"['REMOTE_PORT']: " . $_SERVER['REMOTE_PORT']	 . "<BR>".
+					"['REMOTE_ADDR']: " . $_SERVER['REMOTE_ADDR']	 . "<BR>".
+					"['SERVER_SOFTWARE']: " . $_SERVER['SERVER_SOFTWARE']	 . "<BR>".
+					"['GATEWAY_INTERFACE']: " . $_SERVER['GATEWAY_INTERFACE']	 . "<BR>".
+					"['HTTPS']	: " . $_SERVER['HTTPS']	 . "<BR>".
+					"['REQUEST_SCHEME']: " . $_SERVER['REQUEST_SCHEME']	 . "<BR>".
+					"['SERVER_PROTOCOL']: " . $_SERVER['SERVER_PROTOCOL']	 . "<BR>".
+					"['DOCUMENT_ROOT']: " . $_SERVER['DOCUMENT_ROOT']	 . "<BR>".
+					"['DOCUMENT_URI']: " . $_SERVER['DOCUMENT_URI']	 . "<BR>".
+					"['REQUEST_URI']: " . $_SERVER['REQUEST_URI']	 . "<BR>".
+					"['SCRIPT_NAME']: " . $_SERVER['SCRIPT_NAME']	 . "<BR>".
+					"['CONTENT_LENGTH']: " . $_SERVER['CONTENT_LENGTH'] . "<BR>".
+					"['CONTENT_TYPE']: " . $_SERVER['CONTENT_TYPE'] . "<BR>".
+					"['REQUEST_METHOD']: " . $_SERVER['REQUEST_METHOD'] . "<BR>".
+					"['QUERY_STRING']: " . $_SERVER['QUERY_STRING'] . "<BR>".
+					"['SCRIPT_FILENAME']: " . $_SERVER['SCRIPT_FILENAME']	 . "<BR>".
+					"['PATH_INFO']: " . $_SERVER['PATH_INFO']	 . "<BR>".
+					"['FCGI_ROLE']: " . $_SERVER['FCGI_ROLE']	 . "<BR>".
+					"['PHP_SELF']: " . $_SERVER['PHP_SELF']	 . "<BR>" .
+		      "</P>" .           
+		
+					BottomEmail($BotArray)
+				)
+			)
+		) . 
+	"\n";
+	
+	final_send_mail($FullFrom, $FromAddress, $to, $emailsubject, $message, $attach, "no", "", $html_message);	
+		
+}
+
+
 // Nomination Email
 function SendNominationEmail($to, $emailsubject, $message, $CanCominationID) {
 	include $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";	

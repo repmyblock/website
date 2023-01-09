@@ -1,7 +1,10 @@
 <?php
+	$middleuri="dberror";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
+	
+	// Check the time the last error happened.
 ?>
 
 <P><BR></P>

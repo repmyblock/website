@@ -69,7 +69,7 @@
 					
 					<div id="voters">
 											
-						<div class="list-group-item filtered f40">
+						<div class="list-group-item filtered f60">
 							
 							<?php 
 								// This need to be updated for the right state						

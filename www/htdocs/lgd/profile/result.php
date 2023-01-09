@@ -9,6 +9,9 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new RepMyBlock();
 	
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	WriteStderr($rmbperson, "SearchUserVoterCard");
+	
 	$TopMenus = array (
 						array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
 						array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
@@ -25,7 +28,7 @@
 			
 			$rmb->UpdateSystemUserWithVoterCard($_POST["SystemUser_ID"], $_POST["Voters_ID"], 
 																					$_POST["VotersIndexes_UniqStateVoterID"], $EDAD, 
-																					$_POST["Voters_RegParty"], 
+																					$_POST["DataState_Abbrev"], $_POST["Voters_RegParty"], 
 																					count($NumberOfVoterInDistrict));
 																							
 			header("Location: /" .  CreateEncoded ( array( 
@@ -38,6 +41,11 @@
 									"UserParty" => $_POST["Voters_RegParty"]
 						)) . "/lgd/profile/profilevoter");
 			exit();
+		} else {
+			
+			
+			
+			
 		}
 	}
 	
@@ -89,7 +97,7 @@
 			PlurialMenu($k, $TopMenus);
 ?>
 			     
-				<div class="">
+				<div class="Box">
 					<div class="Box-header pl-0">
 						<div class="table-list-filters d-flex">
 							<div class="table-list-header-toggle states flex-justify-start pl-3 f60">Voter Card</div>
@@ -101,6 +109,7 @@
 					</div>
 					
 					<FORM ACTION="" METHOD=POST>
+							<div class="list-group-item filtered f60">
 					<div id="voters">
 							<?php
 							
@@ -123,7 +132,8 @@
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataDistrict_Electoral"] ?>" NAME="ED">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_ID"] ?>" NAME="Voters_ID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $URIEncryptedString["SystemUser_ID"] ?>" NAME="SystemUser_ID">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_RegParty"] ?>" NAME="Voters_RegParty">				
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_RegParty"] ?>" NAME="Voters_RegParty">		
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataState_Abbrev"] ?>" NAME="DataState_Abbrev">				
 				
 				<div class="f60">
 					<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
@@ -229,7 +239,7 @@
 							<?php if (! empty ($var["DataAddress_PostStreet"])) echo $var["DataAddress_PostStreet"]; ?>
 							<?php if (! empty ($var["DataHouse_Apt"])) echo " - Apt " .  strtoupper($var["DataHouse_Apt"]); ?>
 							<BR>
-							<?= $var["DataCity_Name"] ?>, NY
+							<?= $var["DataCity_Name"] ?>, <?= $var["DataState_Abbrev"] ?>
 							<?= $var["DataAddress_zipcode"] ?>
 							<?php if (! empty ($var["DataAddress_zip4"])) echo " - " . $var["DataAddress_zip4"]; ?>
 							<BR>

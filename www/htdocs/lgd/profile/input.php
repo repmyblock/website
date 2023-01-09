@@ -37,7 +37,11 @@
 		switch(count($result)) {
 			case 0:
 				//echo "Did not find anything\n";
-				$error_msg = "<div class=\"f40\"><FONT COLOR=BROWN><B>This person is not in the database.</B></FONT></DIV>";
+				$error_msg = "<P class=\"f60\"><FONT COLOR=BROWN><B>We don't have</FONT> $DBFirstName $DBLastName " . 
+											"<FONT COLOR=BROWN>born</FONT> " . PrintShortDate($DOB) . " <FONT COLOR=BROWN>in our database.<BR></B></FONT> " .
+											"It my not be your fault. We get our data from the Board of Election files and sometimes they contain errors. " .
+											"If you believe it's a mistake, check your registration with the local board of election on their website." . 
+				"</P>";
 				break;			
 			
 			case 1:				

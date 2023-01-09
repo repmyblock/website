@@ -1,6 +1,5 @@
-  <!--- Start Menu --->
-<?php
-  WriteStderr($rmbperson, "RMBPerson in Menu");
+<!--- Start Menu ---><?php
+  WriteStderr($rmbperson, "RMBPerson in /common/menu.php");
   
   if (empty ($rmbperson["SystemUser_EDAD"])) { 
     if (empty ($URIEncryptedString["EDAD"])) { 

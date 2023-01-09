@@ -35,7 +35,7 @@
 		$TeamAccessCode = trim($_POST["TeamAccessCode"]);
 		$TeamAccessEmail = $TeamAccessCode . "@team." . $MailFromDomain;
 		if (! filter_var($TeamAccessEmail, FILTER_VALIDATE_EMAIL)) {
-     $ErrorMsg =  "<B><FONT COLOR=BROWN>The team access code selected</FONT> \"$TeamAccessCode\" <FONT COLOR=BROWN>contain invalid caracters. Only use alphanumeric characters.</FONT></B>";
+     $ErrorMsg =  "<B><FONT COLOR=BROWN>The team access code selected</FONT> \"$TeamAccessCode\" <FONT COLOR=BROWN>contains invalid caracters. Only use alphanumeric characters.</FONT></B>";
    	}
 
 		if ( empty ($ErrorMsg)) {

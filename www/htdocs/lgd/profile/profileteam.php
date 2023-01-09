@@ -102,7 +102,7 @@
   	<div class="main">
 
 		
-		<P class="f40">
+		<P class="f60">
 			<B><FONT COLOR=BROWN>If you are part of a team, your team leader will supply you a code</A>
 		</FONT> </B>
 		</P>
@@ -228,7 +228,7 @@
  				
  				<DIV>
 					<div class="list-group-item filtered f60">
-	    			<span>You don't belong to any team.</span>			
+	    			<span>There aren't any campaign seeking volunteers.</span>			
 					</div>
  				</DIV>
  				

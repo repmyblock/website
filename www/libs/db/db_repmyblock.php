@@ -373,7 +373,7 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);	
 	}
 
-	function ListElectedPositions($StateName, $StateID = NULL, $PositionID = NULL, $Party = NULL, $PositionCode = NULL) {
+	function ListElectedPositions($StateAbbrev, $StateID = NULL, $PositionID = NULL, $Party = NULL, $PositionCode = NULL) {
 		$sql = "SELECT * FROM  DataState " .
 						"LEFT JOIN ElectionsPosition ON (DataState.DataState_ID = ElectionsPosition.DataState_ID) " .
 						"WHERE ";
@@ -400,9 +400,9 @@ class RepMyBlock extends queries {
 			if ( $StateID == "id") {
 				$sql .= $and . "DataState.DataState_ID = :State ";
 			}	else {	
-				$sql .= $and . "DataState.DataState_Name = :State ";				
+				$sql .= $and . "DataState.DataState_Abbrev = :State ";				
 			}
-			$sql_vars['State'] = $StateName;	
+			$sql_vars['State'] = $StateAbbrev;	
 			$sql .= "ORDER BY ElectionsPosition_Order";
 		} 
 		
@@ -905,11 +905,11 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql);		
 	}
 
-	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED, $Party, $VoterCount = 0) {
+	function UpdateSystemUserWithVoterCard($SystemUser_ID, $RawVoterID, $UniqNYSVoterID, $ADED, $StateAbbrev,  $Party, $VoterCount = 0) {
 		$sql = "UPDATE SystemUser SET Voters_UniqStateVoterID = :NYSVoterID, SystemUser_EDAD = :EDAD, SystemUser_Party = :Party, " . 
-						"Voters_ID = :Index ";
-		$sql_vars = array("NYSVoterID" => $UniqNYSVoterID,"EDAD" => $ADED, "ID" => $SystemUser_ID, "Party" => $Party, "Index" => $RawVoterID);
-
+						"Voters_ID = :Index, SystemUser_StateAbbrev = :Abbrev ";
+		$sql_vars = array("NYSVoterID" => $UniqNYSVoterID,"EDAD" => $ADED, "ID" => $SystemUser_ID, "Party" => $Party, 
+											"Index" => $RawVoterID, "Abbrev" => $StateAbbrev);
 
 		if ($VoterCount > 0) {
 			$sql .= ", SystemUser_NumVoters = :CountVoters ";

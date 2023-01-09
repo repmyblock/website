@@ -24,11 +24,10 @@
 
   $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
   $rmbcandidate = $rmb->ListCandidateInformation($URIEncryptedString["SystemUser_ID"]);
-  $result = $rmb->ListElectedPositions($rmbperson["DataState_Abbrev"]);
+  $result = $rmb->ListElectedPositions($rmbperson["SystemUser_StateAbbrev"]);
   
-  WriteStderr($rmbperson, "User");
-  WriteStderr($rmbcandidate, "RMBCandidate");
-  WriteStderr($result, "Positions order");
+  WriteStderr($rmbcandidate, "RMB Candidate in ProfileCandidate.php");
+  WriteStderr($result, "List Elected Positions");
   
   if (! empty($result)) {
     foreach($result as $var) {

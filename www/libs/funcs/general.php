@@ -82,7 +82,7 @@ function PrintRandomText($length = 9) {
 
 function PrintShortDate($Date) {
 	if ( ! empty ($Date)) {
-		return date("F jS, Y", strtotime( $Date ));
+		return date("F j<\\S\\U\\P>S</\\S\\U\\P>, Y", strtotime( $Date ));
 	}
 }
 
