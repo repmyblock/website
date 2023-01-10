@@ -1,5 +1,9 @@
 * { box-sizing: border-box;}
 
+
+
+													  
+ 								
 body {margin: 0;}
 div {font-family: 'Montserrat', sans-serif;color:#16317D!important;}
 
@@ -21,7 +25,7 @@ p.f60 {font-size:14px; font-weight: 500;}
 p.f40 {font-size:12px;}
 p.f50 {font-size:13px;}
 
-div.f80bold {font-size:26px; font-wﬂeight: 600;}
+div.f80bold {font-size:26px; font-weight: 600;}
 div.f80 {font-size:18px; font-weight: 600;}
 div.f60 {font-size:14px; font-weight: 500;}
 div.f40 {font-size:12px; padding: 30px 5px;}

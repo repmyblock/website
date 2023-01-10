@@ -5,7 +5,63 @@
  */
 /* ol,ul{padding-left:6;margin-top:0;margin-bottom:0} */
 
+#resp-table {
+	width: 100%;
+	display: table;
+}
 
+#resp-table-caption{
+	display: table-caption;
+	text-align: center;
+	/* font-size: 30px; */
+	font-weight: bold;
+}
+
+#resp-table-header{
+	display: table-header-group;
+	background-color: lightgray;
+	font-weight: bold;
+	/* font-size: 20px; */
+}
+
+.table-header-cell{
+	display: table-cell;
+	padding: 0px 10px 0px;
+	text-align: center;
+	border-bottom: 1px solid black;
+	border: 1px solid black;
+}
+
+#resp-table-body{
+	display: table-row-group;
+}
+
+.resp-table-row{
+	display: table-row;
+	
+}
+
+.table-body-cell{
+	display: table-cell;
+	border: 1px solid black;
+	text-align: center;
+	padding: 0px 10px 0px;
+}
+
+#resp-table-footer {
+	display: table-footer-group;
+	background-color: gray;
+	font-weight: bold;
+	font-size: 25px;
+	color: rgba(255, 255, 255, 0.45);
+}
+
+.table-footer-cell{
+	display: table-cell;
+	padding: 10px;
+	text-align: justify;
+	border-bottom: 1px solid black;
+}
 
 .pl-c{color:#6a737d}
 .pl-c1,.pl-s .pl-v{color:#005cc5}

@@ -33,10 +33,11 @@
 					);
 					
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
-	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
+	if ( $MobileDisplay == true) { $Cols = "col-12"; $Width="64";} else { $Cols = "col-9"; $Width="16"; }
 ?>
 <div class="row">
   <div class="main">
+  	
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
   		<div class="<?= $Cols ?> float-left">
     
@@ -46,6 +47,8 @@
 			  </div>
 			     
 			<?php	PlurialMenu($k, $TopMenus); ?>
+			
+			<div class="col-12">
 
 			<?php if (! empty ($ErrorMsg)) { ?>
 				
@@ -68,7 +71,6 @@
 					</div>
 					
 					<div id="voters">
-											
 						<div class="list-group-item filtered f60">
 							
 							<?php 
@@ -77,55 +79,63 @@
 								$UniqVoterID = $rmbperson["DataState_Abbrev"] . $UniqMatches[1][0]; 
 						?>
 						
-									<P>
-									<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
-									<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $rmbperson["Voters_Status"] ?></FONT>
+									<P class="f60">
+										
+										
+										<svg class="f60 octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="<?= $Width ?>" height="<?= $Width ?>" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
+										<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $rmbperson["Voters_Status"] ?></FONT>
 									</P>
 									
-									
-									
-									<TABLE BORDER=1>
-									<TR>
-										<TH style="padding:0px 10px;">First</TH>
-										<TH style="padding:0px 10px;">Middle</TH>
-										<TH style="padding:0px 10px;">Last</TH>
-										<TH style="padding:0px 10px;">Suffix</TH>
-									</TR>
-									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataFirstName_Text"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataMiddleName_Text"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataLastName_Text"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["VotersIndexes_Suffix"] ?></TD>
-									</TR>
-								</TABLE>
-									
-									<BR>
-									<TABLE BORDER=1>
-									<TR>
-										<TH style="padding:0px 10px;">Assembly</TH>
-										<TH style="padding:0px 10px;">Electoral</TH>
-										<TH style="padding:0px 10px;">Congress</TH>
-										<TH style="padding:0px 10px;">County</TH>
-									</TR>
-																		
-									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_StateAssembly"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Electoral"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Congress"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataCounty_Name"] ?></TD>
-									</TR>
-								</TABLE>
-									<BR>
+									<P>
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">First</div>
+											<div class="table-header-cell">Middle</div>
+											<div class="table-header-cell">Last</div>
+											<div class="table-header-cell">Suffix</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= $rmbperson["DataFirstName_Text"] ?></div>
+												<div class="table-body-cell"><?= $rmbperson["DataMiddleName_Text"] ?></div>
+												<div class="table-body-cell"><?= $rmbperson["DataLastName_Text"] ?></div>
+												<div class="table-body-cell"><?= $rmbperson["VotersIndexes_Suffix"] ?></div>
+											</div>													
+										</div>
+									</div>
+								</P>	
 								
-													
-									<TABLE BORDER=1>
-									<TR>
-										<TH style="padding:0px 10px;">Address</TH>
-							
-									</TR>
-									<TR>
-										<TD style="padding:0px 10px;">		
-											<?php if (! empty ($rmbperson["DataAddress_HouseNumber"])) echo $rmbperson["DataAddress_HouseNumber"]; ?>
+								<P>
+								
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Assembly</div>
+											<div class="table-header-cell">ED</div>
+											<div class="table-header-cell">Congress</div>
+											<div class="table-header-cell">County</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= $rmbperson["DataDistrict_StateAssembly"] ?></div>
+												<div class="table-body-cell"><?= $rmbperson["DataDistrict_Electoral"] ?></div>
+												<div class="table-body-cell"><?= $rmbperson["DataDistrict_Congress"] ?></div>
+												<div class="table-body-cell"><?= $rmbperson["DataCounty_Name"] ?></div>
+											</div>													
+										</div>
+									</div>
+								</P>	
+								
+								<P>
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Address</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?php if (! empty ($rmbperson["DataAddress_HouseNumber"])) echo $rmbperson["DataAddress_HouseNumber"]; ?>
 											<?php if (! empty ($rmbperson["DataAddress_FracAddress"]))  echo $rmbperson["DataAddress_FracAddress"]; ?>
 											<?php if (! empty ($rmbperson["DataAddress_PreStreet"])) echo $rmbperson["DataAddress_PreStreet"]; ?>
 											<?php if (! empty ($rmbperson["DataStreet_Name"])) echo $rmbperson["DataStreet_Name"]; ?>
@@ -134,66 +144,78 @@
 											<BR>
 											<?= $rmbperson["DataCity_Name"] . ", " . $rmbperson["DataState_Abbrev"] ?>
 												<?= $rmbperson["DataAddress_zipcode"] ?>
-											<?php if (! empty ($rmbperson["Raw_Voter_ResZip4"])) echo " - " . $rmbperson["Raw_Voter_ResZip4"]; ?>
-											<BR>
-										</TD>
-									</TR>
-								</TABLE>
+											<?php if (! empty ($rmbperson["Raw_Voter_ResZip4"])) echo " - " . $rmbperson["Raw_Voter_ResZip4"]; ?></div>
+											</div>													
+										</div>
+									</div>
+								</P>	
 								
+								<P>
 								
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Legis</div>
+											<div class="table-header-cell">Town</div>
+											<div class="table-header-cell">Ward</div>
+											<div class="table-header-cell">Senate</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= $rmbperson["DataDistrict_Legislative"] ?></div>
+												<div class="table-body-cell"><?= $rmbperson["DataDistrictTown_Name"] ?></div>
+												<div class="table-body-cell"><?= $rmbperson["DataDistrict_Ward"] ?></div>
+												<div class="table-body-cell"><?= $rmbperson["DataDistrict_StateSenate"] ?></div>
+											</div>													
+										</div>
+									</div>
+							
+									</P>	
 								
-								
-								<BR>
-									<TABLE BORDER=1>
-									<TR>
-										<TH style="padding:0px 10px;">Legis #</TH>
-										<TH style="padding:0px 10px;">Town</TH>
-										<TH style="padding:0px 10px;">Ward</TH>
-										<TH style="padding:0px 10px;">Senate</TH>
-									</TR>
-									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Legislative"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrictTown_Name"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_Ward"] ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["DataDistrict_StateSenate"] ?></TD>
-					
-									</TR>
-								</TABLE>
-									<BR>
+								<P>
 									
-									<TABLE BORDER=1>
-									<TR>
-										<TH style="padding:0px 10px;">Date of Birth</TH>
-										<TH style="padding:0px 10px;">Age</TH>
-										<TH style="padding:0px 10px;">Gender</TH>
-										<TH style="padding:0px 10px;">Party</TH>
-									</TR>
+									
 									<?php
 										$dob = new DateTime($rmbperson["VotersIndexes_DOB"]);
 	 									$now = new DateTime();
 	 									$difference = $now->diff($dob);
 									?>
 									
-									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= PrintShortDate($rmbperson["VotersIndexes_DOB"]); ?></TD>
-										<TD style="padding:0px 10px;"><?= $difference->y; ?></TD>
-										<TD style="padding:0px 10px;"><?= $rmbperson["Voters_Gender"] ?></TD>
-										<TD style="padding:0px 10px;"><?= PrintParty($rmbperson["Voters_RegParty"]) ?></TD>
-									</TR>
-								</TABLE>
-									<BR>
-									<TABLE BORDER=1>
-									<TR>
-										<TH style="padding:0px 10px;">Board of Election ID #</TH>
-									</TR>
+								
+								
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Date of Birth</div>
+											<div class="table-header-cell">Age</div>
+											<div class="table-header-cell">Gender</div>
+											<div class="table-header-cell">Party</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= PrintShortDate($rmbperson["VotersIndexes_DOB"]);  ?></div>
+												<div class="table-body-cell"><?= $difference->y; ?></div>
+												<div class="table-body-cell"><?= $rmbperson["Voters_Gender"] ?></div>
+												<div class="table-body-cell"><?= PrintParty($rmbperson["Voters_RegParty"]) ?></div>
+											</div>													
+										</div>
+									</div>
+								</P>	
+								
+								<P>
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Board of Election ID #</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= $rmbperson["Voters_CountyVoterNumber"] ?></div>
+											</div>													
+										</div>
+									</div>
 									
-									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;"><?= $rmbperson["Voters_CountyVoterNumber"] ?></TD>
-									</TR>
-								</TABLE>
-								
-								
-				
+								</P>
 						</div>
 						
 						<?php /* 	<A HREF="input/?k=<?= $k ?>">
@@ -208,5 +230,9 @@
 		</div>
 	</div>
 </DIV>
+
+
+
+
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

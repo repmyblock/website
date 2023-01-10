@@ -19,15 +19,15 @@
 
 		// Search in the database.
 		if ( $_POST["Year"] < 100 ) {
-			if ( $_POST["Year"] > 05) { $Year = "19" . $_POST["Year"];
-			} else { $Year = "20" . $_POST["Year"]; }
-		} else { $Year = $_POST["Year"]; }
+			if ( $_POST["Year"] > 05) { $Year = "19" . trim($_POST["Year"]);
+			} else { $Year = "20" . trim($_POST["Year"]); }
+		} else { $Year = trim($_POST["Year"]); }
 		
 		// We need to put verification on the first and lastname so they don't pass 
 		// bogus data.		
 		$DBFirstName = $_POST["FirstName"];
 		$DBLastName = $_POST["LastName"];
-		$DOB = $Year . "-" . $_POST["Month"] . "-" . $_POST["Day"];
+		$DOB = $Year . "-" .  trim($_POST["Month"]) . "-" .  trim($_POST["Day"]);
 		
 		// Before we go and search the Database, we need to check that the DOB info is right.
 		

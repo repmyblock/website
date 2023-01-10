@@ -68,7 +68,7 @@ div.justifymobile {text-align: justify;text-justify: inter-word;justify-content:
 h1.intro {font-size: 90px;font-weight: 900;}
 h3.intro {font-size: 80px;font-weight: 700;}
 
-a.mobilemenu {font-size:60px; font-weight: 500;}
+a.mobilemenu {font-size:60px; font-weight: 500;padding: 10px;}
 h3.mobilemenu {font-size: 80px;font-weight: 700;}
 
 a.bigmobile {font-size:80px; font-weight:500;}

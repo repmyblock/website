@@ -151,7 +151,7 @@
 			<?php } ?>
 			     
 					<form id="" action="" accept-charset="UTF-8" method="post">
-						<div>
+						<div class="f40">
 							
 							<dl class="form-group col-12 d-inline-block"> 
 								<dt><label class="f40" for="user_profile_name">Email Address</label><DT>
