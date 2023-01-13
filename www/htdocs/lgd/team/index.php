@@ -35,9 +35,7 @@
 				case "declined": $ShowDeclinedMenu = 1; break;
 				case "no": $ShowUnsignedMenu = 1; break;
 			}
-						
 			$ListTeamNames[$var["Team_Name"]] = $var["Team_ID"];
-		
 		}	
 	}
 	
@@ -113,13 +111,13 @@
 						<div class="Box">
 					  	<div class="Box-header pl-0">
 					    	<div class="table-list-filters d-flex">
-					  			<div class="table-list-header-toggle states flex-justify-start pl-3">Team Members <B><?= $ActiveTeam ?></B></div>
+					  			<div class="table-list-header-toggle states flex-justify-start pl-3 f60">Team Members <B><?= $ActiveTeam ?></B></div>
 					  		</div>
 					    </div>
 				    
 			
 			
-					    <div class="Box-body  js-collaborated-repos-empty">
+					    <div class="Box-body  js-collaborated-repos-empty f60">
 					      <A HREF="/<?= CreateEncoded (
       																	array( 
 																								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
@@ -180,21 +178,28 @@
 							
 						<div class="Box-body js-collaborated-repos-empty">
 							<div class="flex-items-left">	
-								<span class="ml-0 flex-items-baseline">
+								<span class="ml-0 flex-items-baseline ">
 									
-									<TABLE BORDER=1>
-										<TR>
-											<TH style="padding:0px 10px;">Party</TH>
-											<TH style="padding:0px 10px;">First</TH>
-											<TH style="padding:0px 10px;">Last</TH>
-											<TH style="padding:0px 10px;">AD</TH>
-											<TH style="padding:0px 10px;">ED</TH>
-											<TH style="padding:0px 10px;">TOWN</TH>
-											<TH style="padding:0px 10px;">Sigs.</TH>
-											<TH style="padding:0px 10px;">Done</TH>
-											<TH style="padding:0px 10px;">&nbsp;</TH>
-										</TR>
 									
+									<DIV class="f40">
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Party</div>
+											<div class="table-header-cell">First</div>
+											<div class="table-header-cell">Last</div>
+											<div class="table-header-cell">AD</div>
+											<div class="table-header-cell">ED</div>
+											<div class="table-header-cell">TOWN</div>
+											<div class="table-header-cell">Sigs.</div>
+											<div class="table-header-cell">Done</div>
+											<div class="table-header-cell">&nbsp;</div>
+										</div>
+
+									
+							
+									
+									
+							
 									
 									<?php 
 										foreach ($rmbteaminfo as $var) { 
@@ -209,38 +214,43 @@
 											$FoundUserInList = 1;
 											?>
 									
-									<TR ALIGN=CENTER>
-										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["SystemUser_Party"] ?></TD>
-										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["SystemUser_FirstName"] ?></TD>
-										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["SystemUser_LastName"] ?></TD>
-										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["DataDistrict_StateAssembly"] ?></TD>
-										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["DataDistrict_Electoral"] ?></TD>
-										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["DataDistrictTown_Name"] ?></TD>
-										<TD style="padding:0px 10px;<?= $style ?>">0</TD>
-										<TD style="padding:0px 10px;<?= $style ?>">0</TD>
-										<TD style="padding:0px 10px;<?= $style ?>"><A HREF="/<?=  CreateEncoded (
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= $var["SystemUser_Party"] ?></div>
+												<div class="table-body-cell"><?= $var["SystemUser_FirstName"] ?></div>
+												<div class="table-body-cell"><?= $var["SystemUser_LastName"] ?></div>
+												<div class="table-body-cell"><?= $var["DataDistrict_StateAssembly"] ?></div>
+												<div class="table-body-cell"><?= $var["DataDistrict_Electoral"] ?></div>
+												<div class="table-body-cell"><?= $var["DataDistrictTown_Name"] ?></div>
+												<div class="table-body-cell">0</div>
+												<div class="table-body-cell">0</div>
+												<div class="table-body-cell"><A HREF="/<?=  CreateEncoded (
 																												array( 
 																													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 																													"Team_ID" => $_POST["Team_ID"],
 																											    "TeamMember_ID" => $var["TeamMember_ID"]
 																												)
-																									); ?>/lgd/team/memberinfo"">Member Info</A></TD>
-									</TR>
+																									); ?>/lgd/team/memberinfo"">Member Info</A></div>
+											</div>													
+										</div>
+								
+								
+									
+								
 									
 								<?php }
 							}  
 								
 									if (! $FoundUserInList) {  ?>
-									
-										<TR ALIGN=CENTER>
-										<TD style="align:center;padding:0px 10px;<?= $style ?>" COLSPAN=7>No users defined in the team</TD>
-									</TR>
+											<div class="table-body-cell-wide">No users defined in the team</div>
 									
 							<?php	}  ?>
+							</DIV>
+							</DIV>
+						</DIV>
+								</P>	
 								
-								</TABLE>
-								
-								<P>
+								<P class="f40">
 									<I>Members in red have not been authorized by an admin.</I>
 								</P>
 								

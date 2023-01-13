@@ -45,9 +45,6 @@ class RepMyBlock extends queries {
 	}
   
   // Unorganized functions.
-  
-  
-  
   function RecordWatch($SystemID, $FullName, $Email) {
 		$sql = "INSERT INTO ZeMovieWtchd SET SystemUser_ID = :SystemUser, " .
 						"ZeMovieWtchd_FullName = :FullName, " .
@@ -94,7 +91,6 @@ class RepMyBlock extends queries {
 		WriteStderr($sql_vars, "SQL Query: " . $sql);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}  
-   
    
   function FindPersonUser($SystemUserID) {
 		$sql = "SELECT * FROM SystemUser WHERE SystemUser_ID = :ID";	
@@ -150,8 +146,6 @@ class RepMyBlock extends queries {
 											'DOB' => $DOB);
 											// 'Status' => $Status); 
 											//,'TableID' => $TableID);
-											
-	
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	

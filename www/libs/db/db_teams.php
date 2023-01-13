@@ -10,14 +10,6 @@ class Teams extends RepMyBlock {
 	 	return $this->_return_simple($sql, $sql_vars);
 	}
 
-	function ListMyTeam($SystemUser_ID) {
-		$sql = "SELECT * FROM Team " .  
-						"LEFT JOIN TeamMember ON (TeamMember.Team_ID = Team.Team_ID) " .
-						"WHERE TeamMember.SystemUser_ID = :SystemUser OR Team.SystemUser_ID = :SystemUser";
-		$sql_vars = array("SystemUser" => $SystemUser_ID);
-		return $this->_return_multiple($sql, $sql_vars);
-	}
-	
 	function ListSystemUserTeam($SystemUser_ID) {
 		$sql = "SELECT * FROM Team " .  
 						"WHERE Team.SystemUser_ID = :SystemUser";
@@ -79,9 +71,17 @@ class Teams extends RepMyBlock {
 						"LEFT JOIN DataDistrict ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
 						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
 						"LEFT JOIN DataDistrictTown ON (DataDistrictTown.DataDistrictTown_ID = DataHouse.DataDistrictTown_ID) " .
-						"WHERE Team.Team_ID = :TeamID AND " .
+						"WHERE Team.Team_ID = :TeamID AND " . //TeamMember_Privs > :MaxPrivs AND TeamMember_RemovedDate IS NULL AND " .
 						"(CURDATE() >= DataDistrictCycle_CycleStartDate AND CURDATE() <= DataDistrictCycle_CycleEndDate) IS NULL";
-		$sql_vars = array("TeamID" => $Team_ID);		
+		$sql_vars = array("TeamID" => $Team_ID); // , "MaxPrivs" => 16);		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	function ListMyTeam($SystemUser_ID) {
+		$sql = "SELECT * FROM Team " .  
+						"LEFT JOIN TeamMember ON (TeamMember.Team_ID = Team.Team_ID) " .
+						"WHERE (TeamMember.SystemUser_ID = :SystemUser AND TeamMember.TeamMember_Privs > :MaxPrivs AND TeamMember_RemovedDate IS NULL) OR Team.SystemUser_ID = :SystemUser";
+		$sql_vars = array("SystemUser" => $SystemUser_ID, "MaxPrivs" => 16);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	

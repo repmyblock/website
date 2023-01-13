@@ -83,15 +83,23 @@
                   </B>
               	</P>
                     
-                <P class="f40"><B>Open positions to run for in the <?= $Party ?> Party</B></P>
-                  <DIV class="f40 Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
-                    We don't know your district <a href="/voter">create one</a>?
-                  </DIV>  
-                <P>
+               
                                 
 <?php       
       $Counter = 0;
       if ( ! empty ($Position)) {
+      	
+      	
+      	?>
+      	
+      	 <P class="f40"><B>Open positions to run for in the <?= $Party ?> Party</B></P>
+                  <DIV class="f40 Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
+                    We don't know your district <a href="/voter">create one</a>?
+                  </DIV>  
+                <P>
+      	
+      	<?php 
+      	
 
 				if ( $rmbperson["SystemUser_Priv"] & PERM_OPTION_ALLPOS ) {
 					
@@ -179,7 +187,19 @@
     	      <P><BUTTON type="submit" class="submitred">Run for the selected positions</BUTTON></p> 
    <?php } 
    
-    } ?>
+    } else { ?>
+    	
+    	  	 <P class="f40"><B>We don't have the required information to create a candidate profile.</B>
+    	  	</P>
+    	  	
+    	  	<P class="f40">
+    	  	 	You need to fill out the <B><A HREF="profilevoter">Voter Profile</A></B> tab before you 
+    	  	 		can use this menu.
+                
+                <P>
+    	
+    	
+    <?php } ?>
              </FORM>
              </DIV>
               </DIV>

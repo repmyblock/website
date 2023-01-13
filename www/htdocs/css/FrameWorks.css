@@ -48,6 +48,13 @@
 	padding: 0px 10px 0px;
 }
 
+.table-body-cell-wide{
+	border:1px solid black; 
+	caption-side: bottom; 
+	display: table-caption; 
+	text-align: center;
+}
+
 #resp-table-footer {
 	display: table-footer-group;
 	background-color: gray;

@@ -182,13 +182,7 @@
  			<BR>
  				
  				<?php } ?> 		
- 				
- 				
-				
- 				
- 				
-		
-		
+
 	 			<div class="Box">
 			  	<div class="Box-header pl-0">
 			    	<div class="table-list-filters d-flex">

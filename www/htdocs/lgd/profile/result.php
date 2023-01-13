@@ -42,10 +42,16 @@
 						)) . "/lgd/profile/profilevoter");
 			exit();
 		} else {
-			
-			
-			
-			
+			header("Location: /" .  CreateEncoded ( array( 
+									"SystemUser_ID" => $_POST["SystemUser_ID"],
+									"FirstName" => $_POST["FirstName"], 
+									"LastName" => $_POST["LastName"],
+									"VotersIndexes_ID" => $_POST["Voters_ID"],
+									"UniqNYSVoterID" => $_POST["VotersIndexes_UniqStateVoterID"],
+									"EDAD" => $EDAD,
+									"UserParty" => $_POST["Voters_RegParty"]
+						)) . "/lgd/profile/profilenotvoter");
+			exit();
 		}
 	}
 	
