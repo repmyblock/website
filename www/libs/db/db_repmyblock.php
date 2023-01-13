@@ -78,7 +78,7 @@ class RepMyBlock extends queries {
  	}
 
   function FindVotersForEDAD($AD, $ED, $Party) {
-		$sql = "SELECT * FROM RepMyBlockTwo.DataDistrict " . 
+		$sql = "SELECT * FROM DataDistrict " . 
 						"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
 						"LEFT JOIN Voters ON (DataDistrictTemporal.DataHouse_ID = Voters.DataHouse_ID) " . 
 						"LEFT JOIN DataDistrictCycle ON (DataDistrictTemporal.DataDistrictCycle_ID = DataDistrictCycle.DataDistrictCycle_ID) " . 
