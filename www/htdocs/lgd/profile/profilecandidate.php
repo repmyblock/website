@@ -28,6 +28,7 @@
   
   WriteStderr($rmbcandidate, "RMB Candidate in ProfileCandidate.php");
   WriteStderr($result, "List Elected Positions");
+  WriteStderr($rmbperson, "RMB Person");
   
   if (! empty($result)) {
     foreach($result as $var) {
@@ -87,7 +88,7 @@
                                 
 <?php       
       $Counter = 0;
-      if ( ! empty ($Position)) {
+      if ( ! empty ($Position) || ($rmbperson["SystemUserSelfDistrict_AD"] > 0 && $rmbperson["SystemUserSelfDistrict_ED"] > 0) ) {
       	
       	
       	?>

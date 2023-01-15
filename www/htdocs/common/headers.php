@@ -2,11 +2,16 @@
 	if ( preg_match('/Mobile/', $_SERVER['HTTP_USER_AGENT'])) { $MobileDisplay = true; }
 	//$MobileDisplay = true; 
 
+	WriteStderr($k,"Header K");
+	WriteStderr($URIEncryptedString["SystemUser_ID"],"Header SystemID");
+	
+
 	if ( ! empty ($k) && ($URIEncryptedString["SystemUser_ID"] > 0 ||
 												$URIEncryptedString["SystemUser_ID"] == "TMP")) { 
 		$MenuLogin = "logged"; 
-		$middleuri = rawurlencode($k);	
 		$logourl = "/" . $k . "/lgd/summary/summary";
+		$middleuri = $k;
+				
 	} else {
 		if ( empty ($URIEncryptedString) && empty ($middleuri) && ! empty ($k)) {
 			$middleuri = $k;
@@ -14,6 +19,8 @@
 		if (empty ($middleuri)) { $middleuri = "web"; };
 		$logourl = "/" . $middleuri . "/exp/index";
 	}
+	
+	// This is the image
 	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png"; }	
 	
 	if ( empty ($HeaderTwitter)) {
@@ -81,30 +88,15 @@
 		  </DIV>
 		</DIV>
 		
-<?php /*
-<nav class="d-flex" aria-label="Global">
-  <a class="js-selected-navigation-item Header-link  mr-3" data-hotkey="g p" data-ga-click="Header, click, Nav menu - item:pulls context:user" aria-label="Pull requests you created" data-selected-links="/pulls /pulls/assigned /pulls/mentioned /pulls" href="/pulls">Pull requests</a>
-  <a class="js-selected-navigation-item Header-link  mr-3" data-hotkey="g i" data-ga-click="Header, click, Nav menu - item:issues context:user" aria-label="Issues you created" data-selected-links="/issues /issues/assigned /issues/mentioned /issues" href="/issues">Issues</a>
-  <div class="mr-3">
-  	<a class="js-selected-navigation-item Header-link" data-ga-click="Header, click, Nav menu - item:marketplace context:user" data-octo-click="marketplace_click" data-octo-dimensions="location:nav_bar" data-selected-links=" /marketplace" href="/marketplace">Marketplace</a>      
-	</div>
-  <a class="js-selected-navigation-item Header-link  mr-3" data-ga-click="Header, click, Nav menu - item:explore" data-selected-links="/explore /trending /trending/developers /integrations /integrations/feature/code /integrations/feature/collaborate /integrations/feature/ship showcases showcases_search showcases_landing /explore" href="/explore">Explore</a>
-</nav>
-*/ ?>
-
-
-<div class="navbar">
-<?php if ( $MenuLogin == "logged") { ?>
-  <a href="/<?= $k ?>/lgd/profile/user" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
-<?php /*  <a href="/<?= $middleuri ?>/exp/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
-<?php /*  <a href="/<?= $k ?>/lgd/voters"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a> */ ?>
-  <a href="/<?= $k ?>/training/steps/torun"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="/<?= $k ?>/exp/toplinks/about"<?php if ($BigMenu == "about") { echo " class=\"active\""; } ?>>ABOUT</a>
-<?php } else { ?>
- 	<a  href="/<?= $middleuri ?>/exp/contact/contact" class="right<?php if ($BigMenu == "contact") { echo " active"; } ?>">CONTACT</a>
-  <a href="/<?= $middleuri ?>/training/steps/torun" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
-<?php /*    <a href="/<?= $middleuri ?>/exp/propose"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
-<?php /*    <a href="/<?= $middleuri ?>/training/steps/torun"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a> */ ?>
-  <a href="/<?= $middleuri ?>/exp/toplinks/about"<?php if ($BigMenu == "about") { echo " class=\"active\""; } ?>>ABOUT</a>
-<?php } ?>
-</div>
+		<div class="navbar">
+		<?php if ( $MenuLogin == "logged") { ?>
+		  <a href="/<?= $k ?>/lgd/profile/user" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
+		  <a href="/<?= $k ?>/training/steps/torun"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
+		  <a href="/<?= $k ?>/exp/toplinks/about"<?php if ($BigMenu == "about") { echo " class=\"active\""; } ?>>ABOUT</a>
+		<?php } else { ?>
+		 	<a  href="/<?= $middleuri ?>/exp/contact/contact" class="right<?php if ($BigMenu == "contact") { echo " active"; } ?>">CONTACT</a>
+		  <a href="/<?= $middleuri ?>/training/steps/torun" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
+		  <a href="/<?= $middleuri ?>/exp/toplinks/about"<?php if ($BigMenu == "about") { echo " class=\"active\""; } ?>>ABOUT</a>
+		<?php } ?>
+		</div><?php WriteStderr($middleuri,"Middle URI at the end of header"); ?>
+		

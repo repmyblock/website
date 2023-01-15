@@ -75,13 +75,12 @@
 		
 	}
 	
-		$TopMenus = array ( 
+	$TopMenus = array ( 
 								array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
 								array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
 								array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile")
 							);
-	
-	
+
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>

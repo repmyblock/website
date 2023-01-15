@@ -139,7 +139,7 @@
 									</DD>
 								</DL>  
 							
-								<dl class="form-group col-2  d-inline-block f40">      
+								<dl class="form-group col-2 d-inline-block f60">      
 									<DD>
 										<select class="form-select" name="Month" id="">
 											<option value="">Select month</option>

@@ -27,7 +27,7 @@
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 
-	<div class="col-9 float-left">
+	<div class="col-9 float-left f60">
 
 	<div class="Subhead mt-0 mb-0">
   	<h2 class="Subhead-heading">Setup Teams</h2>

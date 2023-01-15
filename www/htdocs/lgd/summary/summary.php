@@ -7,13 +7,10 @@
 	include_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php";  
 	
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); exit(); }
-  
 	$rmb = new RepMyBlock();
 	
 	if ( $URIEncryptedString["SystemUser_ID"] != "TMP") {
-		
 		WriteStderr("I am in URI not TMP");
-
 		$rmbperson = $rmb->FindPersonUser($URIEncryptedString["SystemUser_ID"]);
 		// $NumberPetitions = $rmb->GetPetitionsSumary($URIEncryptedString["SystemUser_ID"]);	
 		WriteStderr($rmbperson, "rmbperson");
@@ -161,7 +158,7 @@
 					Once you collect the  <?= $NumberOfSignatures ?> signatutes plus a few more, 
 					you will need to wait until <?= $DateToWait ?> to take them
 					to the board of elections. <B>Just follow the 
-					<A HREF="/<?= $k ?>/exp/howto">instruction posted on the FAQ</A>.</B>
+					<A HREF="/<?= $k ?>/exp/toplinks/howto">instruction posted on the FAQ</A>.</B>
 				</P>
 			  
 			</DIV>

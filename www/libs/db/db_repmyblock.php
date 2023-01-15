@@ -209,10 +209,7 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	// $this->SaveVoterRequest("NYS BOE ID", $NYSBOEID, $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );		
-
-	
-
+	// $this->SaveVoterRequest("NYS BOE ID", $NYSBOEID, $DOB, $DatedFilesID, NULL, $UniqNYSVoterID, $_SERVER['REMOTE_ADDR'] );
 	function SaveVoterRequest($FirstName, $LastName, $DateOfBirth, $DatedFilesID, $Email, $UniqNYSVoterID, $IP) {
 		$sql = "INSERT INTO SystemUserQuery SET SystemUserQuery_FirstName = :FirstName, " .
 		 				"SystemUserQuery_LastName = :LastName, SystemUserQuery_DateOfBirth = :DateOfBirth, " .
@@ -276,7 +273,6 @@ class RepMyBlock extends queries {
 		}
 	}
 	
-	
 	function InsertCandidateElection($CandidateElectionData) {
 			
 		if (! empty ($CandidateElectionData["ElectionID"])) {
@@ -312,7 +308,6 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql); 	
 	}
 	
-	
 	function FindElectionInfoForPetition ($DistrictID, $DBTable = NULL, $Party = NULL, $DateToMatch = true) {
 		$sql = "SELECT *, UNIX_TIMESTAMP(Elections_Date) AS UnixElection_Date ";
 		
@@ -346,7 +341,6 @@ class RepMyBlock extends queries {
 		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
-	
 	
 	function ListPetitionGroup($GroupID = NULL, $Status = NULL) {
 		$sql = "SELECT * FROM CandidateGroup " .
@@ -456,8 +450,6 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql);
 	}
 	
-
-	
 	function updatecandidateprofile($Candidate_ID, $CandidateProfile) {
 	
 		if ($Candidate_ID > 0) {
@@ -536,9 +528,7 @@ class RepMyBlock extends queries {
 			return $this->_return_nothing($sql, $sql_vars);
 		}
 	}
-    
- 
-	
+  
 	function ListCandidateInformation($SystemUserID) {
 		$sql = "SELECT * FROM Candidate " . 
 						"LEFT JOIN CandidateGroup ON (Candidate.Candidate_ID = CandidateGroup.Candidate_ID) " . 
