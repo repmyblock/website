@@ -41,7 +41,7 @@
 		$MailToText .= "I want to register";
 	}
 	
-	$MailToText .= "&body=DO CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
+	$MailToText .= "&body=DO NOT CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
 								
 	$MultipleMailToText = "mailto:infos@repmyblock.org?" .
 												"subject=Multiple users for one account&" .
