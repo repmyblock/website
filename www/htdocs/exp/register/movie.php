@@ -18,7 +18,7 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 		
 	$MailToText = "mailto:notif@repmyblock.org?" . 
-								"subject=I want to see the documentary";
+								"subject=I want to register";
 	
 	if ( $k != "web") {
 		// Check for the team.
@@ -32,7 +32,7 @@
 		}
 	}
 								 
-	$MailToText .= "&body=DO CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
+	$MailToText .= "&body=DO NOT CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
 								
 	$MultipleMailToText = "mailto:infos@repmyblock.org?" . 
 								"subject=Multiple users for one account&" . 
@@ -41,7 +41,7 @@
 <DIV class="main">
 		
 	<P>
-		<DIV class="right f80">Register to watch the documentary</DIV>
+		<DIV class="right f80">Watch the documentary</DIV>
 	</P>
 	
 	<?php switch($oldk) { 
@@ -87,6 +87,13 @@
 		democracy.
 	</P>
 	
+	<P>		
+		<CENTER>
+			<DIV class="videowrapper">
+				<iframe title="vimeo-player" src="https://player.vimeo.com/video/795649609?h=a303d838a9" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+			</DIV>		
+		</CENTER>
+	</P>
 	
 	<P class="f60">
 		You can get more info about the documentary by visiting the filmmaker go fund me page at 
@@ -94,21 +101,13 @@
 	</P>
 	
 	<P class="f80">
-			<A HREF="<?= $MailToText ?>">Click on this link to open you mail program or
-			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO SEE<?= $MailURLText ?></FONT>"</A>
+			<A HREF="<?= $MailToText ?>">If you are inspired and have a few hours, click on this link to open you mail program or
+			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO REGISTER<?= $MailURLText ?></FONT>"</A>
 			and you will receive a link with the registration information.
 	</P>
 	
 	<P class="f40">
 		Don't forget to check <B>your SPAM folder</B> for the registration email from us.
-	</P>
-
-	<P>		
-		<CENTER>
-			<DIV class="videowrapper">
-			 <iframe width="560" height="315" src="https://www.youtube.com/embed/_DVyS5m7dQs?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</DIV>		
-		</CENTER>
 	</P>
 	
 	

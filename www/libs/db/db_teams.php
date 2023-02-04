@@ -74,6 +74,9 @@ class Teams extends RepMyBlock {
 						"WHERE Team.Team_ID = :TeamID AND " . //TeamMember_Privs > :MaxPrivs AND TeamMember_RemovedDate IS NULL AND " .
 						"(CURDATE() >= DataDistrictCycle_CycleStartDate AND CURDATE() <= DataDistrictCycle_CycleEndDate) IS NULL";
 		$sql_vars = array("TeamID" => $Team_ID); // , "MaxPrivs" => 16);		
+		
+		echo "SQL: $sql<BR>";
+		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	

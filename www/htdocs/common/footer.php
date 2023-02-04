@@ -21,7 +21,7 @@
                                                                   "DocumentRoot" => $_SERVER['DOCUMENT_ROOT'],
                                                                   "Version" => $BetaVersion,
                                                                   "PageRequestTime" => $_SERVER['REQUEST_TIME']
-                                                                ))?>/intake">BUG</A>
+                                                                ))?>/intake">BUGS</A>
 <?php if ( $MenuLogin == "logged") { ?>
           <A class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>" href="/<?= $middleuri ?>/lgd/profile">PROFILE</a>
 <?php } else { ?>              

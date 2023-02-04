@@ -7,18 +7,20 @@
   
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
-  $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
   
-  if ( ! empty ($_POST)) {
-  	
+  if ( ! empty ($_POST) && $_POST["TYPE"] != "Select a district type") {
+  		WriteStderr($_POST, "Post New");	
   	if ( ! empty ($_POST["TYPE"]) && ! empty ($_POST["VALUE"])) {
 	  	//$result = $rmb->ListRawNYEDByDistricts(trim($_POST["TYPE"]), intval($_POST["VALUE"]));
 	  	$result = $rmb->ListEDByDistricts(trim($_POST["TYPE"]), intval($_POST["VALUE"]), 1);
   	} else {
   		$ErrorMsg = "The Search cannot be empty";
   	}	
-  }
+  } else {
+  	$ErrorMsg = "You must select a district type";
+  }	
   
+  $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; $selCols = "col-12";} else { $Cols = "col-9"; }
 ?>

@@ -1,7 +1,22 @@
 <?php
+
+
+print "REFERER: <PRE>" . print_r($_SERVER, 1) . "<BR>";
+
+print "K: " . $_GET["k"] . "<BR>";
+
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";	
+	
+	print "HERE<BR>";
+	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
+
+	print " and HERE<BR>";
+
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_trac.php";  
+
+
+print "K: " . $_GET["k"] . "<BR>";
 
 	if ( ! empty ($_POST)) {
 				
@@ -60,6 +75,8 @@
 	$Referer = $_SERVER['HTTP_REFERER'];
 	preg_match('/.*\.repmyblock\.org\/([^\/]*)\/([^\/]*)\/(.*)/', $_SERVER['HTTP_REFERER'], $matches, PREG_OFFSET_CAPTURE);
 	
+	
+	
 	$URLRef = "/" . $matches[1][0] . "/" . $matches[3][0];
 	
 	if ( strlen( $matches[2][0]) > 64 ) {
@@ -71,6 +88,13 @@
 	}
 
 	if ( ! empty ($_GET["k"] )) {	parse_str (DecryptURL($_GET['k']), $DecryptInfo);	}
+	
+	
+	
+	
+	print "<PRE>" . print_r($DecryptInfo, 1) . "<PRE>";
+	exit();
+	
 ?>	
 <div class="main">
 	<DIV CLASS="intro center">

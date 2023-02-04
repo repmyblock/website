@@ -26,7 +26,6 @@
 		WriteStderr($rmbteam, "RMB Team In the Else from the Post");
 	}
 	
-	
 	if ( ! empty ($rmbteam)) {
 		foreach ($rmbteam as $var) {
 			

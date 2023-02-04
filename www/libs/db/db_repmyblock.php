@@ -1097,7 +1097,7 @@ class RepMyBlock extends queries {
 	
 	
 	function ListEDByDistricts($DistrictType, $DistrictValue, $DistrictCycle = '2')	{
-		$sql = "SELECT DISTINCT DataDistrict.DataDistrict_ID, DataDistrict_Electoral AS ED, DataDistrict_StateAssembly AS AD ";
+		$sql = "SELECT DISTINCT DataDistrict_Electoral AS ED, DataDistrict_StateAssembly AS AD ";
 	
 		switch ($DistrictType) {
 			case "AD":
@@ -1119,7 +1119,7 @@ class RepMyBlock extends queries {
 				break;
 		}
 		
-		$sql .= "FROM RepMyBlock.DataDistrict " . 
+		$sql .= "FROM DataDistrict " . 
 						"LEFT JOIN DataDistrictTemporal ON " . 
 						"(DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
 						"LEFT JOIN DataDistrictCycle ON " .
