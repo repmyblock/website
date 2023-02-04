@@ -81,10 +81,9 @@
 	} ?>
 	
 	<P class="f40">
-		<B>COUNTY: A Documentary (2022)</B> - an investigative and advocacy piece, a story of activism, 
-		suppression and intrigue, driven by grassroots organizers in NYC who have been working to unveil 
-		this system and engage the public with the smallest, most fundamental building block of our 
-		democracy.
+		<B>COUNTY: A Documentary (2022)</B> - A documentary that explores the County Committee political 
+		machine in New York City, suppression at the local levels of American democracy, and the activists 
+		on the ground seeking to reform the system. A short documentary by <A HREF="https://www.imdb.com/title/tt20049084/" TARGET="COUNTYMOVIE">Fahim Hamid</A>.
 	</P>
 	
 	<P>		
