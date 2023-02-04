@@ -100,7 +100,7 @@
 		<B><A HREF="https://www.gofundme.com/f/county-film" TARGET=GOFUND>https://www.gofundme.com/f/county-film</B></A>.
 	</P>
 	
-	<P class="f80">
+	<P class="f60">
 			<A HREF="<?= $MailToText ?>">If you are inspired and have a few hours, click on this link to open you mail program or
 			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO REGISTER<?= $MailURLText ?></FONT>"</A>
 			and you will receive a link with the registration information.
