@@ -96,8 +96,8 @@
 	</P>
 	
 	<P class="f40">
-		You can get more info about the documentary by visiting the filmmaker go fund me page at 
-		<B><A HREF="https://www.gofundme.com/f/county-film" TARGET=GOFUND>https://www.gofundme.com/f/county-film</B></A>.
+		Please follow the film on <B><A HREF="https://www.facebook.com/countyfilm" TARGET="COUNTYMOVIE">Facebook</A></B> and <B><A HREF="https://www.instagram.com/county_film/">Instagram</A></B>
+		for news, upcoming live screenings & events. Consider donating to the movies' <B><A HREF="https://www.gofundme.com/f/county-film" TARGET="COUNTYMOVIE">go fund me</A></B> page.
 	</P>
 	
 	<P class="f60">
