@@ -67,6 +67,11 @@
 
 <DIV class="main">
 	<DIV class="right f80bold">Login</DIV>
+	
+	
+		<P class="f60">
+				<FONT COLOR=BROWN><B>The voter database is being maintained,</FONT> therefore the Walksheets will be unavailable.</FONT>
+		<P>
 
 		<?php if (! empty ($error_msg)) {
 			echo "<P class=\"f80\">" . $error_msg . "</P>";	
