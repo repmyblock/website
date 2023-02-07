@@ -2,7 +2,7 @@
 	$HeaderTwitter = 1;
 	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/DeadMembers.jpg";
 	$HeaderTwitterDesc = "Are you alive? Don't let dead committee members decide for you. Watch the documentary!";   
-	$HeaderTwitterTitle = "Watch the full documenatary County on the Rep My Block website.";              
+	$HeaderTwitterTitle = "Watch the full documentary 'County' on the Rep My Block website.";              
           
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
