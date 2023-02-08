@@ -40,7 +40,17 @@
 		<meta name="twitter:image" content="<?= $HeaderTwitterPicLink ?>" />
 		<meta name="twitter:creator" content="@RepMyBlock" />
 		<meta name="Description" CONTENT="A website to prepare political state nominating petitions to run for party and elected office.">
-		<TITLE>Rep My Block - Represent My Block</TITLE>
+		<TITLE>Rep My Block - Represent My Block at the County Committee</TITLE>
+
+		<meta name="Title" content="County Committee">
+		<meta property="og:title" content="County Committee"/>
+		<meta property="og:url" content="https://<?= $_SERVER['HTTP_HOST'] ?><?= $_SERVER['REQUEST_URI'] ?>">
+		<meta property="og:description" content="Working for a more progressive Brooklyn">
+		<meta property="og:type" content="article">
+		<link rel="image_src" href="https://www.repmyblock.org/images/RepMyBlock.png" />
+		<meta property="og:image" content="https://www.repmyblock.org/images/RepMyBlock.png" />
+		<meta property="og:site_name" content="Rep My Block"/>
+  
 		<link rel="icon" href="/images/favicon/favicon.ico" type="image/x-icon">
 		<link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="/images/icons/css/all.min.css" >		
