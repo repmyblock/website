@@ -64,15 +64,9 @@
 	if ( $MobileDisplay == true ) { $TypeUsername = "username";
 	} else { $TypeUsername  = "text"; }
 ?>
-
 <DIV class="main">
 	<DIV class="right f80bold">Login</DIV>
 	
-	
-		<P class="f60">
-				<FONT COLOR=BROWN><B>The voter database is being maintained,</FONT> therefore the Walksheets will be unavailable.</FONT>
-		<P>
-
 		<?php if (! empty ($error_msg)) {
 			echo "<P class=\"f80\">" . $error_msg . "</P>";	
 		} ?>
@@ -95,8 +89,6 @@
 			</FORM>
 		</P>
 		
-
-		
 		<P class="f60">
 			<A HREF="/<?= $middleuri ?>/exp/forgot/forgotpwd">I forgot my password</A>
 		</P>
@@ -111,6 +103,5 @@
 
 	</DIV>
 </DIV>
-	
-	
+
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
