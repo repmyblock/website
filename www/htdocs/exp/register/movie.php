@@ -1,9 +1,10 @@
 <?php
-	$HeaderTwitter = 1;
+  
+  $HeaderTwitter = 1;
 	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/DeadMembers.jpg";
 	$HeaderTwitterDesc = "Are you alive? Don't let dead committee members decide for you. Watch the documentary!";   
-	$HeaderTwitterTitle = "Watch the full documentary 'County' on the Rep My Block website.";              
-          
+	$HeaderTwitterTitle = "Watch the full documentary 'County' on the Rep My Block website.";   
+	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
 	switch($k) { 
@@ -14,12 +15,12 @@
 		break;
 	}
 		
-	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
+
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 		
-	$MailToText = "mailto:notif@repmyblock.org?" . 
-								"subject=I want to register";
+
+	$EmailCode = "NOTIF@REPMYBLOCK.ORG";
 	
 	if ( $k != "web") {
 		// Check for the team.
@@ -27,11 +28,24 @@
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";
 		$r = new login();	
 		$result = $r->CheckForValidityOfTeam($k);	
+		
+		WriteStderr($result, "Result Validity Team");
+		
 		if ( $result["Team_Active"] == "yes")  {
-			$MailToText .= " for team " . $k;
+			$MailToTextToAdd = " for team " . $k;
 			$MailURLText = " FOR TEAM <FONT COLOR=BLUE>" . $k . "</FONT>";
+			
+			if ( ! empty ($result["Team_EmailCode"])) {
+				$EmailCode = $result["Team_EmailCode"];
+			}
+			
 		}
 	}
+	
+	$MailToText = "mailto:" . $EmailCode . "?" . 
+								"subject=I want to register" . $MailToTextToAdd;
+
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 								 
 	$MailToText .= "&body=DO NOT CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link.";
 								
@@ -101,8 +115,9 @@
 	</P>
 	
 	<P class="f60">
-			<A HREF="<?= $MailToText ?>">If you are inspired and have a few hours, click on this link to open you mail program or
-			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN><B>I WANT TO REGISTER<?= $MailURLText ?></B></FONT>"</A>
+			<A HREF="<?= $MailToText ?>">If you are inspired and have a few hours to help <B><font color="BROWN"><?= $result["Team_Name"] ?></FONT></B> members
+			get on the ballot, click on this link to open you mail program or
+			send an email to <B><?= $EmailCode ?></B> with the subject "<FONT COLOR=BROWN><B>I WANT TO REGISTER<?= $MailURLText ?></B></FONT>"</A>
 			and you will receive a link with the registration information.
 	</P>
 	
