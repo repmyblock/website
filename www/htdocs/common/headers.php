@@ -29,7 +29,7 @@
 		$HeaderTwitterDesc = "Registrations for the 2023 Citywide Republican and Democratic county committee. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; it's their backbone. The &hellip; Continue reading Rep My Block &rarr;";
 	}
 
-	if (! empty ($HeaderOGDescription) {
+	if (! empty ($HeaderOGDescription)){
 		$HeaderOGDescription = "Represent My Block at the County Committee";
 	}
 	
