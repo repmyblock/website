@@ -22,11 +22,15 @@
 	
 	// This is the image
 	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png"; }	
-	
+		
 	if ( empty ($HeaderTwitter)) {
 		$HeaderTwitterTitle = "Rep My Block - Rep My Block";
 		$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/PoliticalMachineKeepEngagementLow.jpg";
 		$HeaderTwitterDesc = "Registrations for the 2023 Citywide Republican and Democratic county committee. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; it's their backbone. The &hellip; Continue reading Rep My Block &rarr;";
+	}
+
+	if (! empty ($HeaderOGDescription) {
+		$HeaderOGDescription = "Represent My Block at the County Committee";
 	}
 	
 ?><!DOCTYPE html>
@@ -45,7 +49,7 @@
 		<meta name="Title" content="County Committee">
 		<meta property="og:title" content="County Committee"/>
 		<meta property="og:url" content="https://<?= $_SERVER['HTTP_HOST'] ?><?= $_SERVER['REQUEST_URI'] ?>">
-		<meta property="og:description" content="Working for a more progressive Brooklyn">
+		<meta property="og:description" content="<?= $HeaderOGDescription ?>">
 		<meta property="og:type" content="article">
 		<link rel="image_src" href="https://www.repmyblock.org/images/RepMyBlock.png" />
 		<meta property="og:image" content="https://www.repmyblock.org/images/RepMyBlock.png" />
