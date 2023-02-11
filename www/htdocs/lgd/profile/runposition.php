@@ -17,27 +17,57 @@
 	
 	$rmb = new RepMyBlock();
 	//$rmbperson = $rmb->ReturnVoterIndex($URIEncryptedString["VotersIndexes_ID"]);
-	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);	
 	$listpositions = $rmb->ListElectedPositions($rmbperson["DataState_Abbrev"]);
-	$listelection = $rmb->CandidateElection($rmbperson["ElectionsDistricts_DBTable"], $rmbperson["ElectionsDistricts_DBTableValue"], "2021-12-10", $rmbperson["Voters_RegParty"]);
 	
-	// This need to be fixed.
-	$rmbperson["DataCounty_ID"] = "120";
+	$DBTable = "ADED";
+	if (! empty ($rmbperson["SystemUserSelfDistrict_AD"])) {
+		$MyLocalAD = $rmbperson["SystemUserSelfDistrict_AD"];
+	} else {
+		$MyLocalAD = $rmbperson["DataDistrict_StateAssembly"];
+	}
+	
+	if (! empty ($rmbperson["SystemUserSelfDistrict_ED"])) {
+		$MyLocalED = $rmbperson["SystemUserSelfDistrict_ED"];
+	} else {
+		$MyLocalED = $rmbperson["DataDistrict_Electoral"];
+	}
+	$EDAD = sprintf('%02d%03d', $MyLocalAD, $MyLocalED);
+	
+	
+	$listelection = $rmb->CandidateElection($DBTable, $EDAD, "2021-12-10", $rmbperson["Voters_RegParty"]);
 	
 	// The addresses will need to be fixed as well.
-	$Address = $rmbperson["DataAddress_HouseNumber"] . " " . $rmbperson["DataStreet_Name"] . 
-						" - Apt " . $rmbperson["DataHouse_Apt"] . "\n" . $rmbperson["DataCity_Name"] . ", " . $rmbperson["DataState_Abbrev"] . " " .
-						$rmbperson["DataAddress_zipcode"];
-	$DisplayName = " " . $rmbperson["DataFirstName_Text"] . " " . $rmbperson["DataMiddleName_Text"] . ". " . $rmbperson["DataLastName_Text"];
+	$Address = $rmbperson["DataAddress_HouseNumber"] . " " . $rmbperson["DataStreet_Name"] . " - Apt " . $rmbperson["DataHouse_Apt"] . "\n" .
+						 $rmbperson["DataCity_Name"] . ", " . $rmbperson["DataState_Abbrev"] . " " . $rmbperson["DataAddress_zipcode"];
 	
-	$finalresult = $rmb->InsertCandidate($rmbperson["SystemUser_ID"], $rmbperson["Voters_UniqStateVoterID"], $rmbperson["Voters_ID"], $rmbperson["DataCounty_ID"],
-														$listelection[0]["CandidateElection_ID"], $rmbperson["Voters_RegParty"], $DisplayName,
-														$Address, $rmbperson["ElectionsDistricts_DBTable"], $rmbperson["ElectionsDistricts_DBTableValue"],	NULL, "published");
-		
+
+	if ( ! empty ($rmbperson["DataFirstName_Text"])) { $DisplayName = $rmbperson["DataFirstName_Text"] . " "; }
+	if (strlen ($rmbperson["DataMiddleName_Text"]) > 1 ) {
+		$DisplayName .= $rmbperson["DataMiddleName_Text"] . " ";
+	} else {
+		$DisplayName .= strtoupper($rmbperson["DataMiddleName_Text"]) . " ";
+	}
+	if ( ! empty ($rmbperson["DataLastName_Text"])) { $DisplayName .= $rmbperson["DataLastName_Text"]; }
+	
+	$TypeOfPetition = "published";
+	
+	
+	
+	print $rmbperson["SystemUser_ID"] . "," . $rmbperson["Voters_UniqStateVoterID"] . "," . $rmbperson["Voters_ID"] . "," . 
+														$rmbperson["DataCounty_ID"] . "," . $listelection[0]["CandidateElection_ID"] . "," .  
+														$rmbperson["Voters_RegParty"] . "," . $DisplayName  . "," . $Address . "," .  
+														$DBTable . "," .  $EDAD . "," . 	
+														NULL . "," .  $TypeOfPetition . "\n";	
+														
+	$finalresult = $rmb->InsertCandidate($rmbperson["SystemUser_ID"], $rmbperson["Voters_UniqStateVoterID"], $rmbperson["Voters_ID"], 
+														$rmbperson["DataCounty_ID"], $listelection[0]["CandidateElection_ID"], $rmbperson["Voters_RegParty"], 
+														$DisplayName,	$Address, $DBTable , $EDAD,	NULL, $TypeOfPetition);
+														
 	$GetSetNumber = $rmb->NextPetitionSet($URIEncryptedString["SystemUser_ID"]);
 	$GetGroupID = $rmb->InsertCandidateSet($finalresult["Candidate_ID"], $GetSetNumber["CandidateSet"], $rmbperson["Voters_RegParty"], 
 																				$rmbperson["DataCounty_ID"], 1, "yes");
-					
+
 	// We need to add to the permission access to download petitions.
 	// PERM_MENU_DOWNLOADS			
 	$rmb->UpdateSystemPriv($URIEncryptedString["SystemUser_ID"], PERM_MENU_DOWNLOADS);			

@@ -303,7 +303,6 @@ class RepMyBlock extends queries {
 		}
 		
 		$this->_return_nothing($sql, $CandidateElectionData);
-		
 		$sql = "SELECT LAST_INSERT_ID() as CandidateElection_ID";
 		return $this->_return_simple($sql); 	
 	}
