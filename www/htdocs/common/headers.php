@@ -29,9 +29,8 @@
 		$HeaderTwitterDesc = "Registrations for the 2023 Citywide Republican and Democratic county committee. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; it's their backbone. The &hellip; Continue reading Rep My Block &rarr;";
 	}
 
-	if (empty ($HeaderOGDescription)) {
-		$HeaderOGDescription = "Represent My Block at the County Committee";
-	}
+	if (empty ($HeaderOGDescription)) {	$HeaderOGDescription = "Represent My Block at the County Committee"; }
+	if (empty ($HeaderOGImage)) { $HeaderOGImage = "https://www.repmyblock.org/images/RepMyBlock.png"; }
 	
 ?><!DOCTYPE html>
 <html lang="en-US" prefix="og: http://ogp.me/ns#" class="no-js">
@@ -52,7 +51,7 @@
 		<meta property="og:description" content="<?= $HeaderOGDescription ?>">
 		<meta property="og:type" content="article">
 		<link rel="image_src" href="https://www.repmyblock.org/images/RepMyBlock.png" />
-		<meta property="og:image" content="https://www.repmyblock.org/images/RepMyBlock.png" />
+		<meta property="og:image" content="<?= $HeaderOGImage ?>" />
 		<meta property="og:site_name" content="Rep My Block"/>
   
 		<link rel="icon" href="/images/favicon/favicon.ico" type="image/x-icon">
