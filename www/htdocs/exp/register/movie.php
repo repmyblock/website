@@ -107,7 +107,7 @@
 	</P>
 	
 	<P class="f60">
-		<CENTER><P CLASS="f40"><B>Press the PLAY button and enter the password <FONT COLOR=BROWN><B>QCC4ALL</B></FONT> </B><I>(all in uppercase)</I> <B>to access the documentary.</B></P></CENTER>
+		<CENTER><P CLASS="f40"><B>Press the PLAY button and enter the password </B><I>(all in uppercase)</I><B> <FONT COLOR=BROWN><B>QCC4ALL</B></FONT> to access the documentary.</B></P></CENTER>
 	</P>
 		
 	
