@@ -19,10 +19,10 @@ WriteStderr($URIEncryptedString, "URIEncryptedString");
 	
 if ($URIEncryptedString["DataDistrict_ID"] > 0) {
 	
-	$ReturnDistrictInfo = $db_RMB_voterlist->FindADEDFromDistrict($URIEncryptedString["DataDistrict_ID"]);
-	WriteStderr($ReturnDistrictInfo, "ReturnDistrictInfo");
+	##$ReturnDistrictInfo = $db_RMB_voterlist->FindADEDFromDistrict($URIEncryptedString["DataDistrict_ID"]);
+	##WriteStderr($ReturnDistrictInfo, "ReturnDistrictInfo");
 
-	$DataQuery = array("AD" => intval($ReturnDistrictInfo["DataDistrict_StateAssembly"]), "ED" => intval($ReturnDistrictInfo["DataDistrict_Electoral"]));
+	$DataQuery = array("AD" => intval($URIEncryptedString["AD"]), "ED" => intval($URIEncryptedString["ED"]));
 	if ($URIEncryptedString["Party"] != "ALL") { $DataQuery["PT"] = $URIEncryptedString["Party"]; }
 	
 	$voters = $db_RMB_voterlist->SearchVotersFile($DataQuery);										
