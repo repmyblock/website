@@ -30,7 +30,11 @@
 	}
 
 	if (empty ($HeaderOGDescription)) {	$HeaderOGDescription = "Represent My Block at the County Committee"; }
-	if (empty ($HeaderOGImage)) { $HeaderOGImage = "https://www.repmyblock.org/images/RepMyBlock.png"; }
+	if (empty ($HeaderOGImage)) { 
+		$HeaderOGImage = "https://www.repmyblock.org/images/RepMyBlock.png"; 
+		$HeaderOGImageWidth = "99";
+		$HeaderOGImageHeight = "71";
+	}
 	
 ?><!DOCTYPE html>
 <html lang="en-US" prefix="og: http://ogp.me/ns#" class="no-js">
@@ -50,9 +54,13 @@
 		<meta property="og:url" content="https://<?= $_SERVER['HTTP_HOST'] ?><?= $_SERVER['REQUEST_URI'] ?>">
 		<meta property="og:description" content="<?= $HeaderOGDescription ?>">
 		<meta property="og:type" content="article">
-		<link rel="image_src" href="https://www.repmyblock.org/images/RepMyBlock.png" />
-		<meta property="og:image" content="<?= $HeaderOGImage ?>" />
+		<meta property="og:image" content="<?= $HeaderOGImage ?>" />		
+		<meta property="og:image:width" content="<?= $HeaderOGImageWidth ?>" />		
+		<meta property="og:image:height" content="<?= $HeaderOGImageHeight ?>" />		
+
 		<meta property="og:site_name" content="Rep My Block"/>
+		
+		<link rel="image_src" href="https://www.repmyblock.org/images/RepMyBlock.png" />
   
 		<link rel="icon" href="/images/favicon/favicon.ico" type="image/x-icon">
 		<link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon">

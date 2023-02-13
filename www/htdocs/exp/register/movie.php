@@ -7,6 +7,8 @@
 	
 	$HeaderOGImage = $HeaderTwitterPicLink;
 	$HeaderOGDescription = $HeaderTwitterDesc;
+	$HeaderOGImageWidth = "450";
+	$HeaderOGImageHeight = "265";
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
