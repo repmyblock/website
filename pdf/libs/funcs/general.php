@@ -114,9 +114,9 @@ function PrintVoterLine($Alternate, $pdf, $VoterPrintLine, $Status) {
 	$pdf->SetFont('Arial', '', 10);
 	$pdf->Write(1, " " );	
 	
-	if ( $Status == "I") { $pdf->SetTextColor(255, 0, 0); }
+	if ( $Status == "Inactive") { $pdf->SetTextColor(255, 0, 0); }
 	$pdf->Write(1, $VoterPrintLine . "  ");
-	if ( $Status == "I") { $pdf->SetTextColor(0); }
+	if ( $Status == "Inactive") { $pdf->SetTextColor(0); }
 }
 
 ?>

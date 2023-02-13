@@ -19,7 +19,7 @@ class PDF_RMB_VoterList extends FPDF {
 			$this->SetFont('Arial','B',50);
     	$this->SetTextColor(255,192,203);
    		$this->RotatedText(35,190, $this->Watermark, 45);
-   		$this->RotatedText(40,210, "Election will be held in 2022", 45);
+   		$this->RotatedText(40,210, "Election will be held in 2023", 45);
    		$this->SetTextColor(0,0,0);
 		}
 		

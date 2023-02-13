@@ -12,7 +12,7 @@ if ( ! isset ($RMBBlockInit)) {
 	$pdf_RMB_walksheet = new PDF_RMB_VoterList('P','mm', $PageSize);
 	
 	// This is the date that drive the RMB File in libs/funcs/pdf_frames/version_rmb_<$WalkSheetFrameName>".php
-	$WalkSheetFrameName = "2023";    
+	$WalkSheetFrameName = "2023";
 }
 
 WriteStderr($URIEncryptedString, "URIEncryptedString");
@@ -62,7 +62,7 @@ if ($URIEncryptedString["DataDistrict_ID"] > 0) {
 	preg_match('/(\d\d)(\d\d\d)/', $WalkSheetUser["CandidateElection_DBTableValue"], $Keywords);		
 	$DataQuery = array("AD" => intval($Keywords[1]), "ED" => intval($Keywords[2]), 
 											"PT" => $WalkSheetUser["CandidateElection_Party"]);
-	// $voters = $db_RMB_voterlist->SearchInRawNYSFile($DataQuery);
+	$voters = $db_RMB_voterlist->SearchVotersFile($DataQuery);
 
 	$PreparedFor = $WalkSheetUser["Candidate_DispName"];
 	$ElectionDate = PrintShortDate($WalkSheetUser["Elections_Date"]);
@@ -96,7 +96,7 @@ if (! empty ($voters)) {
 }
 
 $InfoArray["Address"] = $Address;
-// WriteStderr($Address, "Address Array");
+#WriteStderr($Gender, "Address Array");
 
 $PageSize = "letter";
 
@@ -142,7 +142,7 @@ $FrameFunc = "version_rmb_" . $WalkSheetFrameName;
 WriteStderr($FrameFunc, "Running the frame in State $FrameState");
 
 require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/pdf_frames/rmb/' . $FrameFunc . '.php';
-$FrameFunc($pdf_RMB_walksheet, $InfoArray);
+$FrameFunc($pdf_RMB_walksheet, $InfoArray, $Gender, $Age);
 	
 // This is to block the output if the file is called from file
 if ( ! isset ($RMBBlockInit)) {

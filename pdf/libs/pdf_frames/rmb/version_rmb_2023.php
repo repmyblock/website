@@ -3,8 +3,10 @@
 // Make sure the name of the function name matches the file name version_<uniqname>.php.
 
 // Built by Theo Chino for the 2021 petitioning season.
-function version_rmb_2023 ($pdf, $InfoArray) {
+function version_rmb_2023 ($pdf, $InfoArray, $Gender, $Age) {
 
+
+	
 
 	// This is the meat of the petition.	
 	$Counter = 0;
@@ -61,8 +63,8 @@ function version_rmb_2023 ($pdf, $InfoArray) {
 												}
 												
 												// How far are we from the end?
-												$VoterPrintLine = $PersonVoters . " - " . strtoupper($Gender[$IDToUse][0]) . $Age[$IDToUse];
-												
+												$VoterPrintLine = $PersonVoters . " - " . substr(strtoupper($Gender[$IDToUse]), 0, 1) . " " . $Age[$IDToUse];
+
 												PrintVoterLine($Alternate, $pdf, $VoterPrintLine, $Status);											
 											}
 										}	
