@@ -6,7 +6,7 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 		
 	$HeaderTwitter = 1;
-	$HeaderTwitterPicLink = "https://dev-frontend-web.repmyblock.org/images/training/ZoomWithPaperboy.png";
+	$HeaderTwitterPicLink = "https://www.repmyblock.org/images/training/ZoomWithPaperboy.png";
 	$HeaderTwitterDesc = "Learn how to run for office with Paperboy Love Prince.";   
 	$HeaderTwitterTitle = "Paperboy Love Prince interview every politician.";   
 	
