@@ -4,6 +4,17 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
+		
+	$HeaderTwitter = 1;
+	$HeaderTwitterPicLink = "https://dev-frontend-web.repmyblock.org/images/training/ZoomWithPaperboy.png";
+	$HeaderTwitterDesc = "Learn how to run for office with Paperboy Love Prince.";   
+	$HeaderTwitterTitle = "Paperboy Love Prince interview every politician.";   
+	
+	$HeaderOGImage = $HeaderTwitterPicLink;
+	$HeaderOGDescription = $HeaderTwitterDesc;
+	$HeaderOGImageWidth = "450";
+	$HeaderOGImageHeight = "253";
+		
 ?>
 <DIV class="main">
 	<DIV class="right f80">Running for Office Training Material</DIV>
