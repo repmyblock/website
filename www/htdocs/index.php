@@ -87,7 +87,7 @@
 		</P>
 		
 		<P>
-		<P class="center f80"><A HREF="/<?= $middleuri ?>/volunteer/tothecause">To volunteer your time or ressources</A></P>
+		<P class="center f80"><A HREF="/<?= $middleuri ?>/volunteer/tothecause">To volunteer your time or resources</A></P>
 	</P>
 			
 	</CENTER>
