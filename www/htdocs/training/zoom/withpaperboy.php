@@ -1,10 +1,5 @@
 <?php
 //	$imgtoshow = "/brand/RunWithMe/RunWithMe.png";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
-	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
-	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
-		
 	$HeaderTwitter = 1;
 	$HeaderTwitterPicLink = "https://www.repmyblock.org/images/training/ZoomWithPaperboy.png";
 	$HeaderTwitterDesc = "Learn how to run for office with Paperboy Love Prince.";   
@@ -15,6 +10,12 @@
 	$HeaderOGImageWidth = "450";
 	$HeaderOGImageHeight = "253";
 		
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
+	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
+	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
+		
+	
 ?>
 <DIV class="main">
 	<DIV class="right f80">Running for Office Training Material</DIV>
