@@ -37,7 +37,7 @@ class stats extends queries {
 			COUNT(IF(EnrollPolParty = 'REP',1 , NULL)) AS REP, 
 			(CEILING(COUNT(IF(EnrollPolParty = 'REP' AND Status = 'A',1 , NULL)) * .05)) AS 'REP Sigs', 
 			COUNT(EnrollPolParty) AS TOTAL 
-			FROM RepMyBlock.VotersRaw_NYS 
+			FROM VotersRaw_NYS 
 			WHERE (Status = 'A' OR Status = 'I') 
 			GROUP BY AssemblyDistr, ElectDistr
 	*/
@@ -51,7 +51,7 @@ class stats extends queries {
 						"COUNT(IF(EnrollPolParty = 'REP',1 , NULL)) AS REP, " . 
 						"(CEILING(COUNT(IF(EnrollPolParty = 'REP' AND Status = 'A',1 , NULL)) * .05)) AS 'REP Sigs', " . 
 						"COUNT(EnrollPolParty) AS TOTAL " . 
-						"FROM RepMyBlock.VotersRaw_NYS " . 
+						"FROM VotersRaw_NYS " . 
 						"WHERE (Status = 'A' OR Status = 'I') " .  
 						"GROUP BY AssemblyDistr, ElectDistr";
 		$sql_vars = array();											

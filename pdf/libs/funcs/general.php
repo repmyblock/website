@@ -79,6 +79,14 @@ function Redact ($string) {
 	return $string;
 }
 
+function ordinal($number) {
+    $ends = array('th','st','nd','rd','th','th','th','th','th','th');
+    if ((($number % 100) >= 11) && (($number%100) <= 13))
+        return $number. 'th';
+    else
+        return $number. $ends[$number % 10];
+}
+
 function PrintAddress($Alternate, $pdf, $PrintAddress) {
 	$pdf->Ln(6);
 	if ($Alternate == 1) { $pdf->SetX(110); }

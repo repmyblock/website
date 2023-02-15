@@ -35,10 +35,11 @@ $pdf_NY_petition->Watermark = "VOID - Do not use";
 $WritenSignatureMonth = "March"; // date("F");
 $Variable = "demo-CC";
 
+
+
 // Setup for empty petition.
 $pdf_NY_petition->WitnessName = "________________________________________"; 
 $pdf_NY_petition->WitnessResidence = "_______________________________________________________";
-
 
 $pdf_NY_petition->TodayDateText = "Date: " . date("F _________ , Y"); 
 $pdf_NY_petition->TodayDateText = "Date: " . $WritenSignatureMonth . " _______ , " . date("Y");
@@ -67,9 +68,76 @@ if ( ! empty ($URIEncryptedString)) {
 		$CandidateSet_ID = $URIEncryptedString["CandidateSet_ID"];
 		$Variable = "setid";
 	}
+	
+	if ( $URIEncryptedString["Voters_ID"] > 0 && $URIEncryptedString["ElectionPosition_ID"] > 0) {
+		$Variable = "onthefly";
+	}
 }
 	
 switch ($Variable) {
+	case 'onthefly';
+	
+		$VoterResult = $db_NY_petition->SearchVotersFile(array("VI" => $URIEncryptedString["Voters_ID"]));
+		WriteStderr($VoterResult, "PDF Petition RESULT IN Person");
+		
+		$EDAD = sprintf('%02d%03d', $VoterResult[0]["DataDistrict_StateAssembly"], $VoterResult[0]["DataDistrict_Electoral"]);
+		
+		$MySQLDate = "2023-06-27";
+		$result[0]["Elections_Date"] = PrintShortDate($MySQLDate);
+		$result[0]["CandidateParty"] = PrintPartyAdjective($VoterResult[0]["Voters_RegParty"]);
+	
+		$PositionInformation = $db_NY_petition->FindElection("ADED", $EDAD, $VoterResult[0]["Voters_RegParty"], $MySQLDate);
+		WriteStderr($PositionInformation, "Party Position Information");
+		
+		if ( empty ($PositionInformation)) {
+			$result[0]["CandidateElection_PetitionText"] = "Member of the " . $DateIDForElection[0]["DataCounty_Name"] . " " .$result[0]["CandidateParty"] . 
+																" Party County Committee from the " . 
+																ordinal($VoterResult[0]["DataDistrict_Electoral"]) .  " election district in the " .
+																ordinal($VoterResult[0]["DataDistrict_StateAssembly"]) . " assembly district";
+		} else {
+			$result[0]["CandidateElection_PetitionText"] = $PositionInformation["CandidateElection_PetitionText"];
+		}
+
+		$result[0]["Candidate_DispName"] = $VoterResult[0]["DataFirstName_Text"] . " ";
+		if ( ! empty ($VoterResult[0]["DataMiddleName_Text"])) {
+			if ( strlen($VoterResult[0]["DataMiddleName_Text"]) > 1 ) {
+				$result[0]["Candidate_DispName"].= $VoterResult[0]["DataMiddleName_Text"] . " ";
+			} else {
+				$result[0]["Candidate_DispName"] .= $VoterResult[0]["DataMiddleName_Text"] . ". ";
+			}
+		}
+    $result[0]["Candidate_DispName"] .= $VoterResult[0]["DataLastName_Text"];
+    
+    $result[0]["Candidate_DispResidence"] = "";
+    if ( ! empty ($VoterResult[0]["DataAddress_HouseNumber"])) { $result[0]["Candidate_DispResidence"] .= $VoterResult[0]["DataAddress_HouseNumber"] . " "; }
+    if ( ! empty ($VoterResult[0]["DataAddress_FracAddress"])) { $result[0]["Candidate_DispResidence"] .= $VoterResult[0]["DataAddress_FracAddress"] . " "; }
+    if ( ! empty ($VoterResult[0]["DataAddress_PreStreet"])) { $result[0]["Candidate_DispResidence"] .= $VoterResult[0]["DataAddress_PreStreet"] . " "; }
+    if ( ! empty ($VoterResult[0]["DataStreet_Name"])) { $result[0]["Candidate_DispResidence"] .= $VoterResult[0]["DataStreet_Name"] . " "; }    
+    if ( ! empty ($VoterResult[0]["DataAddress_PostStreet"])) {	$result[0]["Candidate_DispResidence"] .= $VoterResult[0]["DataAddress_PostStreet"] . " "; }
+    
+    $tire = "- ";
+    if ( ! empty ($VoterResult[0]["DataHouse_Type"])) { $result[0]["Candidate_DispResidence"] .= $tire . $VoterResult[0]["DataHouse_Type"] . " ";	$tire = ""; }
+   	if ( ! empty ($VoterResult[0]["DataHouse_Apt"])) { $result[0]["Candidate_DispResidence"] .= $tire . $VoterResult[0]["DataHouse_Apt"] . " "; }
+    
+    $result[0]["Candidate_DispResidence"] = rtrim($result[0]["Candidate_DispResidence"]) . "\n" . $VoterResult[0]["DataCity_Name"] . ", " . 
+    																					$VoterResult[0]["DataState_Abbrev"] . " " . $VoterResult[0]["DataAddress_zipcode"];
+   
+		$result[0]["CanPetitionSet_ID"] = 1;
+		$result[0]["CandidateElection_Number"] = 1;
+		$result[0]["CandidateElection_PositionType"] = "party";
+		
+		$result[0]["CandidatePetition_VoterCounty"] = $VoterResult[0]["DataCounty_Name"];
+		
+		
+		$result[0]["CandidateGroup_ID"] = 1;
+				
+		$pdf_NY_petition->Watermark = "Demo Petition / Not Valid";
+		$pdf_NY_petition->BarCode = "Demo Petition";
+		#$pdf_NY_petition->DemoPrint = "true";
+		
+		
+	break;
+	
   case 'person';
   
 	  if ( $URIEncryptedString["PendingBypass"] == "yes" ) {
@@ -231,6 +299,8 @@ if ( ! empty ($result[0]["Candidate_DispName"])) {
 }
 
 $Petition_FileName .= date("Ymd_Hi") . ".pdf";
+
+WriteStderr($result, "Result Before CandidateGroups_ID");
 
 if ( ! empty ($result)) {
 	foreach ($result as $var) {

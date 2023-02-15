@@ -17,7 +17,7 @@ if ( ! isset ($RMBBlockInit)) {
 
 WriteStderr($URIEncryptedString, "URIEncryptedString");
 	
-if ($URIEncryptedString["DataDistrict_ID"] > 0) {
+if ($URIEncryptedString["AD"] > 0 && $URIEncryptedString["ED"] > 0) {
 	
 	##$ReturnDistrictInfo = $db_RMB_voterlist->FindADEDFromDistrict($URIEncryptedString["DataDistrict_ID"]);
 	##WriteStderr($ReturnDistrictInfo, "ReturnDistrictInfo");
@@ -30,7 +30,7 @@ if ($URIEncryptedString["DataDistrict_ID"] > 0) {
 	$PreparedFor = $URIEncryptedString["PreparedFor"];
 	
 	$WalkSheetUser["CandidateElection_PetitionText"] = "County Committee";
-	$WalkSheetUser["Elections_Date"] = "2023-06-21";
+	$WalkSheetUser["Elections_Date"] = "2023-06-27";
 	
 	$ElectionDate = PrintShortDate($WalkSheetUser["Elections_Date"]);
 

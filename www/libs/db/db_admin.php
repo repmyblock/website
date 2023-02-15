@@ -122,6 +122,8 @@ class RMBAdmin extends RepMyBlock {
 		$CompressedFirstName = preg_replace("/[^a-zA-Z]+/", "", $QueryFields["FirstName"]);
 		$CompressedLastName = preg_replace("/[^a-zA-Z]+/", "", $QueryFields["LastName"]);
 		
+		$sql_vars = array();
+		
 		$sql = "SELECT * FROM VotersIndexes " .
 						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID ) " . 
 						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID ) " .
@@ -136,11 +138,53 @@ class RMBAdmin extends RepMyBlock {
 						"LEFT JOIN DataDistrictTown ON (DataHouse.DataDistrictTown_ID = DataDistrictTown.DataDistrictTown_ID) " . 
 						"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataHouse_ID = DataHouse.DataHouse_ID) " . 
 						"LEFT JOIN DataDistrict ON (DataDistrict.DataDistrict_ID = DataDistrictTemporal.DataDistrict_ID ) " . 
-						"WHERE DataFirstName_Compress = :FirstName AND " . 
-						"DataLastName_Compress = :LastName ";
-		
-		$sql_vars = array('FirstName' => $CompressedFirstName, 
-											'LastName' => $CompressedLastName);
+						"WHERE " ;
+						
+						
+		$and = "";
+		foreach ($QueryFields as $var => $index) {			
+			if ( ! empty ($index)) {
+				switch ($var)	{
+					case 'LastName':
+						$sql .= $and . " DataLastName_Compress = :LastName";
+						$sql_vars["LastName"] = $CompressedLastName;
+						break;
+					
+					case 'FirstName':
+						$sql .= $and . " DataFirstName_Compress = :FirstName";
+						$sql_vars["FirstName"] = $CompressedFirstName;
+						break;
+						
+				 	case 'ResZip':
+				 		$sql .= $and . " DataAddress_zipcode = :ResZip";
+						$sql_vars["ResZip"] = $index;
+						break;
+						
+					case 'UniqNYS':
+						$sql .= $and . " Voters = :UniqNYS";
+						//preg_match('/^NY0+(.*)/', $var["VotersIndexes_UniqStateVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
+						//$UniqVoterID = "NY" . $UniqMatches[1][0];
+						$sql_vars["UniqNYS"] = $index;
+						break;
+					
+
+				}
+						
+
+
+//			VAR: UniqNYSVoterID INDEX:
+//			VAR: FirstName INDEX: Theo
+//			VAR: LastName INDEX: Chino
+//			VAR: ResZip INDEX: 10031
+//			VAR: CountyCode INDEX:
+//			VAR: EnrollPolParty INDEX:
+//			VAR: AssemblyDistr INDEX:
+//			VAR: ElectDistr INDEX:
+//			VAR: CongressDistr INDEX: 
+			
+				$and = " AND ";
+			}
+		}				
 											
 		WriteStderr($sql, "SQL request");			
 		return $this->_return_multiple($sql, $sql_vars);		

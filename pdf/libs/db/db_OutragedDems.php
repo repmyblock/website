@@ -11,53 +11,53 @@ class OutragedDems extends queries {
 	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
-  function SearchInRawNYSFile($DataSearch) {
-   	
-   	$sqlquery = ""; $sql_vars = array();
-		$sql = "SELECT * FROM VotersRaw_NYS WHERE (Status = 'A' OR Status = 'I') ";
-  	
-  	foreach ($DataSearch as $Param => $Search) {
-			$sqlquery .= " AND ";
-  		switch ($Param) {
-  			case "AD": $sqlquery .= "AssemblyDistr = :AD"; $sql_vars["AD"] = $Search; break;
-  			case "ED": $sqlquery .= "ElectDistr = :ED"; $sql_vars["ED"] = $Search; break;
-  			case "CD": $sqlquery .= "CountyCode = :CD"; $sql_vars["CD"] = $Search; break;
-  			case "LG": $sqlquery .= "LegisDistr = :LG"; $sql_vars["LG"] = $Search; break;
-  			case "TW": $sqlquery .= "TownCity = :TW"; $sql_vars["TW"] = $Search; break;
-  			case "WD": $sqlquery .= "Ward = :WD"; $sql_vars["WD"] = $Search; break;
-  			case "CG": $sqlquery .= "CongressDistr = :CG"; $sql_vars["CG"] = $Search; break;
-  			case "SD": $sqlquery .= "SenateDistr = :SD"; $sql_vars["SD"] = $Search; break;
-  			case "PT": $sqlquery .= "EnrollPolParty = :PT"; $sql_vars["PT"] = $Search; break;
-  		}
-  	}
-  	
-  	$sql .= $sqlquery; 	
-  	WriteStderr($sql, "SearchInRawNYSFile SQL");
-  	WriteStderr($sql_vars, "SearchInRawNYSFile SQL VARS");
-  	return $this->_return_multiple($sql, $sql_vars);  	
-  }
-  
-  
-  function FindADEDFromDistrict($DataDistrict) {
+ 	function FindADEDFromDistrict($DataDistrict) {
   	$sql = "SELECT * FROM DataDistrict WHERE DataDistrict_ID = :DataDistrict";
   	$sql_vars = array("DataDistrict" => $DataDistrict);
 		return $this->_return_simple($sql, $sql_vars);
 	}
   
+  function FindElectionDate($MySQLDate, $State, $Type) {
+  	$sql = "SELECT * FROM Elections WHERE " .
+  					"DataState_ID = :StateID AND Elections_Date = :Date AND Elections_Type = :Type";
+  	$sql_vars = array("Date" => $MySQLDate, "StateID" => $State, "Type" => $Type);
+  	return $this->_return_multiple($sql, $sql_vars);  	
+  }
+  
+//  function CreateOnFlyElection($ElectionID, $Type, $Party, $ElectionText, $Election_PetitionText, $DBTable, $Value, $Sex, $NumberOfCandidates) {
+//  	$sql = "INSERT INTO CandidateElection SET " . 
+//  					"Elections_ID = :ElectionID, CandidateElection_PositionType = :Type, " .
+//  					"CandidateElection_Party = :Party, CandidateElection_Text = :ElectionText, " .
+//  					"CandidateElection_PetitionText = :PetitionText, CandidateElection_Number = :NumberOfCandidates, " . 
+//  					"CandidateElection_Sex = :Sex, CandidateElection_DBTable = :DBTable, CandidateElection_DBTableValue = :Value";
+//  					
+//  	$sql_vars = array("ElectionID" => $ElectionID, "Type" => $Type, "Party" => $Party, "ElectionText" => $ElectionText,
+//									  	"PetitionText" => $Election_PetitionText, "NumberOfCandidates" => $NumberOfCandidates, "Sex" => $Sex,
+//									  	"DBTable" => $DBTable, "Value" => $Value);
+//		
+//		$this->nothing($sql, $sql_vars);
+//		
+//		$sql = "SELECT LAST_INSERT_ID() AS CandidateElection_ID";
+//		$ret = $this->_return_simple($sql);
+//  	return $ret["CandidateElection_ID"];
+//  }
+  
   function SearchVotersFile($DataSearch) {
    	$sqlquery = ""; $sql_vars = array();
-		#$sql = "SELECT * FROM VotersRaw_NYS WHERE (Status = 'A' OR Status = 'I') ";
-		
+				
 		$sql = "SELECT ";
 		
 		
 		$sql .= "DataHouse.DataHouse_ID, DataHouse_Type, DataHouse_Apt, DataDistrictTown_ID, DataStreetNonStdFormat_ID, " . 
 						"DataAddress_HouseNumber, DataAddress_FracAddress, DataAddress_PreStreet, DataAddress_PostStreet, " . 
-						"DataAddress_zipcode, DataAddress_zip4, " . 
+						"DataAddress_zipcode, DataAddress_zip4, DataCounty.DataState_ID, DataState_Abbrev, DataState_Name," . 
 						"DataStreet_Name, DataCity_Name, Voters_Gender, Voters_UniqStateVoterID, Voters_RegParty, " . 
 						"Voters_Status, Voters_DateInactive, Voters_DatePurged , Voters_RMBActive, Voters_RecFirstSeen, " . 
 						"Voters_RecLastSeen, VotersIndexes_Suffix, VotersIndexes_DOB, VotersIndexes_UniqStateVoterID, " . 
-						"DataLastName_Text, DataFirstName_Text, DataMiddleName_Text "; 
+						"DataLastName_Text, DataFirstName_Text, DataMiddleName_Text, DataCounty_Name, " .
+						"DataDistrict_Electoral, DataDistrict_StateAssembly, DataDistrict_StateSenate, DataDistrict_Legislative, " . 
+						"DataDistrict_Ward, DataDistrict_Congress, DataDistrict_Council, DataDistrict_CivilCourt, DataDistrict_Judicial, " .
+						"DataHouse_Type, DataHouse_Apt "; 
 		
 		
 		$sql .=	"FROM DataDistrict " .
@@ -65,6 +65,8 @@ class OutragedDems extends queries {
 						"LEFT JOIN DataDistrictCycle on (DataDistrictTemporal.DataDistrictCycle_ID = DataDistrictCycle.DataDistrictCycle_ID) " .
 						"LEFT JOIN DataHouse ON (DataHouse.DataHouse_ID = DataDistrictTemporal.DataHouse_ID) " .
 						"LEFT JOIN DataAddress ON (DataAddress.DataAddress_ID = DataHouse.DataAddress_ID) " .
+						"LEFT JOIN DataCounty ON (DataAddress.DataCounty_ID = DataCounty.DataCounty_ID) " . 
+						"LEFT JOIN DataState ON (DataState.DataState_ID = DataCounty.DataState_ID) " .
 						"LEFT JOIN DataStreet ON (DataStreet.DataStreet_ID = DataAddress.DataStreet_ID) " .
 						"LEFT JOIN DataCity ON (DataCity.DataCity_ID = DataAddress.DataCity_ID) " .
 						"LEFT JOIN Voters ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
@@ -89,6 +91,7 @@ class OutragedDems extends queries {
   			case "CG": $sqlquery .= "CongressDistr = :CG"; $sql_vars["CG"] = $Search; break;
   			case "SD": $sqlquery .= "SenateDistr = :SD"; $sql_vars["SD"] = $Search; break;
   			case "PT": $sqlquery .= "Voters_RegParty = :PT"; $sql_vars["PT"] = $Search; break;
+  			case "VI": $sqlquery .= "Voters_ID = :VI"; $sql_vars["VI"] = $Search; break;
   		}
   	}
   
@@ -288,6 +291,20 @@ class OutragedDems extends queries {
 			return $this->_return_multiple($sql, $sql_vars);
 		}	
 	}
+	
+	
+	function FindElection($DBTable, $DBValue, $Party, $MysqlDate) {
+		$sql = "SELECT * FROM ElectionsPosition " .
+						"LEFT JOIN CandidateElection ON ( ElectionsPosition.ElectionsPosition_DBTable = CandidateElection.CandidateElection_DBTable) " .
+						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+						"WHERE " . 
+						"ElectionsPosition_DBTable = :DBTable AND CandidateElection_DBTableValue = :DBValue AND " . 
+						"ElectionsPosition_Party = :Party AND Elections_Date = :MysqlDate";
+					
+		$sql_vars = array("DBTable" => $DBTable, "DBValue" => $DBValue, "Party" => $Party, "MysqlDate" => $MysqlDate);				
+		return $this->_return_multiple($sql, $sql_vars);
+  }
+		
   
   function SelectObjections ($Objection_ID) {
   	$sql = "SELECT * FROM FillingObjections " . 

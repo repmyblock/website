@@ -40,7 +40,7 @@ class RMBdistrict extends RepMyBlock {
 		$sql = "SELECT ElectResultCandidate.ElectResult_ID, DataDistrict_StateAssembly, DataDistrict_Electoral, " . 
 						"Candidate_DispName, CandidateElection_Text, ElectResultCandidate_Count, Candidate_Party, Candidate_FullPartyName, " .
 						"Candidate.CandidateElection_ID, Candidate.CandidateElection_DBTable, Candidate.CandidateElection_DBTableValue " . 
-						"FROM RepMyBlock.ElectResultCandidate " . 
+						"FROM ElectResultCandidate " . 
 						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = ElectResultCandidate.Candidate_ID) " . 
 						"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " . 
 						"LEFT JOIN ElectResult ON (ElectResult.ElectResult_ID = ElectResultCandidate.ElectResult_ID) " . 
