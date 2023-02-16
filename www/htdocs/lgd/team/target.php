@@ -3,7 +3,6 @@
 	// $BigMenu = "represent";
 	$Menu = "team";  
 	
- 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 
@@ -12,9 +11,6 @@
 	WriteStderr($URIEncryptedString, "URIEncryptedString");	
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($UserParty);
-
-
-
 
 	if ( ! empty ($_POST["Year"])) {
 		WriteStderr($_POST, "Input \$_POST");
@@ -78,7 +74,6 @@
 		}		
 	}
 
-
 	$TopMenus = array ( 
 						array("k" => $k, "url" => "team/team", "text" => "Manage Pledges"),
 						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
@@ -109,10 +104,11 @@
 	
 						<?= $error_msg ?>
 						
-						
+						<?php /*
 						<P>
 							<A HREF="/<?= $k ?>/lgd/team/petitionbypass">Bypass Voter Search to create a petition</A>	
 						</P>
+						*/ ?>
 	
 					  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 							<div>

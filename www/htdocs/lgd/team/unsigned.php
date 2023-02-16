@@ -86,7 +86,7 @@
 									
 									
 									<?php 
-									if ( ! empty ($rmbteam["SystemUserEmail_ID"])) {
+									if ( ! empty ($rmbteam[0]["SystemUserEmail_ID"])) {
 										foreach ($rmbteam as $var) { 
 											
 							
