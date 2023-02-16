@@ -56,9 +56,9 @@
 																											
 			if ( empty ($retreguser["USERNAME"]) && empty ($retreguser["EMAIL"])) {
 	
-				require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
-				SendWelcomeEmail($retreguser["SystemTemporaryUser_email"], $retreguser["SystemTemporaryUser_emaillinkid"], 
-													$retreguser["SystemTemporaryUser_username"], $infoarray = ""); 
+				#require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";		
+				#SendWelcomeEmail($retreguser["SystemTemporaryUser_email"], $retreguser["SystemTemporaryUser_emaillinkid"], 
+				#									$retreguser["SystemTemporaryUser_username"], $infoarray = ""); 
 	
 				$VariableToPass = array( 
 					"Email" => $retreguser["SystemTemporaryUser_email"],
@@ -73,7 +73,7 @@
 													
 					// The reason for no else is that the code supposed to go away.		
 					if ( $_POST["login"] == "password") {
-						header("Location:/register/password/?k=" . EncryptURL($URLToEncrypt));
+						header("Location: /register/password/?k=" . EncryptURL($URLToEncrypt));
 						exit();
 					}
 					
@@ -82,7 +82,7 @@
 						exit();
 					}
 				} else {
-					header("Location:/register/sending/?k=" . EncryptURL($URLToEncrypt));
+					header("Location: /register/sending/?k=" . EncryptURL($URLToEncrypt));
 					exit();
 				}	
 				// If we are here which we should never be we need to send user to problem loop
