@@ -91,20 +91,46 @@
 											
 							
 											
-											if ( $var["SystemUserEmail_Reason"] == "REGISTRATION REQUEST") { $code = "R"; }
-											else { $code = "F"; }											
+											if ( $var["OriginalStatus"] == "TEAM REGISTRATION REQUEST") { 
+												$CurrentStatus = "Rcvd 1st Rqst"; 
+												$Waiting = "Forward response" ;
+											}
+											else { 	
+												$CurrentStatus = "Rcvd Notif"; 
+												$Waiting = "Waiting click link" ; 
+											}											
 								
+								
+										if ( ! empty ($var["SystemUserTemporary_ID"])) {
+											$CurrentStatus = "Created UserID"; 
+											$Waiting = "Waiting Login" ; 
+										}
+										
+										if ( ! empty ($var["SystemUserTemporaryLastLogin"])) {
+											$CurrentStatus = "Logged system"; 
+											$Waiting = "Waiting Profile" ; 
+										}
+								
+										#	$CurrentStatus = $var["OriginalStatus"];
+											
+											
+											
 											
 											
 											?>
 									
 									<TR ALIGN=CENTER>
-											<TD style="padding:0px 10px;<?= $style ?>"><?= $var["SystemUserEmail_MailCode"] ?></TD>
-										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["SystemUserEmail_AddFrom"] ?></TD>
+										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["MailCode_First"] ?></TD>
+										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["EmailSentTo"] ?></TD>
+										
+										<TD style="padding:0px 10px;<?= $style ?>"><?= $CurrentStatus ?></TD>
+										<TD style="padding:0px 10px;<?= $style ?>"><?= $Waiting ?></TD>
 									
-										<TD style="padding:0px 10px;"><?= $var["SystemUserEmail_RefMailCode"] ?></TD>
+										
 										<TD style="padding:0px 10px;"><?= PrintDateTime($var["SystemUserEmail_Received"]) ?></TD>
-											</TR>
+																
+									
+									</TR>
 									
 								<?php } 
 								

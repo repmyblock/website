@@ -99,10 +99,17 @@ class Teams extends RepMyBlock {
 	}
 	
 	function ListUnsignedMembers($TeamID) {
-		$sql = "SELECT * FROM Team " .
+		$sql = "SELECT *, SystemUserEmail.SystemUserEmail_MailCode as MailCode_First, " .
+						"Team2.SystemUserEmail_RefMailCode as MailCode_Second, SystemUserTemporary.SystemUser_ID as SysFinalID, " .
+						"SystemUserEmail.SystemUserEmail_AddFrom as EmailSentTo, " .
+						"SystemUserEmail.SystemUserEmail_Reason as OriginalStatus " .
+						"FROM Team " .
 						"LEFT JOIN SystemUserEmail ON (SystemUserEmail.SystemUserEmail_WebCode = Team.Team_WebCode) " .
+						"LEFT JOIN SystemUserEmail AS Team2 ON (Team2.SystemUserEmail_MailCode = SystemUserEmail.SystemUserEmail_RefMailCode)" .
+						"LEFT JOIN SystemUserTemporary ON (SystemUserEmail.SystemUserEmail_MailCode = SystemUserTemporary_mailID) " .
+						"LEFT JOIN SystemUserTemporaryLastLogin ON (SystemUserTemporaryLastLogin.SystemUserTemporary_ID = SystemUserTemporary.SystemUserTemporary_ID) " .
 						"WHERE Team.Team_ID = :TeamCode " .
-						"ORDER BY SystemUserEmail_Received DESC";
+						"ORDER BY Team2.SystemUserEmail_Received DESC";
 						
 		$sql_vars = array("TeamCode" => $TeamID);
 		return $this->_return_multiple($sql, $sql_vars);

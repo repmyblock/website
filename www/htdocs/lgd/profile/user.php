@@ -49,7 +49,7 @@
 		 				$TeamWebCode = $rmb->FindCampaignFromWebCode($mytmp["SystemUserTemporary_reference"]);
 		  			WriteStderr($TeamWebCode, "WebCode");
 		  			
-		  			$rmb->SaveTeamInfo($rmbperson["SystemUser_ID"] , $TeamWebCode["Team_ID"], NULL, 'no');
+		  			$rmb->SaveTeamInfo($rmbperson["SystemUser_ID"] , $TeamWebCode["Team_ID"], NULL, 'pending');
 		  			
 		  		}
 		  		

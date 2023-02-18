@@ -273,12 +273,18 @@ class login extends queries {
 			$sql = "SELECT * FROM SystemUserTemporary WHERE SystemUserTemporary_username = :Username";
 			$result = $this->_return_simple($sql, $sql_vars);	
 			$ResultPasswordCheck = password_verify ($Password , $result["SystemUserTemporary_password"]);
+			$tmpid = true;
 		}
 
 		if ( $ResultPasswordCheck == 1) {
 			// Update Login Time
-			$sql = "INSERT INTO SystemUserLastLogin SET SystemUser_ID = :ID, SystemUserLastLogin  = NOW()";
-			$sql_vars = array("ID" => $result["SystemUser_ID"]);
+			if ( empty ($tmpid))  {
+				$sql = "INSERT INTO SystemUserLastLogin SET SystemUser_ID = :ID, SystemUserLastLogin  = NOW()";
+				$sql_vars = array("ID" => $result["SystemUser_ID"]);
+			} else {
+				$sql = "INSERT INTO SystemUserTemporaryLastLogin SET SystemUserTemporary_ID = :ID, SystemUserTemporaryLastLogin  = NOW()";
+				$sql_vars = array("ID" => $result["SystemUserTemporary_ID"]);
+			}
 			$this->_return_nothing($sql, $sql_vars);
 			return $result;
 		}

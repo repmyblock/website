@@ -403,7 +403,7 @@
 					"&MenuDescription=" . $URIEncryptedString["MenuDescription"]
 				); ?>
 			
-			<B><A HREF="/<?= $k ?>/admin/voterlookup">Look for a new voter</A></B>
+			
 			
 		</div>
 		
@@ -421,6 +421,9 @@
 				No voter found.
 			</div>
 	<?php } ?>
+	
+	<B><A HREF="/<?= $k ?>/admin/voterlookup">Look for a new voter</A></B>
+
 	
 			</DIV>
 		</FORM>
