@@ -124,7 +124,16 @@ class RMBAdmin extends RepMyBlock {
 		
 		$sql_vars = array();
 		
-		$sql = "SELECT * FROM VotersIndexes " .
+		$sql = "SELECT ";
+		
+ 		$sql .= "* ";
+		
+//		$sql .= "VotersIndexes.VotersIndexes_ID, VotersIndexes_DOB, DataFirstName_Text, DataMiddleName_Text, DataLastName_Text, " .
+//						"Voters_Gender, Voters_UniqStateVoterID, Voters_RegParty, Voters_ReasonCode, Voters_Status, " .
+//						"Voters_CountyVoterNumber, Voters_RecFirstSeen, Voters_RecLastSeen, DataAddress_HouseNumber " . 
+//						"";
+		
+		$sql .= "FROM VotersIndexes " .
 						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID ) " . 
 						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID ) " .
 						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID ) " .
@@ -160,12 +169,48 @@ class RMBAdmin extends RepMyBlock {
 						$sql_vars["ResZip"] = $index;
 						break;
 						
-					case 'UniqNYS':
-						$sql .= $and . " Voters = :UniqNYS";
-						//preg_match('/^NY0+(.*)/', $var["VotersIndexes_UniqStateVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
-						//$UniqVoterID = "NY" . $UniqMatches[1][0];
+					case 'UniqNYSVoterID':
+						$sql .= $and . " VotersIndexes_UniqStateVoterID = :UniqNYS";
 						$sql_vars["UniqNYS"] = $index;
 						break;
+					
+					
+					case 'AssemblyDistr':
+						$sql .= $and . " DataDistrict_StateAssembly = :AD";
+						$sql_vars["AD"] = $index;
+						break;
+						
+					case 'ElectDistr':
+						$sql .= $and . " DataDistrict_Electoral = :ED";
+						$sql_vars["ED"] = $index;
+						break;
+								
+					case 'CongressDistr':
+						$sql .= $and . " DataDistrict_Congress = :CD";
+						$sql_vars["CD"] = $index;
+						break;
+						
+					case 'EnrollPolParty':
+						$sql .= $and . " Voters_RegParty = :Party";
+						$sql_vars["Party"] = $index;
+						break;
+						
+					case 'HouseNumber':
+						$sql .= $and . " DataAddress_HouseNumber = :House";
+						$sql_vars["House"] = $index;
+						break;
+						
+					case 'Address':
+						$sql .= $and . " DataStreet_Name = :Add";
+						$sql_vars["Add"] = $index;
+						break;
+						
+						
+//					case 'RetReturnCOUNTY':
+//						$sql .= $and . " DataDistrict_Electoral = :ED";
+//						$sql_vars["ED"] = $index;
+//						break;
+					
 					
 
 				}
@@ -185,6 +230,13 @@ class RMBAdmin extends RepMyBlock {
 				$and = " AND ";
 			}
 		}				
+							
+							
+		WriteStderr($sql_vars, "SQL Vars");	
+		if ( empty ($sql_vars)) {
+		
+			return;
+		}
 											
 		WriteStderr($sql, "SQL request");			
 		return $this->_return_multiple($sql, $sql_vars);		

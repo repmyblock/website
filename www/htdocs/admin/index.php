@@ -41,21 +41,22 @@
 		} 
 	?>
  
-  <dl class="form-group">
+ 	<P CLASS="f40">
+ 		<UL>
 	 		<A HREF="/<?= $k ?>/admin/userlookup" class="mobilemenu">RepMyBlock User</A><BR>	
- 			<A HREF="/<?= $k ?>/admin/team">Team Member Management</A><BR>
- 			<A HREF="/<?= $k ?>/admin/team_list">Team Setup</A><BR>
- 			<A HREF="/<?= $k ?>/admin/voterlookup">Voter Lookup</A><BR>
-  		<A HREF="/<?= $k ?>/admin/track">Petitions Tracker</A><BR>	
-  		<A HREF="/<?= $k ?>/admin/setup_candidate">Candidates Maintenance</A><BR>	
-  		<A HREF="/<?= $k ?>/admin/setup_petitionset">Petition Set Maintenance</A><BR>	
-  		<A HREF="/<?= $k ?>/admin/setup_positions">Position Maintenance</A><BR>	
-  		<A HREF="/<?= $k ?>/admin/setup_petitions">Petition Maintenance</A><BR>	
-  		<A HREF="/<?= $k ?>/admin/integrity_verif">Verify Data Integrity</A><BR>	
- 	 		<A HREF="/<?= $k ?>/admin/stats">Stats</A><BR>	
-    </dd>
-  </dl>
 
+ 			<A HREF="/<?= $k ?>/admin/team" class="mobilemenu">Member Management</A><BR>
+ 			<A HREF="/<?= $k ?>/admin/team_list" class="mobilemenu">Team Setup</A><BR>
+ 			<A HREF="/<?= $k ?>/admin/voterlookup" class="mobilemenu">Voter Lookup</A><BR>
+  		<A HREF="/<?= $k ?>/admin/track" class="mobilemenu">Petitions Tracker</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/setup_candidate" class="mobilemenu">Candidates Maintenance</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/setup_petitionset" class="mobilemenu">Petition Set Maintenance</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/setup_positions" class="mobilemenu">Position Maintenance</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/setup_petitions" class="mobilemenu">Petition Maintenance</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/integrity_verif" class="mobilemenu">Verify Data Integrity</A><BR>	
+ 	 		<A HREF="/<?= $k ?>/admin/stats" class="mobilemenu">Stats</A><BR>	
+ 	 	</UL>
+ 	</P>
 </DIV>
 </DIV>
 </DIV>

@@ -48,7 +48,9 @@
 		"EnrollPolParty" => $URIEncryptedString["Query_PARTY"], 
 		"AssemblyDistr" => $URIEncryptedString["Query_AD"],
 		"ElectDistr" => $URIEncryptedString["Query_ED"], 
-		"CongressDistr" => $URIEncryptedString["Query_Congress"]
+		"CongressDistr" => $URIEncryptedString["Query_Congress"],
+		"HouseNumber" => $URIEncryptedString["Query_HouseNumber"],
+		"Address" => $URIEncryptedString["Query_Address"],
 	);
 	
 	WriteStderr($QueryFields, "Query to be sent");
@@ -71,7 +73,7 @@
 								"RetReturnED" => $URIEncryptedString["Query_ED"],
 								"RetReturnZIP" => $URIEncryptedString["Query_ZIP"],
 								"RetReturnCOUNTY" => $URIEncryptedString["Query_COUNTY"],
-								"etReturnPARTY" => $URIEncryptedString["Query_PARTY"],
+								"RetReturnPARTY" => $URIEncryptedString["Query_PARTY"],
 								"RetReturnNYSBOEID" => $URIEncryptedString["Query_NYSBOEID"],
 								"RetReturnCongress" => $URIEncryptedString["Query_Congress"],
 								"ErrorMsg" => $ErrorMsg								
@@ -99,7 +101,7 @@
 
 				<form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 				<div class="list-group-item filtered f60 hundred">
-					<span><B>Raw Voter List</B></span>  	          			
+					<span><B>Voter List</B></span>  	          			
 				</div>
 					
 			 	<DIV class="panels">		
@@ -193,18 +195,19 @@
 //					"&UserParty=" . $URIEncryptedString["UserParty"]. 
 //					"&MenuDescription=" . $URIEncryptedString["MenuDescription"]
 //				); 
-//				
-				?>
+//			
 			
-			<B><A HREF="/<?= $k ?>/admin/voterlookup">Look for a new voter</A></B>
-			
-
 						
 						?>
 						
 						
 							<TR ALIGN=CENTER>
-								<TD style="padding:0px 10px;"><A HREF=""><?= $UniqVoterID ?></A></TD>
+								<TD style="padding:0px 10px;"><A HREF="/<?= CreateEncoded ( array( 	
+																"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+																"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+																"UserDetail" => $var["SystemUser_ID"],
+																"UniqNYSVoterID" => $var["VotersIndexes_UniqStateVoterID"],
+																)) ?>/admin/voterlist"><?= $UniqVoterID ?></A></TD>
 								<TD style="padding:0px 10px;"><?= $var["Voters_Status"] ?></TD>
 							
 								<TD style="padding:0px 10px;"><?= $var["DataFirstName_Text"] ?></TD>
@@ -422,8 +425,9 @@
 			</div>
 	<?php } ?>
 	
-	<B><A HREF="/<?= $k ?>/admin/voterlookup">Look for a new voter</A></B>
-
+	<P CLASS="f80">	
+		<B><A HREF="/<?= $k ?>/admin/voterlookup">Look for a new voter</A></B>
+	</P>
 	
 			</DIV>
 		</FORM>

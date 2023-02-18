@@ -33,6 +33,21 @@
 		exit();
 	}
 	
+	/*
+	$FormFieldFirstName = $URIEncryptedString["SystemUser_ID"];
+	$FormFieldLastName = $URIEncryptedString["SystemUser_ID"];
+	$FormFieldHouseNumber = $URIEncryptedString["SystemUser_ID"];
+	$FormFieldAddress = $URIEncryptedString["SystemUser_ID"];
+	$FormFieldZIP = $URIEncryptedString["SystemUser_ID"];
+	$FormFieldCounty	 = $URIEncryptedString["SystemUser_ID"];
+	$FormFieldNYSBOEID = $URIEncryptedString["SystemUser_ID"];
+	$FormFieldParty	 = $URIEncryptedString["SystemUser_ID"];
+	$RetReturnAD = $URIEncryptedString["SystemUser_ID"];
+	$RetReturnED = $URIEncryptedString["SystemUser_ID"];
+	$FormFieldCongress = $URIEncryptedString["SystemUser_ID"];
+	*/
+
+	
  
 	$Party = PrintParty($UserParty);
 	$rmb = new RMBAdmin();
@@ -57,8 +72,8 @@
 		
 			<?php if (! empty ($URIEncryptedString["ErrorMsg"])) {
 		    	
-		    	echo "<FONT COLOR=BROWN><B>" . $URIEncryptedString["ErrorMsg"] . "</B></FONT>";
-		    	echo "<BR><BR>";	
+		    	echo "<P CLASS=\"f60\"><FONT COLOR=BROWN><B>" . $URIEncryptedString["ErrorMsg"] . "</B></FONT>";
+		    	echo "<BR><BR></P>";	
 		    } ?>
 				
 			
@@ -193,7 +208,7 @@
 						<div>						
 							<dl class="form-group col-12 d-inline-block"> 
 								<dd>
-									<button type="submit" class="btn btn-primary mobilemenu">Search User</button>
+									<button type="submit" class="submitred">Search User</button>
 								</dd>
 							</dl>
 						</div>
