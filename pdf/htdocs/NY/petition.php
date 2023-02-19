@@ -251,6 +251,10 @@ $pdf_NY_petition->county = $result[0]["CandidatePetition_VoterCounty"];
 $pdf_NY_petition->party = $result[0]["CandidateParty"];
 $pdf_NY_petition->ElectionDate =  PrintShortDate($result[0]["Elections_Date"]);
 
+$pdf_NY_petition->AutoFillDate = "03 /     / 2023";
+
+
+
 // This is for the Custom Data stuff
 if ( ! empty ($URIEncryptedString["CustomData"] )) {
 	$DateForCounter = $URIEncryptedString["CustomDataDate"]; 
@@ -268,10 +272,32 @@ if ( ! empty ($URIEncryptedString["CustomData"] )) {
 // is circulated.
 switch ($pdf_NY_petition->county) {
 	case "Bronx":
+		$pdf_NY_petition->AutoFillCounty = "BX";
+		$pdf_NY_petition->AutoFillCity = "Bronx, NY 104";
+		$pdf_NY_petition->TypeOfTown = "County";
+		break;
+		
 	case "New York":
+		$pdf_NY_petition->AutoFillCounty = "NY";
+		$pdf_NY_petition->AutoFillCity = "New York, NY 10";
+		$pdf_NY_petition->TypeOfTown = "County";
+		break;
+		
 	case "Richmond":
+		$pdf_NY_petition->AutoFillCounty = "RH";
+		$pdf_NY_petition->AutoFillCity = "Staten Island, NY 103";
+		$pdf_NY_petition->TypeOfTown = "County";
+		break;
+		
 	case "Queens":
+		$pdf_NY_petition->AutoFillCounty = "QN";
+		$pdf_NY_petition->AutoFillCity = "Queens, NY 1";
+		$pdf_NY_petition->TypeOfTown = "County";
+		break;
+
 	case "Kings":
+		$pdf_NY_petition->AutoFillCounty = "KG";
+		$pdf_NY_petition->AutoFillCity = "New York, NY 10";
 		$pdf_NY_petition->TypeOfTown = "County";
 		break;
 

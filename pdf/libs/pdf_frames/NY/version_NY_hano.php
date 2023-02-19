@@ -61,7 +61,12 @@ function version_NY_hano ($pdf, $InfoArray) {
 		
 		$pdf->SetFont('Arial','B',17);
 		$pdf->SetXY($pdf->Line_Left + 148, $YLocation + 6);
-		$pdf->MultiCell(40, 3.3, "    /     / 2023", 0, 'R', 0);
+		
+		if ( empty ($pdf->AutoFillDate)) {
+			$pdf->MultiCell(40, 3.3, "    /     /     ", 0, 'R', 0);
+		} else {
+			$pdf->MultiCell(40, 3.3, $pdf->AutoFillDate, 0, 'R', 0);
+		}
 		
 		$pdf->Rect($pdf->Line_Left + 3, $YLocation + 2,  $pdf->Line_Right - $pdf->Line_Left - 2 , 18);
 		$pdf->Line($pdf->Line_Left + 3, $YLocation + 12, $pdf->Line_Right - 14 , $YLocation + 12);
@@ -86,8 +91,13 @@ function version_NY_hano ($pdf, $InfoArray) {
 		$pdf->Cell(21, 3.3, "Apt", 0, 'L', 0);
 		$pdf->SetXY($pdf->Line_Left + 150, $YLocation + 15.5);
 		
+		if ( empty ($pdf->AutoFillCity)) {
+			$pdf->Cell(21, 3.3, ", NY 1", 0, 'L', 0);
+		} else {
+			$pdf->Cell(21, 3.3, $pdf->AutoFillCity, 0, 'L', 0);
+		}
+		
 		//$pdf->Cell(21, 3.3, "New York, NY, 10031 ", 0, 'L', 0);
-		$pdf->Cell(21, 3.3, "New York, NY,  ", 0, 'L', 0);
 		
 		$pdf->SetFont('Arial','',10);
 		$pdf->SetXY($pdf->Line_Left + 198, $YLocation +5);
@@ -95,8 +105,11 @@ function version_NY_hano ($pdf, $InfoArray) {
 		
 		$pdf->SetFont('Arial','B',14);
 		$pdf->SetXY($pdf->Line_Left + 196, $YLocation +12);	
-		//$pdf->RotatedText($pdf->Line_Left + 193, $YLocation + 19, "BRONX", 50);
-		//$pdf->Cell(5, 0, "NY", 0, 0, 'R', 0);
+		#$pdf->RotatedText($pdf->Line_Left + 193, $YLocation + 19, "BRONX", 40);
+		
+		if ( ! empty ($pdf->AutoFillCounty)) {
+			$pdf->Cell(5, 0, $pdf->AutoFillCounty, 0, 0, 'R', 0);
+		}
 
 		//$pdf->Line($pdf->Line_Left + 13,  $YLocation + 2, $pdf->Line_Left + 13, $YLocation + 2);
 	
