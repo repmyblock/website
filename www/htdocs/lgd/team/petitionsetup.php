@@ -6,6 +6,8 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php";	
+	
+	WriteStderr($ElectionsTypes, "ElectionsTypes");	
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
@@ -15,10 +17,7 @@
 		
 		if ( ! empty ($URIEncryptedString["PetitionBypass"])) {
 			echo "I am in the PEtition bypass<BR>";
-			
-			
-			
-				
+
 			$RMBInformation = $rmb->FindElectionInfoForPetition(
 													$URIEncryptedString["CPrep_District"], 
 													$URIEncryptedString["CPrep_PositionCode"],
@@ -43,7 +42,7 @@
 				if ($DateInStaticFile != $RMBInformation[$IndexElectionToCopy]["Elections_Date"]) {
 					
 					$CandidateElectionID = $rmb->CreatePositionEntry( array(
-								"Elections_ID" => "1393", 
+								"Elections_ID" => "1374", 
 								"ElectionsPosition_ID" => $RMBInformation[$IndexElectionToCopy]["ElectionsPosition_ID"], 
 								"CandidateElection_PositionType" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_PositionType"], 
 								"CandidateElection_Party" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_Party"], 
@@ -98,15 +97,9 @@
 				
 				echo "Problem finding a template for this position.<BR>";
 				exit();
-				
-				
-			}
-			
-			
+			}		
 	}
-		
-		
-		
+	
 		WriteStderr($_POST, "Input \$_POST and creating the whole petition.");
 		
 		$ElectionsTypes = $rmb->ListElectedPositions(NULL, NULL, $_POST["ElectionType"]);
@@ -149,6 +142,7 @@
 			WriteStderr($CandidateElectionData, "Finished InsertCandidateElection(): CandidateElectionData\n");	
 
 		} else {
+			
 			$Parties = $rmb->ListParties(NULL, NULL, $_POST["PartyID"]);
 			$CandidateElection["Party"] = $Parties[0]["DataParty_Abbrev"];
 			$CandidateElection["DBTable"] = $CandidateElection[0]["CandidateElection_DBTable"];
@@ -189,21 +183,20 @@
 	}
 		
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-	$ElectionsDates = $rmb->ListElectionsDates(50, 0, false, $URIEncryptedString["PetitionStateID"]);
-	$ElectionsTypes = $rmb->ListElectedPositions($URIEncryptedString["PetitionStateID"], "id");
-	$Parties = $rmb->ListParties($URIEncryptedString["PetitionStateID"], true);
+	
+	$ElectionsDates = $rmb->ListElectionsDates(50, 0, false, $URIEncryptedString["DataState_ID"]);
 	WriteStderr($ElectionsDates, "ElectionsDates");	
+		
+	$ElectionsTypes = $rmb->ListElectedPositions($URIEncryptedString["DataState_ID"], "id");
 	WriteStderr($ElectionsTypes, "ElectionsTypes");	
-	WriteStderr($Parties, "Parties");	
 
-	$Party = PrintParty($UserParty);
 
 	$TopMenus = array ( 
-		array("k" => $k, "url" => "team/index", "text" => "Manage Pledges"),
+		array("k" => $k, "url" => "team/index", "text" => "Team Members"),
 		array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-		array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
-	);			
-	WriteStderr($TopMenus, "Top Menu");					
+		array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
+	);
+					
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
 ?>
@@ -233,6 +226,9 @@
 									<dd>
 										<SELECT NAME="ElectionData">
 											<OPTION VALUE="">&nbsp;</OPTION>
+											
+										<?php WriteStderr($ElectionsDates, "Elections Day");	 ?>
+											
 										<?php if (! empty ($ElectionsDates)) {
 														foreach ($ElectionsDates as $var) {
 															if ( ! empty ($var)) { ?>
@@ -271,66 +267,15 @@
 									</dd>
 								</dl>
 								
-									<dl class="form-group col-1 d-inline-block"> 
-									<dt><label for="user_profile_name">Party</label></DT>
-									<dd>
-										<SELECT NAME="PartyID">
-											<OPTION VALUE="">&nbsp;</OPTION>
-											<?php if (! empty ($Parties)) {
-														foreach ($Parties as $var) {
-															if ( ! empty ($var)) { ?>
-																<OPTION VALUE="<?= $var["DataParty_ID"] ?>"><?= $var["DataParty_Abbrev"] ?>
-																										
-										<?php     }
-														}
-													} ?>
-										</SELECT>
-									</dd>
-								</dl>
+								
 								
 						</DIV>
 						
-							<div>
-								<dl class="form-group col-6 d-inline-block"> 
-									<dt><label for="user_profile_name">Enter the district ID</label>
-										<BR>
-										The District ID follow the format of the Local Board of Elections. 
-									</DT>
-									<dd>
-										<input class="form-control" type="text" Placeholder="District ID" name="DistrictID"<?php if (!empty ($Email)) { echo " VALUE=" . $Email; } ?> id="user_profile_name">
-									</dd>
-									<dt>
-										For County Committee,
-										enter a 5 (or 6) digits number that is 2 (or 3) digits for the Assembly District and 3 digits for the 
-										Election District.
-									</DT>
-									
-								</dl>
-							</DIV>
-										
-										
-						<div>
-								<dl class="form-group col-6 d-inline-block"> 
-									<dt><label for="user_profile_name">Label the petition</label> <I>(This will allow you to organize them)</I></DT>
-									<dd>
-										<input class="form-control" type="text" Placeholder="Petition Label Name" name="Label"<?php if (!empty ($Email)) { echo " VALUE=" . $Email; } ?> id="user_profile_name">
-									</dd>
-								</dl>
-							</DIV>
-									
-									
-								<div>
-								<dl class="form-group col-6 d-inline-block"> 
-									<dt><label for="user_profile_name">Check botton if you need a comittee to replace.</label></DT>
-									<dd>
-										<input type="checkbox" name="Comittee"<?php if (!empty ($Email)) { echo " VALUE=" . $Email; } ?> id="user_profile_name">
-									</dd>
-								</dl>
-							</DIV>
-									
+					
+								
 									
 
-								<p><button type="submit" class="btn btn-primary">Setup the candidate petition</button></p>
+								<p><button type="submit" class="submitred">Setup the candidate petition</button></p>
 			
 							</form> 
 			

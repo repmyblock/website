@@ -9,23 +9,28 @@
 	$rmb = new repmyblock();
 		
 	if ( ! empty ($_POST)) {
-		WriteStderr($_POST, "Post");
-		if ($_POST["voterreg"] == "yes") {
+		WriteStderr($_POST, " =========== I AM IN THE Post ===========");
+		if ($_POST["voterreg"] == "Select this voter") {
 			//I don't care anymore about the number of voters in the district.																						
 			header("Location: /" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $_POST["SystemUser_ID"],
-									"VotersIndexes_ID" => $_POST["Voters_ID"],
+									"Voters_ID" => $_POST["Voters_ID"],
 									"UniqNYSVoterID" => $_POST["VotersIndexes_UniqStateVoterID"],						
 							    "PetitionStateID" => $_POST["ElectionStateID"],
-							    "CPrep_First" => $_POST["CPrep_First"],
-							    "CPrep_Last" => $_POST["CPrep_Last"],
-							    "CPrep_Full" => $_POST["CPrep_Full"],
-							    "CPrep_Email" => $_POST["CPrep_Email"],
-							    "CPrep_Address1" => $_POST["CPrep_Address1"],
-							    "CPrep_Address2" => $_POST["CPrep_Address2"],
+							    "Voters_RegParty" => $_POST["Voters_RegParty"],
+							    "DataState_Abbrev" => $_POST["DataState_Abbrev"],
+							    "DataState_ID" => $_POST["DataState_ID"],
+							    "AD" => $_POST["AD"],
+							    "ED" => $_POST["ED"],
 						)) . "/lgd/team/petitionsetup");
 			exit();
+			
+				
+				
 		}
+		
+		echo "Je suis dans le POST <PRE>" . print_r($_POST,1 ) . "</PRE>";
+		exit();;
 	}
 	
 	if ( empty ($URIEncryptedString["VotersIndexes_ID"] )) {
@@ -54,15 +59,17 @@
 		}
 	}
 	
+	
+	
 	$TopMenus = array ( 
-								array("k" => $k, "url" => "team/team", "text" => "Manage Pledges"),
-								array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-								array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
-							);			
+						array("k" => $k, "url" => "team/index", "text" => "Team Members"),
+						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
+						array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
+					);
 	WriteStderr($TopMenus, "Top Menu");	
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
-	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
+	if ( $MobileDisplay == true) { $Cols = "col-12"; $Width="64";} else { $Cols = "col-9"; $Width="16"; }
 ?>
 <div class="row">
   <div class="main">
@@ -97,6 +104,12 @@
 							WriteStderr($var, "Voter Found");
 							
 							if ( ! empty ($var)) { 
+								
+								$ElectionsTypes = $rmb->ListElectedPositions($var["DataState_ID"], "id");
+								WriteStderr($ElectionsTypes, "ElectionsTypes");	
+
+								
+								
 								if (empty ($Query_AD) || ( $var["Raw_Voter_AssemblyDistr"] == $Query_AD)  ) {	
 									if ( empty ($Query_ED) || ( $var["Voters_RegParty"] == $Query_ED)  ) {	
 										if ( empty ($PARTY) || ($var["Voters_RegParty"] == $PARTY) ) {
@@ -108,162 +121,221 @@
 				?>
 				
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["VotersIndexes_UniqStateVoterID"] ?>" NAME="VotersIndexes_UniqStateVoterID">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTable"] ?>" NAME="ElectionsDistricts_DBTable">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["ElectionsDistricts_DBTableValue"] ?>" NAME="ElectionsDistricts_DBTableValue">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataDistrict_StateAssembly"] ?>" NAME="AD">
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataDistrict_Electoral"] ?>" NAME="ED">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_ID"] ?>" NAME="Voters_ID">
 				<INPUT TYPE="HIDDEN" VALUE="<?= $URIEncryptedString["SystemUser_ID"] ?>" NAME="SystemUser_ID">
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_RegParty"] ?>" NAME="Voters_RegParty">			
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataState_ID"]?>" NAME="ElectionStateID">	
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["Voters_RegParty"] ?>" NAME="Voters_RegParty">		
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataState_Abbrev"] ?>" NAME="DataState_Abbrev">				
+				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataState_ID"] ?>" NAME="DataState_ID">				
 				
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataFirstName_Text"]?>" NAME="CPrep_First">	
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataLastName_Text"]?>" NAME="CPrep_Last">	
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataFirstName_Text"] ?> <?= $var["DataMiddleName_Text"] ?> <?= $var["DataLastName_Text"] ?> <?= $var["VotersIndexes_Suffix"] ?>" NAME="CPrep_Full">	
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var[""]?>" NAME="CPrep_Email">	
-					
-				<div class="list-group-item f60">
-					<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
+				<P>
+					<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="<?= $Width ?>" height="<?= $Width ?>" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
 					<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $var["Voters_Status"] ?></FONT>
-					<BR><BR>
+				</P>
 					
-					<TABLE BORDER=1>
-						<TR>
-							<TH style="padding:0px 10px;">Board of Election ID #</TH>
-						</TR>
-						
-						<TR ALIGN=CENTER>
-							<TD style="padding:0px 10px;"><?= $var["Voters_CountyVoterNumber"] ?></TD>
-						</TR>
-					</TABLE>
-					<BR>
-					<TABLE BORDER=1>
-					<TR>
-						<TH style="padding:0px 10px;">First</TH>
-						<TH style="padding:0px 10px;">Middle</TH>
-						<TH style="padding:0px 10px;">Last</TH>
-						<TH style="padding:0px 10px;">Suffix</TH>
-					</TR>
-					<TR ALIGN=CENTER>
-						<TD style="padding:0px 10px;"><?= $var["DataFirstName_Text"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["DataMiddleName_Text"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["DataLastName_Text"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["VotersIndexes_Suffix"] ?></TD>
-					</TR>
-				</TABLE>
-				<BR>
-				<TABLE BORDER=1>
-					<TR>
-						<TH style="padding:0px 10px;">Date of Birth</TH>
-						<TH style="padding:0px 10px;">Age</TH>
-						<TH style="padding:0px 10px;">Gender</TH>
-						<TH style="padding:0px 10px;">Party</TH>
-					</TR>
-					<TR ALIGN=CENTER>
-						<TD style="padding:0px 10px;"><?= PrintShortDate($var["VotersIndexes_DOB"]); ?></TD>
-						<TD style="padding:0px 10px;">	<?php
+					<P>
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">First</div>
+											<div class="table-header-cell">Middle</div>
+											<div class="table-header-cell">Last</div>
+											<div class="table-header-cell">Suffix</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= $var["DataFirstName_Text"] ?></div>
+												<div class="table-body-cell"><?= $var["DataMiddleName_Text"] ?></div>
+												<div class="table-body-cell"><?= $var["DataLastName_Text"] ?></div>
+												<div class="table-body-cell"><?= $var["VotersIndexes_Suffix"] ?></div>
+											</div>													
+										</div>
+									</div>
+								</P>	
+								
+								<P>
+								
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Assembly</div>
+											<div class="table-header-cell">ED</div>
+											<div class="table-header-cell">Congress</div>
+											<div class="table-header-cell">County</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= $var["DataDistrict_StateAssembly"] ?></div>
+												<div class="table-body-cell"><?= $var["DataDistrict_Electoral"] ?></div>
+												<div class="table-body-cell"><?= $var["DataDistrict_Congress"] ?></div>
+												<div class="table-body-cell"><?= $var["DataCounty_Name"] ?></div>
+											</div>													
+										</div>
+									</div>
+								</P>	
+								
+								<P>
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Address</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?php if (! empty ($var["DataAddress_HouseNumber"])) echo $var["DataAddress_HouseNumber"]; ?>
+											<?php if (! empty ($var["DataAddress_FracAddress"]))  echo $var["DataAddress_FracAddress"]; ?>
+											<?php if (! empty ($var["DataAddress_PreStreet"])) echo $var["DataAddress_PreStreet"]; ?>
+											<?php if (! empty ($var["DataStreet_Name"])) echo $var["DataStreet_Name"]; ?>
+											<?php if (! empty ($var["DataAddress_PostStreet"])) echo $var["DataAddress_PostStreet"]; ?>
+											<?php if (! empty ($var["DataHouse_Apt"])) echo " - Apt " . $var["DataHouse_Apt"]; ?>
+											<BR>
+											<?= $var["DataCity_Name"] . ", " . $var["DataState_Abbrev"] ?>
+												<?= $var["DataAddress_zipcode"] ?>
+											<?php if (! empty ($var["Raw_Voter_ResZip4"])) echo " - " . $var["Raw_Voter_ResZip4"]; ?></div>
+											</div>													
+										</div>
+									</div>
+								</P>	
+								
+								<P>
+								
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Legis</div>
+											<div class="table-header-cell">Town</div>
+											<div class="table-header-cell">Ward</div>
+											<div class="table-header-cell">Senate</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= $var["DataDistrict_Legislative"] ?></div>
+												<div class="table-body-cell"><?= $var["DataDistrictTown_Name"] ?></div>
+												<div class="table-body-cell"><?= $var["DataDistrict_Ward"] ?></div>
+												<div class="table-body-cell"><?= $var["DataDistrict_StateSenate"] ?></div>
+											</div>													
+										</div>
+									</div>
+							
+									</P>	
+								
+								<P>
+									
+									
+									<?php
 										$dob = new DateTime($var["VotersIndexes_DOB"]);
 	 									$now = new DateTime();
 	 									$difference = $now->diff($dob);
-	 									echo $difference->y;				
 									?>
-						<TD style="padding:0px 10px;"><?= $var["Voters_Gender"] ?></TD>
-						<TD style="padding:0px 10px;"><?= PrintParty($var["Voters_RegParty"]) ?></TD>
-					</TR>
-				</TABLE>
-				
-				<BR>
-				<TABLE BORDER=1>
-					<TR>
-						<TH style="padding:0px 10px;">Assembly<BR>District</TH>
-						<TH style="padding:0px 10px;">Electoral<BR>District</TH>
-						<TH style="padding:0px 10px;">Congress</TH>
-						<TH style="padding:0px 10px;">County</TH>
-					</TR>
-					<TR ALIGN=CENTER>
-						<TD style="padding:0px 10px;"><?= $var["DataDistrict_StateAssembly"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["DataDistrict_Electoral"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["DataDistrict_Congress"] ?></TD>
-						<TD style="padding:0px 10px;"><?= $var["DataCounty_Name"] ?></TD>
-					</TR>
-				</TABLE>
-				<BR>
+									
+								
+								
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Date of Birth</div>
+											<div class="table-header-cell">Age</div>
+											<div class="table-header-cell">Gender</div>
+											<div class="table-header-cell">Party</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= PrintShortDate($var["VotersIndexes_DOB"]);  ?></div>
+												<div class="table-body-cell"><?= $difference->y; ?></div>
+												<div class="table-body-cell"><?= $var["Voters_Gender"] ?></div>
+												<div class="table-body-cell"><?= PrintParty($var["Voters_RegParty"]) ?></div>
+											</div>													
+										</div>
+									</div>
+								</P>	
+								
+								<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Council</div>
+											<div class="table-header-cell">Civil Court</div>
+											<div class="table-header-cell">Judicial</div>
+										
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= $var["DataDistrict_Council"] ?>&nbsp;</div>
+												<div class="table-body-cell"><?= $var["DataDistrict_CivilCourt"] ?></div>
+												<div class="table-body-cell"><?= $var["DataDistrict_Judicial"] ?></div>
+												
+											</div>													
+										</div>
+									</div>
+								
+								<P>
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Board of Election ID #</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= $var["Voters_CountyVoterNumber"] ?></div>
+											</div>													
+										</div>
+									</div>
+									
+								</P>
+								
+									<P>
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Select Petitions to Create</div>
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell">
+													
+													<?php foreach ($ElectionsTypes as $vor) {
+														if ( $vor["DataState_ID"] == $var["DataState_ID"]) {
+															if (! empty ($vor["ElectionsPosition_Party"])) {
+																if ($vor["ElectionsPosition_Party"] == $var["Voters_RegParty"]) {
+																	print "<INPUT TYPE=checkbox VALUE=" . $vor["ElectionsPosition_ID"] . ">&nbsp;";
+																	print $vor["ElectionsPosition_Party"] . " " . $vor["ElectionsPosition_Name"] . "&nbsp;";
+																	print "<INPUT TYPE=text SIZe=3 VALUE=" . $vor["ElectionsPosition_ID"] . "><BR>";
+																}
+															} else {
+																print "<INPUT TYPE=checkbox VALUE=" . $vor["ElectionsPosition_ID"] . ">&nbsp;";
+																print $var["Voters_RegParty"] . " Primary for " . $vor["ElectionsPosition_Name"] . "&nbsp;";
+																print "<INPUT TYPE=text Size=3 VALUE=" . $vor["ElectionsPosition_ID"] . "><BR>";
+															}
+														}
+													} ?>
+													
+												
+													
+													
+													</div>
+											</div>													
+										</div>
+									</div>
+									
+								</P>
+								
+						</div>
 						
-				<TABLE BORDER=1>
-					<TR>
-						<TH style="padding:0px 10px;">Address</TH>
-					</TR>
-					<TR>
-						<TD style="padding:0px 10px;">		
-							<?php 
-								$Address1 = ""; 
-								if (! empty ($var["DataAddress_HouseNumber"])) $Address1 .= $var["DataAddress_HouseNumber"]; 
-								if (! empty ($var["DataAddress_FracAddress"])) $Address1 .= $var["DataAddress_FracAddress"];
-								if (! empty ($var["DataAddress_PreStreet"])) $Address1 .= $var["DataAddress_PreStreet"];
-							 	if (! empty ($var["DataStreet_Name"])) $Address1 .= $var["DataStreet_Name"];
-								if (! empty ($var["DataAddress_PostStreet"])) $Address1 .= $var["DataAddress_PostStreet"];
-								if (! empty ($var["DataHouse_Apt"])) $Address1 .= " - Apt " .  strtoupper($var["DataHouse_Apt"]);
-							?>
-							<?= $Address1 ?>
-							<BR>
-							<?php $Address2 = $var["DataCity_Name"] . ", NY " . $var["DataAddress_zipcode"]; ?>
-							<?= $Address2 ?>
-							<?php if (! empty ($var["DataAddress_zip4"])) echo " - " . $var["DataAddress_zip4"]; ?>
-						
-							<BR>
-						</TD>
-					</TR>
-				</TABLE>
-				
-				<INPUT TYPE="HIDDEN" VALUE="<?= $Address1 ?>" NAME="CPrep_Address1">	
-				<INPUT TYPE="HIDDEN" VALUE="<?= $var[""]?>" NAME="CPrep_Address2">		
-				
-				<BR>
-				<TABLE BORDER=1>
-				<TR>
-					<TH style="padding:0px 10px;">Legis #</TH>
-					<TH style="padding:0px 10px;">Town</TH>
-					<TH style="padding:0px 10px;">Ward</TH>
-					<TH style="padding:0px 10px;">Senate</TH>
-				</TR>
-				<TR ALIGN=CENTER>
-					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Legislative"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $var["DataDistrict_TownCity"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Ward"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $var["DataDistrict_SenateSenate"] ?></TD>
-				</TR>
-			</TABLE>
-			
-			<BR>
-			<TABLE BORDER=1>
-				<TR>
-					<TH style="padding:0px 10px;">Council</TH>
-					<TH style="padding:0px 10px;">Civil Court</TH>
-					<TH style="padding:0px 10px;">Judicial</TH>
-				</TR>
-				<TR ALIGN=CENTER>
-					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Council"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $var["DataDistrict_CivilCourt"] ?></TD>
-					<TD style="padding:0px 10px;"><?= $var["DataDistrict_Judicial"] ?></TD>
-				</TR>
-			</TABLE> 
-			
-		</div>
 												<?php		
 								}
 							}
 						}
 					}
 				}
-					
-			?>
-
-					<div id="">
-						<BR>
-						<p>
-							&nbsp;<button type="submit" class="btn btn-primary" name="voterreg" value="yes">Select this voter</button>
-							<button type="submit" class="btn btn-primary" name="voterreg" value="not">This voter data need updating</button>
+				?>
+		<P class="f60"><CENTER>
+						<INPUT type="submit" class="" name="voterreg" VALUE="Create a petition">
+					&nbsp;
+							<INPUT type="submit" class="" name="voterreg"  VALUE="This voter data need updating">
+							<CENTER>
 						</P>
-					</DIV>
-				</div>
+					
+					
 									</FORM>
 				</DIV>
 				</DIV>

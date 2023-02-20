@@ -362,44 +362,48 @@ class RepMyBlock extends queries {
 
 	function ListElectedPositions($StateAbbrev, $StateID = NULL, $PositionID = NULL, $Party = NULL, $PositionCode = NULL) {
 		$sql = "SELECT * FROM  DataState " .
-						"LEFT JOIN ElectionsPosition ON (DataState.DataState_ID = ElectionsPosition.DataState_ID) " .
-						"WHERE ";
-
+						"LEFT JOIN ElectionsPosition ON (DataState.DataState_ID = ElectionsPosition.DataState_ID) ";
+						
 		$sql_vars = array();
 		$and = "";
 		
-		if ( ! empty ($PositionCode )) {
-			$sql .= " ElectionsPosition_DBTable = :PositionCode ";
-			$sql_vars["PositionCode"] = $PositionCode;
-			$and = " AND";
-		}
-		
-		if ( ! empty ($Party)) { 
-			$sql .= $and . " ElectionsPosition_Party = :Party";
-			$sql_vars["Party"] = $Party;
-			$and = " AND ";
-		}
+		if ( ! empty ($PositionCode) || ! empty ($Party) || ! empty ($PositionID) || ! empty ($StateID)) {
+			$sql .= "WHERE ";
 
-		if ( $PositionID > 0) {
-			$sql .= $and . "ElectionsPosition_ID = :PosID";
-			$sql_vars['PosID'] = $PositionID;	
-		} else {
-			if ( $StateID == "id") {
-				$sql .= $and . "DataState.DataState_ID = :State ";
-			}	else {	
-				$sql .= $and . "DataState.DataState_Abbrev = :State ";				
+			if ( ! empty ($PositionCode )) {
+				$sql .= " ElectionsPosition_DBTable = :PositionCode ";
+				$sql_vars["PositionCode"] = $PositionCode;
+				$and = " AND";
 			}
-			$sql_vars['State'] = $StateAbbrev;	
-			$sql .= "ORDER BY ElectionsPosition_Order";
-		} 
+			
+			if ( ! empty ($Party)) { 
+				$sql .= $and . " ElectionsPosition_Party = :Party";
+				$sql_vars["Party"] = $Party;
+				$and = " AND ";
+			}
+
+			if ( $PositionID > 0) {
+				$sql .= $and . "ElectionsPosition_ID = :PosID";
+				$sql_vars['PosID'] = $PositionID;	
+			} else {
+				if ( $StateID == "id") {
+					$sql .= $and . "DataState.DataState_ID = :State ";
+				}	else {	
+					$sql .= $and . "DataState.DataState_Abbrev = :State ";				
+				}
+				$sql_vars['State'] = $StateAbbrev;	
+				$sql .= "ORDER BY ElectionsPosition_Order";
+			} 
+		}
 		
+		WriteStderr($sql, "SQL:");	
+		WriteStderr($sql_vars, "SQL VAR:");	
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
 	function ListParties($StateID, $OfficialOnly = false, $PartyID = NULL) {
 		$sql = "SELECT * FROM DataParty WHERE ";
-		
-		
+	
 		if ( $PartyID > 0) {
 			$sql .= "DataParty_ID = :DataParty";
 			$sql_vars = array("DataParty" => $PartyID);
@@ -544,7 +548,7 @@ class RepMyBlock extends queries {
 	}
 	
 	function ListElectionsDates ($limit = 50, $start = 0, $futureonly = false, $StateID = NULL) {
-		$sql = "SELECT * FROM DataState " . 
+		$sql = "SELECT DISTINCT DataState_Abbrev, Elections_Text, Elections_Date, Elections_Type FROM DataState " . 
 						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.DataState_ID = DataState.DataState_ID) " .
 						"LEFT JOIN CandidateElection ON (ElectionsPosition.ElectionsPosition_ID = CandidateElection.ElectionsPosition_ID) " . 
 						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) ";
@@ -556,14 +560,14 @@ class RepMyBlock extends queries {
 		} else {
 			if ( $StateID > 0 ) { $sql .= "WHERE DataState.DataState_ID = :StateID "; }
 		}
-		
+		if ( empty ($StateID)) { $sql .= "WHERE Elections_Date is NOT NULL ";	}
 		$sql .= "ORDER BY Elections_Date, Elections_Type LIMIT $start, $limit";	
 
 		if ( $StateID > 0) {
 			$sql_vars = array("StateID" => $StateID);
 			return $this->_return_multiple($sql, $sql_vars);			
 		}
-
+		
 		return $this->_return_multiple($sql);
 	}
 	

@@ -22,12 +22,17 @@
 		political machine in New York City, suppression at the local levels of American
 		 democracy, and the activists on the ground seeking to reform the system. 
 		 A short documentary by <A HREF="https://www.imdb.com/title/tt20049084/" TARGET="other">Fahim Hamid</A>.
-		
+	</P>
+	
+	<P class="center f80"><A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/movie">Watch COUNTY: A Documentary</A></P>
+
+	<P>
 		<CENTER>
 			<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/movie"><IMG SRC="/images/documentary/CountyDocumentary.png"></A>
 		</CENTER>
 	</P>
-
+	
+		
 	<P class="BckGrndElement f80">CANDIDATES VOLUNTEER GUIDE</P>
 
 	<P>

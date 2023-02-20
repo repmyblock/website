@@ -75,10 +75,11 @@
 	}
 
 	$TopMenus = array ( 
-						array("k" => $k, "url" => "team/team", "text" => "Manage Pledges"),
+						array("k" => $k, "url" => "team/index", "text" => "Team Members"),
 						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-						array("k" => $k, "url" => "team/teamcandidate", "text" => "Manage Candidates")
-					);			
+						array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
+					);
+							
 	WriteStderr($TopMenus, "Top Menu");					
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
@@ -90,7 +91,7 @@
     
 			  <!-- Public Profile -->
 			  <div class="Subhead mt-0 mb-0">
-			    <h2 id="public-profile-heading" class="Subhead-heading">Search Voter Database</h2>
+			    <h2 id="public-profile-heading" class="Subhead-heading">Create Petition</h2>
 			  </div>
   
 			<?php
