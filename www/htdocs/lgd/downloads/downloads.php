@@ -38,8 +38,8 @@
 				?>	
 				<P class="f60">
 						Download a 
-						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/E<?= $result[0]["Candidate_ID"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/petition">blank petition</A>
-						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/E<?= $result[0]["Candidate_ID"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/petition"><i class="fa fa-download" aria-hidden="true"></i></A> 
+						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/<?= $result[0]["CandidateSet_Random"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/petition">blank petition</A>
+						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/<?= $result[0]["CandidateSet_Random"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/petition"><i class="fa fa-download" aria-hidden="true"></i></A> 
 						
 						
 						
