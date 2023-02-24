@@ -16,49 +16,17 @@ if ( ! isset ($RMBBlockInit)) {
 }
 
 // Faut que je travaille avec K.
-if (strlen($k < 20)) {
-	preg_match('/([pse])(\d*)/i', $k, $matches, PREG_OFFSET_CAPTURE);
-	switch ($matches[1][0]) {
-		case 'p': case 'P': $CanPetitionSet_ID = intval($matches[2][0]); break;
-		case 's': case 'S': $CandidateSet_ID = intval($matches[2][0]); break;
-		case 'e': case 'E': $Candidate_ID = intval($matches[2][0]); break;
+$SizeK = strlen($k);
+
+if ($SizeK == 12) {
+	$result = $db_NY_petition->ListPetitionGroup($k);
+	
+	if ( empty($result)) {
+		$Variable = "demo-CC";
 	}
-} else {
-	$CanPetitionSet_ID = trim($_GET["petid"]);
-	$CandidatePetitionSet_ID = trim($_GET["setid"]);
-	$WaterMarkVoid = trim($_GET["Watermark"]);
-}
-
-WriteStderr($URIEncryptedString, "PDF Petition");
-
-$pdf_NY_petition->Watermark = "VOID - Do not use"; 
-$WritenSignatureMonth = "March"; // date("F");
-$Variable = "demo-CC";
-
-
-
-// Setup for empty petition.
-$pdf_NY_petition->WitnessName = "________________________________________"; 
-$pdf_NY_petition->WitnessResidence = "_______________________________________________________";
-
-$pdf_NY_petition->TodayDateText = "Date: " . date("F _________ , Y"); 
-$pdf_NY_petition->TodayDateText = "Date: " . $WritenSignatureMonth . " _______ , " . date("Y");
-$pdf_NY_petition->City = "____________"; 
-$pdf_NY_petition->County = "________"; 
-$DateForCounter = " ___ / ___ / " . date("Y");
-$DateForCounter = date("m") . " / ____ / " . date("Y"); 
-
-#$pdf_NY_petition->WitnessName = "Theo Chino Tavarez"; 
-#$pdf_NY_petition->WitnessResidence = "640 Riverside Drive 10B, New York, NY 10031";
-#$pdf_NY_petition->City = "New York"; 
-#$pdf_NY_petition->County = "New York"; 
-
-if (is_numeric($CanPetitionSet_ID)) { $Variable = "petid"; }
-if (is_numeric($CandidateSet_ID)) { $Variable = "setid"; }	
-if (is_numeric($Candidate_ID)) { $Variable = "person"; }
-if (is_numeric($SystemUser_ID)) { $Variable = "person"; }
-
-if ( ! empty ($URIEncryptedString)) {
+	
+} else if ( ! empty ($URIEncryptedString)) {
+		
 	if (! empty ($URIEncryptedString["Candidate_ID"])) {
 		$Candidate_ID = $URIEncryptedString["Candidate_ID"];
 		$Variable = "person";
@@ -72,8 +40,26 @@ if ( ! empty ($URIEncryptedString)) {
 	if ( $URIEncryptedString["Voters_ID"] > 0 && $URIEncryptedString["ElectionPosition_ID"] > 0) {
 		$Variable = "onthefly";
 	}
+} else {
+	$Variable = "demo-CC";
 }
-	
+
+WriteStderr($URIEncryptedString, "PDF Petition");
+
+$pdf_NY_petition->Watermark = "VOID - Do not use"; 
+$WritenSignatureMonth = "March"; // date("F");
+
+// Setup for empty petition.
+$pdf_NY_petition->WitnessName = "________________________________________"; 
+$pdf_NY_petition->WitnessResidence = "_______________________________________________________";
+
+$pdf_NY_petition->TodayDateText = "Date: " . date("F _________ , Y"); 
+$pdf_NY_petition->TodayDateText = "Date: " . $WritenSignatureMonth . " _______ , " . date("Y");
+$pdf_NY_petition->City = "____________"; 
+$pdf_NY_petition->County = "________"; 
+$DateForCounter = " ___ / ___ / " . date("Y");
+$DateForCounter = date("m") . " / ____ / " . date("Y"); 
+
 switch ($Variable) {
 	case 'onthefly';
 	
@@ -125,49 +111,15 @@ switch ($Variable) {
 		$result[0]["CanPetitionSet_ID"] = 1;
 		$result[0]["CandidateElection_Number"] = 1;
 		$result[0]["CandidateElection_PositionType"] = "party";
-		
 		$result[0]["CandidatePetition_VoterCounty"] = $VoterResult[0]["DataCounty_Name"];
-		
-		
 		$result[0]["CandidateGroup_ID"] = 1;
 				
 		$pdf_NY_petition->Watermark = "Demo Petition / Not Valid";
 		$pdf_NY_petition->BarCode = "Demo Petition";
 		#$pdf_NY_petition->DemoPrint = "true";
-		
-		
-	break;
-	
-  case 'person';
-  
-	  if ( $URIEncryptedString["PendingBypass"] == "yes" ) {
-	  	$result = $db_NY_petition->ListCandidatePetition($Candidate_ID);	  	
-	  } else {
-	  	$result = $db_NY_petition->ListCandidatePetition($Candidate_ID, "published");
-	  	WriteStderr($result, "PDF Petition RESULT IN Person");
-	  }
-	  
-		$result[0]["CandidateGroup_ID"] = 1;
-	  
-  	if ( ! empty ($result)) {
-  		for ($i = 0; $i < count($result); $i++) { 	 		
-	  		$result[$i]["CandidateSet_ID"] = 1;	
-				$result[$i]["CandidateParty"] = PrintPartyAdjective($result[0]["Candidate_Party"]);
-				$result[$i]["CandidatePetition_VoterCounty"] = $result[0]["DataCounty_Name"];
-			}
-			$pdf_NY_petition->BarCode = "P" . $Candidate_ID;
-			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);
-		}
-		
-		if ($result[0]["Candidate_Watermark"] == 'no') { $pdf_NY_petition->Watermark = NULL; }	
-		else {
-			$pdf_NY_petition->Watermark = "VOID - Do not use " . $result[0]["Candidate_Status"]; 
-		}
 
-		if ( $result[0]["Candidate_Status"] == "published" || $URIEncryptedString["PendingBypass"] == "yes") break;
-		goto democc;
-		break;
-		
+	break;
+			
 	case 'setid';
 	 	if ( $URIEncryptedString["PendingBypass"] == "yes" ) {
 	  	$result = $db_NY_petition->ListPetitionGroup($CandidateSet_ID); 	
@@ -198,6 +150,8 @@ switch ($Variable) {
 			if ($result[0]["CandidateGroup_Watermark"] == 'no') { $pdf_NY_petition->Watermark = NULL; }	
 		}
 		
+	
+		
 		if ( $result[0]["Candidate_Status"] == "published" || $URIEncryptedString["PendingBypass"] == "yes") break;
 		goto democc;
 		break;
@@ -213,47 +167,31 @@ switch ($Variable) {
 		
 		if ( $result[0]["Candidate_Status"] == "published" || $URIEncryptedString["PendingBypass"] == "yes") break;
 		
-	case 'demo-single':
-		demosingle:
-		$result[0]["CanPetitionSet_ID"] = 1;
-		$result[0]["CandidateElection_Number"] = 1;
-		$result[0]["CandidateElection_PositionType"] = "demo";
-		$result[0]["Candidate_DispName"] = "Your name here";
-		$result[0]["CandidateElection_PetitionText"] = "The election type here";
-		$result[0]["Candidate_DispResidence"] = "Your address here";
-		$result[0]["CandidateComRplce_FullName"] = "Committee to replace here";
-		$result[0]["CandidateComRplce_Residence"] = "Address of committee person";
-		$result[0]["CandidatePetition_VoterCounty"] = "A COUNTY NAME";
-		$result[0]["CandidateParty"] = "Democratic";
-		$pdf_NY_petition->Watermark = "Demo Petition / Not Valid";
-		$pdf_NY_petition->BarCode = "Demo Petition";
-		break;
-	
 	case 'demo-CC':
 		democc:
 		$result[0]["CanPetitionSet_ID"] = 1;
 		$result[0]["CandidateElection_Number"] = 1;
 		$result[0]["CandidateElection_PositionType"] = "party";
-		$result[0]["Candidate_DispName"] = "Your name here\n";
-		$result[0]["CandidateElection_PetitionText"] = "Member of the Democratic or Republican Party County Committee from the XXth election district in the XXth assembly district Your County, New York State";
-		$result[0]["Candidate_DispResidence"] = "Your address here";
+		$result[0]["CandidateName"] = "Your name here\n";
+		$result[0]["CandidatePositionName"] = "Member of the Democratic or Republican Party County Committee from the XXth election district in the XXth assembly district Your County, New York State";
+		$result[0]["CandidateResidence"] = "Your address here";
 		$result[0]["CandidateComRplce_FullName"] = "Committee to replace here";
 		$result[0]["CandidateComRplce_Residence"] = "Address of committee person";
 		$result[0]["CandidatePetition_VoterCounty"] = "a New York City";
 		$result[0]["CandidateParty"] = "Democratic or Republican";
+		$result[0]["Elections_Date"] = "on a certain date";
+				
 		$pdf_NY_petition->Watermark = "Demo Petition / Not Valid";
 		$pdf_NY_petition->BarCode = "Demo Petition";
 		$pdf_NY_petition->DemoPrint = "true";
 		break;
 }
 
-$pdf_NY_petition->county = $result[0]["CandidatePetition_VoterCounty"];
-$pdf_NY_petition->party = $result[0]["CandidateParty"];
+$pdf_NY_petition->county = $result[0]["DataCounty_Name"];
+$pdf_NY_petition->party = PrintPartyAdjective($result[0]["CandidateGroup_Party"]);
 $pdf_NY_petition->ElectionDate =  PrintShortDate($result[0]["Elections_Date"]);
-
 $pdf_NY_petition->AutoFillDate = "03 /     / 2023";
-
-
+$pdf_NY_petition->BarCode = "S" . $result[0]["CandidateSet_ID"];
 
 // This is for the Custom Data stuff
 if ( ! empty ($URIEncryptedString["CustomData"] )) {

@@ -367,7 +367,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 			$this->SetTextColor(0,0,255);
 			$this->SetXY(120, 132.5);
 			$this->Link(120, 130, 70, 25, "https://repmyblock.org/pet/training/steps/torun");
- 	   	$this->MultiCell(70, 8.2, "Petitioning will start in February 2022 until March 2022", 0, 'C'); 	   									
+ 	   	$this->MultiCell(70, 8.2, "Petitioning will start in February 29, 2023 until April 6, 2023", 0, 'C'); 	   									
  	   }
 		
 		$this->SetTextColor(0);

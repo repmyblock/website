@@ -24,24 +24,6 @@ class OutragedDems extends queries {
   	return $this->_return_multiple($sql, $sql_vars);  	
   }
   
-//  function CreateOnFlyElection($ElectionID, $Type, $Party, $ElectionText, $Election_PetitionText, $DBTable, $Value, $Sex, $NumberOfCandidates) {
-//  	$sql = "INSERT INTO CandidateElection SET " . 
-//  					"Elections_ID = :ElectionID, CandidateElection_PositionType = :Type, " .
-//  					"CandidateElection_Party = :Party, CandidateElection_Text = :ElectionText, " .
-//  					"CandidateElection_PetitionText = :PetitionText, CandidateElection_Number = :NumberOfCandidates, " . 
-//  					"CandidateElection_Sex = :Sex, CandidateElection_DBTable = :DBTable, CandidateElection_DBTableValue = :Value";
-//  					
-//  	$sql_vars = array("ElectionID" => $ElectionID, "Type" => $Type, "Party" => $Party, "ElectionText" => $ElectionText,
-//									  	"PetitionText" => $Election_PetitionText, "NumberOfCandidates" => $NumberOfCandidates, "Sex" => $Sex,
-//									  	"DBTable" => $DBTable, "Value" => $Value);
-//		
-//		$this->nothing($sql, $sql_vars);
-//		
-//		$sql = "SELECT LAST_INSERT_ID() AS CandidateElection_ID";
-//		$ret = $this->_return_simple($sql);
-//  	return $ret["CandidateElection_ID"];
-//  }
-  
   function SearchVotersFile($DataSearch) {
    	$sqlquery = ""; $sql_vars = array();
 				
@@ -76,9 +58,7 @@ class OutragedDems extends queries {
 						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID) " .
 						"WHERE (Voters_Status = 'Active' OR Voters_Status = 'Inactive') AND " . 
 						"(CURDATE() >= DataDistrictCycle_CycleStartDate AND CURDATE() <= DataDistrictCycle_CycleEndDate) IS NULL";
-				
-							
-  	
+				 	
   	foreach ($DataSearch as $Param => $Search) {
 			$sqlquery .= " AND ";
   		switch ($Param) {
@@ -180,8 +160,9 @@ class OutragedDems extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
-	function ListPetitionGroup($GroupID, $Status = NULL) {
-		$sql = "SELECT * FROM CandidateGroup " .
+	function ListPetitionGroup($GroupRandom, $Status = NULL) {
+		$sql = "SELECT * FROM CandidateSet " .
+						"LEFT JOIN CandidateGroup ON (CandidateGroup.CandidateSet_ID = CandidateSet.CandidateSet_ID) " . 
 						"LEFT JOIN Candidate ON (CandidateGroup.Candidate_ID = Candidate.Candidate_ID) " . 
 						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = CandidateGroup.DataCounty_ID) " .
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
@@ -189,12 +170,12 @@ class OutragedDems extends queries {
 						"LEFT JOIN CandidateComRplceSet ON (CandidateComRplceSet.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CandidateComRplce ON (CandidateComRplceSet.CandidateComRplce_ID = CandidateComRplce.CandidateComRplce_ID) " .
 						"LEFT JOIN CandidatePartySymbol ON (CandidatePartySymbol.CandidatePartySymbol_ID = Candidate.CandidatePartySymbol_ID) " .
-						"WHERE CandidateGroup.CandidateSet_ID = :CandidateGroup_ID " .
+						"WHERE CandidateSet.CandidateSet_Random = :GroupRandomText " .
 						"ORDER BY CandidateGroup_Order ASC, CandidateComRplce_Order ASC";
 						
 		WriteStderr($sql, "ListPetitionGroup for $GroupID");				
 		
-		$sql_vars = array("CandidateGroup_ID" => $GroupID);
+		$sql_vars = array("GroupRandomText" => $GroupRandom);
 		return $this->_return_multiple($sql, $sql_vars);
 		
 	}
