@@ -31,7 +31,6 @@
 			<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/movie"><IMG SRC="/images/documentary/CountyDocumentary.png"></A>
 		</CENTER>
 	</P>
-	
 		
 	<P class="BckGrndElement f80">CANDIDATES VOLUNTEER GUIDE</P>
 

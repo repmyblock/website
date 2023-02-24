@@ -4,288 +4,100 @@
 	$Menu = "team";  
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_teams.php"; 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php";	
 	
-	WriteStderr($ElectionsTypes, "ElectionsTypes");	
-
+	WriteStderr($URIEncryptedString, "URIEncryptedString Entering");
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	$rmb = new repmyblock();
+	$rmb = new Teams();
 	
-	if ( ! empty ($_POST) || ($URIEncryptedString["PetitionBypass"] == 1)) {
-		$ElectionType = $_POST["ElectionType"];
-		
-		if ( ! empty ($URIEncryptedString["PetitionBypass"])) {
-			echo "I am in the PEtition bypass<BR>";
+	$result = $rmb->CheckCandidates($URIEncryptedString["Voters_ID"], $URIEncryptedString["Voters_RegParty"], 
+																	$URIEncryptedString["TypeElection"][0], $URIEncryptedString["TypeValue"][0],
+																	$URIEncryptedString["ActiveTeam_ID"]);													
+	WriteStderr($result, "Result of the petition");		
+														
+	// Check that this petition for this user doesn't exist.
+	if ( empty ($result)) {
+		$ElectionType = $rmb->FindElectionType(	$URIEncryptedString["Elections_ID"], $URIEncryptedString["Voters_RegParty"],
+																						$URIEncryptedString["TypeElection"][0], 
+																						$URIEncryptedString["TypeValue"][0]);
+																						
+		if ( empty ($ElectionType)) {
 
-			$RMBInformation = $rmb->FindElectionInfoForPetition(
-													$URIEncryptedString["CPrep_District"], 
-													$URIEncryptedString["CPrep_PositionCode"],
-													$URIEncryptedString["CPrep_Party"], 
-													false
-												);
-																																	
-			if ( ! empty ($RMBInformation)) {
-				
-				$ElectionDiff = $RMBInformation[0]["UnixElection_Date"];
-				$UnixElectionDay = $ImportantDates[$URIEncryptedString["CPrep_State"]]["UNIX"]["PrimaryElection"];
-				$DateInStaticFile = date("Y-m-d", $UnixElectionDay);
-				$IndexElectionToCopy = -1;
-				
-				foreach ($RMBInformation as $index => $var) {
-					if (($UnixElectionDay - $var["UnixElection_Date"]) < $ElectionDiff) {
-						$ElectionDiff = $UnixElectionDay - $var["UnixElection_Date"];
-						$IndexElectionToCopy = $index;
-					}
-				}
-			
-				if ($DateInStaticFile != $RMBInformation[$IndexElectionToCopy]["Elections_Date"]) {
-					
-					$CandidateElectionID = $rmb->CreatePositionEntry( array(
-								"Elections_ID" => "1374", 
-								"ElectionsPosition_ID" => $RMBInformation[$IndexElectionToCopy]["ElectionsPosition_ID"], 
-								"CandidateElection_PositionType" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_PositionType"], 
-								"CandidateElection_Party" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_Party"], 
-								"CandidateElection_Text" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_Text"], 
-								"CandidateElection_PetitionText" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_PetitionText"], 
-								"CandidateElection_URLExplain" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_URLExplain"], 
-								"CandidateElection_Number" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_Number"], 
-								"CandidateElection_DisplayOrder" => $RMBInformation[$IndexElectionToCopy]["ElectionsPosition_Order"], 
-								"CandidateElection_Display" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_Display"], 
-								"CandidateElection_Sex" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_Sex"], 
-								"CandidateElection_DBTable" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_DBTable"], 
-								"CandidateElection_DBTableValue" => $RMBInformation[$IndexElectionToCopy]["CandidateElection_DBTableValue"], 
-							)
-					);
-				} else {
-					$CandidateElectionID = $RMBInformation[$IndexElectionToCopy]["CandidateElection_ID"];
-				}
-			
-			
-				// Check that the election was not entered.
-				$PetitionCandidate = $rmb->SearchPetitionCandidate(
-								$URIEncryptedString["SystemUser_ID"], $URIEncryptedString["UniqNYSVoterID"],
-								$URIEncryptedString["Voters_ID"],	$RMBInformation[$IndexElectionToCopy]["DataCounty_ID"],
-								$CandidateElectionID,	$RMBInformation[$IndexElectionToCopy]["CandidateElection_Party"],
-								$URIEncryptedString["CPrep_Full"], $URIEncryptedString["CPrep_Address1"] . "\n" . $URIEncryptedString["CPrep_Address2"], 
-								$RMBInformation[$IndexElectionToCopy]["CandidateElection_DBTable"],
-								$RMBInformation[$IndexElectionToCopy]["CandidateElection_DBTableValue"], "pending", 
-								$URIEncryptedString["Team_ID"]
-							);
-							
-				$PetitionCandidateID = $PetitionCandidate[0]["Candidate_ID"];
-												
-				if ( $CandidateElectionID > 0 && empty ($PetitionCandidate[0]["Candidate_ID"] )) {
-					$PetitionCandidateID = $rmb->InsertCandidate(
-								$URIEncryptedString["SystemUser_ID"], $URIEncryptedString["UniqNYSVoterID"],
-								$URIEncryptedString["Voters_ID"],	$RMBInformation[$IndexElectionToCopy]["DataCounty_ID"],
-								$CandidateElectionID,	$RMBInformation[$IndexElectionToCopy]["CandidateElection_Party"],
-								$URIEncryptedString["CPrep_Full"], $URIEncryptedString["CPrep_Address1"] . "\n" . $URIEncryptedString["CPrep_Address2"], 
-								$RMBInformation[$IndexElectionToCopy]["CandidateElection_DBTable"],
-								$RMBInformation[$IndexElectionToCopy]["CandidateElection_DBTableValue"], NULL, "pending", 
-								$URIEncryptedString["Team_ID"]
-							 );				
-
-				} else {
-					print "Found the Petition " . $PetitionCandidate[0]["Candidate_ID"] . "<BR>";
-				}
-				
-				header("Location: /" . $k . "/lgd/team/teampetitions");
-				
-				exit();
-			} else {
-				
-				echo "Problem finding a template for this position.<BR>";
-				exit();
-			}		
-	}
-	
-		WriteStderr($_POST, "Input \$_POST and creating the whole petition.");
-		
-		$ElectionsTypes = $rmb->ListElectedPositions(NULL, NULL, $_POST["ElectionType"]);
-		WriteStderr($ElectionsTypes, "ElectionsTypes");	
-		
-		$CandidateElection = $rmb->CandidateElection($ElectionsTypes[0]["ElectionsPosition_DBTable"], 
-																								 trim($_POST["DistrictID"]), NULL, NULL, 
-																								 $_POST["ElectionData"]);
-		WriteStderr($CandidateElection, "CandidateElection");	
-		if ( empty ($CandidateElection)) {
-
-			WriteStderr($CandidateElection, "CandidateElection is empty\n");	
-			$CandidateElection = array(
-						"ElectionID" => $_POST["ElectionData"], 
-						"PosText" => $ElectionsTypes[0]["ElectionsPosition_Name"],
-						"PetText" => "Temporary placeholder for " . $ElectionsTypes[0]["ElectionsPosition_State"] . 
-													" District " . trim($_POST["DistrictID"]) . 
-													" for the position of " . $ElectionsTypes[0]["ElectionsPosition_Name"],
-						"Number" => 1,
-						"Order" => $ElectionsTypes[0]["ElectionsPosition_Order"], 
-						"Display" => 'no', 
-						"DBTable" => $ElectionsTypes[0]["ElectionsPosition_DBTable"],
-						"DBValue" => trim($_POST["DistrictID"])
-			);
-			
-			$Parties = $rmb->ListParties(NULL, NULL, $_POST["PartyID"]);		
-			switch ($ElectionsTypes[0]["ElectionsPosition_Type"]) {
-				case "office":
-					$CandidateElection["PosType"] = "electoral";
-					break;
-				case "party":
-					$CandidateElection["PosType"] = "party";
-					$CandidateElection["Party"] = $Parties[0]["PartyData_Abbrev"];
-					break;
+			$PartyCall = $rmb->FindInPartyCall(	$URIEncryptedString["Elections_ID"], $URIEncryptedString["County_ID"], 
+																					$URIEncryptedString["Voters_RegParty"], $URIEncryptedString["TypeElection"][0], 
+																					$URIEncryptedString["TypeValue"][0]);
+																					
+			if ( empty ($PartyCall)) {
+				$CandidateElection_Text = "Please contact because the district doesn't exist";
 			}
-						
-			WriteStderr($CandidateElection, "CandidateElection Before InsertCandidateElection\n");	
-			$CandidateElectionData = $rmb->InsertCandidateElection($CandidateElection);
-			$CandidateElection["CandidateElection_ID"] = $CandidateElectionData["CandidateElection_ID"];
-			WriteStderr($CandidateElectionData, "Finished InsertCandidateElection(): CandidateElectionData\n");	
 
+			$CountyName = $rmb->DB_WorkCounty($URIEncryptedString["County_ID"]);			
+			preg_match('/(\d{2})(\d{3})/', $URIEncryptedString["TypeValue"][0], $District, PREG_OFFSET_CAPTURE);
+			
+			switch($PartyCall["CandidatePositions_ID"]) {
+				case '1':
+					$CandidateElection_Text = $CountyName . " County Committee";
+					$PositionType = "party";
+					$NumberCandidates = $PartyCall["ElectionsPartyCall_NumberUnixSex"];
+					$CandidateElection_PetitionText = "Member of the " . $CountyName . " Democratic County Committee from the " .
+																						ordinal(ltrim($District[2][0], "0")) . " election district in the " . 
+																						ordinal(ltrim($District[1][0], "0")) . " assembly district";
+				break;
+
+				case '13':	
+					$CandidateElection_Text = $CountyName . " County Committee";
+					$PositionType = "party";
+					$NumberCandidates = $PartyCall["ElectionsPartyCall_NumberUnixSex"];
+					$CandidateElection_PetitionText = "Member of the " . $CountyName . " Republican County Committee from the " .
+																						ordinal(ltrim($District[2][0], "0")) . " election district in the " . 
+																						ordinal(ltrim($District[1][0], "0")) . " assembly district";
+				break;
+			}
+
+			$MatchTableName = array(
+					"Elections_ID" => $URIEncryptedString["Elections_ID"], 
+					"ElectionsPosition_ID" => $PartyCall["CandidatePositions_ID"], 
+					"CandidateElection_PositionType" => $PartyCall["ElectionsPartyCall_PositionType"], 
+					"CandidateElection_Party" => $URIEncryptedString["Voters_RegParty"], 
+					"CandidateElection_Text" => $CandidateElection_Text, 
+					"CandidateElection_PetitionText" => $CandidateElection_PetitionText, 
+					"CandidateElection_URLExplain" => NULL, 
+					"CandidateElection_Number" => $NumberCandidates, 
+					"CandidateElection_DisplayOrder" => "100", 
+					"CandidateElection_Display" => NULL, 
+					"CandidateElection_Sex" => NULL, 
+					"CandidateElection_DBTable" => $URIEncryptedString["TypeElection"][0], 
+					"CandidateElection_DBTableValue" => $URIEncryptedString["TypeValue"][0],
+			);
+						
+			$ElectionType = $rmb->CreatePositionEntry($MatchTableName);
+			
 		} else {
 			
-			$Parties = $rmb->ListParties(NULL, NULL, $_POST["PartyID"]);
-			$CandidateElection["Party"] = $Parties[0]["DataParty_Abbrev"];
-			$CandidateElection["DBTable"] = $CandidateElection[0]["CandidateElection_DBTable"];
-			$CandidateElection["DBValue"]	= $CandidateElection[0]["CandidateElection_DBTableValue"];
-			$CandidateElection["CandidateElection_ID"] = $CandidateElection[0]["CandidateElection_ID"];
+			$ElectionType = $ElectionType[0]["CandidateElection_ID"];
 		}
-			
-	 	$Address = $URIEncryptedString["CPrep_Address1"];
-		if ( ! empty ($URIEncryptedString["CPrep_Address2"])) { $Address .= "\n" . $URIEncryptedString["CPrep_Address2"]; }
-		if ( ! empty ($URIEncryptedString["CPrep_Address3"])) { $Address .= "\n" . $URIEncryptedString["CPrep_Address3"]; }
 		
-		$return = $rmb->InsertCandidate($URIEncryptedString["SystemUser_ID"], NULL, NULL, NULL, 
-																		$CandidateElection["CandidateElection_ID"], $CandidateElection["Party"], 
-																		$URIEncryptedString["CPrep_Full"],
-																		$Address, $CandidateElection["DBTable"], 
-																		$CandidateElection["DBValue"],	NULL, "pending", $_POST["Label"]);		
-		
-		$MatchTableName = array(
-			"Fist"	 => $URIEncryptedString["CPrep_First"], 
-			"Last"	 => $URIEncryptedString["CPrep_Last"], 
-			"Full"	 => $URIEncryptedString["CPrep_Full"], 
-			"Email"	 => $URIEncryptedString["CPrep_Email"],
-		);
+		$Candidate = $rmb->InsertCandidate($URIEncryptedString["SystemUser_ID"], $URIEncryptedString["UniqNYSVoterID"], 
+													$URIEncryptedString["Voters_ID"], 
+													$URIEncryptedString["County_ID"], $ElectionType, 
+													$URIEncryptedString["CPrep_Party"], $URIEncryptedString["FullName"],
+													$URIEncryptedString["AddressLine1"] . "\n" . $URIEncryptedString["AddressLine2"], 
+													$URIEncryptedString["TypeElection"][0], $URIEncryptedString["TypeValue"][0], NULL, 
+													"published", $URIEncryptedString["ActiveTeam_ID"]);
 
-		WriteStderr($return, "Return of InsertCandidate()");
-
-		$profile_candidate = $rmb->updatecandidateprofile($return["Candidate_ID"], $MatchTableName);	
-		WriteStderr($profile_candidate, "profile_candidate\n");		
-		$rmb->addcandidateprofileid($return["Candidate_ID"], $profile_candidate["CandidateProfile_ID"]);
-	
-		if ($_POST["Comittee"] == "on") {
-			header("Location: /" . $k . "/lgd/team/petitioncommittee");
-			exit();
-		}
-
-		header("Location: /" . $k . "/lgd/team/teamcandidate");
-		exit();
+		$CandidateSet = $rmb->NextPetitionSet($URIEncryptedString["SystemUser_ID"]);
+		$FinalCandidate = $rmb->InsertCandidateSet($Candidate["Candidate_ID"], $CandidateSet["CandidateSet"], $URIEncryptedString["CPrep_Party"], 
+															$URIEncryptedString["County_ID"]);		
 	}
-		
-	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	
-	$ElectionsDates = $rmb->ListElectionsDates(50, 0, false, $URIEncryptedString["DataState_ID"]);
-	WriteStderr($ElectionsDates, "ElectionsDates");	
+	header("Location: /" .  CreateEncoded ( array( 
+									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+				)) . "/lgd/team/teampetitions");
+				
+	exit();
 		
-	$ElectionsTypes = $rmb->ListElectedPositions($URIEncryptedString["DataState_ID"], "id");
-	WriteStderr($ElectionsTypes, "ElectionsTypes");	
-
-
-	$TopMenus = array ( 
-		array("k" => $k, "url" => "team/index", "text" => "Team Members"),
-		array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-		array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
-	);
-					
-	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
-	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
 ?>
-<div class="row">
-  <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-  		<div class="<?= $Cols ?> float-left">
-    
-			  <!-- Public Profile -->
-			  <div class="Subhead mt-0 mb-0">
-			    <h2 id="public-profile-heading" class="Subhead-heading">Update election details</h2>
-			  </div>
-  
-				<?php	PlurialMenu($k, $TopMenus); ?>
-
-
-			  <div class="clearfix gutter d-flex flex-shrink-0">
-		
-					<div class="col-16">
 	
-						<?= $error_msg ?>
-						
-					  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
-							<div>
-								<dl class="form-group col-6 d-inline-block"> 
-									<dt><label for="user_profile_name">Election Date</label></DT>
-									<dd>
-										<SELECT NAME="ElectionData">
-											<OPTION VALUE="">&nbsp;</OPTION>
-											
-										<?php WriteStderr($ElectionsDates, "Elections Day");	 ?>
-											
-										<?php if (! empty ($ElectionsDates)) {
-														foreach ($ElectionsDates as $var) {
-															if ( ! empty ($var)) { ?>
-																<OPTION VALUE="<?= $var["Elections_ID"] ?>"><?= $var["DataState_Abbrev"] . " - " . 
-																											ucfirst($var["Elections_Type"]) . ": " . $var["Elections_Text"] . 
-																											" (" . $var["Elections_Date"] .")" ?></OPTION>
-										<?php     }
-														}
-													} ?>
-										</SELECT>
-										
-									</dd>
-								</dl>
-						</DIV>
-							
-							<div>
-										
-								<dl class="form-group col-5 d-inline-block"> 
-									<dt><label for="user_profile_name">Election Type</label></DT>
-									<dd>
-										<SELECT NAME="ElectionType">
-											<OPTION VALUE="">&nbsp;</OPTION>
-										<?php if (! empty ($ElectionsTypes)) {
-														foreach ($ElectionsTypes as $var) {
-															if ( ! empty ($var)) { ?>
-																<OPTION VALUE="<?= $var["ElectionsPosition_ID"] ?>"><?=  
-																	
-																								$var["ElectionsPosition_Party"] . " " . 
-																											ucfirst($var["ElectionsPosition_Type"]) . ": " . 
-																											$var["ElectionsPosition_Name"] ?>
-																										
-										<?php     }
-														}
-													} ?>
-										</SELECT>
-									</dd>
-								</dl>
-								
-								
-								
-						</DIV>
-						
-					
-								
-									
-
-								<p><button type="submit" class="submitred">Setup the candidate petition</button></p>
-			
-							</form> 
-			
-							</div>
-				  	</div>
-			  	</div>
-				</div>
-			</div>		
-		</div>
-	</div>
-
-
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>
+	

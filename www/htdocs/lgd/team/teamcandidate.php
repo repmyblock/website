@@ -9,7 +9,13 @@
 
 	$rmb = new repmyblock();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-	WipeURLEncrypted();
+	WipeURLEncrypted( array("ActiveTeam", "ActiveTeam_ID") );
+	
+	if (empty ($URIEncryptedString["ActiveTeam_ID"])) {
+		print "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
+		print "Problem with TeamID => " . $URIEncryptedString["Team_ID"] . "<BR>";
+		exit();
+	}
 	  
 	// Check if there are Candidates associated to this userid.
 	// $ListPetitions = $rmb->ListCandidateInformation($URIEncryptedString["SystemUser_ID"]);

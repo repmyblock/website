@@ -50,20 +50,13 @@
 	}
 	if ( ! empty ($rmbperson["DataLastName_Text"])) { $DisplayName .= $rmbperson["DataLastName_Text"]; }
 	
-	$TypeOfPetition = "published";
-	
-	
-	
-	print $rmbperson["SystemUser_ID"] . "," . $rmbperson["Voters_UniqStateVoterID"] . "," . $rmbperson["Voters_ID"] . "," . 
-														$rmbperson["DataCounty_ID"] . "," . $listelection[0]["CandidateElection_ID"] . "," .  
-														$rmbperson["Voters_RegParty"] . "," . $DisplayName  . "," . $Address . "," .  
-														$DBTable . "," .  $EDAD . "," . 	
-														NULL . "," .  $TypeOfPetition . "\n";	
+	$TypeOfPetition = "published";														
 														
 	$finalresult = $rmb->InsertCandidate($rmbperson["SystemUser_ID"], $rmbperson["Voters_UniqStateVoterID"], $rmbperson["Voters_ID"], 
 														$rmbperson["DataCounty_ID"], $listelection[0]["CandidateElection_ID"], $rmbperson["Voters_RegParty"], 
 														$DisplayName,	$Address, $DBTable , $EDAD,	NULL, $TypeOfPetition);
 														
+																												
 	$GetSetNumber = $rmb->NextPetitionSet($URIEncryptedString["SystemUser_ID"]);
 	$GetGroupID = $rmb->InsertCandidateSet($finalresult["Candidate_ID"], $GetSetNumber["CandidateSet"], $rmbperson["Voters_RegParty"], 
 																				$rmbperson["DataCounty_ID"], 1, "yes");

@@ -51,8 +51,15 @@
 		$rmbteaminfo = $rmb->ListAllInfoForTeam($ActiveTeam_ID);
 	}
 	
-	
-	
+	WriteStderr($k, "K BEFORE");
+	$k = CreateEncoded (
+				array( 
+								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+								"ActiveTeam" => $ActiveTeam,
+								"ActiveTeam_ID" => $ActiveTeam_ID,
+							)
+				);
+	WriteStderr($k, "K AFTER");
 	WriteStderr($rmbteaminfo, "RMB Team Member Info");
 	
 	$TopMenus = array ( 						

@@ -4,13 +4,19 @@
 	$Menu = "team";  
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_teams.php"; 
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	$rmb = new repmyblock();
+  
+	$rmb = new Teams();
 	WriteStderr($URIEncryptedString, "URIEncryptedString");	
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-	$Party = PrintParty($UserParty);
+	
+	if (empty ($URIEncryptedString["ActiveTeam_ID"])) {
+		print "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
+		print "Problem with TeamID => " . $URIEncryptedString["ActiveTeam_ID"] . "<BR>";
+		exit();
+	}
 
 	if ( ! empty ($_POST["Year"])) {
 		WriteStderr($_POST, "Input \$_POST");
@@ -46,7 +52,8 @@
 								"LastName" => $URIEncryptedString["LastName"],
 								"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
 								"UniqNYSVoterID" => $result[0]["Raw_Voter_UniqNYSVoterID"],
-								"UserParty" => $result[0]["Raw_Voter_RegParty"]
+								"UserParty" => $result[0]["Raw_Voter_RegParty"],
+								"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
 							))  . "/lgd/team/voterresult");
 				exit();
 			
@@ -68,6 +75,7 @@
 								"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
 								"UserParty" => $resultPass["Raw_Voter_RegParty"],
 								"SystemAdmin" => $resultPass["SystemUser_Priv"],
+								"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
 								"vi[]" => $var["VotersIndexes_ID"]
 							))   . "/lgd/team/voterselect");
 				exit();

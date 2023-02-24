@@ -48,6 +48,13 @@
 	padding: 0px 10px 0px;
 }
 
+.table-body-cell-left{
+	display: table-cell;
+	border: 1px solid black;
+	text-align: left;
+	padding: 0px 10px 0px;
+}
+
 .table-body-cell-wide{
 	border:1px solid black; 
 	caption-side: bottom; 

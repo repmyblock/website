@@ -34,8 +34,7 @@ class Teams extends RepMyBlock {
 						"WHERE (TeamMember.SystemUser_ID = :SystemUser AND (TeamMember_Active = :Active OR TeamMember_Active = 'pending')) " .
 						" OR (Team_Public = 'public' AND Team_Active = :Active)";
 						
-		WriteStderr($sql, "ListActiveTeam");	
-						
+		WriteStderr($sql, "ListActiveTeam");
 		$sql_vars = array("SystemUser" => $SystemUserID, "Active" => $Active);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
@@ -47,8 +46,28 @@ class Teams extends RepMyBlock {
 						"LEFT JOIN Candidate ON (Candidate.Candidate_UniqStateVoterID = SystemUser.Voters_UniqStateVoterID AND Candidate.Team_ID = Team.Team_ID) " .
 						"LEFT JOIN CandidateGroup ON (Candidate.Candidate_ID = CandidateGroup.Candidate_ID) " .
 						"WHERE Team.SystemUser_ID = :SystemID AND Candidate.Candidate_UniqStateVoterID IS NOT NULL";
+						
 		WriteStderr($sql, "ListActiveTeam");	
 		$sql_vars = array("SystemID" => $SystemUser_ID);		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	function FindInPartyCall($ElectionID, $County, $Party, $DBTable, $DBValue) {
+		$sql = "SELECT * FROM ElectionsPartyCall WHERE " .
+						"Elections_ID = :ElectionID AND DataCounty_ID = :County AND " .
+						"ElectionsPartyCall_Party = :Party AND ElectionsPartyCall_DBTable = :DBTable AND " . 
+						"ElectionsPartyCall_DBTableValue = :DBValue";
+		$sql_vars = array("ElectionID" => $ElectionID, "County" => $County,  "Party" => $Party, 
+											"DBTable" => $DBTable, "DBValue" => $DBValue);		
+		return $this->_return_simple($sql, $sql_vars);
+	}
+	
+	function FindElectionType($ElectionID, $RegParty, $TypeElection, $TypeValue) {
+		$sql = "SELECT * FROM CandidateElection WHERE Elections_ID = :ElectionID AND " .
+						"CandidateElection_Party = :Party AND CandidateElection_DBTable = :DBTable AND " .
+						"CandidateElection_DBTableValue = :DBValue";
+						
+		$sql_vars = array("ElectionID" => $ElectionID, "Party" => $RegParty, "DBTable" => $TypeElection, "DBValue" => $TypeValue);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
@@ -168,6 +187,33 @@ class Teams extends RepMyBlock {
 			return $this->_return_nothing($sql, $sql_vars);
 		}
 	}	
+	
+	function CheckCandidates($VotersID, $Party, $DBTable, $DBValue, $Team_ID = NULL ) {
+		$sql = "SELECT * FROM Candidate WHERE Voters_ID = :VoterID AND " . 
+						"CandidateElection_DBTable = :DBTable AND CandidateElection_DBTableValue = :DBValue";
+					
+		$sql_vars = array("VoterID" => $VotersID,	"DBTable" => $DBTable, "DBValue" => $DBValue);
+											
+		if ( ! empty ($Party)) {
+			$sql .= " AND Candidate_Party = :Party";
+			$sql_vars["Party"] = $Party;
+		} else {
+			$sql .= " AND Candidate_Party IS NULL";
+		}
+		
+		if ( ! empty ($Team_ID)) {
+			$sql .= " AND Team_ID = :Team_ID";
+			$sql_vars["Team_ID"] = $Team_ID;
+		} else {
+			$sql .= " AND Team_ID IS NULL";
+		}
+													
+		echo "<PRE>SQL: $sql<BR>";
+		echo print_r($sql_vars, 1) . "<BR></PRE>";
+													
+		return $this->_return_simple($sql, $sql_vars);	
+	}
+	
 	
 }
 ?>
