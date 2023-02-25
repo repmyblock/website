@@ -36,6 +36,8 @@
 	
 	
 	$listelection = $rmb->CandidateElection($DBTable, $EDAD, "2021-12-10", $rmbperson["Voters_RegParty"]);
+	WriteStderr($listelection, "List Election");
+	
 	
 	// The addresses will need to be fixed as well.
 	$Address = $rmbperson["DataAddress_HouseNumber"] . " " . $rmbperson["DataStreet_Name"] . " - Apt " . $rmbperson["DataHouse_Apt"] . "\n" .
@@ -43,15 +45,17 @@
 	
 
 	if ( ! empty ($rmbperson["DataFirstName_Text"])) { $DisplayName = $rmbperson["DataFirstName_Text"] . " "; }
-	if (strlen ($rmbperson["DataMiddleName_Text"]) > 1 ) {
-		$DisplayName .= $rmbperson["DataMiddleName_Text"] . " ";
-	} else {
-		$DisplayName .= strtoupper($rmbperson["DataMiddleName_Text"]) . " ";
+	
+	if ( ! empty ($rmbperson["DataMiddleName_Text"])) {
+		if (strlen ($rmbperson["DataMiddleName_Text"]) > 1 ) {
+			$DisplayName .= $rmbperson["DataMiddleName_Text"] . " ";
+		} else {
+			$DisplayName .= strtoupper($rmbperson["DataMiddleName_Text"]) . " ";
+		}
 	}
 	if ( ! empty ($rmbperson["DataLastName_Text"])) { $DisplayName .= $rmbperson["DataLastName_Text"]; }
 	
 	$TypeOfPetition = "published";														
-														
 	$finalresult = $rmb->InsertCandidate($rmbperson["SystemUser_ID"], $rmbperson["Voters_UniqStateVoterID"], $rmbperson["Voters_ID"], 
 														$rmbperson["DataCounty_ID"], $listelection[0]["CandidateElection_ID"], $rmbperson["Voters_RegParty"], 
 														$DisplayName,	$Address, $DBTable , $EDAD,	NULL, $TypeOfPetition);

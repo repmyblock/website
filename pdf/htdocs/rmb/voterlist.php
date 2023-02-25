@@ -61,7 +61,7 @@ if ($URIEncryptedString["AD"] > 0 && $URIEncryptedString["ED"] > 0) {
 	
 	preg_match('/(\d\d)(\d\d\d)/', $WalkSheetUser["CandidateElection_DBTableValue"], $Keywords);		
 	$DataQuery = array("AD" => intval($Keywords[1]), "ED" => intval($Keywords[2]), 
-											"PT" => $WalkSheetUser["CandidateElection_Party"]);
+											"PT" => $WalkSheetUser["Candidate_Party"]);
 	$voters = $db_RMB_voterlist->SearchVotersFile($DataQuery);
 
 	$PreparedFor = $WalkSheetUser["Candidate_DispName"];

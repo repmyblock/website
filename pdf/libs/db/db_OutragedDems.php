@@ -38,7 +38,7 @@ class OutragedDems extends queries {
 						"Voters_RecLastSeen, VotersIndexes_Suffix, VotersIndexes_DOB, VotersIndexes_UniqStateVoterID, " . 
 						"DataLastName_Text, DataFirstName_Text, DataMiddleName_Text, DataCounty_Name, " .
 						"DataDistrict_Electoral, DataDistrict_StateAssembly, DataDistrict_StateSenate, DataDistrict_Legislative, " . 
-						"DataDistrict_Ward, DataDistrict_Congress, DataDistrict_Council, DataDistrict_CivilCourt, DataDistrict_Judicial, " .
+						"DataDistrict_Ward, DataDistrict_Congress, " .
 						"DataHouse_Type, DataHouse_Apt "; 
 		
 		
