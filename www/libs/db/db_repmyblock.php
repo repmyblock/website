@@ -447,7 +447,8 @@ class RepMyBlock extends queries {
 	function ListCandidateInformation($SystemUserID) {
 		$sql = "SELECT * FROM Candidate " . 
 						"LEFT JOIN CandidateGroup ON (Candidate.Candidate_ID = CandidateGroup.Candidate_ID) " . 
-						"WHERE SystemUser_ID = :SystemUserID";
+						"LEFT JOIN CandidateSet ON (CandidateGroup.CandidateSet_ID = CandidateSet.CandidateSet_ID) " .
+						"WHERE Candidate.SystemUser_ID = :SystemUserID";
 		return $this->_return_multiple($sql, array('SystemUserID' => $SystemUserID));
 	}
 	
@@ -564,9 +565,6 @@ class RepMyBlock extends queries {
 		$sql = "SELECT LAST_INSERT_ID() as CandidateSet_ID";
 		return $this->_return_simple($sql);
 	}
-	
-	
-	
 	
 	function InsertCandidate($SystemUserID, $UniqNYSVoterID, $RawVoterID, $DataCountyID, $CandidateElectionID, $Party, $DisplayName,
 														$Address, $DBTable, $DBValue,	$StatsVoters, $Status, $TeamID = NULL, $NameSet = NULL) {

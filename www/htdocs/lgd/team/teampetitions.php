@@ -74,11 +74,11 @@
 									<div id="resp-table">
 										<div id="resp-table-header">
 											<div class="table-header-cell">Party</div>
-											<div class="table-header-cell">First</div>
-											<div class="table-header-cell">Last</div>
-											<div class="table-header-cell">AD</div>
-											<div class="table-header-cell">ED</div>
-											<div class="table-header-cell">TOWN</div>
+											<div class="table-header-cell">Candidate Name</div>
+											<div class="table-header-cell">Type</div>
+											<div class="table-header-cell">District</div>
+											<div class="table-header-cell">Town</div>
+											<div class="table-header-cell">Status</div>
 											<div class="table-header-cell">Sigs.</div>
 											<div class="table-header-cell">Done</div>
 											<div class="table-header-cell">&nbsp;</div>
@@ -90,7 +90,7 @@
 									<?php 
 			if ( ! empty ($ListPetitions) ) {
 				foreach ($ListPetitions as $var) {
-					if ( ! empty ($var["CandidateSet_Random"]) ) {
+					if ( ! empty ($var["CandidateSet_ID"]) ) {
 						
 							
 						$NewKEncrypt = CreateEncoded(array(
@@ -100,23 +100,37 @@
 													));
 													
 						#						$style = "color:brown;style:bold;background-color:lightgrey;font-weight: bold;";
-											
+											 
+													
+						$GetCandidatesForSet = $rmb->ListPetitionGroup($var["CandidateSet_ID"]);
+						WriteStderr($GetCandidatesForSet, "\n\n\n\n\n\n\n\nGetCandidatesForSet");	
+										
 		?>
-							
-									
-									
-									
+	
 										<div id="resp-table-body">
 											<div class="resp-table-row">
-												<div class="table-body-cell"><?= $var["SystemUser_Party"] ?>
+												<div class="table-body-cell"><?= $var["Candidate_Party"] ?></div>
+												<div class="table-body-cell-left"><?php 
+													foreach ($GetCandidatesForSet as $vor) { if (! empty ($vor)) { echo $vor["Candidate_DispName"] . "<BR>"; } }
+												?><A HREF="/<?= CreateEncoded ( array( 
+																								"SystemUser_ID" => $var["SystemUser_ID"],
+																								"ActiveTeam_ID" => $var["Team_ID"],
+																								"Candidate_ID" => $var["Candidate_ID"],
+																								"ActiveTeam" => $URIEncryptedString["ActiveTeam"],
+																					)) . "/lgd/team/addtopetition" ?>">(+ add folks)</A></div>
+												<div class="table-body-cell"><?php 
+													foreach ($GetCandidatesForSet as $vor) { if (! empty ($vor)) { echo $vor["CandidateElection_DBTable"] . "<BR>"; } }
+												?></div>
+												<div class="table-body-cell"><?php 
+													foreach ($GetCandidatesForSet as $vor) { if (! empty ($vor)) { echo $vor["CandidateElection_DBTableValue"] . "<BR>"; } }
+												?></div>
+												<div class="table-body-cell"><?= $var["DataDistrict_Electoral"] ?></div>
+												<div class="table-body-cell"><?= $var["Candidate_Status"] ?></div>
+												<div class="table-body-cell">0</div>
+												<div class="table-body-cell">0</div>
+												<div class="table-body-cell">
 													
-													
-													<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= $var["CandidateSet_Random"] ?>/NY/petition">		
-															<?= $var["Candidate_DispName"] ?>
-															<?php if ( ! empty ($var["Candidate_PetitionNameset"])) { echo "(" . $var["Candidate_PetitionNameset"] . ")"; } ?>
-															in <B><?= $var["Candidate_Status"] ?></B> status.</A>
-																				
-																<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= $var["CandidateSet_Random"] ?>/NY/petition"><i class="fa fa-download"></i></A>
+														<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= $var["CandidateSet_Random"] ?>/NY/petition"><i class="fa fa-download"></i></A>
 																	
 																<A TARGET="NEWWALKSHEET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded ( array( 
 																								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
@@ -132,18 +146,9 @@
 																								"Party" => $rmbteammember["Voters_RegParty"],
 																								"TeamName" => $ActiveTeam,
 																								"TeamPerson" =>  $rmbperson["DataFirstName_Text"] . " " . $rmbperson["DataLastName_Text"],
-																					)) . "/rmb/voterlist" ?>">Download a walksheet</A>
-																										
+																					)) . "/rmb/voterlist" ?>">Walksheet</A><BR>
 													
-													</div>
-												<div class="table-body-cell"><?= $var["SystemUser_FirstName"] ?></div>
-												<div class="table-body-cell"><?= $var["SystemUser_LastName"] ?></div>
-												<div class="table-body-cell"><?= $var["DataDistrict_StateAssembly"] ?></div>
-												<div class="table-body-cell"><?= $var["DataDistrict_Electoral"] ?></div>
-												<div class="table-body-cell"><?= $var["DataDistrictTown_Name"] ?></div>
-												<div class="table-body-cell">0</div>
-												<div class="table-body-cell">0</div>
-												<div class="table-body-cell"><A HREF="/<?=  CreateEncoded (
+													<A HREF="/<?=  CreateEncoded (
 																												array( 
 																													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 																													"Team_ID" => $_POST["Team_ID"],
@@ -151,12 +156,7 @@
 																												)
 																									); ?>/lgd/team/memberinfo"">Member Info</A></div>
 											</div>													
-										</div>
-								
-								
-									
-								
-									
+										</div>									
 								<?php }
 							}   
 										
