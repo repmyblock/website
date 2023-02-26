@@ -329,7 +329,7 @@ class Teams extends RepMyBlock {
   }
   
   function CheckCandidateGroups ($CandidatesIDs) {
-  	$sql = "SELECT * FROM RepMyBlockTwo.CandidateGroup WHERE "; 
+  	$sql = "SELECT * FROM CandidateGroup WHERE "; 
   	
    	if ( ! empty ($CandidatesIDs)) {
 	  	foreach ($CandidatesIDs as $index => $var) {
