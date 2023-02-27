@@ -38,6 +38,42 @@ class RepMyBlock extends queries {
 		}
 	}
 	
+	function PartyCallInfo($Party, $Election, $DTable, $DValue) {
+		
+		$sql = "SELECT * FROM ElectionsDistrictsConv " .
+						"LEFT JOIN ElectionsPartyCall ON (" .
+						"ElectionsPartyCall.ElectionsPartyCall_DBTable = ElectionsDistrictsConv.ElectionsDistrictsConv_DBTable AND " .
+						"ElectionsPartyCall.ElectionsPartyCall_DBTableValue = ElectionsDistrictsConv.ElectionsDistrictsConv_DBTableValue AND " .
+						"ElectionsPartyCall.Elections_ID = ElectionsDistrictsConv.Elections_ID) " .
+						"LEFT JOIN ElectionsPosition ON (" . 
+						"ElectionsPosition.ElectionsPosition_ID = ElectionsDistrictsConv.ElectionsPosition_ID";
+		if ( ! empty ($Party)) {
+			$sql .= 	" AND ElectionsPartyCall.ElectionsPartyCall_Party = ElectionsPosition.ElectionsPosition_Party";
+		} 
+		$sql .= ") " .
+						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = ElectionsDistrictsConv.DataCounty_ID) " . 
+						"WHERE ElectionsDistrictsConv.Elections_ID = :ElectionID AND ElectionsDistricts_DBTableValue = :Position AND " . 
+						"ElectionsPosition_DBTable = :DTable ";
+						
+		$sql_vars = array("ElectionID" => $Election, "DTable" =>  $DTable, "Position" => $DValue);
+		
+		if ( ! empty ($Party)) {
+			$sql .= " AND ElectionsPosition_Party = :Party";
+			$sql_vars["Party"] = $Party;
+		} else {
+			$sql .= " AND ElectionsPosition_Party IS NULL";
+		}
+					
+		return $this->_return_multiple($sql, $sql_vars);						
+	}
+
+	
+	function ListPartyCall($Election_ID) {
+		$sql = "SELECT * FROM ElectionsPartyCall WHERE Elections_ID = :ElectionID";
+		$sql_vars = array("ElectionID" => $Election_ID);
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
 	function ReturnTeamInfo($SystemUser_ID, $Team_ID, $Active = 'yes') {
 		$sql = "SELECT * FROM TeamMember WHERE SystemUser_ID = :SystemUser AND Team_ID = :TeamID AND TeamMember_Active = :Active";
 		$sql_vars = array("SystemUser" => $SystemUser_ID, "TeamID" => $Team_ID, "Active" => $Active);
