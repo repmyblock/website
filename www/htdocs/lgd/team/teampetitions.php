@@ -92,7 +92,7 @@
 				foreach ($ListPetitions as $var) {
 					if ( ! empty ($var["CandidateSet_ID"]) ) {
 						
-							
+							WriteStderr($var, "VAR in Petitions");	
 						$NewKEncrypt = CreateEncoded(array(
 														"CandidatePetitionSet_ID" => $var["CandidatePetitionSet_ID"],	
 														"Candidate_ID" => $var["Candidate_ID"],	
@@ -103,7 +103,11 @@
 											 
 													
 						$GetCandidatesForSet = $rmb->ListPetitionGroup($var["CandidateSet_ID"]);
-						WriteStderr($GetCandidatesForSet, "\n\n\n\n\n\n\n\nGetCandidatesForSet");	
+						WriteStderr($GetCandidatesForSet, "GetCandidatesForSet");	
+						
+						if ( ! empty ($var["CandidateElection_DBTable"])) {
+							preg_match('/(\d{2})(\d{3})/', $var["CandidateElection_DBTableValue"], $District, PREG_OFFSET_CAPTURE);
+						}
 										
 		?>
 	
@@ -123,6 +127,7 @@
 												?></div>
 												<div class="table-body-cell"><?php 
 													foreach ($GetCandidatesForSet as $vor) { if (! empty ($vor)) { echo $vor["CandidateElection_DBTableValue"] . "<BR>"; } }
+													
 												?></div>
 												<div class="table-body-cell"><?= $var["DataDistrict_Electoral"] ?></div>
 												<div class="table-body-cell"><?= $var["Candidate_Status"] ?></div>
@@ -131,30 +136,21 @@
 												<div class="table-body-cell">
 													
 														<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= $var["CandidateSet_Random"] ?>/NY/petition"><i class="fa fa-download"></i></A>
-																	
-																<A TARGET="NEWWALKSHEET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded ( array( 
-																								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																								"VoterSystemUser_ID" => $rmbteammember["SystemUser_ID"],
-																								"VotersIndexes_ID" => $rmbteammember["Voters_ID"],
-																								"UniqNYSVoterID" => $rmbteammember["VotersIndexes_UniqStateVoterID"],						
-																						    "PetitionStateID" => $rmbteammember["ElectionStateID"],
-																						    "FirstName" => $rmbteammember["DataFirstName_Text"],
-																						    "LastName" => $rmbteammember["DataLastName_Text"],
-																						    "PreparedFor" => $VoterFullName,
-																						    "DataDistrict_ID" => $rmbteammember["DataDistrict_ID"],
-																						    "DataDistrictTown_ID" => $rmbteammember["DataDistrictTown_ID"],
-																								"Party" => $rmbteammember["Voters_RegParty"],
-																								"TeamName" => $ActiveTeam,
-																								"TeamPerson" =>  $rmbperson["DataFirstName_Text"] . " " . $rmbperson["DataLastName_Text"],
-																					)) . "/rmb/voterlist" ?>">Walksheet</A><BR>
+														
+														<A TARGET="PETITIONSET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= $var["CandidateSet_Random"] ?>/NY/petition">Petitions</A>
 													
-													<A HREF="/<?=  CreateEncoded (
-																												array( 
-																													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																													"Team_ID" => $_POST["Team_ID"],
-																											    "TeamMember_ID" => $var["TeamMember_ID"]
-																												)
-																									); ?>/lgd/team/memberinfo"">Member Info</A></div>
+													<?php if ( ! empty ($var["CandidateElection_DBTable"])) { ?>			
+														<BR><A TARGET="NEWWALKSHEET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded ( array( 
+																								"DataDistrict_ID" => "1",
+																								"PreparedFor" => $var["Candidate_DispName"],
+																								"ED" => $District[2][0],
+																							  "AD" => $District[1][0],
+																							  "Party" => $var["Candidate_Party"],
+																							  "SystemID" => $var["Candidate_ID"]
+																							)) . "/rmb/voterlist" ?>">Walksheet</A><BR>
+													<?php } ?>
+													
+												</div>
 											</div>													
 										</div>									
 								<?php }

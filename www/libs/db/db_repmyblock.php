@@ -220,6 +220,25 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql); 	
 	}
 	
+	function FindElectionType($ElectionID, $RegParty, $TypeElection, $TypeValue) {
+		$sql = "SELECT * FROM CandidateElection WHERE Elections_ID = :ElectionID AND " .
+						"CandidateElection_Party = :Party AND CandidateElection_DBTable = :DBTable AND " .
+						"CandidateElection_DBTableValue = :DBValue";
+						
+		$sql_vars = array("ElectionID" => $ElectionID, "Party" => $RegParty, "DBTable" => $TypeElection, "DBValue" => $TypeValue);		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	function FindInPartyCall($ElectionID, $County, $Party, $DBTable, $DBValue) {
+		$sql = "SELECT * FROM ElectionsPartyCall WHERE " .
+						"Elections_ID = :ElectionID AND DataCounty_ID = :County AND " .
+						"ElectionsPartyCall_Party = :Party AND ElectionsPartyCall_DBTable = :DBTable AND " . 
+						"ElectionsPartyCall_DBTableValue = :DBValue";
+		$sql_vars = array("ElectionID" => $ElectionID, "County" => $County,  "Party" => $Party, 
+											"DBTable" => $DBTable, "DBValue" => $DBValue);		
+		return $this->_return_simple($sql, $sql_vars);
+	}
+	
 	function FindElectionInfoForPetition ($DistrictID, $DBTable = NULL, $Party = NULL, $DateToMatch = true) {
 		$sql = "SELECT *, UNIX_TIMESTAMP(Elections_Date) AS UnixElection_Date ";
 		

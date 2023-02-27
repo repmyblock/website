@@ -40,8 +40,8 @@
 	
 	
 	// The addresses will need to be fixed as well.
-	$Address = $rmbperson["DataAddress_HouseNumber"] . " " . $rmbperson["DataStreet_Name"] . " - Apt " . $rmbperson["DataHouse_Apt"] . "\n" .
-						 $rmbperson["DataCity_Name"] . ", " . $rmbperson["DataState_Abbrev"] . " " . $rmbperson["DataAddress_zipcode"];
+	$Address1 = $rmbperson["DataAddress_HouseNumber"] . " " . $rmbperson["DataStreet_Name"] . " - Apt " . $rmbperson["DataHouse_Apt"]; 
+ 	$Address2 = $rmbperson["DataCity_Name"] . ", " . $rmbperson["DataState_Abbrev"] . " " . $rmbperson["DataAddress_zipcode"];
 	
 
 	if ( ! empty ($rmbperson["DataFirstName_Text"])) { $DisplayName = $rmbperson["DataFirstName_Text"] . " "; }
@@ -55,16 +55,25 @@
 	}
 	if ( ! empty ($rmbperson["DataLastName_Text"])) { $DisplayName .= $rmbperson["DataLastName_Text"]; }
 	
-	$TypeOfPetition = "published";														
-	$finalresult = $rmb->InsertCandidate($rmbperson["SystemUser_ID"], $rmbperson["Voters_UniqStateVoterID"], $rmbperson["Voters_ID"], 
-														$rmbperson["DataCounty_ID"], $listelection[0]["CandidateElection_ID"], $rmbperson["Voters_RegParty"], 
-														$DisplayName,	$Address, $DBTable , $EDAD,	NULL, $TypeOfPetition);
-														
-																												
-	$GetSetNumber = $rmb->NextPetitionSet($URIEncryptedString["SystemUser_ID"]);
-	$GetGroupID = $rmb->InsertCandidateSet($finalresult["Candidate_ID"], $GetSetNumber["CandidateSet"], $rmbperson["Voters_RegParty"], 
-																				$rmbperson["DataCounty_ID"], 1, "yes");
-
+	$PetitionData = array (	
+										"Elections_ID" => "1374",
+										"Voters_RegParty" => $rmbperson["Voters_RegParty"], 
+										"TypeElection" => $DBTable,
+										"TypeValue" => $EDAD,
+										"County_ID" => $rmbperson["DataCounty_ID"],
+										"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"], 
+										"AddressLine1" => $Address1, 
+										"AddressLine2" => $Address2, 
+										"CPrep_Party" => $rmbperson["Voters_RegParty"], 
+										"FullName" => $DisplayName, 
+										"SystemUser_ID"  => $URIEncryptedString["SystemUser_ID"], 
+										"UniqNYSVoterID"  => $URIEncryptedString["UniqNYSVoterID"], 
+										"Voters_ID" => $URIEncryptedString["Voters_ID"], 
+										
+									);
+	WriteStderr($result, "PetitionData");	
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/createcandidatepositions.php";	
+	
 	// We need to add to the permission access to download petitions.
 	// PERM_MENU_DOWNLOADS			
 	$rmb->UpdateSystemPriv($URIEncryptedString["SystemUser_ID"], PERM_MENU_DOWNLOADS);			

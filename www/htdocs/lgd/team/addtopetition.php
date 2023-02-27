@@ -68,13 +68,15 @@
 	WriteStderr($URIEncryptedString, "URIEncryptedString");	
 
 	// I NEED TO FIX THE PARTY HERE
-	$OtherCandidatesConv = $rmb->FindPositionsInConv("1374", "DEM", $URIEncryptedString["Candidate_ID"]);
+	$OtherCandidatesConvTo = $rmb->FindPositionsInToConv("1374", "DEM", $URIEncryptedString["Candidate_ID"]);
 	$OtherCandidatesSame = $rmb->FindPositionsInSame("1374", $URIEncryptedString["ActiveTeam_ID"], $URIEncryptedString["Candidate_ID"]);
+	$OtherCandidatesConvFrom = $rmb->FindPositionsInFromConv("1374", "DEM", $URIEncryptedString["Candidate_ID"]);
 
-	WriteStderr($OtherCandidatesConv, "OtherCandidatesConv");	
+	WriteStderr($OtherCandidatesConvTo, "OtherCandidatesConvTo");	
 	WriteStderr($OtherCandidatesSame, "OtherCandidatesSame");	
+	WriteStderr($OtherCandidatesConvFrom, "OtherCandidatesConvFrom");	
 	
-	$OtherCandidates = array_merge($OtherCandidatesConv, $OtherCandidatesSame);
+	$OtherCandidates = array_merge($OtherCandidatesConvFrom, $OtherCandidatesConvTo, $OtherCandidatesSame);
 
 	$EncryptURL = EncryptURL("CandidateID=" . $Candidate_ID . "&PetitionSetID=" . $CandidatePetitionSet_ID);
 	
