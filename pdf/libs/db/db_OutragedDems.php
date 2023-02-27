@@ -249,7 +249,6 @@ class OutragedDems extends queries {
 	}
   
   function ListVotersForDataDistrict($DataDistrictID) {
-  	
   	if ( $DataDistrictID > 0) {
   		
   		$sql = "SELECT * " .
@@ -273,7 +272,6 @@ class OutragedDems extends queries {
 		}	
 	}
 	
-	
 	function FindElection($DBTable, $DBValue, $Party, $MysqlDate) {
 		$sql = "SELECT * FROM ElectionsPosition " .
 						"LEFT JOIN CandidateElection ON ( ElectionsPosition.ElectionsPosition_DBTable = CandidateElection.CandidateElection_DBTable) " .
@@ -286,7 +284,6 @@ class OutragedDems extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
   }
 		
-  
   function SelectObjections ($Objection_ID) {
   	$sql = "SELECT * FROM FillingObjections " . 
   					"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = FillingObjections.DataCounty_ID) " .
@@ -306,49 +303,6 @@ class OutragedDems extends queries {
 		return $County["DataCounty_Name"];	
 	}
 
-	function DB_ReturnAddressLine1($vor) {
-		$Address_Line1 = "";
-		if ( ! empty ($vor["ResHouseNumber"])) { $Address_Line1 .= $vor["ResHouseNumber"] . " "; }		
-		if ( ! empty ($vor["ResFracAddress"])) { $Address_Line1 .= $vor["ResFracAddress"] . " "; }		
-		if ( ! empty ($vor["ResPreStreet"])) { $Address_Line1 .= $vor["ResPreStreet"] . " "; }		
-		$Address_Line1 .= $vor["ResStreetName"] . " ";
-		if ( ! empty ($vor["ResPostStDir"])) { $Address_Line1 .= $vor["ResPostStDir"] . " "; }		
-		//if ( ! empty ($vor["Raw_Voter_ResApartment"])) { $Address_Line1 .= "- Apt. " . $vor["Raw_Voter_ResApartment"]; }
-		$Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
-		return $Address_Line1;
-  }
-  
-  function DB_ReturnAddressLine1Apt($vor) {
-		$Address_Line1 = "";
-		if ( ! empty ($vor["ResHouseNumber"])) { $Address_Line1 .= $vor["ResHouseNumber"] . " "; }		
-		if ( ! empty ($vor["ResFracAddress"])) { $Address_Line1 .= $vor["ResFracAddress"] . " "; }		
-		if ( ! empty ($vor["ResPreStreet"])) { $Address_Line1 .= $vor["ResPreStreet"] . " "; }		
-		$Address_Line1 .= $vor["ResStreetName"] . " ";
-		if ( ! empty ($vor["ResPostStDir"])) { $Address_Line1 .= $vor["ResPostStDir"] . " "; }		
-		if ( ! empty ($vor["ResApartment"])) { $Address_Line1 .= "- Apt. " . $vor["ResApartment"]; }
-		$Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
-		return $Address_Line1;
-  }
-  
-  function DB_ReturnAddressLine2($vor) {
-  	$Address_Line2 = $vor["ResCity"] . ", NY " . $vor["ResZip"];
-    return $Address_Line2;
-  }
-  
-  function DB_ReturnAddressCity($vor) {
-  	return ucwords(strtolower(trim($this->DB_ReturnAddressLine1($vor) . "(" . $vor["ResCity"] . " Zip:" . $vor["ResZip"] . ")")));
-  }
-  
-	
-	function DB_ReturnFullName($vor) {
-		$FullName = $vor["FirstName"] . " ";
-		if ( ! empty ($vor["MiddleName"])) { $FullName .= substr($vor["MiddleName"], 0, 1) . ". "; }
-		$FullName .= $vor["LastName"] ." ";
-		if ( ! empty ($vor["Suffix"])) { $FullName .= $vor["Suffix"]; }				
-		$FullName = ucwords(strtolower($FullName));
-		return $FullName;
-	}	
-	
 }
 
 ?>

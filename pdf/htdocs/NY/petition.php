@@ -210,31 +210,31 @@ if ( ! empty ($URIEncryptedString["CustomData"] )) {
 // is circulated.
 switch ($pdf_NY_petition->county) {
 	case "Bronx":
-		$pdf_NY_petition->AutoFillCounty = "BX";
+		#$pdf_NY_petition->AutoFillCounty = "BX";
 		$pdf_NY_petition->AutoFillCity = "Bronx, NY 104";
 		$pdf_NY_petition->TypeOfTown = "County";
 		break;
 		
 	case "New York":
-		$pdf_NY_petition->AutoFillCounty = "NY";
+		#$pdf_NY_petition->AutoFillCounty = "NY";
 		$pdf_NY_petition->AutoFillCity = "New York, NY 10";
 		$pdf_NY_petition->TypeOfTown = "County";
 		break;
 		
 	case "Richmond":
-		$pdf_NY_petition->AutoFillCounty = "RH";
+		#$pdf_NY_petition->AutoFillCounty = "RH";
 		$pdf_NY_petition->AutoFillCity = "Staten Island, NY 103";
 		$pdf_NY_petition->TypeOfTown = "County";
 		break;
 		
 	case "Queens":
-		$pdf_NY_petition->AutoFillCounty = "QN";
+		#$pdf_NY_petition->AutoFillCounty = "QN";
 		$pdf_NY_petition->AutoFillCity = "Queens, NY 1";
 		$pdf_NY_petition->TypeOfTown = "County";
 		break;
 
 	case "Kings":
-		$pdf_NY_petition->AutoFillCounty = "KG";
+		#$pdf_NY_petition->AutoFillCounty = "KG";
 		$pdf_NY_petition->AutoFillCity = "New York, NY 10";
 		$pdf_NY_petition->TypeOfTown = "County";
 		break;
