@@ -6,7 +6,7 @@ class NoLog extends RepMyBlock {
   
    function AreaPetition ($ElectionID, $Type) {
 		$sql = "SELECT CandidateElection.ElectionsPosition_ID, CandidateElection_Party, Candidate.CandidateElection_DBTableValue, " . 
-						"COUNT(Candidate.CandidateElection_DBTableValue) AS TOTAL FROM RepMyBlockTwo.Candidate " . 
+						"COUNT(Candidate.CandidateElection_DBTableValue) AS TOTAL FROM Candidate " . 
 						"LEFT JOIN CandidateElection on (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " . 
 						"WHERE Elections_ID = :ElectionID AND Candidate.CandidateElection_DBTable = :Type AND " . 
 						"Candidate.CandidateElection_DBTableValue != \"XXXXX\" AND Candidate_UniqStateVoterID IS NOT NULL " . 
