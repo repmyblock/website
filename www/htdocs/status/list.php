@@ -36,12 +36,12 @@
 
 
 		  <P class="f60">
-	      This list is prepared for the party clubs as not to overlap candidates. Clubs that want to have access to 
-	      team and omnibus petitions, use code <B>teamleaders</B> in the Team Profile submenu of the Personal Profile.
+	     This list is prepared for the party clubs to avoid overlapping candidates. Clubs that want to have access to team and omnibus petitions use code <B>teamleaders</B> in the Team Profile submenu of the Personal Profile.
+	       
 		  </P>
 		  
 		  <P class="f60">
-		  	You can also share <A HREF="/<?= $k ?>/exp/register/movie">the link to the 26 minutes documentary titled County</A>.
+		  	You can also share <A HREF="/<?= $k ?>/exp/register/movie">the link to the 26 minutes documentary titled <B>County: A Documentary</B></A>.
 		  </P>
 		  
 						<P CLASS="f60">
