@@ -1,4 +1,14 @@
 <?php
+	$HeaderTwitter = 1;
+	$HeaderTwitterPicLink = "https://www.repmyblock.org/images/status/RepMyBlockLiveStatus.jpg";
+	$HeaderTwitterDesc = "Political Clubs, these are the current NYC District being represented by a local in district. Please refrain to presenting carpetbaggers.";   
+	$HeaderTwitterTitle = "2023 Live Petitioning Status.";   
+	
+	$HeaderOGImage = $HeaderTwitterPicLink;
+	$HeaderOGDescription = $HeaderTwitterDesc;
+	$HeaderOGImageWidth = "712";
+	$HeaderOGImageHeight = "460";
+
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";		
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_nolog.php";	
 
