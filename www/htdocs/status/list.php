@@ -35,11 +35,15 @@
         <DIV class="right f80">2023 NYC Petition Status</DIV>
 
 
-		  <P class="f60 p20">
-		          To prepare the petition, we need to verify your Voter Registration.
-		          Please enter the first and last name of the person you want to verify.
+		  <P class="f60">
+	      This list is prepared for the party clubs as not to overlap candidates. Clubs that want to have access to 
+	      team and omnibus petitions, use code <B>teamleaders</B> in the Team Profile submenu of the Personal Profile.
 		  </P>
-									
+		  
+		  <P class="f60">
+		  	You can also share <A HREF="/<?= $k ?>/exp/register/movie">the link to the 26 minutes documentary titled County</A>.
+		  </P>
+		  
 						<P CLASS="f60">
 									<DIV class="f40">
 									<div id="resp-table">
