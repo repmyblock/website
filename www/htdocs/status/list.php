@@ -41,7 +41,7 @@
 		  </P>
 		  
 		  <P class="f60">
-		  	You can also share <A HREF="/<?= $k ?>/exp/register/movie">the link to the 26 minutes documentary titled <B>County: A Documentary</B></A>.
+		  	You can also share <A HREF="/<?= $middleuri ?>/exp/register/movie">the link to the 26 minutes documentary titled <B>County: A Documentary</B></A>.
 		  </P>
 		  
 						<P CLASS="f60">
