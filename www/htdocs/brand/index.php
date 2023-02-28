@@ -1,6 +1,6 @@
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	$imgtoshow = "/brand/RunForPartyPosition.png";
+	#$imgtoshow = "/brand/RepMyBlock.png";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
@@ -9,7 +9,7 @@
 	<DIV class="right f80 p10">Run With Me</DIV>
 	
 			<P class="f50">
-				This is the landing page for the branding of different group using RepMyBlock.
+				This is the landing page for the branding of different group using the Run With Me feature of RepMyBlock.
 			</P>
 			
 			<P>
