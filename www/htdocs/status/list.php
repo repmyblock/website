@@ -34,7 +34,7 @@
 			<?php 
 				$min =  gmdate("i", time());
 				$hour =  gmdate("H", time());
-				$rounded_min = ceil($min/5) * 5;
+				$rounded_min = floor($min/5) * 5;
 				if($rounded_min == 60) {
 				   $rounded_min = 0; $hour++;
 				    if ($hour == 24) {
