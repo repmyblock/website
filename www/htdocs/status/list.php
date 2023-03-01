@@ -12,23 +12,10 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";		
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_nolog.php";	
 
-	$rmb = new NoLog();
-	$StatusList = $rmb->AreaPetition("1374", "ADED");
-	
-	
-	if ( ! empty ($StatusList) ) {
-		foreach ($StatusList as $var) {
-			if ( ! empty ($var) ) {
-					$TotalCandidate += $var["TOTAL"];
-			}
-		}
-	}
+	#$rmb = new NoLog();
+	#$StatusList = $rmb->AreaPetition("1374", "ADED");
 
-#        require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-#        require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
-
-       
-        include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
+  include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 <DIV class="main">
 
@@ -44,50 +31,19 @@
 		  	You can also share <A HREF="/<?= $middleuri ?>/exp/register/movie">the link to the 26 minutes documentary titled <B>County: A Documentary</B></A>.
 		  </P>
 		  
-						<P CLASS="f60">
-									<DIV class="f40">
-									<div id="resp-table">
-										<div id="resp-table-header">
-											<div class="table-header-cell">Party</div>
-											<div class="table-header-cell">District</div>
-											<div class="table-header-cell">Candidates Running</div>
-										</div>
-
-									<div id="resp-table-body">
-											<div class="resp-table-row">
-												<div class="table-body-cell"></div>
-												<div class="table-body-cell"></div>
-												<div class="table-body-cell"><?= $TotalCandidate ?></div>
-										
-											</div>													
-										</div>						
-							
-									
-									<?php 
-			if ( ! empty ($StatusList) ) {
-				foreach ($StatusList as $var) {
-					if ( ! empty ($var) ) {
-			
-										
-		?>
-	
-										<div id="resp-table-body">
-											<div class="resp-table-row">
-												<div class="table-body-cell"><?= $var["CandidateElection_Party"] ?></div>
-												<div class="table-body-cell"><?= $var["CandidateElection_DBTableValue"] ?></div>
-												<div class="table-body-cell"><?= $var["TOTAL"] ?></div>
-								
-											</div>													
-										</div>									
-								<?php }
-							}   
-										
-										} 
-							?>
-
-			</DIV>
-
-	</P>			
+			<?php 
+				$min =  gmdate("i", time());
+				$hour =  gmdate("H", time());
+				$rounded_min = ceil($min/5) * 5;
+				if($rounded_min == 60) {
+				   $rounded_min = 0; $hour++;
+				    if ($hour == 24) {
+				    	$hour = "00";
+				    }
+				}
+				
+				include $StatusDirectory . "/" . $hour . "-" . $rounded_min . ".html";
+			?>
 	
 </DIV>
 </DIV>
