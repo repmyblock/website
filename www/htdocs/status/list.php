@@ -42,8 +42,9 @@
 				    }
 				}
 				
-				include $StatusDirectory . "/" . $hour . "-" . $rounded_min . ".html";
 				echo "\n<!-- Hour: $hour Minute: $rounded_min -->\n";
+				include $StatusDirectory . "/" . $hour . "-" . $rounded_min . ".html";
+				
 			?>
 	
 </DIV>
