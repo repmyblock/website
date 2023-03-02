@@ -33,7 +33,7 @@
 		  
 			<?php 
 				$min =  gmdate("i", time());
-				$hour =  gmdate("H", time());
+				$hour =  gmdate("G", time());
 				$rounded_min = floor($min/5) * 5;
 				if($rounded_min == 60) {
 				   $rounded_min = "0"; $hour++;
