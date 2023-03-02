@@ -35,11 +35,12 @@
 				$min =  gmdate("i", time());
 				$hour =  gmdate("H", time());
 				$rounded_min = floor($min/5) * 5;
-				if($rounded_min == 60) {
-				   $rounded_min = "00"; $hour++;
-				    if ($hour == 24) {
-				    	$hour = "00";
-				    }
+				if ($rounded_min == 0 ) $rounded_min = "00";
+				if ($rounded_min == 60) {
+					$rounded_min = "00"; $hour++;
+				  if ($hour == 24) {
+				  	$hour = "00";
+				  }
 				}
 				
 				echo "\n<!-- Hour: $hour Minute: $rounded_min -->\n";
