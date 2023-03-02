@@ -63,7 +63,7 @@
 		</P>
 		
 		<P class="f80">
-			<A HREF="<?= $MailToText ?>">Click on this link to open your mail program or
+			<A HREF="<?= $MailToText ?>" TARGET="emailreg">Click on this link to open your mail program or
 			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>ADD ME TO THE <?= $MailURLText ?></FONT>"</A>
 			and you will receive a link with the registration information to be added in the Do Not Call List.
 		</P>
@@ -84,7 +84,7 @@
 		</P>
 		
 		<P class="f80">
-			<A HREF="<?= $MailToText ?>">Click on this link to open your mail program or
+			<A HREF="<?= $MailToText ?>" TARGET="emailreg">Click on this link to open your mail program or
 			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO REGISTER<?= $MailURLText ?></FONT>"</A>
 			and you will receive a link with the registration information.
 		</P>
@@ -113,7 +113,7 @@
 		default: ?>
 	
 	<P class="f80">
-		<A HREF="<?= $MailToText ?>">Click on this link to open your mail program or
+		<A HREF="<?= $MailToText ?>" TARGET="emailreg">Click on this link to open your mail program or
 			send an email to <B>NOTIF@REPMYBLOCK.ORG</B> with the subject "<FONT COLOR=BROWN>I WANT TO REGISTER<?= $MailURLText ?></FONT>"</A>
 			and you will receive a link with the registration information.
 	</P>
