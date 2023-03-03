@@ -9,12 +9,12 @@
 	<DIV class="right f80 p10">Help put Socialists candidates on the ballot!</DIV>
 	
 			<P class="f50">
-				Social Democrats of America is looking for Socialists to run for New York and Richmond County Committee in 2023.
-				It's only a <B>22 hours</B> committement <FONT COLOR=BROWN><B>PER YEAR</B></FONT>.
+				Social Democrats of America is looking for Socialists to run for New York and Richmond Counties Committee in 2023.
+				It's only a <B>22 hours</B> commitment <FONT COLOR=BROWN><B>PER YEAR</B></FONT>.
 			</P>
 			
 			<P>
-				Watch this 26 minutes documentary that explain what it means to be part of the governance of the County Democratic party.
+				Watch this 26 minutes documentary that explains what it means to be part of the governance of the County Democratic party.
 			<B><A HREF="/<?= $middleuri ?>/exp/register/movie">Click here to watch the whole documentary.</A></B>
 				<I>(Press the PLAY button and enter the password (all in uppercase) <FONT COLOR=BROWN><B>QCC4ALL</B></FONT> to access the documentary.)</I>
 			</P>
