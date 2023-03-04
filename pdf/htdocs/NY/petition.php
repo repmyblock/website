@@ -76,7 +76,7 @@ switch ($Variable) {
 		WriteStderr($PositionInformation, "Party Position Information");
 		
 		if ( empty ($PositionInformation)) {
-			$result[0]["CandidateElection_PetitionText"] = "Member of the " . $DateIDForElection[0]["DataCounty_Name"] . " " .$result[0]["CandidateParty"] . 
+			$result[0]["CandidateElection_PetitionText"] = "Member of the " . $VoterResult[0]["DataCounty_Name"] . " " .$result[0]["CandidateParty"] . 
 																" Party County Committee from the " . 
 																ordinal($VoterResult[0]["DataDistrict_Electoral"]) .  " election district in the " .
 																ordinal($VoterResult[0]["DataDistrict_StateAssembly"]) . " assembly district";
@@ -112,7 +112,9 @@ switch ($Variable) {
 		$result[0]["CandidateElection_Number"] = 1;
 		$result[0]["CandidateElection_PositionType"] = "party";
 		$result[0]["CandidatePetition_VoterCounty"] = $VoterResult[0]["DataCounty_Name"];
+		$result[0]["DataCounty_Name"] = $VoterResult[0]["DataCounty_Name"];
 		$result[0]["CandidateGroup_ID"] = 1;
+		$result[0]["CandidateGroup_Party"] = $VoterResult[0]["Voters_RegParty"];
 				
 		$pdf_NY_petition->Watermark = "Demo Petition / Not Valid";
 		$pdf_NY_petition->BarCode = "Demo Petition";
@@ -194,6 +196,11 @@ $pdf_NY_petition->AutoFillDate = "03 /     / 2023";
 $pdf_NY_petition->BarCode = "S" . $result[0]["CandidateSet_ID"];
 if ($result[0]["CandidateGroup_Watermark"] == 'no') { $pdf_NY_petition->Watermark = NULL; }	
 $pdf_NY_petition->Watermark = NULL;
+
+if ( $Variable == "onthefly") { 
+		$pdf_NY_petition->Watermark = "Demo Petition / Not Valid";
+		$pdf_NY_petition->BarCode = "Demo Petition";
+}
 
 // This is for the Custom Data stuff
 if ( ! empty ($URIEncryptedString["CustomData"] )) {

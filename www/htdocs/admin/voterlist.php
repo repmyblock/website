@@ -473,18 +473,6 @@
 			<a class="mr-1" href="/<?= $MySpecialK ?>/admin/makecandidate">Make Candidate</a>
 			<BR>
 			
-			<?php 
-			
-				$TheNewK = EncryptURL(	
-					"SystemUser_ID=" . $URIEncryptedString["SystemUser_ID"]. 
-					"&SystemAdmin=" .  $URIEncryptedString["SystemAdmin"] . 
-					"&FirstName=" . $URIEncryptedString["FirstName"] . 
-					"&LastName=" . $URIEncryptedString["LastName"] . 
-					"&UniqNYSVoterID=" . $URIEncryptedString["UniqNYSVoterID"]. 
-					"&UserParty=" . $URIEncryptedString["UserParty"]. 
-					"&MenuDescription=" . $URIEncryptedString["MenuDescription"]
-				); ?>
-			
 			
 			
 		</div>
