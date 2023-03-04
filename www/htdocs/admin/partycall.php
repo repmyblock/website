@@ -14,19 +14,26 @@
 	
 	if ( ! empty ($_POST)) {
 		WriteStderr($_POST, "$_POST");	
-	 	$ListPartyCall = $rmb->PartyCallInfo($_POST["Party"], "1374", $_POST["DTTable"], $_POST["DTValue"]);
+		
+		$FormFieldDTTAble = trim($_POST["DTTable"]);
+		$FormFieldDTValue = trim($_POST["DTValue"]);
+		$FormFieldParty = trim($_POST["Party"]);
+		
+	 	$ListPartyCall = $rmb->PartyCallInfo($FormFieldParty, $CurrentElectionID, $FormFieldDTTAble, $FormFieldDTValue);
 		WriteStderr($ListPartyCall, "ListPartyCall");	
+		
+		
 	}
 	
 	
 	if ( ! empty ($ListPartyCall) ) {
-				foreach ($ListPartyCall as $var) {
-					if ( ! empty ($var) ) {
-							$TotalCandidate += $var["ElectionsPartyCall_NumberUnixSex"];
-						}
-					}
-				}
-	
+		foreach ($ListPartyCall as $var) {
+			if ( ! empty ($var) ) {
+				$TotalCandidate += $var["ElectionsPartyCall_NumberUnixSex"];
+			}
+		}
+	}
+
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";		
 ?>
 <div class="row">

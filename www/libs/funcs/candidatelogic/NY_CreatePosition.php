@@ -5,12 +5,15 @@ WriteStderr($PetitionData, "PetitionData");
 
 $ElectionType = $rmb->FindElectionType(	$PetitionData["Elections_ID"], $PetitionData["Voters_RegParty"],
 																				$PetitionData["TypeElection"], 
-																				$PetitionData["TypeValue"]);																	
+																				$PetitionData["TypeValue"]);			
+																	
 if ( empty ($ElectionType)) {
 
 	$PartyCall = $rmb->FindInPartyCall(	$PetitionData["Elections_ID"], $PetitionData["County_ID"], 
 																			$PetitionData["Voters_RegParty"], $PetitionData["TypeElection"], 
 																			$PetitionData["TypeValue"]);
+																			
+	WriteStderr($PartyCall, "PartyCall in NY Create Position.");	
 																			
 	if ( empty ($PartyCall)) {
 		$CandidateElection_Text = "Please contact because the district doesn't exist in the Party Call";
@@ -19,6 +22,8 @@ if ( empty ($ElectionType)) {
 	$CountyName = $rmb->DB_WorkCounty($PetitionData["County_ID"]);			
 	preg_match('/(\d{2})(\d{3})/', $PetitionData["TypeValue"], $District, PREG_OFFSET_CAPTURE);
 	
+	
+	### This is where the logic per ID goes.
 	switch($PartyCall["CandidatePositions_ID"]) {
 		case '1':
 			$CandidateElection_Text = $CountyName . " County Committee";
@@ -62,17 +67,29 @@ if ( empty ($ElectionType)) {
 	$ElectionType = $ElectionType[0]["CandidateElection_ID"];
 }
 
-$Candidate = $rmb->InsertCandidate($PetitionData["SystemUser_ID"], $PetitionData["UniqNYSVoterID"], 
-											$PetitionData["Voters_ID"], 
-											$PetitionData["County_ID"], $ElectionType, 
-											$PetitionData["CPrep_Party"], $PetitionData["FullName"],
-											$PetitionData["AddressLine1"] . "\n" . $PetitionData["AddressLine2"], 
-											$PetitionData["TypeElection"], $PetitionData["TypeValue"], NULL, 
-											"published", $PetitionData["ActiveTeam_ID"]);
+WriteStderr($ElectionType, "ElectionType");	
 
-$CandidateSet = $rmb->NextPetitionSet($PetitionData["SystemUser_ID"]);
-$FinalCandidate = $rmb->InsertCandidateSet($Candidate["Candidate_ID"], $CandidateSet["CandidateSet"], 
-																						$PetitionData["CPrep_Party"], $PetitionData["County_ID"]);		
+$CandidatePetiton = $rmb->SearchPetitionCandidate($PetitionData["SystemUser_ID"], $PetitionData["UniqNYSVoterID"], $PetitionData["Voters_ID"], 
+																		$PetitionData["County_ID"], $ElectionType, 
+																		$PetitionData["CPrep_Party"], $PetitionData["FullName"],	
+																		$PetitionData["AddressLine1"] . "\n" . $PetitionData["AddressLine2"], 
+																		$PetitionData["TypeElection"], $PetitionData["TypeValue"],"published", $PetitionData["ActiveTeam_ID"]);
+																		
+WriteStderr($CandidatePetiton, "CandidatePetiton");																			
+
+if ( empty ($CandidatePetiton)) {
+	$Candidate = $rmb->InsertCandidate($PetitionData["SystemUser_ID"], $PetitionData["UniqNYSVoterID"], 
+												$PetitionData["Voters_ID"], 
+												$PetitionData["County_ID"], $ElectionType, 
+												$PetitionData["CPrep_Party"], $PetitionData["FullName"],
+												$PetitionData["AddressLine1"] . "\n" . $PetitionData["AddressLine2"], 
+												$PetitionData["TypeElection"], $PetitionData["TypeValue"], NULL, 
+												"published", $PetitionData["ActiveTeam_ID"]);
+
+	$CandidateSet = $rmb->NextPetitionSet($PetitionData["SystemUser_ID"]);
+	$FinalCandidate = $rmb->InsertCandidateSet($Candidate["Candidate_ID"], $CandidateSet["CandidateSet"], 
+																							$PetitionData["CPrep_Party"], $PetitionData["County_ID"]);	
+}	
 
 
 ?>

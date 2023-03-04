@@ -68,9 +68,9 @@
 	WriteStderr($URIEncryptedString, "URIEncryptedString");	
 
 	// I NEED TO FIX THE PARTY HERE
-	$OtherCandidatesConvTo = $rmb->FindPositionsInToConv("1374", "DEM", $URIEncryptedString["Candidate_ID"]);
-	$OtherCandidatesSame = $rmb->FindPositionsInSame("1374", $URIEncryptedString["ActiveTeam_ID"], $URIEncryptedString["Candidate_ID"]);
-	$OtherCandidatesConvFrom = $rmb->FindPositionsInFromConv("1374", "DEM", $URIEncryptedString["Candidate_ID"]);
+	$OtherCandidatesConvTo = $rmb->FindPositionsInToConv($CurrentElectionID, "DEM", $URIEncryptedString["Candidate_ID"]);
+	$OtherCandidatesSame = $rmb->FindPositionsInSame($CurrentElectionID, $URIEncryptedString["ActiveTeam_ID"], $URIEncryptedString["Candidate_ID"]);
+	$OtherCandidatesConvFrom = $rmb->FindPositionsInFromConv($CurrentElectionID, "DEM", $URIEncryptedString["Candidate_ID"]);
 
 	WriteStderr($OtherCandidatesConvTo, "OtherCandidatesConvTo");	
 	WriteStderr($OtherCandidatesSame, "OtherCandidatesSame");	

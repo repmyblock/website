@@ -83,9 +83,7 @@
                     <FONT COLOR=BROWN>to access the omnibus petitions.</FONT>
                   </B>
               	</P>
-                    
-               
-                                
+                      
 <?php       
       $Counter = 0;
       if ( ! empty ($Position) || ($rmbperson["SystemUserSelfDistrict_AD"] > 0 && $rmbperson["SystemUserSelfDistrict_ED"] > 0) ) {
@@ -175,12 +173,9 @@
 	                                          "FileNameStateID" => $rmbcandidate[0]["Candidate_UniqStateVoterID"],  
 	                                        )); ?>/lgd/profile/updatecandidateprofile">Update your County Committee candidate profile</A>
 	                  <?php  } ?><P class="f40 pad-3"><?= $Position["party"]["County Committee"][$URIEncryptedString["UserParty"]]["Desc"] ?></P>
-	                   
-	
-	     	
-					
-<?php     }
-?>                  
+	                   					
+<?php     }    ?> 
+                 
 		</P>
     <?php 
 
@@ -189,10 +184,7 @@
    <?php } 
    
     } else { ?>
-    	
-    	  	 <P class="f40"><B>We don't have the required information to create a candidate profile.</B>
-    	  	</P>
-    	  	
+    	  	<P class="f40"><B>We don't have the required information to create a candidate profile.</B></P>
     	  	<P class="f40">
     	  	 	You need to fill out the <B><A HREF="profilevoter">Voter Profile</A></B> tab before you 
     	  	 		can use this menu.

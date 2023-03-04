@@ -48,7 +48,7 @@
 									"AddressLine2" => 	$_POST["AddressLine2"],
 									"ActiveTeam_ID" => $_POST["ActiveTeam_ID"],
 									"County_ID" => $_POST["DataCounty_ID"],
-									"Elections_ID" => "1374",
+									"Elections_ID" => $CurrentElectionID,
 						)) . "/lgd/team/petitionsetup");
 				exit();
 			}

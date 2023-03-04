@@ -51,10 +51,7 @@ class Teams extends RepMyBlock {
 		$sql_vars = array("SystemID" => $SystemUser_ID);		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
-	
 
-
-	
 	function ReturnMemberFromTeam($TeamMemberID) {
 		$sql = "SELECT *, TeamMember.SystemUser_ID as TeamSystemUser_ID FROM TeamMember " .
 						"LEFT JOIN Team ON (TeamMember.Team_ID = Team.Team_ID) " . 

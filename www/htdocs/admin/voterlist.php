@@ -10,29 +10,7 @@
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	
 	$rmb = new RMBAdmin();
-	
-	if ( ! empty ($_POST)) {
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";
-
-		$to = "theo@theochino.com";
-		$emailsubject = time() . " - Your sample Democratic party petition and walk sheet.";
-		$message = "Attached is the walk list for ";
-		$EDAD = "43340";
 		
-		$Data = array("Dear" => "", "TotalSignatures" => "", "FullAddress" => "",
-									"FullAddressLine2" => "", "ASSEMDISTR" => "", "ELECTDISTR" => "", "NumberVoters" => "",
-									"PartyName" => "", "TotalSignatures" => "", "PartyNamePlural" => "");
-					
-		if ( ! empty ($_POST)) {
-			foreach ($_POST as $key => $value) {
-				if ( ! empty ($value)) {			
-					SendWalkList($value, $emailsubject, $message, $EDAD, $key, $Data);		
-					$EmailSend = "<FONT COLOR=GREEN>Sucess! Email sent to $value</FONT>";
-				}
-			}
-		}
-	}
-	
 	WriteStderr($URIEncryptedString["Query_DBType"], "Query_DBType Variable");
 	
 	// This is the query search.
@@ -82,12 +60,10 @@
 	}
 	
 	$Party = PrintParty($UserParty);
-	$rmb = new RMBAdmin();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	WriteStderr($URIEncryptedString, "URIEncryptedString");
 	WriteStderr($rmbperson, "rmbperson");
 	WriteStderr($Result, "Result of the QUery");
-	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
@@ -166,38 +142,12 @@
 									if ( empty ($Query_ED) || ( $var["Raw_Voter_ElectDistr"] == $Query_ED)  ) {	
 										if ( empty ($PARTY) || ($var["Raw_Voter_EnrollPolParty"] == $PARTY) ) {
 															
-											$EnrollVoterParty = $var["Raw_Voter_EnrollPolParty"];
-											
-																					
 											preg_match('/^NY0+(.*)/', $var["VotersIndexes_UniqStateVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
 											$UniqVoterID = "NY" . $UniqMatches[1][0];
 										}
 									}
 								}
 							}
-							
-//							
-//							(
-//  
-//    [SystemUser_ID] => 1
-//    [SystemAdmin] => 4294967295
-//    [Query_FirstName] => jillian
-//    [Query_LastName] => jonas
-//    [Query_COUNTY] => NYC
-//)
-//
-//				$TheNewK = EncryptURL(	
-//					"SystemUser_ID=" . $URIEncryptedString["SystemUser_ID"]. 
-//					"&SystemAdmin=" .  $URIEncryptedString["SystemAdmin"] . 
-//					"&FirstName=" . $URIEncryptedString["FirstName"] . 
-//					"&LastName=" . $URIEncryptedString["LastName"] . 
-//					"&UniqNYSVoterID=" . $URIEncryptedString["UniqNYSVoterID"]. 
-//					"&UserParty=" . $URIEncryptedString["UserParty"]. 
-//					"&MenuDescription=" . $URIEncryptedString["MenuDescription"]
-//				); 
-//			
-			
-						
 						?>
 						
 						
@@ -258,14 +208,20 @@
 									if ( empty ($Query_ED) || ( $var["Raw_Voter_ElectDistr"] == $Query_ED)  ) {	
 										if ( empty ($PARTY) || ($var["Raw_Voter_EnrollPolParty"] == $PARTY) ) {
 															
-											$EnrollVoterParty = $var["Raw_Voter_EnrollPolParty"];
-											
-											if ( $var["Raw_Voter_Gender"] == "M") {	$EnrollVoterSex = "male"; }
-											else if ( $var["Raw_Voter_Gender"] == "F") {	$EnrollVoterSex = "female"; }
-											else { $EnrollVoterSex = "other"; }
-											
 											preg_match('/^NY0+(.*)/', $var["VotersIndexes_UniqStateVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
 											$UniqVoterID = "NY" . $UniqMatches[1][0];
+											
+											$PartyCallEDAD = sprintf('%02d%03d', $var["DataDistrict_StateAssembly"], $var["DataDistrict_Electoral"]);
+											$partycall = $rmb->ListCCPartyCall($var["Voters_RegParty"], $PartyCallEDAD, $CurrentElectionID);
+											WriteStderr($partycall, "Party Call");
+										
+											$OtherCandidates = $rmb->FindPositionsByED($CurrentElectionID, $PartyCallEDAD );
+											WriteStderr($OtherCandidates, "OtherCandidatesConvTo");	
+										
+											$MyCandidacy = $rmb->ListCandidateInformationByUNIQ($var["VotersIndexes_UniqStateVoterID"], $CurrentElectionID);
+											WriteStderr($MyCandidacy, "MyCandidacy");	
+										
+											
 				?>
 				
 				<div class="list-group-item f60">
@@ -334,7 +290,7 @@
 							<?php if (! empty ($var["DataAddress_PreStreet"])) echo $var["DataAddress_PreStreet"]; ?>
 							<?php if (! empty ($var["DataStreet_Name"])) echo $var["DataStreet_Name"]; ?>
 							<?php if (! empty ($var["DataAddress_PostStreet"])) echo $var["DataAddress_PostStreet"]; ?>
-							<?php if (! empty ($var["Raw_Voter_ResApartment"])) echo " - Apt " . $var["Raw_Voter_ResApartment"]; ?>
+							<?php if (! empty ($var["DataHouse_Apt"])) echo " - Apt " . $var["DataHouse_Apt"]; ?>
 							<BR>
 							<?= $var["DataCity_Name"] ?>, <?= $var["DataState_Abbrev"] ?>
 							<?= $var["DataAddress_zipcode"] ?>
@@ -372,6 +328,126 @@
 			</TABLE>
 			<BR>
 			
+			<TABLE BORDER=1>
+				<TR>
+					<TH style="padding:0px 10px;" COLSPAN=2>Party Call</TH>	
+				</TR>
+				
+				<?php if (! empty ($partycall)) { ?> 
+				
+				<TR>
+					<TH style="padding:0px 10px;">Position</TH>
+					<TH style="padding:0px 10px;">Number Candidates</TH>
+				</TR>
+				
+				
+				
+				
+				<TR ALIGN=CENTER>
+					<TD style="padding:0px 10px;"><?= $partycall[0]["ElectionsPosition_Name"] ?></TD>
+					<TD style="padding:0px 10px;"><?=  $partycall[0]["ElectionsPartyCall_NumberUnixSex"] ?></TD>
+				</TR>
+				
+				<?php } else { ?>
+					
+				<TR ALIGN=CENTER>
+					<TD style="padding:0px 10px;" COLSPAN=2>No party call information for district <?= $PartyCallEDAD ?></TD>
+				</TR>
+				
+					
+				<?php } ?>
+				
+				
+			</TABLE>
+			
+			<BR>
+			
+			<TABLE BORDER=1>
+				<TR>
+					<TH style="padding:0px 10px;" COLSPAN=4>Other Candidates running in district</TH>	
+				</TR>
+				
+				<?php if (! empty ($OtherCandidates)) { ?> 
+				
+				<TR>
+					<TH style="padding:0px 10px;">Position</TH>
+					<TH style="padding:0px 10px;">District</TH>
+					<TH style="padding:0px 10px;">Full Name</TH>
+					<TH style="padding:0px 10px;">Team Name</TH>
+				</TR>
+				
+				<?php foreach ($OtherCandidates as $multivar) { ?> 
+				
+				
+				<TR ALIGN=CENTER>
+					<TD style="padding:0px 10px;text-align:left"><?= $multivar["ElectionsPosition_Name"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $multivar["CandidateElection_DBTable"] . " " . $multivar["CandidateElection_DBTableValue"] ?></TD>
+					<TD style="padding:0px 10px;text-align:left"><?= $multivar["Candidate_DispName"] ?></TD>
+					<TD style="padding:0px 10px;"><?= $multivar["Team_AccessCode"] ?></TD>
+				</TR>
+				
+				<?php }  } else { ?>
+					
+				<TR ALIGN=CENTER>
+					<TD style="padding:0px 10px;" COLSPAN=4>No other candidates running for district <?= $PartyCallEDAD ?></TD>
+				</TR>
+				
+					
+				<?php } ?>
+				
+				
+			</TABLE>
+			
+			<BR>
+			
+			<TABLE BORDER=1>
+				<TR>
+					<TH style="padding:0px 10px;" COLSPAN=4>Petitions for this candidate</TH>	
+				</TR>
+				
+				<?php if (! empty ($MyCandidacy)) { ?> 
+				
+				<TR>
+					<TH style="padding:0px 10px;">Set</TH>
+					<TH style="padding:0px 10px;">District</TH>
+					<TH style="padding:0px 10px;">Full Name</TH>
+					<TH style="padding:0px 10px;">Team Name</TH>
+				</TR>
+				
+				<?php foreach ($MyCandidacy as $multivar) { ?> 
+				
+				
+				<TR ALIGN=CENTER>
+					<TD style="padding:0px 10px;text-align:left"><a class="mr-1" href="<?= $FrontEndPDF ?>/<?= $multivar["CandidateSet_Random"] ?>/NY/petition" TARGET="PDF_Petition">S<?= $multivar["CandidateSet_ID"] ?></A></TD>
+					<TD style="padding:0px 10px;"><?= $multivar["CandidateElection_DBTable"] . " " . $multivar["CandidateElection_DBTableValue"] ?></TD>
+					<TD style="padding:0px 10px;text-align:left"><?= $multivar["Candidate_DispName"] ?></TD>
+					<TD style="padding:0px 10px;text-align:left"><?= $multivar["Team_AccessCode"] ?></TD>
+					<TD style="padding:0px 10px;"><A HREF="/<?= CreateEncoded ( array( 	
+								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+								"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+								"UniqNYSVoterID" => $var["VotersIndexes_UniqStateVoterID"],
+								"CandidateID" => $multivar["Candidate_ID"],
+								"CandidateSetID" => $multivar["CandidateSet_ID"],
+								"Party" => $var["Voters_RegParty"],
+								"CountyID" => $multivar["DataCounty_ID"],
+					))?>/admin/organizepetitions">Organize Petition</a></TD>
+				</TR>
+				
+				<?php }  } else { ?>
+					
+				<TR ALIGN=CENTER>
+					<TD style="padding:0px 10px;" COLSPAN=4>No petitions where given to this voter</TD>
+				</TR>
+				
+					
+				<?php } ?>
+				
+				
+			</TABLE>
+			
+			<BR>
+			
+			
 			<?php 
 						switch($var["Voters_RegParty"]) {
 							case "DEM": $CountyCountyID = "1"; break;
@@ -381,17 +457,20 @@
 						$MySpecialK = urlencode(CreateEncoded (array( 	
 								"ElectionPosition_ID" => $CountyCountyID, 
 								"Voters_ID" => $var["Voters_ID"],
+								"VotersIndexes_ID" => $var["VotersIndexes_ID"],
 			          "ED" => $var["DataDistrict_Electoral"],
 			          "AD" => $var["DataDistrict_StateAssembly"],
 			          "Party" => $var["Voters_RegParty"],
 								"PreparedFor" => $var["DataFirstName_Text"] . " " . $var["DataLastName_Text"],
+								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
+								"SystemAdmin" =>  $URIEncryptedString["SystemAdmin"],
 						)));
 			?>
 
 			<svg class="octicon octicon-repo mr-1" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
 			Download <a class="mr-1" href="<?= $FrontEndPDF ?>/<?= $MySpecialK ?>/rmb/voterlist" TARGET="PDF_Voter">Walking 
-			List</a> <a class="mr-1" href="<?= $FrontEndPDF ?>/<?= $MySpecialK ?>/NY/petition" TARGET="PDF_Petition">Petition</a>
-			<a class="mr-1" href="/<?= $k ?>/admin/makecandidate">Make Candidate</a>
+			List</a> <a class="mr-1" href="<?= $FrontEndPDF ?>/<?= $MySpecialK ?>/NY/petition" TARGET="PDF_Petition">Demo Petition</a>
+			<a class="mr-1" href="/<?= $MySpecialK ?>/admin/makecandidate">Make Candidate</a>
 			<BR>
 			
 			<?php 
@@ -424,6 +503,8 @@
 				No voter found.
 			</div>
 	<?php } ?>
+	
+	<BR>
 	
 	<P CLASS="f80">	
 		<B><A HREF="/<?= $k ?>/admin/voterlookup">Look for a new voter</A></B>

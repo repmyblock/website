@@ -11,10 +11,7 @@
 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";		
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_nolog.php";	
-
-	#$rmb = new NoLog();
-	#$StatusList = $rmb->AreaPetition("1374", "ADED");
-
+	
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 <DIV class="main">
