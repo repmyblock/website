@@ -11,7 +11,7 @@
 
 	<P class="BlueBox">
 		<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">
-				How to run for County Committee?<BR>Click here!
+				How to run for County Committee?<BR>Click here! - Deadline March 31<SUP>st</SUP>, 2023.
 		</a>
 	</P>
 	
