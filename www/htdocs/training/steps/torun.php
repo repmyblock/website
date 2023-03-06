@@ -2,6 +2,16 @@
 	$BigMenu = "represent";
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	
+	$HeaderTwitter = 1;
+	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/DeadMembers.jpg";
+	$HeaderTwitterDesc = "Are you alive? Don't let dead committee members decide for you. Watch the documentary!";   
+	$HeaderTwitterTitle = "Watch the full documentary 'County' on the Rep My Block website.";   
+	
+	$HeaderOGImage = $HeaderTwitterPicLink;
+	$HeaderOGDescription = $HeaderTwitterDesc;
+	$HeaderOGImageWidth = "450";
+	$HeaderOGImageHeight = "265";
+	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
