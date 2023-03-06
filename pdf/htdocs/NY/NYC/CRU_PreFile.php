@@ -41,7 +41,6 @@ if ( ! empty ($URIEncryptedString)) {
 	$pdf->TotalRC = $URIEncryptedString["TotalRC"] > 0 ? number_format($URIEncryptedString["TotalRC"]): NULL;
 	$pdf->Total = number_format($URIEncryptedString["TotalBX"] + $URIEncryptedString["TotalNY"] + $URIEncryptedString["TotalKG"] + $URIEncryptedString["TotalQN"] + $URIEncryptedString["TotalRC"]);
 	// $pdf->BarCode = "1999/1/1";
-	
 }
 
 if (is_numeric($CanPetitionSet_ID)) { 
