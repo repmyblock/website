@@ -67,6 +67,19 @@
 	      We don't know your district <a href="/voter">create one</a>?
 	    </div>
 	   
+	   
+	   	<P>
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">ID</div>
+											<div class="table-header-cell">Team Name</div>
+											<div class="table-header-cell">Owner</div>
+											<div class="table-header-cell">Type</div>
+											<div class="table-header-cell">Date</div>
+										</div>
+
+										
+	   
 	    	
 <?php 			
 			$Counter = 0;
@@ -77,19 +90,24 @@
  
             
 
-<div class="flex-items-left">
-		<span class="ml-4"><?= $var["Team_ID"] ?></span>
-	 	<span class="ml-4 user-mention"><A HREF="/<?= CreateEncoded(array(
+					
+					
+						<div id="resp-table-body">
+											<div class="resp-table-row">
+												<div class="table-body-cell"><?= $var["Team_ID"] ?></div>
+												<div class="table-body-cell-left"><A HREF="/<?= CreateEncoded(array(
 														"Team_ID" => $var["Team_ID"],	
 														 "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 													   "EDAD" =>  $URIEncryptedString["EDAD"], 
 									   				 "SystemAdmin" => $URIEncryptedString["SystemAdmin"]
-													)); ?>/admin/team_edit"><?= $var["Team_Name"] ?></A></span>
-		<span class="ml-4 "><?= $var["SystemUser_FirstName"] . " " . $var["SystemUser_LastName"] ?></span>	 	
-	 	<span class="ml-4"><?= $var["Team_Public"] ?></span>
-	  <span class="ml-4"><?= PrintDateTime($var["Team_Created"]) ?></span>
-	</div>
-					
+													)); ?>/admin/team_edit"><?= $var["Team_Name"] ?></A></div>
+												<div class="table-body-cell-left"><?= $var["SystemUser_FirstName"] . " " . $var["SystemUser_LastName"] ?></div>
+												<div class="table-body-cell"><?= $var["Team_Public"] ?></div>
+												<div class="table-body-cell"><?= PrintDateTime($var["Team_Created"]) ?></div>
+											</div>													
+										</div>
+									
+							
 						
 							
 					
@@ -99,8 +117,12 @@
 			} ?>
 	 
 		
+	
+	 </DIV>
+		
 	 
 		</div>
+			</P>	
 	
 </div>
 </FORM>

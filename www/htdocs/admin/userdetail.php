@@ -88,7 +88,12 @@
 						Last Login <FONT COLOR=BROWN><?= PrintDateTime($result["SystemUser_lastlogintime"]); ?></FONT>
 						Create Time <FONT COLOR=BROWN><?= PrintDateTime($result["SystemUser_createtime"]); ?></FONT>
 					<BR>
-						Voters State ID <FONT COLOR=BROWN><?= $result["Voters_UniqStateVoterID"] ?></FONT>
+						Voters State ID <FONT COLOR=BROWN><A HREF="/<?= CreateEncoded ( array( 	
+																"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+																"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+																"UserDetail" => $var["SystemUser_ID"],
+																"UniqNYSVoterID" => $result["Voters_UniqStateVoterID"],
+																)) ?>/admin/voterlist"><?= $result["Voters_UniqStateVoterID"] ?></A></FONT>
 						RMB Voters ID <FONT COLOR=BROWN><?= $result["Voters_ID"] ?></FONT>
 					<BR>
 						EDAD <FONT COLOR=BROWN><?= $result["SystemUser_EDAD"] ?></FONT>

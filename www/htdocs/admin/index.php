@@ -48,7 +48,7 @@
  			<A HREF="/<?= $k ?>/admin/team_list" class="mobilemenu">Team Setup</A><BR>
  			<A HREF="/<?= $k ?>/admin/voterlookup" class="mobilemenu">Voter Lookup</A><BR>
  			<A HREF="/<?= $k ?>/admin/partycall" class="mobilemenu">Party Call</A><BR>
- 			<A HREF="/<?= $k ?>/admin/signaturecount" class="mobilemenu">SignatureCount</A><BR>
+ 			<A HREF="/<?= $k ?>/admin/signaturecount" class="mobilemenu">Signature Count</A><BR>
   		<A HREF="/<?= $k ?>/admin/track" class="mobilemenu">Petitions Tracker</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_candidate" class="mobilemenu">Candidates Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_petitionset" class="mobilemenu">Petition Set Maintenance</A><BR>	

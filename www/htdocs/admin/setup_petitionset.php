@@ -58,6 +58,18 @@
 					      We don't know your district <a href="/voter">create one</a>?
 					    </div>
 
+
+			    
+						<P>
+						<div id="resp-table">
+							<div id="resp-table-header">
+								<div class="table-header-cell">ID</div>
+								<div class="table-header-cell">Action</div>
+								<div class="table-header-cell">District</div>
+								<div class="table-header-cell">Candidate Name</div>
+							</div>
+
+
 							<?php 			
 										$Counter = 0;
 										if ( ! empty ($result)) {
@@ -66,13 +78,14 @@
 												WriteStderr($var, "Candidates in the Loop");
 												
 							?>		
-								<div class="flex-items-left">	
 								
-									
-									<span class="ml-4 flex-items-baseline">
-											<?= $var["CandidateSet_ID"] ?>
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												
+												
+													<div class="table-body-cell"><?= $var["CandidateSet_ID"] ?></DIV>
 											
-										<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+										<div class="table-body-cell"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array(
 												"CandidateSet_ID" => $var["CandidateSet_ID"],
 												"CustomData" => "YES",
@@ -90,25 +103,26 @@
 									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-													"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>WlkShts</A>
+												"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>WlkShts</A></DIV>
 												
 				
-									<?= $var["CandidateElection_DBTable"] ?> <?= $var["CandidateElection_DBTableValue"] ?></span>
+									<div class="table-body-cell-left"><?= $var["CandidateElection_DBTable"] ?> <?= $var["CandidateElection_DBTableValue"] ?>	</div>
 						 	
-									<span class="ml-4 flex-items-baseline"><A HREF="/<?= CreateEncoded (
+									<div class="table-body-cell-left"><A HREF="/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-													"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates"><?= $var["Candidate_DispName"] ?></A></span>
-								</div>
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates"><?= $var["Candidate_DispName"] ?></A></div>
+							
+						</DIV>
+					</DIV>
 
 							<?php
 											}
 										} 
 							?>
-
+							</DIV>
 							</div>
-							<BR>
-							<p><button type="submit" class="btn btn-primary">Add a new Candidate</button></p>
+							
 					</div>
 					</FORM>
 			</div>

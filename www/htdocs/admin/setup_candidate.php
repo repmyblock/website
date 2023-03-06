@@ -49,6 +49,23 @@
 					    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
 					      We don't know your district <a href="/voter">create one</a>?
 					    </div>
+					    
+					    
+					    	<div class="clearfix gutter d-flex flex-shrink-0">
+									
+				<div class="col-12">
+					    
+							
+					    
+					    
+						<P>
+						<div id="resp-table">
+							<div id="resp-table-header">
+								<div class="table-header-cell">Action</div>
+								<div class="table-header-cell">District</div>
+								<div class="table-header-cell">Candidate</div>
+								<div class="table-header-cell">Election Date</div>
+							</div>
 
 							<?php 			
 										$Counter = 0;
@@ -58,16 +75,31 @@
 												WriteStderr($var, "Candidates in the Loop");
 												
 							?>		
-								<div class="flex-items-left">	
-									<span class="ml-4 flex-items-baseline"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
-										array("Candidate_ID" => $var["Candidate_ID"])); ?>/NY/petition" TARGET=NEW>Pets</A>
-														
-									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+							
+						
+						
+									
+									
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												
+												
+													<div class="table-body-cell-left"><?= $var["CandidateElection_DBTable"] ?> <?= $var["CandidateElection_DBTableValue"] ?></div>	
+													
+													
+											<div class="table-body-cell-left"><A HREF="/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-													"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>WlkShts</A>
+												"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates"><?= $var["Candidate_DispName"] ?></A></DIV>
 												
-									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+									
+												
+												
+												<div class="table-body-cell">
+													
+													
+													<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
 													
@@ -109,46 +141,77 @@
 													*/
 													
 													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/CRU_PreFile" TARGET=NEW>CRUFm</A>
+											
+													<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+										array("Candidate_ID" => $var["Candidate_ID"])); ?>/NY/petition" TARGET=NEW>Pets</A>
+														
+									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>WlkShts</A>
+												
+									
 												
 									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Cvr Shts</A>
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Cvr Shts</A>	
 									
 									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>(Nrow)</A>
-													
-									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>(Nrow)</A>	
+												
+								
+						 		<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
 													"AmmendCoverSheet" => "yes",
-													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Amend</A>
-				
-									<?= $var["CandidateElection_DBTable"] ?> <?= $var["CandidateElection_DBTableValue"] ?></span>
-						 	
-									<span class="ml-4 flex-items-baseline"><A HREF="/<?= CreateEncoded (
-										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
-													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-													"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates"><?= $var["Candidate_DispName"] ?></A></span>
-								</div>
-
+												"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Amend</A>	
+					
+											
+																						
+										</div>
+										
+										
+											<div class="table-body-cell-left"><?= $var["Elections_Date"] ?></div>	
+											
+										
+										
+										
+									</div>
+								
+								
+															
+								
+									</DIV>
+								
+			
 							<?php
 											}
 										} 
 							?>
 
-							</div>
-							<BR>
-							<p><button type="submit" class="btn btn-primary">Add a new Candidate</button></p>
-					</div>
+
+</P>	
+
+				
+<?php /*							<BR>
+							<p><button type="submit" class="submitred">Add a new Candidate</button></p> */ ?>
+					
 					</FORM>
-			</div>
-		</DIV>
+		
+		
+	</DIV>
+	</DIV>
+
+</DIV>
 	</DIV>
 	</DIV>
 </DIV>
-
+</DIV>
+</DIV>
+</DIV>
+</DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

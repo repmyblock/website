@@ -86,7 +86,7 @@
 							}
 							?>							
 						</SELECT>
-						<button type="submit" class="btn btn-primary mobilemenu">Change Active Team</button>
+						<button type="submit" class="submitred">Change Active Team</button>
 						</FORM>
 					</P>
     

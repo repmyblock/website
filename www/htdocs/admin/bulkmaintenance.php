@@ -178,7 +178,7 @@
 						<div>						
 							<dl class="form-group col-12 d-inline-block"> 
 								<dd>
-									<button type="submit" class="btn btn-primary mobilemenu">Search User</button>
+									<button type="submit" class="submitred">Search User</button>
 								</dd>
 							</dl>
 						</div>
