@@ -23,63 +23,93 @@
 
 		// Search in the database.
 		if ( $_POST["Year"] < 100 ) {
-			if ( $_POST["Year"] > 05) { $Year = "19" . $_POST["Year"];
-			} else { $Year = "20" . $_POST["Year"]; }
-		} else { $Year = $_POST["Year"]; }
+			if ( $_POST["Year"] > 07) { $YearField = "19" .  trim($_POST["Year"]);
+			} else { $YearField = "20" . trim($_POST["Year"]); }
+		} else { $YearField = trim($_POST["Year"]); }
 		
 		// We need to put verification on the first and lastname so they don't pass 
 		// bogus data.		
-		$DBFirstName = $_POST["FirstName"];
-		$DBLastName = $_POST["LastName"];
-		$DOB = $Year . "-" . $_POST["Month"] . "-" . $_POST["Day"];
-		
+		$DBFirstName = trim($_POST["FirstName"]);
+		$DBLastName = trim($_POST["LastName"]);
+	
 		// Before we go and search the Database, we need to check that the DOB info is right.
 		
-	 	$result = $rmb->SearchVoterDB($DBFirstName, $DBLastName, $DOB, "active");
-		WriteStderr($result, "SearchVoterDB(DBFirstName: $DBFirstName, DBLastName: $DBLastName, DOB: $DOB)");
+		$DayField = trim($_POST["Day"]);
+		$MonthField = $_POST["Month"];
+
+		if ( ! checkdate($MonthField, $DayField, $YearField) ) {
+			
+			header("Location: /" . CreateEncoded ( array( 
+									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+									"SystemAdmin" => $URIEncryptedString["SystemUser_Priv"],
+									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+									"QueryFirstName" => $DBFirstName,
+									"QueryLastName" => $DBLastName,
+									"QueryMonth" => $MonthField,
+									"QueryDay" => $DayField,
+									"QueryYear" => $YearField,
+										"ErrorMsg" => "The date of birth is incorect.",
+								))   . "/lgd/team/target");
+			exit();
 		
-		switch(count($result)) {
-			case 0:
-				//echo "Did not find anything\n";
-				$error_msg = "<FONT COLOR=BROWN><B>This person is not in the database.</B></FONT>";
-				break;			
+		} else {
+			$DOB = $YearField . "-" . $MonthField . "-" . $DayField;
+	 		$result = $rmb->SearchVoterDB($DBFirstName, $DBLastName, $DOB, "active");
+			WriteStderr($result, "SearchVoterDB(DBFirstName: $DBFirstName, DBLastName: $DBLastName, DOB: $DOB)");
 			
-			case 1:				
-				header("Location: /" .CreateEncoded ( array( 
-								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-								"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
-								"FirstName" => $URIEncryptedString["FirstName"],
-								"LastName" => $URIEncryptedString["LastName"],
-								"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
-								"UniqNYSVoterID" => $result[0]["Raw_Voter_UniqNYSVoterID"],
-								"UserParty" => $result[0]["Raw_Voter_RegParty"],
-								"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
-							))  . "/lgd/team/voterresult");
-				exit();
-			
-			default:
-				if ( ! empty ($result)) {
-					foreach($result as $var) {
-						if ( ! empty ($var)) {
-							$EncryptURL .= "&vi[]=" . $var["VotersIndexes_ID"];
-						}	
-					}
-				}
+			switch(count($result)) {
+				case 0:
+					//echo "Did not find anything\n";
+					header("Location: /" . CreateEncoded ( array( 
+									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+									"SystemAdmin" => $URIEncryptedString["SystemUser_Priv"],
+									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+									"QueryFirstName" => $DBFirstName,
+									"QueryLastName" => $DBLastName,
+									"QueryMonth" => $MonthField,
+									"QueryDay" => $DayField,
+									"QueryYear" => $YearField,
+									"ErrorMsg" => "This person is not in the database.",
+					))   . "/lgd/team/target");
+					break;			
 				
-				header("Location: /" . CreateEncoded ( array( 
-								"SystemUser_ID" => $resultPass["SystemUser_ID"],
-								"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
-								"FirstName" => $resultPass["SystemUser_FirstName"],
-								"LastName" => $resultPass["SystemUser_LastName"],
-								"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
-								"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
-								"UserParty" => $resultPass["Raw_Voter_RegParty"],
-								"SystemAdmin" => $resultPass["SystemUser_Priv"],
-								"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
-								"vi[]" => $var["VotersIndexes_ID"]
-							))   . "/lgd/team/voterselect");
-				exit();
-		}		
+				case 1:				
+					header("Location: /" .CreateEncoded ( array( 
+									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+									"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+									"FirstName" => $URIEncryptedString["FirstName"],
+									"LastName" => $URIEncryptedString["LastName"],
+									"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
+									"UniqNYSVoterID" => $result[0]["Raw_Voter_UniqNYSVoterID"],
+									"UserParty" => $result[0]["Raw_Voter_RegParty"],
+									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+								))  . "/lgd/team/voterresult");
+					exit();
+				
+				default:
+					if ( ! empty ($result)) {
+						foreach($result as $var) {
+							if ( ! empty ($var)) {
+								$EncryptURL .= "&vi[]=" . $var["VotersIndexes_ID"];
+							}	
+						}
+					}
+					
+					header("Location: /" . CreateEncoded ( array( 
+									"SystemUser_ID" => $resultPass["SystemUser_ID"],
+									"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+									"FirstName" => $resultPass["SystemUser_FirstName"],
+									"LastName" => $resultPass["SystemUser_LastName"],
+									"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
+									"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
+									"UserParty" => $resultPass["Raw_Voter_RegParty"],
+									"SystemAdmin" => $resultPass["SystemUser_Priv"],
+									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+									"vi[]" => $var["VotersIndexes_ID"]
+								))   . "/lgd/team/voterselect");
+					exit();
+			}		
+		}
 	}
 
 	$TopMenus = array ( 
@@ -111,7 +141,10 @@
 		
 					<div class="col-16 f40">
 	
-						<?= $error_msg ?>
+					<?php if ( ! empty ($URIEncryptedString["ErrorMsg"])) {
+						echo "<FONT COLOR=BROWN><B>" . $URIEncryptedString["ErrorMsg"] . "</B></FONT>\n";
+					} ?>
+		
 						
 						<?php /*
 						<P>
@@ -124,14 +157,14 @@
 								<dl class="form-group col-3 d-inline-block"> 
 									<dt><label for="user_profile_name">First Name</label><DT>
 									<dd>
-										<input class="form-control" type="text" Placeholder="First" name="FirstName"<?php if (!empty ($FirstName)) { echo " VALUE=" . $FirstName; } ?> id="user_profile_name">
+										<input class="form-control" type="text" Placeholder="First" name="FirstName"<?php if (!empty ($URIEncryptedString["QueryFirstName"])) { echo " VALUE=\"" . $URIEncryptedString["QueryFirstName"] . "\""; } ?> id="user_profile_name">
 									</dd>
 								</dl>
 			
 								<dl class="form-group col-3 d-inline-block"> 
 									<dt><label for="user_profile_name">Last Name</label><DT>
 									<dd>
-										<input class="form-control" type="text" Placeholder="Last" name="LastName"<?php if (!empty ($LastName)) { echo " VALUE=" . $LastName; } ?> id="user_profile_name">
+										<input class="form-control" type="text" Placeholder="Last" name="LastName"<?php if (!empty ($URIEncryptedString["QueryLastName"])) { echo " VALUE=\"" . $URIEncryptedString["QueryLastName"] . "\""; } ?> id="user_profile_name">
 									</dd>
 								</dl>
 							</DIV>
@@ -140,7 +173,7 @@
 								<dt><label for="user_profile_email">Date of Birth</label></dt>	
 								<dl class="form-group col-1 d-inline-block">
 									<dd>
-										<input class="form-control" type="text" name="Day" id="" Placeholder="Day"<?= $SizeField ?>>
+										<input class="form-control" type="text" name="Day" id="" Placeholder="Day"<?php if (!empty ($URIEncryptedString["QueryDay"])) { echo " VALUE=\"" . $URIEncryptedString["QueryDay"] . "\""; } ?>>
 									</DD>
 								</DL>  
 							
@@ -148,25 +181,25 @@
 									<DD>
 										<select class="form-select" name="Month" id="">
 											<option value="">Select month</option>
-											<option value="01">January</option>
-											<option value="02">February</option>
-											<option value="03">March</option>
-											<option value="04">April</option>
-											<option value="05">May</option>
-											<option value="06">June</option>
-											<option value="07">July</option>
-											<option value="08">August</option>
-											<option value="09">September</option>
-											<option value="10">October</option>
-											<option value="11">November</option>
-											<option value="12">December</option>
+											<option value="01"<?php if ($URIEncryptedString["QueryMonth"] == "1") { echo " SELECTED"; } ?>>January</option>
+											<option value="02"<?php if ($URIEncryptedString["QueryMonth"] == "2") { echo " SELECTED"; } ?>>February</option>
+											<option value="03"<?php if ($URIEncryptedString["QueryMonth"] == "3") { echo " SELECTED"; } ?>>March</option>
+											<option value="04"<?php if ($URIEncryptedString["QueryMonth"] == "4") { echo " SELECTED"; } ?>>April</option>
+											<option value="05"<?php if ($URIEncryptedString["QueryMonth"] == "5") { echo " SELECTED"; } ?>>May</option>
+											<option value="06"<?php if ($URIEncryptedString["QueryMonth"] == "6") { echo " SELECTED"; } ?>>June</option>
+											<option value="07"<?php if ($URIEncryptedString["QueryMonth"] == "7") { echo " SELECTED"; } ?>>July</option>
+											<option value="08"<?php if ($URIEncryptedString["QueryMonth"] == "8") { echo " SELECTED"; } ?>>August</option>
+											<option value="09"<?php if ($URIEncryptedString["QueryMonth"] == "9") { echo " SELECTED"; } ?>>September</option>
+											<option value="10"<?php if ($URIEncryptedString["QueryMonth"] == "10") { echo " SELECTED"; } ?>>October</option>
+											<option value="11"<?php if ($URIEncryptedString["QueryMonth"] == "11") { echo " SELECTED"; } ?>>November</option>
+											<option value="12"<?php if ($URIEncryptedString["QueryMonth"] == "12") { echo " SELECTED"; } ?>>December</option>
 										</select>
 									</DD>
 								</DL>  
 			
 								<dl class="form-group col-1  d-inline-block">      
 									<DD>
-										<input class="form-control" type="text" Placeholder="Year" name="Year" id=""<?= $SizeField ?>>
+										<input class="form-control" type="text" Placeholder="Year" name="Year" id=""<?php if (!empty ($URIEncryptedString["QueryYear"])) { echo " VALUE=\"" . $URIEncryptedString["QueryYear"] . "\""; } ?>>
 									<dd>
 								</dl>
 			

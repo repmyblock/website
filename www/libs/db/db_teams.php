@@ -209,8 +209,8 @@ class Teams extends RepMyBlock {
 			$sql .= " AND Team_ID IS NULL";
 		}
 													
-		echo "<PRE>SQL: $sql<BR>";
-		echo print_r($sql_vars, 1) . "<BR></PRE>";
+		#echo "<PRE>SQL: $sql<BR>";
+		#echo print_r($sql_vars, 1) . "<BR></PRE>";
 													
 		return $this->_return_simple($sql, $sql_vars);	
 	}

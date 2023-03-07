@@ -1,4 +1,5 @@
 <?php
+	if ( ! empty ($k)) { $MenuLogin = "logged";  } 
 	$Menu = "admin";
 	$BigMenu = "represent";	
 		 
@@ -107,7 +108,7 @@
 						<div>						
 							<dl class="form-group col-12 d-inline-block"> 
 								<dd>
-									<button type="submit" class="btn btn-primary mobilemenu">Query the Table</button>
+									<button type="submit" class="redsubmit">Query the Table</button>
 								</dd>
 							</dl>
 						</div>

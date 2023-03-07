@@ -35,7 +35,7 @@
 	
 	if (empty ($result)) {
 		WriteStderr($result, "PetitionData");						
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/createcandidatepositions.php";	
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/candidatelogic/NY_CreatePosition.php";	
 	}
 													
 	header("Location: /" .  CreateEncoded ( array( 
