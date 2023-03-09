@@ -14,11 +14,8 @@
 	
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
-<DIV class="main">
-
-        <DIV class="right f80">2023 NYC Petition Status</DIV>
-
-
+	<DIV class="main">
+      <DIV class="right f80">2023 NYC Petition Status</DIV>
 		  <P class="f60">
 	     This list is prepared for the party clubs to avoid overlapping candidates. Clubs that want to have access to team and omnibus petitions use code <B>teamleaders</B> in the Team Profile submenu of the Personal Profile.
 	       

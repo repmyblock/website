@@ -53,25 +53,16 @@
 					  		</div>
 					    </div>
 
-
-			
-				    
-			
-			
 					    <div class="Box-body  js-collaborated-repos-empty">
 					      <a href="index">Return to previous screen</a>
 					    </div>
-					    
-							    
+					 			    
 					  <div class="Box-body  js-collaborated-repos-empty">
 							<?php 			
 										$Counter = 0;
 										if ( ! empty ($rmbteam)) {
 										
-							?>		
-							
-							
-		
+							?>
 							<div class="flex-items-left">	
 								<span class="ml-0 flex-items-baseline">
 									
@@ -80,6 +71,7 @@
 											<TH style="padding:0px 10px;">Code</TH>
 											<TH style="padding:0px 10px;">Email</TH>
 											<TH style="padding:0px 10px;">Action</TH>
+											<TH style="padding:0px 10px;">Next Step</TH>
 											<TH style="padding:0px 10px;">Date</TH>
 											
 										</TR>
@@ -88,9 +80,6 @@
 									<?php 
 									if ( ! empty ($rmbteam[0]["SystemUserEmail_ID"])) {
 										foreach ($rmbteam as $var) { 
-											
-							
-											
 											if ( $var["OriginalStatus"] == "TEAM REGISTRATION REQUEST") { 
 												$CurrentStatus = "Rcvd 1st Rqst"; 
 												$Waiting = "Forward response" ;
@@ -99,37 +88,26 @@
 												$CurrentStatus = "Rcvd Notif"; 
 												$Waiting = "Waiting click link" ; 
 											}											
+
+											if ( ! empty ($var["SystemUserTemporary_ID"])) {
+												$CurrentStatus = "Created UserID"; 
+												$Waiting = "Waiting Login" ; 
+											}
+											
+											if ( ! empty ($var["SystemUserTemporaryLastLogin"])) {
+												$CurrentStatus = "Logged system"; 
+												$Waiting = "Waiting Profile" ; 
+											}
 								
-								
-										if ( ! empty ($var["SystemUserTemporary_ID"])) {
-											$CurrentStatus = "Created UserID"; 
-											$Waiting = "Waiting Login" ; 
-										}
-										
-										if ( ! empty ($var["SystemUserTemporaryLastLogin"])) {
-											$CurrentStatus = "Logged system"; 
-											$Waiting = "Waiting Profile" ; 
-										}
-								
-										#	$CurrentStatus = $var["OriginalStatus"];
-											
-											
-											
-											
-											
-											?>
+											#	$CurrentStatus = $var["OriginalStatus"];
+									?>
 									
 									<TR ALIGN=CENTER>
 										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["MailCode_First"] ?></TD>
 										<TD style="padding:0px 10px;<?= $style ?>"><?= $var["EmailSentTo"] ?></TD>
-										
 										<TD style="padding:0px 10px;<?= $style ?>"><?= $CurrentStatus ?></TD>
 										<TD style="padding:0px 10px;<?= $style ?>"><?= $Waiting ?></TD>
-									
-										
 										<TD style="padding:0px 10px;"><?= PrintDateTime($var["SystemUserEmail_Received"]) ?></TD>
-																
-									
 									</TR>
 									
 								<?php } 
@@ -137,7 +115,7 @@
 									} else { ?>
 										
 											<TR ALIGN=CENTER>
-											<TD style="padding:0px 10px;<?= $style ?>" COLSPAN=4>No uncompleted registrations pending</TD>
+											<TD style="padding:0px 10px;<?= $style ?>" COLSPAN=5>No uncompleted registrations pending</TD>
 											</TR>
 										
 										<?php

@@ -124,10 +124,14 @@
 					  		</div>
 					    </div>
 	
+	
+						
 							
 						<div class="Box-body js-collaborated-repos-empty">
 							<div class="flex-items-left">	
 								<span class="ml-0 flex-items-baseline ">
+									
+									<P CLASS="f60"><A HREF="/<?= $k ?>/lgd/team/target">Create petition</A></P>
 									
 									
 									<DIV class="f40">

@@ -10,6 +10,11 @@
 	display: table;
 }
 
+#resp-table-normal {
+	display: table;
+}
+
+
 #resp-table-caption{
 	display: table-caption;
 	text-align: center;
