@@ -277,6 +277,23 @@
 							
 							?>
 							<P CLASS="f60">
+								
+														
+	
+		<?php if ( ! empty ($var["CandidateElection_DBTable"])) { ?>			
+			<BR><A TARGET="NEWWALKSHEET<?= $PetitionSetID ?>" HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded ( array( 
+													"DataDistrict_ID" => "1",
+													"PreparedFor" => $var["Candidate_DispName"],
+													"ED" => $District[2][0],
+												  "AD" => $District[1][0],
+												  "Party" => $var["Candidate_Party"],
+												  "SystemID" => $var["Candidate_ID"]
+												)) . "/rmb/voterlist" ?>">Walksheet</A><BR>
+		<?php } ?>
+			
+			
+		
+														
 														
 								<A HREF="/<?= CreateEncoded ( array( 
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
@@ -296,10 +313,24 @@
 									"CPrep_State" => $rmbteammember["DataState_Abbrev"],
 									"Voters_ID" => $rmbteammember["Voters_ID"],
 									"Team_ID" => $ActiveTeamID,
+									
+										"Voters_ID" => $rmbteammember["Voters_ID"],
+											"VotersIndexes_ID" => $vrmbteammemberar["VotersIndexes_ID"],
+						          "ED" =>  $rmbteammember["DataDistrict_Electoral"],
+						          "AD" => $rmbteammember["DataDistrict_StateAssembly"],
+						          "Party" => $rmbteammember["Voters_RegParty"],
+											"PreparedFor" => $rmbteammember["DataFirstName_Text"] . " " . $rmbteammember["DataLastName_Text"],
+											"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
+											"SystemAdmin" =>  $URIEncryptedString["SystemAdmin"],
+											
+											"ActiveTeam_ID" => $ActiveTeamID,
+									
 									"PetitionBypass" => true,
 						)) . "/lgd/team/petitionsetup" ?>">Prepare a petition</A>
 						
-								<A TARGET="NEWWALKSHEET" HREF="<?= $FrontEndPDF ?>/<?= $NewKEncrypt ?>/<?= CreateEncoded ( array( 
+
+						
+								<A TARGET="NEWWALKSHEET" HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded ( array( 
 											"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 											"VoterSystemUser_ID" => $rmbteammember["SystemUser_ID"],
 											"VotersIndexes_ID" => $rmbteammember["Voters_ID"],
@@ -312,7 +343,18 @@
 									    "DataDistrictTown_ID" => $rmbteammember["DataDistrictTown_ID"],
 											"Party" => $rmbteammember["Voters_RegParty"],
 											"TeamName" => $ActiveTeam,
+											"ActiveTeam_ID" => $ActiveTeamID,
 											"TeamPerson" =>  $rmbperson["DataFirstName_Text"] . " " . $rmbperson["DataLastName_Text"],
+										
+											"Voters_ID" => $rmbteammember["Voters_ID"],
+											"VotersIndexes_ID" => $vrmbteammemberar["VotersIndexes_ID"],
+						          "ED" =>  $rmbteammember["DataDistrict_Electoral"],
+						          "AD" => $rmbteammember["DataDistrict_StateAssembly"],
+						          "Party" => $rmbteammember["Voters_RegParty"],
+											"PreparedFor" => $rmbteammember["DataFirstName_Text"] . " " . $rmbteammember["DataLastName_Text"],
+											"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
+											"SystemAdmin" =>  $URIEncryptedString["SystemAdmin"],
+													
 								)) . "/rmb/voterlist" ?>">Prepare a walksheet</A>
 							</P>
 						<?php } ?>
