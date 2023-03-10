@@ -330,7 +330,12 @@ class PDF_NY_Petition extends PDF_Code128 {
 		$this->Cell(0,0, "_________________________________________________________", 0, 0, 0);
 		
 		$this->SetXY(20, -14);
-		$this->Cell(40,10, "City:", 0, 'L', 0);
+		
+		if ( $this->TypeOfTown == "Town") {
+			$this->Cell(40,10, "Town/City:", 0, 'L', 0);
+		} else {
+			$this->Cell(40,10, "City:", 0, 'L', 0);
+		}
 
 		$this->SetXY(60, -14);
 		$this->Cell(40,10, "County:", 0, 'L', 0);

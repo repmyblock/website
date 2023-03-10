@@ -88,11 +88,14 @@ function version_NY_hano ($pdf, $InfoArray) {
 		//$pdf->Cell(21, 3.3, "Riverside rive", 0, 'R', 0);
 		
 		$pdf->SetXY($pdf->Line_Left + 90, $YLocation + 15.5);
-		$pdf->Cell(21, 3.3, "Apt", 0, 'L', 0);
+		
+		if ( $pdf_NY_petition->ShowApt == true) {
+			$pdf->Cell(21, 3.3, "Apt", 0, 'L', 0);
+		}
 		$pdf->SetXY($pdf->Line_Left + 150, $YLocation + 15.5);
 		
 		if ( empty ($pdf->AutoFillCity)) {
-			$pdf->Cell(21, 3.3, ", NY 1", 0, 'L', 0);
+			$pdf->Cell(21, 3.3, ", NY", 0, 'L', 0);
 		} else {
 			$pdf->Cell(21, 3.3, $pdf->AutoFillCity, 0, 'L', 0);
 		}
@@ -100,8 +103,8 @@ function version_NY_hano ($pdf, $InfoArray) {
 		//$pdf->Cell(21, 3.3, "New York, NY, 10031 ", 0, 'L', 0);
 		
 		$pdf->SetFont('Arial','',10);
-		$pdf->SetXY($pdf->Line_Left + 198, $YLocation +5);
-		$pdf->Cell(5, 0, "County", 0, 0, 'R', 0);
+		$pdf->SetXY($pdf->Line_Left + 194, $YLocation +5);
+		$pdf->Cell(5, 0, $pdf->TypeOfTown, 0, 0, 'C', 0);
 		
 		$pdf->SetFont('Arial','B',14);
 		$pdf->SetXY($pdf->Line_Left + 196, $YLocation +12);	

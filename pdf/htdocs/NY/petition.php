@@ -220,36 +220,48 @@ if ( ! empty ($URIEncryptedString["CustomData"] )) {
 switch ($pdf_NY_petition->county) {
 	case "Bronx":
 		#$pdf_NY_petition->AutoFillCounty = "BX";
-		$pdf_NY_petition->AutoFillCity = "Bronx, NY 104";
+		$pdf_NY_petition->AutoFillCity = "Bronx, NY";
 		$pdf_NY_petition->TypeOfTown = "County";
+		$pdf_NY_petition->ShowApt = true;
 		break;
 		
 	case "New York":
 		#$pdf_NY_petition->AutoFillCounty = "NY";
-		$pdf_NY_petition->AutoFillCity = "New York, NY 10";
+		$pdf_NY_petition->AutoFillCity = "New York, NY";
 		$pdf_NY_petition->TypeOfTown = "County";
+		$pdf_NY_petition->ShowApt = true;
 		break;
 		
 	case "Richmond":
 		#$pdf_NY_petition->AutoFillCounty = "RH";
-		$pdf_NY_petition->AutoFillCity = "Staten Island, NY 103";
+		$pdf_NY_petition->AutoFillCity = "Staten Island, NY";
 		$pdf_NY_petition->TypeOfTown = "County";
+		$pdf_NY_petition->ShowApt = true;
 		break;
 		
 	case "Queens":
 		#$pdf_NY_petition->AutoFillCounty = "QN";
-		$pdf_NY_petition->AutoFillCity = "Queens, NY 1";
+		$pdf_NY_petition->AutoFillCity = "Queens, NY";
 		$pdf_NY_petition->TypeOfTown = "County";
+		$pdf_NY_petition->ShowApt = true;
 		break;
 
 	case "Kings":
 		#$pdf_NY_petition->AutoFillCounty = "KG";
-		$pdf_NY_petition->AutoFillCity = "New York, NY 10";
+		$pdf_NY_petition->AutoFillCity = "New York, NY";
 		$pdf_NY_petition->TypeOfTown = "County";
+		$pdf_NY_petition->ShowApt = true;
+		break;
+		
+	case "Nassau":
+		$pdf_NY_petition->AutoFillCity = ", NY";
+		$pdf_NY_petition->TypeOfTown = "Town";
+		$pdf_NY_petition->ShowApt = false;
 		break;
 
 	default:
 		$pdf_NY_petition->TypeOfTown = "Town";
+		$pdf_NY_petition->ShowApt = true;
 		break;
 }
 
