@@ -616,7 +616,11 @@ class RepMyBlock extends queries {
 		$sql = "SELECT * FROM Candidate " . 
 						"LEFT JOIN CandidateGroup ON (Candidate.Candidate_ID = CandidateGroup.Candidate_ID) " . 
 						"LEFT JOIN CandidateSet ON (CandidateSet.CandidateSet_ID = CandidateGroup.CandidateSet_ID) " .
+						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
+						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+						"LEFT JOIN DataDistrictTown ON (Candidate.DataDistrictTown_ID = DataDistrictTown.DataDistrictTown_ID) " . 
 						"WHERE Candidate.Team_ID = :Team_ID";
+						
 		return $this->_return_multiple($sql, array('Team_ID' => $TeamID));
 	}
 	

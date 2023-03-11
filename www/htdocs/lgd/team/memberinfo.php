@@ -104,7 +104,15 @@
 			    </div>
 			    
 			     <div class="Box-body  js-collaborated-repos-empty">
-					 	<a href="<?= $PrevMenu ?>">Return to previous screen</a>
+			     	<?php if($rmbteamuser["TeamSystemUser_ID"] == $rmbperson["SystemUser_ID"]) { ?>
+			     		<TABLE BORDER=1>
+							<TR>
+								<TH style="padding:0px 2px;" BGCOLOR=BLACK ALIGN=RIGHT><FONT COLOR=WHITE>You are the team owner</FONT></TH>
+							</TR>
+						</TABLE>
+						<?php } ?>
+					
+					 	&nbsp;<a href="<?= $PrevMenu ?>">Return to previous screen</a>
 					 </div>
 
 			    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
@@ -116,8 +124,14 @@
 						//if ( ! empty ($rmbteaminfo)) {								
 					?>
 					
+					
+
+					
 					<div id="voters">
-					<div class="list-group-item filtered">							
+					<div class="list-group-item filtered">						
+						
+						
+							
 						<?php 
 							// This need to be updated for the right state						
 							preg_match('/^NY0+(.*)/', $rmbteammember["VotersIndexes_UniqStateVoterID"], $UniqMatches, PREG_OFFSET_CAPTURE);
@@ -128,6 +142,7 @@
 							<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
 							<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $rmbperson["Voters_Status"] ?></FONT>
 						</P>
+						
 						
 						<?php if ($StatusMemberActive == "pending") { ?>
 							<FORM ACTION="" METHOD="POST">
@@ -154,7 +169,12 @@
 							</FORM>
 							</P>
 						<?php } ?>		
-
+						
+						
+					
+						
+						<BR>
+						
 						<TABLE BORDER=1>
 							<TR>
 								<TH style="padding:0px 10px;">First</TH>
@@ -313,19 +333,18 @@
 									"CPrep_State" => $rmbteammember["DataState_Abbrev"],
 									"Voters_ID" => $rmbteammember["Voters_ID"],
 									"Team_ID" => $ActiveTeamID,
-									
-										"Voters_ID" => $rmbteammember["Voters_ID"],
-											"VotersIndexes_ID" => $vrmbteammemberar["VotersIndexes_ID"],
-						          "ED" =>  $rmbteammember["DataDistrict_Electoral"],
-						          "AD" => $rmbteammember["DataDistrict_StateAssembly"],
-						          "Party" => $rmbteammember["Voters_RegParty"],
-											"PreparedFor" => $rmbteammember["DataFirstName_Text"] . " " . $rmbteammember["DataLastName_Text"],
-											"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
-											"SystemAdmin" =>  $URIEncryptedString["SystemAdmin"],
-											
-											"ActiveTeam_ID" => $ActiveTeamID,
-									
+	
+									"Voters_ID" => $rmbteammember["Voters_ID"],
+									"VotersIndexes_ID" => $vrmbteammemberar["VotersIndexes_ID"],
+									"ED" =>  $rmbteammember["DataDistrict_Electoral"],
+									"AD" => $rmbteammember["DataDistrict_StateAssembly"],
+									"Party" => $rmbteammember["Voters_RegParty"],
+									"PreparedFor" => $rmbteammember["DataFirstName_Text"] . " " . $rmbteammember["DataLastName_Text"],
+									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
+									"SystemAdmin" =>  $URIEncryptedString["SystemAdmin"],
+									"ActiveTeam_ID" => $ActiveTeamID,
 									"PetitionBypass" => true,
+
 						)) . "/lgd/team/petitionsetup" ?>">Prepare a petition</A>
 						
 
@@ -357,6 +376,19 @@
 													
 								)) . "/rmb/voterlist" ?>">Prepare a walksheet</A>
 							</P>
+							
+							<?php if($rmbteamuser["TeamSystemUser_ID"] == $rmbperson["SystemUser_ID"]) { ?>
+								<A HREF="">Turn onwership of the <?= $ActiveTeamMember ?> to another admin</A><BR>
+							<?php } ?>
+							
+							<?php 
+									// If am an admin, I can give the access to someone to help
+							
+							
+							?>
+									
+					 		<a href="<?= $PrevMenu ?>">Return to previous screen</a>
+
 						<?php } ?>
 					</span>
 				</div>

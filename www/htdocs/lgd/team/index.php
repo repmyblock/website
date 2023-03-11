@@ -195,9 +195,8 @@
 											<div class="table-header-cell">Last</div>
 											<div class="table-header-cell">AD</div>
 											<div class="table-header-cell">ED</div>
-											<div class="table-header-cell">TOWN</div>
-											<div class="table-header-cell">Sigs.</div>
-											<div class="table-header-cell">Done</div>
+											<div class="table-header-cell">Town</div>
+			
 											<div class="table-header-cell">&nbsp;</div>
 										</div>
 
@@ -223,13 +222,11 @@
 										<div id="resp-table-body">
 											<div class="resp-table-row">
 												<div class="table-body-cell"><?= $var["SystemUser_Party"] ?></div>
-												<div class="table-body-cell"><?= $var["SystemUser_FirstName"] ?></div>
-												<div class="table-body-cell"><?= $var["SystemUser_LastName"] ?></div>
+												<div class="table-body-cell-left"><?= $var["SystemUser_FirstName"] ?></div>
+												<div class="table-body-cell-left"><?= $var["SystemUser_LastName"] ?></div>
 												<div class="table-body-cell"><?= $var["DataDistrict_StateAssembly"] ?></div>
 												<div class="table-body-cell"><?= $var["DataDistrict_Electoral"] ?></div>
-												<div class="table-body-cell"><?= $var["DataDistrictTown_Name"] ?></div>
-												<div class="table-body-cell">0</div>
-												<div class="table-body-cell">0</div>
+												<div class="table-body-cell-left"><?= $var["DataDistrictTown_Name"] ?></div>
 												<div class="table-body-cell"><A HREF="/<?=  CreateEncoded (
 																												array( 
 																													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
