@@ -54,6 +54,7 @@
 				$DateListInterval[$interval] = $var["Elections_Date"];			
 					
 				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]][$var["Candidate_ID"]]["Interval"] = $interval;
+				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]][$var["Candidate_ID"]]["CandidateID"] = $var["Candidate_ID"];
 				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]][$var["Candidate_ID"]]["CandidateName"] = $var["Candidate_DispName"];
 				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]][$var["Candidate_ID"]]["ElectionType"] = $var["CandidateElection_DBTable"];
 				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]][$var["Candidate_ID"]]["ElectionDistrict"] = $var["CandidateElection_DBTableValue"];
@@ -62,11 +63,12 @@
 				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]][$var["Candidate_ID"]]["DoneSigs"] = "0";
 				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]][$var["Candidate_ID"]]["ED"] = intval($District[2][0]);
 				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]][$var["Candidate_ID"]]["AD"] = intval($District[1][0]);
+				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]][$var["Candidate_ID"]]["SystemID"]= $var["Candidate_ID"];			
 				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]]["Party"]= $var["Candidate_Party"];
 				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]]["Status"] = $var["Candidate_Status"];
-				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]][$var["Candidate_ID"]]["SystemID"]= $var["Candidate_ID"];			
 				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]]["Random"]= $var["CandidateSet_Random"];			
-				
+				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]]["Elections_ID"] = $var["Elections_ID"];
+				$Petitions[$var["Elections_Date"]][$var["CandidateSet_ID"]]["DataCountyID"] = $var["DataCounty_ID"];
 			}
 		}
 	}
@@ -179,13 +181,25 @@
 											<div class="resp-table-row">
 												<div class="table-body-cell"><?= $Candidate["Party"] ?></div>
 												<div class="table-body-cell-left"><?php 
-													foreach ($Candidate as $CanID => $vor ) { if (! empty ( $Candidate[$CanID]["CandidateName"] )) { echo $Candidate[$CanID]["CandidateName"] . "<BR>"; } }
-												?><A HREF="/<?= CreateEncoded ( array( 
-																								"SystemUser_ID" => $var["SystemUser_ID"],
-																								"ActiveTeam_ID" => $var["Team_ID"],
-																								"Candidate_ID" => $var["Candidate_ID"],
-																								"ActiveTeam" => $URIEncryptedString["ActiveTeam"],
-																					)) . "/lgd/team/addtopetition" ?>">(+ add folks)</A></div>
+													
+													$MyArrayToPass = array( 
+														"CurrentSelectDate" => $CurrentSelectDate,
+														"Election_ID" => $Candidate["Elections_ID"],
+														"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+														"ActiveTeam" => $URIEncryptedString["ActiveTeam"],
+														"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+														"Party" => $Candidate["Party"],
+														"DataCountyID" => $Candidate["DataCountyID"],
+														
+													);
+													
+													foreach ($Candidate as $CanID => $vor ) { 
+														if (! empty ( $Candidate[$CanID]["CandidateName"] )) { 
+															echo $Candidate[$CanID]["CandidateName"] . "<BR>"; 
+															$MyArrayToPass["CandidateID[]"] = $Candidate[$CanID]["CandidateID"];
+														} 
+													}
+												?><A HREF="/<?= CreateEncoded ( $MyArrayToPass ) . "/lgd/team/addtopetition" ?>">(+ add folks)</A></div>
 												<div class="table-body-cell"><?php 
 													foreach ($Candidate as $CanID => $vor ) { if (! empty ( $Candidate[$CanID]["ElectionType"] )) { echo $Candidate[$CanID]["ElectionType"] . "<BR>"; } }
 												?></div>
@@ -231,7 +245,7 @@
 													<A TARGET="NEWWALKSHEET<?= $SetID ?>" HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded ( array( 
 																								"DataDistrict_ID" => "1",
 																								"PreparedFor" => $Candidate[$CandidateID]["CandidateName"],
-																								
+									
 																								"ED" => $ED,
 																							  "AD" => $AD,
 																							  "Party" => $Candidate["Party"],
@@ -244,11 +258,11 @@
 																								"PreparedFor" => $Candidate[$CandidateID]["CandidateName"],
 																									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 																									"ActiveTeam" => $URIEncryptedString["ActiveTeam"],
-																								"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
-																								"ED" => $ED,
-																							  "AD" => $AD,
-																							  "Party" => $Candidate["Party"],
-																							  "SystemID" => $Candidate["Candidate_ID"]
+																									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+																									"ED" => $ED,
+																								  "AD" => $AD,
+																								  "Party" => $Candidate["Party"],
+																								  "SystemID" => $Candidate["Candidate_ID"]
 																							)) . "/lgd/walksheets/petitions" ?>">Walksheet</A><BR>
 														
 														
@@ -265,8 +279,10 @@
 								<?php } }
 							}   
 										
-										} 
+										} else {
 							?>
+								<div class="table-body-cell-wide"><BR>No petitions have been defined for this election<BR><A HREF="/<?= $k ?>/lgd/team/target">Create petition</A><BR><BR></div>
+							<?php } ?>
 
 							</DIV>
 	</DIV>

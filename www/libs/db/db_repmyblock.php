@@ -486,8 +486,7 @@ class RepMyBlock extends queries {
 	
 	function updatecandidateprofile($Candidate_ID, $CandidateProfile) {
 	
-		if ($Candidate_ID > 0) {
-			
+		if ($Candidate_ID > 0 || $Candidate_ID == "force" ) {			
 			$MatchTableName = array(
 				"PicFile" => "CandidateProfile_PicFileName", 
 				"PDFFile" => "CandidateProfile_PDFFileName", 
@@ -504,22 +503,25 @@ class RepMyBlock extends queries {
 				"Ballotpedia"	 => "CandidateProfile_BallotPedia", 
 				"Phone"	 => "CandidateProfile_PhoneNumber", 
 				"Fax"	 => "CandidateProfile_FaxNumber", 
-				"Platform"	 => "CandidateProfile_Statement"			
+				"Platform"	 => "CandidateProfile_Statement"		
 			);
 			
-			
-			$return = $this->ListCandidateProfile($Candidate_ID);	
-			# This is to set the collums that changed.
-			foreach ($CandidateProfile as $index => $var) {			
-				if ( $var == $return[$MatchTableName[$index]]) {
-					unset ($CandidateProfile[$index]);
+			if ( $Candidate_ID > 0) {
+				$return = $this->ListCandidateProfile($Candidate_ID);	
+				# This is to set the collums that changed.
+				foreach ($CandidateProfile as $index => $var) {			
+					if ( $var == $return[$MatchTableName[$index]]) {
+						unset ($CandidateProfile[$index]);
+					}
 				}
 			}
 									
 			if ( empty ($return)) {	$sql = "INSERT INTO"; } 
 			else { $sql = "UPDATE"; }
 			$sql .= " CandidateProfile SET ";
-			$sql_vars = array("Candidate_ID" => $Candidate_ID);
+			if ( $Candidate_ID != "force") {
+				$sql_vars = array("Candidate_ID" => $Candidate_ID);
+			}
 			$FirstTime = 0;
 			
 			
@@ -542,8 +544,10 @@ class RepMyBlock extends queries {
 				}
 			}
 			
-			if ( empty ($return)) {	$sql .= " ,Candidate_ID = :Candidate_ID"; }
-			else { $sql .= " WHERE Candidate_ID = :Candidate_ID"; }
+			if ( $Candidate_ID != "force") {
+				if ( empty ($return)) {	$sql .= " ,Candidate_ID = :Candidate_ID"; }
+				else { $sql .= " WHERE Candidate_ID = :Candidate_ID"; }
+			}
 			
 			if (! $firsttime) return;
 			$this->_return_nothing($sql, $sql_vars);
@@ -551,7 +555,6 @@ class RepMyBlock extends queries {
 			$sql = "SELECT LAST_INSERT_ID() as CandidateProfile_ID";
 			return $this->_return_simple($sql); 
 		}
-		
 	}	
 	
 	function CheckCandidateGroups ($CandidatesIDs) {

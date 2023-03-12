@@ -32,11 +32,28 @@
 				"Voters_ID" => $URIEncryptedString["Voters_ID"], 
 	);
 	
+	// Here we add the information into the CandidateProfile;
+	if ( ! empty ($URIEncryptedString["ContactInfo"])) {
+			$MatchTableName = array(
+				"Fist"	 =>  $URIEncryptedString["UniqNYSVoterID"], 
+				"Last"	 =>  $URIEncryptedString["TypeElection"][0] . " " . $URIEncryptedString["TypeValue"][0],
+				"URL" =>  $URIEncryptedString["ActiveTeam_ID"], 
+				"Full"	 =>  $URIEncryptedString["FullName"], 
+				"Email"	 => $URIEncryptedString["ContactInfo"], 
+			);
+			$CandidateProfile = $rmb->updatecandidateprofile("force", $MatchTableName);	
+	}
+	
 	
 	if (empty ($result)) {
 		WriteStderr($result, "PetitionData");						
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/candidatelogic/NY_CreatePosition.php";	
 	}
+									
+									
+									
+	
+									
 													
 	header("Location: /" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],

@@ -215,155 +215,57 @@ class Teams extends RepMyBlock {
 		return $this->_return_simple($sql, $sql_vars);	
 	}
 	
-	/*
-		Candidate_ID, SystemUser_ID, Team_ID, CandidateProfile_ID, Candidate_PetitionNameset, Candidate_UniqStateVoterID, DataCounty_ID, 
-		Voters_ID, CandidateElection_ID, Candidate_Party, Candidate_FullPartyName, CandidatePartySymbol_ID, Candidate_DisplayMap, Candidate_DispName, 
-		Candidate_DispResidence, CandidateElection_DBTable, CandidateElection_DBTableValue, Candidate_StatsVoters, Candidate_Status, 
-		Candidate_Watermark, Candidate_LocalHash, Candidate_NominatedBy, CandidateElection_ID, Elections_ID, ElectionsPosition_ID, 
-		CandidateElection_PositionType, CandidateElection_Party, CandidateElection_Text, CandidateElection_PetitionText, 
-		CandidateElection_URLExplain, CandidateElection_Number, CandidateElection_DisplayOrder, CandidateElection_Display, 
-		CandidateElection_Sex, CandidateElection_DBTable, CandidateElection_DBTableValue, CandidateElection_CountVoter, ElectionsDistrictsConv_ID, 
-		Elections_ID, DataCounty_ID, ElectionsPosition_ID, ElectionsDistricts_DBTableValue, ElectionsDistrictsConv_DBTable, 
-		ElectionsDistrictsConv_DBTableValue, ElectionsPosition_ID, ElectionsPosition_DBTable, DataState_ID, ElectionsPosition_Type, 
-		ElectionsPosition_Name, ElectionsPosition_Party, ElectionsPosition_Order, ElectionsPosition_Explanation, Candidate_ID, SystemUser_ID, 
-		Team_ID, CandidateProfile_ID, Candidate_PetitionNameset, Candidate_UniqStateVoterID, DataCounty_ID, Voters_ID, CandidateElection_ID, 
-		Candidate_Party, Candidate_FullPartyName, CandidatePartySymbol_ID, Candidate_DisplayMap, Candidate_DispName, Candidate_DispResidence, 
-		CandidateElection_DBTable, CandidateElection_DBTableValue, Candidate_StatsVoters, Candidate_Status, Candidate_Watermark, Candidate_LocalHash, 
-		Candidate_NominatedBy, CandidateElection_ID, Elections_ID, ElectionsPosition_ID, CandidateElection_PositionType, CandidateElection_Party, 
-		CandidateElection_Text, CandidateElection_PetitionText, CandidateElection_URLExplain, CandidateElection_Number, CandidateElection_DisplayOrder, 
-		CandidateElection_Display, CandidateElection_Sex, CandidateElection_DBTable, CandidateElection_DBTableValue, CandidateElection_CountVoter
-	*/
-	
-	
-	function FindPositionsInSame($ElectionsID, $TeamID, $CandidateID ) {
-		$sql = "SELECT Can2.Candidate_ID as FindCandidate_ID, Can2.Candidate_DispName as FindCandidate_DispName, " .
-						"Can2.Candidate_ID as FindCandidate_Candidate_ID, Can2.SystemUser_ID as FindCandidate_SystemUser_ID,  " .
-						"Can2.Team_ID as FindCandidate_Team_ID, Can2.CandidateProfile_ID as FindCandidate_CandidateProfile_ID, " . 
-						"Can2.Candidate_PetitionNameset as FindCandidate_PetitionNameset, Can2.Candidate_UniqStateVoterID as FindCandidate_UniqStateVoterID,  " .
-						"Can2.DataCounty_ID as FindCandidate_DataCounty_ID, Can2.Voters_ID as FindCandidate_Voters_ID, " . 
-						"Can2.CandidateElection_ID as FindCandidate_CandidateElection_ID,  " .
-						"Can2.Candidate_Party as FindCandidate_Party, Can2.Candidate_FullPartyName as FindCandidate_FullPartyName, " . 
-						"Can2.CandidatePartySymbol_ID as FindCandidate_PartySymbol_ID,  " .
-						"Can2.Candidate_DisplayMap as FindCandidate_DisplayMap, Can2.Candidate_DispName as FindCandidate_DispName, " . 
-						# "Can2.Candidate_DispResidence as FindCandidate_DispResidence, " .
-						"Can2.CandidateElection_DBTable as FindCandidate_DBTable, Can2.CandidateElection_DBTableValue as FindCandidate_DBTableValue, " . 
-						"Can2.Candidate_StatsVoters as FindCandidate_StatsVoters,  " .
-						"Can2.Candidate_Status as FindCandidate_Status, Can2.Candidate_Watermark as FindCandidate_Watermark, " . 
-						"Can2.Candidate_LocalHash as FindCandidate_LocalHash,  " .
-						"Can2.Candidate_NominatedBy as FindCandidate_NominatedBy " .
-						
-						"FROM Candidate " .
-						"LEFT JOIN Candidate AS Can2 ON (" .
-						"Candidate.CandidateElection_DBTable = Can2.CandidateElection_DBTable " .
-						"AND " .
-						"Candidate.CandidateElection_DBTableValue = Can2.CandidateElection_DBTableValue" .
-						")" .
-						"LEFT JOIN CandidateElection ON (Can2.CandidateElection_ID = CandidateElection.CandidateElection_ID)" .
-						"WHERE Candidate.Team_ID = :TeamID AND Elections_ID = :ElectionID AND Candidate.Candidate_ID = :CandidateID AND Can2.Candidate_ID != :CandidateID";
-						
-		$sql_vars = array("CandidateID" => $CandidateID, "TeamID" => $TeamID,  "ElectionID" => $ElectionsID);
-		$ret = $this->_return_multiple($sql, $sql_vars);
-		
-		if ( empty ($ret)) {
-			return array();
-		} else {
-			return $ret;
-		}
-						
-  }
-	
-	function FindPositionsInToConv($ElectionsID, $Party, $CandidateID ) {
-		$sql = "SELECT DISTINCT CandidateToFind.Candidate_ID as FindCandidate_ID, " .
-					 	"CandidateToFind.Candidate_DispName as FindCandidate_DispName, " .
-					 	
-					 	"CandidateToFind.Candidate_ID as FindCandidate_Candidate_ID, CandidateToFind.SystemUser_ID as FindCandidate_SystemUser_ID,  " .
-						"CandidateToFind.Team_ID as FindCandidate_Team_ID, CandidateToFind.CandidateProfile_ID as FindCandidate_CandidateProfile_ID, " . 
-						"CandidateToFind.Candidate_PetitionNameset as FindCandidate_PetitionNameset, CandidateToFind.Candidate_UniqStateVoterID as FindCandidate_UniqStateVoterID,  " .
-						"CandidateToFind.DataCounty_ID as FindCandidate_DataCounty_ID, CandidateToFind.Voters_ID as FindCandidate_Voters_ID, " . 
-						"CandidateToFind.CandidateElection_ID as FindCandidate_CandidateElection_ID,  " .
-						"CandidateToFind.Candidate_Party as FindCandidate_Party, CandidateToFind.Candidate_FullPartyName as FindCandidate_FullPartyName, " . 
-						"CandidateToFind.CandidatePartySymbol_ID as FindCandidate_PartySymbol_ID,  " .
-						"CandidateToFind.Candidate_DisplayMap as FindCandidate_DisplayMap, CandidateToFind.Candidate_DispName as FindCandidate_DispName, " . 
-						# "CandidateToFind.Candidate_DispResidence as FindCandidate_DispResidence, " .
-						"CandidateToFind.CandidateElection_DBTable as FindCandidate_DBTable, CandidateToFind.CandidateElection_DBTableValue as FindCandidate_DBTableValue, " . 
-						"CandidateToFind.Candidate_StatsVoters as FindCandidate_StatsVoters,  " .
-						"CandidateToFind.Candidate_Status as FindCandidate_Status, CandidateToFind.Candidate_Watermark as FindCandidate_Watermark, " . 
-						"CandidateToFind.Candidate_LocalHash as FindCandidate_LocalHash,  " .
-						"CandidateToFind.Candidate_NominatedBy as FindCandidate_NominatedBy " .
-					 	
-					 	
-					 	
-					 	"FROM Candidate " . 
-						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
-						"LEFT JOIN ElectionsDistrictsConv ON ( " . 
-						"	 ElectionsDistrictsConv.ElectionsDistrictsConv_DBTable = Candidate.CandidateElection_DBTable AND " . 
-						"	 ElectionsDistrictsConv.ElectionsDistrictsConv_DBTableValue = Candidate.CandidateElection_DBTableValue " . 
-						") " . 
-						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.ElectionsPosition_ID = ElectionsDistrictsConv.ElectionsPosition_ID) " . 
-						"LEFT JOIN Candidate AS CandidateToFind ON ( " . 
-						"		ElectionsPosition.ElectionsPosition_DBTable = CandidateToFind.CandidateElection_DBTable AND " . 
-						"		ElectionsDistrictsConv.ElectionsDistricts_DBTableValue = CandidateToFind.CandidateElection_DBTableValue " .      
-						#"		Candidate.CandidateElection_DBTable = CandidateToFind.CandidateElection_DBTable AND " . 
-						#"		Candidate.CandidateElection_DBTableValue = CandidateToFind.CandidateElection_DBTableValue " . 
-						") " . 
-						"LEFT JOIN CandidateElection AS CandidateElectionToFind ON (CandidateElectionToFind.CandidateElection_ID = CandidateToFind.CandidateElection_ID) " . 
-						"WHERE Candidate.Candidate_ID = :CandidateID AND (ElectionsPosition_Party = :Party OR ElectionsPosition_Party IS NULL) " . 
-						"AND CandidateElectionToFind.Elections_ID = :ElectionID "; 
-						
-		$sql_vars = array("CandidateID" => $CandidateID, "Party" => $Party,  "ElectionID" => $ElectionsID);
-		$ret = $this->_return_multiple($sql, $sql_vars);
-		
-		if ( empty ($ret)) {
-			return array();
-		} else {
-			return $ret;
-		}
-						
+  function ReturnCandidateInformation($CandidateID) {
+  	$sql = "SELECT * FROM Candidate WHERE Candidate_ID = :CandidateID";
+  	return $this->_return_simple($sql, array("CandidateID" => $CandidateID));	
   }
   
-  function FindPositionsInFromConv($ElectionsID, $Party, $CandidateID ) {
-		$sql = "SELECT DISTINCT CandidateToFind.Candidate_ID as FindCandidate_ID, " .
-					 	"CandidateToFind.Candidate_DispName as FindCandidate_DispName, " .
-					 	
-					 	"CandidateToFind.Candidate_ID as FindCandidate_Candidate_ID, CandidateToFind.SystemUser_ID as FindCandidate_SystemUser_ID,  " .
-						"CandidateToFind.Team_ID as FindCandidate_Team_ID, CandidateToFind.CandidateProfile_ID as FindCandidate_CandidateProfile_ID, " . 
-						"CandidateToFind.Candidate_PetitionNameset as FindCandidate_PetitionNameset, CandidateToFind.Candidate_UniqStateVoterID as FindCandidate_UniqStateVoterID,  " .
-						"CandidateToFind.DataCounty_ID as FindCandidate_DataCounty_ID, CandidateToFind.Voters_ID as FindCandidate_Voters_ID, " . 
-						"CandidateToFind.CandidateElection_ID as FindCandidate_CandidateElection_ID,  " .
-						"CandidateToFind.Candidate_Party as FindCandidate_Party, CandidateToFind.Candidate_FullPartyName as FindCandidate_FullPartyName, " . 
-						"CandidateToFind.CandidatePartySymbol_ID as FindCandidate_PartySymbol_ID,  " .
-						"CandidateToFind.Candidate_DisplayMap as FindCandidate_DisplayMap, CandidateToFind.Candidate_DispName as FindCandidate_DispName, " . 
-						# "CandidateToFind.Candidate_DispResidence as FindCandidate_DispResidence, " .
-						"CandidateToFind.CandidateElection_DBTable as FindCandidate_DBTable, CandidateToFind.CandidateElection_DBTableValue as FindCandidate_DBTableValue, " . 
-						"CandidateToFind.Candidate_StatsVoters as FindCandidate_StatsVoters,  " .
-						"CandidateToFind.Candidate_Status as FindCandidate_Status, CandidateToFind.Candidate_Watermark as FindCandidate_Watermark, " . 
-						"CandidateToFind.Candidate_LocalHash as FindCandidate_LocalHash,  " .
-						"CandidateToFind.Candidate_NominatedBy as FindCandidate_NominatedBy " .
-					 	
-					 	"FROM Candidate " . 
-					 	"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID)  " . 
-					 	"LEFT JOIN ElectionsDistrictsConv ON ( ElectionsDistrictsConv.ElectionsPosition_ID = CandidateElection.ElectionsPosition_ID AND ElectionsDistrictsConv.ElectionsDistricts_DBTableValue = CandidateElection.CandidateElection_DBTableValue)  " . 
-					 	"LEFT JOIN Candidate AS CandidateToFind ON (  " . 
-					 	"ElectionsDistrictsConv.ElectionsDistrictsConv_DBTable = CandidateToFind.CandidateElection_DBTable  " . 
-					 	"AND  " . 
-					 	"ElectionsDistrictsConv.ElectionsDistrictsConv_DBTableValue = CandidateToFind.CandidateElection_DBTableValue  " . 
-					 	")  " . 
-					 	"LEFT JOIN CandidateElection AS CandidateElectionToFind ON (CandidateElectionToFind.CandidateElection_ID = CandidateToFind.CandidateElection_ID)  " . 
-					 	"LEFT JOIN ElectionsPosition ON (ElectionsPosition.ElectionsPosition_ID = ElectionsDistrictsConv.ElectionsPosition_ID)  " . 
-					 	
-						"WHERE Candidate.Candidate_ID = :CandidateID AND (ElectionsPosition_Party = :Party OR ElectionsPosition_Party IS NULL) " . 
-						"AND CandidateElectionToFind.Elections_ID = :ElectionID "; 
-						
-						
-		$sql_vars = array("CandidateID" => $CandidateID, "Party" => $Party,  "ElectionID" => $ElectionsID);
-		$ret = $this->_return_multiple($sql, $sql_vars);
-		
-		if ( empty ($ret)) {
-			return array();
-		} else {
-			return $ret;
-		}
-						
+  function FindPositions($ElectionsID, $Party, $Type, $Value, $TeamID = NULL) {
+  	$sql = "SELECT DISTINCT " .
+  		/*			"EPC1.ElectionsPartyCall_ID AS EPC1_ElectionsPartyCall_ID, EPC1.ElectionsPartyCall_Party AS EPC1_ElectionsPartyCall_Party, EPC1.Elections_ID AS EPC1_Elections_ID, " . 
+  						"EPC1.ElectionsPosition_ID AS EPC1_ElectionsPosition_ID, EPC1.DataCounty_ID AS EPC1_DataCounty_ID, EPC1.ElectionsPartyCall_DBTable AS EPC1_ElectionsPartyCall_DBTable, " . 
+  						"EPC1.ElectionsPartyCall_DBTableValue AS EPC1_ElectionsPartyCall_DBTableValue, EPC1.ElectionsPartyCall_ConversionValue AS EPC1_ElectionsPartyCall_ConversionValue, " .
+  					"EPC2.ElectionsPartyCall_ID AS EPC2_ElectionsPartyCall_ID, EPC2.ElectionsPartyCall_Party AS EPC2_ElectionsPartyCall_Party, EPC2.Elections_ID AS EPC2_Elections_ID, " . 
+  						"EPC2.ElectionsPosition_ID AS EPC2_ElectionsPosition_ID, EPC2.DataCounty_ID AS EPC2_DataCounty_ID, EPC2.ElectionsPartyCall_DBTable AS EPC2_ElectionsPartyCall_DBTable, " . 
+  						"EPC2.ElectionsPartyCall_DBTableValue AS EPC2_ElectionsPartyCall_DBTableValue, EPC2.ElectionsPartyCall_ConversionValue AS EPC2_ElectionsPartyCall_ConversionValue, " .
+  					"EP1.ElectionsPosition_ID AS EP1_ElectionsPosition_ID, EP1.ElectionsPosition_DBTable AS EP1_ElectionsPosition_DBTable, EP1.DataState_ID AS EP1_DataState_ID, " . 
+  						"EP1.ElectionsPosition_Type AS EP1_ElectionsPosition_Type, EP1.ElectionsPosition_Name AS EP1_ElectionsPosition_Name, EP1.ElectionsPosition_Party AS EP1_ElectionsPosition_Party, " . 
+  						"EP1.ElectionsPosition_Order AS EP1_ElectionsPosition_Order , EP1.ElectionsPosition_Explanation AS EP1_ElectionsPosition_Explanation, " . 
+  					"EP2.ElectionsPosition_ID AS EP2_ElectionsPosition_ID, EP2.ElectionsPosition_DBTable AS EP2_ElectionsPosition_DBTable, EP2.DataState_ID AS EP2_DataState_ID, " . 
+  						"EP2.ElectionsPosition_Type AS EP2_ElectionsPosition_Type, EP2.ElectionsPosition_Name AS EP2_ElectionsPosition_Name, EP2.ElectionsPosition_Party AS EP2_ElectionsPosition_Party, " . 
+  						"EP2.ElectionsPosition_Order AS EP2_ElectionsPosition_Order , EP2.ElectionsPosition_Explanation AS EP2_ElectionsPosition_Explanation, " .     */	
+  					"CA1.Candidate_ID, CA1.SystemUser_ID, CA1.Team_ID, CA1.CandidateProfile_ID, CA1.Candidate_PetitionNameset, CA1.Candidate_UniqStateVoterID, CA1.Voters_ID, " . 
+  					"CA1.Candidate_Party, CA1.Candidate_FullPartyName, CA1.CandidatePartySymbol_ID, CA1.Candidate_DisplayMap, CA1.Candidate_DispName, CA1.Candidate_DispResidence, " . 
+  					"CA1.CandidateElection_DBTable, CA1.CandidateElection_DBTableValue, CA1.DataDistrictTown_ID, CA1.Candidate_StatsVoters,CA1. Candidate_Status, CA1.Candidate_Watermark, " . 
+  					"CA1.Candidate_LocalHash, CA1.Candidate_NominatedBy, CandidateElection.Elections_ID, CA1.DataCounty_ID " .
+  	 				"FROM ElectionsPartyCall AS EPC1 " .
+  					"LEFT JOIN ElectionsPosition AS EP1 ON (EP1.ElectionsPosition_ID = EPC1.ElectionsPosition_ID) " .
+  					"LEFT JOIN ElectionsPartyCall AS EPC2 ON " .
+  						"(" . 
+  							"EPC2.ElectionsPartyCall_DBTable = EPC1.ElectionsPartyCall_DBTable AND " . 
+  						 	"EPC2.ElectionsPartyCall_DBTableValue = EPC1.ElectionsPartyCall_DBTableValue AND " . 
+  						 	"EPC2.Elections_ID = EPC1.Elections_ID " .
+//  						 	"AND EPC2.ElectionsPartyCall_Party = EPC1.ElectionsPartyCall_Party " .
+  						") " .
+  					"LEFT JOIN ElectionsPosition AS EP2 ON (EP2.ElectionsPosition_ID = EPC2.ElectionsPosition_ID) " .
+  					"LEFT JOIN Candidate AS CA1 ON " . 
+  						"(" .
+  							"CA1.CandidateElection_DBTable = EP2.ElectionsPosition_DBTable AND " .
+  							"CA1.CandidateElection_DBTableValue = EPC2.ElectionsPartyCall_ConversionValue AND " .
+  							"CA1.Candidate_Party = EP2.ElectionsPosition_Party" .
+							") " .
+						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = CA1.CandidateElection_ID AND EPC1.Elections_ID = CandidateElection.Elections_ID) " .
+  					"WHERE " . 
+  					"EPC1.Elections_ID = :Elections_ID AND " . 
+  					"EPC1.ElectionsPartyCall_Party = :Party AND " .
+  					"EP1.ElectionsPosition_DBTable = :Type AND " .
+  					"EPC1.ElectionsPartyCall_ConversionValue = :Value AND Candidate_ID IS NOT NULL AND CandidateElection.Elections_ID IS NOT NULL";
+  					
+  					
+  	#echo "SQL : $sql<BR>";
+  	#echo "Election ID: $ElectionsID<BR>Party: $Party<BR> TYPE: $Type<BR>Value: $Value<br>";
+  	$sql_vars = array("Elections_ID" => $ElectionsID, "Party" => $Party, "Type" => $Type , "Value" => $Value);
+		return $this->_return_multiple($sql, $sql_vars);
   }
   
   function CheckCandidateGroups ($CandidatesIDs) {

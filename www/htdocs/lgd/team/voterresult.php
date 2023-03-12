@@ -48,6 +48,7 @@
 									"AddressLine2" => 	$_POST["AddressLine2"],
 									"ActiveTeam_ID" => $_POST["ActiveTeam_ID"],
 									"County_ID" => $_POST["DataCounty_ID"],
+									"ContactInfo" => $_POST["ContactInfo"],
 									"Elections_ID" => $CurrentElectionID,
 						)) . "/lgd/team/petitionsetup");
 				exit();
@@ -388,6 +389,25 @@
 									</div>
 									
 								</P>
+								
+								<P>
+									<div id="resp-table">
+										<div id="resp-table-header">
+											<div class="table-header-cell">Email Information</div>
+											
+										</div>
+
+										<div id="resp-table-body">
+											<div class="resp-table-row">
+												
+														<div class="table-body-cell-left"><INPUT TYPE="TEXT" SIZE="40" NAME="ContactInfo" VALUE="<?= $EmailInformation ?>"></DIV>
+											</div>													
+										</div>
+									</div>
+									
+								</P>
+								
+								
 								
 						</div>
 						

@@ -8,14 +8,17 @@
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new Teams();
 	
-	if ( ! empty ($_POST)) {
-
-		// This need to be fixed.		
-		$Party = "DEM";
-		$CountyID = '120';
+	
+	
+	if ( ! empty ($_POST)) {		
 		
+		WriteStderr($URIEncryptedString, "URIEncryptedString");	
+		WriteStderr($_POST, "$_POST");	
+		
+		echo "<PRE>" . print_r($_POST,1 ) . "</PRE>";
+
 		/// Check that the Group doesn't exist.
-		$CandidatesCheck[] = $URIEncryptedString["Candidate_ID"];
+		$CandidatesCheck[] = $URIEncryptedString["CandidateID"][0];
 		if ( ! empty ($_POST)) {
 			foreach ($_POST["CandidateToAdd"] as $var) {
 				$CandidatesCheck[] = $var;
@@ -23,6 +26,7 @@
 		}
 				
 		$CheckCandidates = $rmb->CheckCandidateGroups($CandidatesCheck);
+		WriteStderr($CheckCandidates, "CheckCandidates");	
 		
 		foreach ($CheckCandidates as $var) {
 			$Check[$var["CandidateSet_ID"]][$var["Candidate_ID"]] = $var["CandidateGroup_ID"];
@@ -41,17 +45,21 @@
 		
 			if ( $AllFound == 2 ) { break; }	
 		}
-	
+
 			
 		if ( $AllFound != 2 ) {	
 			$Number = $rmb->NextPetitionSet($URIEncryptedString["SystemUser_ID"]);		
 			$Counter = 1;
+			WriteStderr($CandidatesCheck, "CandidatesCheck");	
 			
 			/// I NEED TO SORT BY THE ORDER OF THE DOCUMENT
 			foreach ($CandidatesCheck as $var) {
-				$rmb->InsertCandidateSet($var, $Number["CandidateSet"], $Party, $CountyID, $Counter++, "yes");
+				
+			
+				$rmb->InsertCandidateSet($var, $Number["CandidateSet"], $URIEncryptedString["Party"], $URIEncryptedString["DataCountyID"], $Counter++, "yes");
 			}
 		}
+		
 		
 		header("Location: /" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
@@ -62,21 +70,31 @@
 	}
 	
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-	WipeURLEncrypted( array("ActiveTeam", "ActiveTeam_ID", "Candidate_ID") );
+	WipeURLEncrypted( array("ActiveTeam", "ActiveTeam_ID", "Election_ID", "Party", "CandidateID", "DataCountyID", "Candidate_ID") );
 	
 	// We need to find all the petition that can be put together.
 	WriteStderr($URIEncryptedString, "URIEncryptedString");	
+	
+	/*
+		[LastTimeUser] => 1678555168
+	  [CurrentSelectDate] => 2023-06-27
+    [SystemUser_ID] => 106
+    [ActiveTeam_ID] => 62
+    [Party] => DEM
+	*/
+	
+	#$Candidate
 
 	// I NEED TO FIX THE PARTY HERE
-	$OtherCandidatesConvTo = $rmb->FindPositionsInToConv($CurrentElectionID, "DEM", $URIEncryptedString["Candidate_ID"]);
-	$OtherCandidatesSame = $rmb->FindPositionsInSame($CurrentElectionID, $URIEncryptedString["ActiveTeam_ID"], $URIEncryptedString["Candidate_ID"]);
-	$OtherCandidatesConvFrom = $rmb->FindPositionsInFromConv($CurrentElectionID, "DEM", $URIEncryptedString["Candidate_ID"]);
-
-	WriteStderr($OtherCandidatesConvTo, "OtherCandidatesConvTo");	
-	WriteStderr($OtherCandidatesSame, "OtherCandidatesSame");	
-	WriteStderr($OtherCandidatesConvFrom, "OtherCandidatesConvFrom");	
+	$IDTOCHECK = $URIEncryptedString["CandidateID"][0];
+	#print "IDTOCHECK: $IDTOCHECK<BR>";
 	
-	$OtherCandidates = array_merge($OtherCandidatesConvFrom, $OtherCandidatesConvTo, $OtherCandidatesSame);
+	$CandidateInfo = $rmb->ReturnCandidateInformation($IDTOCHECK);
+	$OtherCandidatesToAdd = $rmb->FindPositions($URIEncryptedString["Election_ID"], $URIEncryptedString["Party"], $CandidateInfo["CandidateElection_DBTable"], $CandidateInfo["CandidateElection_DBTableValue"]);
+	WriteStderr($OtherCandidatesToAdd, "OtherCandidatesToAdd");	
+	
+	#print "<PRE>" . print_r($OtherCandidatesToAdd, 1) . "</PRE>";
+	#exit();
 
 	$EncryptURL = EncryptURL("CandidateID=" . $Candidate_ID . "&PetitionSetID=" . $CandidatePetitionSet_ID);
 	
@@ -87,8 +105,8 @@
 	);			
 	WriteStderr($TopMenus, "Top Menu");		
 	
-	$ListPetitions = $rmb->ListCandidateTeamInformation($URIEncryptedString["ActiveTeam_ID"]);
-	WriteStderr($ListPetitions, "ListPetitions");	
+	#$ListPetitions = $rmb->ListCandidateTeamInformation($URIEncryptedString["ActiveTeam_ID"]);
+	#WriteStderr($ListPetitions, "ListPetitions");	
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";		
 ?>
@@ -151,32 +169,34 @@
 							
 									
 									<?php 
-			if ( ! empty ($OtherCandidates) ) {
-				foreach ($OtherCandidates as $var) {
+									$CounterPrintedCandidate = 0;
+			if ( ! empty ($OtherCandidatesToAdd) ) {
+				foreach ($OtherCandidatesToAdd as $var) {
+						WriteStderr($var, "var"); 
 						
-							
+						if ( $var["Team_ID"] == $URIEncryptedString["ActiveTeam_ID"] && $var["Candidate_ID"] != $IDTOCHECK) {
+						#print "<PRE>" . print_r($OtherCandidatesToAdd, 1) . "</PRE>";
+						#echo "nothing?<PRE>" . print_r($var, 1) . "</PRE>";
+							$CounterPrintedCandidate++;
 						$NewKEncrypt = CreateEncoded(array(
 														"CandidatePetitionSet_ID" => $var["CandidatePetitionSet_ID"],	
 														"Candidate_ID" => $var["Candidate_ID"],	
-														"PendingBypass" => "yes"								
+														"Party" => $var["Candidate_Party"],
+														"CountyID" => $var["DataCounty_ID"],	
 													));
 													
 						#						$style = "color:brown;style:bold;background-color:lightgrey;font-weight: bold;";
 											
-		?>
-							
-									
-									
-									
+		?>		
 										<div id="resp-table-body">
 											<div class="resp-table-row">
-												<div class="table-body-cell"><INPUT TYPE="CHECKBOX" NAME="CandidateToAdd[]" VALUE="<?= $var["FindCandidate_ID"] ?>"></div>
-												<div class="table-body-cell"><?= $var["FindCandidate_Party"] ?></div>
-												<div class="table-body-cell-left"><?= $var["FindCandidate_DispName"] ?></div>
-												<div class="table-body-cell"><?= $var["FindCandidate_DBTable"] ?></div>
-												<div class="table-body-cell"><?= $var["FindCandidate_DBTableValue"] ?></div>
+												<div class="table-body-cell"><INPUT TYPE="CHECKBOX" NAME="CandidateToAdd[]" VALUE="<?= $var["Candidate_ID"] ?>"></div>
+												<div class="table-body-cell"><?= $var["Candidate_Party"] ?></div>
+												<div class="table-body-cell-left"><?= $var["Candidate_DispName"] ?></div>
+												<div class="table-body-cell"><?= $var["CandidateElection_DBTable"] ?></div>
+												<div class="table-body-cell"><?= $var["CandidateElection_DBTableValue"] ?></div>
 												<div class="table-body-cell"><?= $var["DataDistrict_Electoral"] ?></div>
-												<div class="table-body-cell"><?= $var["FindCandidate_Status"] ?></div>
+												<div class="table-body-cell"><?= $var["Candidate_Status"] ?></div>
 											
 											</DIV>	
 										</div>
@@ -187,6 +207,20 @@
 									
 								<?php }
 							}   
+						} 
+						
+						
+						
+						if ( $CounterPrintedCandidate == 0) {
+						  ?>
+							
+							
+							<div class="table-body-cell-wide"><BR>No candidates are in the district to create an omnibus petition<BR><A HREF="/<?= $k ?>/lgd/team/target">Create petition</A><BR><BR></div>
+							
+							
+							
+							<?php 
+							} 
 										
 										
 										
@@ -198,8 +232,11 @@
 							
 							
 	</DIV>
-	
+	<?php if ( $CounterPrintedCandidate > 0) {
+						  ?>
 	<p><button type="submit" class="submitred">Congretate these candidates</button></p>
+	
+<?php } ?>
 	
 	</DIV>
 </DIV>
