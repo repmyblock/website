@@ -30,7 +30,7 @@ class OutragedDems extends queries {
 		$sql = "SELECT ";
 		
 		
-		$sql .= "DataHouse.DataHouse_ID, DataHouse_Type, DataHouse_Apt, DataDistrictTown_ID, DataStreetNonStdFormat_ID, " . 
+		$sql .= "DataHouse.DataHouse_ID, DataHouse_Type, DataHouse_Apt, DataHouse.DataDistrictTown_ID, DataStreetNonStdFormat_ID, " . 
 						"DataAddress_HouseNumber, DataAddress_FracAddress, DataAddress_PreStreet, DataAddress_PostStreet, " . 
 						"DataAddress_zipcode, DataAddress_zip4, DataCounty.DataState_ID, DataState_Abbrev, DataState_Name," . 
 						"DataStreet_Name, DataCity_Name, Voters_Gender, Voters_UniqStateVoterID, Voters_RegParty, " . 
@@ -39,7 +39,7 @@ class OutragedDems extends queries {
 						"DataLastName_Text, DataFirstName_Text, DataMiddleName_Text, DataCounty_Name, " .
 						"DataDistrict_Electoral, DataDistrict_StateAssembly, DataDistrict_StateSenate, DataDistrict_Legislative, " . 
 						"DataDistrict_Ward, DataDistrict_Congress, " .
-						"DataHouse_Type, DataHouse_Apt "; 
+						"DataHouse_Type, DataHouse_Apt, DataDistrictTown_Name "; 
 		
 		
 		$sql .=	"FROM DataDistrict " .
@@ -56,6 +56,7 @@ class OutragedDems extends queries {
 						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID) " .  
 						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID) " .  
 						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID) " .
+						"LEFT JOIN DataDistrictTown ON (DataDistrictTown.DataDistrictTown_ID = DataHouse.DataDistrictTown_ID) " .
 						"WHERE (Voters_Status = 'Active' OR Voters_Status = 'Inactive') AND " . 
 						"(CURDATE() >= DataDistrictCycle_CycleStartDate AND CURDATE() <= DataDistrictCycle_CycleEndDate) IS NULL";
 				 	

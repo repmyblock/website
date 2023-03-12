@@ -87,6 +87,14 @@ function ordinal($number) {
         return $number. $ends[$number % 10];
 }
 
+function PrintTown($Alternate, $pdf, $PrintAddress) {
+	$pdf->Ln(6);
+	if ($Alternate == 1) { $pdf->SetX(110); }
+	$pdf->SetFont('Arial', 'B', 20);
+	$pdf->Write(7, "Town of " . $PrintAddress);	
+	$pdf->Ln(2);
+}
+
 function PrintAddress($Alternate, $pdf, $PrintAddress) {
 	$pdf->Ln(6);
 	if ($Alternate == 1) { $pdf->SetX(110); }

@@ -78,10 +78,10 @@ if (! empty ($voters)) {
 		if ( ! empty ($person)) {
 			$FixedAddress = preg_replace('!\s+!', ' ', $person["DataStreet_Name"] );
 			$FixedApt = strtoupper(preg_replace('!\s+!', '', $person["DataHouse_Apt"] ));
-			$Address[$FixedAddress][$person["DataAddress_HouseNumber"]]["PrintAddress"] = 
+			$Address[$person["DataDistrictTown_Name"]][$FixedAddress][$person["DataAddress_HouseNumber"]]["PrintAddress"] = 
 										ucwords(strtolower(trim($person["DataAddress_HouseNumber"] . " " . 
 										$person["DataStreet_Name"] )));
-			$Address[$FixedAddress][$person["DataAddress_HouseNumber"]]
+			$Address[$person["DataDistrictTown_Name"]][$FixedAddress][$person["DataAddress_HouseNumber"]]
 							[$FixedApt][$person["Voters_Status"]]
 							[$person["VotersIndexes_UniqStateVoterID"]] =	$person["DataFirstName_Text"] . " " . 
 																														$person["DataMiddleName_Text"] . " " . 
@@ -94,6 +94,10 @@ if (! empty ($voters)) {
 		}	
 	}
 }
+
+
+#print "<PRE>" . print_r($Address, 1) . "</PRE>";
+#exit();
 
 $InfoArray["Address"] = $Address;
 #WriteStderr($Gender, "Address Array");
