@@ -254,7 +254,7 @@ class RMBAdmin extends RepMyBlock {
 						"WHERE ElectionsDistrictsConv_DBTable = :TYPE AND " . 
 						"ElectionsDistrictsConv_DBTableValue  = :ADED AND Elections_ID = :ElectID AND Candidate_ID IS NOT NULL";
 		$sql_vars = array("TYPE" => "ADED", "ADED" => $ADED, "ElectID" => $ElectionID);
-		return $this->_return_multiple($sql, $sql_vars);
+		#return $this->_return_multiple($sql, $sql_vars);
 	}				
 
 function FindPositionsInSame($ElectionsID, $TeamID, $CandidateID ) {

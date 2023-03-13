@@ -42,8 +42,9 @@ class RepMyBlock extends queries {
 	
 	function ListCCPartyCall($Party, $ADED, $ElectionsID) {
 		$sql = "SELECT * FROM ElectionsPartyCall " .
-						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.ElectionsPosition_ID = ElectionsPartyCall.CandidatePositions_ID) " .
-						"WHERE ElectionsPosition_Party = :Party AND ElectionsPartyCall_DBTableValue = :Value AND ElectionsPosition_DBTable = :Type AND " .
+						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.ElectionsPosition_ID = ElectionsPartyCall.ElectionsPosition_ID) " .
+						"WHERE ElectionsPosition_Party = :Party AND ElectionsPartyCall_DBTableValue = :Value AND " . 
+						"ElectionsPosition_DBTable = :Type AND " .
 						"Elections_ID = :ElectionID";
 		$sql_vars = array("Party" => $Party, "Value" =>  $ADED, "Type" => "ADED", "ElectionID" => $ElectionsID);
 	  return $this->_return_multiple($sql, $sql_vars);
@@ -66,7 +67,7 @@ class RepMyBlock extends queries {
 						
 		$sql_vars = array("ElectionID" => $Election, "DTable" =>  $DTable, "Position" => $DValue);
 		
-		return $this->_return_multiple($sql, $sql_vars);						
+		#return $this->_return_multiple($sql, $sql_vars);						
 	}
 	
 	function PartyCallInfo($Party, $Election, $DTable, $DValue) {
@@ -95,7 +96,7 @@ class RepMyBlock extends queries {
 			$sql .= " AND ElectionsPosition_Party IS NULL";
 		}
 
-		return $this->_return_multiple($sql, $sql_vars);						
+		#return $this->_return_multiple($sql, $sql_vars);						
 	}
 
 	
