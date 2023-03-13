@@ -77,6 +77,7 @@
 	WriteStderr($Petitions, "Petitions");	
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";		
+	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
 ?>
 <div class="row">
   <div class="main">
@@ -108,7 +109,7 @@
 					  		</div>
 					    </div>
 	
-						
+					
 								
 							<div class="Box-body js-collaborated-repos-empty">
 								<div class="flex-items-left">	

@@ -23,9 +23,9 @@
 
 		// Search in the database.
 		if ( $_POST["Year"] < 100 ) {
-			if ( $_POST["Year"] > 07) { $YearField = "19" .  trim($_POST["Year"]);
-			} else { $YearField = "20" . trim($_POST["Year"]); }
-		} else { $YearField = trim($_POST["Year"]); }
+			if ( $_POST["Year"] > 07) { $YearField = "19" .  trim(intval($_POST["Year"]));
+			} else { $YearField = "20" . trim(intval($_POST["Year"])); }
+		} else { $YearField = trim(intval($_POST["Year"])); }
 		
 		// We need to put verification on the first and lastname so they don't pass 
 		// bogus data.		
@@ -34,7 +34,7 @@
 	
 		// Before we go and search the Database, we need to check that the DOB info is right.
 		
-		$DayField = trim($_POST["Day"]);
+		$DayField = trim(intval($_POST["Day"]));
 		$MonthField = $_POST["Month"];
 
 		if ( ! checkdate($MonthField, $DayField, $YearField) ) {
@@ -154,14 +154,14 @@
 	
 					  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 							<div>
-								<dl class="form-group col-3 d-inline-block"> 
+								<dl class="form-group col-5 d-inline-block"> 
 									<dt><label for="user_profile_name">First Name</label><DT>
 									<dd>
 										<input class="form-control" type="text" Placeholder="First" name="FirstName"<?php if (!empty ($URIEncryptedString["QueryFirstName"])) { echo " VALUE=\"" . $URIEncryptedString["QueryFirstName"] . "\""; } ?> id="user_profile_name">
 									</dd>
 								</dl>
 			
-								<dl class="form-group col-3 d-inline-block"> 
+								<dl class="form-group col-6 d-inline-block"> 
 									<dt><label for="user_profile_name">Last Name</label><DT>
 									<dd>
 										<input class="form-control" type="text" Placeholder="Last" name="LastName"<?php if (!empty ($URIEncryptedString["QueryLastName"])) { echo " VALUE=\"" . $URIEncryptedString["QueryLastName"] . "\""; } ?> id="user_profile_name">
@@ -171,15 +171,17 @@
 			
 							<DIV>
 								<dt><label for="user_profile_email">Date of Birth</label></dt>	
-								<dl class="form-group col-1 d-inline-block">
+								<dl class="form-group col-3 d-inline-block">
 									<dd>
 										<input class="form-control" type="text" name="Day" id="" Placeholder="Day"<?php if (!empty ($URIEncryptedString["QueryDay"])) { echo " VALUE=\"" . $URIEncryptedString["QueryDay"] . "\""; } ?>>
 									</DD>
 								</DL>  
+								
+								
 							
-								<dl class="form-group col-2 d-inline-block f60">      
+								<dl class="f40 col-4 d-inline-block ">      
 									<DD>
-										<select class="form-select" name="Month" id="">
+										<select class="f40" name="Month" id="">
 											<option value="">Select month</option>
 											<option value="01"<?php if ($URIEncryptedString["QueryMonth"] == "1") { echo " SELECTED"; } ?>>January</option>
 											<option value="02"<?php if ($URIEncryptedString["QueryMonth"] == "2") { echo " SELECTED"; } ?>>February</option>
@@ -197,7 +199,7 @@
 									</DD>
 								</DL>  
 			
-								<dl class="form-group col-1  d-inline-block">      
+								<dl class="form-group col-4  d-inline-block">      
 									<DD>
 										<input class="form-control" type="text" Placeholder="Year" name="Year" id=""<?php if (!empty ($URIEncryptedString["QueryYear"])) { echo " VALUE=\"" . $URIEncryptedString["QueryYear"] . "\""; } ?>>
 									<dd>

@@ -27,13 +27,14 @@
 						array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
 					);
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
+	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
 ?>
 
 <div class="row">
   <div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
 
-	<div class="col-9 float-left f60">
+	<div class="<?= $Cols ?> float-left f60">
 
 	<div class="Subhead mt-0 mb-0">
   	<h2 class="Subhead-heading">Setup Teams</h2>
@@ -41,7 +42,7 @@
 	
 	<?php	PlurialMenu($k, $TopMenus); ?>          
  
-  <dl class="form-group">
+  <dl class="form-group col-9">
   	<dt><label for="user_profile_email">Create petitions for your team</label></dt>
     <dd class="d-inline-block">       	
 			<A HREF="/<?= $k ?>/lgd/team/target">Create petition</A><BR>		

@@ -115,7 +115,7 @@
 				<div class="Box">
 					<div class="Box-header pl-0">
 						<div class="table-list-filters d-flex">
-							<div class="table-list-header-toggle states flex-justify-start pl-3">Voter Card</div>
+							<div class="table-list-header-toggle states flex-justify-start pl-3 f40">Voter Card</div>
 						</div>
 					</div>
 				
@@ -202,7 +202,7 @@
 							
 							
 				
-				<P>
+				<P class="f40">
 					<svg class="octicon octicon-organization" viewBox="0 0 16 16" version="1.1" width="<?= $Width ?>" height="<?= $Width ?>" aria-hidden="true"><path fill-rule="evenodd" d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path></svg>
 					<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $var["Voters_Status"] ?></FONT>
 				</P>
@@ -210,18 +210,18 @@
 					<P>
 									<div id="resp-table">
 										<div id="resp-table-header">
-											<div class="table-header-cell">First</div>
-											<div class="table-header-cell">Middle</div>
-											<div class="table-header-cell">Last</div>
-											<div class="table-header-cell">Suffix</div>
+											<div class="f40 table-header-cell">First</div>
+											<div class="f40 table-header-cell">Middle</div>
+											<div class="f40 table-header-cell">Last</div>
+											<div class="f40 table-header-cell">Suffix</div>
 										</div>
 
 										<div id="resp-table-body">
 											<div class="resp-table-row">
-												<div class="table-body-cell"><?= $var["DataFirstName_Text"] ?></div>
-												<div class="table-body-cell"><?= $var["DataMiddleName_Text"] ?></div>
-												<div class="table-body-cell"><?= $var["DataLastName_Text"] ?></div>
-												<div class="table-body-cell"><?= $var["VotersIndexes_Suffix"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataFirstName_Text"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataMiddleName_Text"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataLastName_Text"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["VotersIndexes_Suffix"] ?></div>
 											</div>													
 										</div>
 									</div>
@@ -231,18 +231,18 @@
 								
 									<div id="resp-table">
 										<div id="resp-table-header">
-											<div class="table-header-cell">Assembly</div>
-											<div class="table-header-cell">ED</div>
-											<div class="table-header-cell">Congress</div>
-											<div class="table-header-cell">County</div>
+											<div class="f40 table-header-cell">Assembly</div>
+											<div class="f40 table-header-cell">ED</div>
+											<div class="f40 table-header-cell">Congress</div>
+											<div class="f40 table-header-cell">County</div>
 										</div>
 
 										<div id="resp-table-body">
 											<div class="resp-table-row">
-												<div class="table-body-cell"><?= $var["DataDistrict_StateAssembly"] ?></div>
-												<div class="table-body-cell"><?= $var["DataDistrict_Electoral"] ?></div>
-												<div class="table-body-cell"><?= $var["DataDistrict_Congress"] ?></div>
-												<div class="table-body-cell"><?= $var["DataCounty_Name"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataDistrict_StateAssembly"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataDistrict_Electoral"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataDistrict_Congress"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataCounty_Name"] ?></div>
 											</div>													
 										</div>
 									</div>
@@ -251,12 +251,12 @@
 								<P>
 									<div id="resp-table">
 										<div id="resp-table-header">
-											<div class="table-header-cell">Address</div>
+											<div class="f40 table-header-cell">Address</div>
 										</div>
 
 										<div id="resp-table-body">
 											<div class="resp-table-row">
-												<div class="table-body-cell"><?= $AddressLine1 ?><BR><?= $AddressLine2 ?></div>
+												<div class="f40 table-body-cell"><?= $AddressLine1 ?><BR><?= $AddressLine2 ?></div>
 											</div>													
 										</div>
 									</div>
@@ -266,18 +266,18 @@
 								
 									<div id="resp-table">
 										<div id="resp-table-header">
-											<div class="table-header-cell">Legis</div>
-											<div class="table-header-cell">Town</div>
-											<div class="table-header-cell">Ward</div>
-											<div class="table-header-cell">Senate</div>
+											<div class="f40 table-header-cell">Legis</div>
+											<div class="f40 table-header-cell">Town</div>
+											<div class="f40 table-header-cell">Ward</div>
+											<div class="f40 table-header-cell">Senate</div>
 										</div>
 
 										<div id="resp-table-body">
 											<div class="resp-table-row">
-												<div class="table-body-cell"><?= $var["DataDistrict_Legislative"] ?></div>
-												<div class="table-body-cell"><?= $var["DataDistrictTown_Name"] ?></div>
-												<div class="table-body-cell"><?= $var["DataDistrict_Ward"] ?></div>
-												<div class="table-body-cell"><?= $var["DataDistrict_StateSenate"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataDistrict_Legislative"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataDistrictTown_Name"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataDistrict_Ward"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataDistrict_StateSenate"] ?></div>
 											</div>													
 										</div>
 									</div>
@@ -297,18 +297,18 @@
 								
 									<div id="resp-table">
 										<div id="resp-table-header">
-											<div class="table-header-cell">Date of Birth</div>
-											<div class="table-header-cell">Age</div>
-											<div class="table-header-cell">Gender</div>
-											<div class="table-header-cell">Party</div>
+											<div class="f40 table-header-cell">Date of Birth</div>
+											<div class="f40 table-header-cell">Age</div>
+											<div class="f40 table-header-cell">Gender</div>
+											<div class="f40 table-header-cell">Party</div>
 										</div>
 
 										<div id="resp-table-body">
 											<div class="resp-table-row">
-												<div class="table-body-cell"><?= PrintShortDate($var["VotersIndexes_DOB"]);  ?></div>
-												<div class="table-body-cell"><?= $difference->y; ?></div>
-												<div class="table-body-cell"><?= $var["Voters_Gender"] ?></div>
-												<div class="table-body-cell"><?= PrintParty($var["Voters_RegParty"]) ?></div>
+												<div class="f40 table-body-cell"><?= PrintShortDate($var["VotersIndexes_DOB"]);  ?></div>
+												<div class="f40 table-body-cell"><?= $difference->y; ?></div>
+												<div class="f40 table-body-cell"><?= $var["Voters_Gender"] ?></div>
+												<div class="f40 table-body-cell"><?= PrintParty($var["Voters_RegParty"]) ?></div>
 											</div>													
 										</div>
 									</div>
@@ -316,17 +316,17 @@
 								
 								<div id="resp-table">
 										<div id="resp-table-header">
-											<div class="table-header-cell">Council</div>
-											<div class="table-header-cell">Civil Court</div>
-											<div class="table-header-cell">Judicial</div>
+											<div class="f40 table-header-cell">Council</div>
+											<div class="f40 table-header-cell">Civil Court</div>
+											<div class="f40 table-header-cell">Judicial</div>
 										
 										</div>
 
 										<div id="resp-table-body">
 											<div class="resp-table-row">
-												<div class="table-body-cell"><?= $var["DataDistrict_Council"] ?>&nbsp;</div>
-												<div class="table-body-cell"><?= $var["DataDistrict_CivilCourt"] ?></div>
-												<div class="table-body-cell"><?= $var["DataDistrict_Judicial"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataDistrict_Council"] ?>&nbsp;</div>
+												<div class="f40 table-body-cell"><?= $var["DataDistrict_CivilCourt"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["DataDistrict_Judicial"] ?></div>
 												
 											</div>													
 										</div>
@@ -335,12 +335,12 @@
 								<P>
 									<div id="resp-table">
 										<div id="resp-table-header">
-											<div class="table-header-cell">Board of Election ID #</div>
+											<div class="f40 table-header-cell">Board of Election ID #</div>
 										</div>
 
 										<div id="resp-table-body">
 											<div class="resp-table-row">
-												<div class="table-body-cell"><?= $var["Voters_CountyVoterNumber"] ?></div>
+												<div class="f40 table-body-cell"><?= $var["Voters_CountyVoterNumber"] ?></div>
 											</div>													
 										</div>
 									</div>
@@ -350,13 +350,13 @@
 									<P>
 									<div id="resp-table">
 										<div id="resp-table-header">
-											<div class="table-header-cell">Select Petitions to Create</div>
-											<div class="table-header-cell">district</div>
+											<div class="f40 table-header-cell">Select Petitions to Create</div>
+											<div class="f40 table-header-cell">district</div>
 										</div>
 
 										<div id="resp-table-body">
 											<div class="resp-table-row">
-												<div class="table-body-cell-left">
+												<div class="f40 table-body-cell-left">
 													
 													<?php foreach ($ElectionsTypes as $vor) {
 														if ( $vor["DataState_ID"] == $var["DataState_ID"]) {
@@ -393,14 +393,14 @@
 								<P>
 									<div id="resp-table">
 										<div id="resp-table-header">
-											<div class="table-header-cell">Email Information</div>
+											<div class="f40 table-header-cell">Email Information</div>
 											
 										</div>
 
 										<div id="resp-table-body">
 											<div class="resp-table-row">
 												
-														<div class="table-body-cell-left"><INPUT TYPE="TEXT" SIZE="40" NAME="ContactInfo" VALUE="<?= $EmailInformation ?>"></DIV>
+														<div class="f40 table-body-cell-left"><INPUT TYPE="TEXT" SIZE="40" NAME="ContactInfo" VALUE="<?= $EmailInformation ?>"></DIV>
 											</div>													
 										</div>
 									</div>

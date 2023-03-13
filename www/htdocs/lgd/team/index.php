@@ -69,6 +69,7 @@
 	);
 										
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
+	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
 ?>
 
 <div class="row">
