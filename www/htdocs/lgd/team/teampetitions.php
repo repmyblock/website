@@ -141,7 +141,7 @@
 										<BR>
 										<A HREF="/<?= $k ?>/lgd/team/target">Create petition</A></P>
 																	
-										<DIV class="f40">
+										<DIV class="p40">
 										<div id="resp-table">
 											<div id="resp-table-header">
 												<div class="table-header-cell">Party</div>
