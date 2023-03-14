@@ -375,6 +375,7 @@ class RepMyBlock extends queries {
 	
 	function ListPetitionGroup($GroupID = NULL, $Status = NULL) {
 		$sql = "SELECT * FROM CandidateGroup " .
+						"LEFT JOIN CandidateSet ON (CandidateGroup.CandidateSet_ID = CandidateSet.CandidateSet_ID) " . 
 						"LEFT JOIN Candidate ON (CandidateGroup.Candidate_ID = Candidate.Candidate_ID) " . 
 						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = CandidateGroup.DataCounty_ID) " .
 						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
@@ -382,13 +383,13 @@ class RepMyBlock extends queries {
 						"LEFT JOIN CandidateComRplceSet ON (CandidateComRplceSet.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CandidateComRplce ON (CandidateComRplceSet.CandidateComRplce_ID = CandidateComRplce.CandidateComRplce_ID) ";
 		if ( ! empty ($GroupID)) {
-			$sql .= "WHERE CandidateGroup.CandidateSet_ID = :CandidateGroup_ID ";
-			$sql_vars = array("CandidateGroup_ID" => $GroupID);
+			$sql .= "WHERE CandidateGroup.CandidateSet_ID = :CandidateSet_ID ";
+			$sql_vars = array("CandidateSet_ID" => $GroupID);
 		} else {
 			$sql_vars = array();
 		}
 						
-		$sql .= "ORDER BY CandidateElection_DisplayOrder ASC";							
+		$sql .= "ORDER BY CandidateGroup.CandidateSet_ID DESC, CandidateElection_DisplayOrder ASC";							
 		return $this->_return_multiple($sql, $sql_vars);	
 	}
 

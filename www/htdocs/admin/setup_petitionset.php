@@ -1,18 +1,15 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	$Menu = "admin";
-	$BigMenu = "represent";	
-	
-	$State = "NY";
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_admin.php";
 
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}
-	$rmb = new repmyblock();
+	$rmb = new RMBAdmin();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
 
@@ -85,20 +82,7 @@
 												
 													<div class="table-body-cell"><?= $var["CandidateSet_ID"] ?></DIV>
 											
-										<div class="table-body-cell"><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
-										array(
-												"CandidateSet_ID" => $var["CandidateSet_ID"],
-												"CustomData" => "YES",
-												"CustomDataDate" => date("m / d / Y"),
-												#"CustomDataWitnessName" => "Maria Josefa Malaga Aragon",
-												#"CustomDataWitnessResidence" => "640 Riverside Drive, 10B, New York, NY 10031",
-												"CustomDataCity" => "New York City",
-												"CustomDataCounty" => "New York",
-												#"CustomDataCustomAddress" => "640 Riverside Drive - Apt ____\nNew York, NY 10031",
-												"CustomDataCustomCounty" => "NY",
-												"CustomDataCountyFontSize" => 18,	
-											)
-										); ?>/NY/petition" TARGET=NEW>Petitions</A>
+										<div class="table-body-cell"><A HREF="<?= $FrontEndPDF ?>/<?= $var["CandidateSet_Random"] ?>/NY/petition" TARGET=NEW>Petitions</A>
 														
 									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
