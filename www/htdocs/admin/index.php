@@ -44,7 +44,7 @@
  	<P CLASS="f40">
  		<UL>
 	 		<A HREF="/<?= $k ?>/admin/userlookup" class="mobilemenu">RepMyBlock User</A><BR>	
- 			<A HREF="/<?= $k ?>/admin/team" class="mobilemenu">Member Management</A><BR>
+ 			<A HREF="/<?= $k ?>/admin/team" class="mobilemenu">Admin Member Management</A><BR>
  			<A HREF="/<?= $k ?>/admin/team_list" class="mobilemenu">Team Setup</A><BR>
  			<A HREF="/<?= $k ?>/admin/voterlookup" class="mobilemenu">Voter Lookup</A><BR>
  			<A HREF="/<?= $k ?>/admin/partycall" class="mobilemenu">Party Call</A><BR>

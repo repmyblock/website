@@ -144,7 +144,7 @@
 											} else {
 												$style = "";
 											}
-											
+											WriteStderr($var, "VAR Team");
 											?>
 									
 									<TR ALIGN=CENTER>
@@ -157,10 +157,12 @@
 										<TH style="padding:0px 10px;"><A HREF="/<?=  CreateEncoded (
 																												array( 
 																													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+																													"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
 																													"Team_ID" => $_POST["Team_ID"],
-																											    "TeamMember_ID" => $var["TeamMember_ID"]
+																											    "TeamMember_ID" => $var["TeamMember_ID"],
+																											    "UserDetail" => $var["SystemUser_ID"]
 																												)
-																									); ?>/admin/teammemberinfo"">Member Info</A></TH>
+																									); ?>/admin/userdetail"">Member Info</A></TH>
 									</TR>
 
 				<?php /*
