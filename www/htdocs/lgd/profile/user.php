@@ -105,9 +105,7 @@
 				exit();	
 			}
 		}	
-					
 		
-
 		#$k = CreateEncoded (
 		#			array( 
 		#				"SystemUser_ID" => $rmbperson["SystemUser_ID"],
@@ -125,7 +123,6 @@
 		#			)
 		#);
 		
-		
 	} else {
 		WriteStderr($rmbperson, "rmbperson array of the Else of the TMP Section");
 		
@@ -135,7 +132,6 @@
 		$PersonBio       = $rmbperson["SystemUserProfile_bio"];
 		$PersonURL       = $rmbperson["SystemUserProfile_URL"];
 		$PersonLocation  = $rmbperson["SystemUserProfile_Location"];
-		
 		
 		if (! empty ($_POST)) {
 			$ReloadTheScreen = true;
@@ -181,7 +177,6 @@
 	}
 	
 	$middleuri = $k;
-	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
@@ -253,11 +248,6 @@
 <?php						} ?>
 							</dl>
 							
-							
-							*/ ?>
-							
-							
-		<?php					/*
 							<dl class="form-group">
 								<dt><label for="user_profile_bio">Bio - Please write any notes to the organizers.</label></dt>
 								<dd class="user-profile-bio-field-container js-length-limited-input-container">
