@@ -13,6 +13,8 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 date_default_timezone_set('America/New_York'); 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/SSLKeys/SSLInsideKey.php";
 
+
+
 // This is the code to make sure that url are good
 if ( $_SERVER["HTTP_HOST"] != $_SERVER["SERVER_NAME"] ) {	
 	$exphost = explode(".", $_SERVER["HTTP_HOST"]);
@@ -71,11 +73,6 @@ if ( ! empty ($k)) {
 	$k = rawurlencode(rawurlencode($k));
 	WriteStderr($Decrypted_k, $_SERVER['DOCUMENT_URI'] . " Decrypted K");
 	WriteStderr($URIEncryptedString, $_SERVER['DOCUMENT_URI'] . " URIEncryptedString");
-	
-	#if ( isset($URIEncryptedString)) {
-	#	$URIEncryptedString["LastTimeUser"] = time();
-	#	$URIEncryptedString["SystemUser_ID"] = -1;
-	#}	
 }
 
 // Check the timestamp before moving on

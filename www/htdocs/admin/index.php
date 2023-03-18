@@ -2,7 +2,10 @@
 	$Menu = "admin";
 	$BigMenu = "represent";	
 
+
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
+	
+	WriteStderr("After of Very Admin\n");
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
 
 	// Reset
@@ -14,6 +17,7 @@
 	if (empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php"; 
+
 	$rmb = new repmyblock(0);
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	WriteStderr($rmbperson, "After SearchUserVoterCard rmbperson");

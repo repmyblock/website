@@ -95,7 +95,7 @@
 							"FirstName" => $PersonFirstName, 
 							"LastName" => $PersonLastName,
 							"SystemUser_email" =>  $rmbperson["SystemUser_email"], 
-							"SystemPriv" => $rmbperson["SystemUser_Priv"],
+							"SystemUser_Priv" => $rmbperson["SystemUser_Priv"],
 						)
 			);
 
@@ -156,7 +156,7 @@
 						"VotersIndexes_ID" =>  $rmbperson["VotersIndexes_ID"], 
 						"UserParty" => $rmbperson["SystemUser_Party"], 
 						"MenuDescription" => $URIEncryptedString["MenuDescription"],
-						"SystemPriv" => $URIEncryptedString["SystemUser_Priv"],
+						"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 						"EDAD" => $URIEncryptedString["EDAD"]
 					)
 		);
