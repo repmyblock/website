@@ -341,7 +341,7 @@
 									"Party" => $rmbteammember["Voters_RegParty"],
 									"PreparedFor" => $rmbteammember["DataFirstName_Text"] . " " . $rmbteammember["DataLastName_Text"],
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
-									"SystemAdmin" =>  $URIEncryptedString["SystemAdmin"],
+									"SystemUser_Priv" =>  $URIEncryptedString["SystemUser_Priv"],
 									"ActiveTeam_ID" => $ActiveTeamID,
 									"PetitionBypass" => true,
 
@@ -372,7 +372,7 @@
 						          "Party" => $rmbteammember["Voters_RegParty"],
 											"PreparedFor" => $rmbteammember["DataFirstName_Text"] . " " . $rmbteammember["DataLastName_Text"],
 											"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
-											"SystemAdmin" =>  $URIEncryptedString["SystemAdmin"],
+											"SystemUser_Priv" =>  $URIEncryptedString["SystemUser_Priv"],
 													
 								)) . "/rmb/voterlist" ?>">Prepare a walksheet</A>
 							</P>

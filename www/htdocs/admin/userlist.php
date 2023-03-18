@@ -58,7 +58,7 @@
 					<?= $var["SystemUser_ID"] ?> Username: <FONT COLOR=BROWN><?= $var["SystemUser_username"] ?></FONT>&nbsp;Email:&nbsp;<FONT COLOR="BROWN"><?= $var["SystemUser_email"] ?></FONT>
 					<A HREF="/<?= CreateEncoded ( array( 	
 													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-													"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+													"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 													"UserDetail" => $var["SystemUser_ID"],
 													"MenuDescription" => $URIEncryptedString["MenuDescription"],						
 													)); ?>/admin/userdetail">Get Detail</A>
@@ -107,7 +107,7 @@
 						
 					<A HREF="/<?= CreateEncoded ( array( 	
 													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-													"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+													"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 													"UserDetail" => $URIEncryptedString["SystemTempUser_ID"],
 													"MenuDescription" => $URIEncryptedString["MenuDescription"],						
 													)); ?>/admin/userdetail">Get Detail</A>
@@ -142,12 +142,12 @@
 			
 				$TheNewK = CreateEncoded ( array( 		
 					"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-					"&SystemAdmin" => $URIEncryptedString["SystemAdmin"],
-					"&FirstName" => $URIEncryptedString["FirstName"],
-					"&LastName" => $URIEncryptedString["LastName"],
-					"&UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
-					"&UserParty" => $URIEncryptedString["UserParty"],
-					"&MenuDescription" => $URIEncryptedString["MenuDescription"]
+					"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
+					"FirstName" => $URIEncryptedString["FirstName"],
+					"LastName" => $URIEncryptedString["LastName"],
+					"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
+					"UserParty" => $URIEncryptedString["UserParty"],
+					"MenuDescription" => $URIEncryptedString["MenuDescription"]
 					));
 	?>
 				

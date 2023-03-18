@@ -72,7 +72,7 @@
 		$ErrorMsg = "Voter not found";		
 		header("Location: /lgd/" .  CreateEncoded ( array( 	
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-								"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+								"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 								"FirstName" => $URIEncryptedString["FirstName"],
 								"LastName" => $URIEncryptedString["LastName"],
 								"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
@@ -231,7 +231,7 @@
 								"VoterUniqInfo" => $var["Raw_Voter_UniqNYSVoterID"],
 			          "VoterParty" => $var["Raw_Voter_EnrollPolParty"],
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-								"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+								"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 								"FirstName" => $URIEncryptedString["FirstName"],
 								"LastName" => $URIEncryptedString["LastName"],
 								"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
@@ -256,7 +256,7 @@
 			<?php 	
 				$TheNewK = CreateEncoded (array( 	
 							"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
-							"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+							"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 							"FirstName" => $URIEncryptedString["FirstName"],
 							"LastName" => $URIEncryptedString["LastName"],
 							"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],

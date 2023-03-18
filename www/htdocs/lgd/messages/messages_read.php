@@ -72,7 +72,7 @@
 																			    "FirstName" => $URIEncryptedString["FirstName"],
 																			    "LastName" => $URIEncryptedString["LastName"],
 																			    "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
-																			   	"SystemAdmin" => $URIEncryptedString["SystemAdmin"]
+																			   	"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"]
 																				)) ?>/messages_thread"><?= formatPhoneNumber($var["SMSText_PhoneTo"]) ?></a>
 			        <span class="text-small">
 			          <BR>

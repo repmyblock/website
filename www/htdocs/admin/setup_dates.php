@@ -65,8 +65,9 @@
 ?>		
 	<div class="flex-items-left">
 	 	<span class="ml-4 flex-items-baseline"><A HREF="/<?= CreateEncoded (
-				array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
-					"Election_Date" => $var["Elections_ID"])); ?>/admin/edit_dates">Select</A></span>
+				array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+								"Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
+								"Election_Date" => $var["Elections_ID"])); ?>/admin/edit_dates">Select</A></span>
 	  <span class="ml-4"><?= PrintDate($var["Elections_Date"]) ?></span>
 	  <span class="ml-4 ext-gray"><?= $var["Elections_Type"] ?></span>
 	 	<span class="ml-4 user-mention"><?= $var["Elections_Text"] ?></span>

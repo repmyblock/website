@@ -33,15 +33,13 @@
 		$DBLastName = trim($_POST["LastName"]);
 	
 		// Before we go and search the Database, we need to check that the DOB info is right.
-		
 		$DayField = trim(intval($_POST["Day"]));
 		$MonthField = $_POST["Month"];
 
 		if ( ! checkdate($MonthField, $DayField, $YearField) ) {
-			
 			header("Location: /" . CreateEncoded ( array( 
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-									"SystemAdmin" => $URIEncryptedString["SystemUser_Priv"],
+									"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
 									"QueryFirstName" => $DBFirstName,
 									"QueryLastName" => $DBLastName,
@@ -62,7 +60,7 @@
 					//echo "Did not find anything\n";
 					header("Location: /" . CreateEncoded ( array( 
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-									"SystemAdmin" => $URIEncryptedString["SystemUser_Priv"],
+									"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
 									"QueryFirstName" => $DBFirstName,
 									"QueryLastName" => $DBLastName,
@@ -103,7 +101,7 @@
 									"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
 									"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
 									"UserParty" => $resultPass["Raw_Voter_RegParty"],
-									"SystemAdmin" => $resultPass["SystemUser_Priv"],
+									"SystemUser_Priv" => $resultPass["SystemUser_Priv"],
 									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
 									"vi[]" => $var["VotersIndexes_ID"]
 								))   . "/lgd/team/voterselect");

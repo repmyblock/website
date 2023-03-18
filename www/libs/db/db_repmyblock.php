@@ -38,8 +38,6 @@ class RepMyBlock extends queries {
 		}
 	}
 	
-	
-	
 	function ListCCPartyCall($Party, $ADED, $ElectionsID) {
 		$sql = "SELECT * FROM ElectionsPartyCall " .
 						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.ElectionsPosition_ID = ElectionsPartyCall.ElectionsPosition_ID) " .
@@ -707,8 +705,6 @@ class RepMyBlock extends queries {
 				$ret = $this->GetRandomCandidateSetID($RandomString);
 			} while ( ! empty ($ret["CandidateSet_ID"]));
 			
-			print "RandomString: $RandomString<BR>";
-
 			$sql = "INSERT INTO CandidateSet SET SystemUser_ID = :SystemUserID, CandidateSet_Random = :Random, CandidateSet_TimeStamp = NOW()";
 			$sql_vars = array("SystemUserID" => $SystemUser_ID, "Random" => $RandomString);
 			$this->_return_nothing($sql, $sql_vars);
@@ -734,9 +730,6 @@ class RepMyBlock extends queries {
 		$sql = "SELECT LAST_INSERT_ID() as CandidateSet_ID";
 		return $this->_return_simple($sql);
 	}
-	
-	
-
 	
 	function InsertCandidate($SystemUserID, $UniqNYSVoterID, $RawVoterID, $DataCountyID, $CandidateElectionID, $Party, $DisplayName,
 														$Address, $DBTable, $DBValue,	$StatsVoters, $Status, $TeamID = NULL, $NameSet = NULL) {
@@ -803,7 +796,6 @@ class RepMyBlock extends queries {
 		$sql_vars = array('CandidateID' => $CandidateID, 'SystemUserID' => $SystemUserID, 'CandidateElectionID' => $ElectionID);
 		return $this->_return_nothing($sql, $sql_vars);
 	}
-
 
 	function ListCandidates() {
 		$sql = "SELECT * FROM Candidate " . 
@@ -1245,15 +1237,12 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
-	
 	function ReturnPrivCodes () {
 		$sql = "SELECT * FROM AdminCode";
 		return $this->_return_multiple($sql);
 	}	
 	
-	
 	/* Custom SQL Statement to minimize the number of question based on logic. */
-		
 	// The input is an array with array of stuff that changed + Person is the stuff coming
 	// from FindPersonUserProfile. If populate I won't have to call it again. 
 	// If there is a field called Change, then we change those field in SystemUser

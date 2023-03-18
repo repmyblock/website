@@ -85,6 +85,7 @@ $DEBUG["TimeDifference"] = time() - $URIEncryptedString["LastTimeUser"];
 $TimerToLoggoff = 36000000;
 
 if ( (time() - $URIEncryptedString["LastTimeUser"] ) > $TimerToLoggoff  && ! empty ($URIEncryptedString)) { 
+	WriteStderr("I am in the Logoff in VerifSec\n");
 	goto_signoff();
 	exit();
 }
@@ -176,10 +177,6 @@ function WipeURLEncrypted($WhatToKeep = NULL, $WhatToRemove = NULL) {
 	WriteStderr($URIEncryptedString, "Entering Wipe URL");	
 	$NewURIEncryptedString["LastTimeUser"] = $URIEncryptedString["LastTimeUser"];
 			
-	if ( ! empty ($URIEncryptedString["SystemAdmin"])) {
-		$NewURIEncryptedString["SystemAdmin"] = $URIEncryptedString["SystemAdmin"];
-	}
-	
 	if ( ! empty ($URIEncryptedString["SystemUser_ID"])) {
 		$NewURIEncryptedString["SystemUser_ID"] = $URIEncryptedString["SystemUser_ID"];
 	}

@@ -49,7 +49,7 @@
 								"S" => $URIEncryptedString["SystemUser_ID"],
 								"C" => "288",
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-    						"SystemAdmin" => $URIEncryptedString["SystemAdmin"]
+    						"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"]
 						))
 						?>/showqrcode">Show QR Code </a> 
 						

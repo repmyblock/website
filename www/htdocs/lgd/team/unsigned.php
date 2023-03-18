@@ -8,7 +8,6 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   
   $rmb = new Teams();
-	
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$rmbteam = $rmb->ListUnsignedMembers($URIEncryptedString["Team_ID"]);
 	WriteStderr($rmbteam, "RMB Team");

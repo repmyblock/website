@@ -15,7 +15,7 @@
 		//function MergeEncode($VariableToPass, $VariableToRemove = "LastTimeUser") {
 		header("Location: /" . CreateEncoded ( array( 	
 																"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+																"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 																"UserDetail" => $var["SystemUser_ID"],
 																"MenuDescription" => $URIEncryptedString["MenuDescription"],	
 																"Query_FirstName" => $_POST["FirstName"],

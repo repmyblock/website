@@ -39,7 +39,7 @@
 		$ErrorMsg = "Voter not found";
 		header("Location: /" .  CreateEncoded ( array( 	
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-								"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+								"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 								"FirstName" => $URIEncryptedString["FirstName"],
 								"LastName" => $URIEncryptedString["LastName"],
 								"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
@@ -154,7 +154,7 @@
 							<TR ALIGN=CENTER>
 								<TD style="padding:0px 10px;"><A HREF="/<?= CreateEncoded ( array( 	
 																"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+																"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 																"UserDetail" => $var["SystemUser_ID"],
 																"UniqNYSVoterID" => $var["VotersIndexes_UniqStateVoterID"],
 																)) ?>/admin/voterlist"><?= $UniqVoterID ?></A></TD>
@@ -424,7 +424,7 @@
 					<TD style="padding:0px 10px;text-align:left"><?= $multivar["Team_AccessCode"] ?></TD>
 					<TD style="padding:0px 10px;"><A HREF="/<?= CreateEncoded ( array( 	
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-								"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+								"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 								"UniqNYSVoterID" => $var["VotersIndexes_UniqStateVoterID"],
 								"CandidateID" => $multivar["Candidate_ID"],
 								"CandidateSetID" => $multivar["CandidateSet_ID"],
@@ -463,7 +463,7 @@
 			          "Party" => $var["Voters_RegParty"],
 								"PreparedFor" => $var["DataFirstName_Text"] . " " . $var["DataLastName_Text"],
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
-								"SystemAdmin" =>  $URIEncryptedString["SystemAdmin"],
+								"SystemUser_Priv" =>  $URIEncryptedString["SystemUser_Priv"],
 						)));
 			?>
 

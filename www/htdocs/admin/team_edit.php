@@ -21,7 +21,7 @@
 						"Team_ID" => $_POST["Team_ID"],
 				    "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 				    "EDAD" =>  $URIEncryptedString["EDAD"], 
-   					"SystemAdmin" => $URIEncryptedString["SystemAdmin"]
+   					"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"]
 
 					)
 		) . "/admin/team");

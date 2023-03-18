@@ -15,7 +15,7 @@
 	
 	$TheNewK = CreateEncoded ( array( 		
 			"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-			"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+			"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 			"UserDetail" => $URIEncryptedString["UserDetail"],
 			"MenuDescription" => $URIEncryptedString["MenuDescription"],	
 	));
@@ -90,7 +90,7 @@
 					<BR>
 						Voters State ID <FONT COLOR=BROWN><A HREF="/<?= CreateEncoded ( array( 	
 																"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+																"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 																"UserDetail" => $var["SystemUser_ID"],
 																"UniqNYSVoterID" => $result["Voters_UniqStateVoterID"],
 																)) ?>/admin/voterlist"><?= $result["Voters_UniqStateVoterID"] ?></A></FONT>

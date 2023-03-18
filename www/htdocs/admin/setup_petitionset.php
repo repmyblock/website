@@ -86,7 +86,7 @@
 														
 									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
-													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+													"Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
 												"Candidate_ID" => $var["Candidate_ID"])); ?>/rmb/voterlist" TARGET=NEW>WlkShts</A></DIV>
 												
 				
@@ -94,7 +94,7 @@
 						 	
 									<div class="table-body-cell-left"><A HREF="/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
-													"Raw_Voter_ID" => $URIEncryptedString["SystemAdmin"],
+													"Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
 													"Candidate_ID" => $var["Candidate_ID"])); ?>/admin/edit_candidates"><?= $var["Candidate_DispName"] ?></A></div>
 							
 						</DIV>

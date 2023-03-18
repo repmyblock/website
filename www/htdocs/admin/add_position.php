@@ -34,7 +34,7 @@
 						    "FirstName" => $URIEncryptedString["FirstName"],
 						    "LastName" => $URIEncryptedString["LastName"],
 						    "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
-						   	"SystemAdmin" => $URIEncryptedString["SystemAdmin"]
+						   	"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"]
 					)) . "/setup_elections");
 			*/
 		exit();

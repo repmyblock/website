@@ -8,14 +8,9 @@
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new Teams();
 	
-	
-	
 	if ( ! empty ($_POST)) {		
-		
 		WriteStderr($URIEncryptedString, "URIEncryptedString");	
 		WriteStderr($_POST, "$_POST");	
-		
-		echo "<PRE>" . print_r($_POST,1 ) . "</PRE>";
 
 		/// Check that the Group doesn't exist.
 		$CandidatesCheck[] = $URIEncryptedString["CandidateID"][0];
@@ -54,13 +49,10 @@
 			
 			/// I NEED TO SORT BY THE ORDER OF THE DOCUMENT
 			foreach ($CandidatesCheck as $var) {
-				
-			
 				$rmb->InsertCandidateSet($var, $Number["CandidateSet"], $URIEncryptedString["Party"], $URIEncryptedString["DataCountyID"], $Counter++, "yes");
 			}
 		}
-		
-		
+
 		header("Location: /" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],

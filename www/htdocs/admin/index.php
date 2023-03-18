@@ -7,10 +7,7 @@
 
 	// Reset
 	WriteStderr($URIEncryptedString, "Before URIEncryptedString");
-	$TempSysID = $URIEncryptedString["SystemUser_ID"];
-	$TempMenuDesc = $URIEncryptedString["MenuDescription"];
-	$TempSystemAdmin = $URIEncryptedString["SystemAdmin"];
-	$URIEncryptedString = array("SystemUser_ID" => $TempSysID, "MenuDescription" => $TempMenuDesc, "SystemAdmin" => $TempSystemAdmin );
+	WipeURLEncrypted( array("SystemUser_ID", "MenuDescription", "SystemUser_Priv") );
 	WriteStderr($URIEncryptedString, "After URIEncryptedString");
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }

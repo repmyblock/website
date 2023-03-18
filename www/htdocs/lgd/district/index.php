@@ -19,9 +19,6 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
-
-
-
 <div class="row">
 	<div class="main">
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
@@ -31,8 +28,6 @@
 					<h2 class="Subhead-heading">District</h2>
 				</div>
 				
-				
-			
 				<?php 
 					if ($VerifEmail == true) { 
 						include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
@@ -62,7 +57,7 @@
 													"VotersIndexes_ID" => $URIEncryptedString["VotersIndexes_ID"],
 													"UniqNYSVoterID" => $URIEncryptedString["Raw_Voter_UniqNYSVoterID"],
 													"UserParty" => $URIEncryptedString["Raw_Voter_RegParty"],
-													"SystemAdmin" => $URIEncryptedString["SystemUser_Priv"]
+													"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"]
 													)) ?>/lgd/district/results">Results per districts</A>
 									  </DIV>
 				
@@ -73,8 +68,6 @@
 					</DIV>
 				</DIV>
 				<?php } ?>
-
-
 				
 	<div id="map" class="map"></div>
     <script type="text/javascript">
@@ -102,11 +95,5 @@
 		
 	</DIV>
 </DIV>
-
-
-
-
-
-
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

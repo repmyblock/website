@@ -7,7 +7,7 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_sms.php";  
   
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
+	if (empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 
 	$rmb = new sms();
 	
@@ -68,7 +68,7 @@
 																			    "FirstName" => $URIEncryptedString["FirstName"],
 																			    "LastName" => $URIEncryptedString["LastName"],
 																			    "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
-																			   	"SystemAdmin" => $URIEncryptedString["SystemAdmin"]
+																			   	"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"]
 																				)) ?>/messages_read">Campaign #<?= $var["SMSCampaign_ID"] ?></a>
 			        <span class="text-small">
 			          <span class="ml-2">

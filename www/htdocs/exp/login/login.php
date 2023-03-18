@@ -48,7 +48,7 @@
 					"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
 					"UserParty" => $ResultRawInfo["Raw_Voter_EnrollPolParty"],
 					"EDAD" => $resultPass["SystemUser_EDAD"],
-					"SystemAdmin" => $resultPass["SystemUser_Priv"]
+					"SystemUser_Priv" => $resultPass["SystemUser_Priv"]
 				);
 			}
 					

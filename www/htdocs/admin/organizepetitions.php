@@ -69,7 +69,7 @@
 		
 		header("Location: /" . CreateEncoded ( array( 	
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-								"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+								"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 								"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
 								"CandidateSetID" => $CandidateSetToGoTo, 
 								"CountyID" => $URIEncryptedString["CountyID"],
@@ -249,7 +249,7 @@
 										<P CLASS="f80">	
 		<B><A HREF="/<?= CreateEncoded ( array( 	
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-								"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+								"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 								"UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
 							
 					))?>/admin/voterlist">Return to previous screen</A></B>

@@ -60,7 +60,7 @@
 	    	
 	  		$URIEncryptedString["FirstName"] = $rmbperson["SystemUser_FirstName"];
 	  		$URIEncryptedString["LastName"] = $rmbperson["SystemUser_LastName"];
-	  		$URIEncryptedString["SystemAdmin"] = $rmbperson["SystemUser_Priv"];
+	  		$URIEncryptedString["SystemUser_Priv"] = $rmbperson["SystemUser_Priv"];
 	    	
 	    } else {
 				$rmbperson = $rmb->UpdatePersonUserProfile($URIEncryptedString["SystemUser_ID"], $ProfileArray, $rmbperson);
@@ -181,7 +181,7 @@
 	}
 	
 	$middleuri = $k;
-
+	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>

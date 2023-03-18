@@ -31,7 +31,7 @@
 						    "FirstName" => $URIEncryptedString["FirstName"],
 						    "LastName" => $URIEncryptedString["LastName"],
 						    "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
-						   	"SystemAdmin" => $URIEncryptedString["SystemAdmin"]
+						   	"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"]
 					)) . "/admin/bulkmaintenance");
 		exit();
 	}
@@ -77,7 +77,7 @@
 						    "FirstName" => $URIEncryptedString["FirstName"],
 						    "LastName" => $URIEncryptedString["LastName"],
 						    "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
-						   	"SystemAdmin" => $URIEncryptedString["SystemAdmin"])); ?>/admin/userlookup">Back to User Lookup</A>
+						   	"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"])); ?>/admin/userlookup">Back to User Lookup</A>
 				</P>
 				
 			

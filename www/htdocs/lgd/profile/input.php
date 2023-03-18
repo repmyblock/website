@@ -73,7 +73,7 @@
 								"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
 								"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
 								"UserParty" => $resultPass["Raw_Voter_RegParty"],
-								"SystemAdmin" => $resultPass["SystemUser_Priv"],
+								"SystemUser_Priv" => $resultPass["SystemUser_Priv"],
 								"vi[]" => $var["VotersIndexes_ID"]
 							))   . "/lgd/profile/select");
 				exit();

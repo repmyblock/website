@@ -44,17 +44,11 @@
 			$CandidateProfile = $rmb->updatecandidateprofile("force", $MatchTableName);	
 	}
 	
-	
 	if (empty ($result)) {
 		WriteStderr($result, "PetitionData");						
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/candidatelogic/NY_CreatePosition.php";	
 	}
-									
-									
-									
-	
-									
-													
+		
 	header("Location: /" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
@@ -62,5 +56,3 @@
 				
 	exit();
 ?>
-	
-	

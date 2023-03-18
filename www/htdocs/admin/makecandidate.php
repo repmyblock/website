@@ -39,7 +39,7 @@
 		}
 		header("Location: /" . CreateEncoded ( array( 
 						"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-						"SystemAdmin" => $URIEncryptedString["SystemAdmin"],
+						"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 						"UniqNYSVoterID" =>$_POST["UniqNYSVoterID"],
 		))  . "/admin/voterlist");
 		exit();
