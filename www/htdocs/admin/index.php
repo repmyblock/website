@@ -28,7 +28,7 @@
 	</div>
 	
 	<?php 
-		if ($VerifEmail == true) { 
+		if ($VerifEmail == true) {
 			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
 		} else if ($VerifVoter == true) {
 			include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
