@@ -23,7 +23,7 @@
     
 			  <!-- Public Profile -->
 			  <div class="Subhead mt-0 mb-0">
-			    <h2 class="Subhead-heading">Uncompleted Registrations</h2>
+			    <h2 class="Subhead-heading">Incomplete Registrations</h2>
 				</DIV>
 				
 		
