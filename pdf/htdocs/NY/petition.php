@@ -47,7 +47,7 @@ if ($SizeK == 12) {
 WriteStderr($URIEncryptedString, "PDF Petition");
 
 $pdf_NY_petition->Watermark = "VOID - Do not use"; 
-$WritenSignatureMonth = "March"; // date("F");
+$WritenSignatureMonth = "April"; // date("F");
 
 // Setup for empty petition.
 $pdf_NY_petition->WitnessName = "________________________________________"; 
@@ -192,7 +192,7 @@ switch ($Variable) {
 $pdf_NY_petition->county = $result[0]["DataCounty_Name"];
 $pdf_NY_petition->party = PrintPartyAdjective($result[0]["CandidateGroup_Party"]);
 $pdf_NY_petition->ElectionDate =  PrintShortDate($result[0]["Elections_Date"]);
-$pdf_NY_petition->AutoFillDate = "03 /     / 2023";
+$pdf_NY_petition->AutoFillDate = "04 /     / 2023";
 $pdf_NY_petition->BarCode = "S" . $result[0]["CandidateSet_ID"];
 if ($result[0]["CandidateGroup_Watermark"] == 'no') { $pdf_NY_petition->Watermark = NULL; }	
 $pdf_NY_petition->Watermark = NULL;
