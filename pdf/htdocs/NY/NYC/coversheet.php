@@ -8,7 +8,6 @@
 	
 	$r = new OutragedDems();
 
-	
 	$PageSize = "letter";
 	$pdf = new PDF('P','mm', $PageSize);
 
@@ -41,8 +40,6 @@
 		$pdf->typepetition = "AMENDED ";
 		$pdf->AmendedmentCoverSheet = 'yes';
 	}
-	
-	
 	
 	$NumbersOfVolumesPetitions = 0;
 	$VolumesID = "";
@@ -152,10 +149,6 @@
 	
 	$pdf->Output("I", $Filename . ".pdf");
 
-function Redact ($string) {
-	return str_repeat("X", strlen($string)); ;
-	return $string;
-}
 
 ?>
 
