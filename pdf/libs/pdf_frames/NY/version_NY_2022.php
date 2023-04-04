@@ -100,7 +100,7 @@ function version_NY_2022 ($pdf, $InfoArray) {
 
 		$pdf->SetY($YLocation+0.8);	
 			
-		if ($pdf->GetY() > 218) {
+		if ($pdf->GetY() > $pdf->BottonPt) {
 			$done = 0;
 		} else {
 			$pdf->SetXY($pdf->Line_Left, $YLocation);				

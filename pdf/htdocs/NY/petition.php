@@ -1,18 +1,51 @@
 <?php
 //date_default_timezone_set('America/New_York'); 
+
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 
 // The RMBClockInit variable is used by file that use the Merge function to create packets.
-// It is used to block the reinitionalization of basic files that were already called.
+// It is used to block the reiitionalization of basic files that were already called.
+
+$PDFOptions["SigMonth"] = date("F");
+$PDFOptions["DateForCounter"] = "/     / " . date("Y");
+$PDFOptions["DateForWitness"] = "______________________";
+$PDFOptions["WitnessName"] = "________________________________________"; 
+$PDFOptions["WitnessResidence"] = "_______________________________________________________";
+$PDFOptions["City"] = "____________"; 
+$PDFOptions["County"] = "________"; 
+
 if ( ! isset ($RMBBlockInit)) {
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/NY/petition_class.php';
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
+	
+	$StrPos = strpos($_SERVER['REQUEST_URI'], "?") + 1;
+	if ($StrPos > 1) $Options = explode("/", substr($_SERVER['REQUEST_URI'], $StrPos));
+
 	$db_NY_petition = new OutragedDems();
 	$PageSize = "letter";
-	$pdf_NY_petition = new PDF_NY_Petition('P','mm', $PageSize);
 	$PetitionFrameName = "hano";
+	
+	// This is to pass option to the petition.
+	if ( ! empty ($Options)) {
+		foreach ($Options as $var) {
+			$splitvar = explode(":", $var);
+			switch ($splitvar[0]) {
+				case 'frame':	$PetitionFrameName = $splitvar[1]; break;
+				case 'pgsz': $PageSize = $splitvar[1]; break;
+				case 'sigmonth': $PDFOptions["SigMonth"] = $splitvar[1]; break;
+				case 'filldate': $PDFOptions["DateForCounter"] = date("m") . " / __ / " . date("Y"); break;
+				case 'witnessdate': $PDFOptions["DateForWitness"] = $PDFOptions["SigMonth"] . " _______ , " . date("Y");
+				case 'witness': $PDFOptions["SearchWitnessVoter"] = intval($splitvar[1]); break;
+				case 'fillhouse': $PDFOptions["SearchWitnessVoter"] = intval($splitvar[1]); break;
+				case 'fillcounty': $PDFOptions["FillCounty"] = true; break; 
+				case 'witnesstype': $PDFOptions["WitnessType"] = $splitvar[1]; break;
+			}
+		}
+	}
+	
+	$pdf_NY_petition = new PDF_NY_Petition('P','mm', $PageSize);
 }
 
 // Faut que je travaille avec K.
@@ -47,18 +80,14 @@ if ($SizeK == 12) {
 WriteStderr($URIEncryptedString, "PDF Petition");
 
 $pdf_NY_petition->Watermark = "VOID - Do not use"; 
-$WritenSignatureMonth = "April"; // date("F");
+
 
 // Setup for empty petition.
-$pdf_NY_petition->WitnessName = "________________________________________"; 
-$pdf_NY_petition->WitnessResidence = "_______________________________________________________";
-
-$pdf_NY_petition->TodayDateText = "Date: " . date("F _________ , Y"); 
-$pdf_NY_petition->TodayDateText = "Date: " . $WritenSignatureMonth . " _______ , " . date("Y");
-$pdf_NY_petition->City = "____________"; 
-$pdf_NY_petition->County = "________"; 
-$DateForCounter = " ___ / ___ / " . date("Y");
-$DateForCounter = date("m") . " / ____ / " . date("Y"); 
+$pdf_NY_petition->WitnessName = $PDFOptions["WitnessName"];
+$pdf_NY_petition->WitnessResidence = $PDFOptions["WitnessResidence"];
+$pdf_NY_petition->TodayDateText = "Date: " . $PDFOptions["DateForWitness"];
+$pdf_NY_petition->City = $PDFOptions["City"];
+$pdf_NY_petition->County = $PDFOptions["County"];
 
 switch ($Variable) {
 	case 'onthefly';
@@ -192,7 +221,7 @@ switch ($Variable) {
 $pdf_NY_petition->county = $result[0]["DataCounty_Name"];
 $pdf_NY_petition->party = PrintPartyAdjective($result[0]["CandidateGroup_Party"]);
 $pdf_NY_petition->ElectionDate =  PrintShortDate($result[0]["Elections_Date"]);
-$pdf_NY_petition->AutoFillDate = "04 /     / 2023";
+$pdf_NY_petition->AutoFillDate = $PDFOptions["DateForCounter"];
 $pdf_NY_petition->BarCode = "S" . $result[0]["CandidateSet_ID"];
 if ($result[0]["CandidateGroup_Watermark"] == 'no') { $pdf_NY_petition->Watermark = NULL; }	
 $pdf_NY_petition->Watermark = NULL;
@@ -358,14 +387,13 @@ $pdf_NY_petition->CandidateNomination .= " or for election to a party position o
 
 if ( $PageSize == "letter") {
 	$NumberOfLines = 12 - $pdf_NY_petition->NumberOfCandidates;
-	$pdf_NY_petition->BottonPt = 240.4;	
-	$pdf_NY_petition->BottonPt = 232;
-	//$pdf_NY_petition->BottonPt = 200;
+	$pdf_NY_petition->BottonPt = 216;
 	$Botton =  216.9;
 		
 } else if ( $PageSize = "legal") {
-	$NumberOfLines = 23;
-	$pdf_NY_petition->BottonPt = 236;
+	$NumberOfLines = 100 - $pdf_NY_petition->NumberOfCandidates;
+	$pdf_NY_petition->BottonPt = 290;
+	$Botton =  260.9;
 }
 
 $pdf_NY_petition->AliasNbPages();
