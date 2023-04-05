@@ -26,8 +26,6 @@ class PDF_NY_Petition extends PDF_Code128 {
  	   	$this->SetTextColor(0); 	   	
  	   	$this->SetXY($this->Col1, $YLocation);
 		}
-		
-		$this->SetFont('Arial','',10);
 			
     $this->SetFont('Arial','B',12);
     $this->Cell(0,0, strtoupper($this->party) . " PARTY",0,0,'C');
@@ -43,8 +41,28 @@ class PDF_NY_Petition extends PDF_Code128 {
     $this->SetFont('Arial','B',8);
     $this->Cell(36,2.8, 'To the Board of Elections:');
     $this->SetFont('Arial','',8);
+    
+    /*
+    
+    $this->write(3, "I, the undersigned, do hereby state that I am a registered voter of the political unit for " .
+    								"which a nomination for public office is hereby being made, that my present place of residence " .
+    								"is truly stated opposite my signature hereto, and that I do hereby nominate the following " . 
+										"named person as a candidate for election to public office to be voted for at the election " . 
+ 									  "to be held on the " . $this->ElectionDate . ", and that I select the name " . $this->party . 
+										" as the name of the independent body making the nomination and the image to the right as " . 
+										"the emblem of such body.");
+		
+		I need to figure out how to put the picture on the right
+										
+		*/
+		
+										
 
 		if ($this->PetitionType == "independent") {
+			
+			$this->SetRightMargin(13);
+			$this->Image($_SERVER["DOCUMENT_ROOT"] . "/../../static/htdocs/shared/logos/" . $this->EmblemImagePath, 
+																					196, 8, 015);			
     	
  			$this->write(3, 
 				"I, the undersigned, do hereby state that I am a registered voter of the political unit for " .
@@ -58,10 +76,21 @@ class PDF_NY_Petition extends PDF_Code128 {
 				$this->AddFont($this->EmblemFontType,'', $this->EmblemFontType . ".php");
 				$this->SetFont($this->EmblemFontType,'', $this->EmblemFontSize);
 				$this->Write(3, $this->PartyEmblem);
+			} else {
+				$this->Image($_SERVER["DOCUMENT_ROOT"] . "/../../static/htdocs/shared/logos/" . $this->EmblemImagePath, $this->GetX() + 1, $this->GetY() - 0.6, 02.5);
+				$this->Write(3, "   ");
 			}
 			
 			$this->SetFont('Arial','', 8);		
 			$this->Write(3, " as the emblem of such body.");
+			
+	
+    	$this->SetRightMargin(7);
+
+    				
+    														 
+   
+			
 			
 		} else {
 			
