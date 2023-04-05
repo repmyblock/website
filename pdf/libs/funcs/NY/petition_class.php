@@ -61,7 +61,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 		if ($this->PetitionType == "independent") {
 			
 			$this->SetRightMargin(13);
-			$this->Image($_SERVER["DOCUMENT_ROOT"] . "/../../static/htdocs/shared/logos/" . $this->EmblemImagePath, 
+			$this->Image($_SERVER["DOCUMENT_ROOT"] . "/../../static.repmyblock.org/htdocs/shared/logos/" . $this->EmblemImagePath, 
 																					196, 8, 015);			
     	
  			$this->write(3, 
@@ -77,7 +77,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 				$this->SetFont($this->EmblemFontType,'', $this->EmblemFontSize);
 				$this->Write(3, $this->PartyEmblem);
 			} else {
-				$this->Image($_SERVER["DOCUMENT_ROOT"] . "/../../static/htdocs/shared/logos/" . $this->EmblemImagePath, $this->GetX() + 1, $this->GetY() - 0.6, 02.5);
+				$this->Image($_SERVER["DOCUMENT_ROOT"] . "/../../static.repmyblock.org/htdocs/shared/logos/" . $this->EmblemImagePath, $this->GetX() + 1, $this->GetY() - 0.6, 02.5);
 				$this->Write(3, "   ");
 			}
 			
