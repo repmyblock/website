@@ -111,11 +111,7 @@
 	$pdf->Address = "640 Riverside Drive - 10B\nNew York, NY 10031";
  	$pdf->Phone = "(929) 359-3349";
   $pdf->Email = "theo@repmyblock.org";
-   	
-	
-	
-
-	
+  
 	$pdf->TodayDateText = "Date: " . date("F _________ , Y"); 
 	$pdf->County = $result[0]["CandidatePetition_VoterCounty"];
 	$pdf->City = "City of New York";
@@ -148,7 +144,5 @@
 	$Filename = preg_replace('/\s+/', '_', $Filename);
 	
 	$pdf->Output("I", $Filename . ".pdf");
-
-
 ?>
 

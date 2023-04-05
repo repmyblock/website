@@ -241,118 +241,131 @@ class PDF_NY_Petition extends PDF_Code128 {
 		$this->SetFont('Arial','',10);
 		$this->Ln(1);
 		
-		if ($this->PetitionType == "independent" || $this->PetitionType == "nonresident") {
-	  	
-	  	/* Independent witness statement */
+		if ($this->PetitionType == "notary") {
 			
-			if ( $this->PetitionSubType == "nonresident") {
-				
-				$this->MultiCell(0, 4.2, 
-				"I, " . $this->WitnessName . " I am a citizen of the United States of America who is duly qualified to " . 
-				"register to vote in the State of New York but not so registered, or who would be duly qualified to register " . 
-				"to vote in the State of New York if I were a New York resident, and I consent to the jurisdiction of the " . 
-				"courts of New York in resolving any disputes concerning the witnessing of petition signatures. I further " . 
-				"consent to service of the subpoena on a person of suitable age and discretion at the following New York " . 
-				"address, which may be considered my actual place of business for this purpose. " . 
-				"I now reside at " . $this->WitnessResidence .  
-				". Each of the individuals whose names are subscribed to this petition sheet containing ____ signatures, " . 
-				"subscribed the same in my presence on the dates above indicated and identified himself or herself to be " .
-				"the individual who signed this sheet. I understand that this statement will be accepted for all purposes " . 
-				"as the equivalent of an affidavit and, if it contains a materially false statement, shall subject me to " . 
-				"the same penalties as if I had been duly sworn.", 0, 'L', 0);
-				
-			} else {
-			
-				$this->MultiCell(0, 4.2, 
-				"I, " . $this->WitnessName . " state: I am a duly qualified voter of the State of New York.  " . 
-				"I now reside at " . $this->WitnessResidence .  
-				". Each of the individuals whose names are subscribed to this petition sheet containing " .
-				"____ signatures, subscribed the same in my presence on the dates above indicated " . 
-				"and identified himself or herself to be the individual who signed this sheet. I understand " . 
-				"that this statement will be accepted for all purposes as the equivalent of an affidavit and, " . 
-				"if it contains a material false statement, " . 
-				"shall subject me to the same penalties as if I had been duly sworn.", 0, 'L', 0);
-			
-			}
-		
-			$this->SetFont('Arial','I',8);
-			$this->SetTextColor(200);
-
-			if ( $EmptyWitnessName == true) {
-				$this->SetXY( 8,  $YLocation + 5 );
-				$this->Write(0, 'Name of witness');
-			}
-
-			if ( $EmptyWitnessResidence == true) {
-				$this->SetXY(20,  $YLocation + 9 );
-				$this->Write(0, 'Residence address, also post office if not identical');
-			}
-			
-		} else {
-		
 			$this->MultiCell(0, 4.2, 
-				"I, " . $this->WitnessName . " state: I am a duly qualified voter of the State of New York and am an " . 
-				"enrolled voter of the " . $this->party . " Party. I now reside at " . $this->WitnessResidence . ". Each " . 
-				"of the individuals whose names are subscribed to this petition sheet " . 
-				"containing ____ signatures, subscribed the same in my presence on the dates above indicated " . 
-				"and identified himself or herself to be the individual who signed this sheet. I understand that this " .
-				"statement will be accepted for all purposes as the equivalent of an affidavit and, " .
-				"if it contains a material false statement, shall subject me to the " . 
-				"same penalties as if I had been duly sworn.", 0, 'L', 0);
-	
-			$this->SetFont('Arial','I',8);
-			$this->SetTextColor(200);
-
-			if ( $EmptyWitnessName == true) {
-				$this->SetXY( 8,  $YLocation + 5 );
-				$this->Write(0, 'Name of witness');
-			}
-
-			if ( $EmptyWitnessResidence == true) {
-				$this->SetXY( 92,  $YLocation + 9 );
-				$this->Write(0, 'Residence address, also post office if not identical');
-			}
-		}
-		
-
-		$this->SetFont('Arial','I',14);
-		$this->SetXY( 150,  $YLocation + 30 );
-		$this->Write(0, 'Signature of witness');
-		
-		$this->SetFont('Arial','',8);
-		$this->SetTextColor(0);
-
-		$this->SetY(-15);
-		$this->SetFont('Arial','B',13);
-		$this->Cell(0,0,	$this->TodayDateText);
-		$this->SetY(-12.5);
-		$this->SetFont('Arial','',8);
-		$this->Cell(0,0, "_________________________________________________________", 0, 0, 0);
-		
-		$this->SetXY(20, -14);
-		
-		if ( $this->TypeOfTown == "Town") {
-			$this->Cell(40,10, "Town/City:", 0, 'L', 0);
+				"On the dates above indicated before me personally came each of the voters whose signatures " . 
+				"appear on this petition sheet containing ___ signatures, who signed same in my presence and who, " .
+				"being by me duly sworn, each for himself or herself, said that the foregoing statement made and " .
+				"subscribed by him or her was true.", 0, 'L', 0);
+			
+			
 		} else {
-			$this->Cell(40,10, "City:", 0, 'L', 0);
-		}
+		
+			if ($this->PetitionType == "independent" || $this->PetitionType == "nonresident") {
+		  	
+		  	/* Independent witness statement */
+				
+				if ( $this->PetitionSubType == "nonresident") {
+					
+					$this->MultiCell(0, 4.2, 
+					"I, " . $this->WitnessName . " I am a citizen of the United States of America who is duly qualified to " . 
+					"register to vote in the State of New York but not so registered, or who would be duly qualified to register " . 
+					"to vote in the State of New York if I were a New York resident, and I consent to the jurisdiction of the " . 
+					"courts of New York in resolving any disputes concerning the witnessing of petition signatures. I further " . 
+					"consent to service of the subpoena on a person of suitable age and discretion at the following New York " . 
+					"address, which may be considered my actual place of business for this purpose. " . 
+					"I now reside at " . $this->WitnessResidence .  
+					". Each of the individuals whose names are subscribed to this petition sheet containing ____ signatures, " . 
+					"subscribed the same in my presence on the dates above indicated and identified himself or herself to be " .
+					"the individual who signed this sheet. I understand that this statement will be accepted for all purposes " . 
+					"as the equivalent of an affidavit and, if it contains a materially false statement, shall subject me to " . 
+					"the same penalties as if I had been duly sworn.", 0, 'L', 0);
+					
+				} else {
+				
+						$this->MultiCell(0, 4.2, 
+						"I, " . $this->WitnessName . " state: I am a duly qualified voter of the State of New York.  " . 
+						"I now reside at " . $this->WitnessResidence .  
+						". Each of the individuals whose names are subscribed to this petition sheet containing " .
+						"____ signatures, subscribed the same in my presence on the dates above indicated " . 
+						"and identified himself or herself to be the individual who signed this sheet. I understand " . 
+						"that this statement will be accepted for all purposes as the equivalent of an affidavit and, " . 
+						"if it contains a material false statement, " . 
+						"shall subject me to the same penalties as if I had been duly sworn.", 0, 'L', 0);
+					
+					}
+				
+					$this->SetFont('Arial','I',8);
+					$this->SetTextColor(200);
 
-		$this->SetXY(60, -14);
-		$this->Cell(40,10, "County:", 0, 'L', 0);
-		
-		$this->SetXY(40, -14 );
-		$this->SetFont('Arial','B',8);
-		$this->Cell(40, 10, $this->City, 0, 'L', 0);
-		$this->SetXY(69, -14 );
-		$this->Cell(45, 10, $this->County, 0, 'L', 0);
-		
-		$this->SetXY(160, -7 );
-		$this->SetFont('Arial','',13);
-		$this->Cell(0, 0,	"SHEET No. ______ ");
-		
-		$this->SetXY(5, -7 );
-		$this->SetFont('Arial','',8);
-		$this->Cell(0, 0, $this->BarCode);
+					if ( $EmptyWitnessName == true) {
+						$this->SetXY( 8,  $YLocation + 5 );
+						$this->Write(0, 'Name of witness');
+					}
+
+					if ( $EmptyWitnessResidence == true) {
+						$this->SetXY(20,  $YLocation + 9 );
+						$this->Write(0, 'Residence address, also post office if not identical');
+					}
+					
+				} else {
+				
+					$this->MultiCell(0, 4.2, 
+						"I, " . $this->WitnessName . " state: I am a duly qualified voter of the State of New York and am an " . 
+						"enrolled voter of the " . $this->party . " Party. I now reside at " . $this->WitnessResidence . ". Each " . 
+						"of the individuals whose names are subscribed to this petition sheet " . 
+						"containing ____ signatures, subscribed the same in my presence on the dates above indicated " . 
+						"and identified himself or herself to be the individual who signed this sheet. I understand that this " .
+						"statement will be accepted for all purposes as the equivalent of an affidavit and, " .
+						"if it contains a material false statement, shall subject me to the " . 
+						"same penalties as if I had been duly sworn.", 0, 'L', 0);
+			
+					$this->SetFont('Arial','I',8);
+					$this->SetTextColor(200);
+
+					if ( $EmptyWitnessName == true) {
+						$this->SetXY( 8,  $YLocation + 5 );
+						$this->Write(0, 'Name of witness');
+					}
+
+					if ( $EmptyWitnessResidence == true) {
+						$this->SetXY( 92,  $YLocation + 9 );
+						$this->Write(0, 'Residence address, also post office if not identical');
+					}
+				}
+				
+
+				$this->SetFont('Arial','I',14);
+				$this->SetXY( 150,  $YLocation + 30 );
+				$this->Write(0, 'Signature of witness');
+				
+				$this->SetFont('Arial','',8);
+				$this->SetTextColor(0);
+
+				$this->SetY(-15);
+				$this->SetFont('Arial','B',13);
+				$this->Cell(0,0,	$this->TodayDateText);
+				$this->SetY(-12.5);
+				$this->SetFont('Arial','',8);
+				$this->Cell(0,0, "_________________________________________________________", 0, 0, 0);
+				
+				$this->SetXY(20, -14);
+				
+				if ( $this->TypeOfTown == "Town") {
+					$this->Cell(40,10, "Town/City:", 0, 'L', 0);
+				} else {
+					$this->Cell(40,10, "City:", 0, 'L', 0);
+				}
+
+				$this->SetXY(60, -14);
+				$this->Cell(40,10, "County:", 0, 'L', 0);
+				
+				$this->SetXY(40, -14 );
+				$this->SetFont('Arial','B',8);
+				$this->Cell(40, 10, $this->City, 0, 'L', 0);
+				$this->SetXY(69, -14 );
+				$this->Cell(45, 10, $this->County, 0, 'L', 0);
+				
+			}
+			
+			$this->SetXY(160, -7 );
+			$this->SetFont('Arial','',13);
+			$this->Cell(0, 0,	"SHEET No. ______ ");
+			
+			$this->SetXY(5, -7 );
+			$this->SetFont('Arial','',8);
+			$this->Cell(0, 0, $this->BarCode);
 	
 	
 	

@@ -33,12 +33,17 @@ if ( ! isset ($RMBBlockInit)) {
 			$splitvar = explode(":", $var);
 			switch ($splitvar[0]) {
 				case 'frame':	$PetitionFrameName = $splitvar[1]; break;
-				case 'pgsz': $PageSize = $splitvar[1]; break;
+				case 'pgsz': 
+					preg_match('/(\d{1,})[xX](\d{1,})/', $splitvar[1], $matches, PREG_OFFSET_CAPTURE);
+					if ( ! empty ($matches[0]) ) {
+						$PageSize = array( $matches[2][0], $matches[1][0] );
+					}
+					break;	
 				case 'sigmonth': $PDFOptions["SigMonth"] = $splitvar[1]; break;
 				case 'filldate': $PDFOptions["DateForCounter"] = date("m") . " / __ / " . date("Y"); break;
 				case 'witnessdate': $PDFOptions["DateForWitness"] = $PDFOptions["SigMonth"] . " _______ , " . date("Y");
-				case 'witness': $PDFOptions["SearchWitnessVoter"] = intval($splitvar[1]); break;
-				case 'fillhouse': $PDFOptions["SearchWitnessVoter"] = intval($splitvar[1]); break;
+				#case 'witness': $PDFOptions["SearchWitnessVoter"] = intval($splitvar[1]); break;
+				#case 'fillhouse': $PDFOptions["SearchWitnessVoter"] = intval($splitvar[1]); break;
 				case 'fillcounty': $PDFOptions["FillCounty"] = true; break; 
 				case 'witnesstype': $PDFOptions["WitnessType"] = $splitvar[1]; break;
 			}
@@ -46,6 +51,7 @@ if ( ! isset ($RMBBlockInit)) {
 	}
 	
 	$pdf_NY_petition = new PDF_NY_Petition('P','mm', $PageSize);
+		
 }
 
 // Faut que je travaille avec K.
@@ -159,12 +165,12 @@ switch ($Variable) {
 	  }
 	  
 	  WriteStderr($result, "Result Set ID");
-	
+	 
 		if ( ! empty ($result)) {
 			for ($i = 0; $i < count($result); $i++) {
 	  		$result[$i]["CandidateSet_ID"] = 1;
 	  		if ( $result[0]["Candidate_Party"] == "BLK" ) {
-	  			$pdf_NY_petition->PetitionType = "independent";
+	  			$PDFOptions["WitnessType"] = "independent";
 	  			$pdf_NY_petition->EmblemFontType = $result[0]["CandidatePartySymbol_Font"];
 					$pdf_NY_petition->EmblemFontSize = $result[0]["CandidatePartySymbol_Size"];
 					$pdf_NY_petition->PartyEmblem = $result[0]["CandidatePartySymbol_Char"];
@@ -180,9 +186,7 @@ switch ($Variable) {
 			$ElectionDate = PrintShortDate($result[0]["Elections_Date"]);		
 			if ($result[0]["CandidateGroup_Watermark"] == 'no') { $pdf_NY_petition->Watermark = NULL; }	
 		}
-		
-	
-		
+			
 		if ( $result[0]["Candidate_Status"] == "published" || $URIEncryptedString["PendingBypass"] == "yes") break;
 		goto democc;
 		break;
@@ -217,6 +221,9 @@ switch ($Variable) {
 		$pdf_NY_petition->DemoPrint = "true";
 		break;
 }
+
+
+$pdf_NY_petition->PetitionType = $PDFOptions["WitnessType"];
 
 $pdf_NY_petition->county = $result[0]["DataCounty_Name"];
 $pdf_NY_petition->party = PrintPartyAdjective($result[0]["CandidateGroup_Party"]);

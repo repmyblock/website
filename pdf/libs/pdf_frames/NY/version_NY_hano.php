@@ -156,8 +156,8 @@ function version_NY_hano ($pdf, $InfoArray) {
 		$pdf->SetFont('Arial', '', 10);
 		//$pdf->Cell(38, 0, $Counter . ". " . $DateForCounter, 0, 0, 'L', 0);
 
-		$pdf->SetY($YLocation+0.8);	
-			
+		$pdf->SetY($YLocation+0.8);
+		
 		if ($pdf->GetY() > $pdf->BottonPt) {
 			$done = 0;
 		} else {
