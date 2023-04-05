@@ -34,10 +34,11 @@ if ( ! isset ($RMBBlockInit)) {
 			switch ($splitvar[0]) {
 				case 'frame':	$PetitionFrameName = $splitvar[1]; break;
 				case 'pgsz': 
+					$PageSize = $splitvar[1];
 					preg_match('/(\d{1,})[xX](\d{1,})/', $splitvar[1], $matches, PREG_OFFSET_CAPTURE);
 					if ( ! empty ($matches[0]) ) {
 						$PageSize = array( $matches[2][0], $matches[1][0] );
-					}
+					} 
 					break;	
 				case 'sigmonth': $PDFOptions["SigMonth"] = $splitvar[1]; break;
 				case 'filldate': $PDFOptions["DateForCounter"] = date("m") . " / __ / " . date("Y"); break;
