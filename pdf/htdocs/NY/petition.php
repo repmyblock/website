@@ -84,6 +84,7 @@ if ($SizeK == 12) {
 }
 
 WriteStderr($URIEncryptedString, "PDF Petition");
+WriteStderr($Variable, "Variable");
 
 $pdf_NY_petition->Watermark = "VOID - Do not use"; 
 
@@ -163,8 +164,7 @@ switch ($Variable) {
 	  } else {
 	  	$result = $db_NY_petition->ListPetitionGroup($CandidateSet_ID, "published");
 	  }
-	  
-	  WriteStderr($result, "Result Set ID");
+	
 	 
 		if ( ! empty ($result)) {
 			for ($i = 0; $i < count($result); $i++) {
@@ -223,10 +223,26 @@ switch ($Variable) {
 }
 
 
-$pdf_NY_petition->PetitionType = $PDFOptions["WitnessType"];
+if ( $result[0]["Candidate_Party"] == "BLK" ) {
+	$PDFOptions["WitnessType"] = "independent";
+	$pdf_NY_petition->party = $result[0]["Candidate_FullPartyName"];				
+	
+	if ( ! empty ($result[0]["Candidate_DisplayMap"])) {
+		$pdf_NY_petition->EmblemImagePath = $result[0]["Candidate_DisplayMap"];
 
+	} else {
+		$pdf_NY_petition->EmblemFontType = $result[0]["CandidatePartySymbol_Font"];
+		$pdf_NY_petition->EmblemFontSize = $result[0]["CandidatePartySymbol_Size"];
+		$pdf_NY_petition->PartyEmblem = $result[0]["CandidatePartySymbol_Char"];
+
+	}
+	
+} else {
+	$pdf_NY_petition->party = PrintPartyAdjective($result[0]["CandidateGroup_Party"]);
+}
+
+$pdf_NY_petition->PetitionType = $PDFOptions["WitnessType"];
 $pdf_NY_petition->county = $result[0]["DataCounty_Name"];
-$pdf_NY_petition->party = PrintPartyAdjective($result[0]["CandidateGroup_Party"]);
 $pdf_NY_petition->ElectionDate =  PrintShortDate($result[0]["Elections_Date"]);
 $pdf_NY_petition->AutoFillDate = $PDFOptions["DateForCounter"];
 $pdf_NY_petition->BarCode = "S" . $result[0]["CandidateSet_ID"];
