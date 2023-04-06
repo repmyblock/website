@@ -46,7 +46,7 @@
 		<meta name="twitter:site" content="@RepMyBlock" />
 		<meta name="twitter:image" content="<?= $HeaderTwitterPicLink ?>" />
 		<meta name="twitter:creator" content="@RepMyBlock" />
-		<meta name="Description" CONTENT="A website to prepare political state nominating petitions to run for party and elected office.">
+		<meta name="Description" CONTENT="A website to prepare political state nominating petitions to run for party and elected office. Run for County Committee, Precinct Committee Officer or Precint Committee Person">
 		<TITLE>Rep My Block - Represent My Block at the County Committee</TITLE>
 
 		<meta name="Title" content="County Committee">
