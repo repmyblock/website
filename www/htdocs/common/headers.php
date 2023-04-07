@@ -26,7 +26,7 @@
 	if ( empty ($HeaderTwitter)) {
 		$HeaderTwitterTitle = "Rep My Block - Rep My Block";
 		$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/PoliticalMachineKeepEngagementLow.jpg";
-		$HeaderTwitterDesc = "Registrations for the 2023 Citywide Republican and Democratic county committee. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; it's their backbone. The &hellip; Continue reading Rep My Block &rarr;";
+		$HeaderTwitterDesc = "Registrations for the 2024 Queens, Brooklyn and Bronx Democratic and 2025 Citywide Republican county committee. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; it's their backbone. The &hellip; Continue reading Rep My Block &rarr;";
 	}
 
 	if (empty ($HeaderOGDescription)) {	$HeaderOGDescription = "Represent My Block at the County Committee"; }
@@ -46,7 +46,7 @@
 		<meta name="twitter:site" content="@RepMyBlock" />
 		<meta name="twitter:image" content="<?= $HeaderTwitterPicLink ?>" />
 		<meta name="twitter:creator" content="@RepMyBlock" />
-		<meta name="Description" CONTENT="A website to prepare political state nominating petitions to run for party and elected office. Run for County Committee, Precinct Committee Officer or Precint Committee Person">
+		<meta name="Description" CONTENT="Get started in activism. RepMyBlock is a website to prepare political state nominating petitions to run for party and elected office. Run for County Committee, Precinct Committee Officer or Precint Committee Person">
 		<TITLE>Rep My Block - Represent My Block at the County Committee</TITLE>
 
 		<meta name="Title" content="County Committee">
