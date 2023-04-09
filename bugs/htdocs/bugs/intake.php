@@ -1,22 +1,13 @@
 <?php
 
+#print "REFERER: <PRE>" . print_r($_SERVER, 1) . "<BR>";
+#print "K: " . $_GET["k"] . "<BR>";
 
-print "REFERER: <PRE>" . print_r($_SERVER, 1) . "<BR>";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";	
+require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_trac.php";  
 
-print "K: " . $_GET["k"] . "<BR>";
-
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";	
-	
-	print "HERE<BR>";
-	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-
-	print " and HERE<BR>";
-
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_trac.php";  
-
-
-print "K: " . $_GET["k"] . "<BR>";
+#print "K: " . $_GET["k"] . "<BR>";
 
 	if ( ! empty ($_POST)) {
 				
@@ -54,7 +45,7 @@ print "K: " . $_GET["k"] . "<BR>";
 									"BrwLanguage=" . $_POST["LANGUAGE"] . "&" .	"BrwTime=" . $_POST["BUGREQUESTIME"] . "&" .
 									"RequestTime=" . $_POST["PageRequestTime"] . "&" . "Ticket=" . $TicketNumber["TicketID"];
     
-    $URLService = "https://upload.repmybloc.org/trac.php?SystemID=" . $_POST["SystemID"] . "&Version=" . $_POST["Version"] . 
+    $URLService = "https://upload.repmyblock.org/trac.php?SystemID=" . $_POST["SystemID"] . "&Version=" . $_POST["Version"] . 
     							"&Ticket=" . $TicketNumber["TicketID"];
     							
 		$ch = curl_init();
@@ -92,8 +83,8 @@ print "K: " . $_GET["k"] . "<BR>";
 	
 	
 	
-	print "<PRE>" . print_r($DecryptInfo, 1) . "<PRE>";
-	exit();
+	#print "<PRE>" . print_r($DecryptInfo, 1) . "<PRE>";
+	#exit();
 	
 ?>	
 <div class="main">
