@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /web
+Allow: /css
+Allow: /images
 Allow: /$
 Disallow: /
 Sitemap: https://repmyblock.org/sitemap.xml
