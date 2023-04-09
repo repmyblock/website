@@ -19,13 +19,13 @@
 
 	/* User is logged */
 ?>
-<DIV class="main">
+<DIV class="main_wopad">
 	<DIV class="intro center">
 		<P>
 			<h1 class="intro">Rep My Block is a non partisan website.</H1>
 		</P>
 		
-		<P class="f40">
+		<P class="f40 adpad">
 			Rep My Block is a non-partisan effort to collect, organize and make 
 			accessible the full membership of the county committees in New York State. 
 			New York State's county committees are the basis of local government and 
@@ -36,13 +36,13 @@
 	
 	<P class="BckGrndElement f80 center">THE MAJOR POLITICAL TENDENCIES</P>
 	
-	<P class="f40">
+	<P class="f40 adpad">
 		The world is run by various political ideologies competing against each other. Rep My Block 
 		is non-partisan; therefore, we welcome all ideologies and help them contact the local 
 		representatives of those ideologies.
 	</P>
 
-  <UL class="f40">
+  <UL class="f40 adpad">
   	<B>Nationalists:</B> <A TARGET="political" HREF="https://www.idgroup.eu">https://www.idgroup.eu</A> - RMB Code: idgroup<BR>
     <B>Democrat Union:</B> <A TARGET="political" HREF="https://www.idu.org">https://www.idu.org</A> - RMB Code: intdu<BR>
     <B>International Alliance of Libertarian Parties:</B> <A TARGET="political" HREF="https://ialp.com">https://ialp.com</A> - RMB Code: libertarians<BR>
@@ -57,19 +57,19 @@
     <B>Pirates:</B> <A TARGET="political" HREF="https://pp-international.net">https://pp-international.net</A> - RMB Code: pirates<BR>
 	</UL>
 	
-	<P class="f40">
+	<P class="f40 adpad">
 		The RMB Code is used once you register to let the leader of these groups contact you so you can effectively 
 		organize with them inside the Republican or Democratic parties of the United States.
 	</P>
 	
-	<P class="f40">
+	<P class="f40 adpad">
 		The goal of Rep My Block is to suppress the role of money in the political conversation while 
 		respecting each individual's ideology without judgment.
 	</P>
 	
 	<P class="BckGrndElement f80 center">ZOOM WITH PAPERBOY LOVE PRINCE</P>
 
-	<P class="f40">
+	<P class="f40 adpad">
 		<B>Sal Albanese</B>, <B>Badrun Khan</B>, <B>Ben Yee</B>, <B>Vittoria Fariello</B>, and <B>Jared Rich</B> discuss the 
 		weaponization of the electoral process with Paperboy Love Prince in five one-hour candid chats. These videos were 
 		recorded while Paperboy Love Prince was running for congress, and discovering first-hand, the different steps 
@@ -78,21 +78,21 @@
 		to vote. <B>Democracy depends on it!</B>
 	</P>
 	
-	<P>
+	<P class="adpad">
 		<P class="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
 	</P>
 	
-	<P>
+	<P class="adpad">
 		<DIV class="videowrapper center">
 			<iframe src="https://www.youtube.com/embed/KtYLNV3_npk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>	
 		</DIV>
 	</P>
 	
-	<P>
+	<P class="adpad">
 		<P class="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
 	</P>
 	
-	<P class="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
+	<P class="f80 center adpad"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
 </div>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
