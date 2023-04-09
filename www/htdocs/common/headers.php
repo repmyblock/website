@@ -46,10 +46,10 @@
 		<meta name="twitter:site" content="@RepMyBlock" />
 		<meta name="twitter:image" content="<?= $HeaderTwitterPicLink ?>" />
 		<meta name="twitter:creator" content="@RepMyBlock" />
-		<meta name="Description" CONTENT="Get started in activism. RepMyBlock is a website to prepare political state nominating petitions to run for party and elected office. Run for County Committee, Precinct Committee Officer or Precint Committee Person">
-		<TITLE>Rep My Block - Represent My Block at the County Committee</TITLE>
+		<meta name="Description" CONTENT="Rep My Block is your starting point to run for office. Rep My Block will help you get started in activism and political engagement. RepMyBlock is a website to prepare political state nominating petitions to run for party and elected office. Run for County Committee, Precinct Committee Officer or Precint Committee Person">
+		<TITLE>Rep My Block - The starting point to run for office and Represent Your Block at the County Committee</TITLE>
 
-		<meta name="Title" content="County Committee">
+		<meta name="Title" content="Run for Office and County Committee">
 		<meta property="og:title" content="County Committee"/>
 		<meta property="og:url" content="https://<?= $_SERVER['HTTP_HOST'] ?><?= $_SERVER['REQUEST_URI'] ?>">
 		<meta property="og:description" content="<?= $HeaderOGDescription ?>">

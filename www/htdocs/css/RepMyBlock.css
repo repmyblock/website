@@ -126,7 +126,10 @@ flex: 30%;
 clip-path: polygon(24% 15%, 100% 0, 83% 100%, 0% 100%);
 */
 
+.tadpad {padding: 10px 10px 0px 10px;}
+.adpad {padding: 0px 10px 0px 10px;}
 .main {-ms-flex: 70%; /* IE10 */flex: 70%;background-color: white;padding: 10px  20px 10px;}
+.main_wopad {-ms-flex: 70%; /* IE10 */flex: 70%;background-color: white;}
 .fakeimg {background-color: #aaa;width: 100%;padding: 20px;}
 .footer {padding: 20px;text-align: center;background-image: url("/images/background/BackGround-FFF79D.jpg");}
 
@@ -143,9 +146,8 @@ clip-path: polygon(24% 15%, 100% 0, 83% 100%, 0% 100%);
 .w3-text-yellow,.w3-hover-text-yellow:hover{color:#16317D!important}
 
 .BckGrndCenter{color:#16317D!important;font-size: 18px;font-weight: 700;}
-.BckGrndElement{padding: 10px  20px 10px;}
 .BlueBox{padding: 10px 20px 10px;background-color:#16317D;font-size: 26px;font-weight: 700;}
-.BckGrndElement{font-size: 20px;font-weight: 700;background-image: url("/images/background/BackGround-FFF79D.jpg");}
+.BckGrndElement{padding: 10px 20px 10px;font-size: 20px;font-weight: 700; background-image: url("/images/background/BackGround-FFF79D.jpg");}
 .FooterTitle{font-size: 18px;font-weight: 700;font-style: italic;}
 .FooterInfo{font-size: 12px;font-weight: 400;padding: -55px  20px 10px;}
 .FooterLinks{font-size: 12px;font-weight: 700; word-spacing: 15px;}
