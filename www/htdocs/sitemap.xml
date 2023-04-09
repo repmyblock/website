@@ -9,25 +9,7 @@
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://www.repmyblock.org/web</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://www.repmyblock.org/web/exp</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
         <loc>https://www.repmyblock.org/web/exp/index</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://www.repmyblock.org/web/exp/register</loc>
         <lastmod>2023-04-06</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
@@ -45,31 +27,13 @@
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://www.repmyblock.org/web/exp/login</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
         <loc>https://www.repmyblock.org/web/exp/login/login</loc>
         <lastmod>2023-04-06</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://www.repmyblock.org/web/exp/contact</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
         <loc>https://www.repmyblock.org/web/exp/contact/contact</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://www.repmyblock.org/web/exp/toplinks</loc>
         <lastmod>2023-04-06</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
@@ -87,31 +51,13 @@
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://www.repmyblock.org/web/exp/voter</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
         <loc>https://www.repmyblock.org/web/exp/voter/guide</loc>
         <lastmod>2023-04-06</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://www.repmyblock.org/web/exp/propose</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
         <loc>https://www.repmyblock.org/web/exp/propose/nomination</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://www.repmyblock.org/web/exp/forgot</loc>
         <lastmod>2023-04-06</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
@@ -129,25 +75,7 @@
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://www.repmyblock.org/web/training</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://www.repmyblock.org/web/training/steps</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
         <loc>https://www.repmyblock.org/web/training/steps/torun</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://www.repmyblock.org/web/training/zoom</loc>
         <lastmod>2023-04-06</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
@@ -159,19 +87,7 @@
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://www.repmyblock.org/web/volunteer</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
         <loc>https://www.repmyblock.org/web/volunteer/tothecause</loc>
-        <lastmod>2023-04-06</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://www.repmyblock.org/web/policies</loc>
         <lastmod>2023-04-06</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
