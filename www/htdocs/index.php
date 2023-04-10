@@ -69,9 +69,8 @@
 </P>
 	
 		<P class="f40 adpad">
-		The most important job of the County Committee member is to elect the County Chair of the party and 
-		select the replacement of any state assembly member that resigned.
-		Many registered Democrats or Republicans ignore its existence. 
+		The most important responsibilities of a county committee member are to elect the chairperson of the party and to select a replacement for any state assembly member that
+		resigns or that can no longer fulfill their duties as an assembly member. 
 	</P>
 	
 	<P class="f40 adpad">
