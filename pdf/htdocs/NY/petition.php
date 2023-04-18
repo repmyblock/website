@@ -43,9 +43,11 @@ if ( ! isset ($RMBBlockInit)) {
 				case 'sigmonth': $PDFOptions["SigMonth"] = $splitvar[1]; break;
 				case 'filldate': $PDFOptions["DateForCounter"] = date("m") . " / __ / " . date("Y"); break;
 				case 'witnessdate': $PDFOptions["DateForWitness"] = $PDFOptions["SigMonth"] . " _______ , " . date("Y");
-				#case 'witness': $PDFOptions["SearchWitnessVoter"] = intval($splitvar[1]); break;
-				#case 'fillhouse': $PDFOptions["SearchWitnessVoter"] = intval($splitvar[1]); break;
-				case 'fillcounty': $PDFOptions["FillCounty"] = true; break; 
+				case 'witnessname': $PDFOptions["WitnessName"] = urldecode($splitvar[1]); break;
+				case 'witnessaddress': $PDFOptions["WitnessAddress"] = urldecode($splitvar[1]); break;
+				case 'witnesscity': $PDFOptions["WitnessCity"] = urldecode($splitvar[1]); break;
+				case 'witnesscounty': $PDFOptions["WitnessCounty"] = urldecode($splitvar[1]); break;
+				case 'fillcounty': $PDFOptions["FillCounty"] = urldecode($splitvar[1]); break; 
 				case 'witnesstype': $PDFOptions["WitnessType"] = $splitvar[1]; break;
 			}
 		}
@@ -92,10 +94,11 @@ $pdf_NY_petition->Watermark = "VOID - Do not use";
 
 // Setup for empty petition.
 $pdf_NY_petition->WitnessName = $PDFOptions["WitnessName"];
-$pdf_NY_petition->WitnessResidence = $PDFOptions["WitnessResidence"];
+$pdf_NY_petition->WitnessResidence = $PDFOptions["WitnessAddress"];
 $pdf_NY_petition->TodayDateText = "Date: " . $PDFOptions["DateForWitness"];
-$pdf_NY_petition->City = $PDFOptions["City"];
-$pdf_NY_petition->County = $PDFOptions["County"];
+$pdf_NY_petition->City = $PDFOptions["WitnessCity"];
+$pdf_NY_petition->County = $PDFOptions["WitnessCounty"];
+$pdf_NY_petition->AutoFillCounty = $PDFOptions["FillCounty"];
 
 switch ($Variable) {
 	case 'onthefly';
