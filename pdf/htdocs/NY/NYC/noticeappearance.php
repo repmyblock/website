@@ -41,15 +41,15 @@ if ( ! empty ($result)) {
 			$pdf->CheckRep = $var["FillingDoc_Fld7"]; 												// ;
 			$pdf->RepType = $var["FillingDoc_Fld8"]; 													// candidate";
 
-			$pdf->RepreName = $var["FillingDoc_Fld10"]; 											// Theo Chino";
-			$pdf->RepreFirm = $var["FillingDoc_Fld11"]; 											// None";
-			$pdf->RepAddress1 = $var["FillingDoc_Fld12"]; 									// 640 Riverside Drive";
-			$pdf->RepAddress2 = $var["FillingDoc_Fld13"]; 									// New York, NY 10031";
-			$pdf->RepTel = $var["FillingDoc_Fld14"]; 														// (212) 694-9968";
-			$pdf->RepFax = $var["FillingDoc_Fld15"]; 														// (917) 398-1513";
-			$pdf->RepEmail = $var["FillingDoc_Fld16"];
+			$pdf->RepreName = $var["FillingDoc_Fld9"]; 											// Theo Chino";
+			$pdf->RepreFirm = $var["FillingDoc_Fld10"]; 											// None";
+			$pdf->RepAddress1 = $var["FillingDoc_Fld11"]; 									// 640 Riverside Drive";
+			$pdf->RepAddress2 = $var["FillingDoc_Fld12"]; 									// New York, NY 10031";
+			$pdf->RepTel = $var["FillingDoc_Fld13"]; 														// (212) 694-9968";
+			$pdf->RepFax = $var["FillingDoc_Fld14"]; 														// (917) 398-1513";
+			$pdf->RepEmail = $var["FillingDoc_Fld15"];
 
-			$pdf->SignedDate = $var["FillingDoc_Fld17"]; 										// June 23rd, 2020";
+			$pdf->SignedDate = $var["FillingDoc_Fld16"]; 										// June 23rd, 2020";
 			$pdf->AddPage();
 		}
 	}
