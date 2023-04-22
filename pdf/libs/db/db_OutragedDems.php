@@ -285,11 +285,9 @@ class OutragedDems extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
   }
 		
-  function SelectObjections ($Objection_ID) {
-  	$sql = "SELECT * FROM FillingObjections " . 
-  					"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = FillingObjections.DataCounty_ID) " .
-  					"WHERE FillingObjections_ID = :Objections";
-  	$sql_vars = array("Objections" => $Objection_ID);				
+  function SelectObjections ($Type) {
+  	$sql = "SELECT * FROM FillingDoc WHERE FillingDoc_Type = :Type";
+  	$sql_vars = array("Type" => $Type);				
   	return $this->_return_multiple($sql, $sql_vars);
   }
    

@@ -8,7 +8,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/NY/NYC/PetHearing_Notic
 require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
 
 $r = new OutragedDems();
-$result = $r->SelectObjections($k);
+$result = $r->SelectObjections("noticeappearance");
 
 //echo "<PRE>";
 //print_r($result);
@@ -29,25 +29,25 @@ $pdf->SetAutoPageBreak(1, 38);
 if ( ! empty ($result)) {
 	foreach ($result as $var) {
 		if (! empty($var)) {
-			$pdf->DateAppear = PrintShortDate($var["FillingObjections_DateAppear"]); 										// "June 23rd, 2020";
-			$pdf->County = $var["DataCounty_Name"]; 														// New York";
-			$pdf->SpecificationNumber = $var["FillingObjections_SpecificationNumber"]; 	// 28";
-			$pdf->PetitionNumber = $var["FillingObjections_PetitionNumber"]; 						// NY2000525";
-			$pdf->ObjectorName = $var["FillingObjections_ObjectorName"]; 								// Robles Nobles";
-			$pdf->CandidateName = $var["FillingObjections_CandidateName"]; 							// Theo Chino";
+			$pdf->DateAppear = $var["FillingDoc_Fld1"]; 										// "June 23rd, 2020";
+			$pdf->County = $var["FillingDoc_Fld2"]; 														// New York";
+			$pdf->SpecificationNumber = $var["FillingDoc_Fld3"]; 	// 28";
+			$pdf->PetitionNumber = $var["FillingDoc_Fld4"]; 						// NY2000525";
+			$pdf->ObjectorName = $var["FillingDoc_Fld5"]; 								// Robles Nobles";
+			$pdf->CandidateName = $var["FillingDoc_Fld6"]; 							// Theo Chino";
 
-			$pdf->CheckRep = $var["FillingObjections_CheckRep"]; 												// ;
-			$pdf->RepType = $var["FillingObjections_RepType"]; 													// candidate";
+			$pdf->CheckRep = $var["FillingDoc_Fld7"]; 												// ;
+			$pdf->RepType = $var["FillingDoc_Fld8"]; 													// candidate";
 
-			$pdf->RepreName = $var["FillingObjections_RepreName"]; 											// Theo Chino";
-			$pdf->RepreFirm = $var["FillingObjections_RepreFirm"]; 											// None";
-			$pdf->RepAddress1 = $var["FillingObjections_RepAddress1"]; 									// 640 Riverside Drive";
-			$pdf->RepAddress2 = $var["FillingObjections_RepAddress2"]; 									// New York, NY 10031";
-			$pdf->RepTel = $var["FillingObjections_RepTel"]; 														// (212) 694-9968";
-			$pdf->RepFax = $var["FillingObjections_RepFax"]; 														// (917) 398-1513";
-			$pdf->RepEmail = $var["FillingObjections_RepEmail"];
+			$pdf->RepreName = $var["FillingDoc_Fld10"]; 											// Theo Chino";
+			$pdf->RepreFirm = $var["FillingDoc_Fld11"]; 											// None";
+			$pdf->RepAddress1 = $var["FillingDoc_Fld12"]; 									// 640 Riverside Drive";
+			$pdf->RepAddress2 = $var["FillingDoc_Fld13"]; 									// New York, NY 10031";
+			$pdf->RepTel = $var["FillingDoc_Fld14"]; 														// (212) 694-9968";
+			$pdf->RepFax = $var["FillingDoc_Fld15"]; 														// (917) 398-1513";
+			$pdf->RepEmail = $var["FillingDoc_Fld16"];
 
-			$pdf->SignedDate = PrintShortDate($var["FillingObjections_SignedDate"]); 										// June 23rd, 2020";
+			$pdf->SignedDate = $var["FillingDoc_Fld17"]; 										// June 23rd, 2020";
 			$pdf->AddPage();
 		}
 	}

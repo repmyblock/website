@@ -40,7 +40,7 @@ if ( ! isset ($RMBBlockInit)) {
 						$PageSize = array( $matches[2][0], $matches[1][0] );
 					} 
 					break;	
-				case 'sigmonth': $PDFOptions["SigMonth"] = $splitvar[1]; break;
+				case 'sigmonth': $PDFOptions["SigMonth"] = urldecode($splitvar[1]); break;
 				case 'filldate': $PDFOptions["DateForCounter"] = date("m") . " / __ / " . date("Y"); break;
 				case 'witnessdate': $PDFOptions["DateForWitness"] = $PDFOptions["SigMonth"] . " _______ , " . date("Y");
 				case 'witnessname': $PDFOptions["WitnessName"] = urldecode($splitvar[1]); break;
@@ -53,8 +53,7 @@ if ( ! isset ($RMBBlockInit)) {
 		}
 	}
 	
-	$pdf_NY_petition = new PDF_NY_Petition('P','mm', $PageSize);
-		
+	$pdf_NY_petition = new PDF_NY_Petition('P','mm', $PageSize);	
 }
 
 // Faut que je travaille avec K.
@@ -90,7 +89,6 @@ WriteStderr($URIEncryptedString, "PDF Petition");
 WriteStderr($Variable, "Variable");
 
 $pdf_NY_petition->Watermark = "VOID - Do not use"; 
-
 
 // Setup for empty petition.
 $pdf_NY_petition->WitnessName = $PDFOptions["WitnessName"];
