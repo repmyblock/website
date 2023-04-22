@@ -10,11 +10,11 @@ require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.ph
 $r = new OutragedDems();
 $result = $r->SelectObjections("noticeappearance");
 
-echo "<PRE>";
-print_r($result);
-echo "</PRE>";
+#echo "<PRE>";
+#print_r($result);
+#echo "</PRE>";
 
-exit();
+#exit();
 
 $PageSize = "letter";
 $pdf = new PDF_Multi('P','mm', $PageSize);
