@@ -5,7 +5,6 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_teams.php";
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-  
   $rmb = new Teams();
   
   if (! empty ($_POST)) {
@@ -25,11 +24,8 @@
   			header("Location: index");
   			break;  			
   	}
-  		  	
-  	
-  		  	
   	exit();
-
+  	
   } else {
  		$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 		$rmbteamuser = $rmb->ReturnMemberFromTeam($URIEncryptedString["TeamMember_ID"]);
@@ -39,8 +35,8 @@
 		$StatusMemberActive = $rmbteamuser["TeamMember_Active"];
 		$FullName = $rmbteamuser["SystemUser_FirstName"] . " " . $rmbteamuser["SystemUser_LastName"];
 		$rmbteammember = $rmb->SearchUserVoterCard($rmbteamuser["TeamSystemUser_ID"]);
+		
 	}
-	
 	
 	$PrevMenu = "index";
 	if (! empty ($URIEncryptedString["ReturnToScript"])) {
@@ -48,7 +44,6 @@
 	}
 	
 	// This is to prepare the information so it display correctly
-	
 	// Address Line 1
 	if (! empty ($rmbteammember["DataAddress_HouseNumber"])) $VoterAddress_Line1 = $rmbteammember["DataAddress_HouseNumber"];
 	if (! empty ($rmbteammember["DataAddress_FracAddress"]))  $VoterAddress_Line1 .= " " . $rmbteammember["DataAddress_FracAddress"]; 
@@ -67,8 +62,6 @@
 	if ( ! empty ($rmbteammember["DataMiddleName_Text"])) { $VoterFullName .= " " . substr($rmbteammember["DataMiddleName_Text"], 0, 1) . "."; }
 	$VoterFullName .= " " . $rmbteammember["DataLastName_Text"];
 	if ( ! empty ($rmbteammember["VotersIndexes_Suffix"])) { $VoterFullName .= strtoupper($rmbteammember["VotersIndexes_Suffix"]); }
-	
-
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>

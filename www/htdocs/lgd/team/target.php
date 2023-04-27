@@ -41,6 +41,7 @@
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 									"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+									"ActiveTeam" => $URIEncryptedString["ActiveTeam"],
 									"QueryFirstName" => $DBFirstName,
 									"QueryLastName" => $DBLastName,
 									"QueryMonth" => $MonthField,
@@ -62,6 +63,7 @@
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 									"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+									"ActiveTeam" => $URIEncryptedString["ActiveTeam"],
 									"QueryFirstName" => $DBFirstName,
 									"QueryLastName" => $DBLastName,
 									"QueryMonth" => $MonthField,
@@ -81,6 +83,7 @@
 									"UniqNYSVoterID" => $result[0]["Raw_Voter_UniqNYSVoterID"],
 									"UserParty" => $result[0]["Raw_Voter_RegParty"],
 									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+									"ActiveTeam" => $URIEncryptedString["ActiveTeam"],
 								))  . "/lgd/team/voterresult");
 					exit();
 				
@@ -103,6 +106,7 @@
 									"UserParty" => $resultPass["Raw_Voter_RegParty"],
 									"SystemUser_Priv" => $resultPass["SystemUser_Priv"],
 									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+									"ActiveTeam" => $URIEncryptedString["ActiveTeam"],
 									"vi[]" => $var["VotersIndexes_ID"]
 								))   . "/lgd/team/voterselect");
 					exit();

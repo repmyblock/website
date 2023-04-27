@@ -23,11 +23,13 @@
 				"TypeValue" => $URIEncryptedString["TypeValue"][0],
 				"Voters_RegParty" => $URIEncryptedString["Voters_RegParty"], 
 				"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"], 
+				"ActiveTeam" => $URIEncryptedString["ActiveTeam"], 
 				"AddressLine1" => $URIEncryptedString["AddressLine1"], 
 				"AddressLine2" => $URIEncryptedString["AddressLine2"], 
 				"CPrep_Party" => $URIEncryptedString["CPrep_Party"], 
 				"FullName" => $URIEncryptedString["FullName"], 
 				"SystemUser_ID"  => $URIEncryptedString["SystemUser_ID"], 
+				"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 				"UniqNYSVoterID"  => $URIEncryptedString["UniqNYSVoterID"], 
 				"Voters_ID" => $URIEncryptedString["Voters_ID"], 
 	);
@@ -52,6 +54,8 @@
 	header("Location: /" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+									"ActiveTeam" => $URIEncryptedString["ActiveTeam"],
+									"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 				)) . "/lgd/team/teampetitions");
 				
 	exit();

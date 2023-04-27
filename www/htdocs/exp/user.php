@@ -13,17 +13,15 @@
 		WriteStderr($POSTEncryptedString, "POSTEncryptedString");
 		$r->SaveVolunteer($_POST["emailaddress"], $POSTEncryptedString["U"], $POSTEncryptedString["S"], $POSTEncryptedString["C"]); 
 		
-		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";
 		SendWelcomeVolunteerMessage($_POST["emailaddress"], $POSTEncryptedString["Campaign"], $POSTEncryptedString["CampaignEmail"], $POSTEncryptedString["VolunteerEmail"]);
 		
-		header("Location: /exp/" . CreateEncoded ( array( 	
+		header("Location: /" . CreateEncoded ( array( 	
 								"FirstName" => $POSTEncryptedString["FirstName"] ,
 								"Email" => $_POST["emailaddress"],
 								"Campaign" => $POSTEncryptedString["Campaign"]
-					)) . "/usersuccess");
+					)) . "/exp/usersuccess");
 		exit();
-		
 	}
 	
 	$VolunteerEmail = "testvol@theochino.com";
@@ -57,8 +55,6 @@
 	<BR>
 		Please enter your contact information below.
 	</P>
-
-
 
 	<FORM METHOD="POST" ACTION="">	
 		<INPUT TYPE="HIDDEN" NAME="String" VALUE="<?= rawurldecode(rawurldecode(CreateEncoded ( array( 	

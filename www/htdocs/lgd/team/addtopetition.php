@@ -56,6 +56,8 @@
 		header("Location: /" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 									"ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
+									"ActiveTeam" => $URIEncryptedString["ActiveTeam"],
+									"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 		)) . "/lgd/team/teampetitions");
 	
 		exit();

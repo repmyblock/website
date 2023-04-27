@@ -9,14 +9,14 @@
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($URIEncryptedString["UserParty"]);
+	$Party = PrintParty($URIEncryptedString["UserParty"]);
 
 	if (! empty($_POST)) {	
 	
 		// This will be different answer depending
-		$finalurl = "voterresult";
+		$finalurl = "voters/voterresult";
 		
-		header("Location: /lgd/" .  CreateEncoded ( array( 
+		header("Location: /" .  CreateEncoded ( array( 
 								"Query_FirstName" => $_POST["FirstName"],
 								"Query_LastName" => $_POST["LastName"], 
 								"Query_AD" => $_POST["AD"],
@@ -32,11 +32,12 @@
 						    "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
 						   	"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 						   	"EDAD" => $URIEncryptedString["EDAD"]
-					)) . "/" . $finalurl);
+					)) . "/lgd/" . $finalurl);
 		exit();
 	}
 
 	$rmb = new RepMyBlock();	
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	
 	// Why I am getting petition for candidates ?
 	//	$result = $rmb->GetPetitionsForCandidate($DatedFiles, 0, $URIEncryptedString["SystemUser_ID"]);
@@ -65,8 +66,8 @@
 	*/
 	
 	$TopMenus = array ( 
-						array("k" => $k, "url" => "voterlist", "text" => "District Voters"),
-						array("k" => $k, "url" => "voterquery", "text" => "Search Voter")
+						array("k" => $k, "url" => "voters/voterlist", "text" => "District Voters"),
+						array("k" => $k, "url" => "voters/voterquery", "text" => "Search Voter")
 					);			
 	WriteStderr($TopMenus, "Top Menu");		
 

@@ -13,8 +13,6 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 date_default_timezone_set('America/New_York'); 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/SSLKeys/SSLInsideKey.php";
 
-
-
 // This is the code to make sure that url are good
 if ( $_SERVER["HTTP_HOST"] != $_SERVER["SERVER_NAME"] ) {	
 	$exphost = explode(".", $_SERVER["HTTP_HOST"]);
@@ -167,7 +165,6 @@ function DecryptURL ($sealed) {
   return($finaltext);
 }
 
-
 function WipeURLEncrypted($WhatToKeep = NULL, $WhatToRemove = NULL) {
 	global $k, $URIEncryptedString;
 	
@@ -176,6 +173,10 @@ function WipeURLEncrypted($WhatToKeep = NULL, $WhatToRemove = NULL) {
 			
 	if ( ! empty ($URIEncryptedString["SystemUser_ID"])) {
 		$NewURIEncryptedString["SystemUser_ID"] = $URIEncryptedString["SystemUser_ID"];
+	}
+	
+	if ( ! empty ($URIEncryptedString["SystemUser_Priv"])) {
+		$NewURIEncryptedString["SystemUser_Priv"] = $URIEncryptedString["SystemUser_Priv"];
 	}
 	
 	if ( ! empty ($WhatToKeep)) {
@@ -189,7 +190,6 @@ function WipeURLEncrypted($WhatToKeep = NULL, $WhatToRemove = NULL) {
 	}
 		
 	$k = CreateEncoded ( $NewURIEncryptedString );
-
 	$URIEncryptedString = $NewURIEncryptedString;
 	WriteStderr($URIEncryptedString, "Entering Wipe URL");	
 }
@@ -263,6 +263,4 @@ function goto_signoff() {
 	header ("Location: /exp/website/signoff");
 	exit();
 }
-
-
 ?>

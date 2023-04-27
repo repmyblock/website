@@ -9,7 +9,7 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 
 	$rmb = new RepMyBlock();
-	#$result = $rmb->GetPetitionsForCandidate(0, $URIEncryptedString["SystemUser_ID"]);
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	
 	if ( empty ($result)) {
 		if ( ! empty ($URIEncryptedString["EDAD"])) {
@@ -57,8 +57,8 @@
 	}
 	
 	$TopMenus = array ( 
-						array("k" => $k, "url" => "voterlist", "text" => "District Voters"),
-						array("k" => $k, "url" => "voterquery", "text" => "Search Voter")
+						array("k" => $k, "url" => "voters/voterlist", "text" => "District Voters"),
+						array("k" => $k, "url" => "voters/voterquery", "text" => "Search Voter")
 					);			
 	WriteStderr($TopMenus, "Top Menu");		
 

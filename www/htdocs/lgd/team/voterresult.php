@@ -18,9 +18,11 @@
 				
 				header("Location: /" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $_POST["SystemUser_ID"],
+									"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 									"Voters_ID" => $_POST["Voters_ID"],
 									"VotersIndexes_ID" => $_POST["VotersIndexes_ID"],
     							"ActiveTeam_ID" => $_POST["ActiveTeam_ID"],
+    							"ActiveTeam" => $_POST["ActiveTeam"],
 									"errormsg" => "You did not select a position for this person.",
 				)) . "/lgd/team/voterresult");
 				
@@ -29,6 +31,7 @@
 				//I don't care anymore about the number of voters in the district.																						
 				header("Location: /" .  CreateEncoded ( array( 
 									"SystemUser_ID" => $_POST["SystemUser_ID"],
+									"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 									"Voters_ID" => $_POST["Voters_ID"],
 									"UniqNYSVoterID" => $_POST["VotersIndexes_UniqStateVoterID"],						
 							    "PetitionStateID" => $_POST["ElectionStateID"],
@@ -46,6 +49,7 @@
 									"FullName" => 	$_POST["FullName"],
 									"AddressLine1" => 	$_POST["AddressLine1"],
 									"AddressLine2" => 	$_POST["AddressLine2"],
+									"ActiveTeam" => $_POST["ActiveTeam"],
 									"ActiveTeam_ID" => $_POST["ActiveTeam_ID"],
 									"County_ID" => $_POST["DataCounty_ID"],
 									"ContactInfo" => $_POST["ContactInfo"],
@@ -86,9 +90,6 @@
 	}
 	
 	// Calculate the address
-	
-
-	
 	$TopMenus = array ( 
 						array("k" => $k, "url" => "team/index", "text" => "Team Members"),
 						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
@@ -197,6 +198,7 @@
 				<INPUT TYPE="HIDDEN" VALUE="<?= $AddressLine2 ?>" NAME="AddressLine2">	
 				<INPUT TYPE="HIDDEN" VALUE="<?= $var["DataCounty_ID"] ?>" NAME="DataCounty_ID">	
 				<INPUT TYPE="HIDDEN" VALUE="<?= $URIEncryptedString["ActiveTeam_ID"] ?>" NAME="ActiveTeam_ID">	
+				<INPUT TYPE="HIDDEN" VALUE="<?= $URIEncryptedString["ActiveTeam"] ?>" NAME="ActiveTeam">	
 							
 							
 							

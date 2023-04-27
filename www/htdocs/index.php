@@ -1,7 +1,9 @@
 <?php 
 	$BigMenu = "home";
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
+	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	/* User is logged */

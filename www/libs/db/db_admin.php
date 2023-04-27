@@ -47,7 +47,7 @@ class RMBAdmin extends RepMyBlock {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 		
-	function ListsTeams($TeamID = NULL) {
+	function ListsTeams($TeamID = NULL, $StartAt = NULL, $NumberOfLine = 20){
 		$sql = "SELECT * ";
 		
 		if (! empty ($TeamID)) {
@@ -59,13 +59,19 @@ class RMBAdmin extends RepMyBlock {
 		
 		if (! empty ($TeamID)) {
 			$sql 	.= "LEFT JOIN AdminNotif ON (Team.Team_ID = AdminNotif.Team_ID) " .
-						"LEFT JOIN SystemUser AS UserNotif ON (UserNotif.SystemUser_ID = AdminNotif.SystemUser_ID) ";
+								"LEFT JOIN SystemUser AS UserNotif ON (UserNotif.SystemUser_ID = AdminNotif.SystemUser_ID) ";
 			$sql .= "WHERE Team.Team_ID = :TeamID";
+				
 			$sql_vars = array("TeamID" => $TeamID);
 			return $this->_return_multiple($sql, $sql_vars);
-		}				
+		}	
 		
-						
+		if ( ! empty ($StartAt)) {
+			$sql .= " LIMIT " . $StartAt . ", " . ( $NumberOfLine + 1 );
+		} else {
+			$sql .= " LIMIT 0, " . ($NumberOfLine + 1);
+		}
+					
 		return $this->_return_multiple($sql);
 	}
 	

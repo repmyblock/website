@@ -2,7 +2,7 @@
 
 
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
-	$Menu = "admin";
+	$Menu = "voters";
 	$BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
@@ -10,9 +10,10 @@
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($UserParty);
+	$Party = PrintParty($UserParty);
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 
@@ -25,18 +26,17 @@
 				<div class="Subhead">
 			  	<h2 class="Subhead-heading">Show QR Code</h2>
 				</div>
-
 			
 			 	<DIV class="panels">		
 				<?php
 				
-					$data = $FrontEndWebsite . "/exp/" . urlencode(CreateEncoded (array( 	
-								"U" => $URIEncryptedString["Raw_Voter_UniqNYSVoterID"],
+					$data = $FrontEndWebsite . "/" . urlencode(CreateEncoded (array( 	
+								"U" => $URIEncryptedString["Voters_ID"],
 								"S" => $URIEncryptedString["SystemUser_ID"],
 								"C" => "288"
-						))) . "/user";
+						))) . "/exp/user";
 					$options = array("s" => "qr-h");
-						
+										
 					require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/utils/php-qrcode-1/qrcode.php";
 					$generator = new QRCode($data, $options);
 					$image = $generator->render_image();
@@ -49,11 +49,6 @@
 ?>
 			
 			<BR>
-				
-				
-
-
-				
 			<A HREF="<?= PrintReferer()  ?>">Return to previous menu</A></B>
 			
 		</div>

@@ -4,7 +4,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 global $DB;
 class Teams extends RepMyBlock {
   
-   function FindCampaignFromCode ($TeamCode) {
+  function FindCampaignFromCode ($TeamCode) {
 		$sql = "SELECT * FROM Team WHERE Team_AccessCode = :TeamCode";
 		$sql_vars = array("TeamCode" => $TeamCode);
 	 	return $this->_return_simple($sql, $sql_vars);
@@ -171,26 +171,22 @@ class Teams extends RepMyBlock {
 	
 	function ListPetitionGroup($CandidateSet, $Status = NULL) {
 		$sql = "SELECT * FROM CandidateSet " .
-						"LEFT JOIN CandidateGroup ON (CandidateGroup.CandidateSet_ID = CandidateSet.CandidateSet_ID) " . 
-						"LEFT JOIN Candidate ON (CandidateGroup.Candidate_ID = Candidate.Candidate_ID) " . 
+						"LEFT JOIN CandidateGroup ON (CandidateGroup.CandidateSet_ID = CandidateSet.CandidateSet_ID) " .
+						"LEFT JOIN Candidate ON (CandidateGroup.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = CandidateGroup.DataCounty_ID) " .
-						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
+						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
 						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN CandidateComRplceSet ON (CandidateComRplceSet.Candidate_ID = Candidate.Candidate_ID) " .
 						"LEFT JOIN CandidateComRplce ON (CandidateComRplceSet.CandidateComRplce_ID = CandidateComRplce.CandidateComRplce_ID) " .
 						"LEFT JOIN CandidatePartySymbol ON (CandidatePartySymbol.CandidatePartySymbol_ID = Candidate.CandidatePartySymbol_ID) " .
 						"WHERE CandidateSet.CandidateSet_ID = :CandidateSet " .
 						"ORDER BY CandidateGroup_Order ASC, CandidateComRplce_Order ASC";
-						
-		WriteStderr($sql, "ListPetitionGroup for $GroupID");				
-		
 		$sql_vars = array("CandidateSet" => $CandidateSet);
 		return $this->_return_multiple($sql, $sql_vars);
-		
 	}
 	
 	function CheckCandidates($VotersID, $Party, $DBTable, $DBValue, $Team_ID = NULL ) {
-		$sql = "SELECT * FROM Candidate WHERE Voters_ID = :VoterID AND " . 
+		$sql = "SELECT * FROM Candidate WHERE Voters_ID = :VoterID AND " .
 						"CandidateElection_DBTable = :DBTable AND CandidateElection_DBTableValue = :DBValue";
 					
 		$sql_vars = array("VoterID" => $VotersID,	"DBTable" => $DBTable, "DBValue" => $DBValue);
@@ -208,10 +204,7 @@ class Teams extends RepMyBlock {
 		} else {
 			$sql .= " AND Team_ID IS NULL";
 		}
-													
-		#echo "<PRE>SQL: $sql<BR>";
-		#echo print_r($sql_vars, 1) . "<BR></PRE>";
-													
+		
 		return $this->_return_simple($sql, $sql_vars);	
 	}
 	
@@ -261,10 +254,7 @@ class Teams extends RepMyBlock {
   					"EP1.ElectionsPosition_DBTable = :Type AND " .
   					"EPC1.ElectionsPartyCall_ConversionValue = :Value AND Candidate_ID IS NOT NULL AND CandidateElection.Elections_ID IS NOT NULL";
   					
-  					
-  	#echo "SQL : $sql<BR>";
-  	#echo "Election ID: $ElectionsID<BR>Party: $Party<BR> TYPE: $Type<BR>Value: $Value<br>";
-  	$sql_vars = array("Elections_ID" => $ElectionsID, "Party" => $Party, "Type" => $Type , "Value" => $Value);
+   	$sql_vars = array("Elections_ID" => $ElectionsID, "Party" => $Party, "Type" => $Type , "Value" => $Value);
 		return $this->_return_multiple($sql, $sql_vars);
   }
   
@@ -281,7 +271,5 @@ class Teams extends RepMyBlock {
   	return $this->_return_multiple($sql);
   }
   
-  
 }
 ?>
-

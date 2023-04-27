@@ -4,7 +4,10 @@
 	$BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_voterlist.php";
+
+	$rmb = new VoterList();	
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 
 	$TopMenus = array ( 
 						array("k" => $k, "url" => "voterlist", "text" => "District Voters"),
@@ -43,7 +46,7 @@
 						Is the person at the right address and have a DMV license?
 						<BR>
 						<p>
-						<a class="mr-1" href="/lgd/<?= 
+						<a class="mr-1" href="/<?= 
 							CreateEncoded (array( 	
 								"U" => $URIEncryptedString["Raw_Voter_UniqNYSVoterID"],
 								"S" => $URIEncryptedString["SystemUser_ID"],
@@ -51,7 +54,7 @@
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
     						"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"]
 						))
-						?>/showqrcode">Show QR Code </a> 
+						?>/lgd/showqrcode">Show QR Code </a> 
 						
 	</p>
 			</DIV>

@@ -4,7 +4,7 @@
 	$BigMenu = "represent";	
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_voterlist.php";
 
 	if ( ! empty ($_POST)) {
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";
@@ -29,10 +29,11 @@
 	}
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	$rmb = new repmyblock();
+	$rmb = new voterlist();
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($UserParty);
+	$Party = PrintParty($URIEncryptedString["UserParty"]);
 
 	if ( ! empty ($URIEncryptedString["Query_NYSBOEID"])) {
 		preg_match('/NY(.*)/', $URIEncryptedString["Query_NYSBOEID"], $matches, PREG_OFFSET_CAPTURE);
@@ -45,11 +46,11 @@
 		}
 			
 	} elseif (! empty ($URIEncryptedString["Query_LastName"])) {
-		$Result = $rmb->QueryVoterFile($URIEncryptedString["UniqNYSVoterID"], 
-																					$URIEncryptedString["Query_FirstName"], $URIEncryptedString["Query_LastName"], NULL,
-																					$URIEncryptedString["Query_ZIP"], $URIEncryptedString["Query_COUNTY"],
-																					$URIEncryptedString["Query_PARTY"], $URIEncryptedString["Query_AD"],
-																					$URIEncryptedString["Query_ED"], $URIEncryptedString["Query_Congress"]);
+		#$Result = $rmb->QueryVoterFile($URIEncryptedString["UniqNYSVoterID"], 
+		#																			$URIEncryptedString["Query_FirstName"], $URIEncryptedString["Query_LastName"], NULL,
+		#																			$URIEncryptedString["Query_ZIP"], $URIEncryptedString["Query_COUNTY"],
+		#																			$URIEncryptedString["Query_PARTY"], $URIEncryptedString["Query_AD"],
+		#																			$URIEncryptedString["Query_ED"], $URIEncryptedString["Query_Congress"]);
 		WriteStderr($Result, "QueryVoterFile");
 																				
 	} else {
@@ -70,7 +71,7 @@
 	
 	if ( empty ($Result)) {
 		$ErrorMsg = "Voter not found";		
-		header("Location: /lgd/" .  CreateEncoded ( array( 	
+		header("Location: /" .  CreateEncoded ( array( 	
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 								"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 								"FirstName" => $URIEncryptedString["FirstName"],
@@ -89,7 +90,7 @@
 								"RetReturnCongress" => $URIEncryptedString["Query_Congress"],
 								"EDAD" =>  $URIEncryptedString["EDAD"],
 								"ErrorMsg" => $ErrorMsg								
-					)) . "/voternotfound");
+					)) . "/lgd/voters/voternotfound");
 		exit();
 	}
 

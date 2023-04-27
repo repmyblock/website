@@ -8,38 +8,26 @@
 	
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
  
-	
 	$rmb = new repmyblock();
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
-	//	$rmbperson = $rmb->SearchVotersBySingleIndex($URIEncryptedString["VotersIndexes_ID"], $DatedFiles);
-	//$rmbperson = $rmb->SearchVoterDBbyNYSID($URIEncryptedString["UniqNYSVoterID"], $DatedFiles);
 
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	WriteStderr($rmbperson, "SearchUserVoterCard");
 	
-	 if (empty ($rmbperson["VotersIndexes_ID"]) && empty ($rmbperson["SystemUserSelfDistrict_ID"])) {
-	 	 header("Location: /" . $k . "/lgd/profile/input"); 
-	 	 exit(); 
-	 }
-	 
-	 if ( empty ($rmbperson["Voters_Status"]) && ! empty($rmbperson["SystemUserSelfDistrict_ID"] )) {
-			$rmbperson["Voters_Status"] = "User not in the Voter File";
-			$rmbperson["DataLastName_Text"] = ucwords($rmbperson["SystemUser_LastName"]);
-			$rmbperson["DataFirstName_Text"] = ucwords($rmbperson["SystemUser_FirstName"]);
-			$rmbperson["DataDistrict_StateAssembly"] = $rmbperson["SystemUserSelfDistrict_AD"];
-			$rmbperson["DataDistrict_Electoral"] = $rmbperson["SystemUserSelfDistrict_ED"];
-			$rmbperson["DataDistrict_Congress"] = $rmbperson["SystemUserSelfDistrict_CG"];
-			$rmbperson["DataDistrict_StateSenate"] = $rmbperson["SystemUserSelfDistrict_SN"];
-	 		
-	 }
-	
-	// Check the other database
-	// To be removed later on when I finihs fixing the table.
-	// $RawVoterNY = $rmb->SearchRawVoterInfo($rmbperson["Voters_UniqStateVoterID"]);
-	// $RawVoterNY = $RawVoterNY[0];
-	// WriteStderr($RawVoterNY, "RawVoterNY");
-	
-	// Need to go find the right data.
+	if (empty ($rmbperson["VotersIndexes_ID"]) && empty ($rmbperson["SystemUserSelfDistrict_ID"])) {
+	 header("Location: /" . $k . "/lgd/profile/input"); 
+	 exit(); 
+	}
+
+	if ( empty ($rmbperson["Voters_Status"]) && ! empty($rmbperson["SystemUserSelfDistrict_ID"] )) {
+		$rmbperson["Voters_Status"] = "User not in the Voter File";
+		$rmbperson["DataLastName_Text"] = ucwords($rmbperson["SystemUser_LastName"]);
+		$rmbperson["DataFirstName_Text"] = ucwords($rmbperson["SystemUser_FirstName"]);
+		$rmbperson["DataDistrict_StateAssembly"] = $rmbperson["SystemUserSelfDistrict_AD"];
+		$rmbperson["DataDistrict_Electoral"] = $rmbperson["SystemUserSelfDistrict_ED"];
+		$rmbperson["DataDistrict_Congress"] = $rmbperson["SystemUserSelfDistrict_CG"];
+		$rmbperson["DataDistrict_StateSenate"] = $rmbperson["SystemUserSelfDistrict_SN"];
+	}	
 
 	$TopMenus = array (
 						array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),

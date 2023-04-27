@@ -9,8 +9,8 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	if (empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 
-
 	$rmb = new repmyblock();
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	
 	$NumberOfMessages = 0;
 	$TopMenus = array ( 

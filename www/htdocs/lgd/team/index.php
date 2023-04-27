@@ -15,8 +15,9 @@
   	$TeamInformation = $rmb->ListAllInfoForTeam($_POST["Team_ID"]);
   	header("Location: /" . CreateEncoded (
 					array( 
-						"Team_ID" => $_POST["Team_ID"],
-				    "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"]
+						"ActiveTeam_ID" => $_POST["Team_ID"],
+				    "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+			    	"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 					)
 		) . "/lgd/team/index");
 		exit();
@@ -39,27 +40,25 @@
 	}
 	
 	WriteStderr($ListTeamNames, "List of name");
+	WriteStderr($URIEncryptedString, "URIEncryptedString after List of Names");
 	
-	if ( ! empty ($URIEncryptedString["Team_ID"])) {
-		$rmbteaminfo = $rmb->ListAllInfoForTeam($URIEncryptedString["Team_ID"]);
+	if ( ! empty ($URIEncryptedString["ActiveTeam_ID"])) {
+		$rmbteaminfo = $rmb->ListAllInfoForTeam($URIEncryptedString["ActiveTeam_ID"]);
 		WriteStderr($rmbteaminfo, "RMB Team Info");
 		$ActiveTeam = $rmbteaminfo[0]["Team_Name"];
-		$ActiveTeam_ID = $URIEncryptedString["Team_ID"];
+		$ActiveTeam_ID = $URIEncryptedString["ActiveTeam_ID"];
 	} else {
 		$ActiveTeam = $rmbteam[0]["Team_Name"];
 		$ActiveTeam_ID = $rmbteam[0]["Team_ID"];
 		$rmbteaminfo = $rmb->ListAllInfoForTeam($ActiveTeam_ID);
 	}
 	
-	WriteStderr($k, "K BEFORE");
-	$k = CreateEncoded (
-				array( 
-								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-								"ActiveTeam" => $ActiveTeam,
-								"ActiveTeam_ID" => $ActiveTeam_ID,
-							)
-				);
-	WriteStderr($k, "K AFTER");
+	$URIEncryptedString["ActiveTeam"] = $ActiveTeam;
+	$URIEncryptedString["ActiveTeam_ID"] = $ActiveTeam_ID;
+	
+	WriteStderr($URIEncryptedString, "URLInfo BEFORE Wipe");
+	WipeURLEncrypted( array("SystemUser_ID", "ActiveTeam", "ActiveTeam_ID", "SystemUser_Priv") );
+	WriteStderr($URIEncryptedString, "URLInfo AFTER Wipe");
 	WriteStderr($rmbteaminfo, "RMB Team Member Info");
 	
 	$TopMenus = array ( 						
@@ -128,7 +127,8 @@
 					      <A HREF="/<?= CreateEncoded (
       																	array( 
 																								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																								"Team_ID" => $ActiveTeam_ID,
+																								"ActiveTeam_ID" => $ActiveTeam_ID,
+																								"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 																							)
 																				); ?>/lgd/team/unsigned">Users with incomplete registrations</A>
 												
@@ -139,7 +139,8 @@
 									 <A HREF="/<?= CreateEncoded (
       																	array( 
 																								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																								"Team_ID" => $ActiveTeam_ID,
+																								"ActiveTeam_ID" => $ActiveTeam_ID,
+																								"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 																							)
 																				); ?>/lgd/team/deregistered">Deregistered users</A>
 									
@@ -152,7 +153,8 @@
 									 <A HREF="/<?= CreateEncoded (
       																	array( 
 																								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																								"Team_ID" => $ActiveTeam_ID,
+																								"ActiveTeam_ID" => $ActiveTeam_ID,
+																								"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 																							)
 																				); ?>/lgd/team/banned">Declined users</A>
 									
@@ -163,7 +165,8 @@
 									 <A HREF="/<?= CreateEncoded (
       																	array( 
 																								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-																								"Team_ID" => $ActiveTeam_ID,
+																								"ActiveTeam_ID" => $ActiveTeam_ID,
+																								"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 																							)
 																				); ?>/lgd/team/banned">Banned users</A>
 									
