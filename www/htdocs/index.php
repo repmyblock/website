@@ -11,6 +11,19 @@
 
 <div class="main_wopad center">
 
+<P class="BckGrndElement f80">CANDIDATES VOTER & VOLUNTEER GUIDE</P>
+
+	<P class="f40 adpad">
+		<A HREF="/<?= $middleuri ?>/exp/voter/guide">
+			<H2>Download the RepMyBlock Voter & Volunteer Guide</H2>
+		</a>
+	</P>
+	
+	<P class="f40 adpad">
+		These candidates are running for office and are looking for volunteers to help them.
+	</P>
+	
+
 	<DIV class="tadpad">
 		<P class="BlueBox">
 			<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">
@@ -37,17 +50,6 @@
 		</CENTER>
 	</P>
 		
-	<P class="BckGrndElement f80">CANDIDATES VOLUNTEER GUIDE</P>
-
-	<P class="f40 adpad">
-		<A HREF="/<?= $middleuri ?>/exp/voter/guide">
-			<H2>Download the RepMyBlock Volunteer Guide</H2>
-		</a>
-	</P>
-	
-	<P class="f40 adpad">
-		These candidates are running for office and are looking for volunteers to help them.
-	</P>
 	
 	<P class="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
