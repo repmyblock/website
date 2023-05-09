@@ -443,7 +443,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 				$this->SetFont('Arial','B',50);
 	    	$this->SetTextColor(255,192,203);
 	   		$this->RotatedText(35,190, $this->Watermark, 45);
-	   		$this->RotatedText(40,210, "election will be held in 2023", 45);
+	   		$this->RotatedText(40,210, "election will be held in 2024", 45);
 	   		$this->SetTextColor(0,0,0);
 			}
 		
