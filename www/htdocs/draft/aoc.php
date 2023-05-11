@@ -52,7 +52,7 @@
 			
 			<P class="f60">
 				Rep My Block is provided Free of Charge to any candidate that wishes to integrate 
-				its services.
+				its services. <B>Draft AOC's content does not reflect the Rep My Block tool.</B>
 			</P>
 			
 </DIV>
