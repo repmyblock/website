@@ -10,6 +10,7 @@
 	$rmb = new RMBAdmin();	
   
   //$rmb = new Teams();
+  $TotalCount = 20;
 	
   if (! empty ($_POST)) {
   	WriteStderr($URIEncryptedString, "URIEncryptedString");
@@ -54,10 +55,8 @@
     		
     			<div class="clearfix gutter d-flex flex-shrink-0">				
 						<div class="col-12">
-					  
 	   				<P>
-	   					
-	   				Start: <?= $URIEncryptedString["StartAt"] ?><BR>
+
 						<div id="resp-table">
 							<div id="resp-table-header">
 								<div class="table-header-cell">ID</div>
@@ -67,17 +66,15 @@
 								<div class="table-header-cell">Date</div>
 							</div>    	
 							<?php 			
-										$Counter = 0;
-										if ( ! empty ($rmbteam)) {
-											foreach ($rmbteam as $var) {
-												
-											
-												if ( $Counter++ <  20) {
-												
+								$Counter = 0;
+							
+								if ( ! empty ($rmbteam)) {
+									foreach ($rmbteam as $var) {
+										if ( $Counter++ < $TotalCount) {			
 							?>
 										<div id="resp-table-body">
 											<div class="resp-table-row">
-												<div class="table-body-cell"><?= $var["Team_ID"] ?> - <?= $Counter ?></div>
+												<div class="table-body-cell"><?= $var["Team_ID"] ?></div>
 												<div class="table-body-cell-left"><A HREF="/<?= CreateEncoded(array(
 														"Team_ID" => $var["Team_ID"],	
 														 "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
@@ -90,49 +87,51 @@
 											</div>													
 										</div>
 									
-								<?php
-												} else { 
-														
-													
+								<?php	} } ?>
+								
+										 <div id="resp-table-body">
+														<div class="resp-table-row">
+															<div class="table-body-cell"></div>
+															<div class="table-body-cell-left">
+	
+									<?php if  (! empty ($URIEncryptedString["StartAt"])) {
 													echo "<A HREF=\"/" . CreateEncoded (
 																array( 
 															    "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 											   					"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
-											   					"StartAt" => ($URIEncryptedString["StartAt"] - 20),
-																)) . "/admin/team_list\">Previous 21</A>";
-
-													echo "<A HREF=\"/" . CreateEncoded (
+											   					"StartAt" => ($URIEncryptedString["StartAt"] - $TotalCount),
+													)) . "/admin/team_list\">Previous</A> ";
+												} 
+										
+									 if ( ($Counter - 1) == $TotalCount ) {
+												echo "<A HREF=\"/" . CreateEncoded (
 																	array( 
 																    "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
 												   					"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
-												   					"StartAt" => ($URIEncryptedString["StartAt"] + 20),
-																	)) . "/admin/team_list\">Next 21</A>";
-																	
-																	
-
-								 						}
+												   					"StartAt" => ($URIEncryptedString["StartAt"] + $TotalCount),
+														)) . "/admin/team_list\">Next</A> ";
 													}
-																				
-													echo "<A HREF=\"/" . CreateEncoded (
-																	array( 
-																    "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-												   					"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
-												   					"StartAt" => ($URIEncryptedString["StartAt"] - 20),
-																	)) . "/admin/team_list\">Previous 21</A>";
-													
-													
-												} ?>
+												?>				
+															
+												</DIV>	
+													<div class="table-body-cell"></div>
+																<div class="table-body-cell"></div>
+																	<div class="table-body-cell"></div>
+																
+											 </div>	
+										 </div>					
+								<?php } ?>
+						</DIV>
+					</P>			
+					</DIV>
+					</DIV>
+					</DIV>
+					</DIV>
+					</DIV>
+				</DIV>
+			</DIV>
 		</DIV>
-</P>			
-</DIV>
-</DIV>
-</DIV>
-</DIV>
-</DIV>
-</DIV>
-</DIV>
-</DIV>
-</DIV>
+	</DIV>
 </DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

@@ -122,65 +122,12 @@
 							
 						</DIV>
 
-					<DIV>
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">NYS BOE ID</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="NYS Uniq ID" name="UniqNYS" VALUE="<?= $activeteam[""] ?>" id="">
-								</dd>
-							</dl>
 				
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Party</label><DT>
-								<dd>
-									<SELECT  class="mobilebig" NAME="Party">
-										<OPTION VALUE="">All</OPTION>
-										<OPTION VALUE="DEM"<?php if ($FormFieldParty == "DEM") { echo " SELECTED"; } ?>>Democratic</OPTION>
-										<OPTION VALUE="REP"<?php if ($FormFieldParty == "REP") { echo " SELECTED"; } ?>>Republican</OPTION>
-										<OPTION VALUE="BLK"<?php if ($FormFieldParty == "BLK") { echo " SELECTED"; } ?>>No Affiliation</OPTION>
-										<OPTION VALUE="GRE"<?php if ($FormFieldParty == "GRE") { echo " SELECTED"; } ?>>Green</OPTION>
-										<OPTION VALUE="LBT"<?php if ($FormFieldParty == "LBT") { echo " SELECTED"; } ?>>Libertarian</OPTION>
-										<OPTION VALUE="CON"<?php if ($FormFieldParty == "CON") { echo " SELECTED"; } ?>>Conservatives</OPTION>
-										<OPTION VALUE="IND"<?php if ($FormFieldParty == "IND") { echo " SELECTED"; } ?>>Independence Party</OPTION>
-										<OPTION VALUE="WOR"<?php if ($FormFieldParty == "WOR") { echo " SELECTED"; } ?>>Working Families</OPTION>
-										<OPTION VALUE="WEP"<?php if ($FormFieldParty == "WEP") { echo " SELECTED"; } ?>>Women's Equality Party</OPTION>
-										<OPTION VALUE="REF"<?php if ($FormFieldParty == "REF") { echo " SELECTED"; } ?>>Reform</OPTION>
-										<OPTION VALUE="SAM"<?php if ($FormFieldParty == "SAM") { echo " SELECTED"; } ?>>SAM</OPTION>													
-										<OPTION VALUE="OTH"<?php if ($FormFieldParty == "OTH") { echo " SELECTED"; } ?>>Other</OPTION>
-									</SELECT>
-								</dd>
-							</dl>
-						</div>
-
-						<div>						
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Assembly District</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Assembly District" name="AD" VALUE="<?= $activeteam[""] ?>" id="">
-								</dd>
-							</dl>
-
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Electoral District</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Electoral District" name="ED" VALUE="<?= $activeteam[""] ?>" id="">
-								</dd>
-							</dl>					
-						</div>
-								
-						<div>
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Congressional District</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Congressional District" name="Congress" VALUE="<?= $activeteam[""] ?>" id="">
-								</dd>
-							</dl>
-						</div>
 
 						<div>						
 							<dl class="form-group col-12 d-inline-block"> 
 								<dd>
-									<button type="submit" class="submitred">Search User</button>
+									<button type="submit" class="submitred">Save Information</button>
 								</dd>
 							</dl>
 						</div>
