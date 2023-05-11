@@ -1,4 +1,15 @@
 <?php
+
+	$HeaderTwitter = 1;
+	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/draft/DraftAOCForPresident2024.jpg";
+	$HeaderTwitterDesc = "To save Democracy, Human Rights, and the Planet. The Status Quo will not make the changes we need to win the future we deserve. Bernie started the Political Revolution, We must finish it together. AOC must take the torch and lead the way forward.";   
+	$HeaderTwitterTitle = "Draft AOC for President in 2024";   
+	
+	$HeaderOGImage = $HeaderTwitterPicLink;
+	$HeaderOGDescription = $HeaderTwitterDesc;
+	$HeaderOGImageWidth = "750";
+	$HeaderOGImageHeight = "324";
+
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	// $imgtoshow = "/brand/socialist/Socialists.png";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
