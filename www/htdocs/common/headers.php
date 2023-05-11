@@ -22,6 +22,9 @@
 	
 	// This is the image
 	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png"; }	
+
+	if (empty ($HeaderTwitterSite)) {	$HeaderTwitterSite = "@RepMyBlock"; }
+	if (empty ($HeaderTwitterCreator)) {	$HeaderTwitterCreator = "@RepMyBlock"; }
 		
 	if ( empty ($HeaderTwitter)) {
 		$HeaderTwitterTitle = "Rep My Block - Rep My Block";
@@ -29,6 +32,7 @@
 		$HeaderTwitterDesc = "Registrations for the 2024 Queens, Brooklyn and Bronx Democratic and 2025 Citywide Republican county committee. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; it's their backbone. The &hellip; Continue reading Rep My Block &rarr;";
 	}
 
+	if (empty ($HeaderOGTitle)) {	$HeaderOGTitle = "County Committee"; }
 	if (empty ($HeaderOGDescription)) {	$HeaderOGDescription = "Represent My Block at the County Committee"; }
 	if (empty ($HeaderOGImage)) { 
 		$HeaderOGImage = "https://www.repmyblock.org/images/RepMyBlock.png"; 
@@ -43,14 +47,14 @@
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:description" content="<?= $HeaderTwitterDesc ?>" />
 		<meta name="twitter:title" content="<?= $HeaderTwitterTitle ?>" />
-		<meta name="twitter:site" content="@RepMyBlock" />
+		<meta name="twitter:site" content="<?= $HeaderTwitterSite ?>" />
 		<meta name="twitter:image" content="<?= $HeaderTwitterPicLink ?>" />
-		<meta name="twitter:creator" content="@RepMyBlock" />
+		<meta name="twitter:creator" content="<?= $HeaderTwitterCreator ?>" />
 		<meta name="Description" CONTENT="Rep My Block is your starting point to run for office. Rep My Block will help you get started in activism and political engagement. RepMyBlock is a website to prepare political state nominating petitions to run for party and elected office. Run for County Committee, Precinct Committee Officer or Precint Committee Person">
 		<TITLE>Rep My Block - The starting point to run for office and Represent Your Block at the County Committee</TITLE>
 
 		<meta name="Title" content="Run for Office and County Committee">
-		<meta property="og:title" content="County Committee"/>
+		<meta property="og:title" content="<?= $HeaderOGTitle ?>"/>
 		<meta property="og:url" content="https://<?= $_SERVER['HTTP_HOST'] ?><?= $_SERVER['REQUEST_URI'] ?>">
 		<meta property="og:description" content="<?= $HeaderOGDescription ?>">
 		<meta property="og:type" content="article">

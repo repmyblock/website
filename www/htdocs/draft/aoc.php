@@ -7,8 +7,12 @@
 	
 	$HeaderOGImage = $HeaderTwitterPicLink;
 	$HeaderOGDescription = $HeaderTwitterDesc;
+	$HeaderOGTitle = $HeaderTwitterTitle;
 	$HeaderOGImageWidth = "750";
 	$HeaderOGImageHeight = "324";
+	
+	$HeaderTwitterSite = "@draftaoc2024"; 
+	$HeaderTwitterCreator = "@draftaoc2024"; 
 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	// $imgtoshow = "/brand/socialist/Socialists.png";
