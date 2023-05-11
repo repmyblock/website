@@ -40,7 +40,7 @@
 				}
 				
 				echo "\n<!-- Hour: $hour Minute: $rounded_min -->\n";
-				include $StatusDirectory . "/" . $hour . "-" . $rounded_min . ".html";
+				include $StatusDirectory . "/cclist/" . $hour . "-" . $rounded_min . ".html";
 				
 			?>
 	
