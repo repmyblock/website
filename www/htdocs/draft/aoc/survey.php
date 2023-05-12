@@ -29,50 +29,43 @@
 		
 		print "<PRE>" . print_r($_POST,1 ) . "</PRE>";
 		
+		do { 
+			$GoodRandomKey = strtoupper(PrintRandomText(12));
+		} while (empty($GoodRandomKey));
+		
+		echo "<BR>";
 		exit();
 		
-		`SurveyPresUser_RandomKey` char(12),
-		Candidate_ID int unsigned,
-		SurveyPresUser_State char(2),
-		SurveyPresUser_FirstName varchar(100),  [FirstName] => Theo
-		SurveyPresUser_LastName varchar(100), [LastName] => Chino
-		SurveyPresUser_County  varchar(100), [County] => New York
-		SurveyPresUser_ZipCode  varchar(50), [Zipcode] => 10031
-		SurveyPresUser_PartisanPartyCounty enum('yes', 'no'),  [Partisan_DemCounty] => yes
-		SurveyPresUser_PartisanClubMember enum('yes', 'no'),  [Partisan_ClubMember] => yes
-		SurveyPresUser_PartisanRanForOffice enum('yes', 'no'),   [Partisan_RanForOffice] => yes
-		SurveyPresUser_PartisanElectedToOffice enum('yes', 'no'),[Partisan_ElectedToOffice] => yes
-		SurveyPresUser_PartisanNever enum('yes', 'no'),   [Partisan_Never] => yes
-		SurveyPresUser_DelegateStatusCandDelegate enum('yes', 'no'),  [DelegateStatus_AOCDelegate] => yes
-		SurveyPresUser_DelegateStatusWouldloveToBe enum('yes', 'no'),  [DelegateStatus_WouldloveToBe] => yes
-		SurveyPresUser_DelegateStatusVolunteerFor enum('yes', 'no'), [DelegateStatus_VolunteerFor] => yes
-		SurveyPresUser_DelegateStatusTimeToRead enum('yes', 'no'),   [DelegateStatus_TimeToRead] => yes
-		SurveyPresUser_DelegateStatusWasDelegate enum('yes', 'no'), [DelegateStatus_WasDelegate] => yes
-		SurveyPresUser_AffirmativeAfricanAmerican enum('yes', 'no'),  [Affirmative_AfricanAmerican] => yes
-		SurveyPresUser_AffirmativeHispanic enum('yes', 'no'),  [Affirmative_Hispanic] => yes
-		SurveyPresUser_AffirmativeAsianPacific enum('yes', 'no'),  [Affirmative_AsianPacific] => yes
-		SurveyPresUser_AffirmativeNativeAmerican enum('yes', 'no'),  [Affirmative_NativeAmerica] => yes
-		SurveyPresUser_AffirmativeDisability enum('yes', 'no'),  [Affirmative_Disability] => yes
-		SurveyPresUser_AffirmativeLGBT enum('yes', 'no'),  [Affirmative_LGBT] => yes
-		SurveyPresUser_AffirmativeYouth enum('yes', 'no'),  [Affirmative_Youth] => yes
-		SurveyPresUser_Age tinyint unsigned , [Age] => 12
-		SurveyPresUser_DateTime datetime,
-			
+		if ($_POST["Age"] > 200) { $Age = NULL; } else { $Age = $_POST["Age"]; }
+		
+		$DataToSave = array(
+			"SurveyPresUser_RandomKey" => $GoodRandomKey,
+			"Candidate_ID" => $CandidateID,
+			"SurveyPresUser_State" => $Match[1][0],
+			"SurveyPresUser_FirstName" => $_POST["FirstName"],
+			"SurveyPresUser_LastName" => $_POST["LastName"],
+			"SurveyPresUser_County" => $_POST["County"],
+			"SurveyPresUser_ZipCode" => $_POST["Zipcode"],
+			"SurveyPresUser_PartisanPartyCounty" => $_POST["Partisan_DemCounty"],
+			"SurveyPresUser_PartisanClubMember" => $_POST["Partisan_ClubMember"],
+			"SurveyPresUser_PartisanRanForOffice" => $_POST["Partisan_RanForOffice"],
+			"SurveyPresUser_PartisanElectedToOffice" => $_POST["Partisan_ElectedToOffice"],
+			"SurveyPresUser_PartisanNever" => $_POST["Partisan_Never"],
+			"SurveyPresUser_DelegateStatusCandDelegate" => $_POST["DelegateStatus_AOCDelegate"],
+			"SurveyPresUser_DelegateStatusWouldloveToBe" => $_POST["DelegateStatus_WouldloveToBe"],
+			"SurveyPresUser_DelegateStatusVolunteerFor" => $_POST["DelegateStatus_VolunteerFor"],
+			"SurveyPresUser_DelegateStatusTimeToRead" => $_POST["DelegateStatus_TimeToRead"],
+			"SurveyPresUser_DelegateStatusWasDelegate" => $_POST["DelegateStatus_WasDelegate"],
+			"SurveyPresUser_AffirmativeAfricanAmerican" => $_POST["Affirmative_AfricanAmerican"],
+			"SurveyPresUser_AffirmativeHispanic" => $_POST["Affirmative_Hispanic"],
+			"SurveyPresUser_AffirmativeAsianPacific" => $_POST["Affirmative_AsianPacific"],
+			"SurveyPresUser_AffirmativeNativeAmerican" => $_POST["Affirmative_NativeAmerica"],
+			"SurveyPresUser_AffirmativeDisability" => $_POST["Affirmative_Disability"],
+			"SurveyPresUser_AffirmativeLGBT" => $_POST["Affirmative_LGBT"],
+			"SurveyPresUser_AffirmativeYouth" => $_POST["Affirmative_Youth"],
+			"SurveyPresUser_Age" => $Age
+		);
 		   
-   
-   
-   
-   
-   
-    PrintRandomText($length = 9)
-   
-   
-   
-   
-   
-   
-   
-   
 
 		$r->SaveSurvey($DataToSave);
 		exit();
