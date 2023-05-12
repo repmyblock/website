@@ -39,14 +39,17 @@ class survey extends queries {
 		if ( ! empty ($data)) {
 			foreach ($data as $var => $index) {
 				if ( ! empty ($index)) {		
-					$sql_tables .= $comma . $var;
-					$sql_values .= $comma . ":" . $var;
+					$sql_tables .= $var . ",";
+					$sql_values .= ":" . $var . ", ";
 					$sql_vals[$var] = $index;
-					$comma = ", ";	
 				}
 			}
+			
+			$sql_tables .= "SurveyPresUser_DateTime, SurveyPresUser_IP";
+			$sql_values .= "NOW(), :IP";
+			$sql_vals["IP"] = $_SERVER['REMOTE_ADDR'];
+							
 			$sql = "INSERT INTO SurveyPresUser (" . $sql_tables . ") VALUES (" . $sql_values . ")";
-			print "SQL: $sql<BR>";
 			return $this->_return_nothing($sql, $sql_vals);
 		}
 	}
