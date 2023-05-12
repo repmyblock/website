@@ -144,11 +144,11 @@
 			
 			<P class="f60">
 				<DIV class="f60"><B>Volunteer Information:</B></DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_AOCDelegate" value="yes">&nbsp;&nbsp;Elected County/State party member</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_WouldloveToBe" value="yes">&nbsp;&nbsp;Democratic Club member</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_VolunteerFor" value="yes">&nbsp;&nbsp;Ran for elected office</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_TimeToRead" value="yes">&nbsp;&nbsp;Elected to goverment position</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_WasDelegate" value="yes">&nbsp;&nbsp;Never participated in politics</DIV>
+				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_AOCDelegate" value="yes">&nbsp;&nbsp;Would die to be a delegate</DIV>
+				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_WouldloveToBe" value="yes">&nbsp;&nbsp;I am available to be a delegate</DIV>
+				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_VolunteerFor" value="yes">&nbsp;&nbsp;I want to volunteer in any capacity</DIV>
+				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_TimeToRead" value="yes">&nbsp;&nbsp;I have time to read party documents</DIV>
+				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_WasDelegate" value="yes">&nbsp;&nbsp;I was a delegate in the past</DIV>
 			</P>
 
 			<P class="f60">&nbsp;</P>
