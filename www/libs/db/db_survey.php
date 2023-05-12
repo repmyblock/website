@@ -25,6 +25,16 @@ class survey extends queries {
 																	array("Random" => $RandomKey));
 	}
 	
+	function PullSurveyFromRandomKey($RandomKey) {
+		$sql = "SELECT * FROM RepMyBlockTwo.SurveyPresUser " . 
+						"LEFT JOIN SurveyPresDelInfo ON (SurveyPresDelInfo.SurveyPresDelInfo_StateCode = SurveyPresUser.SurveyPresUser_State " . 
+						"AND SurveyPresDelInfo.Candidate_ID = SurveyPresUser.Candidate_ID) " . 
+						"LEFT JOIN SurveyPresDocuments ON (SurveyPresDocuments.SurveyPresDocuments_Party = SurveyPresDelInfo.SurveyPresDelInfo_Party " .
+						"AND SurveyPresDelInfo.SurveyPresDelInfo_StateCode = SurveyPresDocuments.SurveyPresDocuments_StateCode) " . 
+						"WHERE SurveyPresUser_RandomKey = :Random";
+		return $this->_return_simple($sql, array("Random" => $RandomKey));
+	}
+	
 	function SaveSurvey($data) {
 		if ( ! empty ($data)) {
 			foreach ($data as $var => $index) {

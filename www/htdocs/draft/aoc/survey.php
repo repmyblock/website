@@ -13,8 +13,6 @@
 
 
 	if ( empty ($StateToMatch[$Match[1][0]])) {
-		echo "Je suis dans le state doesn't match";
-		exit();
 		header("Location: ../aoc");
 		exit();
 	}
@@ -26,9 +24,7 @@
 	$r = new survey();
 	
 	if ( ! empty ($_POST)) {
-		
-		print "<PRE>" . print_r($_POST,1 ) . "</PRE>";
-		
+				
 		do { 
 			$GoodRandomKey = strtoupper(PrintRandomText(12));
 			$ResultRandom = $r->CheckSurveyRandomKey($GoodRandomKey);
@@ -65,7 +61,11 @@
 		);
 		
 		$r->SaveSurvey($DataToSave);
+	
+		header("Location: /draftaoc/draft/aoc/saved?" . $GoodRandomKey);
 		exit();
+	
+	
 	}
 	
 	
