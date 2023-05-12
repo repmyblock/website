@@ -26,7 +26,7 @@ class survey extends queries {
 	}
 	
 	function PullSurveyFromRandomKey($RandomKey) {
-		$sql = "SELECT * FROM RepMyBlockTwo.SurveyPresUser " . 
+		$sql = "SELECT * FROM SurveyPresUser " . 
 						"LEFT JOIN SurveyPresDelInfo ON (SurveyPresDelInfo.SurveyPresDelInfo_StateCode = SurveyPresUser.SurveyPresUser_State " . 
 						"AND SurveyPresDelInfo.Candidate_ID = SurveyPresUser.Candidate_ID) " . 
 						"LEFT JOIN SurveyPresDocuments ON (SurveyPresDocuments.SurveyPresDocuments_Party = SurveyPresDelInfo.SurveyPresDelInfo_Party " .
