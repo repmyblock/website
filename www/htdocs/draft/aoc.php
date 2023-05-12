@@ -1,7 +1,7 @@
 <?php
 
 	$HeaderTwitter = 1;
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/draft/DraftAOCForPresident2024.jpg";
+	$HeaderTwitterPicLink = "https://www.repmyblock.org/images/draft/2024/DraftAOCForPresident2024.jpg";
 	$HeaderTwitterDesc = "To save Democracy, Human Rights, and the Planet. The Status Quo will not make the changes we need to win the future we deserve. Bernie started the Political Revolution, We must finish it together. AOC must take the torch and lead the way forward.";   
 	$HeaderTwitterTitle = "Draft AOC for President in 2024";   
 	
