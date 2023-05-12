@@ -3,6 +3,7 @@ Allow: /web
 Allow: /css
 Allow: /images
 Allow: /sitemap.xml
+Allow: /draft
 Allow: /$
 Disallow: /
 Sitemap: https://repmyblock.org/sitemap.xml

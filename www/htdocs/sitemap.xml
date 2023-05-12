@@ -98,4 +98,10 @@
         <changefreq>always</changefreq>
         <priority>0.5</priority>
     </url>
+    <url>
+        <loc>https://www.repmyblock.org/web/draft/aoc</loc>
+        <lastmod>2023-05-1</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
 </urlset>
