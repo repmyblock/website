@@ -20,35 +20,25 @@ class survey extends queries {
 						array("Candidate" => $CandidateID, "StateCode" => $StateInfo));	
 	}
 	
+	function CheckSurveyRandomKey($RandomKey) {
+		return $this->_return_simple("SELECT SurveyPresUser_RandomKey FROM SurveyPresUser WHERE SurveyPresUser_RandomKey = :Random", 
+																	array("Random" => $RandomKey));
+	}
+	
 	function SaveSurvey($data) {
-		
-		
-		
-		foreach ($data as $var => $index) {
-			
-			print "VAR: $var => $index<BR>\n";
-			
-			
-			
-			
+		if ( ! empty ($data)) {
+			foreach ($data as $var => $index) {
+				if ( ! empty ($index)) {		
+					$sql_tables .= $comma . $var;
+					$sql_values .= $comma . ":" . $var;
+					$sql_vals[$var] = $index;
+					$comma = ", ";	
+				}
+			}
+			$sql = "INSERT INTO SurveyPresUser (" . $sql_tables . ") VALUES (" . $sql_values . ")";
+			print "SQL: $sql<BR>";
+			return $this->_return_nothing($sql, $sql_vals);
 		}
-		
-		/*
-		"State" => $matches[1][0], "FirstName" => $_POST["FirstName"], "LastName" => $_POST["LastName"],
-									"County" => $_POST["County"], "ZipCode" => $_POST["ZipCode"],"Partisan_DemCounty" => $_POST["Partisan_DemCounty"],
-									"Partisan_ClubMember" => $_POST["Partisan_ClubMember"],"Partisan_RanForOffice" => $_POST["Partisan_RanForOffice"],
-									"Partisan_ElectedToOffice" => $_POST["Partisan_ElectedToOffice"], "Partisan_Never" => $_POST["Partisan_Never"],
-									"DelegateStatus_AOCDelegate" => $_POST["DelegateStatus_AOCDelegate"], "DelegateStatus_WouldloveToBe" => $_POST["DelegateStatus_WouldloveToBe"],
-									"DelegateStatus_VolunteerFor" => $_POST["DelegateStatus_VolunteerFor"], "DelegateStatus_TimeToRead" => $_POST["DelegateStatus_TimeToRead"],
-									"DelegateStatus_WasDelegate" => $_POST["DelegateStatus_WasDelegate"],"Affirmative_AfricanAmerican" => $_POST["Affirmative_AfricanAmerican"],
-									"Affirmative_Hispanic" => $_POST["Affirmative_Hispanic"],"Affirmative_AsianPacific" => $_POST["Affirmative_AsianPacific"],
-									"Affirmative_Disability" => $_POST["Affirmative_Disability"],"Affirmative_LGBT" => $_POST["Affirmative_LGBT"] ,
-									"Affirmative_Youth" => $_POST["Affirmative_Youth"],"Age" => $_POST["Age"]);
-									
-									Affirmative_NativeAmerica
-		
-		return $this->nothing();
-		*/
 	}
 	
 }
