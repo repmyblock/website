@@ -144,7 +144,7 @@
 			
 			<P class="f60">
 				<DIV class="f60"><B>Volunteer Information:</B></DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_AOCDelegate" value="yes">&nbsp;&nbsp;Would die to be a delegate</DIV>
+				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_AOCDelegate" value="yes">&nbsp;&nbsp;I will sign a petition with AOC's name</DIV>
 				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_WouldloveToBe" value="yes">&nbsp;&nbsp;I am available to be a delegate</DIV>
 				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_VolunteerFor" value="yes">&nbsp;&nbsp;I want to volunteer in any capacity</DIV>
 				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_TimeToRead" value="yes">&nbsp;&nbsp;I have time to read party documents</DIV>
