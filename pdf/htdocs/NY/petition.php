@@ -49,6 +49,7 @@ if ( ! isset ($RMBBlockInit)) {
 				case 'witnesscounty': $PDFOptions["WitnessCounty"] = urldecode($splitvar[1]); break;
 				case 'fillcounty': $PDFOptions["FillCounty"] = urldecode($splitvar[1]); break; 
 				case 'witnesstype': $PDFOptions["WitnessType"] = $splitvar[1]; break;
+				case 'watermark': $PDFOptions["WaterMark"] = $splitvar[1]; break;
 			}
 		}
 	}
@@ -249,7 +250,8 @@ $pdf_NY_petition->ElectionDate =  PrintShortDate($result[0]["Elections_Date"]);
 $pdf_NY_petition->AutoFillDate = $PDFOptions["DateForCounter"];
 $pdf_NY_petition->BarCode = "S" . $result[0]["CandidateSet_ID"];
 if ($result[0]["CandidateGroup_Watermark"] == 'no') { $pdf_NY_petition->Watermark = NULL; }	
-//$pdf_NY_petition->Watermark = NULL;
+if ($PDFOptions["WaterMark"] == "no") { $pdf_NY_petition->Watermark = NULL; }
+
 
 if ( $Variable == "onthefly") { 
 		$pdf_NY_petition->Watermark = "Demo Petition / Not Valid";
