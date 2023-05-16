@@ -104,9 +104,9 @@
 			</P>
 			
 			<P CLASS="f60">
-				The state of <?= $result["SurveyPresDelInfo_StateName"] ?> is allocated <?= $result["SurveyPresDelInfo_TotalDelegate"] ?> delegates. At
-				this time we need to find as many democrats to show support for a possible AOC candidacy. The goal is to find 
-				as many people to register as Democrat by <?= $result["SurveyPresDelInfo_LastDaySwitchParty"] ?>.
+				The <?= $result["SurveyPresDelInfo_Party"] ?> Assembly District Part has <?= $result["SurveyPresDelInfo_TotalDelegate"] ?> 
+				elected county committees. At this time we need <?= $result["SurveyPresDelInfo_LastDaySwitchParty"] ?> pledged to sign
+				the petition to put the resolution for the County Committee agenda.
 			</P>
 			
 			<FORM METHOD="POST" ACTION="">		
