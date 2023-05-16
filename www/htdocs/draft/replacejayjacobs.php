@@ -21,28 +21,19 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
-	<DIV class="right f80 p05">Help put Socialists candidates on the ballot!</DIV>
+	<DIV class="right f80 p05">Help gather pledges from Manhattan County Committees!</DIV>
 	
-		<h1>Draft AOC for President of the United States</h1>
+		<h1>Draft for the New York County to join the Replace Jay Jacobs coalition</h1>
 	
 			<P class="f60">
-				Social Democrats of America is looking for Socialists to run or help other run for delegate to the Presidential 
-				Convention in Chicago in 2024.
+				About 1,700 party delegates and activists are renewing calls for Gov. Hochul to ditch Jacobs as he's set to host a state party meeting this week in Albany. 
 			</P>
-			
+					
 			<P CLASS="f60">
-				We know everyone is busy so the time commitment for drafting AOC is kept to a minimum. At this time AOC has not
-				accepted the draft but we have about October 2024 to show we have reach a real grassroots campaign.
-			</P>
-			
-			<P CLASS="f60">
-				The goal is also to remove money from the electoral process so the way this draft campaign is setup is by collecting
-				in kind donations where each one of us perform easy tasks for the benefit of all. It could be from going to the county
-				chair and picking up a copy of the voter database, standing at a corner passing leftlets, drawing a logo, or anything
-				you feel will achieve the goal.
+				The goal is to identify 15 County Committees in 6 Assembly District Parts willing to openly sign the petition to 
+				put on the floor a vote to Replace Jay Jacobs.
 			</P>
 	
-		
 			<?php 
 				$min =  gmdate("i", time());
 				$hour =  gmdate("H", time());
@@ -58,7 +49,7 @@
 				}
 				
 				echo "\n<!-- Hour: $hour Minute: $rounded_min -->\n";
-				include $StatusDirectory . "/draftaoc2024/" . $hour . "-" . $rounded_min . ".html";
+				include $StatusDirectory . "/replacejayjacobs/" . $hour . "-" . $rounded_min . ".html";
 				
 			?>
 
