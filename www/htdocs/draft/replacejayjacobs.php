@@ -1,18 +1,18 @@
 <?php
 
 	$HeaderTwitter = 1;
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/draft/DraftAOCForPresidentIn2024.jpg";
-	$HeaderTwitterDesc = "To save Democracy, Human Rights, and the Planet. The Status Quo will not make the changes we need to win the future we deserve. Bernie started the Political Revolution, We must finish it together. AOC must take the torch and lead the way forward.";   
-	$HeaderTwitterTitle = "Draft AOC for President in 2024";   
+	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/draft/ReplaceJayJacobs-ByeJay.jpg";
+	$HeaderTwitterDesc = "If you are a Manhattan Democratic County Committee, sign the pledge of signing the petition for the New York County Committee joining the Replace Jay Jacobs Coalition.";   
+	$HeaderTwitterTitle = "Replace Jay Jacobs - #ByeJay";   
 	
 	$HeaderOGImage = $HeaderTwitterPicLink;
 	$HeaderOGDescription = $HeaderTwitterDesc;
 	$HeaderOGTitle = $HeaderTwitterTitle;
-	$HeaderOGImageWidth = "750";
-	$HeaderOGImageHeight = "324";
+	$HeaderOGImageWidth = "708";
+	$HeaderOGImageHeight = "757";
 	
-	$HeaderTwitterSite = "@draftaoc2024"; 
-	$HeaderTwitterCreator = "@draftaoc2024"; 
+	$HeaderTwitterSite = "@ReplaceJacobs"; 
+	$HeaderTwitterCreator = "@ReplaceJacobs"; 
 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	// $imgtoshow = "/brand/socialist/Socialists.png";
