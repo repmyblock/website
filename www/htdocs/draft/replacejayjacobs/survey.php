@@ -2,7 +2,7 @@
 	$CandidateID = "378";
 	// Check the state.
 	
-	preg_match('/\?([A-Z][A-Z])/', $_SERVER['REQUEST_URI'], $Match, PREG_OFFSET_CAPTURE);
+	preg_match('/\?([6-7]\d[A-D])/', $_SERVER['REQUEST_URI'], $Match, PREG_OFFSET_CAPTURE);
 	
 	// Check that the state is here so we don't go over the DB each time.
 	$StateToMatch = array('61A'=>1,'65A'=>1,'65B'=>1,'65C'=>1,'65D'=>1,'66A'=>1,'66B'=>1,'67A'=>1,'67B'=>1,
