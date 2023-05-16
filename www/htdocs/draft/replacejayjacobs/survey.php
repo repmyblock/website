@@ -104,18 +104,6 @@
 			</P>
 			
 			<P CLASS="f60">
-				All the information about the convention is not yet out but the Democratic party of the state of <?= $result["SurveyPresDelInfo_StateName"] ?>
-				published a draft of the <A HREF="<?= $FrontEndStatic . $result["SurveyPresDocuments_RMBURL"] ?>" TARGET="DSP">Delegate Selection Plan</A>.
-			</P>
-
-			<P CLASS="f60">
-				The goal is also to remove money from the electoral process so the way this draft campaign is setup is by collecting
-				in kind donations where each one of us perform easy tasks for the benefit of all. It could be from going to the county
-				chair and picking up a copy of the voter database, standing at a corner passing leftlets, drawing a logo, or anything
-				you feel will achieve the goal.
-			</P>
-
-			<P CLASS="f60">
 				The state of <?= $result["SurveyPresDelInfo_StateName"] ?> is allocated <?= $result["SurveyPresDelInfo_TotalDelegate"] ?> delegates. At
 				this time we need to find as many democrats to show support for a possible AOC candidacy. The goal is to find 
 				as many people to register as Democrat by <?= $result["SurveyPresDelInfo_LastDaySwitchParty"] ?>.
@@ -132,11 +120,6 @@
 				<DIV class="f60"><B>Last Name:</B></DIV>
 				<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="LastName" PLACEHOLDER="Last Name"></DIV>
 			</P>
-			
-			<P class="f60">
-				<DIV class="f60"><B>County:</B></DIV>
-				<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="County" PLACEHOLDER="County"></DIV>
-			</P>
 
 			<P class="f60">
 				<DIV class="f60"><B>Zipcode:</B></DIV>
@@ -145,43 +128,7 @@
 			
 			<P class="f60">
 				<DIV class="f60"><B>Volunteer Information:</B></DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_AOCDelegate" value="yes">&nbsp;&nbsp;I will sign a petition with AOC's name</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_WouldloveToBe" value="yes">&nbsp;&nbsp;I am available to be a delegate</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_VolunteerFor" value="yes">&nbsp;&nbsp;I want to volunteer in any capacity</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_TimeToRead" value="yes">&nbsp;&nbsp;I have time to read party documents</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_WasDelegate" value="yes">&nbsp;&nbsp;I was a delegate in the past</DIV>
-			</P>
-
-			<P class="f60">&nbsp;</P>
-			
-			<P class="f60">
-				<DIV class="f60"><B>Partisan Information:</B></DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="Partisan_DemCounty" value="yes">&nbsp;&nbsp;Elected County/State party member</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="Partisan_ClubMember" value="yes">&nbsp;&nbsp;Democratic Club member</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="Partisan_RanForOffice" value="yes">&nbsp;&nbsp;Ran for elected office</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="Partisan_ElectedToOffice" value="yes">&nbsp;&nbsp;Elected to goverment position</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="Partisan_Never" value="yes">&nbsp;&nbsp;Never participated in politics</DIV>
-			</P>
-
-			<P class="f60">&nbsp;</P>
-			
-			<P class="f60">
-				<DIV class="f60"><B>Affirmative Action Information:</B></DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="Affirmative_AfricanAmerican" value="yes">&nbsp;&nbsp;African-American</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="Affirmative_Hispanic" value="yes">&nbsp;&nbsp;Hispanic/Latino</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="Affirmative_AsianPacific" value="yes">&nbsp;&nbsp;Asian/Pacific</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="Affirmative_NativeAmerica" value="yes">&nbsp;&nbsp;Native American</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="Affirmative_Disability" value="yes">&nbsp;&nbsp;People with Disabilities</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="Affirmative_LGBT" value="yes">&nbsp;&nbsp;LGBTQ</DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="Affirmative_Youth" value="yes">&nbsp;&nbsp;Youth <I>(18-36)</I></DIV>
-			</P>
-		
-			<P class="f60">
-				<DIV class="f60"><B>Age:</B></DIV>
-				<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="Age" PLACEHOLDER="Age"></DIV>
-			</P>
-			
-			<P class="f60">&nbsp;</P>
+				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_WillSign" value="yes">&nbsp;&nbsp;I will sign the Petition for the County Committee to Join the Replace Jay Jacobs Coalition</DIV>
 			
 			<P>
 				<DIV><INPUT class="" TYPE="Submit" NAME="Survey" VALUE="Prepare the survey to email"></DIV>
@@ -204,7 +151,7 @@
 			
 			<P class="f60">
 				Rep My Block is provided Free of Charge to any candidate that wishes to integrate 
-				its services. <B>Draft AOC's content does not reflect the Rep My Block tool.</B>
+				its services. <B>Replace Jay Jacobs's content does not reflect the Rep My Block tool.</B>
 			</P>
 			
 </DIV>
