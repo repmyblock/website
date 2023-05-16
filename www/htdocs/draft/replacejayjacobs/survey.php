@@ -127,6 +127,12 @@
 			</P>
 			
 			<P class="f60">
+				<DIV class="f60"><B>Election District / Assembly District:</B></DIV>
+				<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="ADED" PLACEHOLDER="AD/ED"></DIV>
+			</P>
+			
+			
+			<P class="f60">
 				<DIV class="f60"><B>Volunteer Information:</B></DIV>
 				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_WillSign" value="yes">&nbsp;&nbsp;I will sign the Petition for the County Committee to Join the Replace Jay Jacobs Coalition</DIV>
 			
