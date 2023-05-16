@@ -1,19 +1,17 @@
 <?php
-	$CandidateID = "376";
+	$CandidateID = "378";
 	// Check the state.
 	
 	preg_match('/\?([A-Z][A-Z])/', $_SERVER['REQUEST_URI'], $Match, PREG_OFFSET_CAPTURE);
 	
 	// Check that the state is here so we don't go over the DB each time.
-	$StateToMatch = array('AB'=>1,'AL'=>1,'AK'=>1,'AS'=>1,'VI'=>1,'AZ'=>1,'AR'=>1,'CA'=>1,'CO'=>1,'CT'=>1,'DE'=>1,'DC'=>1,
-												'FL'=>1,'GA'=>1,'FU'=>1,'HI'=>1,'ID'=>1,'IL'=>1,'IN'=>1,'IA'=>1,'KS'=>1,'KY'=>1,'LA'=>1,'ME'=>1,
-												'MD'=>1,'MA'=>1,'MI'=>1,'MN'=>1,'MS'=>1,'MO'=>1,'MT'=>1,'NE'=>1,'NV'=>1,'NH'=>1,'NJ'=>1,'NM'=>1,
-												'NY'=>1,'NC'=>1,'ND'=>1,'OH'=>1,'OK'=>1,'OR'=>1,'PA'=>1,'PR'=>1,'RO'=>1,'SC'=>1,'SD'=>1,'TN'=>1,
-												'TX'=>1,'UT'=>1,'VE'=>1,'VA'=>1,'WA'=>1,'WV'=>1,'WI'=>1,'WY'=>1);
-
+	$StateToMatch = array('61A'=>1,'65A'=>1,'65B'=>1,'65C'=>1,'65D'=>1,'66A'=>1,'66B'=>1,'67A'=>1,'67B'=>1,
+												'67C'=>1,'68A'=>1,'68B'=>1,'68C'=>1,'68D'=>1,'69A'=>1,'69B'=>1,'69C'=>1,'70A'=>1,'70B'=>1,'70C'=>1,
+												'70D'=>1,'71A'=>1,'71B'=>1,'72A'=>1,'72B'=>1,'73A'=>1,'73B'=>1,'73C'=>1,'74A'=>1,'74B'=>1,'74C'=>1,'74D'=>1,
+												'75A'=>1,'75B'=>1,'76A'=>1,'76B'=>1);
 
 	if ( empty ($StateToMatch[$Match[1][0]])) {
-		header("Location: ../aoc");
+		header("Location: ../replacejayjacobs");
 		exit();
 	}
 
@@ -62,29 +60,28 @@
 		
 		$r->SaveSurvey($DataToSave);
 	
-		header("Location: /draftaoc/draft/aoc/saved?" . $GoodRandomKey);
+		header("Location: /replacejay/draft/replacejayjacobs/saved?" . $GoodRandomKey);
 		exit();
 	
 	
 	}
 	
-	
-	
 	$result = $r->FindState($CandidateID, $Match[1][0]);
 	
 	$HeaderTwitter = 1;
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/draft/DraftAOCForPresidentIn2024.jpg";
-	$HeaderTwitterDesc = "To save Democracy, Human Rights, and the Planet. The Status Quo will not make the changes we need to win the future we deserve. Bernie started the Political Revolution, We must finish it together. AOC must take the torch and lead the way forward.";   
-	$HeaderTwitterTitle = "Draft AOC for President in 2024";   
-
+	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/draft/ReplaceJayJacobs-ByeJay.jpg";
+	$HeaderTwitterDesc = "If you are a Manhattan Democratic County Committee, sign the pledge of signing the petition for the New York County Committee joining the Replace Jay Jacobs Coalition.";   
+	$HeaderTwitterTitle = "Replace Jay Jacobs - #ByeJay";   
+	
 	$HeaderOGImage = $HeaderTwitterPicLink;
 	$HeaderOGDescription = $HeaderTwitterDesc;
 	$HeaderOGTitle = $HeaderTwitterTitle;
-	$HeaderOGImageWidth = "750";
-	$HeaderOGImageHeight = "324";
+	$HeaderOGImageWidth = "708";
+	$HeaderOGImageHeight = "757";
 	
-	$HeaderTwitterSite = "@draftaoc2024"; 
-	$HeaderTwitterCreator = "@draftaoc2024"; 
+	$HeaderTwitterSite = "@ReplaceJacobs"; 
+	$HeaderTwitterCreator = "@ReplaceJacobs"; 
+
 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	// $imgtoshow = "/brand/socialist/Socialists.png";
@@ -93,13 +90,17 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
-	<DIV class="right f80 p05">Help put Socialists candidates on the ballot!</DIV>
+	<DIV class="right f80 p05">Help gather pledges from Manhattan County Committees!</DIV>
 	
-		<h1>Draft AOC for President of the United States</h1>
+		<h1>Draft for the New York County to join the Replace Jay Jacobs coalition</h1>
 	
 			<P class="f60">
-				Social Democrats of America is looking for Socialists to run or help other run for delegate to the Presidential 
-				Convention in Chicago in 2024.
+				About 1,700 party delegates and activists are renewing calls for Gov. Hochul to ditch Jacobs as he's set to host a state party meeting this week in Albany. 
+			</P>
+					
+			<P CLASS="f60">
+				The goal is to identify 15 County Committees in 6 Assembly District Parts willing to openly sign the petition to 
+				put on the floor a vote to Replace Jay Jacobs.
 			</P>
 			
 			<P CLASS="f60">
