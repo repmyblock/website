@@ -109,7 +109,13 @@
 				as many people to register as Democrat by <?= $result["SurveyPresDelInfo_LastDaySwitchParty"] ?>.
 			</P>
 			
-			<FORM METHOD="POST" ACTION="">			
+			<FORM METHOD="POST" ACTION="">		
+				
+			<P class="f60">
+				<DIV class="f60"><B>Pledge to sign:</B></DIV>
+				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_WillSign" value="yes">&nbsp;&nbsp;I will sign the Petition for the County Committee to Join the Replace Jay Jacobs Coalition</DIV>
+			</P>
+	
 		
 			<P class="f60">
 				<DIV class="f60"><B>First Name:</B></DIV> 
@@ -132,9 +138,6 @@
 			</P>
 			
 			
-			<P class="f60">
-				<DIV class="f60"><B>Volunteer Information:</B></DIV>
-				<DIV class="f60"><INPUT class="" type="checkbox" NAME="DelegateStatus_WillSign" value="yes">&nbsp;&nbsp;I will sign the Petition for the County Committee to Join the Replace Jay Jacobs Coalition</DIV>
 			
 			<P>
 				<DIV><INPUT class="" TYPE="Submit" NAME="Survey" VALUE="Prepare the survey to email"></DIV>
