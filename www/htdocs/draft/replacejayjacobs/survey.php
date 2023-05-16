@@ -133,8 +133,8 @@
 			</P>
 			
 			<P class="f60">
-				<DIV class="f60"><B>Election District / Assembly District:</B></DIV>
-				<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="ADED" PLACEHOLDER="AD/ED"></DIV>
+				<DIV class="f60"><B>Election District</B></DIV>
+				<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="Election District Number" PLACEHOLDER="ED"></DIV>
 			</P>
 			
 			
