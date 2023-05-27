@@ -50,10 +50,10 @@
 		<meta name="twitter:site" content="<?= $HeaderTwitterSite ?>" />
 		<meta name="twitter:image" content="<?= $HeaderTwitterPicLink ?>" />
 		<meta name="twitter:creator" content="<?= $HeaderTwitterCreator ?>" />
-		<meta name="Description" CONTENT="Rep My Block is your starting point to run for office. Rep My Block will help you get started in activism and political engagement. RepMyBlock is a website to prepare political state nominating petitions to run for party and elected office. Run for County Committee, Precinct Committee Officer or Precint Committee Person">
-		<TITLE>Rep My Block - The starting point to run for office and Represent Your Block at the County Committee</TITLE>
+		<meta name="Description" CONTENT="Rep My Block is your starting point to run The starting point on how to run for office with no money by running for District Leader, County Committee and Precinct Officer.">
+		<TITLE>Rep My Block - The starting point on how to run for office with no money by running for District Leader, County Committee and Precinct Officer.</TITLE>
 
-		<meta name="Title" content="Run for Office and County Committee">
+		<meta name="Title" content="Run for office with no money">
 		<meta property="og:title" content="<?= $HeaderOGTitle ?>"/>
 		<meta property="og:url" content="https://<?= $_SERVER['HTTP_HOST'] ?><?= $_SERVER['REQUEST_URI'] ?>">
 		<meta property="og:description" content="<?= $HeaderOGDescription ?>">
