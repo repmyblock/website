@@ -3,7 +3,7 @@
 		
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/NY/coversheet_class.php';
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/NY/acceptcertif_class.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
 	$r = new OutragedDems();
@@ -82,11 +82,12 @@
 			}
 		}
 	}	
-
+	
+	
 	
 	$pdf->NumberOfCandidates = $TotalCandidates;
 	$pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
-	$pdf->party = "Social Democratic";
+	$pdf->party = "Democratic";
 	$pdf->ElectionDate = "June 8th, 2022";
 	
 	if ($pdf->NumberOfCandidates > 1) { 
