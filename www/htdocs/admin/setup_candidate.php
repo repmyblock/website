@@ -101,19 +101,26 @@
 									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 													"Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
-													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Cvr Shts</A>	
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/coversheet" TARGET=NEW>Cvr Shts</A>	
 									
 									<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 													"Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
-													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>(Nrow)</A>	
+													"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/coversheet" TARGET=NEW>(Nrow)</A>	
 												
 								
 						 		<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 													"Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
 													"AmmendCoverSheet" => "yes",
-												"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/NYC/coversheet" TARGET=NEW>Amend</A>										
+												"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/coversheet" TARGET=NEW>Amend</A>		
+												
+								<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+										array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+													"Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
+													"AmmendCoverSheet" => "yes",
+												"Candidate_ID" => $var["Candidate_ID"])); ?>/NY/acceptcertif" TARGET=NEW>Accept Cert</A>
+												
 										</div>
 											<div class="table-body-cell-left"><?= $var["Elections_Date"] ?></div>	
 										</div>
