@@ -1,9 +1,19 @@
 <?php
 
 	$HeaderTwitter = 1;
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/draft/DraftAOCForPresidentIn2024.jpg";
-	$HeaderTwitterDesc = "To save Democracy, Human Rights, and the Planet. The Status Quo will not make the changes we need to win the future we deserve. Bernie started the Political Revolution, We must finish it together. AOC must take the torch and lead the way forward.";   
-	$HeaderTwitterTitle = "Draft AOC for President in 2024";   
+	
+	switch($_GET["k"]) {
+		case "rmbimg":
+			$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/draft/FillAOCSurvey.jpg";
+			$HeaderTwitterDesc = "This is a grassroots mouvement so we need each person to mobilize in their local Democratic party.";   
+			$HeaderTwitterTitle = "Take 5 minutes to fill the survey.";   
+			break;
+		
+		default:
+			$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/draft/DraftAOCForPresidentIn2024.jpg";
+			$HeaderTwitterDesc = "To save Democracy, Human Rights, and the Planet. The Status Quo will not make the changes we need to win the future we deserve. Bernie started the Political Revolution, We must finish it together. AOC must take the torch and lead the way forward.";   
+			$HeaderTwitterTitle = "Draft AOC for President in 2024";   
+	}
 	
 	$HeaderOGImage = $HeaderTwitterPicLink;
 	$HeaderOGDescription = $HeaderTwitterDesc;
