@@ -1,5 +1,5 @@
 <?php 
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 	
 	$min =  gmdate("i", time());
 	$hour =  gmdate("H", time());
