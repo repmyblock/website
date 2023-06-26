@@ -1,4 +1,6 @@
 <?php 
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+	
 	$min =  gmdate("i", time());
 	$hour =  gmdate("H", time());
 	$rounded_min = floor($min/5) * 5;
