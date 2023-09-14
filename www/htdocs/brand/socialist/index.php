@@ -19,10 +19,18 @@
 				<I>(Press the PLAY button and enter the password (all in uppercase) <FONT COLOR=BROWN><B>QCC4ALL</B></FONT> to access the documentary.)</I>
 			</P>
 			
+			<?php /*
 			<P class="f80bold center">
 				<A HREF="/<?= $middleuri ?>/brand/socialist/download">Click here to verify your eligibility to run for the 
 					New York or Richmond County Committee governance 
 					board in June 2023.</A>
+			</P>
+			*/ ?>
+
+			<P class="f80bold center">
+				<A HREF="/<?= $middleuri ?>/brand/socialist/download">Click here to verify your eligibility to run for the 
+					Bronx, Queens or Kings <I>(Brooklyn)</I> County Committee governance 
+					board in June 2024.</A>
 			</P>
 			
 			<P class="f60">
