@@ -54,7 +54,7 @@
     <B>Progressive International:</B> <A TARGET="political" HREF="https://progressive.international">https://progressive.international</A> - RMB Code: bernie<BR>
     <B>Communists and Workers' parties:</B> <A TARGET="political" HREF="http://www.solidnet.org">http://www.solidnet.org</A> - RMB Code: solidnet<BR>
     <B>Socialists Alternative:</B> <A TARGET="political" HREF="https://internationalsocialist.net">https://internationalsocialist.net</A> - RMB Code: socalter<BR>
-		<B>International People's Assembly:</B> <A TARGET="politital" HREF="https://ipa-aip.org">https://ipa-aip.org</A> - RMB Code: ipa</A><BR>
+		<B>International People's Assembly:</B> <A TARGET="politital" HREF="https://ipa-aip.org">https://ipa-aip.org</A> - RMB Code: ipassembly</A><BR>
     <B>Pirates:</B> <A TARGET="political" HREF="https://pp-international.net">https://pp-international.net</A> - RMB Code: pirates<BR>
 	</UL>
 	
