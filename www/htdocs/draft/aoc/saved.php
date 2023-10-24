@@ -10,7 +10,7 @@
 	$HeaderTwitter = 1;
 	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/draft/DraftAOCForPresidentIn2024.jpg";
 	$HeaderTwitterDesc = "To save Democracy, Human Rights, and the Planet. The Status Quo will not make the changes we need to win the future we deserve. Bernie started the Political Revolution, We must finish it together. AOC must take the torch and lead the way forward.";   
-	$HeaderTwitterTitle = "Draft AOC for President in 2024";   
+	$HeaderTwitterTitle = "Draft AOC for President in 2028";   
 
 	$HeaderOGImage = $HeaderTwitterPicLink;
 	$HeaderOGDescription = $HeaderTwitterDesc;
@@ -30,7 +30,7 @@
 <DIV class="main">
 	<DIV class="right f80 p05">Help put Socialists candidates on the ballot!</DIV>
 	
-		<h1>Draft AOC for President of the United States</h1>
+		<h1>Draft AOC for President of the United States for 2028</h1>
 
 			<P class="f60">
 				<B>Thanks for filling the survey.</B>
@@ -72,7 +72,7 @@
 			</P>
 
 			<P CLASS="f60">
-				<B>The Draft AOC 2024 volunteer team.</B>
+				<B>The Draft AOC 2028 volunteer team.</B>
 			</P>
 		
 		<P class="f40">
