@@ -27,7 +27,7 @@
 	<DIV class="tadpad">
 		<P class="BlueBox">
 			<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">
-				Click here to learn how to run for County Committee member, Precinct Committee Officer or Precint Committee Person.
+				Click here to learn how to run for County Committee member, Precinct Committee Officer or Precinct Committee Person.
 				<?php /* <BR>Click here! - Deadline March 31<SUP>st</SUP>, 2023. */ ?>
 			</a>
 		</P>
