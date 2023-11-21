@@ -1,8 +1,6 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	$Menu = "admin";
-	$BigMenu = "represent";	
-	
 	$State = "NY";
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
@@ -16,17 +14,18 @@
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
 	
 	if ( ! empty ($_POST)) {
-		header("Location: /admin/" . $k  . "/add_position");
+		header("Location: /" . $k  . "/admin/add_newdate");
 		exit();
 	}
 
-	$result = $rmb->ListElectedPositions($State);
-	WriteStderr($result, "ListElectedPositions");
+	//	function ListElectionsDates ($limit = 50, $start = 0, $futureonly = false, $StateID = NULL) {
+	$result = $rmb->ListElectionsDates();
+	WriteStderr($result, "ListElections");
 	
 	$TopMenus = array ( 						
-		array("k" => $k, "url" => "../admin/setup_elections", "text" => "Race Type"),
-		array("k" => $k, "url" => "../admin/setup_dates", "text" => "Elections Dates"),
-		array("k" => $k, "url" => "../admin/setup_candidate", "text" => "Candidate Profile")
+		array("k" => $k, "url" => "../admin/setup_elections", "text" => "Elections Dates"),
+		array("k" => $k, "url" => "../admin/setup_dates", "text" => "Election Positions"),
+		array("k" => $k, "url" => "../admin/setup_candidate", "text" => "Candidate")
 	);
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
@@ -76,11 +75,10 @@
 	 	<span class="ml-4 flex-items-baseline"><A HREF="/admin/<?= CreateEncoded (
 				array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 							"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
-					"CandidatePositions_ID" => $var["CandidatePositions_ID"])); ?>/add_position">Select</A></span>
-	 	<span class="ml-4 user-mention"><?= $var["CandidatePositions_State"] ?></span>
-	 	<span class="ml-4 user-mention"><?= $var["CandidatePositions_Type"] ?></span>
-	  <span class="ml-4 ext-gray"><?= $var["CandidatePositions_Name"] ?></span>
-	  <span class="ml-4"><?= $var["Candidate_DispName"] ?></span>
+					"CandidatePositions_ID" => $var["DataState_Abbrev"])); ?>/add_position">Select</A></span>
+	 	<span class="ml-4"><?= $var["Elections_Text"] ?></span>
+	  <span class="ml-4"><?= $var["Elections_Type"] ?></span>
+	 	<span class="ml-4"><?= PrintShortDate($var["Elections_Date"]) ?></span>
 	</div>
 					
 						
@@ -95,7 +93,7 @@
 	 
 		</div>
 		<BR>
-		<p><button type="submit" class="btn btn-primary">Add a new position</button></p>
+		<p><button type="submit" class="submitred">Add a new date</button></p>
 </div>
 </FORM>
 </div>

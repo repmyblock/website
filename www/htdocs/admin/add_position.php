@@ -1,6 +1,5 @@
 <?php
 	$Menu = "admin";
-	$BigMenu = "represent";	
 		 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";	
@@ -41,7 +40,6 @@
 	}
 	
 	$ButtonText = "Add Position";
-
 	$FormFieldParty = $URIEncryptedString["UserParty"];
 
 	if ( ! empty ($result["CandidatePositions_Name"])) { $FormFieldPositionName = $result["CandidatePositions_Name"]; }
@@ -150,7 +148,7 @@
 						<div>						
 							<dl class="form-group col-12 d-inline-block"> 
 								<dd>
-									<button type="submit" class="btn btn-primary mobilemenu"><?= $ButtonText ?></button>
+									<button type="submit" class="submitred"><?= $ButtonText ?></button>
 								</dd>
 							</dl>
 						</div>
