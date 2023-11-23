@@ -16,11 +16,11 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/SSLKeys/SSLInsideKey.php";
 $expuri = explode("/", substr($_SERVER["REQUEST_URI"],1));
 if ( $expuri[0] == "howto" ) {
 	if ($expuri[1] == "exp" && $expuri[2] == "index") {
-		header("Location: " . $FrontEndWebsite . "/hotwo/training/steps/torun");
+		header("Location: " . $FrontEndWebsite . "/howto/training/steps/torun");
 	}
 	
 	if ( count($expuri) == 2) {
-		header("Location: " . $FrontEndWebsite . "/hotwo/training/steps/torun");
+		header("Location: " . $FrontEndWebsite . "/howto/training/steps/torun");
 	}
 }
 
