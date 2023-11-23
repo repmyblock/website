@@ -13,12 +13,28 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 date_default_timezone_set('America/New_York'); 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/SSLKeys/SSLInsideKey.php";
 
+$expuri = explode("/", substr($_SERVER["REQUEST_URI"],1));
+if ( $expuri[0] == "howto" ) {
+	if ($expuri[1] == "exp" && $expuri[2] == "index") {
+		header("Location: " . $FrontEndWebsite . "/hotwo/training/steps/torun");
+	}
+	
+	if ( count($expuri) == 2) {
+		echo "JE SUIS LA ...";
+		exit();
+		header("Location: " . $FrontEndWebsite . "/hotwo/training/steps/torun");
+	}
+}
+
+
 // This is the code to make sure that url are good
 if ( $_SERVER["HTTP_HOST"] != $_SERVER["SERVER_NAME"] ) {	
 	$exphost = explode(".", $_SERVER["HTTP_HOST"]);
 	$expuri = explode("/", substr($_SERVER["REQUEST_URI"],1));
 	
-	if ( $exphost[0] != $expuri[0] ) {		
+	
+	
+	if ( $exphost[0] != $expuri[0] ) {			
 		if ( ! (str_starts_with($expuri[0], 'AAA') && str_ends_with($expuri[0], '%253D'))) {
 			$expuri[0] = $exphost[0];
 			$newurl = "";
