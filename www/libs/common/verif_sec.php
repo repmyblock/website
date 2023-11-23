@@ -20,8 +20,6 @@ if ( $expuri[0] == "howto" ) {
 	}
 	
 	if ( count($expuri) == 2) {
-		echo "JE SUIS LA ...";
-		exit();
 		header("Location: " . $FrontEndWebsite . "/hotwo/training/steps/torun");
 	}
 }
