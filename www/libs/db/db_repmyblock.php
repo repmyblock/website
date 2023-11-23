@@ -96,7 +96,6 @@ class RepMyBlock extends queries {
 
 		#return $this->_return_multiple($sql, $sql_vars);						
 	}
-
 	
 	function ListPartyCall($Election_ID) {
 		$sql = "SELECT * FROM ElectionsPartyCall WHERE Elections_ID = :ElectionID";

@@ -1,31 +1,34 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/mysql/queries.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 global $DB;
 
-class runwithme extends queries {
+class SocialistBrand extends RepMyBlock {
 
-  function runwithme ($debug = 0, $DBFile = "DB_OutragedDems") {
+ 	/*
+  function SocialistBrand ($debug = 0, $DBFile = "DB_OutragedDems") {
 	  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
 	  $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
 	  $DebugInfo["Flag"] = $debug;
-	  
 	 	$this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
+  */
   
-  function FindVoter($FirstName, $LastName) {  	
+  function QueryVoter($Brand, $FirstName, $LastName, $Email) {  	
+  	
+  	$this->SaveVoterRequest($FirstName, $LastName, NULL, NULL, $Email, $Brand, $_SERVER['SERVER_ADDR']);
+  	
   	$CompressedFirstName = preg_replace("/[^a-zA-Z]+/", "", $FirstName);
 		$CompressedLastName = preg_replace("/[^a-zA-Z]+/", "", $LastName);
-
+		
 		$sql = "SELECT * FROM VotersIndexes " . 
-						"LEFT JOIN VotersFirstName ON (VotersIndexes.VotersFirstName_ID = VotersFirstName.VotersFirstName_ID) " .
-						"LEFT JOIN VotersLastName ON (VotersIndexes.VotersLastName_ID = VotersLastName.VotersLastName_ID) " .
-						// "LEFT JOIN " . $DatedFile . " AS DF ON (DF.Raw_Voter_UniqNYSVoterID = VotersIndexes.VotersIndexes_UniqNYSVoterID) " . 
-						"WHERE VotersFirstName_Compress = :FirstNameCompressed AND VotersLastName_Compress = :LastNameCompressed";
+						"LEFT JOIN DataFirstName ON (VotersIndexes.DataFirstName_ID = DataFirstName.DataFirstName_ID) " .
+						"LEFT JOIN DataLastName ON (VotersIndexes.DataLastName_ID = DataLastName.DataLastName_ID) " .
+						"WHERE DataFirstName_Compress = :FirstNameCompressed AND DataLastName_Compress = :LastNameCompressed";
+												
 		$sql_vars = array("FirstNameCompressed" => $CompressedFirstName, "LastNameCompressed" => $CompressedLastName);
 		return $this->_return_multiple($sql, $sql_vars);	
 	} 
-	
-	
+
 	function FindNeibors($NYSID) {
 		$sql = "SELECT * FROM VotersRaw_NYS WHERE UniqNYSVoterID = :NYSID AND (Status = 'A' OR Status = 'I')";
 		$sql_vars = array("NYSID" => $NYSID);	
@@ -137,8 +140,5 @@ class runwithme extends queries {
 		}
 		return $groupid["GroupID"];
 	}
-		
 }
-
-
 ?>

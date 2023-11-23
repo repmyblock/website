@@ -9,7 +9,8 @@
 
 		header("Location: /" . CreateEncoded (
 														array("FirstName" => trim($_POST["FirstName"]),	
-																	"LastName" => trim($_POST["LastName"]))) .
+																	"LastName" => trim($_POST["LastName"]),
+																	"Email" => trim($_POST["Email"]))) .
 						"/brand/socialist/findvoter");
 		exit();
 	}
@@ -19,7 +20,7 @@
 ?>
 <DIV class="main">
 		
-	<DIV class="right f80">Download an Social Democrat of America Petition</DIV>
+	<DIV class="right f80">Download a Social Democrat of America Petition</DIV>
 	
 			
 		<P class="f60 p20">
@@ -38,12 +39,17 @@
 		
 		<P class="f80">
 			<DIV class="f80">First Name:</DIV> 
-			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="FirstName" PLACEHOLDER="First Name" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
+			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="FirstName" PLACEHOLDER="First Name" VALUE="<?= $_POST["FirstName"] ?>"><DIV>
 		</P>
 			
 		<P class="f80">
 			<DIV class="f80">Last Name:</DIV>
-			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="LastName" PLACEHOLDER="Last Name" VALUE="<?= $_POST["username"] ?>"></DIV>
+			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="LastName" PLACEHOLDER="Last Name" VALUE="<?= $_POST["LastName"] ?>"></DIV>
+		</P>
+	
+		<P class="f80">
+			<DIV class="f80">Email:</DIV>
+			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="Email" PLACEHOLDER="Last Name" VALUE="<?= $_POST["Email"] ?>"></DIV>
 		</P>
 		
 		<P>

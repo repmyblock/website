@@ -22,11 +22,11 @@
 		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_runwithme.php";	
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brandSocialist.php";	
 					
-		$r = new RepMyBlock();	
-		$result = $r->QueryVoterFile("SocDemAmerica", $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
-																
+		$r = new SocialistBrand(0);	
+		$result = $r->QueryVoter("SocDemAmerica", $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"], $URIEncryptedString["Email"]);
+				
 		if ( empty ($result)) {
 			$error_msg = "Could not find the voter. Check the name.";
 			header("Location: /" . CreateEncoded (array("error_msg" => $error_msg)) .
@@ -53,7 +53,7 @@
 <DIV class="main">
 		
 	<FORM METHOD="POST" ACTION="">		
-	<DIV class="right f80">Download an Social Democrat of America Petition</DIV>
+	<DIV class="right f80">Download a Social Democrat of America Petition</DIV>
 	
 		<P class="f60 p20">
 			<?php if (count ($result) == 1) { ?>
@@ -78,7 +78,7 @@
 		<P>
 			<?php if (count ($result) == 1 ) { 
 				$Counter = 0;
-        $dob = new DateTime($result[0]["DOB"]);
+        $dob = new DateTime($result[0]["VotersIndexes_DOB"]);
  				$difference = $now->diff($dob);
 				if ( $result[0]["Gender"] == "M") { $gender = "Male"; }
 				else if ($result[0]["Gender"] == "F") { $gender = "Female"; }
@@ -96,10 +96,10 @@
 				<TH>Age</TH>				
 				<TH>Gender</TH>
 			</TR>
-			
+		
 			<TR>
-				<TD><?= ucwords($result[0]["FirstName"]) ?></TD>			
-				<TD><?= ucwords($result[0]["LastName"]) ?></TD>
+				<TD><?= ucwords($result[0]["DataFirstName_Text"]) ?></TD>			
+				<TD><?= ucwords($result[0]["DataLastName_Text"]) ?></TD>
 				<TD><?= ucwords($result[0]["ResStreetName"]) ?></TD>
 				<TD ALIGN=CENTER><?= $result[0]["ResZip"] ?></TD>
 				<TD ALIGN=CENTER><?= $result[0]["CongressDistr"] ?></TD>
