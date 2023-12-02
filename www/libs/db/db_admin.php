@@ -55,9 +55,9 @@ class RMBAdmin extends RepMyBlock {
 						"LEFT JOIN Team ON (Team.Team_ID = TeamMember.Team_ID) " . 
 						"LEFT JOIN Voters ON (Voters.Voters_UniqStateVoterID = SystemUser.Voters_UniqStateVoterID) " .
 						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
-						"LEFT JOIN DataDistrictTown ON (DataHouse.DataDistrictTown_ID = DataDistrictTown.DataDistrictTown_ID) " .
 						"LEFT JOIN DataDistrictTemporal ON (DataHouse.DataHouse_ID = DataDistrictTemporal.DataHouse_ID) " .
 						"LEFT JOIN DataDistrict ON (DataDistrict.DataDistrict_ID = DataDistrictTemporal.DataDistrict_ID) " .
+						"LEFT JOIN DataDistrictTown ON (DataDistrict.DataDistrictTown_ID = DataDistrictTown.DataDistrictTown_ID) " .
 						"WHERE TeamMember.Team_ID = :TeamID";	
 		$sql_vars = array("TeamID" => $TeamID);
 		return $this->_return_multiple($sql, $sql_vars);
@@ -167,9 +167,9 @@ class RMBAdmin extends RepMyBlock {
 						"LEFT JOIN DataCity ON (DataAddress.DataCity_ID = DataCity.DataCity_ID) " . 
 						"LEFT JOIN DataCounty ON (DataAddress.DataCounty_ID = DataCounty.DataCounty_ID) " . 
 						"LEFT JOIN DataState ON (DataState.DataState_ID = DataCounty.DataState_ID) " . 
-						"LEFT JOIN DataDistrictTown ON (DataHouse.DataDistrictTown_ID = DataDistrictTown.DataDistrictTown_ID) " . 
 						"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataHouse_ID = DataHouse.DataHouse_ID) " . 
 						"LEFT JOIN DataDistrict ON (DataDistrict.DataDistrict_ID = DataDistrictTemporal.DataDistrict_ID ) " . 
+						"LEFT JOIN DataDistrictTown ON (DataDistrict.DataDistrictTown_ID = DataDistrictTown.DataDistrictTown_ID) " . 
 						"WHERE " ;
 						
 						

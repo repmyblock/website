@@ -1104,7 +1104,7 @@ class RepMyBlock extends queries {
 						"LEFT JOIN DataDistrict ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .		
 						"LEFT JOIN DataCounty ON (DataDistrict.DataCounty_ID = DataCounty.DataCounty_ID) " .
 						"LEFT JOIN DataState ON (DataState.DataState_ID = DataCounty.DataState_ID) " .
-						"LEFT JOIN DataDistrictTown ON (DataDistrictTown.DataDistrictTown_ID = DataHouse.DataDistrictTown_ID) " . 
+						"LEFT JOIN DataDistrictTown ON (DataDistrictTown.DataDistrictTown_ID = DataDistrict.DataDistrictTown_ID) " . 
 						"LEFT JOIN SystemUserSelfDistrict ON (SystemUser.SystemUser_ID = SystemUserSelfDistrict.SystemUser_ID) " . 
 						"WHERE SystemUser.SystemUser_ID = :SystemID AND " .
 						"(CURDATE() >= DataDistrictCycle_CycleStartDate AND CURDATE() <= DataDistrictCycle_CycleEndDate) IS NULL";
