@@ -30,7 +30,7 @@
 			<P class="f80bold center">
 				<A HREF="/<?= $middleuri ?>/brand/socialist/download">Click here to verify your eligibility to run for the 
 					Bronx, Queens or Kings <I>(Brooklyn)</I> County Committee governance 
-					board in June 2024.</A>
+					board in June 2024 or as a Biden delegate for the DNC convention in April 2024.</A>
 			</P>
 			
 			<P class="f60">
