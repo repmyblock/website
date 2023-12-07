@@ -1,4 +1,15 @@
 <?php
+
+	$HeaderTwitter = "yes";
+	$HeaderTwitterTitle = "Rep My Block - Rep My Block";
+	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/PledgeSignature.png";
+	$HeaderTwitterDesc = "Pledge your signature to Biden delegates for the DNC convention.";
+	$HeaderOGTitle = "Biden For President";
+	$HeaderOGDescription = "Pledge your signature to Biden delegates for the DNC convention.";
+	$HeaderOGImage = "https://www.repmyblock.org/brand/socialist/Socialists.png"; 
+	$HeaderOGImageWidth = "176";
+	$HeaderOGImageHeight = "71";
+
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	$imgtoshow = "/brand/socialist/Socialists.png";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
