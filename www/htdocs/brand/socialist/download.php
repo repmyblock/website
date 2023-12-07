@@ -2,7 +2,7 @@
 
 	$HeaderTwitter = "yes";
 	$HeaderTwitterTitle = "Rep My Block - Rep My Block";
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/PledgeSignature.png";
+	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/PledgeSignature.jpg";
 	$HeaderTwitterDesc = "Pledge your signature to Biden delegates for the DNC convention.";
 	$HeaderOGTitle = "Biden For President";
 	$HeaderOGDescription = "Pledge your signature to Biden delegates for the DNC convention.";
