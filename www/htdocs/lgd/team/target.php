@@ -148,12 +148,12 @@
 					} ?>
 		
 						
-						<?php /*
-						<P>
-							<A HREF="/<?= $k ?>/lgd/team/petitionbypass">Bypass Voter Search to create a petition</A>	
+						
+						
+						<P>This is for the lawyers:
+							<A HREF="/<?= $k ?>/lgd/team/petitionbypass">bypass Voter Search to create a petition</A>	
 						</P>
-						*/ ?>
-	
+						
 					  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 							<div>
 								<dl class="form-group col-5 d-inline-block"> 

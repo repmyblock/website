@@ -70,7 +70,7 @@ class Teams extends RepMyBlock {
 						"LEFT JOIN DataDistrictCycle ON (DataDistrictTemporal.DataDistrictCycle_ID = DataDistrictCycle.DataDistrictCycle_ID) " .
 						"LEFT JOIN DataDistrict ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " .
 						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
-						"LEFT JOIN DataDistrictTown ON (DataDistrictTown.DataDistrictTown_ID = DataHouse.DataDistrictTown_ID) " .
+						"LEFT JOIN DataDistrictTown ON (DataDistrictTown.DataDistrictTown_ID = DataDistrict.DataDistrictTown_ID) " .
 						"WHERE Team.Team_ID = :TeamID AND " . //TeamMember_Privs > :MaxPrivs AND TeamMember_RemovedDate IS NULL AND " .
 						"(CURDATE() >= DataDistrictCycle_CycleStartDate AND CURDATE() <= DataDistrictCycle_CycleEndDate) IS NULL";
 		$sql_vars = array("TeamID" => $Team_ID); // , "MaxPrivs" => 16);		

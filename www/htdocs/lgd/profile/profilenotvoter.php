@@ -39,9 +39,6 @@
 		exit();
 	}
 	
-	
-	
-	
 	// Check the other database
 	// To be removed later on when I finihs fixing the table.
 	// $RawVoterNY = $rmb->SearchRawVoterInfo($rmbperson["Voters_UniqStateVoterID"]);
@@ -51,11 +48,11 @@
 	// Need to go find the right data.
 
 	$TopMenus = array (
-						array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
-						array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
-						array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile"),
-						array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
-					);
+								array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
+								array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
+								array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile"),
+								array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
+							);
 					
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; $Width="64";} else { $Cols = "col-9"; $Width="16"; }
