@@ -6,9 +6,8 @@
 	$HeaderTwitterDesc = "Pledge your signature to Biden delegates for the DNC convention.";
 	$HeaderOGTitle = "Biden For President";
 	$HeaderOGDescription = "Pledge your signature to Biden delegates for the DNC convention.";
-	$HeaderOGImage = "https://www.repmyblock.org/brand/socialist/Socialists.png"; 
-	$HeaderOGImageWidth = "176";
-	$HeaderOGImageHeight = "71";
+	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/PledgeSignature.jpg"; 
+	$HeaderOGImageWidth = "623";
 
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
