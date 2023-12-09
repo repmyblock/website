@@ -33,20 +33,19 @@
 			<A HREF="/<?= $middleuri ?>/brand/socialist/download"><IMG SRC="/brand/socialist/SocialistsForBidenHarris.jpg"></A>
 		</CENTER>
 			</P>
-		
-		
-			
+				
 			<P class="f50">
-				Social Democrats of America is looking for Socialists to run for New York and Richmond Counties Committee in 2023.
-				It's only a <B>22 hours</B> commitment <FONT COLOR=BROWN><B>PER YEAR</B></FONT>.
+				Social Democrats of America is looking for Socialists to pledge their signatures to get Joe Biden and a slate of 
+				Socialist delegates to Chicago. <B>We'll email you a real petition like this 
+				<A HREF="https://pdf.repmyblock.org/UBFZPZ8jrZgA/NY/petition" TARGET="new">sample petition</A></B>.
 			</P>
 		
-			
-			<P>
-				Watch this 26 minutes documentary that explains what it means to be part of the governance of the County Democratic party.
-			<B><A HREF="/<?= $middleuri ?>/exp/register/movie">Click here to watch the whole documentary.</A></B>
-				<I>(Press the PLAY button and enter the password (all in uppercase) <FONT COLOR=BROWN><B>QCC4ALL</B></FONT> to access the documentary.)</I>
-			</P>
+		<P>
+			<DIV class="videowrapper center">
+	 			<iframe src="https://www.youtube.com/embed/cizp2jVf-Yk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</DIV>
+	</P>
+		
 			
 			<?php /*
 			<P class="f80bold center">
@@ -60,6 +59,12 @@
 				<A HREF="/<?= $middleuri ?>/brand/socialist/download">Click here to verify your eligibility to run for the 
 					Bronx, Queens or Kings <I>(Brooklyn)</I> County Committee governance 
 					board in June 2024 or as a Biden delegate for the DNC convention in April 2024.</A>
+			</P>
+			
+				<P>
+				Watch this 26 minutes documentary that explains what it means to be part of the governance of the County Democratic party.
+			<B><A HREF="/<?= $middleuri ?>/exp/register/movie">Click here to watch the whole documentary.</A></B>
+				<I>(Press the PLAY button and enter the password (all in uppercase) <FONT COLOR=BROWN><B>QCC4ALL</B></FONT> to access the documentary.)</I>
 			</P>
 			
 			<P class="f60">
