@@ -19,10 +19,28 @@
 <DIV class="main">
 	<DIV class="right f80 p10">Help put Socialists candidates on the ballot!</DIV>
 	
+		<P>
+			Send Socialist delegates who pledge to vote for Joe Biden to the August Convention.
+		</P>
+		
+		<P class="f80bold center">
+				<A HREF="/<?= $middleuri ?>/brand/socialist/download">Click here to verify your eligibility to pledge
+					your signature for the Biden slate at the DNC convention in August 2024.</A>
+		</P>
+	
+		<P>
+			<CENTER>
+			<A HREF="/<?= $middleuri ?>/brand/socialist/download"><IMG SRC="/brand/socialist/SocialistsForBidenHarris.jpg"></A>
+		</CENTER>
+			</P>
+		
+		
+			
 			<P class="f50">
 				Social Democrats of America is looking for Socialists to run for New York and Richmond Counties Committee in 2023.
 				It's only a <B>22 hours</B> commitment <FONT COLOR=BROWN><B>PER YEAR</B></FONT>.
 			</P>
+		
 			
 			<P>
 				Watch this 26 minutes documentary that explains what it means to be part of the governance of the County Democratic party.
