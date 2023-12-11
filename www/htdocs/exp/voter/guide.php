@@ -5,7 +5,7 @@
 	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/RepMyBlockVoterGuide.jpg";
 	$HeaderTwitterDesc = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
 	$HeaderOGTitle = "Rep My Block Voter Guide.";
-	$HeaderOGDescription = "RRep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
+	$HeaderOGDescription = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
 	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/RepMyBlockVoterGuide.jpg"; 
 	$HeaderOGImageWidth = "941";
 	$HeaderOGImageHeight = "477";
