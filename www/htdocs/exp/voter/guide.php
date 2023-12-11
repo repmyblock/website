@@ -52,6 +52,12 @@
 							
 	<P>
 		<DIV>
+			
+				<P>
+							<DIV class="f60"><B><?= $var["CandidateProfile_Alias"] ?></B></DIV>
+							<DIV class="f40"><I>Running for <?= $var["CandidateElection_PetitionText"] ?></I></DIV>
+					</P>
+			
 		<DIV class='container2'>
 			<DIV>
 				<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?>
@@ -59,11 +65,7 @@
 				<?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
 			</DIV>	
 			<DIV class='container3'>
-					<P>
-							<DIV class="f50"><B><?= $var["CandidateProfile_Alias"] ?></B></DIV><BR>
-							<DIV class="f40"><I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
-					</P>
-					
+				
 							<P class="f40">
 								<?php if (! empty ($var["CandidateProfile_Statement"])) { print $var["CandidateProfile_Statement"]; }  ?>
 							</P>
