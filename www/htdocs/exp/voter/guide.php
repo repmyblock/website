@@ -54,7 +54,7 @@
 		<DIV class='container2'>
 			<DIV>
 				<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?>
-				<IMG style="float: left; margin: 0px 15px 0px 15px;" width="200" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $var["CandidateProfile_PicFileName"] ?>" class='iconDetails'>
+				<IMG style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $var["CandidateProfile_PicFileName"] ?>" class='iconDetails'>
 				<?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
 			</DIV>	
 			<DIV class='container3'>
