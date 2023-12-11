@@ -41,7 +41,7 @@
 					
 					$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
 					if ($DateDesc != $PrevDateDesc) { 
-						print "<DIV><H2>" . $DateDesc . "</H2></DIV>";	
+						print "<DIV class=\"f60\"><B>" . $DateDesc . "</B></DIV>";	
 						
 					}
 					$PrevDateDesc = $DateDesc;
@@ -60,9 +60,7 @@
 			
 		<DIV class='container2'>
 			<DIV>
-				<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?>
-				<IMG style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $var["CandidateProfile_PicFileName"] ?>" class='iconDetails'>
-				<?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
+				<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?><IMG style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $var["CandidateProfile_PicFileName"] ?>" class='iconDetails'><?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
 			
 							<P class="f40" style="text-margin: 0px 0px 0px 0px;">
 								<I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
