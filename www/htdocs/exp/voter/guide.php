@@ -86,7 +86,7 @@
 				      </P>
 						
 				<?php if ( ! empty ($var["CandidateProfile_PDFFileName"])) { ?>						
-					<A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Download <?= $var["CandidateProfile_Alias"] ?>'s Platform</A>
+					<P class="f40"><A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Download <?= $var["CandidateProfile_Alias"] ?>'s Platform</A></P>
 				<?php } ?>
 			</DIV>
 		</DIV>
