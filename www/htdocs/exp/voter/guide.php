@@ -55,7 +55,7 @@
 			
 				<P>
 							<DIV class="f60"><B><?= $var["CandidateProfile_Alias"] ?></B></DIV>
-							<DIV class="f40"><I>Running for <?= $var["CandidateElection_PetitionText"] ?></I></DIV>
+						
 					</P>
 			
 		<DIV class='container2'>
@@ -63,12 +63,15 @@
 				<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?>
 				<IMG style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $var["CandidateProfile_PicFileName"] ?>" class='iconDetails'>
 				<?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
-			</DIV>	
-			<DIV class='container3'>
-				
-							<P class="f40">
+			
+							<P class="f40" style="text-margin: 0px 0px 0px 0px;">
+								<I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
 								<?php if (! empty ($var["CandidateProfile_Statement"])) { print $var["CandidateProfile_Statement"]; }  ?>
 							</P>
+							</DIV>	
+	<br style="clear:both">
+			<DIV class='container3'>
+	
 							
 							<P class="f40">
 								<?php if (! empty ($var["CandidateProfile_Website"])) { ?><B>Website:</B> <A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?= $var["CandidateProfile_Website"] ?></A> -<?php } ?> 
