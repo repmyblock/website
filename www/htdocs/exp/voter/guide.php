@@ -26,6 +26,8 @@
 	<DIV class="right f80">Voter Guide</DIV>
  	<DIV class="panels">		
 	
+	
+	
 	<P>
 	
 	
@@ -37,7 +39,10 @@
 				if ( ! empty ($var)) {
 					
 					$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
-					if ($DateDesc != $PrevDateDesc) { print "<H2>" . $DateDesc . "</H2>";	}
+					if ($DateDesc != $PrevDateDesc) { 
+						print "<br style=\"clear:both\" /><DIV><H2>" . $DateDesc . "</H2></DIV>";	
+						
+					}
 					$PrevDateDesc = $DateDesc;
 					
 					
@@ -45,9 +50,12 @@
 	?>
 							
 	<P>
+		<DIV>
 		<DIV class='container2'>
-			<DIV style="float:left;">
-				<IMG SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $var["CandidateProfile_PicFileName"] ?>" class='iconDetails'>
+			<DIV>
+				<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?>
+				<IMG style="float: left; margin: 0px 15px 0px 15px;" width="200" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $var["CandidateProfile_PicFileName"] ?>" class='iconDetails'>
+				<?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
 			</DIV>	
 			<DIV class='container3'>
 					<P>
@@ -78,6 +86,7 @@
 				<?php } ?>
 			</DIV>
 		</DIV>
+	</DIV>
 	</P>
 
 	<?php
@@ -85,11 +94,15 @@
 			}
 		} else {
 	?>
+	
 		<H2>The guide is empty at this time.</H2>
 		
 	
 	<?php } ?>
 	</P>
+</DIV>
+
+<br style="clear:both">
 
 <P>
 	<DIV class="right f60">	
