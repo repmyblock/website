@@ -60,15 +60,15 @@
 			</DIV>	
 			<DIV class='container3'>
 					<P>
-							<FONT SIZE=+1><B><?= $var["CandidateProfile_Alias"] ?></B></FONT><BR>
-							<I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
+							<DIV class="f50"><B><?= $var["CandidateProfile_Alias"] ?></B></DIV><BR>
+							<DIV class="f40"><I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
 					</P>
 					
-							<P>
+							<P class="f40">
 								<?php if (! empty ($var["CandidateProfile_Statement"])) { print $var["CandidateProfile_Statement"]; }  ?>
 							</P>
 							
-							<P>
+							<P class="f40">
 								<?php if (! empty ($var["CandidateProfile_Website"])) { ?><B>Website:</B> <A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?= $var["CandidateProfile_Website"] ?></A> -<?php } ?> 
 					      <?php if (! empty ($var["CandidateProfile_BallotPedia"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_BallotPedia"] ?>">Ballotpedia</A><?php } ?><BR>
 					      <?php if (! empty ($var["CandidateProfile_Email"])) { ?><B>Email:</B> <A TARGET="NEW" HREF="mailto:<?= $var["CandidateProfile_Email"] ?>"><?= $var["CandidateProfile_Email"] ?></A><?php } ?>
