@@ -37,10 +37,11 @@
 				
 				WriteStderr($var, "Voter Guide");
 				if ( ! empty ($var)) {
+					print "<br style=\"clear:both\" />";
 					
 					$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
 					if ($DateDesc != $PrevDateDesc) { 
-						print "<br style=\"clear:both\" /><DIV><H2>" . $DateDesc . "</H2></DIV>";	
+						print "<DIV><H2>" . $DateDesc . "</H2></DIV>";	
 						
 					}
 					$PrevDateDesc = $DateDesc;
