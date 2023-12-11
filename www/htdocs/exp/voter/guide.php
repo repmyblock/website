@@ -1,4 +1,15 @@
 <?php
+
+	$HeaderTwitter = "yes";
+	$HeaderTwitterTitle = "Rep My Block - Rep My Block";
+	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/RepMyBlockVoterGuide.jpg";
+	$HeaderTwitterDesc = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
+	$HeaderOGTitle = "Rep My Block Voter Guide.";
+	$HeaderOGDescription = "RRep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
+	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/RepMyBlockVoterGuide.jpg"; 
+	$HeaderOGImageWidth = "941";
+	$HeaderOGImageHeight = "477";
+	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";
 	
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
@@ -25,7 +36,9 @@
 				WriteStderr($var, "Voter Guide");
 				if ( ! empty ($var)) {
 					
-					print "<H2>" . PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"] . "</H2>";
+					$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
+					if ($DateDesc != $PrevDateDesc) { print "<H2>" . $DateDesc . "</H2>";	}
+					$PrevDateDesc = $DateDesc;
 					
 					
 				// if ( $var["CandidateProfile_PublishProfile"] != 'no' || $var["CandidateProfile_PublishPetition"] != 'no') { 
