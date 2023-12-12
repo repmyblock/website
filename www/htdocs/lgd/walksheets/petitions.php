@@ -6,13 +6,13 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
   
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	$rmb = new repmyblock();
+	$rmb = new repmyblock(0);
   
   if ( ! empty ($_POST) && $_POST["TYPE"] != "Select a district type") {
   		WriteStderr($_POST, "Post New");	
   	if ( ! empty ($_POST["TYPE"]) && ! empty ($_POST["VALUE"])) {
 	  	//$result = $rmb->ListRawNYEDByDistricts(trim($_POST["TYPE"]), intval($_POST["VALUE"]));
-	  	$result = $rmb->ListEDByDistricts(trim($_POST["TYPE"]), intval($_POST["VALUE"]), 1);
+	  	$result = $rmb->ListEDByDistricts(trim($_POST["TYPE"]), intval($_POST["VALUE"]), 8);
   	} else {
   		$ErrorMsg = "The Search cannot be empty";
   	}	

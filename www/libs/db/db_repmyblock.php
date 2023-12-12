@@ -1052,7 +1052,7 @@ class RepMyBlock extends queries {
 	}
 	
 	
-	function ListEDByDistricts($DistrictType, $DistrictValue, $DistrictCycle = '2')	{
+	function ListEDByDistricts($DistrictType, $DistrictValue, $DistrictCycle = '8')	{
 		$sql = "SELECT DISTINCT DataDistrict_Electoral AS ED, DataDistrict_StateAssembly AS AD ";
 	
 		switch ($DistrictType) {
