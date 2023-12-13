@@ -19,7 +19,7 @@
 		// find which one is the right one.
 		WriteStderr($_POST, "Result of Post:");
 		if (! empty ($_POST["checkoneyes"])) {
-			header("Location: /" . CreateEncoded (array("NYSID" => trim($_POST["NYSID"]))) . "/brand/RunWithMe/neighbors");
+			header("Location: /" . CreateEncoded (array("NYSID" => trim($_POST["NYSID"]))) . "/brand/savesection9/neighbors");
 		} else {					
 			header("Location: ../");
 		}
@@ -32,7 +32,7 @@
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_savesection9.php";	
 					
-		$r = new savesection9(1);	
+		$r = new savesection9();	
 		$result = $r->QueryVoter("savesection9", $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
 																
 		if ( empty ($result)) {
@@ -71,11 +71,9 @@
 				$Counter = 0;
         $dob = new DateTime($result[0]["VotersIndexes_DOB"]);
  				$difference = $now->diff($dob);
-				if ( $result[0]["Gender"] == "M") { $gender = "Male"; }
-				else if ($result[0]["Gender"] == "F") { $gender = "Female"; }
 			?>
 	
-			<INPUT TYPE="hidden" NAME="NYSID" VALUE="<?= $result[0]["UniqNYSVoterID"] ?>">	
+			<INPUT TYPE="hidden" NAME="NYSID" VALUE="<?= $result[0]["VotersIndexes_UniqStateVoterID"] ?>">	
 
 			<TABLE id="VoterTable" width=100%>
 			<TR>
@@ -90,10 +88,10 @@
 			<TR>
 				<TD><?= ucwords($result[0]["DataFirstName_Text"]) ?></TD>
 				<TD><?= ucwords($result[0]["DataLastName_Text"]) ?></TD>			
-				<TD><?= ucwords($result[0]["ResStreetName"]) ?></TD>
-				<TD ALIGN=CENTER><?= $result[0]["ResZip"] ?></TD>
+				<TD><?= ucwords($result[0]["DataStreet_Name"]) ?></TD>
+				<TD ALIGN=CENTER><?= $result[0]["DataAddress_zipcode"] ?></TD>
 				<TD ALIGN=CENTER><?= $difference->y; ?></TD>				
-				<TD ALIGN=CENTER><?= $gender ?></TD>
+				<TD ALIGN=CENTER><?= ucwords($result[0]["Voters_Gender"]) ?></TD>
 			</TR>
 			</TABLE>
 			
@@ -126,8 +124,6 @@
        		if ( ! empty ($var)) {
        		  $dob = new DateTime($var["DOB"]);
  						$difference = $now->diff($dob);
- 						if ( $var["Gender"] == "M") { $gender = "Male"; }
- 						else if ($var["Gender"] == "F") { $gender = "Female"; }     	
        	?>
        
 			<TR>
@@ -136,10 +132,10 @@
 				</TD>
 				<TD><?= ucwords($var["DataLastName_Text"]) ?></TD>			
 				<TD><?= ucwords($var["DataFirstName_Text"]) ?></TD>
-				<TD><?= ucwords($var["ResStreetName"]) ?></TD>
-				<TD ALIGN=CENTER><?= $var["ResZip"] ?></TD>
+				<TD><?= ucwords($var["DataStreet_Name"]) ?></TD>
+				<TD ALIGN=CENTER><?= $var["DataAddress_zipcode"] ?></TD>
 				<TD ALIGN=CENTER><?= $difference->y; ?></TD>				
-				<TD ALIGN=CENTER><?= $gender ?></TD>
+				<TD ALIGN=CENTER><?= ucwords($var["Voters_Gender"]) ?></TD>
 			</TR>
        
        <?php 
