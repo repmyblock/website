@@ -10,7 +10,6 @@ class RMBAdmin extends RepMyBlock {
 	}
 
 	function AddElectionDates($ElectionText, $ElectionDate, $ElectionStateID, $ElectionType) {
-		
 		if (empty($ElectionText) && empty($ElectionDate) && empty($ElectionStateID) && empty($ElectionType) ){
 			return -1;
 		}
@@ -18,12 +17,19 @@ class RMBAdmin extends RepMyBlock {
 		$sql = "SELECT * FROM Elections WHERE DataState_ID = :StateID, Elections_Text = :Text, Elections_Date = :Date, Elections_Type = :Type";
 		$sql_vars = array("Text" => $ElectionText, "Date" => $ElectionDate, "StateID" => $ElectionStateID, "Type" => $ElectionType);
 		$ret = $this->_return_multiple($sql, $sql_vars);
-		
-		
-		
-		
-		
-		
+	}
+	
+	function ChangeTeamOwner($TeamID, $NewOwner) {		
+		if ( $TeamID > 0) {
+			if ( empty ($NewOwner)) {
+				$sql = "UPDATE Team Set SystemUser_ID = NULL WHERE Team_ID = :TeamID";
+				$sql_vars = array("TeamID" => $TeamID);
+			} else {
+				$sql = "UPDATE Team SET SystemUser_ID = :TeamUser WHERE Team_ID = :TeamID";
+				$sql_vars = array("TeamID" => $TeamID, "TeamUser" => $NewOwner);
+			}
+			return $this->_return_nothing($sql, $sql_vars);
+		}
 	}
 	
 	function UpdateBulkSystemPriv($PrivModification, $SystemUserID = NULL) {
@@ -40,7 +46,7 @@ class RMBAdmin extends RepMyBlock {
 			$sql_vars["SystemID"] = $SystemUserID;
 		}
 
-		return $this->_return_nothing($sql, $sql_vars);
+		
 	}	
 	
 	function ReturnTeamMembership($SystemUserID) {
