@@ -24,7 +24,7 @@ class savesection9 extends RepMyBlock {
 						"LEFT JOIN DataFirstName ON (VotersIndexes.DataFirstName_ID = DataFirstName.DataFirstName_ID) " .
 						"LEFT JOIN DataLastName ON (VotersIndexes.DataLastName_ID = DataLastName.DataLastName_ID) " .
 						"LEFT JOIN Voters ON (Voters.VotersIndexes_ID = VotersIndexes.VotersIndexes_ID) " .
-						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataAddress_ID) " .
+						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " .
 						"LEFT JOIN DataAddress ON (DataHouse.DataAddress_ID = DataAddress.DataAddress_ID) " .
 						"LEFT JOIN DataStreet ON (DataAddress.DataStreet_ID = DataStreet.DataStreet_ID) " .
 						"WHERE DataFirstName_Compress = :FirstNameCompressed AND DataLastName_Compress = :LastNameCompressed";
