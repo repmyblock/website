@@ -5,8 +5,8 @@
 
 	if ( ! empty ($_POST["CheckRegistration"])) {
 		
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_savesection9.php";	
-		$r = new savesection9();						
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_generic.php";	
+		$r = new generic();						
 	  $IDReturned = $r->SaveContacts($BrandingName, trim($_POST["FirstName"]), trim($_POST["LastName"]), 
 										  trim($_POST["Email"]), trim($_POST["Telephone"]), NULL);
 

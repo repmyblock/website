@@ -1,17 +1,14 @@
 <?php
-	include "brandheader.php";	
+	include "brandheader.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 
 	if ( ! empty ($_POST)) {
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_generic.php";	
 		$r = new generic();						
-	 	$IDReturned = $r->SaveContacts($BrandingName , trim($_POST["FirstName"]), trim($_POST["LastName"]), 
+	 	$IDReturned = $r->SaveContacts($BrandingName, trim($_POST["FirstName"]), trim($_POST["LastName"]), 
 										  			trim($_POST["Email"]), trim($_POST["Telephone"]), trim($_POST["NYSID"]));
-	
-		header("Location: /" . CreateEncoded (
-															array("SystemQuerySaveID" => $IDReturned),	
-														) .
+		header("Location: /" . CreateEncoded (array("SystemQuerySaveID" => $IDReturned)) .
 						"/brand/" . $BrandingName . "/saveinformation");
 		exit();
 			
@@ -20,6 +17,15 @@
 	if ( ! empty ($_GET["k"])) {		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
+					
+		
+		/*												
+		if ( empty ($result)) {
+			$error_msg = "Could not find the voter. Check the name.";
+			header("Location: ../download/?k=" . EncryptURL("error_msg=" . $error_msg));
+			exit();
+		}
+		*/
 	}
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
@@ -27,7 +33,7 @@
 <DIV class="main">
 		
 	<FORM METHOD="POST" ACTION="">		
-		<DIV class="right f80"><?= $BrandingTitle ?></DIV>
+			<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 			
 		<P class="f50">
@@ -55,9 +61,9 @@
 			</DIV>
 		</P>
 		
-		<P class="f50">
-			<?= $BrandingMaintainer ?>
-		</P>
+			<P class="f50">
+				<?= $BrandingMaintainer ?>
+			</P>
 		
 		
 		<P class="f40">

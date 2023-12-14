@@ -25,9 +25,9 @@
 		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_savesection9.php";	
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_generic.php";	
 					
-		$r = new savesection9();	
+		$r = new generic();	
 		$result = $r->QueryVoter($BrandingName, $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
 																
 		if ( empty ($result)) {

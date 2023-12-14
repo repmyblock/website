@@ -10,7 +10,7 @@
 	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/BAAGRepMyBlock.jpg";
 	$HeaderTwitterDesc = "Run for County Committee.";
 	$HeaderOGTitle = "Run for County Committee.";
-	$HeaderOGDescription = "Run for County Committee..";
+	$HeaderOGDescription = "Run for County Committee.";
 	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/BAAGRepMyBlock.jpg"; 
 	$HeaderOGImageWidth = "921";
 	$HeaderOGImageHeight = "575";
