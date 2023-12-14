@@ -9,7 +9,8 @@
 	$HeaderOGImageWidth = "960";
 	$HeaderOGImageHeight = "541";
 	
-
+	$imgtoshow = "/brand/savesection9/SaveSection9.png";
+	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
@@ -36,7 +37,7 @@
 			</P>
 		
 			<P class="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/savesection9/download">Click here to check your registration</A>
+				<A HREF="/<?= $middleuri ?>/brand/savesection9/search">Click here to check your registration</A>
 			</P>
 			
 			<P class="f60">

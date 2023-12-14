@@ -33,38 +33,21 @@
 	
 			
 		<P class="f60 p20">
-			To prepare the petition, we need to verify your Voter Registration. Please enter your first and last name.
+			Thanks for filling out the registration form. Someone for Save Section 9 will contact 
+			you shortly to help get the petition.
 		</P>
-
-		<?php if ( ! empty($error_msg)) { ?>
-			<P class="f60">
-				<FONT COLOR="BROWN"><B><?= $error_msg ?></B></FONT>
-			</P>
-		<?php } ?>
-						
-
-	<FORM METHOD="POST" ACTION="">			
 		
-		<P class="f80">
-			<DIV class="f80">First Name:</DIV> 
-			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="FirstName" PLACEHOLDER="First Name" VALUE="<?= $_POST["emailaddress"] ?>"><DIV>
+		<P class="f60">
+			You can create a username by sending an email to <A HREF=""><B>savesection9+150@register.repmyblock.org</B></A>.
 		</P>
+		
 			
-		<P class="f80">
-			<DIV class="f80">Last Name:</DIV>
-			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="LastName" PLACEHOLDER="Last Name" VALUE="<?= $_POST["username"] ?>"></DIV>
-		</P>
-		
-		<P>
-			<DIV><INPUT class="" TYPE="Submit" NAME="CheckRegistration" VALUE="Check My Voter Registration"></DIV>
-		</P>
-
-			<P class="f50">
+		<P class="f50">
 				This page is maintained by the <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">Save Section 9</A></B>.
 				Check their facebook page at <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">https://www.facebook.com/groups/savesection9</A>.
 			</P>
 		
-		
+			
 		<P class="f40">
 			By clicking the "Register" button, you are creating a 
 			RepMyBlock account, and you agree to RepMyBlock's 

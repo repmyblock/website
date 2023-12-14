@@ -1,4 +1,19 @@
 <?php
+
+
+	$HeaderTwitter = "yes";
+	$HeaderTwitterTitle = "Save Section 9 - Rep My Block";
+	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/SaveSection9.jpg";
+	$HeaderTwitterDesc = "Save Section 9, Run for Presidential Delegate.";
+	$HeaderOGTitle = "Save Section 9, Run for Presidential Delegate.";
+	$HeaderOGDescription = "Save Section 9, Run for Presidential Delegate.";
+	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/SaveSection9.jpg"; 
+	$HeaderOGImageWidth = "960";
+	$HeaderOGImageHeight = "541";
+	
+	$imgtoshow = "/brand/savesection9/SaveSection9.png";
+	
+	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 
 	if ( ! empty ($_POST)) {
@@ -15,8 +30,12 @@
 			
 			header("Location: /" . CreateEncoded (
 														array("FirstName" => trim($_POST["FirstName"]),	
-																	"LastName" => trim($_POST["LastName"]))) .
-														"/brand/RunWithMe/prepwitness");
+																	"LastName" => trim($_POST["LastName"]),
+																	"UniqID" => trim($_POST["NYSID"])
+																	
+																	)) .
+																	
+														"/brand/RunWithMe/saveinformation");
 			exit();
 			
 		}
@@ -26,9 +45,9 @@
 	if ( ! empty ($_GET["k"])) {		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_runwithme.php";	
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_savesection9.php";	
 					
-		$r = new runwithme();	
+		$r = new savesection9();	
 		$result = $r->FindNeibors($URIEncryptedString["NYSID"]);
 		WriteStderr($URIEncryptedString["NYSID"], "Neighbors ... ");
 		
@@ -41,63 +60,50 @@
 		*/
 	}
 	
-	$imgtoshow = "/brand/RunWithMe/RunWithMe.png";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
 <DIV class="main">
 		
 	<FORM METHOD="POST" ACTION="">		
-	<DIV class="right f80">Download a Paperboy Love Prince Petition</DIV>
+		<DIV class="right f80">Run Biden Presidential Delegates</DIV>
 	
 			
 		<P class="f50">
-			We need to find the voters in your building that you know that
-			can sign a petition.<BR>
-			<B>Select only the voters you know.</B>
+			Please enter your contact information and we'll contact you shortly about signing the petition for presidential delegates.
 		</P>
 		
-		<INPUT TYPE="hidden" NAME="NYSID[0]" VALUE="<?= $URIEncryptedString["NYSID"] ?>">
+		<INPUT TYPE="hidden" NAME="NYSID" VALUE="<?= $URIEncryptedString["NYSID"] ?>">
 
 			
-			<TABLE id="VoterTable">
-			<TR>
-				<TH>&nbsp;</TH>
-				<TH>Apt</TH>				
-				<TH>First Name</TH>			
-				<TH>Last Name</TH>		
-			</TR>
-
-<?php 		
-			$Counter = 1;
-			if ( ! empty ($result)) {
-				foreach  ($result as $var) {
-					if ( ! empty ($var) && $URIEncryptedString["NYSID"] != $var["UniqNYSVoterID"]) {
-?>
-
-			<TR>
-				<TD ALIGN=CENTER>
-					<INPUT TYPE="checkbox" NAME="NYSID[<?= $Counter ?>]" VALUE="<?= $var["UniqNYSVoterID"] ?>">
-					<INPUT TYPE="hidden" NAME="Witness[<?= $Counter ?>]" VALUE="<?= $var["FirstName"] . " " . $var["LastName"] ?>">
-				</TD>
-				<TD ALIGN=CENTER><?= $var["ResApartment"] ?></TD>
-				<TD><?= ucwords($var["FirstName"]) ?></TD>			
-				<TD><?= ucwords($var["LastName"]) ?></TD>
-			</TR>
+		<P class="f80">
+			<DIV class="f80">Email:</DIV>
+			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="Email" PLACEHOLDER="Email Address" VALUE=""></DIV>
+		</P>
 		
-<?php					
-					$Counter++;	
-					}
-				}
-			}
-?>			
-
-				</TABLE>
+			<P class="f80">
+			<DIV class="f80">Telephone:</DIV>
+			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="Telephone" PLACEHOLDER="Telephone" VALUE=""></DIV>
+		</P>
 			&nbsp;<BR>
 
 			<DIV>
-				<INPUT class="" TYPE="Submit" NAME="checkoneyes" VALUE="Prepare the petition">
+				<INPUT class="" TYPE="Submit" NAME="checkoneyes" VALUE="Save the information">
 			</DIV>
 		</P>
+		
+			<P class="f50">
+				This page is maintained by the <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">Save Section 9</A></B>.
+				Check their facebook page at <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">https://www.facebook.com/groups/savesection9</A>.
+			</P>
+		
+		
+		<P class="f40">
+			By clicking the "Register" button, you are creating a 
+			RepMyBlock account, and you agree to RepMyBlock's 
+			<A HREF="/text/terms">Terms of Use</A> and 
+			<A HREF="/text/privacy">Privacy Policy.</A>
+		</P>
+
 	</FORM>
 </DIV>
 		

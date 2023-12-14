@@ -21,7 +21,11 @@
 		if (! empty ($_POST["checkoneyes"])) {
 			header("Location: /" . CreateEncoded (array("NYSID" => trim($_POST["NYSID"]))) . "/brand/savesection9/neighbors");
 		} else {					
-			header("Location: ../");
+			header("Location: /" . CreateEncoded (array(
+					"FirstName" => trim($URIEncryptedString["FirstName"]),
+					"LastName" => trim($URIEncryptedString["LastName"]),
+					"Error" => "Found ID but not the right person"
+			)) . "/brand/savesection9/notfound");
 		}
 		exit();
 	}
@@ -36,8 +40,11 @@
 		$result = $r->QueryVoter("savesection9", $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
 																
 		if ( empty ($result)) {
-			$error_msg = "Could not find the voter. Check the name.";
-			header("Location: ../download/?k=" . EncryptURL("error_msg=" . $error_msg));
+			header("Location: /" . CreateEncoded (array(
+					"FirstName" => trim($URIEncryptedString["FirstName"]),
+					"LastName" => trim($URIEncryptedString["LastName"]),
+					"Error" => "We did not find the user"
+			)) . "/brand/savesection9/notfound");
 			exit();
 		}
 		
@@ -122,13 +129,13 @@
        <?php
        	foreach ($result as $var) {
        		if ( ! empty ($var)) {
-       		  $dob = new DateTime($var["DOB"]);
+       		  $dob = new DateTime($var["VotersIndexes_DOB"]);
  						$difference = $now->diff($dob);
        	?>
        
 			<TR>
 				<TD ALIGN=CENTER> 
-					<INPUT TYPE="radio" NAME="NYSID" VALUE="<?= $var["UniqNYSVoterID"] ?>">	
+					<INPUT TYPE="radio" NAME="NYSID" VALUE="<?= $var["VotersIndexes_UniqStateVoterID"] ?>">	
 				</TD>
 				<TD><?= ucwords($var["DataLastName_Text"]) ?></TD>			
 				<TD><?= ucwords($var["DataFirstName_Text"]) ?></TD>
@@ -159,6 +166,18 @@
 						
 <?php   } ?>
 
+	<P class="f50">
+				This page is maintained by the <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">Save Section 9</A></B>.
+				Check their facebook page at <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">https://www.facebook.com/groups/savesection9</A>.
+			</P>
+		
+		
+		<P class="f40">
+			By clicking the "Register" button, you are creating a 
+			RepMyBlock account, and you agree to RepMyBlock's 
+			<A HREF="/text/terms">Terms of Use</A> and 
+			<A HREF="/text/privacy">Privacy Policy.</A>
+		</P>
 
 
 		
