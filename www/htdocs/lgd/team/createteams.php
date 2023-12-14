@@ -22,22 +22,18 @@
 	
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($UserParty);
-	WriteStderr($rmbperson, "URIEncryptedString");
+	WriteStderr($rmbperson, "rmbperson");
 
 	if ( ! empty ($_POST)) {
 		WriteStderr($_POST, "Creating a new team \$_POST");
 
 		$TeamName = trim($_POST["TeamName"]);
-		if ( ctype_alnum($TeamName)) {
-			$ErrorMsg = "<B><FONT COLOR=BROWN>The team name $TeamName is not valid. Please remove any non alphanumeric characters.</FONT></B>";
-		}
-		
 		$TeamAccessCode = trim($_POST["TeamAccessCode"]);
 		$TeamAccessEmail = $TeamAccessCode . "@team." . $MailFromDomain;
-		if (! filter_var($TeamAccessEmail, FILTER_VALIDATE_EMAIL)) {
-     $ErrorMsg =  "<B><FONT COLOR=BROWN>The team access code selected</FONT> \"$TeamAccessCode\" <FONT COLOR=BROWN>contains invalid caracters. Only use alphanumeric characters.</FONT></B>";
-   	}
 
+		if ( ctype_alnum($TeamName)) { $ERROR_CODE = "1"; }
+		if (! filter_var($TeamAccessEmail, FILTER_VALIDATE_EMAIL)) { $ERROR_CODE = "2"; }
+    
 		if ( empty ($ErrorMsg)) {
 			$result = $rmb->CheckTeamExist($TeamName, $TeamAccessCode);
 			
@@ -46,10 +42,34 @@
 				header("Location: index");
 				exit();
 			} else {
-				$ErrorMsg = "<B><FONT COLOR=BROWN>The name $TeamAccessCode was already used, please select a different one.</FONT></B>";
+				$ERROR_CODE = "3";
 			}
 		}
+		
+		exit();
 	}
+	
+	### DealWithError
+	if (! empty($URIEncryptedString["ERROR_CODE"])) {
+		switch ($URIEncryptedString["ERROR_CODE"])) {
+			case "1":
+				$ErrorMsg = "<B><FONT COLOR=BROWN>The team name " . $URIEncryptedString["TeamName"] . " is not valid. Please remove any non alphanumeric characters.</FONT></B>";
+				break:
+				
+			case "2":
+				$ErrorMsg =  "<B><FONT COLOR=BROWN>The team access code selected</FONT> \"" . $URIEncryptedString["TeamAccessCode"] . "\" <FONT COLOR=BROWN>contains invalid caracters. Only use alphanumeric characters.</FONT></B>";
+				break;		
+				
+			case "3":
+				$ErrorMsg = "<B><FONT COLOR=BROWN>The name " . $URIEncryptedString["TeamAccessCode"] . " was already used, please select a different one.</FONT></B>";
+				break;	
+		}
+	}
+	
+		
+		 
+   	
+
 			
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
@@ -84,7 +104,7 @@
 								  </DD>
 								  
 								  <DD>
-								    <INPUT class="form-control" type="text" placeholder="Give your team a name" name="TeamName" value="<?= $rmbcandidate["TeamName"]; ?>">
+								    <INPUT class="form-control" type="text" placeholder="Give your team a name" name="TeamName" value="<?= $URIEncryptedString["TeamName"]; ?>">
 								  </DD>
 								</DL>
 								  
@@ -93,7 +113,7 @@
 								  		The access code is the name people will need to enter in the personal profile to get access to your team.
 								  </DD>
 								  <DD>
-								    <INPUT class="form-control" type="text" placeholder="Token name" name="TeamAccessCode" value="<?= $rmbcandidate["TeamAccessCode"]; ?>">
+								    <INPUT class="form-control" type="text" placeholder="Token name" name="TeamAccessCode" value="<?= $URIEncryptedString["TeamAccessCode"]; ?>">
 								  </DD>
 								</DL>
 								

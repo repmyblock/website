@@ -25,6 +25,12 @@
 		exit();
 	}
 	
+	if ( $URIEncryptedString["SystemQuerySaveID"] > 0 ) {
+		$EmailToEmail = "savesection9+" . $URIEncryptedString["SystemQuerySaveID"] . "@register.repmyblock.org";
+	} else {
+		$EmailToEmail = "savesection9@register.repmyblock.org";
+	}
+	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
 <DIV class="main">
@@ -38,7 +44,7 @@
 		</P>
 		
 		<P class="f60">
-			You can create a username by sending an email to <A HREF=""><B>savesection9+150@register.repmyblock.org</B></A>.
+			You can create a username by sending an email to <A HREF="mailto:<?= $EmailToEmail ?>"><B><?=$EmailToEmail ?></B></A>.
 		</P>
 		
 			

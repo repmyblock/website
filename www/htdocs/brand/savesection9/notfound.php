@@ -17,14 +17,14 @@
 	if ( ! empty ($_POST["CheckRegistration"])) {
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_savesection9.php";	
 		$r = new savesection9();						
-	  $IDReturned = $r->SaveContacts("savesection9", $_POST["FirstName"], $_POST["LastName"], 
-										  $_POST["Email"], $_POST["Telephone"], NULL);
+	  $IDReturned = $r->SaveContacts("savesection9", trim($_POST["FirstName"]), trim($_POST["LastName"]), 
+										  trim($_POST["Email"]), trim($_POST["Telephone"]), NULL);
 
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 
 		header("Location: /" . CreateEncoded (
 															array("SystemQuerySaveID" => $IDReturned),	
-														)) .
+														) .
 						"/brand/savesection9/saveinformation");
 		exit();
 	}
@@ -35,13 +35,11 @@
 		
 	<DIV class="right f80">Run Biden Presidential Delegates</DIV>
 	
-			
-		<P class="f60 p20">
-			
-				We did not find your voter registration card in the system. Please enter your contact information and 
-			someone will contact you shortly.
-		</P>
-						
+	<P class="f60 p20">
+		We did not find your voter registration card in the system. Please enter your contact information and 
+		someone will contact you shortly.
+	</P>
+							
 
 	<FORM METHOD="POST" ACTION="">			
 		
@@ -60,32 +58,27 @@
 			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="Email" PLACEHOLDER="Email Address" VALUE=""></DIV>
 		</P>
 		
-			<P class="f80">
+		<P class="f80">
 			<DIV class="f80">Telephone:</DIV>
 			<DIV><INPUT class="" type="text" autocorrect="off" autocapitalize="none" NAME="Telephone" PLACEHOLDER="Telephone" VALUE=""></DIV>
 		</P>
-		
-		
 		
 		<P>
 			<DIV><INPUT class="" TYPE="Submit" NAME="CheckRegistration" VALUE="Save My Information"></DIV>
 		</P>
 
-				<P class="f50">
-				This page is maintained by the <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">Save Section 9</A></B>.
-				Check their facebook page at <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">https://www.facebook.com/groups/savesection9</A>.
-			</P>
-		
-			
+		<P class="f50">
+			This page is maintained by the <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">Save Section 9</A></B>.
+			Check their facebook page at <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">https://www.facebook.com/groups/savesection9</A>.
+		</P>
+					
 		<P class="f40">
 			By clicking the "Register" button, you are creating a 
 			RepMyBlock account, and you agree to RepMyBlock's 
 			<A HREF="/text/terms">Terms of Use</A> and 
 			<A HREF="/text/privacy">Privacy Policy.</A>
 		</P>
-
-
-
+		
 	</FORM>
 </DIV>
 		

@@ -201,7 +201,10 @@ class RepMyBlock extends queries {
     									"Email" => $Email, "UniqNYSVoterID" => $UniqNYSVoterID,
     									"Branding" => $Branding, "Contact" => $Contact,
     									"IP" => $IP);
-		return $this->_return_nothing($sql, $sql_vars);
+		$this->_return_nothing($sql, $sql_vars);
+		
+		$sql = "SELECT LAST_INSERT_ID() as SystemUserQuery_ID";
+		return $this->_return_simple($sql); 	
 	}
 
 	function SearchVoterDB($FirstName, $LastName, $DOB, $Status = "") {

@@ -15,7 +15,17 @@
   if (! empty ($_POST)) {
   	WriteStderr($URIEncryptedString, "URIEncryptedString");
   	WriteStderr($_POST, "POST to ... ");
+  	
+  	
+  	if ( $_POST["ActionOwner"] == "unsassign") { 
+  		$NewTeamOwner = "";
+  		$rmb->ChangeTeamOwner($URIEncryptedString["Team_ID"], $NewTeamOwner);	
+  	}
+  	
+  	
+  	exit();
   	// $TeamInformation = $rmb->ListAllInfoForTeam($_POST["Team_ID"]);
+  		
   	header("Location: /" . CreateEncoded (
 					array( 
 						"Team_ID" => $_POST["Team_ID"],
@@ -119,6 +129,29 @@
 									</SELECT>
 								</dd>
 							</dl>
+							
+						
+								<div>
+	
+								<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">Owner Change</label><DT>
+								<dd>
+									<SELECT class="Ownership" NAME="ActionOwner">
+									<OPTION VALUE="" SELECTED>&nbsp;</OPTION>
+									<OPTION VALUE="unsassign">Unassign Ownership</OPTION>
+									<OPTION VALUE="reassign">Reassign Ownershipo</OPTION>	
+									</SELECT>
+								</dd>
+							</dl>
+	
+							
+							<dl class="form-group col-48 d-inline-block"> 
+								<dt class="mobilemenu"><label for="user_profile_name">Assigned Owner</label><DT>
+								<dd>
+									<input class="form-control" type="text" Placeholder="URL Redirect" name="NewOwner" VALUE="<?= $activeteam["SystemUser_ID"] ?>" id="">
+								</dd>
+							</dl>
+							
 							
 						</DIV>
 

@@ -17,39 +17,24 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 
 	if ( ! empty ($_POST)) {
-		if ($_POST["checkoneyes"] == "Prepare the petition") {
-						
-			$Counter = 0;
-			foreach ($_POST["NYSID"] as $index => $NYSID) {
-				if ( ! empty($NYSID)) {
-					print "Found : $index => $NYSID<BR>";
-					$StringURL .= "NYSID[" . $Counter . "]=$NYSID&Witness[" . $Counter . "]=" . $_POST["Witness"][$index] . "&";
-					$Counter++;
-				}
-			}
-			
-			header("Location: /" . CreateEncoded (
-														array("FirstName" => trim($_POST["FirstName"]),	
-																	"LastName" => trim($_POST["LastName"]),
-																	"UniqID" => trim($_POST["NYSID"])
-																	
-																	)) .
-																	
-														"/brand/RunWithMe/saveinformation");
-			exit();
-			
-		}
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_savesection9.php";	
+		$r = new savesection9();						
+	 	$IDReturned = $r->SaveContacts("savesection9", trim($_POST["FirstName"]), trim($_POST["LastName"]), 
+										  			trim($_POST["Email"]), trim($_POST["Telephone"]), trim($_POST["NYSID"]));
+	
+		header("Location: /" . CreateEncoded (
+															array("SystemQuerySaveID" => $IDReturned),	
+														) .
+						"/brand/savesection9/saveinformation");
 		exit();
+			
 	}
 	
 	if ( ! empty ($_GET["k"])) {		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_savesection9.php";	
 					
-		$r = new savesection9();	
-		$result = $r->FindNeibors($URIEncryptedString["NYSID"]);
-		WriteStderr($URIEncryptedString["NYSID"], "Neighbors ... ");
 		
 		/*												
 		if ( empty ($result)) {
@@ -73,6 +58,8 @@
 		</P>
 		
 		<INPUT TYPE="hidden" NAME="NYSID" VALUE="<?= $URIEncryptedString["NYSID"] ?>">
+		<INPUT TYPE="hidden" NAME="FirstName" VALUE="<?= $URIEncryptedString["FirstName"] ?>">
+		<INPUT TYPE="hidden" NAME="LastName" VALUE="<?= $URIEncryptedString["LastName"] ?>">
 
 			
 		<P class="f80">

@@ -15,12 +15,13 @@ class savesection9 extends RepMyBlock {
 
 
   function SaveContacts($Brand, $FirstName, $LastName, $Email, $Telephone, $VoterID) {
-  	$this->SaveVoterRequest($FirstName, $LastName, NULL, NULL, $Email, $Telephone, $VoterID, $_SERVER['SERVER_ADDR'], $Brand);
+  	$ret = $this->SaveVoterRequest($FirstName, $LastName, NULL, NULL, $Email, $Telephone, $VoterID, $_SERVER['SERVER_ADDR'], $Brand);
+  	return $ret["SystemUserQuery_ID"];
   }
   
   function QueryVoter($Brand, $FirstName, $LastName) {  	
   	
-  	$this->SaveVoterRequest($FirstName, $LastName, NULL, NULL, NULL, NULL, $_SERVER['SERVER_ADDR'], $Brand);
+  	$this->SaveVoterRequest($FirstName, $LastName, NULL, NULL, NULL, NULL, NULL, $_SERVER['SERVER_ADDR'], $Brand);
   	
   	$CompressedFirstName = preg_replace("/[^a-zA-Z]+/", "", $FirstName);
 		$CompressedLastName = preg_replace("/[^a-zA-Z]+/", "", $LastName);

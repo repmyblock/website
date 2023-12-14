@@ -19,7 +19,11 @@
 		// find which one is the right one.
 		WriteStderr($_POST, "Result of Post:");
 		if (! empty ($_POST["checkoneyes"])) {
-			header("Location: /" . CreateEncoded (array("NYSID" => trim($_POST["NYSID"]))) . "/brand/savesection9/neighbors");
+			header("Location: /" . CreateEncoded (array(
+					"NYSID" => trim($_POST["NYSID"]),
+					"FirstName" => trim($URIEncryptedString["FirstName"]),
+					"LastName" => trim($URIEncryptedString["LastName"]),		
+			)) . "/brand/savesection9/foundsave");
 		} else {					
 			header("Location: /" . CreateEncoded (array(
 					"FirstName" => trim($URIEncryptedString["FirstName"]),
