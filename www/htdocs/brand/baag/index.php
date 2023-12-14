@@ -1,17 +1,5 @@
 <?php
-
-	$HeaderTwitter = "yes";
-	$HeaderTwitterTitle = "Rep My Block - Rep My Block";
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/BAAGRepMyBlock.jpg";
-	$HeaderTwitterDesc = "Run for County Committee.";
-	$HeaderOGTitle = "Run for County Committee.";
-	$HeaderOGDescription = "Run for County Committee..";
-	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/BAAGRepMyBlock.jpg"; 
-	$HeaderOGImageWidth = "921";
-	$HeaderOGImageHeight = "575";
-	
-	$imgtoshow = "/brand/baag/BAAG.png";
-
+	include "brandheader.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
@@ -19,7 +7,7 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
-	<DIV class="right f80">Run For County Committee</DIV>
+	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 			<P class="f50">
 				The Bangladeshi American Advocacy Group (BAAG) was founded in 2010 by a group of Bangladeshi immigrants with a unique vision to empower the community.
@@ -35,7 +23,7 @@
 			</P>
 			
 			<P class="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/baag/download">Click here to check your registration</A>
+				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/search">Click here to check your registration</A>
 			</P>
 			
 			<P class="f60">
@@ -44,12 +32,12 @@
 			</P>
 			
 			<P class="f50">
-				This page is maintained by the <B><A HREF="https://www.baagusa.org" TARGET="BAAG">BANGLADESHI AMERICAN ADVOCACY GROUP (BAAG)</A></B>.
-				Check their website at <B><A HREF="https://www.baagusa.org" TARGET="BAAG">https://www.baagusa.org</A>.
+				<?= $BrandingMaintainer ?>
 			</P>
-		
 			
 	</FORM>
 </DIV>
 		
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
+
+
