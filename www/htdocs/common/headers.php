@@ -13,13 +13,18 @@
 		$middleuri = $k;
 				
 	} else {
+		
+		 		
 		if ( empty ($URIEncryptedString) && empty ($middleuri) && ! empty ($k)) {
 			$middleuri = $k;
 		}
 		if (empty ($middleuri)) { $middleuri = "web"; };
 		$logourl = "/" . $middleuri . "/exp/index";
-	}
-	
+		
+		if ( ! empty ($BrandLink)) {
+			$logourl = $BrandLink;
+		}
+	}	
 	// This is the image
 	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png"; }	
 
@@ -100,7 +105,9 @@
   <BODY class="logged-in env-production emoji-size-boost min-width-lg page-account">
 		<DIV class="header">
 			<div class="header-left">
-			  <a href="<?= $logourl ?>" class="logo"><IMG SRC="<?= $imgtoshow ?>" class="header-logo"></a>
+			  <a href="<?= $logourl ?>" class="logo"<?php 
+			  	if ( ! empty ($BrandTargetName)) { ?> TARGET="<?= $BrandTargetName ?>"<?php } 
+			  ?>><IMG SRC="<?= $imgtoshow ?>" class="header-logo"></a>
 			</DIV>
 		  <div class="header-right">
 		  	<?php if ( $MenuLogin == "logged") { ?>
