@@ -21,16 +21,17 @@
 ?>
 <DIV class="main_wopad">
 	<DIV class="intro center">
-		<P>
-			<h1 class="intro">Rep My Block is a non partisan website.</H1>
+			<DIV class="tadpad">
+				<P class="BlueBox w3-blue">
+			Rep My Block is a non partisan website.
 		</P>
-		
+	</DIV>
+	</DIV>
+	
+	<DIV CLASS="intro">
 		<P class="f40 adpad">
-			Rep My Block is a non-partisan effort to collect, organize and make 
-			accessible the full membership of the county committees in New York State. 
-			New York State's county committees are the basis of local government and 
-			are made up of publicly elected representatives. However, county committee 
-			membership information has traditionally been hard to access. 
+			Rep My Block is a non-partisan effort to collect, organize, and make accessible the membership of local party 
+			rosters across the United States. The basis of good local governance is transparency at every level.
 		</P>
 	</DIV>
 	
@@ -72,14 +73,18 @@
 
 	<P class="f40 adpad">
 		<B>Sal Albanese</B>, <B>Badrun Khan</B>, <B>Ben Yee</B>, <B>Vittoria Fariello</B>, and <B>Jared Rich</B> discuss the 
-		weaponization of the electoral process with Paperboy Love Prince in five one-hour candid chats. These videos were 
+		weaponization of the electoral process with Paperboy Love Prince in five one-hour candid chats. 
+	</P>
+	
+	<P class="f40 adpad">
+		<B><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">These videos</A></B> were 
 		recorded while Paperboy Love Prince was running for congress, and discovering first-hand, the different steps 
 		involved in running for public office. The goal of these video chats is to demonstrate that there is hope, but 
 		it will require every voter to participate in the political process by going beyond just showing up to the polls 
 		to vote. <B>Democracy depends on it!</B>
 	</P>
 	
-	<P class="adpad">
+	<P class="f60 adpad">
 		<P class="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
 	</P>
 	
