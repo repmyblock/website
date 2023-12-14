@@ -36,13 +36,6 @@
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 					
 		
-		/*												
-		if ( empty ($result)) {
-			$error_msg = "Could not find the voter. Check the name.";
-			header("Location: ../download/?k=" . EncryptURL("error_msg=" . $error_msg));
-			exit();
-		}
-		*/
 	}
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
