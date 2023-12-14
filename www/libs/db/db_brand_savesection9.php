@@ -12,10 +12,15 @@ class savesection9 extends RepMyBlock {
 	 	$this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   */
+
+
+  function SaveContacts($Brand, $FirstName, $LastName, $Email, $Telephone, $VoterID) {
+  	$this->SaveVoterRequest($FirstName, $LastName, NULL, NULL, $Email, $Telephone, $VoterID, $_SERVER['SERVER_ADDR'], $Brand);
+  }
   
   function QueryVoter($Brand, $FirstName, $LastName) {  	
   	
-  	$this->SaveVoterRequest($FirstName, $LastName, NULL, NULL, $Email, $Brand, $_SERVER['SERVER_ADDR']);
+  	$this->SaveVoterRequest($FirstName, $LastName, NULL, NULL, NULL, NULL, $_SERVER['SERVER_ADDR'], $Brand);
   	
   	$CompressedFirstName = preg_replace("/[^a-zA-Z]+/", "", $FirstName);
 		$CompressedLastName = preg_replace("/[^a-zA-Z]+/", "", $LastName);
@@ -34,7 +39,10 @@ class savesection9 extends RepMyBlock {
 	} 
 
 	function FindNeibors($NYSID) {
-		$sql = "SELECT * FROM VotersRaw_NYS WHERE UniqNYSVoterID = :NYSID AND (Status = 'A' OR Status = 'I')";
+		
+		return 0;
+		
+		$sql = "SELECT * FROM VotersRaw_NYS WHERE VotersIndexes_UniqStateVoterID = :NYSID AND (Status = 'A' OR Status = 'I')";
 		$sql_vars = array("NYSID" => $NYSID);	
 		$ret = $this->_return_simple($sql, $sql_vars);	
 		

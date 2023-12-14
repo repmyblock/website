@@ -189,15 +189,17 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 
-	function SaveVoterRequest($FirstName, $LastName, $DateOfBirth, $DatedFilesID, $Email, $UniqNYSVoterID, $IP) {
+	function SaveVoterRequest($FirstName, $LastName, $DateOfBirth, $DatedFilesID, $Email, $Contact, $UniqNYSVoterID, $IP, $Branding = NULL) {
 		$sql = "INSERT INTO SystemUserQuery SET SystemUserQuery_FirstName = :FirstName, " .
 		 				"SystemUserQuery_LastName = :LastName, SystemUserQuery_DateOfBirth = :DateOfBirth, " .
     				"SystemUserQuery_DatedFileID = :DatedFilesID, SystemUserQuery_Email = :Email, " .
-    				"SystemUserQuery_UniqNYSVoterID = :UniqNYSVoterID, SystemUserQuery_IP = :IP, SystemUserQuery_Date = NOW()";
+	    			"SystemUserQuery_UniqNYSVoterID = :UniqNYSVoterID, SystemUserQuery_BrandingGroup = :Branding, " .
+    				"SystemUserQuery_IP = :IP, SystemUserQuery_Contact = :Contact, SystemUserQuery_Date = NOW()";
 
 		$sql_vars = array("FirstName" => $FirstName, "LastName" => $LastName, 
 											"DateOfBirth" => $DateOfBirth, "DatedFilesID" => $DatedFilesID,
     									"Email" => $Email, "UniqNYSVoterID" => $UniqNYSVoterID,
+    									"Branding" => $Branding, "Contact" => $Contact,
     									"IP" => $IP);
 		return $this->_return_nothing($sql, $sql_vars);
 	}
