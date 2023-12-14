@@ -17,18 +17,24 @@ h3,h4{font-weight:600}h4{font-size:16px}h5{font-size:14px}h5,h6{font-weight:600}
 h6{font-size:12px}p{margin-top:0;margin-bottom:10px}small{font-size:90%}
 
 p.f80bold {font-size:26px; font-weight: 600;}
-p.f80 {font-size:18px; font-weight: 600;}
-p.f60 {font-size:14px; font-weight: 500;}
-p.f40 {font-size:12px;}
-p.f50 {font-size:13px;}
+p.f80 {font-size:20px; font-weight: 600;}
+p.f60 {font-size:18px; font-weight: 500;}
+p.f40 {font-size:16px;}
+p.f50 {font-size:14px;}
+
+
+ol.f80, ul.f80 {font-size:20px; font-weight: 600;}
+ol.f60, ul.f60 {font-size:18px; font-weight: 500;}
+ol.f40, ul.f40 {font-size:16px;}
+ol.f50, ul.f50  {font-size:14px;}
 
 div.f80bold {font-size:26px; font-weight: 600;}
-div.f80 {font-size:18px; font-weight: 600;}
-div.f60 {font-size:14px; font-weight: 500;}
-div.f40 {font-size:12px; padding: 30px 5px;}
-div.f50 {font-size:13px; padding: 10px 5px;}
+div.f80 {font-size:20px; font-weight: 600;}
+div.f60 {font-size:18px; font-weight: 500;}
+div.f40 {font-size:16px; padding: 30px 5px;}
+div.f50 {font-size:14px; padding: 10px 5px;}
 
-div.p40 {font-size:12px;}
+div.p40 {font-size:16px;}
 
 p.pad-3 {padding: 0px 10px 0px 23px;}
 
