@@ -3,9 +3,10 @@
 	$BrandingTitle = "Run For County Committee";
 	$BrandLink = "https://www.baagusa.org";
 	$BrandTargetName = "BAAG";
-	$BrandingMaintainer = "This page is maintained by the <B><A HREF=" .
-												"\"https://www.baagusa.org\" TARGET=\"BAAG\">BANGLADESHI AMERICAN ADVOCACY GROUP (BAAG)</A></B>. " . 
-												"Check their website at <B><A HREF=\"https://www.baagusa.org\" TARGET=\"BAAG\">https://www.baagusa.org</A>.";
+	$BrandingMaintainer = "This page is maintained by the <B><A HREF=\"" . $BrandLink . "\" TARGET=\"" . 
+											$BrandTargetName . "\">BANGLADESHI AMERICAN ADVOCACY GROUP (BAAG)</A></B>. " . 
+											"Check their website at <B><A HREF=\"" . $BrandLink . "\" TARGET=\"" . 
+											$BrandTargetName ."\">" . $BrandTargetName ."</A>.";
 												
 	$HeaderTwitter = "yes";
 	$HeaderTwitterTitle = "Rep My Block - Rep My Block";

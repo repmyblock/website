@@ -3,9 +3,10 @@
 	$BrandingTitle = "Join the Revolution";
 	$BrandLink = "https://www.djelf7.com";
 	$BrandTargetName = "DJELF7";
-	$BrandingMaintainer = "This page is maintained by the <B><A HREF=" .
-												"\"https://www.djlef7.com\" TARGET=\"DJELF7\">DJLEF7</A></B>. " . 
-												"Check their website at <B><A HREF=\"https://www.djelf7.com\" TARGET=\"DJELF7\">https://www.djelf7.com</A>.";
+	$BrandingMaintainer = "This page is maintained by the <B><A HREF=\"" . $BrandLink . "\" TARGET=\"" . 
+											$BrandTargetName . "\">DJLEF7</A></B>. " . 
+											"Check their website at <B><A HREF=\"" . $BrandLink . "\" TARGET=\"" . 
+											$BrandTargetName ."\">" . $BrandTargetName ."</A>.";
 												
 	$HeaderTwitter = "yes";
 	$HeaderTwitterTitle = "Rep My Block - DJELF7";
