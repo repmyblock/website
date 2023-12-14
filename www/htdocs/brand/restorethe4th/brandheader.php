@@ -6,8 +6,8 @@
 	$HeaderOGTitle = "Restore the 4th, Run for Presidential Delegate.";
 	$HeaderOGDescription = "Restore the 4th, Run for Presidential Delegate.";
 	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/RestoreTheFourth.jpg"; 
-	$HeaderOGImageWidth = "960";
-	$HeaderOGImageHeight = "541";
+	$HeaderOGImageWidth = "623";
+	$HeaderOGImageHeight = "380";
 	
 	$imgtoshow = "/brand/restorethe4th/RestoreTheFourth.png";
 ?>
