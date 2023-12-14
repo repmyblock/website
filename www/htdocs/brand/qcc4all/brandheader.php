@@ -1,6 +1,6 @@
 <?php
 	$BrandingName = "qcc4all";
-	$BrandingTitle = "Run for any type of office, any party";
+	$BrandingTitle = "Queens County Committee for All";
 	$BrandingMaintainer = "This page is maintained by the <B><A HREF=" .
 												"\"https://www.QCC4All.org\" TARGET=\"QCC4ALL\">Queens County Committee for All</A></B>. " . 
 												"Check their website at <B><A HREF=\"https://www.QCC4All.org\" TARGET=\"QCC4ALL\">https://www.QCC4All.org</A>.";
