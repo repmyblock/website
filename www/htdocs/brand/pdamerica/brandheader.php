@@ -12,8 +12,8 @@
 	$HeaderOGTitle = "Run For Biden Delegate.";
 	$HeaderOGDescription = "Run For Biden Delegate.";
 	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/PDAmerica.jpg"; 
-	$HeaderOGImageWidth = "921";
-	$HeaderOGImageHeight = "575";
+	$HeaderOGImageWidth = "879";
+	$HeaderOGImageHeight = "634";
 	
 	$imgtoshow = "/brand/pdamerica/pdamerica.png";
 ?>
