@@ -18,10 +18,6 @@
 				The purpose of BAAG is to empower our community, young and old, and push Bangladeshis to become more involved in what is happening in their local, state, and federal governments; to encourage them to demand equal political rights and social justice to raise their quality of life.
 			</P>
 			
-			<P class="f50">
-				The purpose of BAAG is to empower our community, young and old, and push Bangladeshis to become more involved in what is happening in their local, state, and federal governments; to encourage them to demand equal political rights and social justice to raise their quality of life.
-			</P>
-			
 			<P class="f80bold center">
 				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/search">Click here to check your registration</A>
 			</P>
