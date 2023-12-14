@@ -44,7 +44,8 @@
 		</P>
 		
 		<P class="f60">
-			You can create a username by sending an email to <A HREF="mailto:<?= $EmailToEmail ?>"><B><?=$EmailToEmail ?></B></A>.
+			You can create a username by sending an email to 
+			<A HREF="mailto:<?= $EmailToEmail ?>">?subject=I want to register&body=DO NOT CHANGE THE SUBJECT. Just send the email as is for the computer to reply with the link." TARGET="emailreg"><B><?=$EmailToEmail ?></B></A>.
 		</P>
 		
 			
