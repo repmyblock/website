@@ -12,8 +12,8 @@
 	$HeaderOGTitle = "Run For Republican Convention Delegate.";
 	$HeaderOGDescription = "Run For Republican Convention Delegate.";
 	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/NMRepublicans.jpg"; 
-	$HeaderOGImageWidth = "921";
-	$HeaderOGImageHeight = "575";
+	$HeaderOGImageWidth = "781";
+	$HeaderOGImageHeight = "429";
 	
 	$imgtoshow = "/brand/northenmanhattanrepublicans/northenmanhattanrepublicans.png";
 ?>
