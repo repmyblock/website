@@ -1,16 +1,5 @@
 <?php
-	$HeaderTwitter = "yes";
-	$HeaderTwitterTitle = "Save Section 9 - Rep My Block";
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/SaveSection9.jpg";
-	$HeaderTwitterDesc = "Save Section 9, Run for Presidential Delegate.";
-	$HeaderOGTitle = "Save Section 9, Run for Presidential Delegate.";
-	$HeaderOGDescription = "Save Section 9, Run for Presidential Delegate.";
-	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/SaveSection9.jpg"; 
-	$HeaderOGImageWidth = "960";
-	$HeaderOGImageHeight = "541";
-	
-	$imgtoshow = "/brand/savesection9/SaveSection9.png";
-	
+	include "brandheader.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 
@@ -21,21 +10,21 @@
 		header("Location: /" . CreateEncoded (
 														array("FirstName" => trim($_POST["FirstName"]),	
 																	"LastName" => trim($_POST["LastName"]))) .
-						"/brand/savesection9/findvoter");
+						"/brand/restorethe4th/findvoter");
 		exit();
 	}
 	
 	if ( $URIEncryptedString["SystemQuerySaveID"] > 0 ) {
-		$EmailToEmail = "savesection9+" . $URIEncryptedString["SystemQuerySaveID"] . "@register.repmyblock.org";
+		$EmailToEmail = "restorethe4th+" . $URIEncryptedString["SystemQuerySaveID"] . "@register.repmyblock.org";
 	} else {
-		$EmailToEmail = "savesection9@register.repmyblock.org";
+		$EmailToEmail = "restorethe4th@register.repmyblock.org";
 	}
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
 <DIV class="main">
 		
-	<DIV class="right f80">Run Biden Presidential Delegates</DIV>
+	<DIV class="right f80">Run Democratic and Republican Presidential Delegates</DIV>
 	
 			
 		<P class="f60 p20">
@@ -49,11 +38,10 @@
 		</P>
 		
 			
-		<P class="f50">
-				This page is maintained by the <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">Save Section 9</A></B>.
-				Check their facebook page at <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">https://www.facebook.com/groups/savesection9</A>.
+			<P class="f50">
+				This page is maintained by the New York City <B><A HREF="https://restorethe4th.com" TARGET="RT4">Restore the Fourth</A></B>.
+				Check the national website page at <B><A HREF="https://restorethe4th.com/" TARGET="RT4">https://restorethe4th.com/</A>.
 			</P>
-		
 			
 		<P class="f40">
 			By clicking the "Register" button, you are creating a 

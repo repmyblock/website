@@ -1,6 +1,7 @@
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
+	/*
 	if ( ! empty ($_POST)) {
 		// find which one is the right one.
 		WriteStderr($_POST, "Result of Post:");
@@ -17,12 +18,13 @@
 		}
 		exit();
 	}
+	*/
 
 	if ( ! empty ($_GET["k"])) {
 		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brandSocialist.php";	
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_socialist.php";	
 					
 		$r = new SocialistBrand(0);	
 		$result = $r->QueryVoter("SocDemAmerica", $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"], $URIEncryptedString["Email"]);

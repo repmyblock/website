@@ -24,13 +24,13 @@
 		</P>
 		
 		<P class="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/socialist/download">Click here to verify your eligibility to pledge
+				<A HREF="/<?= $middleuri ?>/brand/socialist/check">Click here to verify your eligibility to pledge
 					your signature for the Biden slate at the DNC convention in August 2024.</A>
 		</P>
 	
 		<P>
 			<CENTER>
-			<A HREF="/<?= $middleuri ?>/brand/socialist/download"><IMG SRC="/brand/socialist/SocialistsForBidenHarris.jpg"></A>
+			<A HREF="/<?= $middleuri ?>/brand/socialist/check"><IMG SRC="/brand/socialist/SocialistsForBidenHarris.jpg"></A>
 		</CENTER>
 			</P>
 				
@@ -49,14 +49,14 @@
 			
 			<?php /*
 			<P class="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/socialist/download">Click here to verify your eligibility to run for the 
+				<A HREF="/<?= $middleuri ?>/brand/socialist/check">Click here to verify your eligibility to run for the 
 					New York or Richmond County Committee governance 
 					board in June 2023.</A>
 			</P>
 			*/ ?>
 
 			<P class="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/socialist/download">Click here to verify your eligibility to run for the 
+				<A HREF="/<?= $middleuri ?>/brand/socialist/check">Click here to verify your eligibility to run for the 
 					Bronx, Queens or Kings <I>(Brooklyn)</I> County Committee governance 
 					board in June 2024 or as a Biden delegate for the DNC convention in April 2024.</A>
 			</P>
