@@ -1,24 +1,10 @@
 <?php
-
-
-	$HeaderTwitter = "yes";
-	$HeaderTwitterTitle = "Save Section 9 - Rep My Block";
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/SaveSection9.jpg";
-	$HeaderTwitterDesc = "Save Section 9, Run for Presidential Delegate.";
-	$HeaderOGTitle = "Save Section 9, Run for Presidential Delegate.";
-	$HeaderOGDescription = "Save Section 9, Run for Presidential Delegate.";
-	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/SaveSection9.jpg"; 
-	$HeaderOGImageWidth = "960";
-	$HeaderOGImageHeight = "541";
-	
-	$imgtoshow = "/brand/savesection9/SaveSection9.png";
-	
-	
+	include "brandheader.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 
 	if ( ! empty ($_POST)) {
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_savesection9.php";	
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_savesection9.php";	
 		$r = new savesection9();						
 	 	$IDReturned = $r->SaveContacts("savesection9", trim($_POST["FirstName"]), trim($_POST["LastName"]), 
 										  			trim($_POST["Email"]), trim($_POST["Telephone"]), trim($_POST["NYSID"]));
@@ -34,8 +20,6 @@
 	if ( ! empty ($_GET["k"])) {		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-					
-		
 	}
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 

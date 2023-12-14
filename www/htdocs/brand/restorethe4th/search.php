@@ -44,7 +44,7 @@
 
 				<P class="f50">
 				This page is maintained by the New York City <B><A HREF="https://restorethe4th.com" TARGET="RT4">Restore the Fourth</A></B>.
-				Check the national website page at <B><A HREF="https://restorethe4th.com/" TARGET="RT4">https://restorethe4th.com/</A>.
+				Check the national website page at <B><A HREF="https://restorethe4th.com" TARGET="RT4">https://restorethe4th.com</A>.
 			</P>
 		
 			
