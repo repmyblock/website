@@ -1,9 +1,11 @@
 <?php
 	$BrandingName = "djelf7";
 	$BrandingTitle = "Join the Revolution";
+	$BrandLink = "https://www.djelf7.com";
+	$BrandTargetName = "DJELF7";
 	$BrandingMaintainer = "This page is maintained by the <B><A HREF=" .
-												"\"https://www.djlef7.com\" TARGET=\"RMB\">DJLEF7</A></B>. " . 
-												"Check their website at <B><A HREF=\"https://www.djelf7.com\" TARGET=\"RMB\">https://www.djelf7.com</A>.";
+												"\"https://www.djlef7.com\" TARGET=\"DJELF7\">DJLEF7</A></B>. " . 
+												"Check their website at <B><A HREF=\"https://www.djelf7.com\" TARGET=\"DJELF7\">https://www.djelf7.com</A>.";
 												
 	$HeaderTwitter = "yes";
 	$HeaderTwitterTitle = "Rep My Block - DJELF7";
@@ -11,7 +13,7 @@
 	$HeaderTwitterDesc = "Run For any type of office. DJELF7 NYC's #1 Street Activist";
 	$HeaderOGTitle = "Run For any type of office. DJELF7 NYC's #1 Street Activist";
 	$HeaderOGDescription = "Run For any type of office.";
-	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/DJelf7.jpg"; 
+	$HeaderOGImage = $HeaderTwitterPicLink; 
 	$HeaderOGImageWidth = "985";
 	$HeaderOGImageHeight = "575";
 	

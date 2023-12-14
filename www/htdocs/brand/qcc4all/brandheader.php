@@ -1,6 +1,8 @@
 <?php
 	$BrandingName = "qcc4all";
 	$BrandingTitle = "Queens County Committee for All";
+	$BrandLink = "https://www.QCC4All.org";
+	$BrandTargetName = "QCC4ALL";
 	$BrandingMaintainer = "This page is maintained by the <B><A HREF=" .
 												"\"https://www.QCC4All.org\" TARGET=\"QCC4ALL\">Queens County Committee for All</A></B>. " . 
 												"Check their website at <B><A HREF=\"https://www.QCC4All.org\" TARGET=\"QCC4ALL\">https://www.QCC4All.org</A>.";
@@ -11,7 +13,7 @@
 	$HeaderTwitterDesc = "Run For any type of office.";
 	$HeaderOGTitle = "Run For any type of office.";
 	$HeaderOGDescription = "Run For any type of office.";
-	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/QCC4ALL.jpg"; 
+	$HeaderOGImage = $HeaderTwitterPicLink; 
 	$HeaderOGImageWidth = "610";
 	$HeaderOGImageHeight = "415";
 	

@@ -1,6 +1,8 @@
 <?php
 	$BrandingName = "baag";
 	$BrandingTitle = "Run For County Committee";
+	$BrandLink = "https://www.baagusa.org";
+	$BrandTargetName = "BAAG";
 	$BrandingMaintainer = "This page is maintained by the <B><A HREF=" .
 												"\"https://www.baagusa.org\" TARGET=\"BAAG\">BANGLADESHI AMERICAN ADVOCACY GROUP (BAAG)</A></B>. " . 
 												"Check their website at <B><A HREF=\"https://www.baagusa.org\" TARGET=\"BAAG\">https://www.baagusa.org</A>.";
@@ -11,7 +13,7 @@
 	$HeaderTwitterDesc = "Run for County Committee.";
 	$HeaderOGTitle = "Run for County Committee.";
 	$HeaderOGDescription = "Run for County Committee.";
-	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/BAAGRepMyBlock.jpg"; 
+	$HeaderOGImage = $HeaderTwitterPicLink; 
 	$HeaderOGImageWidth = "921";
 	$HeaderOGImageHeight = "575";
 	

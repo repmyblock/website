@@ -1,6 +1,9 @@
 <?php
 	$BrandingName = "socialist";
 	$BrandingTitle = "Help put Socialists candidates on the ballot!";
+	$BrandLink = "https://www.socialists.us";
+	$BrandTargetName = "SDA";
+	
 	
 	$HeaderTwitter = "yes";
 	$HeaderTwitterTitle = "Rep My Block - Rep My Block";
