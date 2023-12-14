@@ -6,13 +6,13 @@
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_savesection9.php";	
 		$r = new savesection9();						
-	 	$IDReturned = $r->SaveContacts("savesection9", trim($_POST["FirstName"]), trim($_POST["LastName"]), 
+	 	$IDReturned = $r->SaveContacts($BrandingName , trim($_POST["FirstName"]), trim($_POST["LastName"]), 
 										  			trim($_POST["Email"]), trim($_POST["Telephone"]), trim($_POST["NYSID"]));
 	
 		header("Location: /" . CreateEncoded (
 															array("SystemQuerySaveID" => $IDReturned),	
 														) .
-						"/brand/savesection9/saveinformation");
+						"/brand/" . $BrandingName . "/saveinformation");
 		exit();
 			
 	}
@@ -27,7 +27,7 @@
 <DIV class="main">
 		
 	<FORM METHOD="POST" ACTION="">		
-		<DIV class="right f80">Run Biden Presidential Delegates</DIV>
+		<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 			
 		<P class="f50">
@@ -55,10 +55,9 @@
 			</DIV>
 		</P>
 		
-			<P class="f50">
-				This page is maintained by the <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">Save Section 9</A></B>.
-				Check their facebook page at <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">https://www.facebook.com/groups/savesection9</A>.
-			</P>
+		<P class="f50">
+			<?= $BrandingMaintainer ?>
+		</P>
 		
 		
 		<P class="f40">

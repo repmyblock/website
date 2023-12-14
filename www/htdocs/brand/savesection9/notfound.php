@@ -4,17 +4,16 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 
 	if ( ! empty ($_POST["CheckRegistration"])) {
+		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_savesection9.php";	
 		$r = new savesection9();						
-	  $IDReturned = $r->SaveContacts("savesection9", trim($_POST["FirstName"]), trim($_POST["LastName"]), 
+	  $IDReturned = $r->SaveContacts($BrandingName, trim($_POST["FirstName"]), trim($_POST["LastName"]), 
 										  trim($_POST["Email"]), trim($_POST["Telephone"]), NULL);
 
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 
-		header("Location: /" . CreateEncoded (
-															array("SystemQuerySaveID" => $IDReturned),	
-														) .
-						"/brand/savesection9/saveinformation");
+		header("Location: /" . CreateEncoded (array("SystemQuerySaveID" => $IDReturned)) .
+						"/brand/" . $BrandingName . "/saveinformation");
 		exit();
 	}
 	
@@ -22,7 +21,7 @@
 ?>
 <DIV class="main">
 		
-	<DIV class="right f80">Run Biden Presidential Delegates</DIV>
+	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 	<P class="f60 p20">
 		We did not find your voter registration card in the system. Please enter your contact information and 
@@ -57,9 +56,9 @@
 		</P>
 
 		<P class="f50">
-			This page is maintained by the <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">Save Section 9</A></B>.
-			Check their facebook page at <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">https://www.facebook.com/groups/savesection9</A>.
+			<?= $BrandingMaintainer ?>
 		</P>
+		
 					
 		<P class="f40">
 			By clicking the "Register" button, you are creating a 

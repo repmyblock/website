@@ -10,21 +10,21 @@
 		header("Location: /" . CreateEncoded (
 														array("FirstName" => trim($_POST["FirstName"]),	
 																	"LastName" => trim($_POST["LastName"]))) .
-						"/brand/restorethe4th/findvoter");
+						"/brand/" . $BrandingName . "/findvoter");
 		exit();
 	}
 	
 	if ( $URIEncryptedString["SystemQuerySaveID"] > 0 ) {
-		$EmailToEmail = "restorethe4th+" . $URIEncryptedString["SystemQuerySaveID"] . "@register.repmyblock.org";
+		$EmailToEmail = $BrandingName . "+" . $URIEncryptedString["SystemQuerySaveID"] . "@register.repmyblock.org";
 	} else {
-		$EmailToEmail = "restorethe4th@register.repmyblock.org";
+		$EmailToEmail = $BrandingName . "@register.repmyblock.org";
 	}
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
 <DIV class="main">
 		
-	<DIV class="right f80">Run Democratic and Republican Presidential Delegates</DIV>
+	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 			
 		<P class="f60 p20">
@@ -39,8 +39,7 @@
 		
 			
 			<P class="f50">
-				This page is maintained by the New York City <B><A HREF="https://restorethe4th.com" TARGET="RT4">Restore the Fourth</A></B>.
-				Check the national website page at <B><A HREF="https://restorethe4th.com" TARGET="RT4">https://restorethe4th.com</A>.
+				<?= $BrandingMaintainer ?>
 			</P>
 			
 		<P class="f40">

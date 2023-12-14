@@ -1,17 +1,7 @@
 <?php
-
-	$HeaderTwitter = "yes";
-	$HeaderTwitterTitle = "Rep My Block - Rep My Block";
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/PledgeSignature.jpg";
-	$HeaderTwitterDesc = "Pledge your signature to Biden delegates for the DNC convention.";
-	$HeaderOGTitle = "Biden For President";
-	$HeaderOGDescription = "Pledge your signature to Biden delegates for the DNC convention.";
-	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/PledgeSignature.jpg"; 
-	$HeaderOGImageWidth = "623";
-	$HeaderOGImageHeight = "380";
-
+	include "brandheader.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	$imgtoshow = "/brand/socialist/Socialists.png";
+
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
@@ -24,13 +14,13 @@
 		</P>
 		
 		<P class="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/socialist/check">Click here to verify your eligibility to pledge
+				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/check">Click here to verify your eligibility to pledge
 					your signature for the Biden slate at the DNC convention in August 2024.</A>
 		</P>
 	
 		<P>
 			<CENTER>
-			<A HREF="/<?= $middleuri ?>/brand/socialist/check"><IMG SRC="/brand/socialist/SocialistsForBidenHarris.jpg"></A>
+			<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/check"><IMG SRC="/brand/socialist/SocialistsForBidenHarris.jpg"></A>
 		</CENTER>
 			</P>
 				
@@ -49,14 +39,14 @@
 			
 			<?php /*
 			<P class="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/socialist/check">Click here to verify your eligibility to run for the 
+				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/check">Click here to verify your eligibility to run for the 
 					New York or Richmond County Committee governance 
 					board in June 2023.</A>
 			</P>
 			*/ ?>
 
 			<P class="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/socialist/check">Click here to verify your eligibility to run for the 
+				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/check">Click here to verify your eligibility to run for the 
 					Bronx, Queens or Kings <I>(Brooklyn)</I> County Committee governance 
 					board in June 2024 or as a Biden delegate for the DNC convention in April 2024.</A>
 			</P>

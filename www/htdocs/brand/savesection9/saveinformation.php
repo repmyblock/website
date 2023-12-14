@@ -4,16 +4,16 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 
 	if ( $URIEncryptedString["SystemQuerySaveID"] > 0 ) {
-		$EmailToEmail = "savesection9+" . $URIEncryptedString["SystemQuerySaveID"] . "@register.repmyblock.org";
+		$EmailToEmail = $BrandingName . "+" . $URIEncryptedString["SystemQuerySaveID"] . "@register.repmyblock.org";
 	} else {
-		$EmailToEmail = "savesection9@register.repmyblock.org";
+		$EmailToEmail = $BrandingName . "@register.repmyblock.org";
 	}
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
 <DIV class="main">
 		
-	<DIV class="right f80">Run Biden Presidential Delegates</DIV>
+	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 			
 		<P class="f60 p20">
@@ -28,16 +28,12 @@
 		
 			
 		<P class="f50">
-				This page is maintained by the <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">Save Section 9</A></B>.
-				Check their facebook page at <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">https://www.facebook.com/groups/savesection9</A>.
-			</P>
-		
+			<?= $BrandingMaintainer ?>
+		</P>
 			
 		<P class="f40">
-			By clicking the "Register" button, you are creating a 
-			RepMyBlock account, and you agree to RepMyBlock's 
-			<A HREF="/text/terms">Terms of Use</A> and 
-			<A HREF="/text/privacy">Privacy Policy.</A>
+			By clicking the "Register" button, you are creating a RepMyBlock account, and you agree to RepMyBlock's 
+			<A HREF="/text/terms">Terms of Use</A> and <A HREF="/text/privacy">Privacy Policy.</A>
 		</P>
 
 

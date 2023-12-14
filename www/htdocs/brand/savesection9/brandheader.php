@@ -1,4 +1,12 @@
 <?php
+	$BrandingName = "savesection9";
+	$BrandingTitle = "Run Biden Presidential Delegates";
+	$BrandingMaintainer = "This page is maintained by the <B><A HREF=\"" . 
+												"https://www.facebook.com/groups/savesection9\" TARGET=\"SS9\">Save Section 9</A></B>. " .
+												"Check their facebook page at <B><A HREF=" .
+												"\"https://www.facebook.com/groups/savesection9\" TARGET=\"SS9\">https://www.facebook.com/groups/savesection9</A>.";
+
+	
 	$HeaderTwitter = "yes";
 	$HeaderTwitterTitle = "Save Section 9 - Rep My Block";
 	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/SaveSection9.jpg";

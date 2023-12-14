@@ -4,9 +4,9 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 
 	if ( ! empty ($_POST["CheckRegistration"])) {
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_restorethefourth.php";	
-		$r = new restorethefourth();					
-	  $IDReturned = $r->SaveContacts("restorethe4th", trim($_POST["FirstName"]), trim($_POST["LastName"]), 
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_baag.php";	
+		$r = new baag();					
+	  $IDReturned = $r->SaveContacts($BrandingName, trim($_POST["FirstName"]), trim($_POST["LastName"]), 
 										  trim($_POST["Email"]), trim($_POST["Telephone"]), NULL);
 
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
@@ -14,7 +14,7 @@
 		header("Location: /" . CreateEncoded (
 															array("SystemQuerySaveID" => $IDReturned),	
 														) .
-						"/brand/restorethe4th/saveinformation");
+						"/brand/" . $BrandingName . "/saveinformation");
 		exit();
 	}
 	
@@ -22,7 +22,7 @@
 ?>
 <DIV class="main">
 		
-	<DIV class="right f80">Run Democratic and Republican Presidential Delegates</DIV>
+	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 	<P class="f60 p20">
 		We did not find your voter registration card in the system. Please enter your contact information and 
@@ -57,8 +57,7 @@
 		</P>
 
 			<P class="f50">
-				This page is maintained by the New York City <B><A HREF="https://restorethe4th.com" TARGET="RT4">Restore the Fourth</A></B>.
-				Check the national website page at <B><A HREF="https://restorethe4th.com" TARGET="RT4">https://restorethe4th.com</A>.
+				<?= $BrandingMaintainer ?>
 			</P>
 		
 					

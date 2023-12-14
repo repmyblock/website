@@ -10,13 +10,13 @@
 					"NYSID" => trim($_POST["NYSID"]),
 					"FirstName" => trim($URIEncryptedString["FirstName"]),
 					"LastName" => trim($URIEncryptedString["LastName"]),		
-			)) . "/brand/restorethe4th/foundsave");
+			)) . "/brand/" . $BrandingName . "/foundsave");
 		} else {					
 			header("Location: /" . CreateEncoded (array(
 					"FirstName" => trim($URIEncryptedString["FirstName"]),
 					"LastName" => trim($URIEncryptedString["LastName"]),
 					"Error" => "Found ID but not the right person"
-			)) . "/brand/restorethe4th/notfound");
+			)) . "/brand/" . $BrandingName . "/notfound");
 		}
 		exit();
 	}
@@ -27,14 +27,14 @@
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_restorethefourth.php";	
 		$r = new restorethefourth();					
-		$result = $r->QueryVoter("restorethe4th", $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
+		$result = $r->QueryVoter($BrandingName, $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
 																
 		if ( empty ($result)) {
 			header("Location: /" . CreateEncoded (array(
 					"FirstName" => trim($URIEncryptedString["FirstName"]),
 					"LastName" => trim($URIEncryptedString["LastName"]),
 					"Error" => "We did not find the user"
-			)) . "/brand/restorethe4th/notfound");
+			)) . "/brand/" . $BrandingName . "/notfound");
 			exit();
 		}
 		
@@ -48,7 +48,7 @@
 <DIV class="main">
 		
 	<FORM METHOD="POST" ACTION="">		
-	<DIV class="right f80">Run Democratic and Republican Presidential Delegates</DIV>
+	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 		<P class="f60 p20">
 			<?php if (count ($result) == 1) { ?>
@@ -155,9 +155,8 @@
 						
 <?php   } ?>
 
-		<P class="f50">
-				This page is maintained by the New York City <B><A HREF="https://restorethe4th.com" TARGET="RT4">Restore the Fourth</A></B>.
-				Check the national website page at <B><A HREF="https://restorethe4th.com" TARGET="RT4">https://restorethe4th.com</A>.
+			<P class="f50">
+				<?= $BrandingMaintainer ?>
 			</P>
 		
 		

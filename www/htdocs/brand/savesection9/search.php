@@ -10,7 +10,7 @@
 		header("Location: /" . CreateEncoded (
 														array("FirstName" => trim(ucwords($_POST["FirstName"])),	
 																	"LastName" => trim(ucwords($_POST["LastName"])))) .
-						"/brand/savesection9/findvoter");
+						"/brand/" . $BrandingName . "/findvoter");
 		exit();
 	}
 	
@@ -18,7 +18,7 @@
 ?>
 <DIV class="main">
 		
-	<DIV class="right f80">Run Biden Presidential Delegates</DIV>
+	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 			
 		<P class="f60 p20">
@@ -42,10 +42,10 @@
 			<DIV><INPUT class="" TYPE="Submit" NAME="CheckRegistration" VALUE="Check My Voter Registration"></DIV>
 		</P>
 
-			<P class="f50">
-				This page is maintained by the <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">Save Section 9</A></B>.
-				Check their facebook page at <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">https://www.facebook.com/groups/savesection9</A>.
-			</P>
+		<P class="f50">
+			<?= $BrandingMaintainer ?>
+		</P>
+		
 		
 			
 		

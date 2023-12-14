@@ -10,13 +10,13 @@
 					"NYSID" => trim($_POST["NYSID"]),
 					"FirstName" => trim($URIEncryptedString["FirstName"]),
 					"LastName" => trim($URIEncryptedString["LastName"]),		
-			)) . "/brand/savesection9/foundsave");
+			)) . "/brand/" . $BrandingName . "/foundsave");
 		} else {					
 			header("Location: /" . CreateEncoded (array(
 					"FirstName" => trim($URIEncryptedString["FirstName"]),
 					"LastName" => trim($URIEncryptedString["LastName"]),
 					"Error" => "Found ID but not the right person"
-			)) . "/brand/savesection9/notfound");
+			)) . "/brand/" . $BrandingName . "/notfound");
 		}
 		exit();
 	}
@@ -28,21 +28,20 @@
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_savesection9.php";	
 					
 		$r = new savesection9();	
-		$result = $r->QueryVoter("savesection9", $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
+		$result = $r->QueryVoter($BrandingName, $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
 																
 		if ( empty ($result)) {
 			header("Location: /" . CreateEncoded (array(
 					"FirstName" => trim($URIEncryptedString["FirstName"]),
 					"LastName" => trim($URIEncryptedString["LastName"]),
 					"Error" => "We did not find the user"
-			)) . "/brand/savesection9/notfound");
+			)) . "/brand/" . $BrandingName . "/notfound");
 			exit();
 		}
 		
 	}
 	
   $now = new DateTime(); // Used to figure out the age.
-	$imgtoshow = "/brand/savesection9/SaveSection9.png";
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	
 	WriteStderr($result, "Results of Run With Me.");
@@ -50,7 +49,7 @@
 <DIV class="main">
 		
 	<FORM METHOD="POST" ACTION="">		
-	<DIV class="right f80">Run Biden Presidential Delegates</DIV>
+	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 		<P class="f60 p20">
 			<?php if (count ($result) == 1) { ?>
@@ -158,10 +157,8 @@
 <?php   } ?>
 
 	<P class="f50">
-				This page is maintained by the <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">Save Section 9</A></B>.
-				Check their facebook page at <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">https://www.facebook.com/groups/savesection9</A>.
-			</P>
-		
+			<?= $BrandingMaintainer ?>
+		</P>
 		
 		<P class="f40">
 			By clicking the "Register" button, you are creating a 

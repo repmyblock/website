@@ -7,7 +7,7 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
-	<DIV class="right f80">Run Democratic and Republican Presidential Delegates</DIV>
+	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 			<P class="f50">
 				Restore the Fourth oppose unconstitutional mass government surveillance
@@ -25,7 +25,7 @@
 			</P>
 		
 			<P class="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/restorethe4th/search">Click here to check your registration</A>
+				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/search">Click here to check your registration</A>
 			</P>
 			
 			<P class="f60">
@@ -34,8 +34,7 @@
 			</P>
 			
 			<P class="f50">
-				This page is maintained by the New York City <B><A HREF="https://restorethe4th.com" TARGET="RT4">Restore the Fourth</A></B>.
-				Check the national website page at <B><A HREF="https://restorethe4th.com" TARGET="RT4">https://restorethe4th.com</A>.
+				<?= $BrandingMaintainer ?>
 			</P>
 		
 			

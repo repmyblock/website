@@ -1,4 +1,11 @@
 <?php
+	$BrandingName = "restorethe4th";
+	$BrandingTitle = "Run Democratic and Republican Presidential Delegates";
+	$BrandingMaintainer = "This page is maintained by the New York City <B><A HREF=" . 
+												"\"https://restorethe4th.com\" TARGET=\"RT4\">Restore the Fourth</A></B>. " . 
+												"Check the national website page at <B><A HREF=" . 
+												"\"https://restorethe4th.com\" TARGET=\"RT4\">https://restorethe4th.com</A>.";
+												
 	$HeaderTwitter = "yes";
 	$HeaderTwitterTitle = "Restore the 4th - Rep My Block";
 	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/RestoreTheFourth.jpg";

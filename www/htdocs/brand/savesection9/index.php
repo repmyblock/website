@@ -7,7 +7,7 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
-	<DIV class="right f80">Run Biden Presidential Delegates</DIV>
+	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 			<P class="f50">
 				Save Section 9 aims to stop the privatization of America's public housing. We work to secure the federal 
@@ -26,7 +26,7 @@
 			</P>
 		
 			<P class="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/savesection9/search">Click here to check your registration</A>
+				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/search">Click here to check your registration</A>
 			</P>
 			
 			<P class="f60">
@@ -35,8 +35,7 @@
 			</P>
 			
 			<P class="f50">
-				This page is maintained by the <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">Save Section 9</A></B>.
-				Check their facebook page at <B><A HREF="https://www.facebook.com/groups/savesection9" TARGET="SS9">https://www.facebook.com/groups/savesection9</A>.
+				<?= $BrandingMaintainer ?>
 			</P>
 		
 			
