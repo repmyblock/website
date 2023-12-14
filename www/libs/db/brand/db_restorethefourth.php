@@ -2,7 +2,7 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 global $DB;
 
-class savesection9 extends RepMyBlock {
+class restorethefourth extends RepMyBlock {
 
   function SaveContacts($Brand, $FirstName, $LastName, $Email, $Telephone, $VoterID) {
   	$ret = $this->SaveVoterRequest($FirstName, $LastName, NULL, NULL, $Email, $Telephone, $VoterID, $_SERVER['SERVER_ADDR'], $Brand);
