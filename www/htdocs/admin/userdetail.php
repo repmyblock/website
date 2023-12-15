@@ -226,7 +226,7 @@
 						</SELECT>
 				</div>
 				<div class="list-group-item f60">Googlemap API ID <INPUT TYPE="TEXT" VALUE="<?= $var["SystemUser_googleapimapid"] ?>"></div>
-				<div class="list-group-item f60"><button type="submit" class="btn btn-primary mobilemenu">Submit</BUTTON></DIV>
+				<div class="list-group-item f60"><button type="submit" class="submitred">Submit</BUTTON></DIV>
 	<?php	} else { ?>
 			<div class="list-group-item f60">
 				No user found.

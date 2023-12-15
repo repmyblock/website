@@ -23,7 +23,7 @@
 	<DIV class="intro center">
 			<DIV class="tadpad">
 				<P class="BlueBox w3-blue">
-			Rep My Block is a non partisan website.
+			Rep My Block is a non partisan website
 		</P>
 	</DIV>
 	</DIV>
