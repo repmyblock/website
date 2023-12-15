@@ -10,13 +10,13 @@
 	
 	$HeaderTwitter = "yes";
 	$HeaderTwitterTitle = "Rep My Block - Rep My Block";
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/GenericMyBlock.jpg";
-	$HeaderTwitterDesc = "Run For any type of office.";
-	$HeaderOGTitle = "Run For any type of office.";
-	$HeaderOGDescription = "Run For any type of office.";
-	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/GenericMyBlock.jpg"; 
+	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/GenericMyBlock.jpg";		
+	$HeaderTwitterDesc = $BrandingTitle;
+	$HeaderOGTitle = $BrandingTitle;
+	$HeaderOGDescription = $BrandingTitle;
+	$HeaderOGImage = $HeaderTwitterPicLink;
 	$HeaderOGImageWidth = "921";
 	$HeaderOGImageHeight = "575";
 	
-	$imgtoshow = "/brand/generic/GenericRepMyBlock.png";
+	$imgtoshow = "/brand/" . $BrandingName . "/GenericRepMyBlock.png";
 ?>

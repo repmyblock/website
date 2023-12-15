@@ -1,13 +1,22 @@
 <?php
+	include "brandheader.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
 	if ( ! empty ($_POST)) {
 		// find which one is the right one.
 		WriteStderr($_POST, "Result of Post:");
 		if (! empty ($_POST["checkoneyes"])) {
-			header("Location: /" . CreateEncoded (array("NYSID" => trim($_POST["NYSID"]))) . "/brand/gop/neighbors");
+			header("Location: /" . CreateEncoded (array(
+					"NYSID" => trim($_POST["NYSID"]),
+					"FirstName" => trim($URIEncryptedString["FirstName"]),
+					"LastName" => trim($URIEncryptedString["LastName"]),		
+			)) . "/brand/" . $BrandingName . "/foundsave");
 		} else {					
-			header("Location: ../");
+			header("Location: /" . CreateEncoded (array(
+					"FirstName" => trim($URIEncryptedString["FirstName"]),
+					"LastName" => trim($URIEncryptedString["LastName"]),
+					"Error" => "Found ID but not the right person"
+			)) . "/brand/" . $BrandingName . "/notfound");
 		}
 		exit();
 	}
@@ -16,21 +25,22 @@
 		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";	
-					
-		$r = new RepMyBlock();	
-		$result = $r->QueryVoterFile("GOP", $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_generic.php";	
+		$r = new generic();					
+		$result = $r->QueryVoter($BrandingName, $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
 																
 		if ( empty ($result)) {
-			$error_msg = "Could not find the voter. Check the name.";
-			header("Location: ../download/?k=" . EncryptURL("error_msg=" . $error_msg));
+			header("Location: /" . CreateEncoded (array(
+					"FirstName" => trim($URIEncryptedString["FirstName"]),
+					"LastName" => trim($URIEncryptedString["LastName"]),
+					"Error" => "We did not find the user"
+			)) . "/brand/" . $BrandingName . "/notfound");
 			exit();
 		}
 		
 	}
 	
-  $now = new DateTime(); // Used to figure out the age.
-	$imgtoshow = "/brand/gop/gop.png";
+  $now = new DateTime(); // Used to figure out the age
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	
 	WriteStderr($result, "Results of Run With Me.");
@@ -38,7 +48,7 @@
 <DIV class="main">
 		
 	<FORM METHOD="POST" ACTION="">		
-	<DIV class="right f80">Download a Republican County Committee petition</DIV>
+	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 		<P class="f60 p20">
 			<?php if (count ($result) == 1) { ?>
@@ -55,13 +65,11 @@
 		<P>
 			<?php if (count ($result) == 1 ) { 
 				$Counter = 0;
-        $dob = new DateTime($result[0]["DOB"]);
+        $dob = new DateTime($result[0]["VotersIndexes_DOB"]);
  				$difference = $now->diff($dob);
-				if ( $result[0]["Gender"] == "M") { $gender = "Male"; }
-				else if ($result[0]["Gender"] == "F") { $gender = "Female"; }
 			?>
 	
-			<INPUT TYPE="hidden" NAME="NYSID" VALUE="<?= $result[0]["UniqNYSVoterID"] ?>">	
+			<INPUT TYPE="hidden" NAME="NYSID" VALUE="<?= $result[0]["VotersIndexes_UniqStateVoterID"] ?>">	
 
 			<TABLE id="VoterTable" width=100%>
 			<TR>
@@ -74,12 +82,12 @@
 			</TR>
 			
 			<TR>
-				<TD><?= ucwords($result[0]["LastName"]) ?></TD>			
-				<TD><?= ucwords($result[0]["FirstName"]) ?></TD>
-				<TD><?= ucwords($result[0]["ResStreetName"]) ?></TD>
-				<TD ALIGN=CENTER><?= $result[0]["ResZip"] ?></TD>
+				<TD><?= ucwords($result[0]["DataFirstName_Text"]) ?></TD>
+				<TD><?= ucwords($result[0]["DataLastName_Text"]) ?></TD>			
+				<TD><?= ucwords($result[0]["DataStreet_Name"]) ?></TD>
+				<TD ALIGN=CENTER><?= $result[0]["DataAddress_zipcode"] ?></TD>
 				<TD ALIGN=CENTER><?= $difference->y; ?></TD>				
-				<TD ALIGN=CENTER><?= $gender ?></TD>
+				<TD ALIGN=CENTER><?= ucwords($result[0]["Voters_Gender"]) ?></TD>
 			</TR>
 			</TABLE>
 			
@@ -110,22 +118,20 @@
        <?php
        	foreach ($result as $var) {
        		if ( ! empty ($var)) {
-       		  $dob = new DateTime($var["DOB"]);
+       		  $dob = new DateTime($var["VotersIndexes_DOB"]);
  						$difference = $now->diff($dob);
- 						if ( $var["Gender"] == "M") { $gender = "Male"; }
- 						else if ($var["Gender"] == "F") { $gender = "Female"; }     	
        	?>
        
 			<TR>
 				<TD ALIGN=CENTER> 
-					<INPUT TYPE="radio" NAME="NYSID" VALUE="<?= $var["UniqNYSVoterID"] ?>">	
+					<INPUT TYPE="radio" NAME="NYSID" VALUE="<?= $var["VotersIndexes_UniqStateVoterID"] ?>">	
 				</TD>
-				<TD><?= ucwords($var["LastName"]) ?></TD>			
-				<TD><?= ucwords($var["FirstName"]) ?></TD>
-				<TD><?= ucwords($var["ResStreetName"]) ?></TD>
-				<TD ALIGN=CENTER><?= $var["ResZip"] ?></TD>
+				<TD><?= ucwords($var["DataLastName_Text"]) ?></TD>			
+				<TD><?= ucwords($var["DataFirstName_Text"]) ?></TD>
+				<TD><?= ucwords($var["DataStreet_Name"]) ?></TD>
+				<TD ALIGN=CENTER><?= $var["DataAddress_zipcode"] ?></TD>
 				<TD ALIGN=CENTER><?= $difference->y; ?></TD>				
-				<TD ALIGN=CENTER><?= $gender ?></TD>
+				<TD ALIGN=CENTER><?= ucwords($var["Voters_Gender"]) ?></TD>
 			</TR>
        
        <?php 
@@ -149,6 +155,17 @@
 						
 <?php   } ?>
 
+			<P class="f50">
+				<?= $BrandingMaintainer ?>
+			</P>
+		
+		
+		<P class="f40">
+			By clicking the "Register" button, you are creating a 
+			RepMyBlock account, and you agree to RepMyBlock's 
+			<A HREF="/text/terms">Terms of Use</A> and 
+			<A HREF="/text/privacy">Privacy Policy.</A>
+		</P>
 
 
 		
