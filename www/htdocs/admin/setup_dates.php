@@ -56,7 +56,7 @@
 					      We don't know your district <a href="/voter">create one</a>?
 					    </div>
 	    
-	    
+	   			
 	    
 <?php 			
 			$Counter = 0;
@@ -84,7 +84,7 @@
 
 							</div>
 							<BR>
-							<p><button type="submit" class="btn btn-primary">Add a new electiondate</button></p>
+							<p><button type="submit" class="submitred">Add a new electiondate</button></p>
 					</div>
 					</FORM>
 			</div>

@@ -1,7 +1,6 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	$Menu = "admin";
-	$State = "NY";
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";
@@ -9,7 +8,7 @@
 
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
-	$rmb = new repmyblock();	
+	$rmb = new repmyblock(1);	
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
 	
@@ -20,6 +19,10 @@
 
 	//	function ListElectionsDates ($limit = 50, $start = 0, $futureonly = false, $StateID = NULL) {
 	$result = $rmb->ListElectionsDates();
+	
+	print "<PRE>" . print_r($result, 1) . "</PRE>";
+	exit();
+	
 	WriteStderr($result, "ListElections");
 	
 	$TopMenus = array ( 						
@@ -64,6 +67,15 @@
 	    <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
 	      We don't know your district <a href="/voter">create one</a>?
 	    </div>
+	    
+	    
+	     <div id="resp-table">
+							<div id="resp-table-header">
+								<div class="table-header-cell">District</div>
+								<div class="table-header-cell">Candidate</div>
+								<div class="table-header-cell">Actions</div>
+								<div class="table-header-cell">Election Date</div>
+							</div>
 	    	
 <?php 			
 			$Counter = 0;

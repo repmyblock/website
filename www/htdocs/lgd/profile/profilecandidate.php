@@ -24,30 +24,39 @@
 
   $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
   $rmbcandidate = $rmb->ListCandidateInformation($URIEncryptedString["SystemUser_ID"]);
-  $result = $rmb->ListElectedPositions($rmbperson["SystemUser_StateAbbrev"]);
   
-  WriteStderr($rmbcandidate, "RMB Candidate in ProfileCandidate.php");
-  WriteStderr($result, "List Elected Positions");
-  WriteStderr($rmbperson, "RMB Person");
+  if ( empty ($rmbperson["Voters_UniqStateVoterID"])) {
+  	WriteStderr("The user is not Rep My Block recognazed...");
+  	// $Position["County Committee 1"]["County Committee"]["County Committee 3"]["Desc"] = "The description 2";
+  	$Position["County Committee 1"]["County Committee"]["County Committee 3"]["ID"] = "The description 1";
+
+  } else {
   
-  if (! empty($result)) {
-    foreach($result as $var) {
-      if (! empty ($var)) {
-        $Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["Desc"] = $var["ElectionsPosition_Explanation"];
-        $Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["ID"] = $var["ElectionsPosition_ID"];
-        
-        // This is a hack to not repeat the the position.   
-        if ( ! empty ($rmbcandidate)) {
-	        foreach ($rmbcandidate as $vor) {
-  	        if ($vor["CandidateElection_DBTable"] == $var["ElectionsPosition_DBTable"] && $vor["CandidateGroup_Party"] == $var["ElectionsPosition_Party"]) {
-    	        $Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["NOTSHOW"] = $vor["Candidate_ID"];
-      	    }  
-        	}
-        }
-      }
-    }
-  }
-  
+	  $result = $rmb->ListElectedPositions($rmbperson["SystemUser_StateAbbrev"]);
+	  
+	  WriteStderr($rmbcandidate, "RMB Candidate in ProfileCandidate.php");
+	  WriteStderr($result, "List Elected Positions");
+	  WriteStderr($rmbperson, "RMB Person");
+	  
+	  if (! empty($result)) {
+	    foreach($result as $var) {
+	      if (! empty ($var)) {	        
+	        $Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["Desc"] = $var["ElectionsPosition_Explanation"];
+	        $Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["ID"] = $var["ElectionsPosition_ID"];
+	        
+	        // This is a hack to not repeat the the position.   
+	        if ( ! empty ($rmbcandidate)) {
+		        foreach ($rmbcandidate as $vor) {
+	  	        if ($vor["CandidateElection_DBTable"] == $var["ElectionsPosition_DBTable"] && $vor["CandidateGroup_Party"] == $var["ElectionsPosition_Party"]) {
+	    	        $Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["NOTSHOW"] = $vor["Candidate_ID"];
+	      	    }  
+	        	}
+	        }
+	      }
+	    }
+	  }
+	}
+	 
   WriteStderr($Position, "Positions order");
   $TopMenus = array (
             array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
@@ -163,7 +172,7 @@
 	                  } else { 
 	                    ?>&nbsp;&nbsp;&nbsp;<?php /* <A HREF="/<?= $k ?>/lgd/downloads/downloads">Go to the download page to get the petition.</A> */  
 	              } ?>
-	                  &nbsp;&nbsp;<B>County Committee</B><?php 
+	                  &nbsp;&nbsp;<B>County / Precinct Committee</B><?php 
 	                 
 	                   if (! empty ($Position["party"]["County Committee"][$URIEncryptedString["UserParty"]]["NOTSHOW"])) { ?>                    
 	                      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="/<?= CreateEncoded ( array( 
