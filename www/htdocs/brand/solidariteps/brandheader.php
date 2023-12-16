@@ -15,8 +15,8 @@
 	$HeaderOGTitle = $BrandingTitle;
 	$HeaderOGDescription = $BrandingTitle;
 	$HeaderOGImage = $HeaderTwitterPicLink;
-	$HeaderOGImageWidth = "675";
-	$HeaderOGImageHeight = "274";
+	$HeaderOGImageWidth = "558";
+	$HeaderOGImageHeight = "224";
 	
 	$imgtoshow = "/brand/" . $BrandingName . "/Socialists.png";
 ?>
