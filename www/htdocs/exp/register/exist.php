@@ -12,8 +12,8 @@
 		</P>	
 
 		<P class="f60">		
-			Click here if you <A HREF="/<?= $k ?>/exp/forgot/forgotuser">I forgot my username</A> or 
-			here if you <A HREF="/web/exp/forgot/forgotpwd">forgot my password</A>.
+			Click here if <A HREF="/<?= $k ?>/exp/forgot/forgotuser">you forgot your username</A> or 
+			here if <A HREF="/web/exp/forgot/forgotpwd">you forgot your password</A>.
 		</P>
 				
 		<p class="f80">
