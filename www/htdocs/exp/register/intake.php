@@ -16,7 +16,7 @@
 
 		$DBInfo = $r->CheckBothSystemUserTable ($result["SystemUserEmail_AddFrom"], "Email");
 		if ( ! empty ($DBInfo)) {
-			header("Location: /emailreg/exp/register/register");		
+			header("Location: /" . CreateEncoded (array("Email" => $result["SystemUserEmail_AddFrom"])) . "/exp/register/exist");		
 		}
 		
 	} else {

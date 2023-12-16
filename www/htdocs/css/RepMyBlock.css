@@ -179,6 +179,8 @@ clip-path: polygon(24% 15%, 100% 0, 83% 100%, 0% 100%);
 /* @media screen and (max-width: 100px) {.navbar a {float: none;width: 100%;}} */
 
 input[type=text], select, textarea {padding: 8px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
+input[type=email], select, textarea {padding: 8px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
+input[type=username], select, textarea {padding: 8px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
 input[type=password], select, textarea {padding: 8px;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;margin-top: 6px;margin-bottom: 16px;resize: vertical;}
 input[type=submit] {background-color: #EE2E62;color: white;padding: 8px 20px;border: none;cursor: pointer;}
 input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
