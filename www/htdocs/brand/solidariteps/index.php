@@ -45,7 +45,7 @@
 			</P>
 			
 			<P class="f60">
-			<P class="f80"><B><A HREF="https://www.tf1.fr/tmc/martin-weill/videos/les-reportages-de-martin-weill-new-york-la-fin-du-reve-partie-2-81510722.html">Partie 2: les in&eacute;galit&eacute;s</A></B></P>
+			<P class="f80"><B><A HREF="https://www.tf1.fr/tmc/martin-weill/videos/les-reportages-de-martin-weill-new-york-la-fin-du-reve-partie-2-81510722.html">Partie 2 : les in&eacute;galit&eacute;s</A></B></P>
 				<UL class="f60">
 				De Central Park au 
 				Bronx menac&eacute; par la gentrification, des th&eacute;&acirc;tres de Broadway aux refuges 
