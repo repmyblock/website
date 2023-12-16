@@ -66,15 +66,13 @@
 		
 		<P CLASS="f80">
 			<B># 4 :</B> Demandez &agrave; des Am&eacute;ricains de s'inscrire ci-dessous.<BR>
-			<UL CLASS="f60">If a french speaking person asked you to come here it's because they 
-				watched a documentary about the inegalities in New&nbsp;York City and that you 
-				can do something about it.</UL>
+			<UL CLASS="f60">If a French-speaking person asked you to come here, it's because they watched a documentary about the inequalities in New York City, and you can do something about it with a signature.</UL>
 
-			<UL CLASS="f60">As an American, such as helping getting <A HREF="https://draftaoc.us" TARGET="AOC">AOC Drafted in 2028</A> or 
-				help getting <A HREF="http://socialists.us/direct/index/socialistsforbiden" TARGET="SOCBIDDEN">Socialists Delegates to the Chicago Convention</A>.
+			<UL CLASS="f60">As an American, you can help get <A HREF="https://draftaoc.us" TARGET="AOC">AOC drafted for president in 2028</A> 
+				or help get <A HREF="http://socialists.us/direct/index/socialistsforbiden" TARGET="SOCBIDDEN">Socialists delegates to the Chicago Convention</A>.
 			</UL>
 			
-			<UL CLASS="f60"><B>Fill out the survey below</B> to check your voting registration and we will direct you to the right place</A>.
+			<UL CLASS="f60"><B>Fill out the survey below</B> to check your voting registration, and we will direct you to the right place</A>.
 			</UL>
 
 		</P>
