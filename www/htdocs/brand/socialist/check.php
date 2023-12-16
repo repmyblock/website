@@ -15,7 +15,7 @@
 	if ( ! empty ($_POST["CheckRegistration"])) {
 		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_socialist.php";	
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_socialist.php";	
 
 		header("Location: /" . CreateEncoded (
 														array("FirstName" => trim($_POST["FirstName"]),	

@@ -24,7 +24,7 @@
 		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_socialist.php";	
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_socialist.php";	
 					
 		$r = new SocialistBrand(0);	
 		$result = $r->QueryVoter("SocDemAmerica", $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"], $URIEncryptedString["Email"]);

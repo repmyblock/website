@@ -26,7 +26,7 @@
 	if ( ! empty ($_GET["k"])) {		
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_brand_runwithme.php";	
+		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/brand/db_runwithme.php";	
 					
 		$r = new runwithme();	
 		$result = $r->FindNeibors($URIEncryptedString["NYSID"]);
