@@ -17,7 +17,7 @@
 		</P>
 				
 		<p class="f80">
-			Otherwise <A HREF="/<?= $middleuri ?>/exp/login/login">click here to the login page.</A>
+			Otherwise <A HREF="/<?= $middleuri ?>/exp/login/login">click here for the login page.</A>
 		</P>
 		
 		
