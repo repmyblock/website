@@ -60,7 +60,7 @@
 		
 		<P CLASS="f60">	
 			<UL CLASS="f60">
-				<A HREF="https://militantps.fr/appel/SolidariteNewYork.pdf">T&eacute;l&eacute;charger l'affiche au format PDF</A>
+				<A HREF="https://militantps.fr/appel/SolidariteNewYork.pdf" TARGET="PDSol">T&eacute;l&eacute;charger l'affiche au format PDF</A>
 			</UL>
 		</P>
 		
