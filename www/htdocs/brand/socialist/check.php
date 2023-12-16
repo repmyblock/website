@@ -1,14 +1,6 @@
 <?php
 
-	$HeaderTwitter = "yes";
-	$HeaderTwitterTitle = "Rep My Block - Rep My Block";
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/PledgeSignature.jpg";
-	$HeaderTwitterDesc = "Pledge your signature to Biden delegates for the DNC convention.";
-	$HeaderOGTitle = "Biden For President";
-	$HeaderOGDescription = "Pledge your signature to Biden delegates for the DNC convention.";
-	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/PledgeSignature.jpg"; 
-	$HeaderOGImageWidth = "623";
-
+	include "brandheader.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/Vars.php";
 
@@ -30,7 +22,7 @@
 ?>
 <DIV class="main">
 		
-	<DIV class="right f80">Download a Social Democrat of America Petition</DIV>
+	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
 			
 		<P class="f60 p20">
