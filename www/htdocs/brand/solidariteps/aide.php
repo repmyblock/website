@@ -28,7 +28,17 @@
 		
 		<UL>
 		<P CLASS="f80">
-			<B># 1 :</B> Suivre et liker ces comptes sociaux.
+			<B># 1 :</B> Regardez le reportage de Martin Weill.
+		</P>
+		
+		<P CLASS="f60">	
+			<UL CLASS="f60">
+				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/index">Les liens vers le reportage.</A>
+			</UL>
+		</P>
+	
+		<P CLASS="f80">
+			<B># 2 :</B> Suivre et liker ces comptes sociaux.
 		</P>
 		
 		<P CLASS="f60">	
@@ -45,7 +55,7 @@
 		</P>
 		
 		<P CLASS="f80">
-			<B># 2 :</B> Imprimer l'affiche et la partager en section.
+			<B># 3 :</B> Imprimer l'affiche et la partager en section.
 		</P>
 		
 		<P CLASS="f60">	
@@ -55,7 +65,7 @@
 		</P>
 		
 		<P CLASS="f80">
-			<B># 3 :</B> Demandez &agrave; des Americains de s'inscrire ci-dessous.<BR>
+			<B># 4 :</B> Demandez &agrave; des Am&eacute;ricains de s'inscrire ci-dessous.<BR>
 			<UL CLASS="f60">If a french speaking person asked you to come here it's because they 
 				watched a documentary about the inegalities in New&nbsp;York City and that you 
 				can do something about it.</UL>
