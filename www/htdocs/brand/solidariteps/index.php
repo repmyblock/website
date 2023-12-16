@@ -17,7 +17,7 @@
 
 			
 			<P class="f80bold center">
-				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/aide">Regardez le reportage et ensuite clickez ici pour nous aider.</A>
+				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/aide">Regardez le reportage et ensuite cliquez sur ce lien pour nous aider.</A>
 			</P>
 			
 		
