@@ -9,7 +9,7 @@
 <DIV class="main">
 	<DIV class="right f80"><?= $BrandingTitle ?></DIV>
 	
-			<P class="f50">
+			<P class="f60">
 				A Street Activist differs from an Armchair Activist in that we have direct experience with the 
 				communities that others might claim to understand or work with. (Media pundits, celebs and astroturf 
 				activists just repeat what the consensus is, as determined by those with power.) We are the 
@@ -30,7 +30,7 @@
 				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/search">Join the Revolution by helping candidates on the ballot</A>
 			</P>
 
-			<P>
+			<P class="f60">
 				I hosted the only 3rd Party and Independent candidate forum/debates in NYC for the 2021 election cycle 
 				In '22 I ran a program called Unified Platform 22 - Working with over 30 candidates across the nation with 
 				representatives from all major and minor party lines as well as many independents I assembled a coalition 
