@@ -15,7 +15,7 @@
 			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
 		</P>
 		
-		
+		<?php /*
 		<p class="f60">
 			The instructional video will show you what to expect once you login for the first time.
 		</P>
@@ -25,12 +25,16 @@
 		<DIV class="videowrapper">
 	 		<iframe src="https://www.youtube.com/embed/7_A5JlEyMc8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		</DIV>
+		
+		
 
 		</P>
 		
 		<p class="f80">
 			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
 		</P>
+		
+		*/ ?>
 		
 	</DIV>
 </DIV>

@@ -9,7 +9,12 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_admin.php";	
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	
-	$rmb = new RMBAdmin();
+	$TopMenus = array ( 						
+		array("k" => $k, "url" => "../admin/partycall", "text" => "Party Call"),
+		array("k" => $k, "url" => "../admin/partycalladd", "text" => "Update Positions")
+	);
+
+	$rmb = new RMBAdmin(0);
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	
 	if ( ! empty ($_POST)) {
@@ -18,14 +23,11 @@
 		$FormFieldDTTAble = trim($_POST["DTTable"]);
 		$FormFieldDTValue = trim($_POST["DTValue"]);
 		$FormFieldParty = trim($_POST["Party"]);
-		
-	 	$ListPartyCall = $rmb->PartyCallInfo($FormFieldParty, $CurrentElectionID, $FormFieldDTTAble, $FormFieldDTValue);
+
+	 	$ListPartyCall = $rmb->PartyCallInfo($FormFieldParty, $CurrentElectionID, $FormFieldDTTAble, $FormFieldDTValue); 	
 		WriteStderr($ListPartyCall, "ListPartyCall");	
-		
-		
 	}
-	
-	
+
 	if ( ! empty ($ListPartyCall) ) {
 		foreach ($ListPartyCall as $var) {
 			if ( ! empty ($var) ) {
@@ -89,8 +91,6 @@
 								</dd>
 							</dl>
 							
-						
-				
 							<dl class="form-group col-3 d-inline-block"> 
 								<dt class="mobilemenu"><label for="user_profile_name">Party</label><DT>
 								<dd>
@@ -118,10 +118,7 @@
 								</dd>
 							</dl>
 						</DIV>
-
-									
-									
-									<DIV class="f40">
+								<DIV class="f40">
 									<div id="resp-table">
 										<div id="resp-table-header">
 											<div class="table-header-cell">Party</div>
@@ -136,21 +133,20 @@
 										</div>
 
 									<div id="resp-table-body">
-											<div class="resp-table-row">
-												<div class="table-body-cell"></div>
-												<div class="table-body-cell"></div>
-												<div class="table-body-cell"></div>
-												<div class="table-body-cell"></div>
-												<div class="table-body-cell"><?= $TotalCandidate ?></div>
-												<div class="table-body-cell"></div>
-												<div class="table-body-cell"></div>
-												<div class="table-body-cell"></div>
-												<div class="table-body-cell">
-												</div>
-											</div>													
-										</div>						
-							
-									
+										<div class="resp-table-row">
+											<div class="table-body-cell"></div>
+											<div class="table-body-cell"></div>
+											<div class="table-body-cell"></div>
+											<div class="table-body-cell"></div>
+											<div class="table-body-cell"><?= $TotalCandidate ?></div>
+											<div class="table-body-cell"></div>
+											<div class="table-body-cell"></div>
+											<div class="table-body-cell"></div>
+											<div class="table-body-cell">
+											</div>
+										</div>													
+									</div>						
+															
 									<?php 
 			if ( ! empty ($ListPartyCall) ) {
 				foreach ($ListPartyCall as $var) {
@@ -161,17 +157,12 @@
 														"Candidate_ID" => $var["Candidate_ID"],	
 														"PendingBypass" => "yes"								
 													));
-													
-						#						$style = "color:brown;style:bold;background-color:lightgrey;font-weight: bold;";
-											 
-											
-						
+		
+						#	$style = "color:brown;style:bold;background-color:lightgrey;font-weight: bold;";
 						if ( ! empty ($var["CandidateElection_DBTable"])) {
 							preg_match('/(\d{2})(\d{3})/', $var["CandidateElection_DBTableValue"], $District, PREG_OFFSET_CAPTURE);
-						}
-										
+						}							
 		?>
-	
 										<div id="resp-table-body">
 											<div class="resp-table-row">
 												<div class="table-body-cell"><?= $var["ElectionsPartyCall_Party"] ?></div>
@@ -187,9 +178,8 @@
 											</div>													
 										</div>									
 								<?php }
-							}   
-										
-										} 
+									} 		
+								} 
 							?>
 
 							</DIV>

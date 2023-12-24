@@ -17,7 +17,7 @@
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
 	$r = new welcome(0);	
-	$result = $r->CandidatesForElection("NOW");
+	$result = $r->CandidatesForElection();
 	WriteStderr($result, "Voter Guide");
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
@@ -60,7 +60,8 @@
 			
 		<DIV class='container2'>
 			<DIV>
-				<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?><IMG style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $PicturePath ?>" class='iconDetails'><?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
+				<?php $DetailURL = "/" . $var["CandidateProfile_FirstName"] . $var["CandidateProfile_LastName"] . "_" . $var["CANDPROFID"] . "/voter/detail"; ?>
+				<A TARGET="NEW" HREF="<?= $DetailURL ?>"><IMG style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $PicturePath ?>" class='iconDetails'></A>
 			
 							<P class="f40" style="text-margin: 0px 0px 0px 0px;">
 								<I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>

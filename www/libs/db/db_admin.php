@@ -19,6 +19,7 @@ class RMBAdmin extends RepMyBlock {
 		$ret = $this->_return_multiple($sql, $sql_vars);
 	}
 	
+	
 	function ChangeTeamOwner($TeamID, $NewOwner) {		
 		if ( $TeamID > 0) {
 			if ( empty ($NewOwner)) {
@@ -48,6 +49,13 @@ class RMBAdmin extends RepMyBlock {
 
 		
 	}	
+	
+	function SavePartyCallForPosition($ElectionsID, $ElectionPosition, $DeadLine) {
+		$sql = "INSERT INTO ElectionsPartyCall SET Elections_ID = :ElectID, " . 
+						"ElectionsPosition_ID = :PosID, ElectionsPartyCall_SignDeadline = :DeadLine";
+		$sql_vars = array("ElectID" => $ElectionsID, "PosID" => $ElectionPosition,"DeadLine" => $DeadLine );
+		return $this->_return_nothing($sql, $sql_vars);
+	}
 	
 	function ReturnTeamMembership($SystemUserID) {
 		$sql = "SELECT * FROM TeamMember WHERE SystemUser_ID = :SysID";	

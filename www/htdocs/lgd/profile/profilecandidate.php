@@ -23,39 +23,65 @@
   $Party = PrintPartyAdjective($URIEncryptedString["UserParty"]);
 
   $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
-  $rmbcandidate = $rmb->ListCandidateInformation($URIEncryptedString["SystemUser_ID"]);
+  WriteStderr($rmbperson, "RMBPerson");
   
-  if ( empty ($rmbperson["Voters_UniqStateVoterID"])) {
-  	WriteStderr("The user is not Rep My Block recognazed...");
-  	// $Position["County Committee 1"]["County Committee"]["County Committee 3"]["Desc"] = "The description 2";
-  	$Position["County Committee 1"]["County Committee"]["County Committee 3"]["ID"] = "The description 1";
-
+  $rmbcandidate = $rmb->ListCandidateInformationByUNIQ($rmbperson["Voters_UniqStateVoterID"]);
+  WriteStderr($rmbcandidate, "RMBElectoral");
+  
+  if ( ! empty ($rmbcandidate)) {
+	  foreach ($rmbcandidate as $var) {
+	  	if (! empty ($var)) {
+		  	$PositionRunning[$var["Elections_ID"]][$var["CandidateElection_DBTable"]] = true;
+  		}
+  	}
+  }	
+ 
+  if ( ! empty ($rmbperson["Voters_UniqStateVoterID"])) {
+   	
+  	if ( $rmbperson["SystemUser_Priv"] & PERM_OPTION_ALLPOS ) {
+      $rmbelectoral = $rmb->ListElections();
+    } else {
+    	$rmbelectoral = $rmb->ListElections("ADED");
+    }
+ 
+		WriteStderr($rmbelectoral, "RMBElectoral");
+ 
+   	foreach ($rmbelectoral as $var) {
+   		$SaveField = 0;
+   		
+   		switch ($var["ElectionsPosition_Type"]) {
+   			case "party":
+   				if ($var["ElectionsPosition_Party"] == $rmbperson["SystemUser_Party"]) {
+   					$SaveField = 1;
+   				}
+   				break;
+   				
+   			case "office":
+   				$SaveField = 1;
+   				break;
+   		}
+   			
+ 			if ( $SaveField == 1) {
+		 		$Position[$var["DataState_Name"]][$var["Elections_Date"]][$var["ElectionsPosition_Type"]]
+ 									[$var["ElectionsPosition_Party"]][$var["ElectionsPosition_Name"]] = 
+						   			$var["ElectionsPosition_Explanation"];
+				$ElectionID[$var["DataState_Name"]][$var["Elections_Date"]][$var["ElectionsPosition_Type"]]
+ 									[$var["ElectionsPosition_Party"]][$var["ElectionsPosition_Name"]] = 
+						   			array("ElectionsPosition_ID" => $var["ElectionsPosition_ID"], 
+						   						"Elections_ID" => $var["Elections_ID"],
+						   						"DBTable" => $var["ElectionsPosition_DBTable"],
+						   						"Order" => $var["ElectionsPosition_Order"]
+						   			);
+			}
+		}
+		$URLinput = "updatecandidateprofile";
   } else {
-  
-	  $result = $rmb->ListElectedPositions($rmbperson["SystemUser_StateAbbrev"]);
-	  
-	  WriteStderr($rmbcandidate, "RMB Candidate in ProfileCandidate.php");
-	  WriteStderr($result, "List Elected Positions");
-	  WriteStderr($rmbperson, "RMB Person");
-	  
-	  if (! empty($result)) {
-	    foreach($result as $var) {
-	      if (! empty ($var)) {	        
-	        $Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["Desc"] = $var["ElectionsPosition_Explanation"];
-	        $Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["ID"] = $var["ElectionsPosition_ID"];
-	        
-	        // This is a hack to not repeat the the position.   
-	        if ( ! empty ($rmbcandidate)) {
-		        foreach ($rmbcandidate as $vor) {
-	  	        if ($vor["CandidateElection_DBTable"] == $var["ElectionsPosition_DBTable"] && $vor["CandidateGroup_Party"] == $var["ElectionsPosition_Party"]) {
-	    	        $Position[$var["ElectionsPosition_Type"]][$var["ElectionsPosition_Name"]][$var["ElectionsPosition_Party"]]["NOTSHOW"] = $vor["Candidate_ID"];
-	      	    }  
-	        	}
-	        }
-	      }
-	    }
-	  }
-	}
+    $Position[""][""]["County/Prescint Committee"][""]["COUNTY"] = 
+					   			"The party is governed by committees of citizens who are registered in the party, " . 
+					   			"from the national level down to state and community-level. County precints or committes " .
+					   			"the most local level of party governance.";
+		$URLinput = "input";
+  }
 	 
   WriteStderr($Position, "Positions order");
   $TopMenus = array (
@@ -67,149 +93,154 @@
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
-    <DIV class="row">
-      <DIV class="main">
-      <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-        <DIV class="<?= $Cols ?> float-left">
- 
-          <!-- Public Profile -->
-          <DIV class="Subhead mt-0 mb-0">
-            <H2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</H2>
-          </DIV>
-          <?php PlurialMenu($k, $TopMenus); ?>
-     
-          <DIV class="clearfix gutter d-flex ">
-          	
-          	 <FORM ACTION="" METHOD="POST">
-          
-            <DIV class="row">
-              <DIV class="main">
+  <DIV class="row">
+    <DIV class="main">
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+      <DIV class="<?= $Cols ?> float-left">
 
-								<P class="f40">
-                  <B>
-                    <FONT COLOR=BROWN>If you are a candidate for higher office, please send an email to</FONT> 
-                    <A HREF="mailto:candidate@repmyblock.org">candidate@repmyblock.org</A> 
-                    <FONT COLOR=BROWN>to access the omnibus petitions.</FONT>
-                  </B>
-              	</P>
-                      
-<?php       
-      $Counter = 0;
-      if ( ! empty ($Position) || ($rmbperson["SystemUserSelfDistrict_AD"] > 0 && $rmbperson["SystemUserSelfDistrict_ED"] > 0) ) {
-      	
-      	
-      	?>
-      	
-      	 <P class="f40"><B>Open positions to run for in the <?= $Party ?> Party</B></P>
-                  <DIV class="f40 Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
-                    We don't know your district <a href="/voter">create one</a>?
-                  </DIV>  
-                <P>
-      	
-      	<?php 
-      	
-
-				if ( $rmbperson["SystemUser_Priv"] & PERM_OPTION_ALLPOS ) {
-					
-				  foreach ($Position as $PartyPosition => $Positions) {
-	          //if ( ! empty ($PartyPosition)) {
-	            if ( $PartyPosition == "party") { ?>
-	                    <DIV class="list-group-item filtered f60">
-	                      <SPAN><B><?= ucfirst($PartyPosition) ?></B></SPAN>                         
-	                    </DIV>
-	                    
-	                    <DIV class="list-group-item f60">
-	                    
-	<?php
-	 					
-	            // rmbperson["SystemUser_Priv"]
-	             //if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PLEDGES )
-	            
-	            foreach ($Positions as $Pos => $Explain) {
-	               if (! empty ($Pos) ) { 
-	              	
-	               	 if (empty ($Explain[$URIEncryptedString["UserParty"]]["NOTSHOW"])) { 
-	                    $ShowRunForSelected = 1;
-	                    ?>
-	                    <INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Explain[$URIEncryptedString["UserParty"]]["ID"] ?>"><?php 
-	                  } else { 
-	                    ?>&nbsp;&nbsp;&nbsp;<?php /* <A HREF="/<?= $k ?>/lgd/downloads/downloads">Go to the download page to get the petition.</A> */  
-	                  } ?>&nbsp;&nbsp;<B><?= $Pos ?></B><?php 
-	                 
-	                   if (! empty ($Explain[$URIEncryptedString["UserParty"]]["NOTSHOW"])) { ?>                    
-	                      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="/<?= CreateEncoded ( array( 
-	                                          "SystemUser_ID" => $rmbperson["SystemUser_ID"],
-	                                          "Candidate_ID" => $Explain[$URIEncryptedString["UserParty"]]["NOTSHOW"],
-	                                          "FileNameName" => $rmbcandidate[0]["Candidate_DispName"],    
-	                                          "FileNameStateID" => $rmbcandidate[0]["Candidate_UniqStateVoterID"],  
-	                                        )); ?>/lgd/profile/updatecandidateprofile">Update your <?= $Pos ?> candidate profile</A>
-	                  <?php } ?>
-	    									<P class="f40 pad-3"><?= $Explain[$URIEncryptedString["UserParty"]]["Desc"] ?></P>
-	                   
-	<?php          	}    
-								}
-								
-								echo "</DIV>\n";
-								
-																
-            } 
-        	}
-      } else { ?>
-   
-    	
-			
-			 <DIV class="list-group-item filtered f60">
-        <SPAN><B>Party</B></SPAN>                         
-      </DIV>
-      
-	     <DIV class="list-group-item f60">
-	     	
-	     	<?php
-	     if (empty ($Position["party"]["County Committee"][$URIEncryptedString["UserParty"]]["NOTSHOW"])) { 
-	                    $ShowRunForSelected = 1;
-	                    ?>
-	                    <INPUT TYPE="checkbox" NAME="PositionRunning[]" VALUE="<?= $Position["party"]["County Committee"][$URIEncryptedString["UserParty"]]["ID"] ?>"><?php 
-	                  } else { 
-	                    ?>&nbsp;&nbsp;&nbsp;<?php /* <A HREF="/<?= $k ?>/lgd/downloads/downloads">Go to the download page to get the petition.</A> */  
-	              } ?>
-	                  &nbsp;&nbsp;<B>County / Precinct Committee</B><?php 
-	                 
-	                   if (! empty ($Position["party"]["County Committee"][$URIEncryptedString["UserParty"]]["NOTSHOW"])) { ?>                    
-	                      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="/<?= CreateEncoded ( array( 
-	                                          "SystemUser_ID" => $rmbperson["SystemUser_ID"],
-	                                          "Candidate_ID" => $Position["party"]["County Committee"][$URIEncryptedString["UserParty"]]["ID"],
-	                                          "FileNameName" => $rmbcandidate[0]["Candidate_DispName"],    
-	                                          "FileNameStateID" => $rmbcandidate[0]["Candidate_UniqStateVoterID"],  
-	                                        )); ?>/lgd/profile/updatecandidateprofile">Update your County Committee candidate profile</A>
-	                  <?php  } ?><P class="f40 pad-3"><?= $Position["party"]["County Committee"][$URIEncryptedString["UserParty"]]["Desc"] ?></P>
-	                   					
-<?php     }    ?> 
-                 
-		</P>
-    <?php 
-
-    if ( $ShowRunForSelected == 1 ) { ?>
-    	      <P><BUTTON type="submit" class="submitred">Run for the selected positions</BUTTON></p> 
-   <?php } 
-   
-    } else { ?>
-    	  	<P class="f40"><B>We don't have the required information to create a candidate profile.</B></P>
-    	  	<P class="f40">
-    	  	 	You need to fill out the <B><A HREF="profilevoter">Voter Profile</A></B> tab before you 
-    	  	 		can use this menu.
-                
-                <P>
-    	
-    	
-    <?php } ?>
-             </FORM>
-             </DIV>
-              </DIV>
-            </DIV>
-          </DIV>
+        <!-- Public Profile -->
+        <DIV class="Subhead mt-0 mb-0">
+          <H2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</H2>
         </DIV>
-      </DIV>
-    </DIV>
-  </DIV>
+        <?php PlurialMenu($k, $TopMenus); ?>
+   
+        <DIV class="clearfix gutter d-flex ">
+        	
+        	<FORM ACTION="" METHOD="POST">
+        
+          <DIV class="row">
+          	<DIV class="main">
+
+							<P class="f40">
+                <B>
+                  <FONT COLOR=BROWN>If you are a candidate for higher office, please send an email to</FONT> 
+                  <A HREF="mailto:candidate@repmyblock.org" TARGET="MoreCandidate">candidate@repmyblock.org</A> 
+                  <FONT COLOR=BROWN>to get the access code for the other positions.</FONT>
+                </B>
+            	</P>
+                         	
+		      	 	
+             	<DIV class="f40 Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
+    	        	We don't know your district <a href="/voter">create one</a>?
+             	</DIV>
+             						
+            	<P>
+            		<DIV class="list-group-item f60">
+            			
+            			
+								<?php 
+									if (! empty ($Position)) {
+										
+										foreach ($Position as $State => $Positions) {	?>
+                  <P class="f80">Positions available for these elections to run for in the <?= $State ?> state.
+                  	<p class="f70">If a position is missing, please email <A HREF="mailto:candidate@repmyblock.org" TARGET="MoreCandidate">candidate@repmyblock.org</A> 
+                  	and we will add it.
+                  </P>
+                  	</P>     
+                
+									<?php
+									array_multisort($Positions);
+									foreach ($Positions as $Date => $PartyArray) {
+										if (! empty ($Date) ) { ?>
+											<P class="f80"><U><B>Election scheduled <?= PrintShortDate($Date) ?></B></U></P>
+											<?php }
+											foreach ($PartyArray as $Position=> $PositionArray) {
+												// if (! empty ($PartyArray) ) {	print "<B>" . $Party . "</B><BR>";	}
+												foreach ($PositionArray as $Party => $Party2Array) {
+												
+													foreach ($Party2Array as $PositionName => $Explain) {
+														if (! empty ($Party2Array) ) { 
+															
+															if ( $PositionRunning[$ElectionID[$State][$Date][$Position][$Party][$PositionName]["Elections_ID"]]
+																										[$ElectionID[$State][$Date][$Position][$Party][$PositionName]["DBTable"]]) {
+																$RunningYes = true;
+															} else {
+																$RunningYes = false;
+															} 
+																
+															$PositionFullName = "";
+															if ( ! empty ($Party)) {	$PositionFullName = PrintPartyAdjective($Party) ." Party ";	} 
+															$PositionFullName .= $PositionName;
+															?>
+															<P>
+															
+															<B>
+															
+															<?php if ($RunningYes == true) { ?>
+																<LI><FONT COLOR="BROWN">You are running for</FONT> <?= $PositionFullName ?><UL>
+															<?php } else { ?>
+																<UL><LI><?= $PositionFullName ?>
+															<?php } ?>
+															</B>
+															
+															
+															
+															<P><I><?= $Explain ?></I></P>
+											
+															<?php if ($RunningYes == true) { ?>
+																<B><A HREF="/<?= CreateEncoded ( array( 
+																		"SystemUser_ID" => $rmbperson["SystemUser_ID"],
+																		"ElectionsPosition_ID" => $ElectionID[$State][$Date][$Position][$Party][$PositionName]["ElectionsPosition_ID"],
+																		"Elections_ID" => $ElectionID[$State][$Date][$Position][$Party][$PositionName]["Elections_ID"],
+																		"VoterUniqID" => $rmbperson["Voters_UniqStateVoterID"],
+																		"TypeOfRun" => "NewCandidate",
+																		"Party" => $Party,
+																		"PositionFullName" => $PositionFullName,
+																		"Position" => $Position,
+																		"PositionName" => $PositionName,
+																		"PositionOrder" => $ElectionID[$State][$Date][$Position][$Party][$PositionName]["Order"],
+																		"DBTable" => $ElectionID[$State][$Date][$Position][$Party][$PositionName]["DBTable"],
+																)); ?>/lgd/profile/<?= $URLinput ?>">Update for <?= $PositionFullName ?></A></B>				
+																																				
+															<?php } else { ?>
+																<B><A HREF="/<?= CreateEncoded ( array( 
+																			"SystemUser_ID" => $rmbperson["SystemUser_ID"],
+																			"ElectionsPosition_ID" => $ElectionID[$State][$Date][$Position][$Party][$PositionName]["ElectionsPosition_ID"],
+																			"Elections_ID" => $ElectionID[$State][$Date][$Position][$Party][$PositionName]["Elections_ID"],
+																			"VoterUniqID" => $rmbperson["Voters_UniqStateVoterID"],
+																			"TypeOfRun" => "NewCandidate",
+																			"Party" => $Party,
+																			"PositionFullName" => $PositionFullName,
+																			"Position" => $Position,
+																			"PositionName" => $PositionName,
+																			"PositionOrder" => $ElectionID[$State][$Date][$Position][$Party][$PositionName]["Order"],
+																			"DBTable" => $ElectionID[$State][$Date][$Position][$Party][$PositionName]["DBTable"],
+																)); ?>/lgd/profile/<?= $URLinput ?>">Run for <?= $PositionFullName ?></A></B>
+															
+															
+															<?php } ?>
+															</UL>
+															</P>					
+															<?php  
+														}    
+													}
+												}
+											}
+										} ?>
+										
+										
+								</DIV>
+								<?php }	
+							} else {
+								
+								?>
+								
+								The positions are not yet defined for this election cycle.<BR>
+								Send an email to <A HREF="mailto:candidate@repmyblock.org" TARGET="MoreCandidate">candidate@repmyblock.org</A>
+								to get added to the mailing list.
+								
+							<?php } ?>
+										
+								</DIV>
+		
+	             
+	             	</FORM>
+	            </DIV>
+	          </DIV>
+	        </DIV>
+	      </DIV>
+	    </DIV>
+	  </DIV>
+	</DIV>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";  ?>

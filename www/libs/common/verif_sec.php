@@ -24,14 +24,11 @@ if ( $expuri[0] == "howto" ) {
 	}
 }
 
-
 // This is the code to make sure that url are good
 if ( $_SERVER["HTTP_HOST"] != $_SERVER["SERVER_NAME"] ) {	
 	$exphost = explode(".", $_SERVER["HTTP_HOST"]);
 	$expuri = explode("/", substr($_SERVER["REQUEST_URI"],1));
-	
-	
-	
+
 	if ( $exphost[0] != $expuri[0] ) {			
 		if ( ! (str_starts_with($expuri[0], 'AAA') && str_ends_with($expuri[0], '%253D'))) {
 			$expuri[0] = $exphost[0];

@@ -1,25 +1,6 @@
 <?php
 	include "brandheader.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	
-	if ( ! empty ($_POST)) {
-		// find which one is the right one.
-		WriteStderr($_POST, "Result of Post:");
-		if (! empty ($_POST["checkoneyes"])) {
-			header("Location: /" . CreateEncoded (array(
-					"NYSID" => trim($_POST["NYSID"]),
-					"FirstName" => trim($URIEncryptedString["FirstName"]),
-					"LastName" => trim($URIEncryptedString["LastName"]),		
-			)) . "/brand/" . $BrandingName . "/foundsave");
-		} else {					
-			header("Location: /" . CreateEncoded (array(
-					"FirstName" => trim($URIEncryptedString["FirstName"]),
-					"LastName" => trim($URIEncryptedString["LastName"]),
-					"Error" => "Found ID but not the right person"
-			)) . "/brand/" . $BrandingName . "/notfound");
-		}
-		exit();
-	}
 
 	if ( ! empty ($_GET["k"])) {
 		
@@ -29,7 +10,7 @@
 		$r = new generic();					
 		$result = $r->QueryVoter($BrandingName, $URIEncryptedString["FirstName"], $URIEncryptedString["LastName"]);
 																
-		if ( empty ($result)) {
+		if ( ! empty ($result)) {
 			header("Location: /" . CreateEncoded (array(
 					"FirstName" => trim($URIEncryptedString["FirstName"]),
 					"LastName" => trim($URIEncryptedString["LastName"]),

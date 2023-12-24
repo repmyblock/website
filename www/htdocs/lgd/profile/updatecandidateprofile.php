@@ -8,9 +8,59 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   $rmb = new repmyblock();  
   
+  $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
+  WriteStderr($rmbperson, "rmbperson array");
+  
   // Put the POST HERE because we need to reread the data 
   if ( ! empty ($_POST)) {  
-      
+  	
+  	 WriteStderr($_POST, "POST");
+  	 	
+  	if ($URIEncryptedString["TypeOfRun"] == "NewCandidate") {
+ 			// Find the CandidateElections in table CandidateElectionID
+ 			$ElectionsList = $rmb->CandidateElection($URIEncryptedString["DBTable"], 'X', NULL, NULL, $URIEncryptedString["Elections_ID"]);
+			
+			if ( empty ($ElectionsList)) {
+				$DataTable = array(
+					"ElectionID" => $URIEncryptedString["Elections_ID"], 
+					"ElectPosID" => $URIEncryptedString["ElectionsPosition_ID"],
+					"PosType" => (($URIEncryptedString["Position"] == "office") ? 'electoral' :  $URIEncryptedString["Position"]),
+					"Party" =>  $URIEncryptedString["Party"], 
+					"PosText" => $URIEncryptedString["PositionName"], 
+					"PetText" => $URIEncryptedString["PositionFullName"],
+					"Order" => $URIEncryptedString["PositionOrder"], 
+					"Display" => "no", 
+					"Sex" => "both", 
+					"DBTable" => $URIEncryptedString["DBTable"],
+					"DBValue" => "X",
+				);
+			
+				$CandidateElectionID = $rmb->InsertCandidateElection($DataTable);	
+			} else {
+				$CandidateElectionID = $ElectionsList[0]["CandidateElection_ID"];
+			}
+
+  		// Verify that the candidate doesn't exist.
+  		  		
+  		$CandidateInfo = $rmb->ListCandidateInformationByUNIQ($URIEncryptedString["VoterUniqID"], NULL, $CandidateElectionID);
+ 			
+  		if ( empty ($CandidateInfo)) {
+  			// Create the Candidate Stuff
+  			$CandidateID = $rmb->InsertCandidate($rmbperson["SystemUser_ID"], $URIEncryptedString["VoterUniqID"], $rmbperson["Voters_ID"], 
+  															NULL, $CandidateElectionID, $rmbperson["SystemUser_Party"], 
+  															trim($_POST["FullName"]), NULL, $URIEncryptedString["DBTable"], NULL,	NULL, 'pending');
+  		} else {
+  			$CandidateID = $CandidateInfo[0]["Candidate_ID"];
+  		}
+  	} else {
+  		
+  		// This is to update the candidate only
+  		
+  		
+  	}
+  	
+  	// I need to create a profile 
+ 
     $FileName = preg_replace("/[^A-Za-z0-9]/",'', $URIEncryptedString["FileNameName"]);
     $StateID = preg_replace("/^[A-Za-z][A-Za-z]0+(?!$)/", '', $URIEncryptedString["FileNameStateID"]);
     
@@ -18,19 +68,25 @@
     if (! empty ($_FILES["filepicture"]["type"])) {
       if (preg_match("#image/(.*)#", $_FILES["filepicture"]["type"], $matches, PREG_OFFSET_CAPTURE)) {
         $suffix = $matches[1][0];      
-        $PictureFilename = "CAN" . $URIEncryptedString["Candidate_ID"] . "_" . $FileName . "_" . $StateID . "." . $suffix;
+        $PictureFilename = "CAN" . 	$CandidateID . "_" . $FileName . "_" . $_POST["FirstName"] . "." . $suffix;
         preg_match('/(.{4})(.{4})(.{4})/', md5($PictureFilename), $matches, PREG_OFFSET_CAPTURE);
         $md5structure = $matches[1][0] . "/" . $matches[2][0] . "/" . $matches[3][0];
-        $structure = $GeneralUploaDDir . "/shared/pics/" . $md5structure . "/";
+        $structure = $GeneralUploadDir . "/shared/pics/" . $md5structure . "/";
         mkdir($structure, 0777, true);
         $PicFilePath = $md5structure . "/" . $PictureFilename;
+        
+        
         print "PicFilePath: " . $PicFilePath . "<BR>";
+        
+        
         if (! move_uploaded_file($_FILES['filepicture']['tmp_name'], $structure . $PictureFilename)) {
           $error_msg = "Problem uploading the picture";
         } 
+        $PictureFile = true;
       } else {
         $error_msg = "Picture file not in jpeg or png format";
       }
+
     } 
     // This is to deal with the pdf
     if (! empty ($_FILES["pdfplatform"]["type"])) {
@@ -39,13 +95,14 @@
         $PDFFilename = "CAN" . $URIEncryptedString["Candidate_ID"] . "_" . $FileName . "_" . $StateID . "." . $suffix;
         preg_match('/(.{4})(.{4})(.{4})/', md5($PDFFilename), $matches, PREG_OFFSET_CAPTURE);
         $md5structure = $matches[1][0] . "/" . $matches[2][0] . "/" . $matches[3][0];
-        $structure = $GeneralUploaDDir . "/shared/platforms/" . $md5structure . "/";
+        $structure = $GeneralUploadDir . "/shared/platforms/" . $md5structure . "/";
         mkdir($structure, 0777, true);
         $PDFFilePath = $md5structure . "/" . $PDFFilename;
         print "PicFilePath: " . $PDFFilePath . "<BR>";
         if (! move_uploaded_file($_FILES['pdfplatform']['tmp_name'], $structure . $PDFFilename)) {
             $error_msg = "Problem uploading the pdf file";
         }
+        $PDFFile = true;
       }  else {
         $error_msg = "You can upload only PDF files.";
       }
@@ -69,23 +126,55 @@
         "Ballotpedia"   =>  $_POST["Ballotpedia"],
         "PicFile" => $PicFilePath,
         "PDFFile" => $PDFFilePath,
+        "Private" => $_POST["PrivateRun"]
     );
     
-    $rmb->updatecandidateprofile($URIEncryptedString["Candidate_ID"], $CandidateProfile);
-    echo "Continuing";
-    header("Location:/" . $k . "/lgd/profile/updatecandidateprofile");
+    $rmb->updatecandidateprofile($CandidateID, $CandidateProfile);
+    
+    if ( $PictureFile == true || $PDFFile == true) {
+    	echo "GOING TO THE UPLOAD SCREEN";
+  		if ($PictureFile == true) {  	
+  	  	header("Location:/" . MergeEncode(
+  	  														array("PicPath" => $PicFilePath,
+  	  																	"PDFPath" => $PDFFilePath,
+  														)) . "/lgd/profile/fixpicture");
+  		} 
+  		
+  		if ($PDFFile == true) {
+  	  	header("Location:/" . MergeEncode(
+  	  														array("PicPath" => $PicFilePath,
+  	  																	"PDFPath" => $PDFFilePath,
+  														)) . "/lgd/profile/fixpdf");
+  		}   		
+  	}
     
     exit();
+
   }
   
-  $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
-  $rmbcandidate = $rmb->ListCandidatePetitions($URIEncryptedString["Candidate_ID"]);
+  
+  if ( ! empty($URIEncryptedString["Candidate_ID"])) {
+	  $rmbcandidate = $rmb->ListCandidatePetitions($URIEncryptedString["Candidate_ID"]);
+  }
   
   WriteStderr($rmbcandidate, "RMBCandidate");
-  WriteStderr($rmbperson, "rmbperson array");
+  $StatusMessage = "Create the profile";
   
   if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}  
   $Party = PrintParty($UserParty);
+  
+  if ( ! empty  ($rmbcandidate["Candidate_DispName"])) {
+  	$ProfileAlias = $rmbcandidate["CandidateProfile_Alias"];
+  	$ProfileDisplayName= $rmbcandidate["Candidate_DispName"]; 
+   	$ProfileFirstName = $rmbcandidate["CandidateProfile_FirstName"];    
+    $ProfileLastName = $rmbcandidate["CandidateProfile_LastName"];
+  } else {
+ 	  $ProfileDisplayName = $rmbperson["SystemUser_FirstName"] . " " . $rmbperson["SystemUser_LastName"];
+  	$ProfileAlias = $ProfileDisplayName;
+   	$ProfileFirstName = $rmbperson["SystemUser_FirstName"];
+    $ProfileLastName = $rmbperson["SystemUser_LastName"];
+  }
+		                 
   
   if ($rmbperson["SystemUser_emailverified"] == "both") {                
     $TopMenus = array (
@@ -113,16 +202,25 @@
           <DIV class="clearfix gutter d-flex flex-sHRink-0">
             <DIV class="row">
               <DIV class="main">
-                <FORM ACTION="" METHOD="POST">
-
-                  <P class="f40">
-                    This profile will be presented to every person that visits the Rep My Block website. You 
-                    will be able to publish a two-page PDF of your platform that will be used to create a voter 
+                <FORM ACTION="" METHOD="POST" ENCTYPE="multipart/form-data">
+                	              
+                	              	       <P class="f60">
+                    <B>This profile will be presented to every person that visits the Rep My Block website.</B> You 
+                    will be able to upload a one-page PDF of your platform that will be used to create a voter 
                     booklet that a voter will download and email.
                   </P>
+                	                	
+                	 <P class="f60">
+                  	<INPUT TYPE="CHECKBOX" NAME="PrivateRun" VALUE="yes">&nbsp;Publish the profile on the Rep My Block guide on the website.                  	
+                  	<I>(<B>Note:</B> once the information is on a public website, the information will automatically get updated, and this option will disappear.)</I>
+                  </P>
+
+                  <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
       
-                  <P>         
-                    <B><?= $rmbcandidate["Candidate_DispName"]; ?></B>
+					
+      
+                  <P class="f80">         
+                    <B><?= $ProfileDisplayName ?></B>
                   </P>
          
                   <DIV>
@@ -130,24 +228,24 @@
                     <DL class="f40">       
                       <DT><LABEL>First Name</LABEL></DT>
                       <DD>
-                        <INPUT class="form-control" type="text" placeholder="First Name" name="FirstName" value="<?= $rmbcandidate["CandidateProfile_FirstName"]; ?>">
+                        <INPUT class="form-control" type="text" placeholder="First Name" name="FirstName" value="<?= $ProfileFirstName  ?>">
                       </DD>
                     </DL>
-                      
+                                     
                     <DL class="f40"> 
                       <DT><LABEL>Last Name</LABEL><DT>
                       <DD>
-                        <INPUT class="form-control" type="text" placeholder="Last Name" name="LastName" value="<?= $rmbcandidate["CandidateProfile_LastName"]; ?>">
+                        <INPUT class="form-control" type="text" placeholder="Last Name" name="LastName" value="<?= $ProfileLastName ?>">
                       </DD>
                     </DL>
                       
                     <DL class="f40">
                       <DT><LABEL>Public Facing Name</LABEL></DT>
-                      <DD><INPUT class="form-control" type="text" placeholder="Your name to be displayed publicly" name="FullName" value="<?= $rmbcandidate["CandidateProfile_Alias"]; ?>"></DD>
+                      <DD><INPUT class="form-control" type="text" placeholder="Your name to be displayed publicly" name="FullName" value="<?= $ProfileAlias ?>"></DD>
                     </DL>
                       
                     <DL class="f40">
-                      <DT><LABEL>Upload your picture</LABEL></DT>
+                      <DT><LABEL>Upload your picture</LABEL><BR><I>(make sure it's 200 pixels in width by 300 pixels in height)</I></DT>
                       <DD><INPUT type="file" name="filepicture"></DD>
                     </DL>
 
@@ -232,7 +330,7 @@
                     </P>
                     
                       
-                    <p><button type="submit" class="submitred">Update profile</button></p>
+                    <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
 
                   </DIV>
                 </FORM>

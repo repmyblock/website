@@ -14,7 +14,7 @@ class welcome extends queries {
   
   function CandidatesInfo($CandidateID = NULL) {
 		$sql = "SELECT * FROM CandidateProfile ";
-		
+						
 		if (! empty ($CandidateID)) {
 			$sql .= "WHERE Candidate_ID = :CandidateID";
 			$sql_vars = array("CandidateID" => $CandidateID);
@@ -25,7 +25,7 @@ class welcome extends queries {
 	}
 
 	function CandidatesForElection($ElectionDateFrom = NULL, $ElectionDateTo = NULL, $ElectionState = NULL) {
-		$sql = "SELECT * FROM Elections " .
+		$sql = "SELECT *, CandidateProfile.CandidateProfile_ID AS CANDPROFID FROM Elections " .
 						"LEFT JOIN CandidateElection ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN Candidate ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
 						"LEFT JOIN CandidateProfile ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " .
@@ -41,9 +41,17 @@ class welcome extends queries {
 			}
 		}
 					 
-		$sql .= "ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder";
+		$sql .= " ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder";
 
 		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	
+	function CandidatesDetailed($CandidateProfileID) {
+		$sql = "SELECT * FROM CandidateProfile " . 
+						"WHERE CandidateProfile_ID = :CandidateProfileID";
+		
+		return $this->_return_simple($sql, array("CandidateProfileID" => $CandidateProfileID));
 	}
 	
   
