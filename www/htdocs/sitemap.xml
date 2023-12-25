@@ -45,8 +45,8 @@
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://www.repmyblock.org/web/exp/voter/guide</loc>
-        <lastmod>2023-04-09</lastmod>
+        <loc>https://www.repmyblock.org/web/voter/guide</loc>
+        <lastmod>2023-12-25</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
     </url>
