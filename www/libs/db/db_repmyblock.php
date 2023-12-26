@@ -499,14 +499,20 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql);
 	}
 	
-	function ListCandidateProfile($CandidateID = NULL) {
+	function ListCandidateProfile($CandidateID = NULL, $CandidateProfileID = NULL) {
 		$sql = "SELECT * FROM CandidateProfile ";
 		
 		if (! empty ($CandidateID)) {
 			$sql .= "WHERE Candidate_ID = :CandidateID";
 			$sql_vars = array("CandidateID" => $CandidateID);
+			
+			if ( ! empty ($CandidateProfileID)) {
+				$sql .= " AND CandidateProfile_ID = :ProfileID";
+				$sql_vars["ProfileID"] = $CandidateProfileID;
+			}
+			
 			return $this->_return_simple($sql, $sql_vars);
-		}
+		} 
 		
 		return $this->_return_multiple($sql);
 	}
@@ -573,7 +579,7 @@ class RepMyBlock extends queries {
 									
 			if ( empty ($return)) {	$sql = "INSERT INTO"; } 
 			else { $sql = "UPDATE"; }
-			$sql .= " CandidateProfile SET ";
+			$sql .= " CandidateProfile SET CandidateProfile_LastModified = DATE(NOW()), ";
 			if ( $Candidate_ID != "force") {
 				$sql_vars = array("Candidate_ID" => $Candidate_ID);
 			}
@@ -650,7 +656,8 @@ class RepMyBlock extends queries {
 	}
 	
 	function ListCandidateInformationByUNIQ($UniqID, $ElectionID = NULL, $CandidateElection_ID = NULL) {
-		$sql = "SELECT * FROM Candidate " . 
+		$sql = "SELECT * FROM  CandidateProfile " . 
+						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " . 		
 						"LEFT JOIN CandidateGroup ON (Candidate.Candidate_ID = CandidateGroup.Candidate_ID) " . 
 						"LEFT JOIN CandidateSet ON (CandidateGroup.CandidateSet_ID = CandidateSet.CandidateSet_ID) " .
 						"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " . 

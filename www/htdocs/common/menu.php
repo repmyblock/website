@@ -54,6 +54,7 @@
 			</NAV>
 	  </DIV>
 <?php 
-  // Verification email
+  // Verification email (I might need to remove these variables ...)
+  $VerifEmail = false; $VerifVoter = false;
   PrintVerifMenu($VerifEmail, $VerifVoter); 
 ?><!--- End Menu --->

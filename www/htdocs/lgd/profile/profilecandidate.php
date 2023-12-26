@@ -31,13 +31,14 @@
   if ( ! empty ($rmbcandidate)) {
 	  foreach ($rmbcandidate as $var) {
 	  	if (! empty ($var)) {
-		  	$PositionRunning[$var["Elections_ID"]][$var["CandidateElection_DBTable"]] = true;
+		  $PositionRunning[$var["Elections_ID"]][$var["CandidateElection_DBTable"]] = 
+		  				array ("Candidate_ID" => $var["Candidate_ID"], "CandidateProfile_ID" => $var["CandidateProfile_ID"]);
   		}
   	}
   }	
  
   if ( ! empty ($rmbperson["Voters_UniqStateVoterID"])) {
-   	
+  	  	
   	if ( $rmbperson["SystemUser_Priv"] & PERM_OPTION_ALLPOS ) {
       $rmbelectoral = $rmb->ListElections();
     } else {
@@ -70,7 +71,7 @@
 						   			array("ElectionsPosition_ID" => $var["ElectionsPosition_ID"], 
 						   						"Elections_ID" => $var["Elections_ID"],
 						   						"DBTable" => $var["ElectionsPosition_DBTable"],
-						   						"Order" => $var["ElectionsPosition_Order"]
+						   						"Order" => $var["ElectionsPosition_Order"]						   						
 						   			);
 			}
 		}
@@ -150,14 +151,11 @@
 												
 													foreach ($Party2Array as $PositionName => $Explain) {
 														if (! empty ($Party2Array) ) { 
-															
-															if ( $PositionRunning[$ElectionID[$State][$Date][$Position][$Party][$PositionName]["Elections_ID"]]
-																										[$ElectionID[$State][$Date][$Position][$Party][$PositionName]["DBTable"]]) {
-																$RunningYes = true;
-															} else {
-																$RunningYes = false;
-															} 
-																
+
+															$ElectProfileID = $PositionRunning[$ElectionID[$State][$Date][$Position][$Party][$PositionName]["Elections_ID"]]
+																																			[$ElectionID[$State][$Date][$Position][$Party][$PositionName]["DBTable"]];
+																																			
+											
 															$PositionFullName = "";
 															if ( ! empty ($Party)) {	$PositionFullName = PrintPartyAdjective($Party) ." Party ";	} 
 															$PositionFullName .= $PositionName;
@@ -166,18 +164,16 @@
 															
 															<B>
 															
-															<?php if ($RunningYes == true) { ?>
+															<?php if (! empty ($ElectProfileID)) { ?>
 																<LI><FONT COLOR="BROWN">You are running for</FONT> <?= $PositionFullName ?><UL>
 															<?php } else { ?>
 																<UL><LI><?= $PositionFullName ?>
 															<?php } ?>
 															</B>
 															
-															
-															
 															<P><I><?= $Explain ?></I></P>
 											
-															<?php if ($RunningYes == true) { ?>
+															<?php if (! empty ($ElectProfileID)) { ?>
 																<B><A HREF="/<?= CreateEncoded ( array( 
 																		"SystemUser_ID" => $rmbperson["SystemUser_ID"],
 																		"ElectionsPosition_ID" => $ElectionID[$State][$Date][$Position][$Party][$PositionName]["ElectionsPosition_ID"],
@@ -190,6 +186,8 @@
 																		"PositionName" => $PositionName,
 																		"PositionOrder" => $ElectionID[$State][$Date][$Position][$Party][$PositionName]["Order"],
 																		"DBTable" => $ElectionID[$State][$Date][$Position][$Party][$PositionName]["DBTable"],
+																		"CandidateProfileID" => $ElectProfileID["CandidateProfile_ID"],
+																		"Candidate_ID" => $ElectProfileID["Candidate_ID"],
 																)); ?>/lgd/profile/<?= $URLinput ?>">Update for <?= $PositionFullName ?></A></B>				
 																																				
 															<?php } else { ?>
