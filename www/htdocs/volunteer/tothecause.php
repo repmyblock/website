@@ -93,7 +93,7 @@
 		</P>
 	</DIV>
 	
-	<P class="f60 center"><A HREF="/">Back to the main page</A></P>
+	<P class="f60 center"><A HREF="/<?= $middleuri ?>/main/page">Back to the main page</A></P>
 
 
 </div>

@@ -98,7 +98,7 @@
 		<P class="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
 	</P>
 	
-	<P class="f80 center adpad"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
+	<P class="f80 center adpad"><A HREF="/<?= $middleuri ?>/register/user">Register on the Rep My Block website</A></P>
 </div>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

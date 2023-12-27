@@ -25,7 +25,7 @@
 
 <P class="f40">
 	<B>Teaser:</B> What is the County Committee.<BR>
-	<B><A HREF="/<?= $middleuri ?>/exp/register/movie">Watch Fahim Hamid documentary on the County Committee</A></B>
+	<B><A HREF="/<?= $middleuri ?>/register/movie">Watch Fahim Hamid documentary on the County Committee</A></B>
 </P>
 
 <P>

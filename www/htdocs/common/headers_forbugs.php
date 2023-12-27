@@ -62,11 +62,11 @@
 			  <a href="/" class="logo"><IMG SRC="<?= $imgtoshow ?>" class="header-logo"></a>
 			</DIV>
 		  <div class="header-right">
-  	  	<a class="login" href="/<?= $middleuri ?>/exp/contact/contact">CONTACT</a>
+  	  	<a class="login" href="/<?= $middleuri ?>/contact/contact">CONTACT</a>
 		  	<?php if ( $MenuLogin == "logged") { ?>
 					 <a href="/<?= $middleuri ?>/lgd/signoff" class="login right<?php if ($BigMenu == "profile") { echo " active"; } ?>">LOGOUT</a>
 				<?php } else { ?>
-		    	<a href="/<?= $middleuri ?>/exp/login/login" class="login">LOGIN</a>
+		    	<a href="/<?= $middleuri ?>/login/login" class="login">LOGIN</a>
 		    <?php } ?>
 		  </DIV>
 		</DIV>
@@ -86,13 +86,13 @@
 <div class="navbar">
 <?php if ( $MenuLogin == "logged") { ?>
   <a href="/<?= $middleuri ?>/lgd/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
-<?php /*  <a href="/<?= $middleuri ?>/exp/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
+<?php /*  <a href="/<?= $middleuri ?>/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
   <a href="/<?= $middleuri ?>/lgd/voters"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="/<?= $middleuri ?>/exp/toplinks/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="/<?= $middleuri ?>/toplinks/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
 <?php } else { ?>
-  <a href="/<?= $middleuri ?>/exp/toplinks/howto" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
-<?php /*    <a href="/<?= $middleuri ?>/exp/propose"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
+  <a href="/<?= $middleuri ?>/toplinks/howto" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
+<?php /*    <a href="/<?= $middleuri ?>/propose"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
   <a href="/<?= $middleuri ?>/training/steps/torun"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="/<?= $middleuri ?>/exp/toplinks/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="/<?= $middleuri ?>/toplinks/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
 <?php } ?>
 </div>

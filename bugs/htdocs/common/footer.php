@@ -6,16 +6,16 @@
 			<P CLASS="footerclass2">
 				<DIV CLASS="FooterLinks">
 <?php if ( $MenuLogin == "logged") { ?>
-  <a href="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/toplinks/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/toplinks/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
   <a href="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/training/steps/torun"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/propose/nomination"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a>
+  <a href="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/propose/nomination"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a>
 <?php } else { ?>							
-					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/toplinks/about">ABOUT</A>
-					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/training/steps/torun">REPRESENT</A>
-					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/propose/nomination">NOMINATE</A>
+					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/toplinks/about">ABOUT</A>
+					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/user/register">REPRESENT</A>
+					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/propose/nomination">NOMINATE</A>
 <?php } ?>  
-					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/toplinks/howto">HOWTO</A>
-					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/contact/contact">CONTACT</A>
+					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/training/steps/torun">HOWTO</A>
+					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/contact/contact">CONTACT</A>
 					<A HREF="<?= $FrontEndBugs ?>/bugs/<?= CreateEncoded ( array( 	
 																																	"Referer" =>  $_SERVER['HTTP_REFERER'],
 																																	"URI" => $_SERVER['REQUEST_URI'],
@@ -26,7 +26,7 @@
 <?php if ( $MenuLogin == "logged") { ?>
 				  <a href="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/lgd/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
 <?php } else { ?>							
-					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/exp/login/login">LOGIN</A>
+					<A HREF="<?= $FrontEndWebsite ?>/<?= $middleuri ?>/user/login">LOGIN</A>
 <?php } ?>  
 
 				</DIV>

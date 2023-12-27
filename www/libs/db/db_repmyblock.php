@@ -501,7 +501,7 @@ class RepMyBlock extends queries {
 	
 	function ListCandidateProfile($CandidateID = NULL, $CandidateProfileID = NULL) {
 		$sql = "SELECT * FROM CandidateProfile ";
-		
+				
 		if (! empty ($CandidateID)) {
 			$sql .= "WHERE Candidate_ID = :CandidateID";
 			$sql_vars = array("CandidateID" => $CandidateID);
@@ -512,7 +512,12 @@ class RepMyBlock extends queries {
 			}
 			
 			return $this->_return_simple($sql, $sql_vars);
-		} 
+
+		} else {
+			$sql .= "WHERE CandidateProfile_ID = :ProfileID";
+			$sql_vars = array("ProfileID" => $CandidateProfileID);
+			return $this->_return_simple($sql, $sql_vars);
+		}
 		
 		return $this->_return_multiple($sql);
 	}
@@ -544,78 +549,83 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql);
 	}
 	
-	function updatecandidateprofile($Candidate_ID, $CandidateProfile) {
-	
-		if ($Candidate_ID > 0 || $Candidate_ID == "force" ) {			
-			$MatchTableName = array(
-				"PicFile" => "CandidateProfile_PicFileName", 
-				"PDFFile" => "CandidateProfile_PDFFileName", 
-				"Fist"	 =>  "CandidateProfile_FirstName", 
-				"Last"	 => "CandidateProfile_LastName", 
-				"Full"	 =>  "CandidateProfile_Alias", 
-				"URL"	 =>  "CandidateProfile_Website", 
-				"Email"	 => "CandidateProfile_Email", 
-				"Twitter"	 => "CandidateProfile_Twitter", 
-				"Facebook"	 => "CandidateProfile_Facebook", 
-				"Instagram"	 => "CandidateProfile_Instagram", 
-				"TikTok"	 => "CandidateProfile_TikTok", 
-				"YouTube"	 => "CandidateProfile_YouTube", 
-				"Ballotpedia"	 => "CandidateProfile_BallotPedia", 
-				"Phone"	 => "CandidateProfile_PhoneNumber", 
-				"Fax"	 => "CandidateProfile_FaxNumber", 
-				"Platform"	 => "CandidateProfile_Statement",
- 				"Private" => "CandidateProfile_PublishProfile",
-			);
-			
-			if ( $Candidate_ID > 0) {
-				$return = $this->ListCandidateProfile($Candidate_ID);	
-				# This is to set the collums that changed.
-				foreach ($CandidateProfile as $index => $var) {			
-					if ( $var == $return[$MatchTableName[$index]]) {
-						unset ($CandidateProfile[$index]);
-					}
-				}
-			}
-									
-			if ( empty ($return)) {	$sql = "INSERT INTO"; } 
-			else { $sql = "UPDATE"; }
-			$sql .= " CandidateProfile SET CandidateProfile_LastModified = DATE(NOW()), ";
-			if ( $Candidate_ID != "force") {
-				$sql_vars = array("Candidate_ID" => $Candidate_ID);
-			}
+	function updatecandidateprofile($CandidateProfile_ID, $CandidateProfile) {
 
-			$firsttime = 0;
-			foreach ( $CandidateProfile as $index => $var) {
-				if ( ! empty ($var)) {
-					if ( $firsttime ) { $sql .= ", "; }				
-					$sql .= $MatchTableName[$index] . " = :" . $index; 
-					$sql_vars[$index] =	$CandidateProfile[$index]; 
-					$firsttime = 1;
+		$MatchTableName = array(
+			"PicFile" => "CandidateProfile_PicFileName",
+			"PDFFile" => "CandidateProfile_PDFFileName",
+			"First"	 =>  "CandidateProfile_FirstName",
+			"Last"	 => "CandidateProfile_LastName",
+			"Full"	 =>  "CandidateProfile_Alias",
+			"URL"	 =>  "CandidateProfile_Website",
+			"Email"	 => "CandidateProfile_Email",
+			"Twitter"	 => "CandidateProfile_Twitter",
+			"Facebook"	 => "CandidateProfile_Facebook",
+			"Instagram"	 => "CandidateProfile_Instagram",
+			"TikTok"	 => "CandidateProfile_TikTok",
+			"YouTube"	 => "CandidateProfile_YouTube", 
+			"Ballotpedia"	 => "CandidateProfile_BallotPedia",
+			"Phone"	 => "CandidateProfile_PhoneNumber",
+			"Fax"	 => "CandidateProfile_FaxNumber",
+			"Platform"	 => "CandidateProfile_Statement",
+			"Private" => "CandidateProfile_PublishProfile",
+			"Quarantine" => "CanddiateProfile_Quarantine",
+			"PicVerified" => "CanddiateProfile_PicVerif",
+			"PDFVerified" => "CanddiateProfile_PDFVerif",
+			"ProfileComplain" => "CanddiateProfile_Complain",
+			"PublishPetition" => "CandidateProfile_PublishPetition",
+			
+			"CandidateID" => "Candidate_ID",
+		);
+
+		if ( $CandidateProfile_ID > 0) {
+			$return = $this->ListCandidateProfile(NULL, $CandidateProfile_ID);
+			# This is to set the colums that changed.
+			foreach ($CandidateProfile as $index => $var) {
+				if ( $var == $return[$MatchTableName[$index]]) {
+					unset ($CandidateProfile[$index]);
 				}
 			}
-			
-			## Add the null tables at the end;
-			foreach ( $CandidateProfile as $index => $var) {
-				if ( empty ($CandidateProfile[$index])) {
-					if ( $firsttime ) { $sql .= ", "; }	
-					$sql .= $MatchTableName[$index] . " = NULL";
-					$firsttime = 1;
-				}
-			}
-			
-			if ( $Candidate_ID != "force") {
-				if ( empty ($return)) {	$sql .= " ,Candidate_ID = :Candidate_ID"; }
-				else { $sql .= " WHERE Candidate_ID = :Candidate_ID"; }
-			}
-			
-			if (! $firsttime) return;
-			$this->_return_nothing($sql, $sql_vars);
-			
-			$sql = "SELECT LAST_INSERT_ID() as CandidateProfile_ID";
-			return $this->_return_simple($sql); 
 		}
-	}	
-	
+
+		if ( empty ($return)) {	$sql = "INSERT INTO"; }
+		else { $sql = "UPDATE"; }
+		$sql .= " CandidateProfile SET ";
+
+		$firsttime = 0;
+		foreach ( $CandidateProfile as $index => $var) {
+			if ( ! empty ($var)) {
+				if ( $firsttime ) { $sql .= ", "; }
+				$sql .= $MatchTableName[$index] . " = :" . $index;
+				$sql_vars[$index] =	$CandidateProfile[$index];
+				$firsttime = 1;
+			}
+		}
+
+		## Add the null tables at the end;
+		foreach ( $CandidateProfile as $index => $var) {
+			if ( empty ($CandidateProfile[$index])) {
+				if ( $firsttime ) { $sql .= ", "; }
+				$sql .= $MatchTableName[$index] . " = NULL";
+				$firsttime = 1;
+			}
+		}
+
+		$sql .= $firsttime ? "," : NULL;
+		$sql .= " CandidateProfile_LastModified = DATE(NOW())";
+
+		if ( ! empty ($return)) {
+			$sql .= " WHERE CandidateProfile_ID = :CandidateProfile_ID";
+			$sql_vars["CandidateProfile_ID"] = $CandidateProfile_ID;
+		}
+		
+		$this->_return_nothing($sql, $sql_vars);		
+		if (! empty ($return)) return $CandidateProfile_ID;
+		
+		$sql = "SELECT LAST_INSERT_ID() as CandidateProfileID";
+		return $this->_return_simple($sql)["CandidateProfileID"];
+	}
+
 	function CheckCandidateGroups ($CandidatesIDs) {
   	$sql = "SELECT * FROM CandidateGroup WHERE "; 
   	

@@ -42,11 +42,11 @@
 		 A short documentary by <A HREF="https://www.imdb.com/title/tt20049084/" TARGET="other">Fahim Hamid</A>.
 	</P>
 	
-	<P class="center f80 adpad"><A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/movie">Watch COUNTY: A Documentary</A></P>
+	<P class="center f80 adpad"><A class="action-runfor" HREF="/<?= $middleuri ?>/register/movie">Watch COUNTY: A Documentary</A></P>
 
 	<P class="adpad">
 		<CENTER>
-			<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/movie"><IMG SRC="/images/documentary/CountyDocumentary.png"></A>
+			<A class="action-runfor" HREF="/<?= $middleuri ?>/register/movie"><IMG SRC="/images/documentary/CountyDocumentary.png"></A>
 		</CENTER>
 	</P>
 		
@@ -54,8 +54,8 @@
 	<P class="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
 	<DIV class="f60 adpad">
-		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/register" class="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
-		<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/propose/nomination" class="NomCandidate"><img class="action-runfor" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
+		<A class="action-runfor" HREF="/<?= $middleuri ?>/register/user" class="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
+		<A class="action-runfor" HREF="/<?= $middleuri ?>/propose/nomination" class="NomCandidate"><img class="action-runfor" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
 	</DIV>
 	
 	<BR>

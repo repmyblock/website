@@ -127,7 +127,7 @@
 	} ?>
 	
 	<P class="f40">
-		If you made several requests, <A HREF="/<?= $middleuri ?>/register/investigate">click here to alert us 
+		If you made several requests, <A HREF="/<?= $middleuri ?>/user/investigate">click here to alert us 
 		and we will investigate</A>.
 	</P>
 	

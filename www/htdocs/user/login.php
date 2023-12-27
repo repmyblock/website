@@ -90,15 +90,15 @@
 		</P>
 		
 		<P class="f60">
-			<A HREF="/<?= $middleuri ?>/exp/forgot/forgotpwd">I forgot my password</A>
+			<A HREF="/<?= $middleuri ?>/user/forgotpwd">I forgot my password</A>
 		</P>
 		
 		<P class="f60">
-			<A HREF="/<?= $middleuri ?>/exp/forgot/forgotuser">I forgot my username</A>
+			<A HREF="/<?= $middleuri ?>/user/forgotuser">I forgot my username</A>
 		</P>
 		
 		<P class="f60">
-			<A HREF="/<?= $middleuri ?>/exp/register/register">Register</A>
+			<A HREF="/<?= $middleuri ?>/register/user">Register</A>
 		</P>
 
 	</DIV>

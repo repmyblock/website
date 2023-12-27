@@ -3,10 +3,10 @@
  	/* This directory is to keep track of the branding */
  	
  	if ( empty ($_GET['brand'])) {
- 		header("Location: /web/exp/index");
+ 		header("Location: /web/index");
  		exit();
  	} else {
- 		header("Location: /" . rawurlencode($_GET['brand']) . "/exp/index");
+ 		header("Location: /" . rawurlencode($_GET['brand']) . "/index");
  		exit();
  	} 	
 ?>

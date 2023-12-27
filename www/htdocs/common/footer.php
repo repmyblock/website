@@ -6,15 +6,15 @@
       <P class="footerclass2">
         <DIV class="FooterLinks">
 <?php if ( $MenuLogin == "logged") { ?>
-          <A<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?> href="/<?= $middleuri ?>/exp/toplinks/about">ABOUT</a>
+          <A<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?> href="/<?= $middleuri ?>/toplinks/about">ABOUT</a>
           <A<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?> href="/<?= $middleuri ?>/training/steps/torun">REPRESENT</a>
-          <A<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?> href="/<?= $middleuri ?>/exp/propose/nomination">NOMINATE</a>
+          <A<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?> href="/<?= $middleuri ?>/propose/nomination">NOMINATE</a>
 <?php } else { ?>              
-          <A HREF="/<?= $middleuri ?>/exp/toplinks/about">ABOUT</A>
-          <A HREF="/<?= $middleuri ?>/training/steps/torun">REPRESENT</A>
-          <A HREF="/<?= $middleuri ?>/exp/propose/nomination">NOMINATE</A>
-<?php } ?>          <A HREF="/<?= $middleuri ?>/exp/toplinks/howto">HOWTO</A>
-          <A HREF="/<?= $middleuri ?>/exp/contact/contact">CONTACT</A>
+          <A HREF="/<?= $middleuri ?>/toplinks/about">ABOUT</A>
+          <A HREF="/<?= $middleuri ?>/register/user">REPRESENT</A>
+          <A HREF="/<?= $middleuri ?>/propose/nomination">NOMINATE</A>
+<?php } ?>          <A HREF="/<?= $middleuri ?>/training/steps/torun">HOWTO</A>
+          <A HREF="/<?= $middleuri ?>/user/contact">CONTACT</A>
           <A TARGET="BUGPAGE" HREF="<?= $FrontEndBugs ?>/bugs/<?= CreateEncoded ( array(   
                                                                   "Referer" =>  $_SERVER['HTTP_REFERER'],
                                                                   "URI" => $_SERVER['REQUEST_URI'],
@@ -25,7 +25,7 @@
 <?php if ( $MenuLogin == "logged") { ?>
           <A class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>" href="/<?= $middleuri ?>/lgd/profile">PROFILE</a>
 <?php } else { ?>              
-          <A HREF="/<?= $middleuri ?>/exp/login/login">LOGIN</A>
+          <A HREF="/<?= $middleuri ?>/user/login">LOGIN</A>
 <?php } ?>        </DIV>
         <DIV class="FooterSocial">
           <A TARGET="twitter" class="FooterSocial" HREF="https://twitter.com/RepMyBlock">Twitter</A>

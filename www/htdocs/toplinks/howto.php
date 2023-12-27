@@ -28,7 +28,7 @@
 			<B><A HREF="<?= $FrontEndPDF ?>/BLANK/NY/NYC/CRU_PreFile" TARGET="CRU">completing the Petition Pre Assigned Identification Number Application</A></B>
 			and mailing it to the Candidate Record Unit at the Board of Election.
 		<BR>
-		 <I>(If you have used the RepMyBlock system, <A HREF="/<?= $middleuri ?>/exp/login/login"><B>log into your account</B></A> to download a custom pre-filed one.)</I>
+		 <I>(If you have used the RepMyBlock system, <A HREF="/<?= $middleuri ?>/user/login"><B>log into your account</B></A> to download a custom pre-filed one.)</I>
 		</P>
 		
 		<P>

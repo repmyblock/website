@@ -4,7 +4,6 @@
 
 	WriteStderr($k,"Header K");
 	WriteStderr($URIEncryptedString["SystemUser_ID"],"Header SystemID");
-	
 
 	if ( ! empty ($k) && ($URIEncryptedString["SystemUser_ID"] > 0 ||
 												$URIEncryptedString["SystemUser_ID"] == "TMP")) { 
@@ -12,19 +11,18 @@
 		$logourl = "/" . $k . "/lgd/summary/summary";
 		$middleuri = $k;
 				
-	} else {
-		
-		 		
+	} else {		
 		if ( empty ($URIEncryptedString) && empty ($middleuri) && ! empty ($k)) {
 			$middleuri = $k;
 		}
 		if (empty ($middleuri)) { $middleuri = "web"; };
-		$logourl = "/" . $middleuri . "/exp/index";
+		$logourl = "/" . $middleuri . "/main/page";
 		
 		if ( ! empty ($BrandLink)) {
 			$logourl = $BrandLink;
 		}
 	}	
+	
 	// This is the image
 	if ( empty ($imgtoshow )) {	$imgtoshow = "/images/RepMyBlock.png"; }	
 
@@ -111,11 +109,11 @@
 			</DIV>
 		  <div class="header-right">
 		  	<?php if ( $MenuLogin == "logged") { ?>
-			  	<a class="login" href="/<?= $k ?>/exp/contact/contact">CONTACT</a>
+			  	<a class="login" href="/<?= $k ?>/user/contact">CONTACT</a>
 					<a href="/<?= $k ?>/lgd/signoff" class="login right<?php if ($BigMenu == "profile") { echo " active"; } ?>">LOGOUT</a>
 				<?php } else { ?>
-			  	<a class="login" href="/<?= $middleuri ?>/exp/register/register">REGISTER</a>
-		    	<a href="/<?= $middleuri ?>/exp/login/login" class="login">LOGIN</a>
+			  	<a class="login" href="/<?= $middleuri ?>/register/user">REGISTER</a>
+		    	<a href="/<?= $middleuri ?>/user/login" class="login">LOGIN</a>
 		    <?php } ?>
 		  </DIV>
 		</DIV>
@@ -124,11 +122,11 @@
 		<?php if ( $MenuLogin == "logged") { ?>
 		  <a href="/<?= $k ?>/lgd/profile/user" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
 		  <a href="/<?= $k ?>/training/steps/torun"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-		  <a href="/<?= $k ?>/exp/toplinks/about"<?php if ($BigMenu == "about") { echo " class=\"active\""; } ?>>ABOUT</a>
+		  <a href="/<?= $k ?>/toplinks/about"<?php if ($BigMenu == "about") { echo " class=\"active\""; } ?>>ABOUT</a>
 		<?php } else { ?>
-		 	<a  href="/<?= $middleuri ?>/exp/contact/contact" class="right<?php if ($BigMenu == "contact") { echo " active"; } ?>">CONTACT</a>
+		 	<a  href="/<?= $middleuri ?>/user/contact" class="right<?php if ($BigMenu == "contact") { echo " active"; } ?>">CONTACT</a>
 		  <a href="/<?= $middleuri ?>/training/steps/torun" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
-		  <a href="/<?= $middleuri ?>/exp/toplinks/about"<?php if ($BigMenu == "about") { echo " class=\"active\""; } ?>>ABOUT</a>
+		  <a href="/<?= $middleuri ?>/toplinks/about"<?php if ($BigMenu == "about") { echo " class=\"active\""; } ?>>ABOUT</a>
 		<?php } ?>
 		</div><?php WriteStderr($middleuri,"Middle URI at the end of header"); ?>
 		

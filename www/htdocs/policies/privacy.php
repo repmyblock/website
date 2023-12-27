@@ -36,7 +36,7 @@
 		
 	</DIV>
 	
-	<P class="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register on the Rep My Block website</A></P>
+	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register on the Rep My Block website</A></P>
 
 
 </div>

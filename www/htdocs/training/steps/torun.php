@@ -55,11 +55,11 @@
 		 	A short documentary by <A HREF="https://www.imdb.com/title/tt20049084/" TARGET="other">Fahim Hamid</A>.
 		</P>
 		
-	<P class="center f60"><A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/movie"><B>Watch COUNTY: A Documentary</B></A></P>
+	<P class="center f60"><A class="action-runfor" HREF="/<?= $middleuri ?>/register/movie"><B>Watch COUNTY: A Documentary</B></A></P>
 		
 	<P>
 		<CENTER>
-			<A class="action-runfor" HREF="/<?= $middleuri ?>/exp/register/movie"><IMG SRC="/images/documentary/CountyDocumentary.png"></A>
+			<A class="action-runfor" HREF="/<?= $middleuri ?>/register/movie"><IMG SRC="/images/documentary/CountyDocumentary.png"></A>
 		</CENTER>
 	</P>
 	
@@ -85,7 +85,7 @@
 			<iframe src="https://www.youtube.com/embed/MgAY-Ipyk1Q?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
 	
-	<P class="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
+	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
 
 	<P class="BckGrndElement f80 center">Voter Registration Verification</P>
 	<H2>Voter Registration Verification</H2>
@@ -108,7 +108,7 @@
 	</P>
 	
 		
-	<P class="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
+	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
 	
 	<P class="BckGrndElement f80 center">Petitioning</P>
 	<H2>Petitioning</H2>
@@ -137,7 +137,7 @@
 		 <iframe src="https://www.youtube.com/embed/XUGFbBCcIS4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
 	
-	<P class="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></H2></CENTER></P>
+	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></H2></CENTER></P>
 	<P class="BckGrndElement f80 center">Prepare for Filing</P>
 	<H2>Prepare for Filing</H2>
 	
@@ -155,7 +155,7 @@
 		<iframe src="https://www.youtube.com/embed/9GfIm72Ksz0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
 	
-	<P class="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
+	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
 		<P class="BckGrndElement f80 center">Local Board of Elections <I>(BoE)</I></P>
 	<H2>Filing with the BoE</H2>
 
@@ -176,7 +176,7 @@
 		with the Board of Election.
 	</P>
 
-	<P class="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
+	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
 	<P class="BckGrndElement f80 center">Election Day</P>
 	<H2>Election Day</H2>
 	
@@ -199,7 +199,7 @@
 		<iframe src="https://www.youtube.com/embed/WXRd6lF3Ix4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
 	
-	<P class="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
+	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
 	<P class="BckGrndElement f80 center">Success!</P>
 	<H2>Success!</H2>
 	
@@ -237,7 +237,7 @@
 		<iframe src="https://www.youtube.com/embed/wPDC_XeTbc4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
 	
-	<P class="f80 center"><A HREF="/<?= $middleuri ?>/exp/register/register">Register to Run</A></P>
+	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
 	
 </DIV>
 	
