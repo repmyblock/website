@@ -52,8 +52,7 @@
 			}
 			$PrevDateDesc = $DateDesc;
 			$PicturePath = (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"]);
-			
-		// if ( $var["CandidateProfile_PublishProfile"] != 'no' || $var["CandidateProfile_PublishPetition"] != 'no') { 
+		 
 ?>
 						
 <P>
@@ -66,7 +65,7 @@
 		
 	<DIV class='container2'>
 		<DIV>
-			<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?><IMG style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $PicturePath ?>" class='iconDetails'><?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
+			<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?><IMG class="candidate" style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $PicturePath ?>" class='iconDetails'><?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
 		
 						<P class="f40" style="text-margin: 0px 0px 0px 0px;">
 							<I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>

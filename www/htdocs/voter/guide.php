@@ -50,7 +50,7 @@
 			<DIV class='container2'>
 				<DIV>
 					<?php $DetailURL = "/" . $var["CandidateProfile_FirstName"] . $var["CandidateProfile_LastName"] . "_" . $var["CANDPROFID"] . "/voter/detail"; ?>
-					<A HREF="<?= $DetailURL ?>"><IMG style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $PicturePath ?>" class='iconDetails'></A>
+					<A HREF="<?= $DetailURL ?>"><IMG style="float: left; margin: 0px 15px 0px 15px;"  class="candidate" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $PicturePath ?>" class='iconDetails'></A>
 						<P class="f40" style="text-margin: 0px 0px 0px 0px;">
 							<I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
 							<?php if (! empty ($var["CandidateProfile_Statement"])) { print $var["CandidateProfile_Statement"]; }  ?>
@@ -77,6 +77,12 @@
 					<?php if ( ! empty ($var["CandidateProfile_PDFFileName"])) { ?>						
 						<P class="f40"><A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Download <?= $var["CandidateProfile_Alias"] ?>'s Platform</A></P>
 					<?php } ?>
+					
+					
+					<?php if ( empty ($var["SystemUser_ID"])) { ?>
+						<A HREF="/<?= $var["CANDPROFID"] ?>/voter/claim">Claim this profile</A>
+					<?php } ?>
+					
 				</DIV>
 			</DIV>
 		</DIV>

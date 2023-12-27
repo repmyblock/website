@@ -1,7 +1,6 @@
 <?php
-	@ini_set( ‘upload_max_size’ , ’64M’ );
-	@ini_set( ‘post_max_size’, ’64M’);
-	@ini_set( ‘max_execution_time’, ‘300’ );
+	$MaxPDFSize = 1250000;
+	$MaxPicSize = 1250000;
 
   $Menu = "profile";  
 	$BigMenu = "profile";
@@ -15,11 +14,18 @@
   $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
   WriteStderr($rmbperson, "rmbperson array");
   
+  $CandidateProfileID = $URIEncryptedString["CandidateProfileID"];
+  $CandidateID = $URIEncryptedString["Candidate_ID"];
+  
+  if ( ! empty($CandidateProfileID > 0)) {
+	  $rmbcandidate = $rmb->ListCandidateProfile($CandidateID, $CandidateProfileID);
+  }
+ 
   // Put the POST HERE because we need to reread the data 
   if ( ! empty ($_POST)) {  
   	WriteStderr($_POST, "POST");
   	 	
-  	if ($URIEncryptedString["TypeOfRun"] == "NewCandidate") {
+  	if (empty ($CandidateProfileID)) {
  			// Find the CandidateElections in table CandidateElectionID
  			$ElectionsList = $rmb->CandidateElection($URIEncryptedString["DBTable"], 'X', NULL, NULL, $URIEncryptedString["Elections_ID"]);
 			
@@ -55,54 +61,88 @@
   			$CandidateID = $CandidateInfo[0]["Candidate_ID"];
   		}
   	} else {
-  		
-  		// This is to update the candidate only
-  		echo "This is for update the information<BR>";
-  		exit(1);	
+  		$candidateID = $rmbcandidate["Candidate_ID"];
   	}
-  	  	 
+  	 	
+	 	$PicFilePath = $rmbcandidate["CandidateProfile_PicFileName"];  
+	 	$PDFFilePath = $rmbcandidate["CandidateProfile_PDFFileName"];  
     $FileName = preg_replace("/[^A-Za-z0-9]/",'', $URIEncryptedString["FileNameName"]);
     $StateID = preg_replace("/^[A-Za-z][A-Za-z]0+(?!$)/", '', $URIEncryptedString["FileNameStateID"]);
     
     // This is to deal with the Picture itself and we must check it's type image/<something else>
     if (! empty ($_FILES["filepicture"]["type"])) {
-    	if ( $_FILES["filepicture"]["type"] < 1250000) {
-	      if (preg_match("#image/(.*)#", $_FILES["filepicture"]["type"], $matches, PREG_OFFSET_CAPTURE)) {
+			$PicStructure = $GeneralUploadDir . "/shared/pics/";
+		
+    	if ( $_FILES["filepicture"]["type"] < $MaxPicSize) {
+	      preg_match("#image/(.*)#", $_FILES["filepicture"]["type"], $matches, PREG_OFFSET_CAPTURE);
+	      	
+      	if (empty($PicFilePath)) {
 	        $suffix = $matches[1][0];      
-	        $PictureFilename = "CAN" . 	$CandidateID . "_" . $FileName . "_" . $_POST["FirstName"] . "." . $suffix;
-	        preg_match('/(.{4})(.{4})(.{4})/', md5($PictureFilename), $matches, PREG_OFFSET_CAPTURE);
-	        $md5structure = $matches[1][0] . "/" . $matches[2][0] . "/" . $matches[3][0];
-	        $structure = $GeneralUploadDir . "/shared/pics/" . $md5structure . "/";
-	        mkdir($structure, 0777, true);
-	        $PicFilePath = $md5structure . "/" . $PictureFilename;
-	        if (! move_uploaded_file($_FILES['filepicture']['tmp_name'], $structure . $PictureFilename)) {
-	          $error_msg = "Problem uploading the picture";
-	        } 
-	        $PictureFile = true;
-	      } else {
-	      	$error_msg = "Current file size " . $_FILES["filepicture"]["type"] . " File size need to be smaller than 1 Mb";
+	        $PictureFilename = "C" . 	$CandidateID . "_" . $_POST["FirstName"] . "_" . $_POST["LastName"];
+	        $PictureFilename = preg_replace("/[^A-Za-z0-9_-]/",'', $PictureFilename) . "." . $suffix;
+	  	        	        
+  	      preg_match('/(.{4})(.{4})(.{4})/', md5($PictureFilename), $matches, PREG_OFFSET_CAPTURE);
+    	    $PicMD5Struct = $matches[1][0] . "/" . $matches[2][0] . "/" . $matches[3][0];
+      	  
+	      	@mkdir($PicStructure . $PicMD5Struct, 0777, true);
+	      	$PicFilePath = $PicMD5Struct . "/" . $PictureFilename;
 	      }
+	      
+	      // This is to handle the temp namespace 
+	      preg_match("|([a-f0-9]{4})/([a-f0-9]{4})/([a-f0-9]{4})/(.*)|", $PicFilePath, $PicPathMatches, PREG_OFFSET_CAPTURE);
+	      $TmpPicFilePath = $PicPathMatches[1][0] . "/" . $PicPathMatches[2][0] . "/" . $PicPathMatches[3][0] . "/TMP_" . $PicPathMatches[4][0];
+	      
+	      if (empty ($PicPathMatches)) {
+	      	echo "Catastrophic error for some reason<BR>";
+	      	exit();
+	      }
+	      
+        if (! move_uploaded_file($_FILES['filepicture']['tmp_name'], $PicStructure . $TmpPicFilePath)) {
+          echo "Catastrophic error moving the picture the picture";
+          exit();
+        } 
+        $PictureFile = true;
+        
+                
       } else {
-        $error_msg = "Picture file not in jpeg or png format";
+      	$error_msg = "Current file size " . $_FILES["filepicture"]["type"] . " File size need to be smaller than 1 Mb";
       }
+    } else {
+      $error_msg = "Picture file not in jpeg or png format";
+    }
 
-    } 
+     
     // This is to deal with the pdf
     if (! empty ($_FILES["pdfplatform"]["type"])) {
-    	if ( $_FILES["filepicture"]["type"] < 1250000) {
+    	$PDFStructure = $GeneralUploadDir . "/shared/platforms/";
+    	
+    	if ( $_FILES["filepicture"]["type"] < $MaxPDFSize) {
 	      if (preg_match("#application/(.*)#", $_FILES["pdfplatform"]["type"], $matches, PREG_OFFSET_CAPTURE)) {
-	        $suffix = $matches[1][0];      
-	        $PDFFilename = "CAN" . $URIEncryptedString["Candidate_ID"] . "_" . $FileName . "_" . $StateID . "." . $suffix;
-	        preg_match('/(.{4})(.{4})(.{4})/', md5($PDFFilename), $matches, PREG_OFFSET_CAPTURE);
-	        $md5structure = $matches[1][0] . "/" . $matches[2][0] . "/" . $matches[3][0];
-	        $structure = $GeneralUploadDir . "/shared/platforms/" . $md5structure . "/";
-	        mkdir($structure, 0777, true);
-	        $PDFFilePath = $md5structure . "/" . $PDFFilename;
-	        print "PicFilePath: " . $PDFFilePath . "<BR>";
-	        if (! move_uploaded_file($_FILES['pdfplatform']['tmp_name'], $structure . $PDFFilename)) {
-	            $error_msg = "Problem uploading the pdf file";
-	        }
+
+					if (empty($PDFFilePath)) {
+		        $suffix = $matches[1][0];      
+		        $PDFFilename = "C" . 	$CandidateID . "_" . $_POST["FirstName"] . "_" . $_POST["LastName"];
+		        $PDFFilename = preg_replace("/[^A-Za-z0-9_-]/",'', $PDFFilename) . "." . $suffix;
+		  	        	        
+			      preg_match('/(.{4})(.{4})(.{4})/', md5($PDFFilename), $matches, PREG_OFFSET_CAPTURE);
+		  	    $PdfMD5Struct = $matches[1][0] . "/" . $matches[2][0] . "/" . $matches[3][0];
+		  	    
+		      	@mkdir($PDFStructure . $PdfMD5Struct, 0777, true);
+		      	$PDFFilename = $PdfMD5Struct . "/" . $PDFFilename;	
+		      }
+		      
+		      // This is to handle the temp namespace 
+		      print "File Path: " . $PDFFilename . "<BR>";
+		      preg_match("|([a-f0-9]{4})/([a-f0-9]{4})/([a-f0-9]{4})/(.*)|", $PDFFilename, $PDFPathMatches, PREG_OFFSET_CAPTURE);
+		      print "Pic Matches: <PRE>" . print_r($PDFPathMatches, 1) . "</PRE>";
+		      $TmpPDFFilename = $PDFPathMatches[1][0] . "/" . $PDFPathMatches[2][0] . "/" . $PDFPathMatches[3][0] . "/TMP_" . $PDFPathMatches[4][0];
+		      
+	 				if (! move_uploaded_file($_FILES['pdfplatform']['tmp_name'], $PDFStructure . $TmpPDFFilename)) {
+	          echo "Catastrophic error moving the PDF File the picture: " . $PDFStructure . $TmpPDFFilename;
+	          exit();
+	        } 
 	        $PDFFile = true;
+	        
 	      } else {
 		     	$error_msg = "Current file size " . $_FILES["pdfplatform"]["type"] . " File size need to be smaller than 1 Mb";
 	   	 }
@@ -111,55 +151,90 @@
       }
     }
     
-    // ADD to the database the following tables.              
+    // ADD to the database the following tables.    
     $CandidateProfile = array(
-        "Fist"   =>  $_POST["FirstName"],
-        "Last"   =>  $_POST["LastName"],
-        "Full"   =>  $_POST["FullName"],
-        "Email"   =>  $_POST["Email"],
-        "URL"   =>  $_POST["URL"],
-        "Phone"   =>  $_POST["PhoneNumber"],
-        "Fax"   =>  $_POST["FaxNumber"],
-        "Platform"   =>  $_POST["CandidateProfileBio"],
-        "Twitter"   =>  $_POST["Twitter"],
-        "Instagram"   =>  $_POST["Instagram"],
-        "Facebook"   =>  $_POST["Facebook"],
-        "YouTube"   =>  $_POST["YouTube"],
-        "TikTok"   =>  $_POST["TikTok"],
-        "Ballotpedia"   =>  $_POST["Ballotpedia"],
-        "PicFile" => $PicFilePath,
-        "PDFFile" => $PDFFilePath,
+        "First"   =>  trim($_POST["FirstName"]),
+        "Last"   =>  trim($_POST["LastName"]),
+        "Full"   =>  trim($_POST["FullName"]),
+        "Email"   =>  trim($_POST["Email"]),
+        "URL"   =>  trim($_POST["URL"]),
+        "Phone"   =>  trim($_POST["PhoneNumber"]),
+        "Fax"   =>  trim($_POST["FaxNumber"]),
+        "Platform"   =>  trim($_POST["CandidateProfileBio"]),
+        "Twitter"   =>  trim($_POST["Twitter"]),
+        "Instagram"   => trim( $_POST["Instagram"]),
+        "Facebook"   =>  trim($_POST["Facebook"]),
+        "YouTube"   =>  trim($_POST["YouTube"]),
+        "TikTok"   =>  trim($_POST["TikTok"]),
+        "Ballotpedia"   =>  trim($_POST["Ballotpedia"]),
         "Private" => ($_POST["PrivateRun"] == "yes" ? 'yes' : 'no'),
+        "CandidateID" => $CandidateID,
     );
-    
-    $rmb->updatecandidateprofile($CandidateID, $CandidateProfile);
-    
+   
+    // Check if something has changed before making another call to the database.
+    $Result = 0;
+    $Result += ($rmbcandidate["CandidateProfile_FirstName"] ==  $CandidateProfile["First"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_LastName"] ==  $CandidateProfile["Last"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_Alias"] ==  $CandidateProfile["Full"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_Website"] ==  $CandidateProfile["URL"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_Email"] ==  $CandidateProfile["Email"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_Twitter"] ==  $CandidateProfile["Twitter"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_Facebook"] ==  $CandidateProfile["Facebook"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_Instagram"] ==  $CandidateProfile["Instagram"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_TikTok"] ==  $CandidateProfile["TikTok"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_YouTube"] ==  $CandidateProfile["YouTube"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_BallotPedia"] ==  $CandidateProfile["Ballotpedia"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_PhoneNumber"] ==  $CandidateProfile["Phone"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_FaxNumber"] ==  $CandidateProfile["Fax"]) ? 0 : 1;
+		$Result += ($rmbcandidate["CandidateProfile_Statement"] ==  $CandidateProfile["Platform"]) ? 0 : 1;
+		
+		// Need to deal with the two pictures.
+		$CandidateProfile["PicFile"] = $PicFilePath ? $PicFilePath : $PictureFile;
+		$Result += ($rmbcandidate["CandidateProfile_PicFileName"] == $CandidateProfile["PicFile"]) ? 0 : 1;
+		$CandidateProfile["PDFFile"] = $PDFFile ? $PDFFilePath : NULL;
+		
+		if ( $Result > 0 ) {
+  	  $CandidateProfileID = $rmb->updatecandidateprofile($CandidateProfileID, $CandidateProfile);
+    }
+ 
     if ( $PictureFile == true || $PDFFile == true) {
  
   		if ($PictureFile == true) {  	
   	  	header("Location:/" . MergeEncode(
   	  														array("PicPath" => $PicFilePath,
+  	  																	"TmpPicPath" => $TmpPicFilePath,
   	  																	"PDFPath" => $PDFFilePath,
+  	  																	"TmpPDFPath" => $TmpPicFilePath,
+  	  																	"CandidateID" => $CandidateID,
+  	  																	"CandidateProfileID" => $CandidateProfileID,
+  	  																	"PublishWarning" => $_POST["PrivateRun"],
   														)) . "/lgd/profile/fixpicture");
+  			exit();
   		} 
   		
   		if ($PDFFile == true) {
   	  	header("Location:/" . MergeEncode(
   	  														array("PicPath" => $PicFilePath,
+  	  																	"TmpPicPath" => $TmpPicFilePath,
   	  																	"PDFPath" => $PDFFilePath,
+  	  																	"TmpPDFPath" => $TmpPicFilePath,
+  	  																	"CandidateID" => $CandidateID,
+  	  																	"CandidateProfileID" => $CandidateProfileID,
+  	  																	"PublishWarning" => $_POST["PrivateRun"],
   														)) . "/lgd/profile/fixpdf");
+  			exit();
   		}   		
+  	}
+  	
+  	if ( $_POST["PrivateRun"] == 'yes') {
+  		header("Location:profilewarning");
+  		exit();
   	}
 
     header("Location:updatecandidateprofile");
     exit();
   }
-  
-  
-  if ( ! empty($URIEncryptedString["CandidateProfileID"])) {
-	  $rmbcandidate = $rmb->ListCandidateProfile($URIEncryptedString["Candidate_ID"], $URIEncryptedString["CandidateProfileID"]);
-  }
-  
+
   WriteStderr($rmbcandidate, "RMBCandidate");
   $StatusMessage = "Create the profile";
   
@@ -184,8 +259,7 @@
             array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
             array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile"),
             array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
-    );
-                
+    );                
   }              
 
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
@@ -206,19 +280,23 @@
               <DIV class="main">
                 <FORM ACTION="" METHOD="POST" ENCTYPE="multipart/form-data">
                 	              
-                	              	       <P class="f60">
+                	 <P class="f60">
                     <B>This profile will be presented to every person that visits the Rep My Block website.</B> You 
                     will be able to upload a one-page PDF of your platform that will be used to create a voter 
                     booklet that a voter will download and email.
                   </P>
                 	                	
+               	 	<?php if ($rmbcandidate["CandidateProfile_PublishProfile"] != 'yes') { ?>
                 	 <P class="f60">
                   	<INPUT TYPE="CHECKBOX" NAME="PrivateRun" VALUE="yes"<?php if ($rmbcandidate["CandidateProfile_PublishProfile"] == 'yes') { echo " CHECKED"; } ?>>&nbsp;Publish the profile on the Rep My Block guide on the website.                  	
-                  	<I>(<B>Note:</B> once the information is on a public website, the information will automatically get updated, and this option will disappear.)</I>
+	                  <BR><FONT COLOR="RED"><B>ATTENTION:</FONT></B> Once you publish the information, this option disappear. Do not select this
+  		              option if you do not want your profile to be public.</FONT>
+                  	<I>(<B>Note:</B> once the information is on a public website, the information will 
+                  		automatically get updated, and this option will disappear.)</I>
                   </P>
 
                   <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
-      
+	      					<?php } ?>
 					
       
                   <P class="f80">         
@@ -248,13 +326,26 @@
                       
                     <DL class="f40">
                       <DT><LABEL>Upload your picture</LABEL><BR><I>(make sure it's 200 pixels in width by 300 pixels in height)</I></DT>
-                      <DD><INPUT type="file" name="filepicture"></DD>
-                    </DL>
+                      
                     
-                    <DL class="f40">
-                      <DT><LABEL>This is the picture we currently have.</DT>
+                  	<?php 
+                  			$PicVar = (empty($rmbcandidate["CandidateProfile_PicFileName"])) ? 
+                  										"NoPicture.jpg" : $rmbcandidate["CandidateProfile_PicFileName"];
+                    ?>
+                    
+                
+                      <DT><IMG CLASS="candidate" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $PicVar ?>"></DT>
                       <DD>PATH: <?= $rmbcandidate["CandidateProfile_PicFileName"] ?></DD>
                     </DL>
+
+										<DL class="f40">
+											<DD>
+                      	<INPUT type="file" name="filepicture">
+                      	<INPUT type="hidden" name="oldfilename" value="<?= $rmbcandidate["CandidateProfile_PicFileName"] ?>">
+                      </DD>
+                      
+                    </DL>
+
 
                     <HR>  
            
@@ -292,7 +383,10 @@
                     
                     <DL class="f40">
                       <DT><LABEL>Upload your PDF platform</LABEL></DT>
-                      <DD><INPUT type="file" name="pdfplatform"></DD>
+                      <DD>
+                      	<INPUT type="file" name="pdfplatform">
+ 	                      <INPUT type="hidden" name="oldpdfname" value="<?= $rmbcandidate["CandidateProfile_PDFFileName"] ?>">
+                      </DD>
                     </DL>            
                                     
                     <HR> 

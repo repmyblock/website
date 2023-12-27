@@ -6,6 +6,8 @@
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
   
   
+  
+  
   if (! empty ($_POST)) {
   	
   	echo "<PRE>" . print_r($_POST, 1) . "</PRE>";
@@ -40,7 +42,7 @@
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
   
-  $PicturePath = "/shared/pics/" . $URIEncryptedString["PicPath"];
+  $PicturePath = "/shared/pics/" . $URIEncryptedString["TmpPicPath"];
 ?>
 	
     <DIV class="row">
@@ -88,7 +90,17 @@
          				<script src="/js/Croppie-2.6.4/croppie.js"></script>
                 
 
-
+<P class="f60">
+                    <B>This profile will be presented to every person that visits the Rep My Block website.</B> You 
+                    will be able to upload a one-page PDF of your platform that will be used to create a voter 
+                    booklet that a voter will download and email.
+                  </P>
+      
+ <P class="f60">        
+               <button id="cropBtn" class="submitred" type="button">Crop & Upload</button>
+                  </p>   
+      
+						      
 
                  
 <script>
@@ -128,20 +140,35 @@
 	    //img is html positioning & sizing the image correctly if resultType is 'html'
 	    //img is base64 url of cropped image if resultType is 'canvas' 
 	});
+	
+	
+	
+	cropBtn.addEventListener('click', () => {
+    // Get the cropped image result from croppie
+    c.result({
+        type: 'base64',
+        circle: false,
+        format: 'png',
+        size: 'viewport'
+    }).then((imageResult) => {
+        // Initialises a FormData object and appends the base64 image data to it
+        let formData = new FormData();
+        formData.append('base64_img', imageResult);
+
+        // Sends a POST request to upload_cropped.php
+        fetch('uploadcropped', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.json()).then((data) => {
+            console.log(data);
+            window.location.href = "updatecandidateprofile";
+        });
+    });
+});
 	            
 </script>
 
- <P class="f60">
-                    <B>This profile will be presented to every person that visits the Rep My Block website.</B> You 
-                    will be able to upload a one-page PDF of your platform that will be used to create a voter 
-                    booklet that a voter will download and email.
-                  </P>
-      
- <P class="f60"><button type="submit" class="submitred">Save the picture</button></p>                
-               
-                  
-      
-						      
+ 
                  
                       
                     

@@ -86,6 +86,10 @@
 	border-bottom: 1px solid black;
 }
 
+img.candidate {
+		box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); padding: 0px;
+}
+
 .pl-c{color:#6a737d}
 .pl-c1,.pl-s .pl-v{color:#005cc5}
 .pl-e,.pl-en{color:#6f42c1}
