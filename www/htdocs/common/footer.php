@@ -1,3 +1,5 @@
+<?php $WebReferer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : NULL; ?> 
+ 
     <DIV class="footer">
       <P class="footerclass1">
         <DIV class="FooterTitle">REP MY BLOCK</DIV>
@@ -16,7 +18,7 @@
 <?php } ?>          <A HREF="/<?= $middleuri ?>/training/steps/torun">HOWTO</A>
           <A HREF="/<?= $middleuri ?>/user/contact">CONTACT</A>
           <A TARGET="BUGPAGE" HREF="<?= $FrontEndBugs ?>/bugs/<?= CreateEncoded ( array(   
-                                                                  "Referer" =>  $_SERVER['HTTP_REFERER'],
+                                                                  "Referer" =>  $WebReferer,
                                                                   "URI" => $_SERVER['REQUEST_URI'],
                                                                   "DocumentRoot" => $_SERVER['DOCUMENT_ROOT'],
                                                                   "Version" => $BetaVersion,

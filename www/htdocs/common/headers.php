@@ -3,7 +3,9 @@
 	//$MobileDisplay = true; 
 
 	WriteStderr($k,"Header K");
-	WriteStderr($URIEncryptedString["SystemUser_ID"],"Header SystemID");
+	WriteStderr(isset($URIEncryptedString["SystemUser_ID"]) ? $URIEncryptedString["SystemUser_ID"] : NULL, "Header SystemID");
+	$MenuLogin = isset($MenuLogin) ? $MenuLogin : NULL;
+	$BigMenu = isset($BigMenu) ? $BigMenu : NULL;
 
 	if ( ! empty ($k) && ($URIEncryptedString["SystemUser_ID"] > 0 ||
 												$URIEncryptedString["SystemUser_ID"] == "TMP")) { 

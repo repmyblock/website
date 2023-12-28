@@ -85,12 +85,12 @@ if ( ! empty ($k)) {
 }
 
 // Check the timestamp before moving on
-$DEBUG["TimePassed"] = $URIEncryptedString["LastTimeUser"];
+$DEBUG["TimePassed"] = isset($URIEncryptedString["LastTimeUser"]) ? isset($URIEncryptedString["LastTimeUser"]) : NULL ;
 $DEBUG["TimeFromSystem"] = time();
-$DEBUG["TimeDifference"] = time() - $URIEncryptedString["LastTimeUser"];
+$DEBUG["TimeDifference"] = time() - $DEBUG["TimePassed"];
 $TimerToLoggoff = 36000000;
 
-if ( (time() - $URIEncryptedString["LastTimeUser"] ) > $TimerToLoggoff  && ! empty ($URIEncryptedString)) { 
+if ( (time() - $DEBUG["TimePassed"] ) > $TimerToLoggoff  && ! empty ($URIEncryptedString)) { 
 	WriteStderr("I am in the Logoff in VerifSec\n");
 	goto_signoff();
 	exit();
