@@ -23,6 +23,8 @@
 		These candidates are running for office and are looking for volunteers to help them.
 	</P>
 	
+<P class="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
+
 
 	<DIV class="tadpad">
 		<P class="BlueBox">
@@ -32,6 +34,14 @@
 			</a>
 		</P>
 	</DIV>
+	
+	
+	<DIV class="f60 adpad">
+		<A class="action-runfor" HREF="/<?= $middleuri ?>/register/user" class="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
+		<A class="action-runfor" HREF="/<?= $middleuri ?>/propose/nomination" class="NomCandidate"><img class="action-runfor" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
+	</DIV>
+	
+	<BR>
 	
 	<P class="BckGrndElement f80">WATCH COUNTY</P>
 	
@@ -51,14 +61,7 @@
 	</P>
 		
 	
-	<P class="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
-
-	<DIV class="f60 adpad">
-		<A class="action-runfor" HREF="/<?= $middleuri ?>/register/user" class="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
-		<A class="action-runfor" HREF="/<?= $middleuri ?>/propose/nomination" class="NomCandidate"><img class="action-runfor" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
-	</DIV>
 	
-	<BR>
 	
 	<P class="BckGrndElement f80">WHAT IS THE COUNTY COMMITTEE</P>
 
