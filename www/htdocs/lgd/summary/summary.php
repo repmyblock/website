@@ -1,12 +1,13 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }  
 	$Menu = "summary";
+	$URIEncryptedString = (isset ($URIEncryptedString)) ? $URIEncryptedString : array();
+		
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+	include_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
-	include_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php";  
-	
-  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); exit(); }
+	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); exit(); }
 	$rmb = new RepMyBlock();
 	
 	if ( $URIEncryptedString["SystemUser_ID"] != "TMP") {

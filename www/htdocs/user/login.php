@@ -20,13 +20,13 @@
 			// $ResultRawInfo = $r->FindVotersFromNYSUniq($resultPass["Raw_Voter_UniqNYSVoterID"], $DatedFiles);
 			// WriteStderr($ResultRawInfo, "ResultRawInfo");
 			
-			// Since the person just logged in, 
+			// Since the person just logged in
 			
+			$resultPass["SystemUserTemporary_ID"] = (isset ($resultPass["SystemUserTemporary_ID"])) ? $resultPass["SystemUserTemporary_ID"] : NULL;
+					
 			if ( $resultPass["SystemUserTemporary_ID"] > 0 && empty ($resultPass["SystemUser_ID"])) {
 				// This is in case 
-				
-				WriteStderr($resultPass, "ResultPass before writing variable.");
-				
+								
 				$VariableToPass = array( 
 					"SystemUser_ID" => "TMP",
 					"SystemTemporaryID" => $resultPass["SystemUserTemporary_ID"],
@@ -41,21 +41,22 @@
 		
 				$VariableToPass = array( 
 					"SystemUser_ID" => $resultPass["SystemUser_ID"],
-					"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+					"Raw_Voter_ID" => (isset ($resultPass["Raw_Voter_ID"])) ? $resultPass["Raw_Voter_ID"] : NULL ,
 					"FirstName" => $resultPass["SystemUser_FirstName"],
 					"LastName" => $resultPass["SystemUser_LastName"],
-					"VotersIndexes_ID" => $resultPass["VotersIndexes_ID"],
-					"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
-					"UserParty" => $ResultRawInfo["Raw_Voter_EnrollPolParty"],
+					"VotersIndexes_ID" => (isset ($resultPass["VotersIndexes_ID"])) ? $resultPass["VotersIndexes_ID"] : NULL ,
+					"UniqNYSVoterID" => (isset ($resultPass["Raw_Voter_UniqNYSVoterID"])) ? $resultPass["Raw_Voter_UniqNYSVoterID"] : NULL ,
+					"UserParty" => (isset ($ResultRawInfo["Raw_Voter_EnrollPolParty"])) ? $ResultRawInfo["Raw_Voter_EnrollPolParty"] : NULL ,
 					"EDAD" => $resultPass["SystemUser_EDAD"],
 					"SystemUser_Priv" => $resultPass["SystemUser_Priv"]
 				);
 			}
-					
+
+			WriteStderr($resultPass, "ResultPass before writing variable.");	
 			header("Location: /" . CreateEncoded($VariableToPass) . "/lgd/summary/summary");
 			exit();
 		}
-						
+		
 		$error_msg = "<FONT COLOR=RED><B>The information did not match our records</B></FONT>";	
 	}
 	

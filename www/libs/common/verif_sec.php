@@ -25,7 +25,7 @@ if ( $expuri[0] == "howto" ) {
 }
 
 // This is the code to make sure that url are good
-if ( $_SERVER["HTTP_HOST"] != $_SERVER["SERVER_NAME"] ) {	
+if ( $_SERVER["HTTP_HOST"] != $_SERVER["SERVER_NAME"] ) {
 	$exphost = explode(".", $_SERVER["HTTP_HOST"]);
 	$expuri = explode("/", substr($_SERVER["REQUEST_URI"],1));
 
@@ -46,30 +46,11 @@ if ( $_SERVER["HTTP_HOST"] != $_SERVER["SERVER_NAME"] ) {
 			exit();
 		}	
 	}
-	
-	// Here you verify that the picture is the same.
-	$pathtocheck = $SharedPath . "/teams/" . $expuri[0] . ".png";
-	if (file_exists($pathtocheck)) {
-		$HeaderTwitter = true;
-		$HeaderTwitterTitle = "Theo Chino For NY Public Advocate";
-		$HeaderTwitterPicLink = "https://static.repmyblock.org/shared/teams/" . $expuri[0] . ".png";
-		$HeaderTwitterDesc = "Run for County Committee with Theo Chino for NYC Public Advocate. &hellip; Continue reading on the Rep My Block site &rarr;";
-	}
+
 }
 
-if ( ! empty ($_POST["k"])) {
-	$k = $_POST["k"];
-} else if ( ! empty ($_GET["k"])) {
-	$k  = $_GET["k"];
-} else {
-	$k = "";
-}
-
-if ( ! empty ($_GET["id"])) {
-	$id = $_GET["id"];
-} else if ( ! empty ($_POST["id"])) {
-	$id = $_POST["id"];
-}
+$k = (! empty ($_GET["k"])) ? ((! empty ($_POST["k"])) ? $_POST["k"] : $_GET["k"]) : NULL;
+$id = (! empty ($_GET["id"])) ? ((! empty ($_POST["id"])) ? $_POST["id"] : $_GET["id"]) : NULL;
 
 $OverAllMicrotimeStart = microtime(true);
 WriteStderr($OverAllMicrotimeStart, $_SERVER['DOCUMENT_URI'] . " ------------------------------------------------------------ Microtime");
@@ -84,13 +65,16 @@ if ( ! empty ($k)) {
 	WriteStderr($URIEncryptedString, $_SERVER['DOCUMENT_URI'] . " URIEncryptedString");
 }
 
+
+$LastTimeUser = (isset($URIEncryptedString["LastTimeUser"])) ? $URIEncryptedString["LastTimeUser"] : NULL ;
+
 // Check the timestamp before moving on
-$DEBUG["TimePassed"] = isset($URIEncryptedString["LastTimeUser"]) ? isset($URIEncryptedString["LastTimeUser"]) : NULL ;
+$DEBUG["TimePassed"] = $LastTimeUser;
 $DEBUG["TimeFromSystem"] = time();
 $DEBUG["TimeDifference"] = time() - $DEBUG["TimePassed"];
 $TimerToLoggoff = 36000000;
 
-if ( (time() - $DEBUG["TimePassed"] ) > $TimerToLoggoff  && ! empty ($URIEncryptedString)) { 
+if ( (time() - $LastTimeUser ) > $TimerToLoggoff  && ! empty ($URIEncryptedString)) { 
 	WriteStderr("I am in the Logoff in VerifSec\n");
 	goto_signoff();
 	exit();
@@ -271,7 +255,7 @@ function PrintDebugArray($ArrayToPrint, $Title = "") {
 }
 
 function goto_signoff() {	
-	header ("Location: /exp/website/signoff");
+	header ("Location: /website/lgd/signoff");
 	exit();
 }
 ?>

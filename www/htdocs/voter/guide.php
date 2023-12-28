@@ -23,7 +23,7 @@
 ?>
 
 <DIV class="main">
-	<DIV class="right f80">Voter Guide</DIV>
+	<DIV class="right f80bold">Voter Guide</DIV>
  	<DIV class="panels">
 	<P>
 		<?php
