@@ -8,15 +8,15 @@
  	
 	 	switch($_GET['brand']) {
 		case 'howto':
-			header("Location: /" . rawurlencode($_GET['brand']) . "/training/steps/torun");
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/training/steps/torun");
 			exit();
 		
 		case 'about':
-			header("Location: /" . rawurlencode($_GET['brand']) . "/howto/toplinks/about");
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/howto/toplinks/about");
 			exit();
 				
 	 	default:
-	 		header("Location: /" . rawurlencode($_GET['brand']) . "/brand/" . rawurlencode($_GET['brand']) . "/index");
+	 		header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/brand/" . rawurlencode($_GET['brand']) . "/index");
 	 		exit();
 	 	}
 	 	
