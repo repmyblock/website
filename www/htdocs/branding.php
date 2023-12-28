@@ -1,12 +1,24 @@
 <?php 
 
- 	/* This directory is to keep track of the branding */
- 	
+ 	/* This directory is to keep track of the branding */ 	
  	if ( empty ($_GET['brand'])) {
- 		header("Location: /web/index");
+ 		header("Location: /");
  		exit();
  	} else {
- 		header("Location: /" . rawurlencode($_GET['brand']) . "/index");
- 		exit();
- 	} 	
+ 	
+	 	switch($_GET['brand']) {
+		case 'howto':
+			header("Location: /" . rawurlencode($_GET['brand']) . "/training/steps/torun");
+			exit();
+		
+		case 'about':
+			header("Location: /" . rawurlencode($_GET['brand']) . "/howto/toplinks/about");
+			exit();
+				
+	 	default:
+	 		header("Location: /" . rawurlencode($_GET['brand']) . "/brand/" . rawurlencode($_GET['brand']) . "/index");
+	 		exit();
+	 	}
+	 	
+	}
 ?>
