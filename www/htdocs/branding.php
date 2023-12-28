@@ -14,6 +14,10 @@
 		case 'about':
 			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/howto/toplinks/about");
 			exit();
+			
+		case 'voterguide':
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/voter/guide");
+			exit();
 				
 	 	default:
 	 		header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/brand/" . rawurlencode($_GET['brand']) . "/index");
