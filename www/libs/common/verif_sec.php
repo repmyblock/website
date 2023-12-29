@@ -105,7 +105,6 @@ function EncryptURL($string = "") {
 	$SizeMessage = strlen($MyString);
   $encpayload = "";
   $blocktext = "";
-
 	$BlockSize = 245;
 
   $blockct = intval( $SizeMessage / $BlockSize )  + 1;
@@ -120,7 +119,6 @@ function EncryptURL($string = "") {
     		echo $msg . "<br />\n";
     	}
     }
-    
     $encpayload .= $encblocktext;
   }
     

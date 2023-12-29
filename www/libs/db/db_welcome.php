@@ -29,14 +29,20 @@ class welcome extends queries {
 						"LEFT JOIN CandidateElection ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN Candidate ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
 						"LEFT JOIN CandidateProfile ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " .
+						"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) " . 
 					 "WHERE CandidateProfile_PublishProfile = \"yes\"";
 		$sql_vars = array();
+		
+		if ( ! empty ($ElectionState)) {
+			$sql .= " AND DataState_Abbrev = :Abbrev";
+			$sql_vars["Abbrev"] = $ElectionState;
+		}
 					 
 		if ( ! empty ($ElectionDateFrom)) {			
 			if ( $ElectionDateFrom == "NOW") {
 				$sql .= " AND Elections_Date >= NOW()";
 			} else {
-				$sql .= " AND Elections_Date >= :ElectionDateFrom";
+				$sql .= " AND Elections_Date = :ElectionDateFrom";
 				$sql_vars["ElectionDateFrom"] = $ElectionDateFrom;
 			}
 		}
@@ -95,7 +101,31 @@ class welcome extends queries {
 			return $this->_return_nothing($sql, $sql_vars);	
 		}	
 	}
-		
+	
+	function ListElections($state = NULL, $date = NULL) {
+		$sql = "SELECT * FROM Elections " .
+						"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) " . 
+						"WHERE ";
+		$sql_vars = array();	
+					
+		if ( ! empty ($state)) {
+			$sql = "DataState_Abbrev = :Abbrev";
+			$sql_vars["Abbrev"] = $state;
+			if ( ! empty ($date)) { $sql .= " AND "; }
+		}
+
+		if ( empty ($date)) {
+			$sql .= "Elections_Date > NOW()";
+		}	else {
+			$sql .= "Elections_Date = :electdate";
+			$sql_vars["electdate"] = $date;
+		}
+
+	
+		$sql .= " ORDER BY DataState_Abbrev";
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
 }
 
 ?>

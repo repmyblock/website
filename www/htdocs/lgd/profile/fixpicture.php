@@ -72,32 +72,29 @@
               	
               	<P CLASS="f60">
               		<BR>
-                <link rel="stylesheet" href="/js/Croppie-2.6.4/croppie.css" />     	
+                <link rel="stylesheet" href="/css/croppie.css" />     	
 								<div id="demo-basic">
 							 
-							</div>
+								</div>
 
 
-</DiV>
+								</DiV>
 
 
 
 
- 
-</P>
 
-
-         				<script src="/js/Croppie-2.6.4/croppie.js"></script>
-                
-
-<P class="f60">
+								</P>
+         				<script src="/js/croppie.min.js"></script>
+           
+									<P class="f60">
                     <B>This profile will be presented to every person that visits the Rep My Block website.</B> You 
                     will be able to upload a one-page PDF of your platform that will be used to create a voter 
                     booklet that a voter will download and email.
                   </P>
       
- <P class="f60">        
-               <button id="cropBtn" class="submitred" type="button">Crop & Upload</button>
+									<P class="f60">        
+               			<button id="cropBtn" class="submitred" type="button">Crop & Upload</button>
                   </p>   
       
 						      

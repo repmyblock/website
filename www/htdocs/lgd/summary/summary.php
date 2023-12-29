@@ -18,7 +18,6 @@
 		WriteStderr($NumberPetitions, "NumberPetition");
 	
 		/* Define numbers */
-	
 		preg_match('/([A-Z][A-Z])/', $rmbperson["Voters_UniqStateVoterID"], $matches, PREG_OFFSET_CAPTURE);
 		$VoterState = $matches[1][0];
 		$Party = PrintParty($rmbperson["SystemUser_Party"]);		
@@ -36,11 +35,9 @@
 	} else {
 		
 		WriteStderr("I am in URI is TMP");
-		
 		$EmailVerifiedType = $URIEncryptedString["EmailVerified"];
 		$LinkNameToEmail = $URIEncryptedString["EmailLink"];
 		$EmailAddress = $URIEncryptedString["SystemTemporaryEmail"];
-		
 	}
 	
 	WriteStderr($EmailVerifiedType, "Email Verified Type");
@@ -52,13 +49,14 @@
 		$BoxInDistrict = "Number of voters";
 		$NumberOfElectors = "Not defined";
 		$DayToGo = "Not defined";
-		
+
 	} else {
 		$BoxInDistrict = $Party . "s in your district";
 		if ($VerifVoter == 1) { $BoxInDistrict = "Verify your voter info."; }
 		$BoxSignatures = $NumberOfSignatures . " (" . $Progress . " %)";
 		$DayToGo = intval(($ImportantDates[$VoterState]["UNIX"]["LastPetitionDay"] - time()) / 86400);
 		$DateToWait = $ImportantDates[$VoterState]["LongDate"]["FirstSubmitDay"]; /// This need to be calculated.
+
 	}	
 	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";

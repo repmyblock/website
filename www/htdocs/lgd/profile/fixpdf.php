@@ -1,18 +1,12 @@
 <?php
   $Menu = "profile";  
 	$BigMenu = "profile";
-  
+
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";  
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
-  
-  
+
   if (! empty ($_POST)) {
-  	
-  	echo "<PRE>" . print_r($_POST, 1) . "</PRE>";
-  	echo "<PRE>" . print_r($_FILES, 1) . "</PRE>";
-  	
-  	header("Location: updatecandidateprofile");
-  	
+		header("Location: updatecandidateprofile");  	
   	exit();
   }
   
@@ -21,25 +15,19 @@
   
   $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
   WriteStderr($rmbperson, "rmbperson array");
-  
-  	            
+              
   if ($rmbperson["SystemUser_emailverified"] == "both") {                
     $TopMenus = array (
             array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
             array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
             array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile"),
             array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
-    );
-                
-  }              
-
+    );                
+  }
+  
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
-
-
-
-
     <DIV class="row">
       <DIV class="main">
       <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>

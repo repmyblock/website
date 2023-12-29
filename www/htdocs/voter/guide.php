@@ -9,6 +9,13 @@
 	$HeaderOGImageWidth = "941";
 	$HeaderOGImageHeight = "477";
 	
+	$Statescountries = array ("Alaska" => "AK", "Alaska" => "AK", "Alabama" => "AL", "Alabama" => "AL", "Arkansas" => "AR", "Arkansas" => "AR", "American Samoa" => "AS", "American Samoa" => "AS", "American Samoa" => "AS", "Arizona" => "AZ", "Arizona" => "AZ", "Arizona" => "AZ", "California" => "CA", "California" => "CA", "Colorado" => "CO", "Colorado" => "CO", "Colorado" => "CO", "Connecticut" => "CT", "Connecticut" => "CT", "District of Columbia" => "DC", "Delaware" => "DE", "Delaware" => "DE", "Florida" => "FL", "Florida" => "FL", "Georgia" => "GA", "Georgia" => "GA", "Guam" => "GU", "Guam" => "GU", "Hawaii" => "HI", "Hawaii" => "HI", "Iowa" => "IA", "Iowa" => "IA", "Idaho" => "ID", "Idaho" => "ID", "Idaho" => "ID", "Idaho" => "ID", "Illinois" => "IL", "Illinois" => "IL", "Indiana" => "IN", "Indiana" => "IN", "Kansas" => "KS", "Kansas" => "KS", "Kentucky" => "KY", "Kentucky" => "KY", "Louisiana" => "LA", "Louisiana" => "LA", "Massachusetts" => "MA", "Massachusetts" => "MA", "Maryland" => "MD", "Maryland" => "MD", "Maine" => "ME", "Maine" => "ME", "Michigan" => "MI", "Michigan" => "MI", "Minnesota" => "MN", "Minnesota" => "MN", "Missouri" => "MO", "Missouri" => "MO", "Northern Mariana Islands" => "MP", "Northern Mariana Islands" => "MP", "Mississippi" => "MS", "Mississippi" => "MS", "Mississippi" => "MS", "Montana" => "MT", "Montana" => "MT", "North Carolina" => "NC", "North Carolina" => "NC", "North Dakota" => "ND", "North Dakota" => "ND", "North Dakota" => "ND", "Nebraska" => "NE", "Nebraska" => "NE", "New Hampshire" => "NH", "New Hampshire" => "NH", "New Jersey" => "NJ", "New Jersey" => "NJ", "New Mexico" => "NM", "New Mexico" => "NM", "New Mexico" => "NM", "New Mexico" => "NM", "Nevada" => "NV", "Nevada" => "NV", "New York" => "NY", "New York" => "NY", "New York" => "NY", "New York" => "NY", "Ohio" => "OH", "Ohio" => "OH", "Oklahoma" => "OK", "Oklahoma" => "OK", "Oregon" => "OR", "Oregon" => "OR", "Pennsylvania" => "PA", "Pennsylvania" => "PA", "Puerto Rico" => "PR", "Puerto Rico" => "PR", "Puerto Rico" => "PR", "Rhode Island" => "RI", "Rhode Island" => "RI", "Rhode Island" => "RI", "South Carolina" => "SC", "South Carolina" => "SC", "South Carolina" => "SC", "South Dakota" => "SD", "South Dakota" => "SD", "Tennessee" => "TN", "Tennessee" => "TN", "Tennessee" => "TN", "Texas" => "TX", "Texas" => "TX", "Utah" => "UT", "Utah" => "UT", "Virginia" => "VA", "Virginia" => "VA", "Vermont" => "VT", "Vermont" => "VT", "Washington" => "WA", "Washington" => "WA", "Wisconsin" => "WI", "Wisconsin" => "WI", "West Virginia" => "WV", "West Virginia" => "WV", "Wyoming" => "WY", "Wyoming" => "WY");	
+
+	if (! empty ($_POST)) {
+		header("Location: /S" . $Statescountries[$_POST["myCountry"]] . "/voter/guide");
+		exit();
+	}
+	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";
 	
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
@@ -16,14 +23,127 @@
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
 	$r = new welcome(0);	
-	$result = $r->CandidatesForElection();
+		
+	$ListState = $r->ListElections();	
+	WriteStderr($ListState, "List Election");
 	
-	WriteStderr($result, "Voter Guide");
+	preg_match('/^S([a-zA-Z]{2})D?(\d{8})?$/', $_GET["k"], $matches, PREG_OFFSET_CAPTURE);	
+	$ActiveState = $matches[1][0];
+	$ActiveDate = $matches[2][0];
+		
+	foreach ($ListState as $var) { 
+		$StateName[$var["DataState_Abbrev"]] = $var["DataState_Name"];
+		$StatesDates[$var["DataState_Name"]][$var["Elections_Date"]] = true;
+ 	}
+	foreach ($StatesDates[$StateName[$ActiveState]] as $key => $val) { $SortDates[] = preg_replace('/-/', '', $key); }
+	sort($SortDates);
+	
+	$ListOfStates = "\"";
+	foreach ($StatesDates as $var => $index) { 
+		$ListOfStates .= $commas . $var; $commas = "\", \"";			
+	}
+	$ListOfStates .= "\"";
+	
+	WriteStderr($ListOfStates, "List Election");
+	WriteStderr($Dates, "Dates");
+	WriteStderr($StatesDates, "States Dates");
+
+	$result = $r->CandidatesForElection($ActiveDate, NULL, $ActiveState);
+	WriteStderr($result, "Candidate List");
+	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
 
 <DIV class="main">
 	<DIV class="right f80bold">Voter Guide</DIV>
+	
+
+<P>
+
+<!--Make sure the form has the autocomplete function switched off:-->
+<form autocomplete="off" method="post" action="">
+	
+	<P CLASS="f60">Enter State</P>
+	  <div class="autocomplete" style="width:300px;">
+	    <input id="myInput" type="text" name="myCountry" placeholder="State">
+	  </div>
+	  <input type="submit">
+	</P>
+
+	<P CLASS="f80"><?= $StateName[$ActiveState] ?> Election Dates</P>
+		
+	<UL>
+		<?php foreach ($SortDates as $var) { ?>		
+			<LI><P CLASS="f80"><A HREF="/<?= $miduri ?>S<?= $ActiveState ?>D<?= $var ?>/voter/guide"><?= PrintShortDate($var) ?></A></P>
+		<?php } ?>
+	</UL>
+	
+	 <div style="width:300px;">
+    <P CLASS="f60">Zipcode<BR><input id="myInput" type="text" name="ZipCode" placeholder="Zipcode" SIZE=5></P>
+  </div>
+  <script>
+		var countries = [<?= $ListOfStates ?>];
+	</script>
+	<script src="/js/autocomplete.js"></script>
+	
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 16px Arial;  
+}
+
+/*the container must be positioned relative:*/
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+</style>
+
  	<DIV class="panels">
 	<P>
 		<?php
@@ -132,5 +252,7 @@
 
 </DIV>
 </DIV>
+</FORM>
+
 		
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

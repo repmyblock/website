@@ -323,6 +323,10 @@
                       <DT><LABEL>Public Facing Name</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="Your name to be displayed publicly" name="FullName" value="<?= $ProfileAlias ?>"></DD>
                     </DL>
+                    
+                    <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
+                      
+                    <HR>  
                       
                     <DL class="f40">
                       <DT><LABEL>Upload your picture</LABEL><BR><I>(make sure it's 200 pixels in width by 300 pixels in height)</I></DT>
@@ -334,8 +338,7 @@
                     ?>
                     
                 
-                      <DT><IMG CLASS="candidate" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $PicVar ?>"></DT>
-                      <DD>PATH: <?= $rmbcandidate["CandidateProfile_PicFileName"] ?></DD>
+                      <DT><IMG CLASS="candidate" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $PicVar ?>?<?= time() ?>"></DT>
                     </DL>
 
 										<DL class="f40">
@@ -346,6 +349,8 @@
                       
                     </DL>
 
+
+										 <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
 
                     <HR>  
            
@@ -388,6 +393,8 @@
  	                      <INPUT type="hidden" name="oldpdfname" value="<?= $rmbcandidate["CandidateProfile_PDFFileName"] ?>">
                       </DD>
                     </DL>            
+                    
+                     <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
                                     
                     <HR> 
   
@@ -422,6 +429,8 @@
                       <DD><INPUT class="form-control" type="text" placeholder="https://ballotpedia.org" name="Ballotpedia" value="<?= $rmbcandidate["CandidateProfile_BallotPedia"]; ?>"></DD>
                     </DL>
                     
+                    <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
+                    
                     <P class="f40">
                       All of the fields on this page are optional and can be deleted at any
                       time, and by filling them out, you're giving us consent to share this
@@ -431,7 +440,7 @@
                     </P>
                     
                       
-                    <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
+                    
 
                   </DIV>
                 </FORM>
