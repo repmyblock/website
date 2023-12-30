@@ -47,7 +47,9 @@ class welcome extends queries {
 			}
 		}
 					 			 
-		$sql .= " ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder, CandidateElection.CandidateElection_DBTable, CandidateElection.CandidateElection_DBTableValue";
+		$sql .= " ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder, " . 
+										"CandidateElection.CandidateElection_DBTable, " . 
+										"LPAD(CandidateElection.CandidateElection_DBTableValue, 6,0) ASC";
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	

@@ -39,8 +39,8 @@
 	sort($SortDates);
 	
 	$ListOfStates = "\"";
-	foreach ($StatesDates as $var => $index) { 
-		$ListOfStates .= $commas . $var; $commas = "\", \"";			
+	foreach ($StatesDates as $var => $index) {
+		$ListOfStates .= $commas . $var; $commas = "\", \"";		
 	}
 	$ListOfStates .= "\"";
 	
@@ -56,12 +56,10 @@
 
 <DIV class="main">
 	<DIV class="right f80bold">Voter Guide</DIV>
-	
-
-<P>
-
-<!--Make sure the form has the autocomplete function switched off:-->
-<form autocomplete="off" method="post" action="">
+  <P>
+  			
+	<!--Make sure the form has the autocomplete function switched off:-->
+	<form autocomplete="off" method="post" action="">
 	
 	<P CLASS="f60">Enter State</P>
 	  <div class="autocomplete" style="width:300px;">
@@ -192,7 +190,6 @@ img.imgcandidate {
 						$PicturePath = (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"]);
 						$DetailURL = "/" . $var["CandidateProfile_FirstName"] . $var["CandidateProfile_LastName"] . "_" . $var["CANDPROFID"] . "/voter/detail";		
 						?>
-															
 						
 					<?php	if ($PrevDateDesc != $DateDesc) { $PrintDiv = true; } ?>
 					<?php	if ($PrevElectionID != $var["CandidateElection_ID"]) { $PrintDiv = true; } ?>
@@ -201,11 +198,10 @@ img.imgcandidate {
 					<?php	if ($PrevElectionID != $var["CandidateElection_ID"]) { $PrintDiv = true; ?><DIV class="f80"><B><?= $var["CandidateElection_Text"] ?></B></DIV><?php } ?>
 					<?php if ($PrintDiv == true) { echo "<DIV class='container_bla'>"; } ?>
 
-			
 					<DIV CLASS="container_picture">
 					<A HREF="<?= $DetailURL ?>"><IMG class="candidate imgcandidate" SRC="/shared/pics/<?= $PicturePath ?>"></A>
 					
-  <div class="centered p40"><?=  $var["CandidateProfile_Alias"] ?></div>
+				  <div class="centered p40"><?=  $var["CandidateProfile_Alias"] ?></div>
 						
 					</DIV>
 				
