@@ -78,9 +78,8 @@
 		<?php } ?>
 	</UL>
 	
-	 <div style="width:300px;">
     <P CLASS="f60">Zipcode<BR><input id="myInput" type="text" name="ZipCode" placeholder="Zipcode" SIZE=5></P>
-  </div>
+  
   <script>
 		var countries = [<?= $ListOfStates ?>];
 	</script>
@@ -88,12 +87,10 @@
 	
 <style>
 * {
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 
-body {
-  font: 16px Arial;  
-}
+
 
 /*the container must be positioned relative:*/
 .autocomplete {
@@ -142,80 +139,86 @@ input[type=text] {
   background-color: DodgerBlue !important; 
   color: #ffffff; 
 }
+
+.container_bla {
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  font-family: Helvetica;
+  font-size: 1.4em;
+  color: black;
+  text-align: center;
+  display: grid;
+}
+
+/*
+.container_bla div:nth-child(n) {
+  background-color: #B8336A;
+
+}
+*/
+
+img.imgcandidate {
+	height: 150px; 
+	max-width: 100%;
+}
+.container_picture {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+/* Bottom left text */
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}
+
 </style>
 
  	<DIV class="panels">
-	<P>
+		
 		<?php
+			
+			$firsttime = true;
+			
 			if (! empty ($result)) {
 				foreach($result as $var) {
-					
 					WriteStderr($var, "Voter Guide");
-					if ( ! empty ($var)) {
-						print "<br style=\"clear:both\" />";
+					if ( ! empty ($var) && $var["CandidateProfile_NotOnBallot"] != 'yes' &&  $var["CandidateProfile_PublishProfile"] != 'no' ) {
 						$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
-						if ($DateDesc != $PrevDateDesc) { 
-							print "<DIV class=\"f60\"><B>" . $DateDesc . "</B></DIV>";
-						}
-						$PrevDateDesc = $DateDesc;
 						$PicturePath = (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"]);
-						// if ( $var["CandidateProfile_PublishProfile"] != 'no' || $var["CandidateProfile_PublishPetition"] != 'no') {
-		?>
+						$DetailURL = "/" . $var["CandidateProfile_FirstName"] . $var["CandidateProfile_LastName"] . "_" . $var["CANDPROFID"] . "/voter/detail";		
+						?>
+															
+						
+					<?php	if ($PrevDateDesc != $DateDesc) { $PrintDiv = true; } ?>
+					<?php	if ($PrevElectionID != $var["CandidateElection_ID"]) { $PrintDiv = true; } ?>
+					<?php if ($PrintDiv == true) { if ($firsttime == false) { echo "</DIV>"; }} ?>
+					<?php	if ($PrevDateDesc != $DateDesc) { ?><DIV class="f80bold"><B><?= $DateDesc ?></B></DIV><?php } ?>
+					<?php	if ($PrevElectionID != $var["CandidateElection_ID"]) { $PrintDiv = true; ?><DIV class="f80"><B><?= $var["CandidateElection_Text"] ?></B></DIV><?php } ?>
+					<?php if ($PrintDiv == true) { echo "<DIV class='container_bla'>"; } ?>
 
-		<DIV>
-			<P>
-				<DIV class="f60"><B><?= $var["CandidateProfile_Alias"] ?></B></DIV>
-			</P>
-
-			<DIV class='container2'>
-				<DIV>
-					<?php $DetailURL = "/" . $var["CandidateProfile_FirstName"] . $var["CandidateProfile_LastName"] . "_" . $var["CANDPROFID"] . "/voter/detail"; ?>
-					<A HREF="<?= $DetailURL ?>"><IMG style="float: left; margin: 0px 15px 0px 15px;"  class="candidate" SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $PicturePath ?>" class='iconDetails'></A>
-						<P class="f40" style="text-margin: 0px 0px 0px 0px;">
-							<I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
-							<?php if (! empty ($var["CandidateProfile_Statement"])) { print $var["CandidateProfile_Statement"]; }  ?>
-						</P>
-				</DIV>
-
-				<BR style="clear:both">
-
-				<DIV class='container3'>
-					<P class="f40">
-						<?php if (! empty ($var["CandidateProfile_Website"])) { ?><B>Website:</B> <A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?= $var["CandidateProfile_Website"] ?></A> -<?php } ?> 
-					  <?php if (! empty ($var["CandidateProfile_BallotPedia"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_BallotPedia"] ?>">Ballotpedia</A><?php } ?><BR>
-			      <?php if (! empty ($var["CandidateProfile_Email"])) { ?><B>Email:</B> <A TARGET="NEW" HREF="mailto:<?= $var["CandidateProfile_Email"] ?>"><?= $var["CandidateProfile_Email"] ?></A><?php } ?>
-			      <?php if (! empty ($var["CandidateProfile_PhoneNumber"])) { print "- <B>Telephone:</B> " . $var["CandidateProfile_PhoneNumber"]; } ?><BR>
-			      
-			      <?php if (! empty ($var["CandidateProfile_Twitter"])) { ?>Twitter: <A TARGET="NEW" HREF="https://twitter.com/<?= $var["CandidateProfile_Twitter"] ?>">@<?= $var["CandidateProfile_Twitter"] ?></A> -<?php } ?> 
-			     	<?php if (! empty ($var["CandidateProfile_Facebook"])) { ?>Facebook: <A TARGET="NEW" HREF="https://facebook.com/<?= $var["CandidateProfile_Facebook"] ?>"><?= $var["CandidateProfile_Facebook"] ?></A> -<?php } ?> 
-			      <?php if (! empty ($var["CandidateProfile_Instagram"])) { ?>Instagram: <A TARGET="NEW" HREF="https://instagram.com/<?= $var["CandidateProfile_Instagram"] ?>">@<?= $var["CandidateProfile_Instagram"] ?></A> -<?php } ?> 
-			      <?php if (! empty ($var["CandidateProfile_TikTok"])) { print $var["CandidateProfile_TikTok"] . " - "; } ?> 
-			      <?php if (! empty ($var["CandidateProfile_YouTube"])) { print $var["CandidateProfile_YouTube"] . " - "; }  ?>
-			      <?php if (! empty ($var["CandidateProfile_FaxNumber"])) { print $var["CandidateProfile_FaxNumber"]; }  ?><BR>
-		      </P>
-
-					<?php if ( ! empty ($var["CandidateProfile_PDFFileName"])) { ?>						
-						<P class="f40"><A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Download <?= $var["CandidateProfile_Alias"] ?>'s Platform</A></P>
-					<?php } ?>
+			
+					<DIV CLASS="container_picture">
+					<A HREF="<?= $DetailURL ?>"><IMG class="candidate imgcandidate" SRC="/shared/pics/<?= $PicturePath ?>"></A>
 					
-					
-					<?php if ( empty ($var["SystemUser_ID"])) { ?>
-						<A HREF="/<?= $var["CANDPROFID"] ?>/voter/claim">Claim this profile</A>
-					<?php } ?>
-					
-				</DIV>
-			</DIV>
-		</DIV>
-	</P>
-
-	<?php
+  <div class="centered p40"><?=  $var["CandidateProfile_Alias"] ?></div>
+						
+					</DIV>
+				
+					<?php
+				
+						$PrevDateDesc = $DateDesc;
+						$PrevElectionID = $var["CandidateElection_ID"];
+						$firsttime = false;
+						$PrintDiv = false;
 				}
 			}
 		} else { ?>
 		<H2>The guide is empty at this time.</H2>
 	<?php } ?>
-	</P>
-</DIV>
+	</DIV>
 
 <br style="clear:both">
 
