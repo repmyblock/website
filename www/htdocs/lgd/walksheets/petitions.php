@@ -41,7 +41,7 @@
 			     	<SELECT class="f40 <?= $selCols ?>" NAME="TYPE" PLACEHOLDER="">
 			     		<OPTION>Select a district type</OPTION>	
 			     		<OPTION VALUE="AD"<?php if ($_POST["TYPE"] == "AD") { echo " SELECTED"; } ?>>State Assembly District</OPTION>	
-			     		<OPTION VALUE="SN"<?php if ($_POST["TYPE"] == "SN") { echo " SELECTED"; } ?>>State Senatorial District</OPTION>	
+			     	<?/* <OPTION VALUE="SN"<?php if ($_POST["TYPE"] == "SN") { echo " SELECTED"; } ?>>State Senatorial District</OPTION>	 */ ?>
 			      <?php /* <OPTION VALUE="CG"<?php if ($_POST["TYPE"] == "CG") { echo " SELECTED"; } ?>>Congressional District</OPTION>	*/ ?>
 			    	<?php /* <OPTION VALUE="County">County District</OPTION>	*/ ?>
 			     	</SELECT>

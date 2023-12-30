@@ -91,6 +91,11 @@ if (! empty ($voters)) {
       $Gender[$person["VotersIndexes_UniqStateVoterID"]] = $person["Voters_Gender"];
   		$interval = date_diff(date_create(date('Y-m-d')), date_create($person["VotersIndexes_DOB"]));    		
   		$Age[$person["VotersIndexes_UniqStateVoterID"]] = $interval->y;
+  		
+  		// If the Party if all, the 
+  		if ($URIEncryptedString["Party"] == "ALL") {
+  			$Age[$person["VotersIndexes_UniqStateVoterID"]] .= " - " . $person["Voters_RegParty"];
+  		}
 		}	
 	}
 }
