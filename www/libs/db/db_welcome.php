@@ -47,7 +47,7 @@ class welcome extends queries {
 			}
 		}
 					 
-		$sql .= " ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder";
+		$sql .= " ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder, CandidateElection.CandidateElection_DBTable, CandidateElection.CandidateElection_DBTableValue";
 
 		return $this->_return_multiple($sql, $sql_vars);
 	}
@@ -55,7 +55,11 @@ class welcome extends queries {
 	
 	function CandidatesDetailed($CandidateProfileID) {
 		$sql = "SELECT * FROM CandidateProfile " . 
-						"WHERE CandidateProfile_ID = :CandidateProfileID";
+						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " . 
+						"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
+						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+						"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) " . 
+						"WHERE CandidateProfile.CandidateProfile_ID = :CandidateProfileID";
 		
 		return $this->_return_simple($sql, array("CandidateProfileID" => $CandidateProfileID));
 	}
