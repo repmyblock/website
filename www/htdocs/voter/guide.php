@@ -69,6 +69,9 @@
 	  </div>
 	  <input type="submit">
 	</P>
+	
+	
+	<?php if ( ! empty ($ActiveState)) { ?>
 
 	<P CLASS="f80"><?= $StateName[$ActiveState] ?> Election Dates</P>
 		
@@ -78,7 +81,9 @@
 		<?php } ?>
 	</UL>
 	
-    <P CLASS="f60">Zipcode<BR><input id="myInput" type="text" name="ZipCode" placeholder="Zipcode" SIZE=5></P>
+<?php } ?>
+	
+    <?php /* <P CLASS="f60">Zipcode<BR><input id="myInput" type="text" name="ZipCode" placeholder="Zipcode" SIZE=5></P> */ ?>
   
   <script>
 		var countries = [<?= $ListOfStates ?>];
