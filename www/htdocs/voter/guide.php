@@ -29,8 +29,8 @@
 	
 	preg_match('/^S([a-zA-Z]{2})D?(\d{8})?$/', $_GET["k"], $matches, PREG_OFFSET_CAPTURE);	
 	$ActiveState = $matches[1][0];
-	$ActiveDate = $matches[2][0];
-		
+	$ActiveDate = (empty($matches[2][0])) ? "NOW" : $matches[2][0];
+
 	foreach ($ListState as $var) { 
 		$StateName[$var["DataState_Abbrev"]] = $var["DataState_Name"];
 		$StatesDates[$var["DataState_Name"]][$var["Elections_Date"]] = true;
@@ -50,7 +50,7 @@
 
 	$result = $r->CandidatesForElection($ActiveDate, NULL, $ActiveState);
 	WriteStderr($result, "Candidate List");
-	
+
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
 
@@ -70,11 +70,8 @@
 	  <input type="submit">
 	</P>
 	
-	
 	<?php if ( ! empty ($ActiveState)) { ?>
-
 	<P CLASS="f80"><?= $StateName[$ActiveState] ?> Election Dates</P>
-		
 	<UL>
 		<?php foreach ($SortDates as $var) { ?>		
 			<LI><P CLASS="f80"><A HREF="/<?= $miduri ?>S<?= $ActiveState ?>D<?= $var ?>/voter/guide"><?= PrintShortDate($var) ?></A></P>

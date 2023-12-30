@@ -37,7 +37,7 @@ class welcome extends queries {
 			$sql .= " AND DataState_Abbrev = :Abbrev";
 			$sql_vars["Abbrev"] = $ElectionState;
 		}
-					 
+		
 		if ( ! empty ($ElectionDateFrom)) {			
 			if ( $ElectionDateFrom == "NOW") {
 				$sql .= " AND Elections_Date >= NOW()";
@@ -46,12 +46,10 @@ class welcome extends queries {
 				$sql_vars["ElectionDateFrom"] = $ElectionDateFrom;
 			}
 		}
-					 
+					 			 
 		$sql .= " ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder, CandidateElection.CandidateElection_DBTable, CandidateElection.CandidateElection_DBTableValue";
-
 		return $this->_return_multiple($sql, $sql_vars);
 	}
-	
 	
 	function CandidatesDetailed($CandidateProfileID) {
 		$sql = "SELECT * FROM CandidateProfile " . 
@@ -64,7 +62,6 @@ class welcome extends queries {
 		return $this->_return_simple($sql, array("CandidateProfileID" => $CandidateProfileID));
 	}
 	
-  
   function FindCandidate($CandidateID) {  	
 		$sql = "SELECT * FROM Candidate " . 
 						"WHERE Candidate_ID = :CandidateID";
