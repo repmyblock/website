@@ -75,10 +75,9 @@
 			<LI><P CLASS="f80"><A HREF="/<?= $miduri ?>S<?= $ActiveState ?>D<?= $var ?>/voter/guide"><?= PrintShortDate($var) ?></A></P>
 		<?php } ?>
 	</UL>
+	<?php } ?>
 	
-<?php } ?>
-	
-    <?php /* <P CLASS="f60">Zipcode<BR><input id="myInput" type="text" name="ZipCode" placeholder="Zipcode" SIZE=5></P> */ ?>
+  <?php /* <P CLASS="f60">Zipcode<BR><input id="myInput" type="text" name="ZipCode" placeholder="Zipcode" SIZE=5></P> */ ?>
   
   <script>
 		var countries = [<?= $ListOfStates ?>];
@@ -90,9 +89,7 @@
   /* box-sizing: border-box; */
 }
 
-
-
-/*the container must be positioned relative:*/
+/* the container must be positioned relative: */
 .autocomplete {
   position: relative;
   display: inline-block;

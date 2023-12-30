@@ -23,13 +23,8 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 	
 	WriteStderr($result, "Voter Guide");
-	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
-
-
-
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
-
-
 
 <DIV class="main">		
 	<DIV class="right f80bold">Voter Guide</DIV>
