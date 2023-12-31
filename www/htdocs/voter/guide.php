@@ -27,9 +27,10 @@
 	$ListState = $r->ListElections();	
 	WriteStderr($ListState, "List Election");
 	
-	preg_match('/^S([a-zA-Z]{2})D?(\d{8})?$/', $_GET["k"], $matches, PREG_OFFSET_CAPTURE);	
-	$ActiveState = $matches[1][0];
-	$ActiveDate = (empty($matches[2][0])) ? "NOW" : $matches[2][0];
+	preg_match('/^(T)?(\d{4})?(S)?([a-zA-Z]{2})?(D)?(\d{8})?$/', $_GET["k"], $matches, PREG_OFFSET_CAPTURE);	
+	$ActiveTeam = (empty($matches[2][0])) ? NULL : $matches[2][0];
+	$ActiveState = $matches[4][0];
+	$ActiveDate = (empty($matches[6][0])) ? "NOW" : $matches[6][0];
 
 	foreach ($ListState as $var) { 
 		$StateName[$var["DataState_Abbrev"]] = $var["DataState_Name"];
@@ -48,42 +49,12 @@
 	WriteStderr($Dates, "Dates");
 	WriteStderr($StatesDates, "States Dates");
 
-	$result = $r->CandidatesForElection($ActiveDate, NULL, $ActiveState);
+	$result = $r->CandidatesForElection($ActiveDate, NULL, $ActiveState, $ActiveTeam);
 	WriteStderr($result, "Candidate List");
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
 
-<DIV class="main">
-	<DIV class="right f80bold">Voter Guide</DIV>
-  <P>
-  			
-	<!--Make sure the form has the autocomplete function switched off:-->
-	<form autocomplete="off" method="post" action="">
-	
-	<P CLASS="f60">Enter State</P>
-	  <div class="autocomplete" style="width:300px;">
-	    <input id="myInput" type="text" name="myCountry" placeholder="State">
-	  </div>
-	  <input type="submit">
-	</P>
-	
-	<?php if ( ! empty ($ActiveState)) { ?>
-	<P CLASS="f80"><?= $StateName[$ActiveState] ?> Election Dates</P>
-	<UL>
-		<?php foreach ($SortDates as $var) { ?>		
-			<LI><P CLASS="f80"><A HREF="/<?= $miduri ?>S<?= $ActiveState ?>D<?= $var ?>/voter/guide"><?= PrintShortDate($var) ?></A></P>
-		<?php } ?>
-	</UL>
-	<?php } ?>
-	
-  <?php /* <P CLASS="f60">Zipcode<BR><input id="myInput" type="text" name="ZipCode" placeholder="Zipcode" SIZE=5></P> */ ?>
-  
-  <script>
-		var countries = [<?= $ListOfStates ?>];
-	</script>
-	<script src="/js/autocomplete.js"></script>
-	
 <style>
 * {
   /* box-sizing: border-box; */
@@ -159,6 +130,12 @@ img.imgcandidate {
 	height: 150px; 
 	max-width: 100%;
 }
+
+img.imglogo {
+	height: 50px; 
+	max-width: 100%;
+} 
+
 .container_picture {
   position: relative;
   text-align: center;
@@ -172,6 +149,71 @@ img.imgcandidate {
 }
 
 </style>
+
+
+
+<DIV class="main">
+	<DIV class="right f80bold">Voter Guide</DIV>
+	
+	<?php if ( !empty($result[0]["Team_Name"]) && ! empty($ActiveTeam)) { ?>
+		<DIV CLASS="f80">Candidates running as <FONT COLOR="BROWN"><?= $result[0]["Team_Name"] ?></FONT></DIV>
+	<?php } ?>
+	
+  <P>
+  			
+	<!--Make sure the form has the autocomplete function switched off:-->
+	<form autocomplete="off" method="post" action="">
+		
+		
+		
+<DIV>
+	<A HREF="/T0024/voter/guide"><IMG ALT="Pirate" id="pir" class="imglogo candidate" SRC="/shared/teams/pirates/Pirate.png"></A>
+	<A HREF="/T0069/voter/guide"><IMG ALT="International People's Party"  id="ipa" class="imglogo candidate" SRC="/shared/teams/ipa/ipa.png"></A>
+	<A HREF="/T0025/voter/guide"><IMG ALT="Socialist Alternative"  id="isa" class="imglogo candidate" SRC="/shared/teams/socalternative/ISAlternative.png"></A>
+	<A HREF="/T0026/voter/guide"><IMG ALT="Communists"  id="com" class="imglogo candidate" SRC="/shared/teams/communists/solidnet.png"></A>
+	<A HREF="/T0027/voter/guide"><IMG ALT="Progressive International"  id="pri" class="imglogo candidate" SRC="/shared/teams/proginternational/ProgInternational.png"></A>
+	<A HREF="/T0028/voter/guide"><IMG ALT="Greens"  id="gre" class="candidate imglogo" SRC="/shared/teams/greens/Greens.png"></A>
+	<A HREF="/T0029/voter/guide"><IMG ALT="Socialists"  id="soc" class="candidate imglogo" SRC="/shared/teams/socialists/Socialists.png"></A>
+	<A HREF="/T0030/voter/guide"><IMG ALT="Progressive Alliance"  id="pra" class="candidate imglogo" SRC="/shared/teams/progalliance/ProgAlliance.png"></A>
+	<A HREF="/T0031/voter/guide"><IMG ALT="Liberals"  id="lib" class="candidate imglogo" SRC="/shared/teams/liberals/LiberalInternational.png"></A>
+	<A HREF="/T0033/voter/guide"><IMG ALT="Christian Democrats"  id="cdu" class="candidate imglogo" SRC="/shared/teams/christiansdemocrats/IDC.png"></A>
+	<A HREF="/T0035/voter/guide"><IMG ALT="Libertarians"  id="lbt" class="candidate imglogo" SRC="/shared/teams/libertarians/Libertarian.png"></A>
+	<A HREF="/T0032/voter/guide"><IMG ALT="Democratic Union"  id="idu" class="candidate imglogo" SRC="/shared/teams/democrats/IDU.png"></A>
+	<A HREF="/T0034/voter/guide"><IMG ALT="Indentity and Democracy"  id="con" class="candidate imglogo" SRC="/shared/teams/identity/Conservatives.png"></A>
+</DIV>
+
+	<?php if ( ! empty ($ActiveState)) { ?>
+	<P CLASS="f80"><?= $StateName[$ActiveState] ?> Election Dates</P>
+	<UL>
+		<?php foreach ($SortDates as $var) { 
+			$PrintURL = (! empty ($ActiveTeam)) ? "T" . $ActiveTeam : NULL;
+			$PrintURL .= (! empty ($ActiveState)) ? "S" . $ActiveState : NULL;
+			$PrintURL .= (! empty ($var)) ? "D" . $var : NULL;
+			?>		
+			
+			<LI><P CLASS="f80"><A HREF="/<?= $miduri . $PrintURL ?>/voter/guide"><?= PrintShortDate($var) ?></A></P>
+		<?php } ?>
+	</UL>
+	<?php } ?>
+
+	
+	<P CLASS="f60">Enter State</P>
+	  <div class="autocomplete" style="width:300px;">
+	    <input id="myInput" type="text" name="myCountry" placeholder="State">
+	  </div>
+	  <input type="submit">
+	</P>
+	
+	
+	
+  <?php /* <P CLASS="f60">Zipcode<BR><input id="myInput" type="text" name="ZipCode" placeholder="Zipcode" SIZE=5></P> */ ?>
+  
+  <script>
+		var countries = [<?= $ListOfStates ?>];
+	</script>
+	<script src="/js/autocomplete.js"></script>
+	
+
 
  	<DIV class="panels">
 		

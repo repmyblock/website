@@ -24,14 +24,17 @@ class welcome extends queries {
 		return $this->_return_multiple($sql);
 	}
 
-	function CandidatesForElection($ElectionDateFrom = NULL, $ElectionDateTo = NULL, $ElectionState = NULL) {
+	function CandidatesForElection($ElectionDateFrom = NULL, $ElectionDateTo = NULL, $ElectionState = NULL, $ActiveTeam = NULL) {
 		$sql = "SELECT *, CandidateProfile.CandidateProfile_ID AS CANDPROFID FROM Elections " .
 						"LEFT JOIN CandidateElection ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN Candidate ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
 						"LEFT JOIN CandidateProfile ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " .
-						"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) " . 
+						"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) " .
+						"LEFT JOIN Team ON (Candidate.Team_ID = Team.Team_ID) " .  
 					 "WHERE CandidateProfile_PublishProfile = \"yes\"";
 		$sql_vars = array();
+		
+		echo "SQL: $sql<BR>";
 		
 		if ( ! empty ($ElectionState)) {
 			$sql .= " AND DataState_Abbrev = :Abbrev";
@@ -45,6 +48,11 @@ class welcome extends queries {
 				$sql .= " AND Elections_Date = :ElectionDateFrom";
 				$sql_vars["ElectionDateFrom"] = $ElectionDateFrom;
 			}
+		}
+		
+		if ( ! empty ($ActiveTeam)) {
+			$sql .= " AND Candidate.Team_ID = :TeamID";
+			$sql_vars["TeamID"] = $ActiveTeam;
 		}
 					 			 
 		$sql .= " ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder, " . 
