@@ -34,8 +34,6 @@ class welcome extends queries {
 					 "WHERE CandidateProfile_PublishProfile = \"yes\"";
 		$sql_vars = array();
 		
-		echo "SQL: $sql<BR>";
-		
 		if ( ! empty ($ElectionState)) {
 			$sql .= " AND DataState_Abbrev = :Abbrev";
 			$sql_vars["Abbrev"] = $ElectionState;
