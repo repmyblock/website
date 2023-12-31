@@ -1,47 +1,38 @@
 User-agent: ia_archiver
-Allow: /web
-Allow: /css
-Allow: /images
-Allow: /sitemap.xml
-Allow: /draft
-Allow: /$
-Disallow: /
+Allow: /
+Disallow: /lgd
 Sitemap: https://repmyblock.org/sitemap.xml
 
 User-agent: Googlebot
-Allow: /web
-Allow: /css
-Allow: /images
-Allow: /sitemap.xml
-Allow: /draft
-Allow: /$
-Disallow: /
+Allow: /
+Disallow: /lgd
 Sitemap: https://repmyblock.org/sitemap.xml
 
 User-agent: Applebot
 Allow: /
+Disallow: /lgd
 
 User-agent: LinkedInBot
 Allow: /
+Disallow: /lgd
 
 User-agent: facebookexternalhit
 Allow: /
+Disallow: /lgd
 
 User-agent: TelegramBot
 Allow: /
+Disallow: /lgd
 
 User-agent: Twitterbot
 Allow: /
+Disallow: /lgd
 
 User-agent: Discordbot
 Allow: /
+Disallow: /lgd
 
 User-agent: *
-Allow: /web
-Allow: /css
-Allow: /images
-Allow: /sitemap.xml
-Allow: /draft
-Allow: /$
-Disallow: /
+Allow: /
+Disallow: /lgd
 Sitemap: https://repmyblock.org/sitemap.xml
