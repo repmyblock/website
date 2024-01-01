@@ -55,8 +55,8 @@
 	$result = $r->CandidatesForElection($ActiveDate, NULL, $ActiveState, $ActiveTeam);
 	WriteStderr($result, "Candidate List");
 	
-	if (empty ($result) && ! empty ($ActiveTeam)) {
-		// $result = $r->GetTeamInfo($ActiveTeam);
+	if (empty($result) && ! empty ($ActiveTeam)) {
+		$result = $r->GetTeamInfo($ActiveTeam);
 	}
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
@@ -174,7 +174,6 @@ img.nonselected {
 	<DIV class="right f80bold">Voter Guide</DIV>
 	
 	<?php if ( !empty($result[0]["Team_Name"]) && ! empty($ActiveTeam)) { $activeccs = " nonselected"; ?>
-		
 		<DIV CLASS="f80">Candidates running as <FONT COLOR="BROWN"><?= $result[0]["Team_Name"] ?></FONT></DIV>
 	<?php } ?>
 	
