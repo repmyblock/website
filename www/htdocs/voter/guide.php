@@ -273,8 +273,7 @@ img.nonselected {
 		
 		if ($firsttime == true) { ?>
 			<H2>The guide is empty at this time.</H2>
-	<?php } 
-		} ?>
+		<?php } ?>
 	</DIV>
 
 <br style="clear:both">
