@@ -41,7 +41,7 @@
 				<?php if ( ! empty ($result)) {
 								foreach ($result as $var) {
 									if ( ! empty ($var["CandidateProfile_PublishProfile"] != 'no' || $var["CandidateProfile_PublishPetition"] != 'no')) {
-											$PicturePath = "/shared/pics/" . (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"]);
+										$PicturePath = "/shared/pics/" . (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"] . "?" . $addtopics);
 	
 				?>	
 				
