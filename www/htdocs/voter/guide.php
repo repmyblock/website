@@ -243,7 +243,7 @@ img.nonselected {
 					WriteStderr($var, "Voter Guide");
 					if ( ! empty ($var["CandidateProfile_ID"]) && $var["CandidateProfile_NotOnBallot"] != 'yes' &&  $var["CandidateProfile_PublishProfile"] != 'no' ) {
 						$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
-						$PicturePath = (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"]);
+						$PicturePath = "/shared/pics/" . (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"]);
 						$DetailURL = "/" . $var["CandidateProfile_FirstName"] . $var["CandidateProfile_LastName"] . "_" . $var["CANDPROFID"] . "/voter/detail";		
 						?>
 						
@@ -255,7 +255,7 @@ img.nonselected {
 					<?php if ($PrintDiv == true) { echo "<DIV class='container_bla'>"; } ?>
 
 					<DIV CLASS="container_picture">
-					<A HREF="<?= $DetailURL ?>"><IMG class="candidate imgcandidate" SRC="/shared/pics/<?= $PicturePath ?>"></A>
+					<A HREF="<?= $DetailURL ?>"><IMG class="candidate imgcandidate" SRC="<?= $PicturePath ?>"></A>
 					
 				  <div class="centered p40"><?=  $var["CandidateProfile_Alias"] ?></div>
 						
