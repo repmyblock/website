@@ -23,6 +23,16 @@ class welcome extends queries {
 
 		return $this->_return_multiple($sql);
 	}
+	
+	function GetTeamInfo($TeamID = NULL) {
+		$sql = "SELECT * FROM Team";
+		$sql_vars = array();
+		if ( ! empty ($TeamID)) {
+			$sql .= " WHERE Team_ID = :TeamID";
+			$sql_vars["TeamID"] = $TeamID;
+		}
+		return $this->_return_multiple($sql, $sql_vars);
+	}
 
 	function CandidatesForElection($ElectionDateFrom = NULL, $ElectionDateTo = NULL, $ElectionState = NULL, $ActiveTeam = NULL) {
 		$sql = "SELECT *, CandidateProfile.CandidateProfile_ID AS CANDPROFID FROM Elections " .

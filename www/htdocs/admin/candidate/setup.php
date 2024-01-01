@@ -52,10 +52,10 @@
 							</div>
 
 							<?php 			
-										$Counter = 0;
-										if ( ! empty ($result)) {
-											foreach ($result as $var) {
-												WriteStderr($var, "Candidates in the Loop");
+								$Counter = 0;
+								if ( ! empty ($result)) {
+									foreach ($result as $var) {
+										WriteStderr($var, "Candidates in the Loop");
 							?>		
 										<div id="resp-table-body">
 											<div class="resp-table-row">
@@ -63,7 +63,10 @@
 											<div class="table-body-cell-left"><A HREF="/<?= CreateEncoded (
 												array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 															"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
-															"UniqNYSVoterID" => $var["Candidate_UniqStateVoterID"])); ?>/admin/voterlist"><?= $var["Candidate_DispName"] ?></A></DIV>
+															"UniqNYSVoterID" => $var["Candidate_UniqStateVoterID"],
+															"" => $var[""],
+															
+												)); ?>/admin/candidate/detail"><?= $var["Candidate_DispName"] ?></A></DIV>
 												<div class="table-body-cell">
 													<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
 												array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	

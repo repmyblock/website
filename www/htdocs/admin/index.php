@@ -45,7 +45,7 @@
  			<A HREF="/<?= $k ?>/admin/setup_elections" class="mobilemenu">Petition Election</A><BR>
  			<A HREF="/<?= $k ?>/admin/signaturecount" class="mobilemenu">Signature Count</A><BR>
   		<A HREF="/<?= $k ?>/admin/track" class="mobilemenu">Petitions Tracker</A><BR>	
-  		<A HREF="/<?= $k ?>/admin/setup_candidate" class="mobilemenu">Candidates Maintenance</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/candidate/setup" class="mobilemenu">Candidates Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_petitionset" class="mobilemenu">Petition Set Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_positions" class="mobilemenu">Position Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_petitions" class="mobilemenu">Petition Maintenance</A><BR>	
