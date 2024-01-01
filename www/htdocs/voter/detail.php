@@ -6,6 +6,8 @@
 	preg_match('/(.*)_(\d+)/', $middleuri, $matches, PREG_OFFSET_CAPTURE);
 	$CandidateProfileID = preg_replace('/[^0-9.]+/', '', $matches[2][0]);
 
+	$addtopics = time();
+	
 	$r = new welcome(0);	
 	$var = $r->CandidatesDetailed($CandidateProfileID);
 	
@@ -35,16 +37,11 @@
 	
 	<?php 
 		if (! empty ($var)) {
-			
 			WriteStderr($var, "Voter Guide");
-			
 			print "<br style=\"clear:both\" />";
-			
 			$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
-			
 			$PrevDateDesc = $DateDesc;
-			$PicturePath = (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"]);
-		 
+			$PicturePath = "/shared/pics/" . (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"] . "?" . $addtopics);
 ?>
 						
 <P>
@@ -61,7 +58,7 @@
 		
 	<DIV class='container2'>
 		<DIV>
-			<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?><IMG class="candidate" style="float: left; margin: 0px 15px 0px 15px;" SRC="/shared/pics/<?= $PicturePath ?>" class='iconDetails'><?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
+			<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?><IMG class="candidate" style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $PicturePath ?>" class='iconDetails'><?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
 						<DIV class="f60"><B><?= $DateDesc ?></B></DIV>
 						<P class="f40" style="text-margin: 0px 0px 0px 0px;">
 							<I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
