@@ -269,9 +269,12 @@ img.nonselected {
 						$PrintDiv = false;
 				}
 			}
-		} else { ?>
-		<H2>The guide is empty at this time.</H2>
-	<?php } ?>
+		}
+		
+		if ($firsttime == true) { ?>
+			<H2>The guide is empty at this time.</H2>
+	<?php } 
+		} ?>
 	</DIV>
 
 <br style="clear:both">
