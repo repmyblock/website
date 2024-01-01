@@ -10,7 +10,8 @@
 	$HeaderOGImageHeight = "477";
 	
 	$Statescountries = array ("Alaska" => "AK", "Alaska" => "AK", "Alabama" => "AL", "Alabama" => "AL", "Arkansas" => "AR", "Arkansas" => "AR", "American Samoa" => "AS", "American Samoa" => "AS", "American Samoa" => "AS", "Arizona" => "AZ", "Arizona" => "AZ", "Arizona" => "AZ", "California" => "CA", "California" => "CA", "Colorado" => "CO", "Colorado" => "CO", "Colorado" => "CO", "Connecticut" => "CT", "Connecticut" => "CT", "District of Columbia" => "DC", "Delaware" => "DE", "Delaware" => "DE", "Florida" => "FL", "Florida" => "FL", "Georgia" => "GA", "Georgia" => "GA", "Guam" => "GU", "Guam" => "GU", "Hawaii" => "HI", "Hawaii" => "HI", "Iowa" => "IA", "Iowa" => "IA", "Idaho" => "ID", "Idaho" => "ID", "Idaho" => "ID", "Idaho" => "ID", "Illinois" => "IL", "Illinois" => "IL", "Indiana" => "IN", "Indiana" => "IN", "Kansas" => "KS", "Kansas" => "KS", "Kentucky" => "KY", "Kentucky" => "KY", "Louisiana" => "LA", "Louisiana" => "LA", "Massachusetts" => "MA", "Massachusetts" => "MA", "Maryland" => "MD", "Maryland" => "MD", "Maine" => "ME", "Maine" => "ME", "Michigan" => "MI", "Michigan" => "MI", "Minnesota" => "MN", "Minnesota" => "MN", "Missouri" => "MO", "Missouri" => "MO", "Northern Mariana Islands" => "MP", "Northern Mariana Islands" => "MP", "Mississippi" => "MS", "Mississippi" => "MS", "Mississippi" => "MS", "Montana" => "MT", "Montana" => "MT", "North Carolina" => "NC", "North Carolina" => "NC", "North Dakota" => "ND", "North Dakota" => "ND", "North Dakota" => "ND", "Nebraska" => "NE", "Nebraska" => "NE", "New Hampshire" => "NH", "New Hampshire" => "NH", "New Jersey" => "NJ", "New Jersey" => "NJ", "New Mexico" => "NM", "New Mexico" => "NM", "New Mexico" => "NM", "New Mexico" => "NM", "Nevada" => "NV", "Nevada" => "NV", "New York" => "NY", "New York" => "NY", "New York" => "NY", "New York" => "NY", "Ohio" => "OH", "Ohio" => "OH", "Oklahoma" => "OK", "Oklahoma" => "OK", "Oregon" => "OR", "Oregon" => "OR", "Pennsylvania" => "PA", "Pennsylvania" => "PA", "Puerto Rico" => "PR", "Puerto Rico" => "PR", "Puerto Rico" => "PR", "Rhode Island" => "RI", "Rhode Island" => "RI", "Rhode Island" => "RI", "South Carolina" => "SC", "South Carolina" => "SC", "South Carolina" => "SC", "South Dakota" => "SD", "South Dakota" => "SD", "Tennessee" => "TN", "Tennessee" => "TN", "Tennessee" => "TN", "Texas" => "TX", "Texas" => "TX", "Utah" => "UT", "Utah" => "UT", "Virginia" => "VA", "Virginia" => "VA", "Vermont" => "VT", "Vermont" => "VT", "Washington" => "WA", "Washington" => "WA", "Wisconsin" => "WI", "Wisconsin" => "WI", "West Virginia" => "WV", "West Virginia" => "WV", "Wyoming" => "WY", "Wyoming" => "WY");	
-
+	$activeccs = NULL;
+	
 	if (! empty ($_POST)) {
 		header("Location: /S" . $Statescountries[$_POST["myCountry"]] . "/voter/guide");
 		exit();
@@ -172,7 +173,8 @@ img.nonselected {
 <DIV class="main">
 	<DIV class="right f80bold">Voter Guide</DIV>
 	
-	<?php if ( !empty($result[0]["Team_Name"]) && ! empty($ActiveTeam)) { ?>
+	<?php if ( !empty($result[0]["Team_Name"]) && ! empty($ActiveTeam)) { $activeccs = " nonselected"; ?>
+		
 		<DIV CLASS="f80">Candidates running as <FONT COLOR="BROWN"><?= $result[0]["Team_Name"] ?></FONT></DIV>
 	<?php } ?>
 	
@@ -182,19 +184,20 @@ img.nonselected {
 	<form autocomplete="off" method="post" action="">
 	
 	<DIV>
-		<A HREF="/T0024/voter/guide"><IMG ALT="Pirate" id="pir" class="imglogo candidate<?= $ActiveTeam != 24 ? " nonselected" : NULL ?>" SRC="/shared/teams/pirates/Pirate.png"></A>
-		<A HREF="/T0069/voter/guide"><IMG ALT="International People's Party"  id="ipa" class="imglogo candidate<?= $ActiveTeam != 69 ? " nonselected" : NULL ?>" SRC="/shared/teams/ipa/ipa.png"></A>
-		<A HREF="/T0025/voter/guide"><IMG ALT="Socialist Alternative"  id="isa" class="imglogo candidate<?= $ActiveTeam != 25 ? " nonselected" : NULL ?>" SRC="/shared/teams/socalternative/ISAlternative.png"></A>
-		<A HREF="/T0026/voter/guide"><IMG ALT="Communists"  id="com" class="imglogo candidate<?= $ActiveTeam != 26 ? " nonselected" : NULL ?>" SRC="/shared/teams/communists/solidnet.png"></A>
-		<A HREF="/T0027/voter/guide"><IMG ALT="Progressive International"  id="pri" class="imglogo candidate<?= $ActiveTeam != 27 ? " nonselected" : NULL ?>" SRC="/shared/teams/proginternational/ProgInternational.png"></A>
-		<A HREF="/T0028/voter/guide"><IMG ALT="Greens"  id="gre" class="candidate imglogo<?= $ActiveTeam != 28 ? " nonselected" : NULL ?>" SRC="/shared/teams/greens/Greens.png"></A>
-		<A HREF="/T0029/voter/guide"><IMG ALT="Socialists"  id="soc" class="candidate imglogo<?= $ActiveTeam != 29 ? " nonselected" : NULL ?>" SRC="/shared/teams/socialists/Socialists.png"></A>
-		<A HREF="/T0030/voter/guide"><IMG ALT="Progressive Alliance"  id="pra" class="candidate imglogo<?= $ActiveTeam != 30 ? " nonselected" : NULL ?>" SRC="/shared/teams/progalliance/ProgAlliance.png"></A>
-		<A HREF="/T0031/voter/guide"><IMG ALT="Liberals"  id="lib" class="candidate imglogo<?= $ActiveTeam != 31 ? " nonselected" : NULL ?>" SRC="/shared/teams/liberals/LiberalInternational.png"></A>
-		<A HREF="/T0033/voter/guide"><IMG ALT="Christian Democrats"  id="cdu" class="candidate imglogo<?= $ActiveTeam != 33 ? " nonselected" : NULL ?>" SRC="/shared/teams/christiansdemocrats/IDC.png"></A>
-		<A HREF="/T0035/voter/guide"><IMG ALT="Libertarians"  id="lbt" class="candidate imglogo<?= $ActiveTeam != 35 ? " nonselected" : NULL ?>" SRC="/shared/teams/libertarians/Libertarian.png"></A>
-		<A HREF="/T0032/voter/guide"><IMG ALT="Democratic Union"  id="idu" class="candidate imglogo<?= $ActiveTeam != 32 ? " nonselected" : NULL ?>" SRC="/shared/teams/democrats/IDU.png"></A>
-		<A HREF="/T0034/voter/guide"><IMG ALT="Indentity and Democracy"  id="con" class="candidate imglogo<?= $ActiveTeam != 34 ? " nonselected" : NULL ?>" SRC="/shared/teams/identity/Conservatives.png"></A>
+		<A HREF="/reset/voter/guide"><IMG ALT="Reset" id="pir" class="imglogo candidate" SRC="/shared/teams/reset.png"></A>
+		<A HREF="/T0024/voter/guide"><IMG ALT="Pirate" id="pir" class="imglogo candidate<?= $ActiveTeam != 24 ? $activeccs : NULL ?>" SRC="/shared/teams/pirates/Pirate.png"></A>
+		<A HREF="/T0069/voter/guide"><IMG ALT="International People's Party"  id="ipa" class="imglogo candidate<?= $ActiveTeam != 69 ? $activeccs : NULL ?>" SRC="/shared/teams/ipa/ipa.png"></A>
+		<A HREF="/T0025/voter/guide"><IMG ALT="Socialist Alternative"  id="isa" class="imglogo candidate<?= $ActiveTeam != 25 ? $activeccs : NULL ?>" SRC="/shared/teams/socalternative/ISAlternative.png"></A>
+		<A HREF="/T0026/voter/guide"><IMG ALT="Communists"  id="com" class="imglogo candidate<?= $ActiveTeam != 26 ? $activeccs : NULL ?>" SRC="/shared/teams/communists/solidnet.png"></A>
+		<A HREF="/T0027/voter/guide"><IMG ALT="Progressive International"  id="pri" class="imglogo candidate<?= $ActiveTeam != 27 ? $activeccs : NULL ?>" SRC="/shared/teams/proginternational/ProgInternational.png"></A>
+		<A HREF="/T0028/voter/guide"><IMG ALT="Greens"  id="gre" class="candidate imglogo<?= $ActiveTeam != 28 ? $activeccs : NULL ?>" SRC="/shared/teams/greens/Greens.png"></A>
+		<A HREF="/T0029/voter/guide"><IMG ALT="Socialists"  id="soc" class="candidate imglogo<?= $ActiveTeam != 29 ? $activeccs : NULL ?>" SRC="/shared/teams/socialists/Socialists.png"></A>
+		<A HREF="/T0030/voter/guide"><IMG ALT="Progressive Alliance"  id="pra" class="candidate imglogo<?= $ActiveTeam != 30 ? $activeccs : NULL ?>" SRC="/shared/teams/progalliance/ProgAlliance.png"></A>
+		<A HREF="/T0031/voter/guide"><IMG ALT="Liberals"  id="lib" class="candidate imglogo<?= $ActiveTeam != 31 ? $activeccs : NULL ?>" SRC="/shared/teams/liberals/LiberalInternational.png"></A>
+		<A HREF="/T0033/voter/guide"><IMG ALT="Christian Democrats"  id="cdu" class="candidate imglogo<?= $ActiveTeam != 33 ? $activeccs : NULL ?>" SRC="/shared/teams/christiansdemocrats/IDC.png"></A>
+		<A HREF="/T0035/voter/guide"><IMG ALT="Libertarians"  id="lbt" class="candidate imglogo<?= $ActiveTeam != 35 ? $activeccs : NULL ?>" SRC="/shared/teams/libertarians/Libertarian.png"></A>
+		<A HREF="/T0032/voter/guide"><IMG ALT="Democratic Union"  id="idu" class="candidate imglogo<?= $ActiveTeam != 32 ? $activeccs : NULL ?>" SRC="/shared/teams/democrats/IDU.png"></A>
+		<A HREF="/T0034/voter/guide"><IMG ALT="Indentity and Democracy"  id="con" class="candidate imglogo<?= $ActiveTeam != 34 ? $activeccs : NULL ?>" SRC="/shared/teams/identity/Conservatives.png"></A>
 	</DIV>
 
 	<?php if ( ! empty ($ActiveState)) { ?>
