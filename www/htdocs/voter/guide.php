@@ -238,10 +238,10 @@ img.nonselected {
 			
 			$firsttime = true;
 			
-			if (! empty ($result) {
+			if (! empty ($result)) {
 				foreach($result as $var) {
 					WriteStderr($var, "Voter Guide");
-					if ( (! empty ($var["CandidateProfile_ID"]) && $var["CandidateProfile_NotOnBallot"] != 'yes' &&  $var["CandidateProfile_PublishProfile"] != 'no' ) {
+					if ( ! empty ($var["CandidateProfile_ID"]) && $var["CandidateProfile_NotOnBallot"] != 'yes' &&  $var["CandidateProfile_PublishProfile"] != 'no' ) {
 						$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
 						$PicturePath = (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"]);
 						$DetailURL = "/" . $var["CandidateProfile_FirstName"] . $var["CandidateProfile_LastName"] . "_" . $var["CANDPROFID"] . "/voter/detail";		
