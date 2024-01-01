@@ -41,11 +41,13 @@
 				<?php if ( ! empty ($result)) {
 								foreach ($result as $var) {
 									if ( ! empty ($var["CandidateProfile_PublishProfile"] != 'no' || $var["CandidateProfile_PublishPetition"] != 'no')) {
+										$PicturePath = (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"]);
+
 				?>	
 				
 					<DIV class='container2'>
 						<DIV style="float:left;" CLASS="f60">
-							<IMG SRC="<?= $FrontEndStatic ?>/shared/pics/<?= $var["CandidateProfile_PicFileName"] ?>" class='iconDetails'>
+							<IMG SRC="<?= $PicturePath ?>" class='iconDetails candidate'>
 						</DIV>	
 						<DIV class='container3'>
 					<P>
