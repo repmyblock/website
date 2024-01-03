@@ -51,7 +51,7 @@
 		
 		<META charset="UTF-8">
 <?php if ("https://" . $_SERVER['SERVER_NAME'] != $FrontEndWebsite) { ?>
-		<meta name=”robots” content=”noindex”><?php } ?>
+		<meta name="robots" content="noindex"><?php } ?>
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:description" content="<?= $HeaderTwitterDesc ?>" />
 		<meta name="twitter:title" content="<?= $HeaderTwitterTitle ?>" />
