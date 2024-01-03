@@ -1,0 +1,101 @@
+/* Reset styles for consistency */
+
+
+/* Hover effect */
+.header2 {
+  display: flex;
+  background-color: #FCED00;
+}
+
+/* Hover effect */
+.header2-botton a:hover {
+  /* background-color: #EE2E62; /* */
+  color: #EE2E62;
+}
+
+/* Styles for all links in the header */
+.header2-botton a {
+  color: #16317D; /* Dark blue text */
+  padding: 5px 5px; /* */
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+
+
+/* Hover effect */
+.header2-top a:hover {
+  background-color: #EE2E62; /* */
+  color: #16317D;
+}
+
+/* Styles for all links in the header */
+.header2-top a {
+ 	color: #FFFFFF;
+  padding: 5px 10px; /* */
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+  background-color: #EE2E62; /* */
+}
+
+/* Logo container */
+.header2-logo {
+  /* padding-left: 10px; /* Padding to the left of the logo */
+  /* flex-grow: 0; /* Allow the logo container to grow */
+}
+
+/* Image styles */
+.header2-logo img {
+  /* display: run-in; /* Block display */
+  /* max-width: 100px; /* Adjust as per your logo size */
+  /* height: auto; /* Maintain aspect ratio */
+}
+
+
+.header2-text {
+	/* display: flex; /* */
+	flex-grow: 1; /* Allow the links container to grow */
+  font-size:20px; font-weight: 600;
+   /* color: #16317D; /* Dark blue text */
+}
+
+/* Top navigation links container */
+.header2-top {
+  /* flex-grow: 1; /* Allow the links container to grow */
+ 	display: flex; /* Use flexbox for layout */
+  justify-content: flex-end; /* Align links to the end (right) */
+  text-align-last: right; /* */
+  text-align: right; /* */
+   color: #FFFFFF; /* White text */
+
+   background-color: #FCED00; /* */
+ /* padding-right: 0px; /* Padding to the right of the links */
+ 	padding: 0px 0px 0px 0px; /* Padding to the right of the links */
+}
+
+
+/* Bottom navigation bar */
+.header2-botton {
+  /* Black background */
+  position: sticky; 	/* */
+  overflow: hidden;
+ /* display: flex; /**/
+  justify-content: flex-end; 
+  top: 0; 						/* */
+ 	z-index: 1000; 		/* */
+  text-align-last: right; /* */
+  text-align: right; /* */
+  padding: 0px 0px 0px 0px;
+ 	background-color: #FCED00;
+ 	/* position: absolute; /**/
+ 	
+ /*  padding: 2px 2px; /* Padding for the links */
+}
+
+/* Override styles for bottom navigation links */
+.header2 a {
+  /* color: #00FFFF; /* White text */
+  
+}
