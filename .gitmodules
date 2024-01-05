@@ -1,0 +1,3 @@
+[submodule "www/libs/utils/Croppie"]
+	path = www/libs/utils/Croppie
+	url = https://github.com/theochino/Croppie.git
