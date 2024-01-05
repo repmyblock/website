@@ -322,10 +322,5 @@ while ( $done == 1) {
 
 $pdf->Output("I", $Petition_FileName);
 
-function Redact ($string) {
-	return str_repeat("X", strlen($string)); ;
-	return $string;
-}
-
 ?>
 
