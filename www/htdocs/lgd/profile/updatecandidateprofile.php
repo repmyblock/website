@@ -413,8 +413,6 @@
                       </DD>
                     </DL>            
                     
-                 
-                         
                     <?php if (! empty ($rmbcandidate["CandidateProfile_PDFFileName"])) { ?>
   									<P>
   	                                          
@@ -427,12 +425,10 @@
 	                  </P>
 	                  <?php } ?>     
 	                  
-	                  
 	                  <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
                                     
                     <HR> 
-  
-                      
+    
                     <DL class="f40">
                       <DT><LABEL>Twitter</LABEL></DT>
                       <DD><INPUT class="form-control" type="text" placeholder="@" name="Twitter" value="<?= $rmbcandidate["CandidateProfile_Twitter"]; ?>"></DD>
