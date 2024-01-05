@@ -62,10 +62,19 @@ class welcome extends queries {
 			$sql .= " AND Candidate.Team_ID = :TeamID";
 			$sql_vars["TeamID"] = $ActiveTeam;
 		}
-					 			 
+		
 		$sql .= " ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder, " . 
 										"CandidateElection.CandidateElection_DBTable, " . 
 										"LPAD(CandidateElection.CandidateElection_DBTableValue, 6,0) ASC";
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	function ListDistrictsForZip($ActiveZipcode) {
+		$sql = "SELECT * FROM DataDistrict " . 
+							"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = DataDistrict.DataCounty_ID) " .
+							"LEFT JOIN DataState ON (DataCounty.DataState_ID = DataState.DataState_ID) " . 
+							"WHERE DataDistrict_ZipCode = :ZipCode";
+		$sql_vars = array("ZipCode" => $ActiveZipcode);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
@@ -86,6 +95,13 @@ class welcome extends queries {
 		$sql_vars = array("CandidateID" => $CandidateID);
 		return $this->_return_simple($sql, $sql_vars);	
 	} 
+	
+	function ListElectionPositions($StateID) {
+		$sql = "SELECT * FROM RepMyBlock.ElectionsPosition " . 
+						"WHERE DataState_ID = :StateID";
+		$sql_vars = array("StateID" => $StateID);
+		return $this->_return_multiple($sql, $sql_vars);	
+	}
 	
 	function FindVoter($VoterID, $DateFile) {  	
 		$sql = "SELECT * FROM Raw_Voter_" . $DateFile . " " . 

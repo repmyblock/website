@@ -50,8 +50,7 @@
 	<HEAD>
 		
 		<META charset="UTF-8">
-<?php if ("https://" . $_SERVER['HTTP_HOST'] != $FrontEndWebsite && ! preg_match('/brand/', $_SERVER['SCRIPT_NAME'])) { 
-?>	<meta name="robots" content="noindex"><?php } ?>
+		<?php if ("https://" . $_SERVER['HTTP_HOST'] != $FrontEndWebsite && ! preg_match('/brand/', $_SERVER['SCRIPT_NAME'])) { ?><meta name="robots" content="noindex"><?php } ?>
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:description" content="<?= $HeaderTwitterDesc ?>" />
 		<meta name="twitter:title" content="<?= $HeaderTwitterTitle ?>" />

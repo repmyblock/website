@@ -8,15 +8,18 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 
 	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-	
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}
+
 	$rmb = new repmyblock();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
 
 	$result = $rmb->ListCandidates();
-	WriteStderr($result, "ListCandidates");
-	
+	//WriteStderr($result, "ListCandidates");
+			
+					//print "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
+					//print "<PRE>" . print_r($result, 1) . "</PRE>";
+			
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
@@ -64,8 +67,8 @@
 												array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
 															"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
 															"UniqNYSVoterID" => $var["Candidate_UniqStateVoterID"],
-															"" => $var[""],
-															
+															"Candidate_ID" => $var["Candidate_ID"],
+														
 												)); ?>/admin/candidate/detail"><?= $var["Candidate_DispName"] ?></A></DIV>
 												<div class="table-body-cell">
 													<A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (

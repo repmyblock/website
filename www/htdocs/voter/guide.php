@@ -24,15 +24,16 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
-	$r = new welcome(0);	
+	$r = new welcome();	
 		
 	$ListState = $r->ListElections();	
 	WriteStderr($ListState, "List Election");
 	
-	preg_match('/^(T)?(\d{4})?(S)?([a-zA-Z]{2})?(D)?(\d{8})?$/', $_GET["k"], $matches, PREG_OFFSET_CAPTURE);	
+	preg_match('/^(T)?(\d{4})?(S)?([a-zA-Z]{2})?(D)?(\d{8})?(Z)?(\d{5})?$/', $_GET["k"], $matches, PREG_OFFSET_CAPTURE);	
 	$ActiveTeam = (empty($matches[2][0])) ? NULL : $matches[2][0];
 	$ActiveState = $matches[4][0];
 	$ActiveDate = (empty($matches[6][0])) ? "NOW" : $matches[6][0];
+	$ActiveZIP = (empty($matches[8][0])) ? NULL : $matches[8][0];
 
 	foreach ($ListState as $var) { 
 		$StateName[$var["DataState_Abbrev"]] = $var["DataState_Name"];
@@ -53,7 +54,41 @@
 	WriteStderr($Dates, "Dates");
 	WriteStderr($StatesDates, "States Dates");
 
-	$result = $r->CandidatesForElection($ActiveDate, NULL, $ActiveState, $ActiveTeam);
+	if ( ! empty ($ActiveZIP)) {
+		// Get the Table for that zip
+		$resultzip = $r->ListDistrictsForZip($ActiveZIP);
+		
+		foreach ($resultzip as $var) {
+			$StateID["state"] = $var["DataState_ID"];
+		}
+		
+		
+		echo "StateID: " . $StateID["state"];
+		$resultpositions = $r->ListElectionPositions( $StateID["state"]);
+		
+		foreach ($resultpositions as $var) {
+			
+			if ( $var["ElectionsPosition_Location"] == "table") {
+				if ($var["ElectionsPosition_Location"] == "NYCG") {
+					
+					
+					
+				}
+			}
+			
+			
+		}
+		
+		echo "Result Positions:";
+		print "<PRE>" . print_r($resultpositions, 1) . "</PRE>";
+
+
+		echo "Result Zip:";
+		print "<PRE>" . print_r($resultzip, 1) . "</PRE>";
+		exit(1);
+	}
+
+	$result = $r->CandidatesForElection($ActiveDate, NULL, $ActiveState, $ActiveTeam, $ActiveZIP);
 	WriteStderr($result, "Candidate List");
 	
 	if (empty($result) && ! empty ($ActiveTeam)) {
@@ -242,10 +277,17 @@ img.nonselected {
 			if (! empty ($result)) {
 				foreach($result as $var) {
 					WriteStderr($var, "Voter Guide");
+										
 					if ( ! empty ($var["CandidateProfile_ID"]) && $var["CandidateProfile_NotOnBallot"] != 'yes' &&  $var["CandidateProfile_PublishProfile"] != 'no' ) {
 						$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
-						$PicturePath = "/shared/pics/" . (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"] . "?" . $addtopics);
+						$PicturePath = "/shared/pics/" . 
+															((empty($var["CandidateProfile_PicFileName"])) ? 
+															((empty($var["Candidate_Party"]) || $var["Candidate_Party"] == "BLK") ? 
+																"0000/NoPicture.jpg" : 														
+																"0000/" . $var["DataState_Abbrev"] . "/" . $var["Candidate_Party"] . "_NoPic.jpg") : 
+																($var["CandidateProfile_PicFileName"] . "?" . $addtopics));
 						$DetailURL = "/" . $var["CandidateProfile_FirstName"] . $var["CandidateProfile_LastName"] . "_" . $var["CANDPROFID"] . "/voter/detail";		
+						
 						?>
 						
 					<?php	if ($PrevDateDesc != $DateDesc) { $PrintDiv = true; } ?>

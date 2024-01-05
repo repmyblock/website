@@ -1,32 +1,57 @@
 <?php
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
-	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_admin.php";
-	
-	
-	
-	preg_match('/(.*)_(\d+)/', $middleuri, $matches, PREG_OFFSET_CAPTURE);
-	$CandidateProfileID = preg_replace('/[^0-9.]+/', '', $matches[2][0]);
-	print "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
+	if ( ! empty ($k)) { $MenuLogin = "logged"; }
+	$Menu = "admin";
+	$BigMenu = "represent";	
 
-	$r = new repmyblock(1);	
-	$var = $r->CandidatesDetailed($CandidateProfileID);
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";
+	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_admin.php";
+
+	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
+	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}
 	
-	$HeaderTwitter = "yes";
-	$HeaderTwitterTitle = "Rep My Block - Rep My Block";
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/RepMyBlockVoterGuide.jpg";
-	$HeaderTwitterDesc = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
-	$HeaderOGTitle = "Rep My Block Voter Guide.";
-	$HeaderOGDescription = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
-	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/RepMyBlockVoterGuide.jpg"; 
-	$HeaderOGImageWidth = "941";
-	$HeaderOGImageHeight = "477";
+	$rmb = new repmyblock();	
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	$result = $rmb->ListCandidates($URIEncryptedString["Candidate_ID"]);
 	
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 	
 	WriteStderr($result, "Voter Guide");
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
+
 ?>
+
+<div class="row">
+  <div class="main">
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+  		<div class="<?= $Cols ?> float-left">
+    
+			  <!-- Public Profile -->
+			  <div class="Subhead mt-0 mb-0">
+			    <h2 id="public-profile-heading" class="Subhead-heading">Candidates Maintenance</h2>
+			  </div>
+
+			  <div class="clearfix gutter d-flex flex-shrink-0">
+
+				<div class="Box">
+			  	<div class="Box-header pl-0">
+			    	<div class="table-list-filters d-flex">
+			  			<div class="table-list-header-toggle states flex-justify-start pl-3">Candidates</div>
+			  		</div>
+			    </div>
+		 			    
+	   	 		<div class="clearfix gutter d-flex flex-shrink-0">
+						<div class="col-12">
+
+						<P>
+						<div id="resp-table">
+							<div id="resp-table-header">
+								<div class="table-header-cell">District</div>
+								<div class="table-header-cell">Candidate</div>
+								<div class="table-header-cell">Actions</div>
+								<div class="table-header-cell">Election Date</div>
+							</div>
 
 <DIV class="main">		
 	<DIV class="right f80bold">Voter Guide</DIV>
@@ -39,7 +64,12 @@
 			print "<br style=\"clear:both\" />";
 			$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
 			$PrevDateDesc = $DateDesc;
-			$PicturePath = (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"]);
+			$PicturePath = "/shared/pics/" . 
+										((empty($var["CandidateProfile_PicFileName"])) ? 
+										((empty($var["Candidate_Party"]) || $var["Candidate_Party"] == "BLK") ? 
+											"0000/NoPicture.jpg" : 														
+											"0000/" . $var["DataState_Abbrev"] . "/" . $var["Candidate_Party"] . "_NoPic.jpg") : 
+											($var["CandidateProfile_PicFileName"] . "?" . $addtopics));
 ?>
 						
 <P>
@@ -47,6 +77,11 @@
 		<P>
 			<DIV class="f80"><B><?= $var["CandidateProfile_Alias"] ?></B></DIV>	
 		</P>
+				
+				<?php 
+					print "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
+					print "<PRE>" . print_r($result, 1) . "</PRE>";
+				?>
 				
 	<DIV class='container2'>
 		<DIV>
@@ -107,8 +142,17 @@
 </P>
 
 
+</DIV>
+</P>			
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
 
-</DIV>
-</DIV>
-		
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
+<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?> 

@@ -46,7 +46,6 @@ class RMBAdmin extends RepMyBlock {
 			$sql .= "AND SystemUser_ID = :SystemID";
 			$sql_vars["SystemID"] = $SystemUserID;
 		}
-
 		
 	}	
 	

@@ -899,12 +899,19 @@ class RepMyBlock extends queries {
 		return $this->_return_nothing($sql, $sql_vars);
 	}
 
-	function ListCandidates() {
+	function ListCandidates($CandidateID = NULL) {
 		$sql = "SELECT * FROM Candidate " . 
+						"LEFT JOIN CandidateProfile ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " . 
 						"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
 						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
-						"LEFT JOIN FillingDoc ON (FillingDoc.Candidate_ID = Candidate.Candidate_ID) " . 
-						"ORDER BY Elections_Date DESC, CandidateElection.CandidateElection_DBTable, CandidateElection.CandidateElection_DBTableValue";
+						"LEFT JOIN FillingDoc ON (FillingDoc.Candidate_ID = Candidate.Candidate_ID) ";
+						
+		if ( ! empty ($CandidateID)) {
+			$sql .= "WHERE Candidate.Candidate_ID = :CandidateID";
+			return $this->_return_simple($sql, array("CandidateID" => $CandidateID));
+		}
+						
+		$sql .=	"ORDER BY Elections_Date DESC, CandidateElection.CandidateElection_DBTable, CandidateElection.CandidateElection_DBTableValue";
 		return $this->_return_multiple($sql);
 	}
 
