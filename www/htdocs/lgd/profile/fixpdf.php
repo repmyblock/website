@@ -4,15 +4,17 @@
 
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";  
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
-
-  if (! empty ($_POST)) {
+  
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
+  $rmb = new repmyblock();
+  
+  if (! empty ($_POST)) { 
+  	rename($GeneralUploadDir . "/shared/pics/" . $URIEncryptedString["PDFPath"] . "/TMP_" . $URIEncryptedString["PDFName"], $GeneralUploadDir . "/shared/pics/" .$URIEncryptedString["PDFPath"]. "/" . $URIEncryptedString["PDFName"]);
+		$rmb->updatecandidateprofile($URIEncryptedString["CandidateProfileID"], array("PDFVerified" => 'yes'));  	
 		header("Location: updatecandidateprofile");  	
   	exit();
   }
-  
-  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-  $rmb = new repmyblock();  
-  
+ 
   $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
   WriteStderr($rmbperson, "rmbperson array");
               
@@ -24,6 +26,12 @@
             array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
     );                
   }
+  
+  // $URIEncryptedString["PDFPath"];
+  // $URIEncryptedString["PDFName"];
+  
+ 
+  	
   
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
@@ -43,49 +51,35 @@
             <DIV class="row">
               <DIV class="main">
               	
-              	 <FORM ACTION="" METHOD="POST" ENCTYPE="multipart/form-data">
+	            	<FORM ACTION="" METHOD="POST" ENCTYPE="multipart/form-data">
               	<INPUT TYPE="HIDDEN" NAME="FixPDF">
               	<DIV>
-              	<P class="f60">
-                                       <B>We are testing the PDF to make sure it can be included into the voter guide.</B>
+              		<P class="f60">
+                		<B>We are testing the PDF to make sure it can be included into the voter guide.</B>
+                	</P>
+                	
+                	<P class="f60">
+	                	<FONT COLOR=BROWN><B>Only Page 2</B></FONT> of this test PDF will be included to the general voter packet. All the pages of the PDF will be
+	                	available on your personal profile. If you don't like how the PDF look, there is a problem with the software you are using to create
+	                	the PDF.
+									</P>
+								</DIV>
+								
+								<P CLASS="f60">
+									<div id="demo-basic">
+										<embed src="/<?= $k ?>/lgd/profile/testmergepdf" width="500" height="600" type="application/pdf">
+									</div>
+								<P class="f60"><A HREF="/<?= $k ?>/lgd/profile/testmergepdf" TARGET="NewPAge">Download test PDF</A></P>
 
-                   
-                  </P>
-              	</DIV>
-              	
-              	
-              	<P CLASS="f60">
-              		
-								<div id="demo-basic">
-							 
-							 <embed src="/<?= $k ?>/lgd/profile/testmergepdf" width="500" height="600" type="application/pdf">
-							 
-							</div>
 							
-							<P class="f60"><A HREF="/<?= $k ?>/lgd/profile/testmergepdf" TARGET="NewPAge">Download test PDF</A></P>
+									<P class="f60">
+										<B>This profile will be presented to every person that visits the Rep My Block website.</B> You 
+										will be able to upload a one-page PDF of your platform that will be used to create a voter 
+										booklet that a voter will download and email.
+									</P>
 
+									<P class="f60"><button type="submit" class="submitred">Save the PDF</button></p>                
 
-</DiV>
-
-
-
-
-                 
-
- <P class="f60">
-                    <B>This profile will be presented to every person that visits the Rep My Block website.</B> You 
-                    will be able to upload a one-page PDF of your platform that will be used to create a voter 
-                    booklet that a voter will download and email.
-                  </P>
-      
- <P class="f60"><button type="submit" class="submitred">Save the PDF</button></p>                
-               
-                  
-      
-						      
-                 
-                      
-                    
                   </DIV>
                 </FORM>
                 

@@ -38,7 +38,7 @@
   }	
  
   if ( ! empty ($rmbperson["Voters_UniqStateVoterID"])) {
-  	  	
+  	 	  	
   	if ( $rmbperson["SystemUser_Priv"] & PERM_OPTION_ALLPOS ) {
       $rmbelectoral = $rmb->ListElections();
     } else {
@@ -83,7 +83,7 @@
 					   			"the most local level of party governance.";
 		$URLinput = "input";
   }
-	 
+  
   WriteStderr($Position, "Positions order");
   $TopMenus = array (
             array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),

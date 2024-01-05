@@ -4,15 +4,8 @@
   
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";  
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
-  
-  
-  
-  
-  if (! empty ($_POST)) {
-  	
-  	echo "<PRE>" . print_r($_POST, 1) . "</PRE>";
-  	echo "<PRE>" . print_r($_FILES, 1) . "</PRE>";
-  	
+    
+  if (! empty ($_POST)) {  	  	
   	if ( empty ($URIEncryptedString["PDFFilePath"])) {
   		header("Location: updatecandidateprofile");
   		exit();
@@ -27,22 +20,21 @@
   
   $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
   WriteStderr($rmbperson, "rmbperson array");
-  
   	            
   if ($rmbperson["SystemUser_emailverified"] == "both") {                
     $TopMenus = array (
-            array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
-            array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
-            array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile"),
-            array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
+      array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
+      array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
+      array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile"),
+      array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
     );
-                
+  
   }              
 
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
   
-  $PicturePath = "/shared/pics/" . $URIEncryptedString["TmpPicPath"];
+  $PicturePath = "/shared/pics/" . $URIEncryptedString["PicPath"] . "/TMP_" . $URIEncryptedString["PicName"];
 ?>
 	
     <DIV class="row">
@@ -60,32 +52,19 @@
             <DIV class="row">
               <DIV class="main">
               	
-              	 <FORM ACTION="" METHOD="POST" ENCTYPE="multipart/form-data">
-              	<INPUT TYPE="HIDDEN" NAME="FixPicture">
-              	<DIV>
-              	<P class="f60">
-                     <B>Please adjust the picture for the guide to enable the picture.</B>
-                   
-                  </P>
-              	</DIV>
+              	<FORM ACTION="" METHOD="POST" ENCTYPE="multipart/form-data">
+              		<INPUT TYPE="HIDDEN" NAME="FixPicture">
+              		<DIV>
+              			<P class="f60">
+                    	<B>Please adjust the picture for the guide to enable the picture.</B>               
+	                  </P>
+  	            	</DIV>
               	
-              	
-              	<P CLASS="f60">
-              		<BR>
-                <link rel="stylesheet" href="/css/croppie.css" />     	
-								<div id="demo-basic">
-							 
-								</div>
-
-
-								</DiV>
-
-
-
-
-
-								</P>
-         				<script src="/js/croppie.min.js"></script>
+	              	<P CLASS="f60"><BR>
+		                <link rel="stylesheet" href="/css/croppie.css" />     	
+										<div id="demo-basic"></div>
+									</P>
+	         				<script src="/js/croppie.min.js"></script>
            
 									<P class="f60">
                     <B>This profile will be presented to every person that visits the Rep My Block website.</B> You 
@@ -96,10 +75,6 @@
 									<P class="f60">        
                			<button id="cropBtn" class="submitred" type="button">Crop & Upload</button>
                   </p>   
-      
-						      
-
-                 
 <script>
 
 	var c = new Croppie(document.getElementById('demo-basic'), {
@@ -137,9 +112,7 @@
 	    //img is html positioning & sizing the image correctly if resultType is 'html'
 	    //img is base64 url of cropped image if resultType is 'canvas' 
 	});
-	
-	
-	
+
 	cropBtn.addEventListener('click', () => {
     // Get the cropped image result from croppie
     c.result({

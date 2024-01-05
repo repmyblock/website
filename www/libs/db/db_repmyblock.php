@@ -394,7 +394,6 @@ class RepMyBlock extends queries {
 		}
 		
 		$sql .= " LIMIT 100";
-		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
@@ -574,7 +573,6 @@ class RepMyBlock extends queries {
 			"PDFVerified" => "CanddiateProfile_PDFVerif",
 			"ProfileComplain" => "CanddiateProfile_Complain",
 			"PublishPetition" => "CandidateProfile_PublishPetition",
-			
 			"CandidateID" => "Candidate_ID",
 		);
 
