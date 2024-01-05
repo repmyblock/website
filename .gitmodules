@@ -1,3 +1,6 @@
 [submodule "www/libs/utils/Croppie"]
 	path = www/libs/utils/Croppie
 	url = https://github.com/theochino/Croppie.git
+[submodule "www/libs/utils/PDFMerger"]
+	path = www/libs/utils/PDFMerger
+	url = https://github.com/theochino/PDFMerger.git
