@@ -188,9 +188,8 @@ img.flagnonselected {
 	<?php } 
 		// Special build for the team
 		$BuildURLEnd = (! empty ($ActiveState)) ? "S" . $ActiveState : NULL;
-		// $BuildURLEnd .= (! empty ($ActiveDate)) ? "D" . $ActiveDate : NULL;		
+		// $BuildURLEnd .= (! empty ($ActiveDate)) ? "D" . $ActiveDate : NULL;	
 		$BuildURLEnd .= (! empty ($ActiveZIP)) ? "Z" . $ActiveZIP : NULL;		
-		$BuildURLEnd = (empty($BuildURLEnd) && empty ($ActiveTeam)) ? "rset" : $BuildURLEnd;
 		
 	?>
 	
@@ -200,19 +199,19 @@ img.flagnonselected {
 	<form autocomplete="off" method="post" action="">
 	
 	<DIV>
-		<A HREF="/<?= ($ActiveTeam != 24 ? "T0024" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Pirate" id="pir" class="imglogo candidate<?= $ActiveTeam != 24 ? $activeccs : NULL ?>" SRC="/shared/teams/pirates/Pirate.png"></A>
-		<A HREF="/<?= ($ActiveTeam != 69 ? "T0069" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="International People's Party"  id="ipa" class="imglogo candidate<?= $ActiveTeam != 69 ? $activeccs : NULL ?>" SRC="/shared/teams/ipa/ipa.png"></A>
-		<A HREF="/<?= ($ActiveTeam != 25 ? "T0025" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Socialist Alternative"  id="isa" class="imglogo candidate<?= $ActiveTeam != 25 ? $activeccs : NULL ?>" SRC="/shared/teams/socalternative/ISAlternative.png"></A>
-		<A HREF="/<?= ($ActiveTeam != 26 ? "T0026" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Communists"  id="com" class="imglogo candidate<?= $ActiveTeam != 26 ? $activeccs : NULL ?>" SRC="/shared/teams/communists/solidnet.png"></A>
-		<A HREF="/<?= ($ActiveTeam != 27 ? "T0027" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Progressive International"  id="pri" class="imglogo candidate<?= $ActiveTeam != 27 ? $activeccs : NULL ?>" SRC="/shared/teams/proginternational/ProgInternational.png"></A>
-		<A HREF="/<?= ($ActiveTeam != 28 ? "T0028" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Greens"  id="gre" class="candidate imglogo<?= $ActiveTeam != 28 ? $activeccs : NULL ?>" SRC="/shared/teams/greens/Greens.png"></A>
-		<A HREF="/<?= ($ActiveTeam != 29 ? "T0029" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Socialists"  id="soc" class="candidate imglogo<?= $ActiveTeam != 29 ? $activeccs : NULL ?>" SRC="/shared/teams/socialists/Socialists.png"></A>
-		<A HREF="/<?= ($ActiveTeam != 30 ? "T0030" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Progressive Alliance"  id="pra" class="candidate imglogo<?= $ActiveTeam != 30 ? $activeccs : NULL ?>" SRC="/shared/teams/progalliance/ProgAlliance.png"></A>
-		<A HREF="/<?= ($ActiveTeam != 31 ? "T0031" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Liberals"  id="lib" class="candidate imglogo<?= $ActiveTeam != 31 ? $activeccs : NULL ?>" SRC="/shared/teams/liberals/LiberalInternational.png"></A>
-		<A HREF="/<?= ($ActiveTeam != 33 ? "T0033" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Christian Democrats"  id="cdu" class="candidate imglogo<?= $ActiveTeam != 33 ? $activeccs : NULL ?>" SRC="/shared/teams/christiansdemocrats/IDC.png"></A>
-		<A HREF="/<?= ($ActiveTeam != 35 ? "T0035" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Libertarians"  id="lbt" class="candidate imglogo<?= $ActiveTeam != 35 ? $activeccs : NULL ?>" SRC="/shared/teams/libertarians/Libertarian.png"></A>
-		<A HREF="/<?= ($ActiveTeam != 32 ? "T0032" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Democratic Union"  id="idu" class="candidate imglogo<?= $ActiveTeam != 32 ? $activeccs : NULL ?>" SRC="/shared/teams/democrats/IDU.png"></A>
-		<A HREF="/<?= ($ActiveTeam != 34 ? "T0034" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Indentity and Democracy"  id="con" class="candidate imglogo<?= $ActiveTeam != 34 ? $activeccs : NULL ?>" SRC="/shared/teams/identity/Conservatives.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 24 ? "T0024" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Pirate" id="pir" class="imglogo candidate<?= $ActiveTeam != 24 ? $activeccs : NULL ?>" SRC="/shared/teams/pirates/Pirate.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 69 ? "T0069" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="International People's Party"  id="ipa" class="imglogo candidate<?= $ActiveTeam != 69 ? $activeccs : NULL ?>" SRC="/shared/teams/ipa/ipa.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 25 ? "T0025" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Socialist Alternative"  id="isa" class="imglogo candidate<?= $ActiveTeam != 25 ? $activeccs : NULL ?>" SRC="/shared/teams/socalternative/ISAlternative.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 26 ? "T0026" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Communists"  id="com" class="imglogo candidate<?= $ActiveTeam != 26 ? $activeccs : NULL ?>" SRC="/shared/teams/communists/solidnet.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 27 ? "T0027" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Progressive International"  id="pri" class="imglogo candidate<?= $ActiveTeam != 27 ? $activeccs : NULL ?>" SRC="/shared/teams/proginternational/ProgInternational.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 28 ? "T0028" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Greens"  id="gre" class="candidate imglogo<?= $ActiveTeam != 28 ? $activeccs : NULL ?>" SRC="/shared/teams/greens/Greens.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 29 ? "T0029" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Socialists"  id="soc" class="candidate imglogo<?= $ActiveTeam != 29 ? $activeccs : NULL ?>" SRC="/shared/teams/socialists/Socialists.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 30 ? "T0030" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Progressive Alliance"  id="pra" class="candidate imglogo<?= $ActiveTeam != 30 ? $activeccs : NULL ?>" SRC="/shared/teams/progalliance/ProgAlliance.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 31 ? "T0031" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Liberals"  id="lib" class="candidate imglogo<?= $ActiveTeam != 31 ? $activeccs : NULL ?>" SRC="/shared/teams/liberals/LiberalInternational.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 33 ? "T0033" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Christian Democrats"  id="cdu" class="candidate imglogo<?= $ActiveTeam != 33 ? $activeccs : NULL ?>" SRC="/shared/teams/christiansdemocrats/IDC.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 35 ? "T0035" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Libertarians"  id="lbt" class="candidate imglogo<?= $ActiveTeam != 35 ? $activeccs : NULL ?>" SRC="/shared/teams/libertarians/Libertarian.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 32 ? "T0032" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Democratic Union"  id="idu" class="candidate imglogo<?= $ActiveTeam != 32 ? $activeccs : NULL ?>" SRC="/shared/teams/democrats/IDU.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 34 ? "T0034" : NULL) . (empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Indentity and Democracy"  id="con" class="candidate imglogo<?= $ActiveTeam != 34 ? $activeccs : NULL ?>" SRC="/shared/teams/identity/Conservatives.png"></A>
 	</DIV>
 	
 	<DIV class="f60"><B>State</B></DIV>
