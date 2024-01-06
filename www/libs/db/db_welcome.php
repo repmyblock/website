@@ -89,6 +89,26 @@ class welcome extends queries {
 		return $this->_return_simple($sql, array("CandidateProfileID" => $CandidateProfileID));
 	}
 	
+	function ListOnElectionsStates($When = "NOW") {
+			$sql = "SELECT DISTINCT Elections_Text, Elections_Date, Elections_Type, DataState_Abbrev, DataState_Name " .
+									"FROM RepMyBlock.CandidateElection " .
+									"LEFT JOIN Elections ON (CandidateElection.Elections_ID = Elections.Elections_ID) " .
+									"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) ";
+			
+			switch ($When) {
+				case "ALL";
+					return $this->_return_multiple($sql);
+					break;
+
+				default: 
+					$sql .= "WHERE Elections_Date >= NOW();";
+					return $this->_return_multiple($sql);
+					break;
+			}		
+			
+			return $this->_return_multiple($sql);
+	}
+	
   function FindCandidate($CandidateID) {  	
 		$sql = "SELECT * FROM Candidate " . 
 						"WHERE Candidate_ID = :CandidateID";
