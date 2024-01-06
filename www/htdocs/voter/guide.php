@@ -190,6 +190,8 @@ img.flagnonselected {
 		$BuildURLEnd = (! empty ($ActiveState)) ? "S" . $ActiveState : NULL;
 		// $BuildURLEnd .= (! empty ($ActiveDate)) ? "D" . $ActiveDate : NULL;		
 		$BuildURLEnd .= (! empty ($ActiveZIP)) ? "Z" . $ActiveZIP : NULL;		
+		$BuildURLEnd = (empty($BuildURLEnd)) ? "rset" : $BuildURLEnd;
+		
 	?>
 	
   <P>
