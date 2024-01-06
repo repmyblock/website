@@ -162,7 +162,7 @@ img.flagnonselected {
 <DIV class="main">
 	<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
 	
-	<DIV class="right f60"><B>Political Orientation</B></DIV>
+	<DIV class="f60"><B>Political Orientation</B></DIV>
 	
 	<?php if ( !empty($result[0]["Team_Name"]) && ! empty($ActiveTeam)) { $activeccs = " nonselected"; ?>
 		<DIV CLASS="f80">Candidates running as <FONT COLOR="BROWN"><?= $result[0]["Team_Name"] ?></FONT></DIV>
@@ -213,7 +213,7 @@ img.flagnonselected {
 		<A HREF="/<?= ($ActiveTeam != 34 ? "T0034" : NULL) . $BuildURLEnd ?>/voter/guide"><IMG ALT="Indentity and Democracy"  id="con" class="candidate imglogo<?= $ActiveTeam != 34 ? $activeccs : NULL ?>" SRC="/shared/teams/identity/Conservatives.png"></A>
 	</DIV>
 	
-	<DIV class="right f60"><B>State</B></DIV>
+	<DIV class="f60"><B>State</B></DIV>
 	<P>
 	<DIV>
 		<?php
@@ -234,7 +234,7 @@ img.flagnonselected {
 
 	<?php if ( ! empty ($ActiveState)) { ?>
 	
-	<P CLASS="right f60"><B>Election Dates</B></P>
+	<P CLASS="f60"><B>Election Dates</B></P>
 		<P CLASS="f50">
 		<?php foreach ($SortDates as $var) { 
 			$PrintURL = (! empty ($ActiveTeam)) ? "T" . $ActiveTeam : NULL;
