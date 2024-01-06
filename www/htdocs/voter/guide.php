@@ -95,7 +95,7 @@
 	
 	//$result = $r->ListOnElectionsStates();
 
-	$result = $r->CandidatesForElection($ActiveDate, NULL, $ActiveState, $ActiveTeam, $ActiveZIP);
+	$result = $r->CandidatesForElection(((empty $ActiveDate) ? "NOW" : $ActiveDate), NULL, $ActiveState, $ActiveTeam, $ActiveZIP);
 	
 	// Process the candidates to check the users.
 	foreach($result as $var) {
