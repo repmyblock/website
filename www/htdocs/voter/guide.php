@@ -227,7 +227,7 @@ img.flagnonselected {
 				if ( ! empty($ActiveState)) { $activeccs = " flagnonselected"; }
 				$activeccs = $ActiveStateWithCandidate[$CountryFlag] ? NULL : " flagnonselected";
 			
-			?><A HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "S" . $CountryFlag : "RESET") . $BuildURLEnd ?>/voter/guide" ALT="<?= $CountryName ?>"><IMG SRC="/images/flags/<?= $CountryFlag ?>.png" class="candidate<?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>"></A> <?php 
+			?><A HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "S" . $CountryFlag : "rset") . $BuildURLEnd ?>/voter/guide" ALT="<?= $CountryName ?>"><IMG SRC="/images/flags/<?= $CountryFlag ?>.png" class="candidate<?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>"></A> <?php 
 		} ?>
 	</DIV>
 </P>
