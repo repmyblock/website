@@ -12,7 +12,7 @@
 		</P>
 		
 		<p class="f80">
-			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
+			<A HREF="/<?= $middleuri ?>/user/login">Click here to the login page.</A>
 		</P>
 		
 		<?php /*
@@ -31,7 +31,7 @@
 		</P>
 		
 		<p class="f80">
-			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
+			<A HREF="/<?= $middleuri ?>/user/login">Click here to the login page.</A>
 		</P>
 		
 		*/ ?>

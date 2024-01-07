@@ -11,7 +11,7 @@
 		</P>
 	
 		<p class="f60">
-			<A HREF="/<?= $k ?>/exp/login/login">Click here to the login page.</A>
+			<A HREF="/<?= $k ?>/login/user">Click here to the login page.</A>
 		</P>
 	</DIV>
 	

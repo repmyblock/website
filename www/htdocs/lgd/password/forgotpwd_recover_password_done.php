@@ -11,7 +11,7 @@
 		</P>
 	
 		<p class="f60">
-			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
+			<A HREF="/<?= $middleuri ?>/login/user">Click here to the login page.</A>
 		</P>
 	</DIV>
 	

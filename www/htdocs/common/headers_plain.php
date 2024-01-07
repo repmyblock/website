@@ -60,7 +60,7 @@
 		  	<?php if ( $MenuLogin == "logged") { ?>
 					 <a href="/<?= $middleuri ?>/lgd/signoff" class="login right<?php if ($BigMenu == "profile") { echo " active"; } ?>">LOGOUT</a>
 				<?php } else { ?>
-		    	<a href="/<?= $middleuri ?>/exp/login" class="login">LOGIN</a>
+		    	<a href="/<?= $middleuri ?>/user/login" class="login">LOGIN</a>
 		    <?php } ?>
 		  </DIV>
 		</DIV>
@@ -81,11 +81,11 @@
   <a href="/<?= $middleuri ?>/lgd/profile" class="right<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
 <?php /*  <a href="/<?= $middleuri ?>/exp/nominate"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
   <a href="/<?= $middleuri ?>/lgd/voters"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="/<?= $middleuri ?>/exp/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="/<?= $middleuri ?>/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
 <?php } else { ?>
-  <a href="/<?= $middleuri ?>/exp/howto" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
+  <a href="/<?= $middleuri ?>/howto" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
 <?php /*    <a href="/<?= $middleuri ?>/exp/propose"<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?>>NOMINATE</a> */ ?>
-  <a href="/<?= $middleuri ?>/exp/interested"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-  <a href="/<?= $middleuri ?>/exp/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
+  <a href="/<?= $middleuri ?>/interested"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
+  <a href="/<?= $middleuri ?>/about"<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?>>ABOUT</a>
 <?php } ?> 
 </div>

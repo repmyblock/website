@@ -19,12 +19,10 @@
 			$k = "web";
 		break;
 	}
-		
-
+	
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
-		
-
+	
 	$EmailCode = "NOTIF@REPMYBLOCK.ORG";
 	
 	if ( $k != "web") {
@@ -86,8 +84,8 @@
 		
 		
 		<P class="f40">	
-			Use the <A HREF="/<?= $k ?>/exp/forgot/forgotpwd">forgot my password</A> or the 
-			<A HREF="/<?= $k ?>/exp/forgot/forgotuser">forgot the username</A> screen to 
+			Use the <A HREF="/<?= $k ?>/user/forgotpwd">forgot my password</A> or the 
+			<A HREF="/<?= $k ?>/user/forgotuser">forgot the username</A> screen to 
 			retreive your information.
 		</P>
 		

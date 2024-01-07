@@ -12,12 +12,12 @@
 		</P>	
 
 		<P class="f60">		
-			Click here if you <A HREF="/<?= $k ?>/exp/forgot/forgotuser">forgot your username</A> or 
-			here if you <A HREF="/web/exp/forgot/forgotpwd">forgot your password</A>.
+			Click here if you <A HREF="/<?= $middleuri ?>/user/forgotuser">forgot your username</A> or 
+			here if you <A HREF="/<?= $middleuri ?>/user/forgotpwd">forgot your password</A>.
 		</P>
 				
 		<p class="f80">
-			Otherwise <A HREF="/<?= $middleuri ?>/exp/login/login">click here for the login page.</A>
+			Otherwise <A HREF="/<?= $middleuri ?>/user/login">click here for the login page.</A>
 		</P>
 		
 		
@@ -34,7 +34,7 @@
 		</P>
 		
 		<p class="f80">
-			<A HREF="/<?= $middleuri ?>/exp/login/login">Click here to the login page.</A>
+			<A HREF="/<?= $middleuri ?>/user/login">Click here to the login page.</A>
 		</P>
 		
 	</DIV>
