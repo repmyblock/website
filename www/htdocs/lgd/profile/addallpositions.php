@@ -12,8 +12,8 @@
   //echo "I just was ...";
   //exit();
   
-//  $rmb = new Teams();
-	//$rmb->UpdateAutoTeam(PERM_MENU_TEAM, $URIEncryptedString["SystemUser_ID"]); 
+	$rmb = new Teams();
+	$rmb->UpdateAutoTeam(PERM_OPTION_ALLPOS, $URIEncryptedString["SystemUser_ID"]); 
 		
 	header("Location: /" .  CreateEncoded ( array( 
 								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],

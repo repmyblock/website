@@ -9,6 +9,8 @@
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	
 	$rmb = new repmyblock();	
+	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+	
 	if ( ! empty ($URIEncryptedString["CandidatePositions_ID"])) {		
 		$result = $rmb->DisplayElectionPositions($URIEncryptedString["CandidatePositions_ID"]);
 		WriteStderr($result, "DisplayElectionPositions");

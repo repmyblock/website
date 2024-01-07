@@ -44,7 +44,7 @@
     } else {
     	$rmbelectoral = $rmb->ListElections("ADED");
     }
- 
+    
 		WriteStderr($rmbelectoral, "RMBElectoral");
  
    	foreach ($rmbelectoral as $var) {
@@ -83,6 +83,7 @@
 					   			"the most local level of party governance.";
 		$URLinput = "input";
   }
+  
   
   WriteStderr($Position, "Positions order");
   $TopMenus = array (
