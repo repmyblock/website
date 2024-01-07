@@ -101,7 +101,7 @@ function myFunctionCopy(value) {
 				</P>
 	
 				<P>
-					<B><A HREF="/<?= $k ?>/exp/register/movie" TARGET="foward">Share the documentary with friends and familly.</A></B>
+					<B><A HREF="/<?= $k ?>/register/movie" TARGET="foward">Share the documentary with friends and familly.</A></B>
 				</P>
 	
 		

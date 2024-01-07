@@ -74,7 +74,7 @@
 
 			<P class="f60">
 				Watch this 26 minutes documentary that explains what it means to be part of the governance of the County Democratic party.
-			<B><A HREF="/<?= $middleuri ?>/exp/register/movie">Click here to watch the whole documentary.</A></B>
+			<B><A HREF="/<?= $middleuri ?>/register/movie">Click here to watch the whole documentary.</A></B>
 				<I>(Press the PLAY button and enter the password (all in uppercase) <FONT COLOR=BROWN><B>QCC4ALL</B></FONT> to access the documentary.)</I>
 			</P>
 			

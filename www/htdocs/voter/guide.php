@@ -330,7 +330,7 @@ img.flagnonselected {
 	
 	<P>
 		If you are a voter and would like to receive an update on the election in your 
-		district, you can <A HREF="/<?= $middleuri ?>/exp/register/register">register</A>, 
+		district, you can <A HREF="/<?= $middleuri ?>/register/user">register</A>, 
 		and we'll email you with the latest voter guide before the election.
 	</P>
 	
@@ -341,7 +341,7 @@ img.flagnonselected {
 	
 	<P>
 		Any candidate can update the voter guide by updating their information by
-		<A HREF="/<?= $middleuri ?>/exp/register/register">registering</A>. 
+		<A HREF="/<?= $middleuri ?>/register/user">registering</A>. 
 	</P>
 
 	<DIV class="right f60">	

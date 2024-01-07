@@ -10,18 +10,18 @@
 		$result = $r->SearchEmailFromIntake($matches[1][0]);
 
 		if ( empty ($result)) {
-			header("Location: /invalidcode/exp/register/register");
+			header("Location: /invalidcode/register/user");
 			exit();		
 		}
 
 		$DBInfo = $r->CheckBothSystemUserTable ($result["SystemUserEmail_AddFrom"], "Email");
 		if ( ! empty ($DBInfo)) {
-			header("Location: /" . CreateEncoded (array("Email" => $result["SystemUserEmail_AddFrom"])) . "/exp/register/exist");		
+			header("Location: /" . CreateEncoded (array("Email" => $result["SystemUserEmail_AddFrom"])) . "/register/exist");		
 		}
 		
 	} else {
 		
-		header("Location: /invalidcode/exp/register/register");
+		header("Location: /invalidcode/register/user");
 		exit();
 	}
 	
@@ -43,7 +43,7 @@
 			$res = $r->SearchEmailFromIntake(trim($_POST["SystemUserEmail_ID"]), "ID");
 			
 			if ( $res["SystemUserEmail_AddFrom"] != $_POST["AddFrom"]) {
-				header("Location: /emaildontmatch/exp/register/register");
+				header("Location: /emaildontmatch/register/user");
 				exit();
 			}
 			
@@ -65,7 +65,7 @@
 					"Username" => $retreguser["SystemTemporaryUser_username"]
 				);
 	
-				header("Location: /" . CreateEncoded($VariableToPass) . "/exp/register/doneregister");
+				header("Location: /" . CreateEncoded($VariableToPass) . "/register/doneregister");
 				exit();
 	
 				if ( ! $retreguser ) {
