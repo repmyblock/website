@@ -13,18 +13,14 @@ class RMBPublic extends queries {
   
   function InsertQuestions($FirstName, $LastName, $ZipCode, $EmailAddress, $Text) {
 		$sql = "INSERT INTO DebateQuestions SET DebateQuestions_FirstName = :FirstName, " .
-					"DebateQuestions_LastName = :LastName, DebateQuestions_ZipCode = :ZipCode, " . 
-					"DebateQuestions_EmailAddress = :EmailAddress, DebateQuestions_Text = :Question, " .
-					"DebateQuestions_Date = NOW(), DebateQuestions_IP = :IP";
+							"DebateQuestions_LastName = :LastName, DebateQuestions_ZipCode = :ZipCode, " . 
+							"DebateQuestions_EmailAddress = :EmailAddress, DebateQuestions_Text = :Question, " .
+							"DebateQuestions_Date = NOW(), DebateQuestions_IP = :IP";
 		$sql_vars = array(':FirstName' => $FirstName, ':LastName' => $LastName, ':ZipCode' => $ZipCode,
 											':EmailAddress' => $EmailAddress, ':Question' => $Text, ':IP' => $_SERVER['REMOTE_ADDR']);											
 		return $this->_return_nothing($sql,  $sql_vars);
 	}
-	
-	
-	
-	
-}
 
+}
 ?>
 

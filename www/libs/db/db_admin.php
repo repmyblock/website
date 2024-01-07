@@ -19,7 +19,6 @@ class RMBAdmin extends RepMyBlock {
 		$ret = $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	
 	function ChangeTeamOwner($TeamID, $NewOwner) {		
 		if ( $TeamID > 0) {
 			if ( empty ($NewOwner)) {
@@ -420,9 +419,7 @@ function FindPositionsInSame($ElectionsID, $TeamID, $CandidateID ) {
 		} else {
 			return $ret;
 		}
-						
+		
   }
-
-
 }
 ?>

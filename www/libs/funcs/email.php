@@ -116,7 +116,7 @@ function SendDBErrorToAdmin($errordata) {
 	$BotArray["sendemail"] =  $to;
 
   $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
-	$linktoverify = $FrontEndWebsite . "/" . $hashtable . "/exp/forgot/pwdrecover";
+	$linktoverify = $FrontEndWebsite . "/" . $hashtable . "/forgot/pwdrecover";
 	
 	$WelcomeLine = "Hello";
 	
@@ -321,7 +321,7 @@ function SendForgotLogin($to, $hashtable) {
 	$BotArray["sendemail"] =  $to;
 
   $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
-	$linktoverify = $FrontEndWebsite . "/" . $hashtable . "/exp/forgot/pwdrecover";
+	$linktoverify = $FrontEndWebsite . "/" . $hashtable . "/forgot/pwdrecover";
 	
 	$WelcomeLine = "Hello";
 	
@@ -435,7 +435,7 @@ function SendReferralWelcome($to) {
 	
 	
 	
-	$linktoverify = $FrontEndWebsite . "/exp/website/interested";
+	$linktoverify = $FrontEndWebsite . "/website/interested";
 	$BotArray["sendemail"] = $to;
 	$WelcomeLine = "Hello";
 	
@@ -1395,12 +1395,12 @@ function BottomEmail($BotArray) {
 			"<div class=\"FooterInfo\">Represent your community by running for your County Committee</div>\n" .
 			"<BR>" . 
 			"<div class=\"FooterLinks\">\n" .
-			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/exp/toplinks/about\">ABOUT</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
+			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/toplinks/about\">ABOUT</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
 			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/training/steps/torun\">REPRESENT</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
-			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/exp/propose/nomination\">NOMINATE</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
-			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/exp/toplinks/howto\">HOWTO</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
-			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/exp/contact/contact\">CONTACT</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
-			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/exp/login/login\" class=\"right\">LOGIN</a>\n" .
+			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/propose/nomination\">NOMINATE</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
+			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/toplinks/howto\">HOWTO</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
+			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/contact/contact\">CONTACT</a>&nbsp;&nbsp;|&nbsp;&nbsp;\n" .
+			"<a style=\"text-decoration: none;font-size: 12px;font-weight: 400;color:#16317D\" href=\"" . $FrontEndWebsite . "/email/login/login\" class=\"right\">LOGIN</a>\n" .
 			"</div>\n" .
 
 			"<BR>" . 
@@ -1466,8 +1466,8 @@ function AddCountiesSpecials($County, $Party) {
 						"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>Reference material about the County Committee</FONT><BR>\n" . 
 						"</P>\n" .
 						"<P>" . 
-						"In Manhattan and Staten Island, the next petition window will be February 2021. We'll send you an email " . 
-						"after the November election cycle 2020." .
+						"In Manhattan and Staten Island, the next petition window will be February 2024. We'll send you an email " . 
+						"after the November election cycle 2024." .
 						"</P>" .
 						"<P><UL>" .
 							"<A HREF=\"https://politicsreborn.org/new-york-county-committee\">What is the County Committee?</A> by Maxine Harrison Gallmon<BR>" .
@@ -1482,8 +1482,8 @@ function AddCountiesSpecials($County, $Party) {
 						"<FONT style=\"color:#16317D;font-size: 16px;font-weight: bold;\"><BR>Reference material about the County Committee</FONT><BR>\n" . 
 						"</P>\n" .
 						"<P>" . 
-						"In the Bronx, Queens and Brooklyn, the next petition window will be February 2020. We'll send you an email " . 
-						"after the November election in 2019." .
+						"In the Bronx, Queens and Brooklyn, the next petition window will be February 2024. We'll send you an email " . 
+						"after the November election in 2023." .
 						"</P>" .
 						"<P><UL>" .
 							"<A HREF=\"https://politicsreborn.org/new-york-county-committee\">What is the County Committee?</A> by Maxine Harrison Gallmon<BR>" .

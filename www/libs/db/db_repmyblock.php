@@ -275,7 +275,43 @@ class RepMyBlock extends queries {
 	
 	function InsertCandidateElection($CandidateElectionData) {
 		
+		$sql = "SELECT * FROM CandidateElection WHERE ";
+		$MatchTableName = array(
+			"ElectionID" => "Elections_ID", 
+			"ElectPosID" => "ElectionsPosition_ID",
+			"PosType" => "CandidateElection_PositionType", 
+			"Party" => "CandidateElection_Party", 
+			"PosText" => "CandidateElection_Text", 
+			"PetText" => "CandidateElection_PetitionText", 
+			"URLExplain" => "CandidateElection_URLExplain", 
+			"Number" => "CandidateElection_Number", 
+			"Order" => "CandidateElection_DisplayOrder", 
+			"Display" => "CandidateElection_Display", 
+			"Sex" => "CandidateElection_Sex", 
+			"DBTable" => "CandidateElection_DBTable", 
+			"DBValue" => "CandidateElection_DBTableValue", 
+			"NbrVoters" => "CandidateElection_CountVoter",
+			"SignDeadline" => "CandidateElection_SignDeadline",
+		);
+			
+		$firsttime = 0;
+		foreach ($MatchTableName as $index => $var) {			
+			if (! empty ($CandidateElectionData[$index])) { 
+				if ($firsttime == 0) { $firsttime = 1;} else { $sql .= " AND "; }
+				$sql .= $var . " = :" . $index;
+			} else {
+				unset($CandidateElectionData[$index]);
+			}
+		}
+	
+		$ret = $this->_return_multiple($sql, $CandidateElectionData);
+		
+		if ( $ret[0]["CandidateElection_ID"] > 0 ) {
+			return $ret[0]["CandidateElection_ID"];
+		}
+		
 		if (! empty ($CandidateElectionData["ElectionID"])) {
+			
 			$sql = "INSERT INTO CandidateElection SET ";
 			$MatchTableName = array(
 					"ElectionID" => "Elections_ID", 
@@ -291,7 +327,8 @@ class RepMyBlock extends queries {
 					"Sex" => "CandidateElection_Sex", 
 					"DBTable" => "CandidateElection_DBTable", 
 					"DBValue" => "CandidateElection_DBTableValue", 
-					"NbrVoters" => "CandidateElection_CountVoter"
+					"NbrVoters" => "CandidateElection_CountVoter",
+					"SignDeadline" => "CandidateElection_SignDeadline",
 			);
 			
 			$firsttime = 0;
@@ -341,14 +378,29 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
-	function FindElectionsAvailable ($DataState_ID, $Party = NULL) {
+	function FindElectionsAvailable ($DataState_ID = NULL, $Party = NULL, $CandidateElectionID = NULL) {
 		$sql = "SELECT * FROM ElectionsPosition " .
-			"LEFT JOIN DataState ON (DataState.DataState_ID = ElectionsPosition.DataState_ID) " . 
-			"WHERE ElectionsPosition.DataState_ID = :DataState_ID ";
-		$sql_vars = array("DataState_ID" => $DataState_ID);
+			"LEFT JOIN DataState ON (DataState.DataState_ID = ElectionsPosition.DataState_ID) ";
+		$sql_vars = array();
+		
+		if ( ! empty($DataState_ID) ||! empty($Party) || ! empty($CandidateElectionID) ) {
+			$sql .= "WHERE ";
+		}	
+		
+		if (! empty($CandidateElectionID)) {
+			$sql .= "ElectionsPosition_ID = :ElectionPositionID ";
+			$sql_vars["ElectionPositionID"] = $CandidateElectionID;
+		}
+		
+		if (! empty($DataState_ID)) {
+			if ( ! empty($CandidateElectionID)) { $sql .= "AND "; }
+			$sql .= "ElectionsPosition.DataState_ID = :DataState_ID ";
+			$sql_vars["DataState_ID"] = $DataState_ID;
+		}
 		
 		if ( ! empty ($Party)) {
-			$sql .= "AND (" . 
+			if ( ! empty($CandidateElectionID) && ! empty($DataState_ID)) { $sql .= " AND "; }
+			$sql .= " (" . 
 							"(ElectionsPosition_Type = 'party' AND ElectionsPosition_Party = :Party) ".
 							"OR " .
 							"(ElectionsPosition_Type = 'office' AND ElectionsPosition_Party IS NULL) " .
@@ -539,8 +591,8 @@ class RepMyBlock extends queries {
 		if ( ! empty ($StateID)) {
 			if ( ! empty ($DateList)) { $sql .= " AND "; }
 			$sql .= "Elections.DataState_ID = :State";
-			$sql_vars = array("State" => $StateID);
-			$sql .= " ORDER BY Elections_Date";
+			$sql_vars = array("State" => $StateID);	
+			$sql .= " ORDER BY Elections_Date DESC";
 			return $this->_return_multiple($sql, $sql_vars);
 		} 
 		
@@ -734,7 +786,8 @@ class RepMyBlock extends queries {
 	}
 	
 	function ListElectionsDates ($limit = 50, $start = 0, $futureonly = false, $StateID = NULL) {
-		$sql = "SELECT DISTINCT DataState_Abbrev, Elections_Text, Elections_Date, Elections_Type FROM DataState " . 
+		$sql = "SELECT DISTINCT DataState.DataState_ID, DataState.DataState_Name, DataState_Abbrev, Elections_Text, Elections_Date, Elections_Type " .
+						"FROM DataState " . 
 						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.DataState_ID = DataState.DataState_ID) " .
 						"LEFT JOIN CandidateElection ON (ElectionsPosition.ElectionsPosition_ID = CandidateElection.ElectionsPosition_ID) " . 
 						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) ";
@@ -913,8 +966,14 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql);
 	}
 
-	function ListOnlyElections() {
+	function ListOnlyElections($CandidateElection = NULL) {
 		$sql = "SELECT * FROM CandidateElection";
+		
+		if ( ! empty($CandidateElection)) {
+			$sql .= " WHERE CandidateElection_ID = :CandidateElection";
+			return $this->_return_simple($sql, array("CandidateElection" => $CandidateElection));
+		}
+		
 		return $this->_return_multiple($sql);
 	}
 	
