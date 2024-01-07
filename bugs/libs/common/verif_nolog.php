@@ -194,7 +194,7 @@ function PrintDebugArray($ArrayToPrint, $Title = "") {
 }
 
 function goto_signoff() {	
-	header ("Location: /exp/website/signoff");
+	header ("Location: /website/signoff");
 	exit();
 }
 
