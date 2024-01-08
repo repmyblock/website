@@ -12,7 +12,11 @@
 			exit();
 		
 		case 'about':
-			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/howto/toplinks/about");
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/toplinks/about");
+			exit();
+			
+		case 'guide':
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/voter/guide");
 			exit();
 			
 		case 'voterguide':
