@@ -161,8 +161,12 @@ img.flagnonselected {
 
 <DIV class="main">
 	<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
-	
+	<P CLASS="f50"><B><A HREF="/rset/voter/guide">Reset the queries</A></B></P>
+		
+		
 	<DIV class="f60"><B>Political Orientation</B></DIV>
+	
+
 	
 	<?php if ( !empty($result[0]["Team_Name"]) && ! empty($ActiveTeam)) { $activeccs = " nonselected"; ?>
 		<DIV CLASS="f80">Candidates running as <FONT COLOR="BROWN"><?= $result[0]["Team_Name"] ?></FONT></DIV>
