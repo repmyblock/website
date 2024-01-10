@@ -7,6 +7,18 @@
  	} else {
  	
 	 	switch($_GET['brand']) {
+	 	case 'login':
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/web/user/login");
+			exit();
+
+	 	case 'contact':
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/web/user/contact");
+			exit();
+
+	 	case 'register':
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/web/register/user");
+			exit();
+			
 		case 'howto':
 			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/training/steps/torun");
 			exit();
