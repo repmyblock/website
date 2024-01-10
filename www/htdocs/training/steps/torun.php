@@ -134,7 +134,7 @@
 	</P>	
 	
 	<DIV class="videowrapper center">
-		 <iframe src="https://www.youtube.com/embed/XUGFbBCcIS4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		 <iframe src="https://www.youtube.com/embed/R7zpLG0AtOE?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
 	
 	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></H2></CENTER></P>
