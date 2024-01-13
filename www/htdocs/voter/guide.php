@@ -12,9 +12,10 @@
 	$Statescountries = array (
 			"Alabama" => "AL", "Alaska" => "AK", "American Samoa" => "AS", "Arizona" => "AZ", "Arkansas" => "AR", "Austria" => "AT",
 			"Belgium" => "BE", "Bulgaria" => "BG", "California" => "CA", "Colorado" => "CO", "Connecticut" => "CT", "Croatia" => "HR",
-			"Cyprus" => "CY", "Czech Republic" => "CZ", "Delaware" => "DE", "Denmark" => "DK", "District of Columbia" => "DC", "Estonia" => "EE",
+			"Cyprus" => "CY", "Czech Republic" => "CZ", "Delaware" => "DE", "Denmark" => "DK", "District of Columbia" => "DC", 
+			"Dominican Republic" => "DO", "Estonia" => "EE",
 			"Finland" => "FI", "Florida" => "FL", "France" => "FR", "Georgia" => "GA", "Germany" => "GE", "Greece" => "GR", "Guam" => "GU",
-			"Hawaii" => "HI", "Hungary" => "HU", "Idaho" => "ID", "Illinois" => "IL", "Indiana" => "IN", "Iowa" => "IA", "Ireland" => "IE", 
+			"Haiti" => "HT", "Hawaii" => "HI", "Hungary" => "HU", "Idaho" => "ID", "Illinois" => "IL", "Indiana" => "IN", "Iowa" => "IA", "Ireland" => "IE", 
 			"Italy" => "IT", "Kansas" => "KS", "Kentucky" => "KY", "Latvia" => "LV", "Lithuania" => "LT", "Louisiana" => "LA", "Luxembourg" => "LU",
 			"Maine" => "ME", "Malta" => "ML", "Maryland" => "MD", "Massachusetts" => "MA", "Michigan" => "MI", "Minnesota" => "MN", "Mississippi" => "MS",
 			"Missouri" => "MO", "Montana" => "MT", "Nebraska" => "NE", "Netherlands" => "NL", "Nevada" => "NV", "New Hampshire" => "NH", "New Jersey" => "NJ",
@@ -86,7 +87,6 @@
 		
 		echo "Result Positions:";
 		print "<PRE>" . print_r($resultpositions, 1) . "</PRE>";
-
 
 		echo "Result Zip:";
 		print "<PRE>" . print_r($resultzip, 1) . "</PRE>";
