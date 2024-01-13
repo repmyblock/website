@@ -1,4 +1,14 @@
 <?php
+	$HeaderTwitter = "yes";
+	$HeaderTwitterTitle = "Rep My Block - Universal Voter Guide";
+	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/UniversalVoterGuide.jpg";
+	$HeaderTwitterDesc = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
+	$HeaderOGTitle = "Rep My Block Voter Guide.";
+	$HeaderOGDescription = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
+	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/UniversalVoterGuide.jpg"; 
+	$HeaderOGImageWidth = "921";
+	$HeaderOGImageHeight = "477";
+
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	
 	$IDToClaim = $k;
