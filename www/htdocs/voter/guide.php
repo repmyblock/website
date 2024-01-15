@@ -268,7 +268,7 @@ img.flagnonselected {
 	</script>
 	<script src="/js/autocomplete.js"></script>
 	
-	<FONT SIZE=+1><A HREF="/shared/instructions/01-SetupYourCandidateProfile.pdf">Guide to setup a candidate profile</A></FONT>
+	<FONT SIZE=+1><A HREF="/shared/instructions/01-SetupYourCandidateProfile.pdf" TARGET="NewGuide">Guide to setup a candidate profile</A></FONT>
 
  	<DIV class="panels">
 		
