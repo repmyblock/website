@@ -51,7 +51,7 @@ class welcome extends queries {
 		
 		if ( ! empty ($ElectionDateFrom)) {			
 			if ( $ElectionDateFrom == "NOW") {
-				$sql .= " AND Elections_Date >= NOW()";
+				$sql .= " AND Elections_Date >= NOW() - INTERVAL 1 DAY";
 			} else {
 				$sql .= " AND Elections_Date = :ElectionDateFrom";
 				$sql_vars["ElectionDateFrom"] = $ElectionDateFrom;
