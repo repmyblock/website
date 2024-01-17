@@ -8,15 +8,15 @@
  	
 	 	switch($_GET['brand']) {
 	 	case 'login':
-			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/web/user/login");
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/user/login");
 			exit();
 
 	 	case 'contact':
-			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/web/user/contact");
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/user/contact");
 			exit();
 
 	 	case 'register':
-			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/web/register/user");
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/register/user");
 			exit();
 			
 		case 'howto':
