@@ -35,6 +35,14 @@
 			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/voter/guide");
 			exit();
 				
+		case 'documentary':
+		case 'docu':
+		case 'docs':
+		case 'doc':
+		case 'movie':
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/documentary/");
+			exit();
+			
 	 	default:
 	 		header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/brand/" . rawurlencode($_GET['brand']) . "/index");
 	 		exit();
