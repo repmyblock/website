@@ -40,7 +40,7 @@
 		case 'docs':
 		case 'doc':
 		case 'movie':
-			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/documentary/");
+			header("Location: " . $FrontEndWebsite . "/documentary/");
 			exit();
 			
 	 	default:
