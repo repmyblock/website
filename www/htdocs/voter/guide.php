@@ -16,8 +16,10 @@
 			"Dominican Republic" => "DO", "Estonia" => "EE",
 			"Finland" => "FI", "Florida" => "FL", "France" => "FR", "Georgia" => "GA", "Germany" => "GE", "Greece" => "GR", "Guam" => "GU",
 			"Haiti" => "HT", "Hawaii" => "HI", "Hungary" => "HU", "Idaho" => "ID", "Illinois" => "IL", "Indiana" => "IN", "Iowa" => "IA", "Ireland" => "IE", 
-			"Italy" => "IT", "Kansas" => "KS", "Kentucky" => "KY", "Latvia" => "LV", "Lithuania" => "LT", "Louisiana" => "LA", "Luxembourg" => "LU",
-			"Maine" => "ME", "Malta" => "ML", "Maryland" => "MD", "Massachusetts" => "MA", "Michigan" => "MI", "Minnesota" => "MN", "Mississippi" => "MS",
+			"Italy" => "IT", "Kansas" => "KS", "Kentucky" => "KY", "Latvia" => "LV", "Lithuania" => "LT", "Louisiana" => "LA", 
+			"Luxembourg" => "LU",
+			"Maine" => "ME", "Malta" => "ML", "Maryland" => "MD", "Massachusetts" => "MA", "Mexico" => "MX", "Michigan" => "MI", "Minnesota" => "MN", 
+			"Mississippi" => "MS",
 			"Missouri" => "MO", "Montana" => "MT", "Nebraska" => "NE", "Netherlands" => "NL", "Nevada" => "NV", "New Hampshire" => "NH", "New Jersey" => "NJ",
 			"New Mexico" => "NM", "New York" => "NY", "North Carolina" => "NC", "North Dakota" => "ND", "Northern Mariana Islands" => "MP", "Ohio" => "OH",
 			"Oklahoma" => "OK", "Oregon" => "OR", "Pennsylvania" => "PA", "Poland" => "PL", "Portugal" => "PT", "Puerto Rico" => "PR", "Rhode Island" => "RI",
@@ -272,26 +274,23 @@ img.flagnonselected {
 
  	<DIV class="panels">
 		
-		<?php
-			
+		<?php			
 			$firsttime = true;
-			
+
 			if (! empty ($result)) {
 				foreach($result as $var) {
 					WriteStderr($var, "Voter Guide");
-										
 					if ( ! empty ($var["CandidateProfile_ID"]) && $var["CandidateProfile_NotOnBallot"] != 'yes' &&  $var["CandidateProfile_PublishProfile"] != 'no' ) {
 						$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
-						$PicturePath = "/shared/pics/" . 
-															((empty($var["CandidateProfile_PicFileName"])) ? 
-															((empty($var["Candidate_Party"]) || $var["Candidate_Party"] == "BLK") ? 
-																"0000/NoPicture.jpg" : 														
-																"0000/" . $var["DataState_Abbrev"] . "/" . $var["Candidate_Party"] . "_NoPic.jpg") : 
+						$PicturePath = "/shared/pics/" .
+															((empty($var["CandidateProfile_PicFileName"])) ?
+															((empty($var["Candidate_Party"]) || $var["Candidate_Party"] == "BLK") ?
+																"0000/NoPicture.jpg" :
+																"0000/" . $var["DataState_Abbrev"] . "/" . $var["Candidate_Party"] . "_NoPic.jpg") :
 																($var["CandidateProfile_PicFileName"] . "?" . $addtopics));
-						$DetailURL = "/" . $var["CandidateProfile_FirstName"] . $var["CandidateProfile_LastName"] . "_" . $var["CANDPROFID"] . "/voter/detail";		
-						
+						$DetailURL = "/" . $var["CandidateProfile_FirstName"] . $var["CandidateProfile_LastName"] . "_" . $var["CANDPROFID"] . "/voter/detail";						
 						?>
-						
+
 					<?php	if ($PrevDateDesc != $DateDesc) { $PrintDiv = true; } ?>
 					<?php	if ($PrevElectionID != $var["CandidateElection_ID"]) { $PrintDiv = true; } ?>
 					<?php if ($PrintDiv == true) { if ($firsttime == false) { echo "</DIV>"; }} ?>
