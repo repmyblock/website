@@ -40,16 +40,18 @@ if (! empty ($voters)) {
 							[$person["VotersIndexes_UniqStateVoterID"]] =	
 							
 									$person["ObjectionsDetails_Sheet"] . " - " . $person["ObjectionsDetails_Line"] . " " .
+									$person["Voters_Status"] . " - " .
 									$person["DataFirstName_Text"] . " " . 
 																														$person["DataMiddleName_Text"] . " " . 
 																														$person["DataLastName_Text"];
 								
 			// The reason for this is that the CandidatePetition_ID is unique enough.
-      $Gender[$person["VotersIndexes_UniqStateVoterID"]] = $person["Voters_Gender"];
-  		$interval = date_diff(date_create(date('Y-m-d')), date_create($person["VotersIndexes_DOB"]));    		
-  		$Age[$person["VotersIndexes_UniqStateVoterID"]] = $interval->y;
+      #$Gender[$person["VotersIndexes_UniqStateVoterID"]] = $person["Voters_Gender"];
+  		#$interval = date_diff(date_create(date('Y-m-d')), date_create($person["VotersIndexes_DOB"]));    		
+  		#$Age[$person["VotersIndexes_UniqStateVoterID"]] = $interval->y;
   		
-  		$Age[$person["VotersIndexes_UniqStateVoterID"]] .= " - " . $person["Voters_RegParty"] . " - " . $person["Voters_CountyVoterNumber"];
+  		$Age[$person["VotersIndexes_UniqStateVoterID"]] .= $person["Voters_RegParty"] . " - " . 
+  											$person["Voters_CountyVoterNumber"];
 		}	
 	}
 }
@@ -65,7 +67,6 @@ $PageSize = "letter";
 
 $RestOfLine = "";
 $pdf_RMB_walksheet->Text_PubDate_XLoc = 155;
-
 
 $pdf_RMB_walksheet->Text_PubDate = date("M j, Y \a\\t g:i a");
 $pdf_RMB_walksheet->TextPetitionID = $voters[0]["Objections_VolumeID"];
