@@ -49,7 +49,6 @@
 				exit();				
 			}
 			
-
 			if ( $CampaignTeam["Team_AccessCode"] == $TrimmedAccess ) {
 				WriteStderr($CampaignTeam, "CampaignTeam: " . $URIEncryptedString["SystemUser_ID"] . " CampaignTema: " . $CampaignTeam["Team_ID"]);			
 				$rmb->SaveTeamInfo($URIEncryptedString["SystemUser_ID"], $CampaignTeam["Team_ID"]);

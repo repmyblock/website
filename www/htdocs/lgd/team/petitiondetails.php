@@ -235,7 +235,7 @@
 									
 									
 
-								<p><button type="submit" class="btn btn-primary">Setup the candidate petition</button></p>
+								<p><button type="submit" class="submitred">Create the petition</button></p>
 			
 							</form> 
 			

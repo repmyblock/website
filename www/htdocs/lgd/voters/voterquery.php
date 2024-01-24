@@ -207,7 +207,7 @@
 						<div>						
 							<dl class="form-group col-12 d-inline-block"> 
 								<dd>
-									<button type="submit" class="btn btn-primary mobilemenu">Search Voter Registration</button>
+									<button type="submit" class="submitred">Search Voter Registration</button>
 								</dd>
 							</dl>
 						</div>

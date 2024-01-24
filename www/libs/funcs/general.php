@@ -15,6 +15,7 @@ const PERM_ADMIN_ASSIGNPRIV = 2048;
 const PERM_MENU_DOCU = 4096;
 const PERM_MENU_WALKSHEET = 8192;
 const PERM_OPTION_ALLPOS = 16384;
+const PERM_MENU_OBJECTIONS = 32768;
 
 function ordinal($number) {
   $ends = array('th','st','nd','rd','th','th','th','th','th','th');

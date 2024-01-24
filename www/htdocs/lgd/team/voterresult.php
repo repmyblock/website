@@ -9,6 +9,7 @@
 	$rmb = new repmyblock();
 		
 	WriteStderr($_POST, " ========== I AM IN POST PETITION ===========");
+	echo "<PRE>" . print_r($_POST, 1) . "</PRE>";
 		
 	if ( ! empty ($_POST)) {
 		if ($_POST["voterreg"] == "Create a petition") {
@@ -63,9 +64,17 @@
 		}
 	}
 	
+	echo "<PRE>"; 
+		print_r($URIEncryptedString);
+		echo "</PRE>";
+	
 	if ( empty ($URIEncryptedString["VotersIndexes_ID"] )) {
 		include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
+	
 		echo "We did not find the Voter ID information. We Return";
+		
+		
+		
 		include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";
 		exit();
 	} 
@@ -96,6 +105,9 @@
 						array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
 					);
 	WriteStderr($TopMenus, "Top Menu");	
+	
+	// This is to control what the user see in the petition to create.
+	$MinimumPost = 200;
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; $Width="64";} else { $Cols = "col-9"; $Width="16"; }
@@ -359,26 +371,17 @@
 										<div id="resp-table-body">
 											<div class="resp-table-row">
 												<div class="p40 table-body-cell-left">
-													
 													<?php foreach ($ElectionsTypes as $vor) {
-														if ( $vor["DataState_ID"] == $var["DataState_ID"]) {
-															if (! empty ($vor["ElectionsPosition_Party"])) {
-																if ($vor["ElectionsPosition_Party"] == $var["Voters_RegParty"]) {
-																	if ($vor["ElectionsPosition_Name"] == "County Committee") {
-																		print "<INPUT TYPE=checkbox NAME=positionid VALUE=" . $vor["ElectionsPosition_ID"] . ">&nbsp;";
-																		print $vor["ElectionsPosition_Party"] . " " . $vor["ElectionsPosition_Name"] . "&nbsp;";
-																		print "<BR>";
-																	}
-																}
-															} else {
-																if ($vor["ElectionsPosition_Name"] == "County Committee") {
-																	print "<INPUT TYPE=checkbox NAME=positionid VALUE=" . $vor["ElectionsPosition_ID"] . ">&nbsp;";
-																	print $var["Voters_RegParty"] . " Primary for " . $vor["ElectionsPosition_Name"] . "&nbsp;";
-																	print "<BR>";
-																}
-															}
-														}
-													} 
+														 if ($vor["ElectionsPosition_Party"] == $var["Voters_RegParty"] && $vor["ElectionsPosition_Order"] < $MinimumPost) {
+																print "<INPUT TYPE=checkbox NAME=positionid VALUE=" . $vor["ElectionsPosition_ID"] . ">&nbsp;";
+																print $vor["ElectionsPosition_Party"] . " " . $vor["ElectionsPosition_Name"] . "&nbsp;";
+																print "<BR>";
+														 }
+													}
+													
+													print "<INPUT TYPE=checkbox NAME=positionid VALUE=\"LISTASLL\">&nbsp;";
+													print "List all the positions available";
+													print "<BR>";
 													
 													$PetitionDistrict = sprintf('%02d%03d', $var["DataDistrict_StateAssembly"], $var["DataDistrict_Electoral"]);
 													

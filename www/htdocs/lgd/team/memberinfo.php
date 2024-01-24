@@ -38,10 +38,7 @@
 		
 	}
 	
-	$PrevMenu = "index";
-	if (! empty ($URIEncryptedString["ReturnToScript"])) {
-		$PrevMenu = $URIEncryptedString["ReturnToScript"];
-	}
+	$PrevMenu = (empty ($URIEncryptedString["ReturnToScript"])) ? "index" : $URIEncryptedString["ReturnToScript"];
 	
 	// This is to prepare the information so it display correctly
 	// Address Line 1
@@ -306,39 +303,11 @@
 			
 			
 		
+											<PRE><?= print_r($rmbteammember, 1); ?></PRE>
 														
-														
-								<A HREF="/<?= CreateEncoded ( array( 
-									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-									"VoterSystemUser_ID" => $rmbteammember["SystemUser_ID"],
-									"VotersIndexes_ID" => $rmbteammember["Voters_ID"],
-									"UniqNYSVoterID" => $rmbteammember["VotersIndexes_UniqStateVoterID"],						
-							    "PetitionStateID" => $rmbteammember["ElectionStateID"],
-							    "CPrep_First" => $rmbteammember["DataFirstName_Text"],
-							    "CPrep_Last" => $rmbteammember["DataLastName_Text"],
-							    "CPrep_Full" => $VoterFullName,
-							    "CPrep_Address1" => $VoterAddress_Line1,
-							    "CPrep_Address2" => $VoterAddress_Line2,
-							    "CPrep_District" => $rmbteammember["DataDistrict_ID"],
-									"CPrep_PositionCode" => "ADED",
-									"CPrep_Party" => $rmbteammember["Voters_RegParty"],
-									"CPrep_Gender" => $rmbteammember["Voters_Gender"],
-									"CPrep_State" => $rmbteammember["DataState_Abbrev"],
-									"Voters_ID" => $rmbteammember["Voters_ID"],
-									"Team_ID" => $ActiveTeamID,
-	
-									"Voters_ID" => $rmbteammember["Voters_ID"],
-									"VotersIndexes_ID" => $vrmbteammemberar["VotersIndexes_ID"],
-									"ED" =>  $rmbteammember["DataDistrict_Electoral"],
-									"AD" => $rmbteammember["DataDistrict_StateAssembly"],
-									"Party" => $rmbteammember["Voters_RegParty"],
-									"PreparedFor" => $rmbteammember["DataFirstName_Text"] . " " . $rmbteammember["DataLastName_Text"],
-									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
-									"SystemUser_Priv" =>  $URIEncryptedString["SystemUser_Priv"],
-									"ActiveTeam_ID" => $ActiveTeamID,
-									"PetitionBypass" => true,
-
-						)) . "/lgd/team/petitionsetup" ?>">Prepare a petition</A>
+								<A HREF="/<?= MergeEncode ( array( 
+										"VotersIndexes_ID" => $rmbteammember["VotersIndexes_ID"],
+						)) . "/lgd/team/voterresult" ?>">Prepare a petition</A>
 						
 
 						

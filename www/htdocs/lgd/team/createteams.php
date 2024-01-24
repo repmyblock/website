@@ -51,26 +51,21 @@
 	
 	### DealWithError
 	if (! empty($URIEncryptedString["ERROR_CODE"])) {
-		switch ($URIEncryptedString["ERROR_CODE"])) {
+		switch ($URIEncryptedString["ERROR_CODE"]) {
 			case "1":
 				$ErrorMsg = "<B><FONT COLOR=BROWN>The team name " . $URIEncryptedString["TeamName"] . " is not valid. Please remove any non alphanumeric characters.</FONT></B>";
-				break:
+				break;
 				
 			case "2":
 				$ErrorMsg =  "<B><FONT COLOR=BROWN>The team access code selected</FONT> \"" . $URIEncryptedString["TeamAccessCode"] . "\" <FONT COLOR=BROWN>contains invalid caracters. Only use alphanumeric characters.</FONT></B>";
-				break;		
-				
+				break;
+
 			case "3":
 				$ErrorMsg = "<B><FONT COLOR=BROWN>The name " . $URIEncryptedString["TeamAccessCode"] . " was already used, please select a different one.</FONT></B>";
 				break;	
 		}
 	}
-	
 		
-		 
-   	
-
-			
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
 ?>
@@ -84,13 +79,11 @@
 			    <h2 id="public-profile-heading" class="Subhead-heading">Create teams</h2>
 			  </div>
   
-			<?php
-			 	PlurialMenu($k, $TopMenus);
-			?>
+				<?php
+				 	PlurialMenu($k, $TopMenus);
+				?>
 
-
-			  <div class="clearfix gutter d-flex flex-shrink-0">
-		
+			  <div class="clearfix gutter d-flex flex-shrink-0">	
 					<div class="col-16">
 	
 						<?= $ErrorMsg ?>
@@ -110,14 +103,14 @@
 								  
 								<DL class="form-group col-9 d-inline-block f40"> 
 								  <DT><LABEL>Team Access Code</LABEL><DT>
-								  		The access code is the name people will need to enter in the personal profile to get access to your team.
+								  	The access code is the name people will need to enter in the 
+								  	personal profile to get access to your team.
 								  </DD>
 								  <DD>
 								    <INPUT class="form-control" type="text" placeholder="Token name" name="TeamAccessCode" value="<?= $URIEncryptedString["TeamAccessCode"]; ?>">
 								  </DD>
 								</DL>
-								
-								
+																
 								<?php /*
 								<DL class="form-group col-12 d-inline-block f40"> 
 								  <DT><LABEL>Admin Person</LABEL> must already by part of your team<DT>
@@ -126,26 +119,21 @@
 								    <button type="submit" class="submitred">Check Username</button>
 								  </DD>
 								</DL>
-								
-								
 								*/ ?>
-								
 
 							</DIV>
 			
-							<p><button type="submit" class="submitred">Create New Team</button></p>
-			
-								
-			
-							</form> 
-			
-							</div>
-				  	</div>
-			  	</div>
-				</div>
-			</div>		
+							<P><button type="submit" class="submitred">Create New Team</button></P>
+
+						</form>
+										
+					</div>
+		  	</div>
+	  	</div>
 		</div>
 	</div>
+</div>
+</div>
 
 <script src="/js/ajax/checkusernameforteam.js"></script>
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

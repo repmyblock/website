@@ -536,6 +536,14 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
+	function ListElectionPositions($StateID) {
+		$sql = "SELECT * FROM RepMyBlock.ElectionsPosition "; 
+		//. 
+			//			"WHERE DataState_ID = :StateID";
+		$sql_vars = array(); // "StateID" => $StateID);
+		return $this->_return_multiple($sql, $sql_vars);	
+	}
+	
 	function ListCandidatePetitions($CandidateID = NULL) {
 		$sql = "SELECT * FROM CandidateProfile " . 
 						"LEFT JOIN Candidate ON " . 
@@ -1172,6 +1180,11 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
+	function GetCountyFromState($StateID) {
+		$sql = "SELECT * FROM DataCounty WHERE DataState_ID = :DataState_ID ORDER BY DataCounty_Name";
+		return $this->_return_multiple($sql, array("DataState_ID" => $StateID));
+	}
+	
 	function GetCountyFromNYSCodes($CountyCode) {
 		$sql = "SELECT * FROM DataCounty WHERE DataCounty_ID = :CountyCode";
 		return $this->_return_simple($sql, array("CountyCode" => $CountyCode));
@@ -1542,8 +1555,73 @@ class RepMyBlock extends queries {
 		if ( empty ($Person["SystemUserProfile_ID"])) {
 			$Person["SystemUserProfile_ID"] = $ret["SystemUserProfile_ID"];
 		}
-		 
+		
 		return $Person;
+	}
+	
+	function ListBuildingsByADED($AD, $ED) {		
+		$sql = "SELECT DISTINCT DataAddress_HouseNumber, DataAddress_FracAddress, DataAddress_PreStreet, " . 
+						"DataStreet_Name, DataAddress_PostStreet, DataAddress_zipcode ";
+		// $sql = "SELECT * ";
+
+		$sql .= "FROM DataDistrict " .
+						"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataDistrict_ID = DataDistrict.DataDistrict_ID) " . 
+						"LEFT JOIN DataDistrictCycle ON (DataDistrictCycle.DataDistrictCycle_ID = DataDistrictTemporal.DataDistrictCycle_ID) " . 
+						"LEFT JOIN DataHouse ON (DataDistrictTemporal.DataHouse_ID = DataHouse.DataHouse_ID) " . 
+						"LEFT JOIN DataAddress ON (DataHouse.DataAddress_ID = DataAddress.DataAddress_ID) " . 
+						"LEFT JOIN DataStreet ON (DataStreet.DataStreet_ID = DataAddress.DataStreet_ID) "; 
+		$sql .= "WHERE DataDistrict.DataDistrict_StateAssembly = :AD AND " . 
+						"DataDistrict.DataDistrict_Electoral = :ED ORDER BY DataAddress_zipcode, DataStreet_Name, DataAddress_HouseNumber";			
+													
+		$sql_vars = array("AD" => $AD, "ED" => $ED);	
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	function SearchVoterAtAddress($DataHouseArray) {
+			
+		$sql = "SELECT * FROM RepMyBlock.DataAddress " . 
+						"LEFT JOIN DataStreet ON (DataStreet.DataStreet_ID = DataAddress.DataStreet_ID) " . 
+						"LEFT JOIN DataHouse ON (DataAddress.DataAddress_ID = DataHouse.DataAddress_ID) " . 
+						"LEFT JOIN Voters ON (DataHouse.DataHouse_ID = Voters.DataHouse_ID) " . 
+						"LEFT JOIN VotersIndexes ON (VotersIndexes.VotersIndexes_ID = Voters.VotersIndexes_ID) " . 
+						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID) " . 
+						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID) " . 
+						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID) " . 
+						"WHERE " .
+						"DataCounty_ID = :County";
+		$sql_vars = array("County" => $DataHouseArray["County"]);	
+		
+		if (! empty ($DataHouseArray["Zipcode"])) {
+			$sql .= " AND DataAddress_zipcode  = :DataZip";
+			$sql_vars["DataZip "] = $DataHouseArray["Zipcode"];
+		}
+						
+		if (! empty ($DataHouseArray["FracAddress"])) {
+			$sql .= " AND DataAddress_FracAddress = :FracAddress";
+			$sql_vars["FracAddress"] = $DataHouseArray["FracAddress"];
+		}
+		
+		if (! empty ($DataHouseArray["PreStreet"])) {
+			$sql .= " AND DataAddress_PreStreet = :PreStreet";
+			$sql_vars["PreStreet"] = $DataHouseArray["PreStreet"];
+		}
+		
+		if (! empty ($DataHouseArray["PostStreet"])) {
+			$sql .= " AND DataAddress_PostStreet = :PostStreet";
+			$sql_vars["PostStreet"] = $DataHouseArray["PostStreet"];
+		}
+		
+		if (! empty ($DataHouseArray["HouseNumber"])) {
+			$sql .= " AND DataAddress_HouseNumber LIKE :HouseNumber";
+			$sql_vars["HouseNumber"] = $DataHouseArray["HouseNumber"] . "%";
+		}
+		
+		if (! empty ($DataHouseArray["Name"])) {
+			$sql .= " AND DataStreet_Name LIKE :DataStreet";
+			$sql_vars["DataStreet"] = $DataHouseArray["Name"] . "%";
+		}
+	
+		return $this->_return_multiple($sql, $sql_vars);
 	}
 }
 

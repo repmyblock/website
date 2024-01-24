@@ -11,12 +11,22 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-	$result = $rmb->ListCandidatePetitions();	
+	$result = $rmb->ListElectionPositions("NY");	
 	
 	WriteStderr($result, "Result");
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
+<STYLE>
+.candidate {
+	padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+</STYLE>
+
 
 <div class="row">
   <div class="main">
@@ -32,7 +42,7 @@
 					$NewKEncrypt = CreateEncoded (array("Candidate_ID" => $result[0]["Candidate_ID"]));
 				?>	
 				<P class="f40">
-					<B>This is the current list of candidates that are running for office in New York State.</B>
+					<B>This is the current list of candidates that are running for office in <?= $var["Candidate State"] ?>.</B>
 				</P>
 
 				<P class="f40">
@@ -43,24 +53,32 @@
 				<?php if ( ! empty ($result)) {
 								foreach ($result as $var) {
 									if ( ! empty ($var["CandidateProfile_PublishProfile"] != 'no' || $var["CandidateProfile_PublishPetition"] != 'no')) {
-										$PicturePath = "/shared/pics/" . (empty($var["CandidateProfile_PicFileName"]) ? "NoPicture.jpg" : $var["CandidateProfile_PicFileName"] . "?" . $addtopics);
+										$PicturePath = "/shared/pics/" . 
+															((empty($var["CandidateProfile_PicFileName"])) ? 
+															((empty($var["Candidate_Party"]) || $var["Candidate_Party"] == "BLK") ? 
+																"0000/NoPicture.jpg" : 														
+																"0000/" . $var["DataState_Abbrev"] . "/" . $var["Candidate_Party"] . "_NoPic.jpg") : 
+																($var["CandidateProfile_PicFileName"] . "?" . $addtopics));
 	
 				?>	
 				
 					<DIV class='container2'>
-						<DIV style="float:left;" CLASS="f60">
+						
+						<DIV style="float:left; padding: 15px; " CLASS="f60">
 							<IMG SRC="<?= $PicturePath ?>" class='iconDetails candidate'>
 						</DIV>	
-						<DIV class='container3'>
-					<P>
-						<DIV CLASS="f80bold">
-							<B><?= $var["CandidateProfile_Alias"] ?></B>
-						</DIV>
-						
-						<DIV CLASS="f60">
-							<I>Running for <?= $var["CandidateElection_ID"] ?></I>
-						</DIV>
-					</P>
+
+						<DIV class='container3 candidate'>
+							
+							<P>
+								<DIV CLASS="f80bold">
+									<B><?= $var["CandidateProfile_Alias"] ?></B>
+								</DIV>
+																
+								<DIV CLASS="f60">
+									<I>Running for <?= $var["CandidateElection_Text"] ?></I>
+								</DIV>
+							</P>
 					
 							<P CLASS="f40">
 								<?php if (! empty ($var["CandidateProfile_Statement"])) { print $var["CandidateProfile_Statement"]; }  ?>
@@ -80,11 +98,12 @@
 					      <?php if (! empty ($var["CandidateProfile_FaxNumber"])) { print $var["CandidateProfile_FaxNumber"]; }  ?><BR>
 				      </P>
 				      
-				     <DIV class="f60">
-							<B>Download:</B> 
-							<A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Platform</A>
-							<A TARGET="PDFPetition" HREF="<?= $FrontEndStatic ?>/petiton/<?= $var["CandidateProfile_PDFFileName"] ?>">Petition</A>
-						</DIV>
+					     <DIV class="f60">
+								<B>Download:</B> 
+								<A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Platform</A>
+								<A TARGET="PDFPetition" HREF="<?= $FrontEndStatic ?>/petiton/<?= $var["CandidateProfile_PDFFileName"] ?>">Petition</A>
+							</DIV>
+
 						</DIV>
 					</DIV>
 				</P>

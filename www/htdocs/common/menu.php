@@ -42,6 +42,7 @@
 	        <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PLEDGES ) { ?><A class="<?php if ( $Menu == "pledge" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/pledges/index">Pledges</a><?php } ?>
 	        <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_VOTERS ) { ?><a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/voters/voterlist">Voters</a><?php } ?>
 	        <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_TEAM ) { ?><a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/team/index">Team</a><?php } ?>
+	        <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_OBJECTIONS ) { ?><a class="<?php if ( $Menu == "objections" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/objections/manage">Objections</a><?php } ?>
 	        <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DOCU ) { ?><a class="<?php if ( $Menu == "documentary" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/documentary/county">Documentary</a><?php } ?>
 	        <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_MESSAGES ) { ?><a class="<?php if ( $Menu == "messages" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/messages/messages">Messages</a><?php } ?>
 	        <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DOWNLOADS ) { ?><a class="<?php if ( $Menu == "downloads" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/downloads/downloads">Downloads</a><?php } ?>    
