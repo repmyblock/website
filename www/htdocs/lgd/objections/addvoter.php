@@ -11,12 +11,12 @@
 	if (! empty ($_POST)) {
 		
 		header("Location: /" . MergeEncode(array(
-																		"DataAddress_HouseNumber" => $_POST["HouseNumber"], 
-																		"DataStreet_Name" => $_POST["StreetName"],
-																		"DataAddress_zipcode" => $_POST["ZipCode"],
-																		"DataCounty_ID" => $_POST["County_ID"]
-																	)) 
-																 . "/lgd/objections/selecthouse");
+																"DataAddress_HouseNumber" => $_POST["HouseNumber"], 
+																"DataStreet_Name" => $_POST["StreetName"],
+																"DataAddress_zipcode" => $_POST["ZipCode"],
+																"DataCounty_ID" => $_POST["County_ID"]
+															)) 
+														 . "/lgd/objections/selecthouse");
 		exit();
 	}
 
@@ -48,26 +48,20 @@
 				<div class="Subhead">
 					<h2 class="Subhead-heading">Objections</h2>
 				</div>
-				
-			
+
 						<div class="Box">
 					  	<div class="Box-header ">
-					    	
-				
+					    
 				<P>
 					<B>Building in the districts</B>
 				</P>
 				
 				<FORM ACTION="" METHOD="POST">
-				
-				
-			
 					<TABLE WIDTH=100%>
 						
 						<TR ALIGN=CENTER>
-							<TH style="padding:0px 10px;">House Number</TH><TD><INPUT TYPE="INPUT" NAME="HouseNumber" VALUE="<?= $HouseNumber ?>" SIZE=2></TD>								
-							<TH style="padding:0px 10px;" COLSPAN=4>Street Name</TH><TD><INPUT TYPE="INPUT" NAME="StreetName" VALUE="<?= $StreetName ?>" SIZE=30></TD>														
-							
+							<TH style="padding:0px 10px;">House Number</TH><TD><INPUT TYPE="INPUT" NAME="HouseNumber" VALUE="<?= $HouseNumber ?>" SIZE=2></TD>				
+							<TH style="padding:0px 10px;" COLSPAN=4>Street Name</TH><TD><INPUT TYPE="INPUT" NAME="StreetName" VALUE="<?= $StreetName ?>" SIZE=30></TD>
 						</TR>
 						
 						<TR ALIGN=CENTER>
@@ -80,35 +74,25 @@
 									<?php if ( ! empty ($ListCounties)) {
 										foreach ($ListCounties as $var) {
 											if ( ! empty ($var)) { ?>
-											
 												<OPTION VALUE="<?= $var["DataCounty_ID"] ?>"<?= ($rmbperson["DataCounty_ID"] == $var["DataCounty_ID"]) ? " SELECTED" : NULL ?>><?= $var["DataCounty_Name"] ?></OPTION>
-												
 												<?php
 												}
 											}
 										}
-										?>
+									?>
 								</SELECT>
 							</TD>
 						</TR>
-
-				
-						
 						<TR ALIGN=CENTER>
 							<TH style="padding:0px 10px;" COLSPAN=3>First Name</TH><TD><INPUT TYPE="INPUT" NAME="FirstName" VALUE="<?= $FirstName ?>" SIZE=20></TD>								
 							<TH style="padding:0px 10px;">Last Name</TH></TD><TD COLSPAN=3><INPUT TYPE="INPUT" NAME="LastName" VALUE="<?= $LastName ?>" SIZE=20></TD>
 						</TR>
-						
 						<TR>
 							<TH COLSPAN=8 style="padding:0px 10px;"><INPUT TYPE="SUBMIT" NAME="SearchBuilding" VALUE="Search buildings" SIZE=2></TH>
-						</TR>
-						
+						</TR>		
 					</TABLE>
 				</DIV>
-						
-					  		
-					   
-					
+				
 				<div class="list-group-item filtered">
 					<TABLE BORDER=1>
 					<TR>
@@ -124,10 +108,6 @@
 					<?php 
 						if (! empty ($result)) {
 							foreach ($result as $var) {
-								
-								
-								
-								
 								if (! empty ($var["DataAddress_HouseNumber"] && ! empty($var["DataStreet_Name"]) && ! empty ($var["DataAddress_zipcode"]))) {
 					?>		
 	
@@ -146,9 +126,8 @@
 																	"DataAddress_PostStreet" => $var["DataAddress_PostStreet"],
 																	"DataAddress_zipcode" => $var["DataAddress_zipcode"],
 																)); 
-																?>/lgd/objections/selecthouse"><B>See voters</B></A></TD>
+															?>/lgd/objections/selecthouse"><B>See voters</B></A></TD>
 					</TR>
-	
 					<?php 
 								}
 							}
