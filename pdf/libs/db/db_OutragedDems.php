@@ -11,6 +11,22 @@ class OutragedDems extends queries {
 	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
+  function ListObjectionsInformation($Ojbections_ID) {
+ 		$sql = "SELECT * FROM ObjectionsDetails " . 
+ 						"LEFT JOIN Objections ON (Objections.Objections_ID = ObjectionsDetails.Objections_ID) " . 
+ 						"LEFT JOIN Voters ON (Voters.Voters_ID = ObjectionsDetails.Voter_ID) " . 
+ 						"LEFT JOIN VotersIndexes ON (VotersIndexes.VotersIndexes_ID = Voters.VotersIndexes_ID) " . 
+						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID) " . 
+						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID) " . 
+						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID) " . 
+ 						"WHERE ObjectionsDetails.Objections_ID = :Objection " .
+ 						"ORDER BY ObjectionsDetails_Sheet, ObjectionsDetails_LINE";
+ 						
+ 		$sql_vars = array("Objection" => $Ojbections_ID);
+		return $this->_return_multiple($sql, $sql_vars);
+ 
+  }
+  
  	function FindADEDFromDistrict($DataDistrict) {
   	$sql = "SELECT * FROM DataDistrict WHERE DataDistrict_ID = :DataDistrict";
   	$sql_vars = array("DataDistrict" => $DataDistrict);
