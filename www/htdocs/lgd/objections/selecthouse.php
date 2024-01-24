@@ -56,7 +56,10 @@
 			array("HouseNumber" => $URIEncryptedString["DataAddress_HouseNumber"], "Name" => $URIEncryptedString["DataStreet_Name"], 
 						"FracAddress" => $URIEncryptedString["DataAddress_FracAddress"], "PreStreet" => $URIEncryptedString["DataAddress_PreStreet"], 
 						"PostStreet" => $URIEncryptedString["DataAddress_PostStreet"], "Zipcode" => $URIEncryptedString["DataAddress_zipcode"],
-						"County" => $URIEncryptedString["DataCounty_ID"])
+						"County" => $URIEncryptedString["DataCounty_ID"], "FirstName" => $URIEncryptedString["FirstName"],
+						"LastName" => $URIEncryptedString["LastName"],
+						
+						)
 	);
 	
 	

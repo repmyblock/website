@@ -1620,6 +1620,17 @@ class RepMyBlock extends queries {
 			$sql .= " AND DataStreet_Name LIKE :DataStreet";
 			$sql_vars["DataStreet"] = $DataHouseArray["Name"] . "%";
 		}
+		
+		if (! empty ($DataHouseArray["FirstName"])) {
+			$sql .= " AND DataFirstName_Compress LIKE :FirstName";
+			$sql_vars["FirstName"] = "%" . $DataHouseArray["FirstName"] . "%";
+		}
+		
+		if (! empty ($DataHouseArray["LastName"])) {
+			$sql .= " AND DataLastName_Compress LIKE :LastName";
+			$sql_vars["LastName"] = "%" . $DataHouseArray["LastName"] . "%";
+		}
+		
 	
 		return $this->_return_multiple($sql, $sql_vars);
 	}

@@ -14,7 +14,9 @@
 																"DataAddress_HouseNumber" => $_POST["HouseNumber"], 
 																"DataStreet_Name" => $_POST["StreetName"],
 																"DataAddress_zipcode" => $_POST["ZipCode"],
-																"DataCounty_ID" => $_POST["County_ID"]
+																"DataCounty_ID" => $_POST["County_ID"],
+																	"LastName" => $_POST["LastName"],
+																	"FirstName" => $_POST["FirstName"],
 															)) 
 														 . "/lgd/objections/selecthouse");
 		exit();
@@ -125,6 +127,7 @@
 																	"DataStreet_Name" => $var["DataStreet_Name"],
 																	"DataAddress_PostStreet" => $var["DataAddress_PostStreet"],
 																	"DataAddress_zipcode" => $var["DataAddress_zipcode"],
+																
 																)); 
 															?>/lgd/objections/selecthouse"><B>See voters</B></A></TD>
 					</TR>
