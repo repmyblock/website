@@ -36,14 +36,14 @@ if (! empty ($voters)) {
 										ucwords(strtolower(trim($person["DataAddress_HouseNumber"] . " " . 
 										$person["DataStreet_Name"] )));
 			$Address[$person["DataDistrictTown_Name"]][$FixedAddress][$person["DataAddress_HouseNumber"]]
-							[$FixedApt][$person["Voters_Status"]]
+							[$FixedApt][]
 							[$person["VotersIndexes_UniqStateVoterID"]] =	
 							
 									$person["ObjectionsDetails_Sheet"] . " - " . $person["ObjectionsDetails_Line"] . " " .
-									$person["Voters_Status"] . " - " .
+									$person["Voters_Status"][0] . " - " .
 									$person["DataFirstName_Text"] . " " . 
-																														$person["DataMiddleName_Text"] . " " . 
-																														$person["DataLastName_Text"];
+									$person["DataMiddleName_Text"] . " " . 
+									$person["DataLastName_Text"];
 								
 			// The reason for this is that the CandidatePetition_ID is unique enough.
       #$Gender[$person["VotersIndexes_UniqStateVoterID"]] = $person["Voters_Gender"];
@@ -66,7 +66,7 @@ $InfoArray["Address"] = $Address;
 $PageSize = "letter";
 
 $RestOfLine = "";
-$pdf_RMB_walksheet->Text_PubDate_XLoc = 155;
+$pdf_RMB_walksheet->Text_PubDate_XLoc = 150;
 
 $pdf_RMB_walksheet->Text_PubDate = date("M j, Y \a\\t g:i a");
 $pdf_RMB_walksheet->TextPetitionID = $voters[0]["Objections_VolumeID"];
@@ -101,7 +101,7 @@ $FrameFunc = "version_rmb_" . $WalkSheetFrameName;
 
 WriteStderr($FrameFunc, "Running the frame in State $FrameState");
 
-require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/pdf_frames/rmb/' . $FrameFunc . '.php';
+require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/pdf_frames/objcs/' . $FrameFunc . '.php';
 $FrameFunc($pdf_RMB_walksheet, $InfoArray, $Gender, $Age);
 	
 // This is to block the output if the file is called from file
