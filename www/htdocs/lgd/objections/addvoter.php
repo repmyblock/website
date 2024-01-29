@@ -37,7 +37,7 @@
 		$SearchED = $URIEncryptedString["SearchedED"];
 	}
 	
-	$result = $rmb->ListBuildingsByADED($SearchAD, $SearchED);	
+	$result = $rmb->ListOfObjections($SearchAD, $SearchED);	
 	WriteStderr($result, "Buildings in District");
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";

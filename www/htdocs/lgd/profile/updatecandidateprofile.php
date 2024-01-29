@@ -114,7 +114,6 @@
     }
      
     // This is to deal with the pdf
-    
     if (! empty ($_FILES["pdfplatform"]["type"])) {
     	$PDFStructure = $GeneralUploadDir . "/shared/platforms/";
     	
@@ -132,9 +131,9 @@
 		      	@mkdir($PDFStructure . $PdfMD5Struct, 0777, true);
 		      	$PDFFilename = $PdfMD5Struct . "/" . $PDFFilename;	
 		      }
-		      
+		      		      
 		      // This is to handle the temp namespace 
-		      preg_match("|([a-f0-9]{4})/([a-f0-9]{4})/([a-f0-9]{4})/(.*)|", $PDFFilePath, $PDFPathMatches, PREG_OFFSET_CAPTURE);
+		      preg_match("|([a-f0-9]{4})/([a-f0-9]{4})/([a-f0-9]{4})/(.*)|", $PDFFilename, $PDFPathMatches, PREG_OFFSET_CAPTURE);
 		    	$PDFFilePath = $PDFPathMatches[1][0] . "/" . $PDFPathMatches[2][0] . "/" . $PDFPathMatches[3][0];
 		    	$PDFFileName = $PDFPathMatches[4][0];
 		      $TmpPDFFilename = $PDFFilePath . "/TMP_" .$PDFFileName;
@@ -215,7 +214,7 @@
 		if ( $Result > 0 ) {
   	  $CandidateProfileID = $rmb->updatecandidateprofile($CandidateProfileID, $CandidateProfile);
     }
-						      	  										
+    
     if ( $PictureFile == true || $PDFFile == true) {
  
   		if ($PictureFile == true) {  	
@@ -255,7 +254,7 @@
   }
 
   WriteStderr($rmbcandidate, "RMBCandidate");
-  $StatusMessage = "Create the profile";
+  $StatusMessage = "Save profile";
   
   if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}  
   $Party = PrintParty($UserParty);
@@ -317,7 +316,6 @@
                   <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
 	      					<?php } ?>
 					
-      
                   <P class="f80">         
                     <B><?= $ProfileDisplayName ?></B>
                   </P>

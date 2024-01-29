@@ -9,8 +9,8 @@
   $rmb = new repmyblock();
   
   if (! empty ($_POST)) { 
-  	rename($GeneralUploadDir . "/shared/pics/" . $URIEncryptedString["PDFPath"] . "/TMP_" . $URIEncryptedString["PDFName"], $GeneralUploadDir . "/shared/pics/" .$URIEncryptedString["PDFPath"]. "/" . $URIEncryptedString["PDFName"]);
-		$rmb->updatecandidateprofile($URIEncryptedString["CandidateProfileID"], array("PDFVerified" => 'yes'));  	
+   	rename($GeneralUploadDir . "/shared/platforms/" . $URIEncryptedString["PDFPath"] . "/TMP_" . $URIEncryptedString["PDFName"], $GeneralUploadDir . "/shared/platforms/" .$URIEncryptedString["PDFPath"]. "/" . $URIEncryptedString["PDFName"]);
+		$rmb->updatecandidateprofile($URIEncryptedString["CandidateProfileID"], array("PDFVerified" => 'yes'));  		
 		header("Location: updatecandidateprofile");  	
   	exit();
   }
@@ -26,13 +26,12 @@
             array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
     );                
   }
-  
-  // $URIEncryptedString["PDFPath"];
-  // $URIEncryptedString["PDFName"];
-  
- 
-  	
-  
+    
+ 	print "PDFPath: " .  $URIEncryptedString["PDFPath"]. "<BR>";
+ 	print "PDFName: " .  $URIEncryptedString["PDFName"] . "<BR>";								
+ 	print "CandidateID: " . $URIEncryptedString["CandidateID"] . "<BR>";
+ 	print "CandidateProfileID: " .  $URIEncryptedString["CandidateProfileID"] . "<BR>";
+						      	  										  
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
