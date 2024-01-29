@@ -80,7 +80,8 @@
     $Position[""][""]["County/Prescint Committee"][""]["COUNTY"] = 
 					   			"The party is governed by committees of citizens who are registered in the party, " . 
 					   			"from the national level down to state and community-level. County precints or committes " .
-					   			"the most local level of party governance.";
+					   			"the most local level of party governance.</P><P><B>To enable all the Party Positions menu, please make " . 
+					   			"sure the Voter Profile has been filled out</B>.";
 		$URLinput = "input";
   }
   
