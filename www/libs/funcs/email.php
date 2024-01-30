@@ -116,7 +116,7 @@ function SendDBErrorToAdmin($errordata) {
 	$BotArray["sendemail"] =  $to;
 
   $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
-	$linktoverify = $FrontEndWebsite . "/" . $hashtable . "/forgot/pwdrecover";
+	$linktoverify = $FrontEndWebsite . "/" . $hashtable . "/user/pwdrecover";
 	
 	$WelcomeLine = "Hello";
 	
@@ -321,7 +321,7 @@ function SendForgotLogin($to, $hashtable) {
 	$BotArray["sendemail"] =  $to;
 
   $to = "\"" . $infoarray["FirstName"] . " " . $infoarray["LastName"] . "\" <" . $to . ">";	
-	$linktoverify = $FrontEndWebsite . "/" . $hashtable . "/forgot/pwdrecover";
+	$linktoverify = $FrontEndWebsite . "/" . $hashtable . "/user/pwdrecover";
 	
 	$WelcomeLine = "Hello";
 	
