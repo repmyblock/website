@@ -82,7 +82,7 @@
 			
 			<P class="f40">
 				Some of the aspect of the project depend on external project such as the 
-				<A HREF="https://www.nationalvoterfile.org">National Voter File</A> to organize 
+				<A HREF="https://voterfiles.org">National Voter File</A> to organize 
 				the canvassers. The National Voter file project need 3,600 volunteers to request, lobby for law change, 
 				for the free access of the data file.
 				<B><A HREF="mailto:feeder@repmyblock.org">voterlist@repmyblock.org</A></B> so we can connect with organizations 
