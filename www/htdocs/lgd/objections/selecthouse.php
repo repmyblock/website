@@ -58,7 +58,8 @@
 						"PostStreet" => $URIEncryptedString["DataAddress_PostStreet"], "Zipcode" => $URIEncryptedString["DataAddress_zipcode"],
 						"County" => $URIEncryptedString["DataCounty_ID"], "FirstName" => $URIEncryptedString["FirstName"],
 						"LastName" => $URIEncryptedString["LastName"],
-						
+						"BOECountyID" => $URIEncryptedString["BOECountyID"],
+						"BOEStateID" => $URIEncryptedString["BOEStateID"],
 						)
 	);
 	

@@ -15,8 +15,12 @@
 																"DataStreet_Name" => $_POST["StreetName"],
 																"DataAddress_zipcode" => $_POST["ZipCode"],
 																"DataCounty_ID" => $_POST["County_ID"],
-																	"LastName" => $_POST["LastName"],
-																	"FirstName" => $_POST["FirstName"],
+																"LastName" => $_POST["LastName"],
+																"FirstName" => $_POST["FirstName"],
+																
+																"BOECountyID" => $_POST["BOECountyID"],
+																"BOEStateID" => $_POST["BOEStateID"],
+																
 															)) 
 														 . "/lgd/objections/selecthouse");
 		exit();
@@ -37,7 +41,7 @@
 		$SearchED = $URIEncryptedString["SearchedED"];
 	}
 	
-	$result = $rmb->ListOfObjections($SearchAD, $SearchED);	
+	//$result = $rmb->ListOfObjections($SearchAD, $SearchED);	
 	WriteStderr($result, "Buildings in District");
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
@@ -89,6 +93,12 @@
 							<TH style="padding:0px 10px;" COLSPAN=3>First Name</TH><TD><INPUT TYPE="INPUT" NAME="FirstName" VALUE="<?= $FirstName ?>" SIZE=20></TD>								
 							<TH style="padding:0px 10px;">Last Name</TH></TD><TD COLSPAN=3><INPUT TYPE="INPUT" NAME="LastName" VALUE="<?= $LastName ?>" SIZE=20></TD>
 						</TR>
+						
+						<TR ALIGN=CENTER>
+							<TH style="padding:0px 10px;" COLSPAN=3>County ID</TH><TD><INPUT TYPE="INPUT" NAME="BOECountyID" VALUE="<?= $BOECountyID ?>" SIZE=20></TD>								
+							<TH style="padding:0px 10px;">State ID</TH></TD><TD COLSPAN=3><INPUT TYPE="INPUT" NAME="BOEStateID" VALUE="<?= $BOEStateID ?>" SIZE=20></TD>
+						</TR>
+						
 						<TR>
 							<TH COLSPAN=8 style="padding:0px 10px;"><INPUT TYPE="SUBMIT" NAME="SearchBuilding" VALUE="Search buildings" SIZE=2></TH>
 						</TR>		
