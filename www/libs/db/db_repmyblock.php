@@ -39,6 +39,8 @@ class RepMyBlock extends queries {
 	}
 	
 	function ListCCPartyCall($Party, $ADED, $ElectionsID) {
+		// Need to add piece for NULL ELECTION ID.
+		
 		$sql = "SELECT * FROM ElectionsPartyCall " .
 						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.ElectionsPosition_ID = ElectionsPartyCall.ElectionsPosition_ID) " .
 						"WHERE ElectionsPosition_Party = :Party AND ElectionsPartyCall_DBTableValue = :Value AND " . 
@@ -536,11 +538,14 @@ class RepMyBlock extends queries {
 		return $this->_return_simple($sql, $sql_vars);
 	}
 	
-	function ListElectionPositions($StateID) {
-		$sql = "SELECT * FROM RepMyBlock.ElectionsPosition "; 
-		//. 
-			//			"WHERE DataState_ID = :StateID";
-		$sql_vars = array(); // "StateID" => $StateID);
+	function ListElectionPositionsForStateID($StateID) {
+		$sql = "SELECT * FROM CandidateProfile " . 
+						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " . 
+						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
+						"LEFT JOIN Elections on (CandidateElection.Elections_ID = Elections.Elections_ID) " . 
+						"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) " . 
+						"WHERE CandidateProfile_PublishProfile = 'yes' AND DataState.DataState_ID = :StateID";
+		$sql_vars = array("StateID" => $StateID);
 		return $this->_return_multiple($sql, $sql_vars);	
 	}
 	
@@ -1576,18 +1581,33 @@ class RepMyBlock extends queries {
 		$sql_vars = array("AD" => $AD, "ED" => $ED);	
 		return $this->_return_multiple($sql, $sql_vars);
 	}
-	
+		
+		
+		
+		
 	function SearchVoterAtAddress($DataHouseArray) {
-			
-		$sql = "SELECT * FROM RepMyBlock.DataAddress " . 
+	
+		if (! empty ($DataHouseArray["BOECountyID"]) || ! empty ($DataHouseArray["BOEStateID"])) {	
+	 		$sql = "SELECT * FROM Voters " . 
+						"LEFT JOIN VotersIndexes ON (VotersIndexes.VotersIndexes_ID = Voters.VotersIndexes_ID) " . 
+						"LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " . 
+						"LEFT JOIN DataAddress ON (DataAddress.DataAddress_ID = DataHouse.DataAddress_ID) " . 
+						"LEFT JOIN DataStreet ON (DataStreet.DataStreet_ID = DataAddress.DataStreet_ID) " . 
+						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID) " . 
+						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID) " . 
+						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID) ";
+		} else {					
+			$sql = "SELECT * FROM DataAddress " . 
 						"LEFT JOIN DataStreet ON (DataStreet.DataStreet_ID = DataAddress.DataStreet_ID) " . 
 						"LEFT JOIN DataHouse ON (DataAddress.DataAddress_ID = DataHouse.DataAddress_ID) " . 
 						"LEFT JOIN Voters ON (DataHouse.DataHouse_ID = Voters.DataHouse_ID) " . 
 						"LEFT JOIN VotersIndexes ON (VotersIndexes.VotersIndexes_ID = Voters.VotersIndexes_ID) " . 
 						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID) " . 
 						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID) " . 
-						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID) " . 
-						"WHERE " .
+						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID) "; 
+						
+		} 
+		$sql .= "WHERE " .
 						"DataCounty_ID = :County";
 		$sql_vars = array("County" => $DataHouseArray["County"]);	
 		
@@ -1622,16 +1642,28 @@ class RepMyBlock extends queries {
 		}
 		
 		if (! empty ($DataHouseArray["FirstName"])) {
+			$CompressedFirstName = preg_replace("/[^a-zA-Z]+/", "%", $DataHouseArray["FirstName"]);
 			$sql .= " AND DataFirstName_Compress LIKE :FirstName";
-			$sql_vars["FirstName"] = "%" . $DataHouseArray["FirstName"] . "%";
+			$sql_vars["FirstName"] = "%" . $CompressedFirstName . "%";
 		}
 		
 		if (! empty ($DataHouseArray["LastName"])) {
+			$CompressedLastName = preg_replace("/[^a-zA-Z]+/", "%", $DataHouseArray["LastName"]);
 			$sql .= " AND DataLastName_Compress LIKE :LastName";
-			$sql_vars["LastName"] = "%" . $DataHouseArray["LastName"] . "%";
+			$sql_vars["LastName"] = "%" . $CompressedLastName . "%";
 		}
 		
-	
+		if (! empty ($DataHouseArray["BOECountyID"])) {
+			$sql .= " AND Voters_CountyVoterNumber = :BOECountyID";
+			$sql_vars["BOECountyID"] = $DataHouseArray["BOECountyID"];
+		}
+		
+		if (! empty ($DataHouseArray["BOEStateID"])) {
+			$sql .= " AND VotersIndexes_UniqStateVoterID LIKE :BOEStateID";
+			$sql_vars["BOEStateID"] = $DataHouseArray["BOEStateID"];
+		}
+		
+		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 }
