@@ -1605,11 +1605,27 @@ class RepMyBlock extends queries {
 						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID) " . 
 						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID) " . 
 						"LEFT JOIN DataMiddleName ON (DataMiddleName.DataMiddleName_ID = VotersIndexes.DataMiddleName_ID) "; 
-						
-		} 
-		$sql .= "WHERE " .
-						"DataCounty_ID = :County";
-		$sql_vars = array("County" => $DataHouseArray["County"]);	
+		}					
+
+		$sql .= "WHERE ";
+			
+		if (! empty ($DataHouseArray["BOECountyID"]) || ! empty ($DataHouseArray["BOEStateID"])) {			
+			$sql .= "DataCounty_ID = :County";
+			$sql_vars = array("County" => $DataHouseArray["County"]);
+			
+		} else {
+			
+			if (! empty ($DataHouseArray["BOECountyID"])) {
+				$sql .= "Voters_CountyVoterNumber = :BOECountyID";
+				$sql_vars["BOECountyID"] = $DataHouseArray["BOECountyID"];
+			}
+		
+			if (! empty ($DataHouseArray["BOEStateID"])) {
+				$sql .= "VotersIndexes_UniqStateVoterID LIKE :BOEStateID";
+				$sql_vars["BOEStateID"] = $DataHouseArray["BOEStateID"];
+			}
+			
+		}
 		
 		if (! empty ($DataHouseArray["Zipcode"])) {
 			$sql .= " AND DataAddress_zipcode  = :DataZip";
@@ -1653,15 +1669,7 @@ class RepMyBlock extends queries {
 			$sql_vars["LastName"] = "%" . $CompressedLastName . "%";
 		}
 		
-		if (! empty ($DataHouseArray["BOECountyID"])) {
-			$sql .= " AND Voters_CountyVoterNumber = :BOECountyID";
-			$sql_vars["BOECountyID"] = $DataHouseArray["BOECountyID"];
-		}
 		
-		if (! empty ($DataHouseArray["BOEStateID"])) {
-			$sql .= " AND VotersIndexes_UniqStateVoterID LIKE :BOEStateID";
-			$sql_vars["BOEStateID"] = $DataHouseArray["BOEStateID"];
-		}
 		
 		
 		return $this->_return_multiple($sql, $sql_vars);
