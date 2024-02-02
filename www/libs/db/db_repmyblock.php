@@ -1609,12 +1609,7 @@ class RepMyBlock extends queries {
 
 		$sql .= "WHERE ";
 			
-		if (! empty ($DataHouseArray["BOECountyID"]) || ! empty ($DataHouseArray["BOEStateID"])) {			
-			$sql .= "DataCounty_ID = :County";
-			$sql_vars = array("County" => $DataHouseArray["County"]);
-			
-		} else {
-			
+		if (! empty ($DataHouseArray["BOECountyID"]) || ! empty ($DataHouseArray["BOEStateID"])) {						
 			if (! empty ($DataHouseArray["BOECountyID"])) {
 				$sql .= "Voters_CountyVoterNumber = :BOECountyID";
 				$sql_vars["BOECountyID"] = $DataHouseArray["BOECountyID"];
@@ -1625,6 +1620,9 @@ class RepMyBlock extends queries {
 				$sql_vars["BOEStateID"] = $DataHouseArray["BOEStateID"];
 			}
 			
+		} else {
+			$sql .= "DataCounty_ID = :County";
+			$sql_vars = array("County" => $DataHouseArray["County"]);
 		}
 		
 		if (! empty ($DataHouseArray["Zipcode"])) {
@@ -1668,9 +1666,6 @@ class RepMyBlock extends queries {
 			$sql .= " AND DataLastName_Compress LIKE :LastName";
 			$sql_vars["LastName"] = "%" . $CompressedLastName . "%";
 		}
-		
-		
-		
 		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
