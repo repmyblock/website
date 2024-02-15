@@ -24,6 +24,15 @@
     <div class="swiper-wrapper">
 	    <div class="swiper-slide">
 				*/ ?>
+				
+						<DIV class="tadpad">
+						<P class="BlueBox">
+							<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">
+								Run for County Committee !
+								<?php /* <BR>Click here! - Deadline March 31<SUP>st</SUP>, 2023. */ ?>
+							</a>
+						</P>
+					</DIV>
 	
 						<P class="BckGrndElement f80">CANDIDATES VOTER & VOLUNTEER GUIDE</P>
 
@@ -41,20 +50,15 @@
 					<P class="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
 
-					<DIV class="tadpad">
-						<P class="BlueBox">
-							<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">
-								Click here to learn how to run for County Committee member, Precinct Committee Officer or Precinct Committee Person.
-								<?php /* <BR>Click here! - Deadline March 31<SUP>st</SUP>, 2023. */ ?>
-							</a>
-						</P>
-					</DIV>
+			
 					
 					
 					<DIV class="f60 adpad">
 						<A class="action-runfor" HREF="/<?= $middleuri ?>/register/user" class="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
 						<A class="action-runfor" HREF="/<?= $middleuri ?>/propose/nomination" class="NomCandidate"><img class="action-runfor" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
 					</DIV>
+					
+
 					
 					<BR>
 				
@@ -87,11 +91,6 @@
 	
 	
 
-	
-			
-	</CENTER>
-	
-	
 	
 	
 </div>
