@@ -9,101 +9,91 @@
 	/* User is logged */
 ?>
 
+
+<script src="/js/video.js"></script>
+
 <div class="main_wopad center">
 
-<P class="BckGrndElement f80">CANDIDATES VOTER & VOLUNTEER GUIDE</P>
+<?php /*
+<script src="/js/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="/css/swiper-bundle.min.css"/>
+<link rel="stylesheet" href="/css/Video.css"/>
 
-	<P class="f40 adpad">
-		<A HREF="/<?= $middleuri ?>/voter/guide">
-			<H2>Download the RepMyBlock Voter & Volunteer Guide</H2>
-		</a>
-	</P>
+<div class="gallery-slider">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+	    <div class="swiper-slide">
+				*/ ?>
 	
-	<P class="f40 adpad">
-		These candidates are running for office and are looking for volunteers to help them.
-	</P>
-	
-<P class="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
+						<P class="BckGrndElement f80">CANDIDATES VOTER & VOLUNTEER GUIDE</P>
+
+							<P class="f40 adpad">
+								<A HREF="/<?= $middleuri ?>/voter/guide">
+									<H2>Download the RepMyBlock Voter & Volunteer Guide</H2>
+								</a>
+							</P>
+							
+							<P class="f40 adpad">
+								These candidates are running for office and are looking for volunteers to help them.
+							</P>
+							
+		 
+					<P class="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</P>
 
 
-	<DIV class="tadpad">
-		<P class="BlueBox">
-			<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">
-				Click here to learn how to run for County Committee member, Precinct Committee Officer or Precinct Committee Person.
-				<?php /* <BR>Click here! - Deadline March 31<SUP>st</SUP>, 2023. */ ?>
-			</a>
-		</P>
-	</DIV>
-	
-	
-	<DIV class="f60 adpad">
-		<A class="action-runfor" HREF="/<?= $middleuri ?>/register/user" class="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
-		<A class="action-runfor" HREF="/<?= $middleuri ?>/propose/nomination" class="NomCandidate"><img class="action-runfor" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
-	</DIV>
-	
-	<BR>
-	
-	<P class="BckGrndElement f80">WATCH COUNTY</P>
-	
-	<P class="f40 adpad">
-		<B>COUNTY:</B> A Documentary (2022) - A documentary that explores the County Committee 
-		political machine in New York City, suppression at the local levels of American
-		 democracy, and the activists on the ground seeking to reform the system. 
-		 A short documentary by <A HREF="https://www.imdb.com/title/tt20049084/" TARGET="other">Fahim Hamid</A>.
-	</P>
-	
-	<P class="center f80 adpad"><A class="action-runfor" HREF="/<?= $middleuri ?>/register/movie">Watch COUNTY: A Documentary</A></P>
-
-	<P class="adpad">
-		<CENTER>
-			<A class="action-runfor" HREF="/<?= $middleuri ?>/register/movie"><IMG SRC="/images/documentary/CountyDocumentary.png"></A>
-		</CENTER>
-	</P>
+					<DIV class="tadpad">
+						<P class="BlueBox">
+							<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">
+								Click here to learn how to run for County Committee member, Precinct Committee Officer or Precinct Committee Person.
+								<?php /* <BR>Click here! - Deadline March 31<SUP>st</SUP>, 2023. */ ?>
+							</a>
+						</P>
+					</DIV>
+					
+					
+					<DIV class="f60 adpad">
+						<A class="action-runfor" HREF="/<?= $middleuri ?>/register/user" class="RunCC"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
+						<A class="action-runfor" HREF="/<?= $middleuri ?>/propose/nomination" class="NomCandidate"><img class="action-runfor" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
+					</DIV>
+					
+					<BR>
+				
+<?php /* 	
+		  </div>  
+		   <div class="swiper-slide">
+		  
+		  
 		
+						
 	
-	
-	
-	<P class="BckGrndElement f80">WHAT IS THE COUNTY COMMITTEE</P>
-
-	<P class="f60 adpad">
-		<B>The County Committee is the body that elects the party county chair.</B>
-	</P>
-	
-	<P class="adpad">
-		<DIV class="videowrapper">
-	 		<iframe src="https://www.youtube.com/embed/CD3dwRtVY64?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		  </div>
+		  
+		  
+		</div>
 	</DIV>
-</P>
-	
-		<P class="f40 adpad">
-		The most important responsibilities of a county committee member are to elect the chairperson of the party and to select a replacement for any state assembly member that
-		resigns or that can no longer fulfill their duties as an assembly member. 
-	</P>
-	
-	<P class="f40 adpad">
-		<B>The time commitment is about 32 hours every two years or about 3 minutes a day.</B>
-	</P>
+	  
+	   <!-- Add Arrows -->
+  <div class="swiper-button-next -dark" video-buttons></div>
+  <div class="swiper-button-prev -dark" video-buttons></div>
 
-	<P class="BckGrndElement f80">VOLUNTEER TO MAKE REPMYBLOCK BETTER</P>
-
-		<P class="f40 adpad">
-			<B>Rep My Block</B> is an unincorporated organization run by volunteers who donate their skills, knowledge, 
-			and resources. RepMyBlock is decentralized to avoid political filling requirements.
-		</P>
+</DIV>
+      
+	 */ ?>
 
 		
-		<P class="f40 adpad">
-			<B>Rep My Block</B> relies on Computer Code by volunteers from the <A HREF="https://www.progcode.org" TARGET="ProgCode">Progressive 
-			Coders Network</A> repository, such as the  <A HREF="http://www.nationalvoterfile.org" TARGET="NatVoterFile">National Voter File</A> Project. 
-			We also thank all the Democratic, Republican, Green, Libertarian, 
-			Conservative, Socialists, and Independent candidates who have donated their time, experiences, and data.
-		</P>
-		
-		<P>
-		<P class="center f80 adpad"><A HREF="/<?= $middleuri ?>/volunteer/tothecause">To volunteer your time or resources</A></P>
-	</P>
+
+	
+	
+	
+	
+
+	
 			
 	</CENTER>
+	
+	
+	
+	
 </div>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

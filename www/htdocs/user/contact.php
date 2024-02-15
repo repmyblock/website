@@ -8,20 +8,43 @@
 	/* User is logged */
 	
 ?>
+<div class="main_wopad">
+	<DIV class="intro center">
+		<DIV class="tadpad">
+		<P class="BlueBox w3-blue">Contact Us</P>
+	</DIV>
+</DIV>
 
-<div class="main">
+		
+		<P class="BckGrndElement f80 center">CONTACT</P>
+		
+		<P class="f40 adpad">
+			<B>Please email 	<B><A HREF="mailto:infos@repmyblock.org">infos@repmyblock.org</A></B> for general inquiries.</B>
+		</P>
+		
+		
+
+
+
+			<P class="BckGrndElement f80 center">VOLUNTEER TO MAKE REPMYBLOCK BETTER</P>
+
+		<P class="f40 adpad">
+			<B>Rep My Block</B> is an unincorporated organization run by volunteers who donate their skills, knowledge, 
+			and resources. RepMyBlock is decentralized to avoid political filling requirements.
+		</P>
+
+		
+		<P class="f40 adpad">
+			<B>Rep My Block</B> relies on Computer Code by volunteers from the <A HREF="https://www.progcode.org" TARGET="ProgCode">Progressive 
+			Coders Network</A> repository, such as the  <A HREF="http://www.nationalvoterfile.org" TARGET="NatVoterFile">National Voter File</A> Project. 
+			We also thank all the Democratic, Republican, Green, Libertarian, 
+			Conservative, Socialists, and Independent candidates who have donated their time, experiences, and data.
+		</P>
+		
 		<P>
-			<h1 class="intro">Contact</H1>
-		</P>
-		
-		<P class="f60">
-			Please email 	<B><A HREF="mailto:infos@repmyblock.org">infos@repmyblock.org</A></B> for general inquiries.
-		</P>
-		
-		<P class="f60">
-			If you want to help grow the project, 
-			<B><A HREF="/<?= $middleuri ?>/volunteer/tothecause">please check the volunteer page</A></B>.
-		</P>
+		<P class="center f80 adpad"><A HREF="/<?= $middleuri ?>/volunteer/tothecause">To volunteer your time or resources</A></P>
+	</P>
+							
 
 </DIV>
 	

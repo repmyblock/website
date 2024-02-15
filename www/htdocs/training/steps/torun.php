@@ -46,22 +46,29 @@
 	
 		
 	</DIV>
-	<P class="BckGrndElement f80 center">Watch COUNTY: A Documentary</P>
-	<h2>Watch COUNTY: A Documentary</h2>
+	
+	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
+	
+	
+	<P class="BckGrndElement f80 center">Watch the documentary</P>
+	<h2>Watch the documentary</h2>
+	
 	<P class="f40 adpad">
-			<B>COUNTY:</B> A Documentary (2022) - A documentary that explores the County Committee 
+			A documentary that explores the County Committee 
 			political machine in New York City, suppression at the local levels of American
-			 democracy, and the activists on the ground seeking to reform the system. 
-		 	A short documentary by <A HREF="https://www.imdb.com/title/tt20049084/" TARGET="other">Fahim Hamid</A>.
-		</P>
+			 democracy, and the activists on the ground seeking to reform the system. 		 	
+		 	<A class="action-runfor" HREF="/<?= $middleuri ?>/register/movie"><B>Watch&nbsp;COUNTY:&nbsp;A&nbsp;Documentary</B></A>
 		
-	<P class="center f60"><A class="action-runfor" HREF="/<?= $middleuri ?>/register/movie"><B>Watch COUNTY: A Documentary</B></A></P>
+
+		</P>
 		
 	<P>
 		<CENTER>
 			<A class="action-runfor" HREF="/<?= $middleuri ?>/register/movie"><IMG SRC="/images/documentary/CountyDocumentary.png"></A>
 		</CENTER>
 	</P>
+	
+	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
 	
 	<P class="BckGrndElement f80 center">Yes, I want to run</P>
 	<h2>Yes, I want to run</h2>
@@ -73,18 +80,17 @@
 		citizens from running.
 	</P>
 	
-	<P class="f40 justify adpad">
-		The party, like any Non-Profit Organization or For-Profit Corporation, has bylaws. 
-		You can find the bylaws of the various Democratic, Republican, Conservative and Working 
-		Families Parties County Committee at the Board of Election. 
-		<I>(We are working on getting the Bylaws from the other parties, and we will publish 
-	them as soon as we have them.)</I>
-	</P>
-	
 	<DIV class="videowrapper center">
 			<iframe src="https://www.youtube.com/embed/MgAY-Ipyk1Q?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</DIV>
 	
+	<P class="f40 justify adpad">
+		The party, like any Non-Profit Organization or For-Profit Corporation, has bylaws. 
+		You can find the bylaws of the various Democratic, Republican, Conservative and Working 
+		Families Parties County Committee at the Board of Election. 
+	</P>
+	
+
 	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
 
 	<P class="BckGrndElement f80 center">Voter Registration Verification</P>

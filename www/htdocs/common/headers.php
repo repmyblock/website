@@ -165,13 +165,13 @@
 	  	  
 			<div class="header2-botton">
 				<?php if ( $MenuLogin == "logged") { ?>  
-					<a href="/<?= $k ?>/toplinks/about"<?php if ($BigMenu == "about") { echo " class=\"active\""; } ?>>ABOUT</a>
-					<a href="/<?= $k ?>/training/steps/torun"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
-					<a href="/<?= $k ?>/lgd/profile/user" class="<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
+          <a href="/<?= $k ?>/toplinks/about"<?php if ($BigMenu == "about") { echo " class=\"active\""; } ?>>ABOUT</a>
+          <a href="/<?= $k ?>/training/steps/torun"<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?>>REPRESENT</a>
+          <a href="/<?= $k ?>/lgd/profile/user" class="<?php if ($BigMenu == "profile") { echo " active"; } ?>">PROFILE</a>
 				<?php } else { ?>
-				  <a href="/<?= $middleuri ?>/toplinks/about"<?php if ($BigMenu == "about") { echo " class=\"active\""; } ?>>ABOUT</a>
-				  <a href="/<?= $middleuri ?>/training/steps/torun" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
-				 	<a href="/<?= $middleuri ?>/user/contact" class="right<?php if ($BigMenu == "contact") { echo " active"; } ?>">CONTACT</a>
+          <a href="/<?= $middleuri ?>/toplinks/about"<?php if ($BigMenu == "about") { echo " class=\"active\""; } ?>>ABOUT</a>
+          <a href="/<?= $middleuri ?>/training/steps/torun" class="right<?php if ($BigMenu == "howto") { echo " active"; } ?>">HOW TO</a>
+          <a href="/<?= $middleuri ?>/user/contact" class="right<?php if ($BigMenu == "contact") { echo " active"; } ?>">CONTACT</a>
 				<?php } ?>
 			</div>	
 		

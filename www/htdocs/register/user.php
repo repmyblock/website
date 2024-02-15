@@ -127,6 +127,10 @@
 	} ?>
 	
 	<P class="f40">
+		<B><A HREF="<?= $FrontEndStatic ?>/shared/instructions/02-SetupYourUserProfile.pdf" TARGET="Instructions">Download the PDF instructions to setup your profile</A>.</B>
+	</P>
+	
+	<P class="f40">
 		If you made several requests, <A HREF="/<?= $middleuri ?>/user/investigate">click here to alert us 
 		and we will investigate</A>.
 	</P>

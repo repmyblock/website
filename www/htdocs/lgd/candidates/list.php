@@ -11,8 +11,9 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-	$result = $rmb->ListElectionPositions("NY");	
-	
+	$result = $rmb->ListElectionPositionsForStateID($rmbperson["DataState_ID"]);	
+	$partycall = $rmb->ListCCPartyCall($rmbperson["SystemUser_Party"], $rmbperson["SystemUser_EDAD"], NULL);
+	WriteStderr($partycall, "ListCCPartyCall");
 	WriteStderr($result, "Result");
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }

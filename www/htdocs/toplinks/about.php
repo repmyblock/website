@@ -15,10 +15,11 @@
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
-	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
-
+	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 	/* User is logged */
 ?>
+
+
 <DIV class="main_wopad">
 	<DIV class="intro center">
 			<DIV class="tadpad">
@@ -35,6 +36,54 @@
 		</P>
 	</DIV>
 	
+		<P class="f80 center adpad"><A HREF="/<?= $middleuri ?>/register/user">Register on the Rep My Block website</A></P>
+	
+			<P class="BckGrndElement f80 center">WHAT IS THE COUNTY COMMITTEE</P>
+
+	<P class="f60 adpad">
+		<B>The County Committee is the body that elects the party county chair.</B>
+	</P>
+	
+	<P class="adpad">
+		<DIV class="videowrapper center">
+	 		<iframe src="https://www.youtube.com/embed/CD3dwRtVY64?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</DIV>
+</P>
+	
+		<P class="f40 adpad">
+		The most important responsibilities of a county committee member are to elect the chairperson of the party and to select a replacement for any state assembly member that
+		resigns or that can no longer fulfill their duties as an assembly member. 
+	</P>
+	
+	<P class="f40 adpad">
+		<B>The time commitment is about 32 hours every two years or about 3 minutes a day.</B>
+	</P>
+							
+							<P class="f80 center adpad"><A HREF="/<?= $middleuri ?>/register/user">Register on the Rep My Block website</A></P>
+	
+	
+	<P class="BckGrndElement f80 center">RUNNING FOR HIGHER OFFICE</P>
+
+	<P class="f40 adpad">
+		<B>Sal Albanese</B>, <B>Badrun Khan</B>, <B>Ben Yee</B>, <B>Vittoria Fariello</B>, and <B>Jared Rich</B> discuss the 
+		weaponization of the electoral process with Paperboy Love Prince in five one-hour candid chats. 
+	</P>
+	
+	<P class="f40 adpad">
+		<B><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">These videos</A></B> were 
+		recorded while Paperboy Love Prince was running for congress, and discovering first-hand, the different steps 
+		involved in running for public office. The goal of these video chats is to demonstrate that there is hope, but 
+		it will require every voter to participate in the political process by going beyond just showing up to the polls 
+		to vote. <B>Democracy depends on it!</B>
+	</P>
+
+	
+	<P class="adpad">
+		<P class="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
+	</P>
+	
+	<P class="f80 center adpad"><A HREF="/<?= $middleuri ?>/register/user">Register on the Rep My Block website</A></P>
+	
 	<P class="BckGrndElement f80 center">THE MAJOR POLITICAL TENDENCIES</P>
 	
 	<P class="f40 adpad">
@@ -42,8 +91,10 @@
 		is non-partisan; therefore, we welcome all ideologies and help them contact the local 
 		representatives of those ideologies.
 	</P>
+	
 
   <UL class="f40 adpad">
+  	<IMG SRC="/toplinks/PoliticalTendencies.jpg"><BR>
   	<B><A TARGET="political" TARGET="political" HREF="https://www.idgroup.eu">Nationalists</A>:</B> Conservative Party USA: <A TARGET="political" HREF="https://conservativepartyusa.org">https://conservativepartyusa.org</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://www.idu.org">Democrat Union</A>:</B> Republican National Committee: <A TARGET="political" HREF="https://gop.com">https://gop.com</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://ialp.com">International Alliance of Libertarian Parties</A>:</B> Libertarian: <A TARGET="political" HREF="https://www.lp.org">https://www.lp.org</A><BR>
@@ -59,46 +110,14 @@
     <B><A TARGET="political" TARGET="political" HREF="https://pp-international.net">Pirates Parties International</A>:</B> United States Pirate Party: <A TARGET="political" HREF="https://uspirates.org">https://uspirates.org</A><BR>
 	</UL>
 	
-	<P class="f40 adpad">
-		The RMB Code is used once you register to let the leader of these groups contact you so you can effectively 
-		organize with them inside the Republican or Democratic parties of the United States.
-	</P>
 	
 	<P class="f40 adpad">
 		The goal of Rep My Block is to suppress the role of money in the political conversation while 
 		respecting each individual's ideology without judgment.
 	</P>
 	
-	<P class="BckGrndElement f80 center">ZOOM WITH PAPERBOY LOVE PRINCE</P>
-
-	<P class="f40 adpad">
-		<B>Sal Albanese</B>, <B>Badrun Khan</B>, <B>Ben Yee</B>, <B>Vittoria Fariello</B>, and <B>Jared Rich</B> discuss the 
-		weaponization of the electoral process with Paperboy Love Prince in five one-hour candid chats. 
-	</P>
+		<P class="f80 center adpad"><A HREF="/<?= $middleuri ?>/register/user">Register on the Rep My Block website</A></P>
 	
-	<P class="f40 adpad">
-		<B><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">These videos</A></B> were 
-		recorded while Paperboy Love Prince was running for congress, and discovering first-hand, the different steps 
-		involved in running for public office. The goal of these video chats is to demonstrate that there is hope, but 
-		it will require every voter to participate in the political process by going beyond just showing up to the polls 
-		to vote. <B>Democracy depends on it!</B>
-	</P>
-	
-	<P class="f60 adpad">
-		<P class="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
-	</P>
-	
-	<P class="adpad">
-		<DIV class="videowrapper center">
-			<iframe src="https://www.youtube.com/embed/KtYLNV3_npk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>	
-		</DIV>
-	</P>
-	
-	<P class="adpad">
-		<P class="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
-	</P>
-	
-	<P class="f80 center adpad"><A HREF="/<?= $middleuri ?>/register/user">Register on the Rep My Block website</A></P>
 </div>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>

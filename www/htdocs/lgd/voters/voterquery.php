@@ -95,124 +95,94 @@
 			<?php
 			 	PlurialMenu($k, $TopMenus);
 			?>
-
-	
-			
 				    
 				<div class="clearfix gutter d-flex flex-shrink-0">
 									
-				<div class="col-12">
-				  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
-						<div>
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">First Name</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="First" name="FirstName" VALUE="<?= $FormFieldFirstName ?>" id="">
-								</dd>
-							</dl>
-
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Last Name</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Last" name="LastName" VALUE="<?= $FormFieldLastName ?>" id="">
-								</dd>
-							</dl>
-							
-							</div>
-							
+				<FORM ACTION="" METHOD="POST">
+					<TABLE WIDTH=100%>
 						
-								<div>
-							
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Zipcode</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Zipcode" name="ZIP" VALUE="<?= $FormFieldZIP ?>" id="">
-								</dd>
-							</dl>
-							
-								<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">County</label><DT>
-								<dd>
-									<SELECT class="mobilebig" NAME="COUNTY">
-									<OPTION VALUE="">Whole State</OPTION>
-									<OPTION VALUE="NYC"<?php if ($FormFieldCounty == "NYC"  || empty ($FormFieldCounty)) { echo " SELECTED"; } ?>>New York City</OPTION>
-									<OPTION VALUE="BQK"<?php if ($FormFieldCounty == "BQK") { echo " SELECTED"; } ?>>Bronx, Queens, and Kings</OPTION>
-									<OPTION VALUE="03"<?php if ($FormFieldCounty == "03") { echo " SELECTED"; } ?>>Bronx County (the Bronx)</OPTION>
-									<OPTION VALUE="31"<?php if ($FormFieldCounty == "31") { echo " SELECTED"; } ?>>New York County (Manhattan)</OPTION>
-									<OPTION VALUE="41"<?php if ($FormFieldCounty == "41") { echo " SELECTED"; } ?>>Queens County</OPTION>
-									<OPTION VALUE="43"<?php if ($FormFieldCounty == "43") { echo " SELECTED"; } ?>>Richmond County (Staten Island)</OPTION>
-									<OPTION VALUE="24"<?php if ($FormFieldCounty == "24") { echo " SELECTED"; } ?>>Kings County (Brooklyn)</OPTION>
-									<OPTION VALUE="OUTSIDE"<?php if ($FormFieldCounty == "OUTSIDE") { echo " SELECTED"; } ?>>Outside New York City</OPTION>
-									</SELECT>
-								</dd>
-							</dl>
-							
-						</DIV>
-
-					<DIV>
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">NYS BOE ID</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="NYS Uniq ID" name="UniqNYS" VALUE="<?= $FormFieldNYSBOEID ?>" id="">
-								</dd>
-							</dl>
+						<TR ALIGN=CENTER>
+							<TH style="padding:0px 10px;">House Number</TH><TD><INPUT TYPE="INPUT" NAME="HouseNumber" VALUE="<?= $HouseNumber ?>" SIZE=2></TD>				
+							<TH style="padding:0px 10px;" COLSPAN=4>Street Name</TH><TD><INPUT TYPE="INPUT" NAME="StreetName" VALUE="<?= $StreetName ?>" SIZE=30></TD>
+						</TR>
+						
+						<TR ALIGN=CENTER>
+							<TH style="padding:0px 10px;">ZipCode</TD><TD><INPUT TYPE="INPUT" NAME="ZipCode" VALUE="<?= $ZipCode ?>" SIZE=5></TD>
+							<TH style="padding:0px 10px;">AD</TH><TD><INPUT TYPE="INPUT" NAME="AD" VALUE="<?= $RepostAD ?>" SIZE=2></TD>								
+							<TH style="padding:0px 10px;">ED</TD><TD><INPUT TYPE="INPUT" NAME="ED" VALUE="<?= $RepostED ?>" SIZE=2></TD>
+							<TH style="padding:0px 10px;">County</TD>
+							<TD>
+								<SELECT NAME="County_ID">
+									<?php if ( ! empty ($ListCounties)) {
+										foreach ($ListCounties as $var) {
+											if ( ! empty ($var)) { ?>
+												<OPTION VALUE="<?= $var["DataCounty_ID"] ?>"<?= ($rmbperson["DataCounty_ID"] == $var["DataCounty_ID"]) ? " SELECTED" : NULL ?>><?= $var["DataCounty_Name"] ?></OPTION>
+												<?php
+												}
+											}
+										}
+									?>
+								</SELECT>
+							</TD>
+						</TR>
+						<TR ALIGN=CENTER>
+							<TH style="padding:0px 10px;" COLSPAN=3>First Name</TH><TD><INPUT TYPE="INPUT" NAME="FirstName" VALUE="<?= $FirstName ?>" SIZE=20></TD>								
+							<TH style="padding:0px 10px;">Last Name</TH></TD><TD COLSPAN=3><INPUT TYPE="INPUT" NAME="LastName" VALUE="<?= $LastName ?>" SIZE=20></TD>
+						</TR>
+						
+						<TR ALIGN=CENTER>
+							<TH style="padding:0px 10px;" COLSPAN=3>County ID</TH><TD><INPUT TYPE="INPUT" NAME="BOECountyID" VALUE="<?= $BOECountyID ?>" SIZE=20></TD>								
+							<TH style="padding:0px 10px;">State ID</TH></TD><TD COLSPAN=3><INPUT TYPE="INPUT" NAME="BOEStateID" VALUE="<?= $BOEStateID ?>" SIZE=20></TD>
+						</TR>
+						
+						<TR>
+							<TH COLSPAN=8 style="padding:0px 10px;"><INPUT TYPE="SUBMIT" NAME="SearchBuilding" VALUE="Search buildings" SIZE=2></TH>
+						</TR>		
+					</TABLE>
+				</DIV>
 				
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Party</label><DT>
-								<dd>
-									<SELECT  class="mobilebig" NAME="Party">
-										<OPTION VALUE="">All</OPTION>
-										<OPTION VALUE="DEM"<?php if ($FormFieldParty == "DEM") { echo " SELECTED"; } ?>>Democratic</OPTION>
-										<OPTION VALUE="REP"<?php if ($FormFieldParty == "REP") { echo " SELECTED"; } ?>>Republican</OPTION>
-										<OPTION VALUE="BLK"<?php if ($FormFieldParty == "BLK") { echo " SELECTED"; } ?>>No Affiliation</OPTION>
-										<OPTION VALUE="GRE"<?php if ($FormFieldParty == "GRE") { echo " SELECTED"; } ?>>Green</OPTION>
-										<OPTION VALUE="LBT"<?php if ($FormFieldParty == "LBT") { echo " SELECTED"; } ?>>Libertarian</OPTION>
-										<OPTION VALUE="CON"<?php if ($FormFieldParty == "CON") { echo " SELECTED"; } ?>>Conservatives</OPTION>
-										<OPTION VALUE="IND"<?php if ($FormFieldParty == "IND") { echo " SELECTED"; } ?>>Independence Party</OPTION>
-										<OPTION VALUE="WOR"<?php if ($FormFieldParty == "WOR") { echo " SELECTED"; } ?>>Working Families</OPTION>
-										<OPTION VALUE="WEP"<?php if ($FormFieldParty == "WEP") { echo " SELECTED"; } ?>>Women's Equality Party</OPTION>
-										<OPTION VALUE="REF"<?php if ($FormFieldParty == "REF") { echo " SELECTED"; } ?>>Reform</OPTION>
-										<OPTION VALUE="SAM"<?php if ($FormFieldParty == "SAM") { echo " SELECTED"; } ?>>SAM</OPTION>													
-										<OPTION VALUE="OTH"<?php if ($FormFieldParty == "OTH") { echo " SELECTED"; } ?>>Other</OPTION>
-									</SELECT>
-								</dd>
-							</dl>
-						</div>
-
-						<div>						
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Assembly District</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Assembly District" name="AD" VALUE="<?= $RetReturnAD ?>" id="">
-								</dd>
-							</dl>
-
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Electoral District</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Electoral District" name="ED" VALUE="<?= $RetReturnED ?>" id="">
-								</dd>
-							</dl>					
-						</div>
-								
-						<div>
-							<dl class="form-group col-48 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Congressional District</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Congressional District" name="Congress" VALUE="<?= $FormFieldCongress ?>" id="">
-								</dd>
-							</dl>
-						</div>
-
-						<div>						
-							<dl class="form-group col-12 d-inline-block"> 
-								<dd>
-									<button type="submit" class="submitred">Search Voter Registration</button>
-								</dd>
-							</dl>
-						</div>
-					</form> 
-
+				<div class="list-group-item filtered">
+					<TABLE BORDER=1>
+					<TR>
+						<TH style="padding:0px 10px;">House</TH>
+						<TH style="padding:0px 10px;">Frac</TH></TH>
+						<TH style="padding:0px 10px;">Pre</TH>
+						<TH style="padding:0px 10px;">Street Name</TH>
+						<TH style="padding:0px 10px;">PostStreet</TH>
+						<TH style="padding:0px 10px;">Zipcode</TH>
+						<TH style="padding:0px 10px;">&nbsp;</TH>
+					</TR>
+										
+					<?php 
+						if (! empty ($result)) {
+							foreach ($result as $var) {
+								if (! empty ($var["DataAddress_HouseNumber"] && ! empty($var["DataStreet_Name"]) && ! empty ($var["DataAddress_zipcode"]))) {
+					?>		
+	
+					<TR ALIGN=CENTER>
+						<TD style="padding:0px 10px;"><?= $var["DataAddress_HouseNumber"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataAddress_FracAddress"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataAddress_PreStreet"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataStreet_Name"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataAddress_PostStreet"] ?></TD>
+						<TD style="padding:0px 10px;"><?= $var["DataAddress_zipcode"] ?></TD>
+						<TD style="padding:0px 10px;"><A HREF="/<?= MergeEncode(array(
+																	"DataAddress_HouseNumber" => $var["DataAddress_HouseNumber"], 
+																	"DataAddress_FracAddress" => $var["DataAddress_FracAddress"],
+																	"DataAddress_PreStreet" => $var["DataAddress_PreStreet"],
+																	"DataStreet_Name" => $var["DataStreet_Name"],
+																	"DataAddress_PostStreet" => $var["DataAddress_PostStreet"],
+																	"DataAddress_zipcode" => $var["DataAddress_zipcode"],
+																
+																)); 
+															?>/lgd/objections/selecthouse"><B>See voters</B></A></TD>
+					</TR>
+					<?php 
+								}
+							}
+						}
+					?>
+					</TABLE>
 	</DIV>
 </DIV>
 
