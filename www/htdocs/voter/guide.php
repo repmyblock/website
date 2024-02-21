@@ -31,7 +31,7 @@
 	$addtopics = date("ymd",time());
 	
 	if (! empty ($_POST)) {
-		header("Location: /S" . $Statescountries[$_POST["myCountry"]] . "/voter/guide");
+		header("Location: /Z" . $_POST["zipcode"] . "/voter/guide");
 		exit();
 	}
 	
@@ -41,7 +41,7 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
-	$r = new welcome();	
+	$r = new welcome(0);	
 		
 	$ListState = $r->ListElections();	
 	WriteStderr($ListState, "List Election");
@@ -71,40 +71,77 @@
 
 	if ( ! empty ($ActiveZIP)) {
 		// Get the Table for that zip
-		$resultzip = $r->ListDistrictsForZip($ActiveZIP);
+		$resultzip = $r->ListDistrictsAndTablesForZip($ActiveZIP);
 		
 		foreach ($resultzip as $var) {
 			$StateID["state"] = $var["DataState_ID"];
+			$StateID["statename"] = $var["DataState_Abbrev"];
 		}
 		
-		$resultpositions = $r->ListElectionPositions( $StateID["state"]);
+		$resultpositions = $r->ListElectionPositions( $StateID["state"]);	
+		$result = $r->CandidatesForElection((empty ($ActiveDate) ? "NOW" : $ActiveDate), NULL, $StateID["statename"], $ActiveTeam, NULL);
 		
-		foreach ($resultpositions as $var) {
-			
-			if ( $var["ElectionsPosition_Location"] == "table") {
-				if ($var["ElectionsPosition_Location"] == "NYCG") {
+		foreach ($resultpositions as $var) {		
+			switch ($var["ElectionsPosition_Location"]) {
+				case "table":
+					
+					foreach ($resultzip as $vor) { // This is to check the type of geographical location								
+						$ADEDValue = $vor["DataDistrict_StateAssembly"]  . str_pad($vor["DataDistrict_Electoral"], 3, "0", STR_PAD_LEFT);
+						foreach($result as $vir) {  // Does the candidate fall into the geographical area?
+							if ( $vir["CANDDTABLE"] == "ADED" && $vir["CANDVALUE"] == $ADEDValue) {
+								$ListCandidate[$vir["Elections_Date"]][$vir["CANDPROFID"]] = $vir;
+							}
+						}
+					}
+					
+				break;
+				
+				case "partycall":
+					foreach ($resultzip as $vor) { // This is to check the type of geographical location				
+						foreach($result as $vir) {  // Does the candidate fall into the geographical area?
+							if ( $vir["CANDDTABLE"] == $vor["ElectionsPosition_DBTable"] && $vir["CANDVALUE"] == $vor["ElectionsPartyCall_ConversionValue"]) {
+								$ListCandidate[$vir["Elections_Date"]][$vir["CANDPROFID"]] = $vir;
+							}
+						}
+					}
+					
+				break;
+				
+				case "state":
+				
+					foreach($result as $vor) {
+						if ( $var["ElectionsPosition_DBTable"] == $vor["CANDDTABLE"]) {
+							$ListCandidate[$vor["Elections_Date"]][$vor["CANDPROFID"]] = $vor;	
+						}
+					}
+				break;
+			}
+		}
+		
+		ksort($ListCandidate);
+		$result = array();
+		if (! empty ($ListCandidate)) {
+			foreach ($ListCandidate as $var => $index) {
+				foreach ($index as $vor => $newindex) {
+					$result[] = $newindex;
 				}
-			}	
+			}
 		}
 		
-		echo "Result Positions:";
-		print "<PRE>" . print_r($resultpositions, 1) . "</PRE>";
-
-		echo "Result Zip:";
-		print "<PRE>" . print_r($resultzip, 1) . "</PRE>";
-		exit(1);
+	} else {
+		
+		
+		foreach($result as $var) {
+			$ActiveStateWithCandidate[$var["DataState_Abbrev"]] = true;
+		}
+		
+		$result = $r->CandidatesForElection((empty ($ActiveDate) ? "NOW" : $ActiveDate), NULL, $ActiveState, $ActiveTeam, $ActiveZIP);
+		WriteStderr($result, "Candidate List");
 	}
 	
-	//$result = $r->ListOnElectionsStates();
-
-	$result = $r->CandidatesForElection((empty ($ActiveDate) ? "NOW" : $ActiveDate), NULL, $ActiveState, $ActiveTeam, $ActiveZIP);
-	
-	// Process the candidates to check the users.
 	foreach($result as $var) {
 		$ActiveStateWithCandidate[$var["DataState_Abbrev"]] = true;
 	}
-	
-	WriteStderr($result, "Candidate List");
 	
 	if (empty($result) && ! empty ($ActiveTeam)) {
 		$result = $r->GetTeamInfo($ActiveTeam);
@@ -160,9 +197,15 @@ img.flagnonselected {
 </style>
 
 
-
+<form autocomplete="off" method="post" action="">
 <DIV class="main">
 	<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
+	
+	
+	<P CLASS="f60">Enter zipcode: 
+		<INPUT TYPE="text" Placeholder="Zipcode" NAME="zipcode"><button type="submit" class="submitred">Search locality</button>
+		</P>
+	
 	<P CLASS="f50"><B><A HREF="/rset/voter/guide">Reset the queries</A></B></P>
 		
 		
@@ -202,7 +245,7 @@ img.flagnonselected {
   <P>
   			
 	<!--Make sure the form has the autocomplete function switched off:-->
-	<form autocomplete="off" method="post" action="">
+	
 	
 	<DIV>
 		<A HREF="/<?= ($ActiveTeam != 24 ? "T0024" : NULL) . ($ActiveTeam == 24 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Pirate" id="pir" class="imglogo candidate<?= $ActiveTeam != 24 ? $activeccs : NULL ?>" SRC="/shared/teams/pirates/Pirate.png"></A>
@@ -288,7 +331,8 @@ img.flagnonselected {
 																"0000/NoPicture.jpg" :
 																"0000/" . $var["DataState_Abbrev"] . "/" . $var["Candidate_Party"] . "_NoPic.jpg") :
 																($var["CandidateProfile_PicFileName"] . "?" . $addtopics));
-						$DetailURL = "/" . $var["CandidateProfile_FirstName"] . $var["CandidateProfile_LastName"] . "_" . $var["CANDPROFID"] . "/voter/detail";						
+						$FullAlias = preg_replace('/[^a-zA-Z0-9]+/', '', $var["CandidateProfile_Alias"]);
+						$DetailURL = "/" . $FullAlias . "_" . $var["CANDPROFID"] . "/voter/detail";						
 						?>
 
 					<?php	if ($PrevDateDesc != $DateDesc) { $PrintDiv = true; } ?>

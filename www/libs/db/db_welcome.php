@@ -35,7 +35,9 @@ class welcome extends queries {
 	}
 
 	function CandidatesForElection($ElectionDateFrom = NULL, $ElectionDateTo = NULL, $ElectionState = NULL, $ActiveTeam = NULL) {
-		$sql = "SELECT *, CandidateProfile.CandidateProfile_ID AS CANDPROFID FROM Elections " .
+		$sql = "SELECT *, CandidateProfile.CandidateProfile_ID AS CANDPROFID " .
+						" , Candidate.CandidateElection_DBTable AS CANDDTABLE, Candidate.CandidateElection_DBTableValue AS CANDVALUE " .
+						"FROM Elections " .
 						"LEFT JOIN CandidateElection ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN Candidate ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
 						"LEFT JOIN CandidateProfile ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " .
@@ -74,6 +76,17 @@ class welcome extends queries {
 							"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = DataDistrict.DataCounty_ID) " .
 							"LEFT JOIN DataState ON (DataCounty.DataState_ID = DataState.DataState_ID) " . 
 							"WHERE DataDistrict_ZipCode = :ZipCode";
+		$sql_vars = array("ZipCode" => $ActiveZipcode);
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	function ListDistrictsAndTablesForZip($ActiveZipcode, $When = "NOW") {
+		$sql = "SELECT * FROM DataDistrict " . 
+							"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = DataDistrict.DataCounty_ID) " .
+							"LEFT JOIN DataState ON (DataCounty.DataState_ID = DataState.DataState_ID) " . 
+							"LEFT JOIN ElectionsPartyCall ON (ElectionsPartyCall.ElectionsPartyCall_DBTable = DataDistrict.DataDistrict_DBTable AND ElectionsPartyCall.ElectionsPartyCall_DBTableValue = DataDistrict.DataDistrict_DBTableValue) " . 
+							"LEFT JOIN ElectionsPosition ON (ElectionsPosition.ElectionsPosition_ID = ElectionsPartyCall.ElectionsPosition_ID) " . 
+							"WHERE DataDistrict_ZipCode = :ZipCode"; //  AND ElectionsPosition_Location = 'partycall'";
 		$sql_vars = array("ZipCode" => $ActiveZipcode);
 		return $this->_return_multiple($sql, $sql_vars);
 	}
