@@ -17,10 +17,9 @@ if ( ! isset ($RMBBlockInit)) {
 
 WriteStderr($URIEncryptedString, "URIEncryptedString");
 
-$voters = $db_RMB_voterlist->ListObjectionsInformation("1");
+$voters = $db_RMB_voterlist->ListObjectionsInformation(htmlspecialchars($k));
 $PreparedFor = $WalkSheetUser["Candidate_DispName"];
 $ElectionDate = PrintShortDate($WalkSheetUser["Elections_Date"]);
-
 
 $FileTitle = preg_replace('/[^a-zA-Z0-9]/', '', $PreparedFor);
 $Today = date("Ymd_Hi");
@@ -29,7 +28,7 @@ $WalkSheet_FileName = "WalkSheet_" . $FileTitle . "_" . $Today . "_" . $WalkShee
 
 if (! empty ($voters)) {
 	foreach ($voters as $person) {
-		if ( ! empty ($person)) {
+		if ( ! empty ($person["VotersIndexes_UniqStateVoterID"])) {
 			$FixedAddress = preg_replace('!\s+!', ' ', $person["DataStreet_Name"] );
 			$FixedApt = strtoupper(preg_replace('!\s+!', '', $person["DataHouse_Apt"] ));
 			$Address[$person["DataDistrictTown_Name"]][$FixedAddress][$person["DataAddress_HouseNumber"]]["PrintAddress"] = 
@@ -40,7 +39,7 @@ if (! empty ($voters)) {
 							[$person["VotersIndexes_UniqStateVoterID"]] =	
 							
 									$person["ObjectionsDetails_Sheet"] . " - " . $person["ObjectionsDetails_Line"] . " " .
-									$person["Voters_Status"][0] . " - " .
+									// $person["Voters_Status"][0] . " - " .
 									$person["DataFirstName_Text"] . " " . 
 									$person["DataMiddleName_Text"] . " " . 
 									$person["DataLastName_Text"];
@@ -50,12 +49,14 @@ if (! empty ($voters)) {
   		#$interval = date_diff(date_create(date('Y-m-d')), date_create($person["VotersIndexes_DOB"]));    		
   		#$Age[$person["VotersIndexes_UniqStateVoterID"]] = $interval->y;
   		
-  		$Age[$person["VotersIndexes_UniqStateVoterID"]] .= $person["Voters_RegParty"] . " - " . 
+  		$Age[$person["VotersIndexes_UniqStateVoterID"]] .= // $person["Voters_RegParty"] . " - " . 
   											$person["Voters_CountyVoterNumber"];
 		}	
 	}
 }
 
+#print "<PRE>" . print_r($Address, 1) . "</PRE>";
+#exit();
 
 #print "<PRE>" . print_r($Address, 1) . "</PRE>";
 #exit();
