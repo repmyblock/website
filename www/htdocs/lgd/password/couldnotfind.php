@@ -12,7 +12,7 @@
 		</P>
 	
 		<p class="f60">
-			<A HREF="/<?= $k ?>/login/user">Click here to the login page.</A>
+			<A HREF="/<?= $k ?>/user/login">Click here to the login page.</A>
 		</P>
 	</DIV>
 	
