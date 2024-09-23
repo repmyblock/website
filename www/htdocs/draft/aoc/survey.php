@@ -104,11 +104,9 @@
 			</P>
 			
 			<P CLASS="f60">
-				While not all the information about the convention has been released, 
-				the <A HREF="<?= $FrontEndStatic . $result["SurveyPresDocuments_RMBURL"] ?>" TARGET="DSP"> 
-				Democratic Party has already published a 
-				draft of their Delegate Selection Plan.
-				Delegate Selection Plan</A>.
+				The information about the 2028 Democratic Convention has not been released, 
+				you can check <A HREF="<?= $FrontEndStatic . $result["SurveyPresDocuments_RMBURL"] ?>" TARGET="DSP">2024 drafts Delegate Selection Plan</A>
+				the <?= $result["SurveyPresDelInfo_StateName"] ?> Democratic Party released for Chicago.
 			</P>
 
 			<P CLASS="f60">
@@ -121,9 +119,11 @@
 			</P>
 
 			<P CLASS="f60">
-				<?= $result["SurveyPresDelInfo_StateName"] ?> has been allocated <?= $result["SurveyPresDelInfo_TotalDelegate"] ?> delegates. Right now, we need to gather as many Democrats as possible to show support for a potential AOC candidacy. Our goal is to encourage as many 
+				<?= $result["SurveyPresDelInfo_StateName"] ?> has been allocated <?= $result["SurveyPresDelInfo_TotalDelegate"] ?>
+				delegates. Right now, we need to gather as many Democrats as possible to show support for a potential 
+				AOC candidacy. Our goal is to encourage as many 
 				people as possible to register as Democrats 
-				to back this effort by <?= $result["SurveyPresDelInfo_LastDaySwitchParty"] ?>.
+				as soon as possible. <?php /*= $result["SurveyPresDelInfo_LastDaySwitchParty"] */ ?>
 			</P>
 			
 			<FORM METHOD="POST" ACTION="">			
