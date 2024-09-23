@@ -28,66 +28,82 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
-	<DIV class="right f80 p05">Help put Socialists candidates on the ballot!</DIV>
+	<DIV class="right f80 p05">Help Put Socialist Candidates on the Ballot!</DIV>
 	
-		<h1>Draft AOC for President of the United States for 2028</h1>
+		<h1>Draft AOC for President of the United States in 2028</h1>
 
 			<P class="f60">
-				<B>Thanks for filling the survey.</B>
+				<B>Thank you for filling out the survey!</B>
 			</P>
 			
 			<P CLASS="f60">
-				In order to save it, you will need to send the code to this	email address <A TARGET="SendEmailSurvey" HREF="mailto:draftaoc@team.repmyblock.org?subject=Save Survey Code <?= $Match[1][0] ?>&body=DO NOT CHANGE THE SUBJECT.\nJust send the email as is for the computer to reply with the link.\nSurveyCode: <?= $Match[1][0] ?>"><B>draftaoc@team.repmyblock.org</B></A> with the following subject: 
+				To save your submission, please email the code <B><?= $Match[1][0] ?></B> to 
+				<A TARGET="SendEmailSurvey" HREF="mailto:draftaoc@team.repmyblock.org?subject=Save Survey Code <?= $Match[1][0] ?>&body=DO NOT CHANGE THE SUBJECT.\nJust send the email as is for the computer to reply with the link.\nSurveyCode: <?= $Match[1][0] ?>"><B>draftaoc@team.repmyblock.org</B></A> wwith the subject line: 
 				<A TARGET="SendEmailSurvey" HREF="mailto:draftaoc@team.repmyblock.org?subject=Save Survey Code <?= $Match[1][0] ?>&body=DO NOT CHANGE THE SUBJECT.\nJust send the email as is for the computer to reply with the link.\nSurveyCode: <?= $Match[1][0] ?>"><B>Save Survey Code <?= $Match[1][0] ?></B></A>.
 			</P>
 
 			<P class="f60"><P class="f60">
-				The computer will answer within seconds to about 5 minutes. 
+				<B>You should receive a response with further instructions within a few minutes.</B>
 			</P>
 			
 			<P class="f60">
-				Check your junk folder for the rest of the instructions. You will need to forward the response to another Rep My Block email.
-				Again you will need to check your spam box for the response which contains a link to create a username and password on the Rep My Block website.
+					Be sure to check your spam or junk folder for the follow-up instructions. In the response, 
+					you&rsquo;ll be asked to forward the email to another Rep My Block address, so please watch 
+					for that. This email will include a link to create your username and password for 
+					the Rep My Block website.
 			</P>
 			
 			<P class="f60">
-				Once you loggin for the first time, a Draft AOC team volunteer will contact you. It can be from 1 day to 2 month depending on the amount of
-				people responding.
+				<B>Once you log in for the first time</B>, a volunteer from the Draft AOC team will reach out to you. 
+				This may take anywhere from 1 day to 2 months, depending on the volume of responses.
 			</P>
 			
 			<P CLASS="f60">
-				All the information about the convention is not yet out but the Democratic party of the state of <?= $result["SurveyPresDelInfo_StateName"] ?>
+				While complete information about the convention isn&rsquo;t available yet, 
+				the Democratic Party of <?= $result["SurveyPresDelInfo_StateName"] ?>
+				has published a draft of the Delegate Selection Plan.
+				<?= $result["SurveyPresDelInfo_StateName"] ?>
+				has been allocated <?= $result["SurveyPresDelInfo_TotalDelegate"] ?>
+				delegates, and with enough volunteers like you, we hope to bring AOC to the 2028 DNC Convention.
 				published a draft of the <A HREF="<?= $FrontEndStatic . $result["SurveyPresDocuments_RMBURL"] ?>" TARGET="DSP">Delegate Selection Plan</A>.
 			</P>
 			
 
-			<P CLASS="f60">
-				The state of <?= $result["SurveyPresDelInfo_StateName"] ?> is allocated <?= $result["SurveyPresDelInfo_TotalDelegate"] ?> delegates. Hopefully
-				we'll find enought volunteer like yourself to draft AOC at the Chicago Convention. 
-				For <?= $result["SurveyPresDelInfo_StateName"] ?>, we have until <?= $result["SurveyPresDelInfo_LastDaySwitchParty"] ?>.
-			</P>
+				<?php /* For <?= $result["SurveyPresDelInfo_StateName"] ?>, we have until <?= $result["SurveyPresDelInfo_LastDaySwitchParty"] ?>. */ ?>
 			
 			<P CLASS="f60">
-				Don't forget to send the code to <A TARGET="SendEmailSurvey" HREF="mailto:draftaoc@team.repmyblock.org?subject=Save Survey Code <?= $Match[1][0] ?>&body=DO NOT CHANGE THE SUBJECT.\nJust send the email as is for the computer to reply with the link.\nSurveyCode: <?= $Match[1][0] ?>"><B>draftaoc@team.repmyblock.org</B></A>. 
+				Don&rsquo;t forget to send your code to <A TARGET="SendEmailSurvey" HREF="mailto:draftaoc@team.repmyblock.org?subject=Save Survey Code <?= $Match[1][0] ?>&body=DO NOT CHANGE THE SUBJECT.\nJust send the email as is for the computer to reply with the link.\nSurveyCode: <?= $Match[1][0] ?>"><B>draftaoc@team.repmyblock.org</B></A>. 
+			</P>
+			
+			<P>
+				<BR>
 			</P>
 
 			<P CLASS="f60">
-				<B>The Draft AOC 2028 volunteer team.</B>
+				<B>The Draft AOC 2028 Volunteer Team</B>
 			</P>
 		
-		<P class="f40">
-			By clicking the "Register" button, you are creating a 
-			RepMyBlock account, and you agree to RepMyBlock's 
+		
+		<P>
+			<BR><BR><BR><BR>
+		</P>
+		
+	<P class="f40">
+			By clicking the "Register" button, you are creating a RepMyBlock account and agreeing to RepMyBlock's
 			<A HREF="/text/terms">Terms of Use</A> and 
 			<A HREF="/text/privacy">Privacy Policy.</A>
 		</P>
 			
 
-			
-			
 			<P class="f60">
-				Rep My Block is provided Free of Charge to any candidate that wishes to integrate 
-				its services. <B>Draft AOC's content does not reflect the Rep My Block tool.</B>
+				Watch this 26-minute documentary to understand what it means to be part of the governance of the County Democratic Party. 
+			<B><A HREF="/documentary">Click here to watch the whole documentary.</A></B>
+				<I>(Press the PLAY button and enter the password <FONT COLOR=BROWN><B>QCC4ALL</B></FONT> (all in uppercase) to access it.)</I>
+			</P>
+			
+	<P class="f60">
+				Rep My Block is provided free of charge to any candidate who wishes to use its services.
+				<B>Please note that Draft AOC's content is independent of the Rep My Block tool.</B>
 			</P>
 			
 </DIV>

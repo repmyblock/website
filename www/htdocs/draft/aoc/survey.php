@@ -93,31 +93,37 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
-	<DIV class="right f80 p05">Help put Socialists candidates on the ballot!</DIV>
+	<DIV class="right f80 p05">Help Put Socialist Candidates on the Ballot!</DIV>
 	
-		<h1>Draft AOC for President of the United States for 2028</h1>
+		<h1>Draft AOC for President of the United States in 2028</h1>
 	
 			<P class="f60">
-				Social Democrats of America is looking for Socialists to run or help other run for delegate to the Presidential 
-				Convention in 2028.
+				Social Democrats of America are seeking Socialists
+				to run or assist others in running for delegate to the 
+				Presidential Convention in 2028.
 			</P>
 			
 			<P CLASS="f60">
-				All the information about the convention is not yet out but the Democratic party of the state of <?= $result["SurveyPresDelInfo_StateName"] ?>
-				published a draft of the <A HREF="<?= $FrontEndStatic . $result["SurveyPresDocuments_RMBURL"] ?>" TARGET="DSP">Delegate Selection Plan</A>.
+				While not all the information about the convention has been released, 
+				the <A HREF="<?= $FrontEndStatic . $result["SurveyPresDocuments_RMBURL"] ?>" TARGET="DSP"> 
+				Democratic Party has already published a 
+				draft of their Delegate Selection Plan.
+				Delegate Selection Plan</A>.
 			</P>
 
 			<P CLASS="f60">
-				The goal is also to remove money from the electoral process so the way this draft campaign is setup is by collecting
-				in kind donations where each one of us perform easy tasks for the benefit of all. It could be from going to the county
-				chair and picking up a copy of the voter database, standing at a corner passing leftlets, drawing a logo, or anything
-				you feel will achieve the goal.
+				Our goal is also to remove money from the electoral process. This draft 
+				campaign is set up to rely on in-kind contributions, where each of us 
+				performs simple tasks for the benefit of the collective. These tasks 
+				could include picking up a copy of the voter database from the 
+				county chair, handing out flyers on a street corner, designing a logo, 
+				or any other activity that helps us reach our goal.
 			</P>
 
 			<P CLASS="f60">
-				The state of <?= $result["SurveyPresDelInfo_StateName"] ?> is allocated <?= $result["SurveyPresDelInfo_TotalDelegate"] ?> delegates. At
-				this time we need to find as many democrats to show support for a possible AOC candidacy. The goal is to find 
-				as many people to register as Democrat by <?= $result["SurveyPresDelInfo_LastDaySwitchParty"] ?>.
+				<?= $result["SurveyPresDelInfo_StateName"] ?> has been allocated <?= $result["SurveyPresDelInfo_TotalDelegate"] ?> delegates. Right now, we need to gather as many Democrats as possible to show support for a potential AOC candidacy. Our goal is to encourage as many 
+				people as possible to register as Democrats 
+				to back this effort by <?= $result["SurveyPresDelInfo_LastDaySwitchParty"] ?>.
 			</P>
 			
 			<FORM METHOD="POST" ACTION="">			
@@ -187,23 +193,22 @@
 			</P>
 		
 		<P class="f40">
-			By clicking the "Register" button, you are creating a 
-			RepMyBlock account, and you agree to RepMyBlock's 
+			By clicking the "Register" button, you are creating a RepMyBlock account and agreeing to RepMyBlock's
 			<A HREF="/text/terms">Terms of Use</A> and 
 			<A HREF="/text/privacy">Privacy Policy.</A>
 		</P>
 			
 
 			<P class="f60">
-				Watch this 26 minutes documentary that explains what it means to be part of the governance of the County Democratic party.
-			<B><A HREF="/<?= $middleuri ?>/register/movie">Click here to watch the whole documentary.</A></B>
-				<I>(Press the PLAY button and enter the password (all in uppercase) <FONT COLOR=BROWN><B>QCC4ALL</B></FONT> to access the documentary.)</I>
+				Watch this 26-minute documentary to understand what it means to be part of the governance of the County Democratic Party. 
+			<B><A HREF="/documentary">Click here to watch the whole documentary.</A></B>
+				<I>(Press the PLAY button and enter the password <FONT COLOR=BROWN><B>QCC4ALL</B></FONT> (all in uppercase) to access it.)</I>
 			</P>
 			
 			
 			<P class="f60">
-				Rep My Block is provided Free of Charge to any candidate that wishes to integrate 
-				its services. <B>Draft AOC's content does not reflect the Rep My Block tool.</B>
+				Rep My Block is provided free of charge to any candidate who wishes to use its services.
+				<B>Please note that Draft AOC's content is independent of the Rep My Block tool.</B>
 			</P>
 			
 </DIV>
