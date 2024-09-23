@@ -98,32 +98,31 @@
 		<h1>Draft AOC for President of the United States in 2028</h1>
 	
 			<P class="f60">
-				Social Democrats of America are seeking Socialists
-				to run or assist others in running for delegate to the 
-				Presidential Convention in 2028.
+				The Social Democrats of America are seeking Socialists to run or assist others in 
+				running as delegates to the Presidential Convention in 2028.
 			</P>
 			
 			<P CLASS="f60">
-				The information about the 2028 Democratic Convention has not been released, 
-				you can check <A HREF="<?= $FrontEndStatic . $result["SurveyPresDocuments_RMBURL"] ?>" TARGET="DSP">2024 drafts Delegate Selection Plan</A>
-				the <?= $result["SurveyPresDelInfo_StateName"] ?> Democratic Party released for Chicago.
+				Although the information about the 2028 Democratic Convention has not yet been released, 
+				you can review the 
+				<A HREF="<?= $FrontEndStatic . $result["SurveyPresDocuments_RMBURL"] ?>" TARGET="DSP">2024 draft of the Delegate Selection Plan</A> 
+				released by the 
+				<?= $result["SurveyPresDelInfo_StateName"] ?> Democratic Party 
+				for Chicago.
 			</P>
 
 			<P CLASS="f60">
-				Our goal is also to remove money from the electoral process. This draft 
-				campaign is set up to rely on in-kind contributions, where each of us 
-				performs simple tasks for the benefit of the collective. These tasks 
-				could include picking up a copy of the voter database from the 
-				county chair, handing out flyers on a street corner, designing a logo, 
-				or any other activity that helps us reach our goal.
+				Our goal is also to remove money from the electoral process. This draft campaign 
+				relies on in-kind contributions, where each of us performs simple tasks for the benefit of 
+				the collective. These tasks could include picking up a copy of the voter database from the 
+				county chair, handing out flyers on a street corner, designing a logo, or any other 
+				activity that helps us reach our goal.
 			</P>
 
 			<P CLASS="f60">
 				<?= $result["SurveyPresDelInfo_StateName"] ?> has been allocated <?= $result["SurveyPresDelInfo_TotalDelegate"] ?>
-				delegates. Right now, we need to gather as many Democrats as possible to show support for a potential 
-				AOC candidacy. Our goal is to encourage as many 
-				people as possible to register as Democrats 
-				as soon as possible. <?php /*= $result["SurveyPresDelInfo_LastDaySwitchParty"] */ ?>
+				delegates. Right now, we need to gather as many Democrats as possible to show support for a potential AOC candidacy. Our goal is to 
+				encourage as many people as possible to register as Democrats as soon as possible. <?php /*= $result["SurveyPresDelInfo_LastDaySwitchParty"] */ ?>
 			</P>
 			
 			<FORM METHOD="POST" ACTION="">			
