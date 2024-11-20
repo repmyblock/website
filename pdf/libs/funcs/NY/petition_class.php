@@ -252,6 +252,17 @@ class PDF_NY_Petition extends PDF_Code128 {
 
 	
 		$this->SetTextColor(0);
+		
+		/* This is not needed 
+		switch($this->party) {
+			case 'Democratic':
+				$this->Star(180,9,2,5,5,'DF');
+				break;
+			
+			case 'Republican':
+				$this->Circle(180,9,3.5,'F');
+				break;
+		} */
 
 		$this->SetY($this->LocationOfFooter);
    	$YLocation = $this->GetY() - 1.9;
@@ -415,7 +426,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 			$this->SetTextColor(0,0,255);
 			$this->SetXY(120, 132.5);
 			$this->Link(120, 130, 70, 25, "https://repmyblock.org/pet/training/steps/torun");
- 	   	$this->MultiCell(70, 8.2, "Petitioning will start in February 29, 2023 until April 6, 2023", 0, 'C'); 	   									
+ 	   	$this->MultiCell(70, 8.2, "Petitioning will start in February 29, 2025 until April 6, 2025", 0, 'C'); 	   									
  	   }
 		
 		$this->SetTextColor(0);
@@ -443,7 +454,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 				$this->SetFont('Arial','B',50);
 	    	$this->SetTextColor(255,192,203);
 	   		$this->RotatedText(35,190, $this->Watermark, 45);
-	   		$this->RotatedText(40,210, "election will be held in 2024", 45);
+	   		$this->RotatedText(40,210, "election will be held in 2025", 45);
 	   		$this->SetTextColor(0,0,0);
 			}
 		
@@ -465,6 +476,59 @@ class PDF_NY_Petition extends PDF_Code128 {
       $this->_out(sprintf('q %.5F %.5F %.5F %.5F %.2F %.2F cm 1 0 0 1 %.2F %.2F cm',$c,$s,-$s,$c,$cx,$cy,-$cx,-$cy));
     }
   }
+    
+  function Star($x, $y, $rin, $rout, $points, $style='D') {
+    if ($style=='F') $op = 'f';
+    else if ($style=='FD' || $style=='DF') $op = 'B';
+    else $op = 'S';
+    $dth = M_PI/$points;
+    $th = 0;
+    $k = $this->k;
+    $h = $this->h;
+    $points_string = '';
+    for ($i=0; $i<($points*2)+1; $i++) {
+        $th += $dth;
+        $cx = $x + (($i%2==0 ? $rin : $rout) * cos($th));
+        $cy = $y + (($i%2==0 ? $rin : $rout) * sin($th));
+        $points_string .= sprintf('%.2F %.2F', $cx*$k, ($h-$cy)*$k);
+        if ($i==0)
+            $points_string .= ' m ';
+        else
+            $points_string .= ' l ';
+    }
+    $this->_out($points_string . $op);
+	}
+	
+function Circle($x, $y, $r, $style='D') {
+	$this->Ellipse($x,$y,$r,$r,$style);
+}
+
+function Ellipse($x, $y, $rx, $ry, $style='D') {
+	if($style=='F') $op='f';
+	else if ($style=='FD' || $style=='DF') $op='B';
+	else $op='S';
+	$lx=4/3*(M_SQRT2-1)*$rx;
+	$ly=4/3*(M_SQRT2-1)*$ry;
+	$k=$this->k;
+	$h=$this->h;
+	$this->_out(sprintf('%.2F %.2F m %.2F %.2F %.2F %.2F %.2F %.2F c',
+	    ($x+$rx)*$k,($h-$y)*$k,
+	    ($x+$rx)*$k,($h-($y-$ly))*$k,
+	    ($x+$lx)*$k,($h-($y-$ry))*$k,
+	    $x*$k,($h-($y-$ry))*$k));
+	$this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c',
+	    ($x-$lx)*$k,($h-($y-$ry))*$k,
+	    ($x-$rx)*$k,($h-($y-$ly))*$k,
+	    ($x-$rx)*$k,($h-$y)*$k));
+	$this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c',
+	    ($x-$rx)*$k,($h-($y+$ly))*$k,
+	    ($x-$lx)*$k,($h-($y+$ry))*$k,
+	    $x*$k,($h-($y+$ry))*$k));
+	$this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c %s',
+	    ($x+$lx)*$k,($h-($y+$ry))*$k,
+	    ($x+$rx)*$k,($h-($y+$ly))*$k,
+	    ($x+$rx)*$k,($h-$y)*$k,$op));
+}
     
   function RotatedText($x, $y, $txt, $angle) {
 	  //Text rotated around its origin

@@ -107,7 +107,7 @@ switch ($Variable) {
 		
 		$EDAD = sprintf('%02d%03d', $VoterResult[0]["DataDistrict_StateAssembly"], $VoterResult[0]["DataDistrict_Electoral"]);
 		
-		$MySQLDate = "2023-06-27";
+		$MySQLDate = "2025-06-27";
 		$result[0]["Elections_Date"] = PrintShortDate($MySQLDate);
 		$result[0]["CandidateParty"] = PrintPartyAdjective($VoterResult[0]["Voters_RegParty"]);
 	

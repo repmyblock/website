@@ -2,9 +2,8 @@
 // This is the petition frame
 // Make sure the name of the function name matches the file name version_<uniqname>.php.
 
-// Built by Mike Hano for 2022.
+// Built by Mike Hano for 2024.
 function version_NY_hano ($pdf, $InfoArray) {
-
 	
 	for ($i = 0; $i < $TotalCountName; $i++) {
 		$Counter++;
@@ -32,9 +31,7 @@ function version_NY_hano ($pdf, $InfoArray) {
 			$Counter = 0;
 			$pdf->AddPage();
 		}	
-		
-		
-		
+
 	}
 
 	// This is the last 
@@ -172,4 +169,6 @@ function version_NY_hano ($pdf, $InfoArray) {
 	$pdf->BottonPt = $YLocation + 1.9;
 	
 }
+
+
 ?>
