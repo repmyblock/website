@@ -382,10 +382,10 @@ class RepMyBlock extends queries {
 	
 	function FindElectionsAvailable ($DataState_ID = NULL, $Party = NULL, $CandidateElectionID = NULL) {
 		$sql = "SELECT * FROM ElectionsPosition " .
-			"LEFT JOIN DataState ON (DataState.DataState_ID = ElectionsPosition.DataState_ID) ";
+						"LEFT JOIN DataState ON (DataState.DataState_ID = ElectionsPosition.DataState_ID) ";
 		$sql_vars = array();
 		
-		if ( ! empty($DataState_ID) ||! empty($Party) || ! empty($CandidateElectionID) ) {
+		if ( ! empty($DataState_ID) || ! empty($Party) || ! empty($CandidateElectionID) ) {
 			$sql .= "WHERE ";
 		}	
 		
@@ -401,12 +401,12 @@ class RepMyBlock extends queries {
 		}
 		
 		if ( ! empty ($Party)) {
-			if ( ! empty($CandidateElectionID) && ! empty($DataState_ID)) { $sql .= " AND "; }
+			if ( ! empty($CandidateElectionID) || ! empty($DataState_ID)) { $sql .= " AND "; }
 			$sql .= " (" . 
 							"(ElectionsPosition_Type = 'party' AND ElectionsPosition_Party = :Party) ".
 							"OR " .
 							"(ElectionsPosition_Type = 'office' AND ElectionsPosition_Party IS NULL) " .
-							")";
+							") ";
 			$sql_vars["Party"] = $Party;
 		} 
 		/* else {
@@ -414,7 +414,7 @@ class RepMyBlock extends queries {
 		} */
 	
 		$sql .= "ORDER BY ElectionsPosition_Order";
-	
+		
 	  return $this->_return_multiple($sql, $sql_vars);
 	}
 	

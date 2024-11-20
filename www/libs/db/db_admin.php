@@ -32,6 +32,15 @@ class RMBAdmin extends RepMyBlock {
 		}
 	}
 	
+	function ListPositions() {
+		
+		$sql = "SELECT * FROM ElectionsPosition " . 
+						"LEFT JOIN DataState ON (ElectionsPosition.DataState_ID = DataState.DataState_ID)";
+		$sql_vars = array();
+		
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
 	function UpdateBulkSystemPriv($PrivModification, $SystemUserID = NULL) {
 		
 		$sql = "UPDATE SystemUser SET SystemUser_Priv = SystemUser_Priv";
@@ -183,8 +192,7 @@ class RMBAdmin extends RepMyBlock {
 						"LEFT JOIN DataDistrict ON (DataDistrict.DataDistrict_ID = DataDistrictTemporal.DataDistrict_ID ) " . 
 						"LEFT JOIN DataDistrictTown ON (DataDistrict.DataDistrictTown_ID = DataDistrictTown.DataDistrictTown_ID) " . 
 						"WHERE " ;
-						
-						
+			
 		$and = "";
 		foreach ($QueryFields as $var => $index) {			
 			if ( ! empty ($index)) {
@@ -208,7 +216,6 @@ class RMBAdmin extends RepMyBlock {
 						$sql .= $and . " VotersIndexes_UniqStateVoterID = :UniqNYS";
 						$sql_vars["UniqNYS"] = $index;
 						break;
-					
 					
 					case 'AssemblyDistr':
 						$sql .= $and . " DataDistrict_StateAssembly = :AD";

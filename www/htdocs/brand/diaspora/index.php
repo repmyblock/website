@@ -7,25 +7,16 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
-	<DIV class="right f80 p10">Help put Socialists candidates on the ballot!</DIV>
+	<DIV class="right f80 p10">Help candidates that represent your diaspora in New York State!</DIV>
 	
 		<P>
-			Help elect Socialists candidates across New York State in 2025.
+			Help elect candidates that represent your community across New York State in 2025.
 		</P>
 		
 		<P class="f80bold center">
 				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/check">Click here to verify 
-					your eligibility to help Socialist candidates!</A>
+					your eligibility!</A>
 		</P>
-	
-	
-		<P>
-			<P class="f50">
-				Social Democrats of America is looking for Socialists to pledge their signatures 
-				to get a slate of 
-				Socialists across New York State. <B>We'll email you a real petition like this 
-				<A HREF="<?= $FrontEndPDF ?>/5f2092f38550/NY/petition" TARGET="new">sample petition</A></B>.
-			</P>
 	
 		<P>
 	<DIV class="videowrapper center">
@@ -34,9 +25,6 @@
 		</P>
 	
 	
-		
-	
-		
 			
 			<?php /*
 			<P class="f80bold center">
@@ -46,15 +34,10 @@
 			</P>
 			*/ ?>
 
-			<P class="f80bold center">
+				<P class="f80bold center">
 				<A HREF="/<?= $middleuri ?>/brand/<?= $BrandingName ?>/check">Click here to verify 
-					your eligibility to help Socialist candidates!</A>
+					your eligibility!</A>
 		</P>
-			
-				<P class="f50">
-				Watch this 26 minutes documentary that explains what it means to be part of the governance of the County Democratic party.
-			<B><A HREF="/<?= $middleuri ?>/register/movie">Click here to watch the whole documentary.</A></B>
-			</P>
 			
 			<P class="f60">
 				Rep My Block is provided Free of Charge to any candidate that wishes to integrate 

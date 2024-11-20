@@ -61,7 +61,7 @@
 							
 							<P class="f80 center adpad"><A HREF="/<?= $middleuri ?>/register/user">Register on the Rep My Block website</A></P>
 	
-	
+	<a name="higheroffice"></A> 
 	<P class="BckGrndElement f80 center">RUNNING FOR HIGHER OFFICE</P>
 
 	<P class="f40 adpad">
@@ -84,6 +84,7 @@
 	
 	<P class="f80 center adpad"><A HREF="/<?= $middleuri ?>/register/user">Register on the Rep My Block website</A></P>
 	
+	<a name="tendencies"></A>
 	<P class="BckGrndElement f80 center">THE MAJOR POLITICAL TENDENCIES</P>
 	
 	<P class="f40 adpad">

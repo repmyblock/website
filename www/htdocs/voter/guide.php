@@ -85,10 +85,13 @@
 			switch ($var["ElectionsPosition_Location"]) {
 				case "table":
 					
+					echo "<PRE>" . print_r($resultzip,1) . "</PRE>";
+					
+					
 					foreach ($resultzip as $vor) { // This is to check the type of geographical location								
 						$ADEDValue = $vor["DataDistrict_StateAssembly"]  . str_pad($vor["DataDistrict_Electoral"], 3, "0", STR_PAD_LEFT);
 						foreach($result as $vir) {  // Does the candidate fall into the geographical area?
-							if ( $vir["CANDDTABLE"] == "ADED" && $vir["CANDVALUE"] == $ADEDValue) {
+							if ( $vir[$vor["ElectionsPosition_DBTableName"]] == "ADED" && $vir["CANDVALUE"] == $ADEDValue) {
 								$ListCandidate[$vir["Elections_Date"]][$vir["CANDPROFID"]] = $vir;
 							}
 						}
@@ -127,6 +130,9 @@
 				}
 			}
 		}
+		
+		#print "<PRE>" . print_r($result,1) . "</PRE>";
+		
 		
 	} else {
 		
