@@ -92,14 +92,13 @@
 		is non-partisan; therefore, we welcome all ideologies and help them contact the local 
 		representatives of those ideologies.
 	</P>
-	
 
   <UL class="f40 adpad">
   	<IMG SRC="/toplinks/PoliticalTendencies.jpg"><BR>
   	<B><A TARGET="political" TARGET="political" HREF="https://patriots.eu">Patriots</A>:</B> Conservative Party USA: <A TARGET="political" HREF="https://conservativepartyusa.org">https://conservativepartyusa.org</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://www.idu.org">Democrat Union</A>:</B> Republican National Committee: <A TARGET="political" HREF="https://gop.com">https://gop.com</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://ialp.com">International Alliance of Libertarian Parties</A>:</B> Libertarian: <A TARGET="political" HREF="https://www.lp.org">https://www.lp.org</A><BR>
-    <B><A TARGET="political" TARGET="political" HREF="https://www.idc-cdi.com">Centrist Democrat</A>:</B> Frederick Douglass Freedom Alliance: <A TARGET="political" HREF="https://fdfalliance.org/">https://fdfalliance.org/</A><BR>
+    <B><A TARGET="political" TARGET="political" HREF="https://www.idc-cdi.com">Centrist Democrat</A>:</B> Frederick Douglass Freedom Alliance: <A TARGET="political" HREF="https://fdfalliance.org">https://fdfalliance.org</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://liberal-international.org">Liberals and centrists</A>:</B> Center for New Liberalism: <A TARGET="political" HREF="https://cnliberalism.org">https://cnliberalism.org</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://progressive-alliance.info">Progressive Alliance</A>:</B> Progressive Democrats of America: <A TARGET="political" HREF="https://pdamerica.org">https://pdamerica.org</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://socialistinternational.org">Social democrats and Socialists</A>:</B> Social Democrats of America: <A TARGET="political" HREF="https://socialists.us">https://socialists.us</A><BR>
