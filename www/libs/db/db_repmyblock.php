@@ -786,7 +786,7 @@ class RepMyBlock extends queries {
 						
 		switch ($Type) {	
 			case "ADED":
-				$sql .= "AND ElectionsPosition_DBTable = \"ADED\"";
+				$sql .= "AND ElectionsPosition_DBTable = \"ADED\" ";
 				break;
 							
 			default:

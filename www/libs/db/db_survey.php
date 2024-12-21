@@ -12,6 +12,20 @@ class survey extends queries {
 	 	$this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
+  function ListSurveyFromAPI($APIStr = NULL) {
+  	if (! empty ($APIStr)) {
+	  	return $this->_return_multiple(
+	  		"SELECT * FROM SystemAPI LEFT JOIN SurveyPresUser ON (SystemAPI.Candidate_ID = SurveyPresUser.Candidate_ID ) " . 
+	  		"WHERE SystemAPI_Txt = :SystemAPITxt", 
+				array("SystemAPITxt" => $APIStr));
+		}
+  }
+  
+  function ListSurvey($Candidate_ID = NULL) {
+	  return $this->_return_multiple("SELECT * FROM SurveyPresUser WHERE Candidate_ID = :Candidate_ID", 
+			array("Candidate_ID" => $Candidate_ID));
+  }
+  
   function FindState($CandidateID, $StateInfo) {  	
 		return $this->_return_simple("SELECT * FROM SurveyPresDelInfo " . 
 						" LEFT JOIN SurveyPresDocuments ON " . 
