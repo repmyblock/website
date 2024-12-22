@@ -82,8 +82,9 @@
 				</div>
 
 				<div class="list-group-item f60">
-						SystemUser_ID: <FONT COLOR=BROWN><?= $result["SystemUser_ID"] ?></FONT>
-						SystemUserProfile_ID: <FONT COLOR=BROWN><?= $result["SystemUserProfile_ID"] ?></FONT>
+						<B>SystemUser_ID: <FONT COLOR=BROWN><?= $result["SystemUser_ID"] ?></FONT>
+							SystemUserProfile_ID: <FONT COLOR=BROWN><?= $result["SystemUserProfile_ID"] ?></FONT>
+						</B>
 					<BR>
 						Last Login <FONT COLOR=BROWN><?= PrintDateTime($result["SystemUser_lastlogintime"]); ?></FONT>
 						Create Time <FONT COLOR=BROWN><?= PrintDateTime($result["SystemUser_createtime"]); ?></FONT>
@@ -101,6 +102,10 @@
 						Party <FONT COLOR=BROWN><?= $result["SystemUser_Party"] ?></FONT>
 				</div>
 
+				<div class="list-group-item f60">
+					<button type="submit" class="submitred">Reset the User ID</BUTTON>
+				</DIV>
+
 				<div class="list-group-item f60">Priv 
 					<FONT COLOR=BROWN><?= $result["SystemUser_Priv"] ?></FONT>
 					<UL>
@@ -117,7 +122,8 @@
 						}					
 					?>
 					<BR>
-					<INPUT TYPE="checkbox" name="Priviledges[]" value="<?= PERM_SUPERUSER ?>"<?php if ($result["SystemUser_Priv"] == PERM_SUPERUSER) { echo " CHECKED"; } ?>>&nbsp;PERM_SUPERUSER
+					<INPUT TYPE="checkbox" name="Priviledges[]" value="<?= PERM_SUPERUSER ?>"<?php if ($result["SystemUser_Priv"] == PERM_SUPERUSER) { echo " CHECKED"; } ?>>&nbsp;PERM_SUPERUSER<BR>
+					<INPUT TYPE="checkbox" name="Priviledges[]" value="PERM_RESET">&nbsp;PERM_RESET
 
 					
 				</UL>
