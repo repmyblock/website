@@ -12,9 +12,7 @@
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $URIEncryptedString["MenuDescription"] = "District Not Defined";}	
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
 	
-	
-
-	if ( ! empty ($_POST["Year"])) {
+	if ( ! empty ($_POST["Year"]) && ! empty ($_POST["Day"]) && ! empty ($_POST["Month"])) {
 		WriteStderr($_POST, "Input \$_POST");
 
 		// Search in the database.
@@ -41,7 +39,7 @@
 											"<FONT COLOR=BROWN>born</FONT> " . PrintShortDate($DOB) . " <FONT COLOR=BROWN>in our database.<BR></B></FONT> " .
 											"It my not be your fault. We get our data from the Board of Election files and sometimes they contain errors. " .
 											"If you believe it's a mistake, check your registration with the local board of election on their website." . 
-				"</P>";
+											"</P>";
 				break;			
 			
 			case 1:				
@@ -78,6 +76,11 @@
 							))   . "/lgd/profile/select");
 				exit();
 		}		
+	} else {
+		if (  ! empty ($_POST["Year"]) || ! empty ($_POST["Day"]) || ! empty ($_POST["Month"])) {
+			$error_msg = "<P class=\"f60\"><B><FONT COLOR=BROWN>Please enter your full date of birth to locate your voter registration card.</FONT></B>" .
+											"</P>";
+		}
 	}
 	
 	// This is because we'll add some logic later.
@@ -131,12 +134,21 @@
 									</dd>
 								</dl>
 							</DIV>
+							
+						
 			
 							<DIV>
 								<dt><label for="user_profile_email" class="f40">Date of Birth</label></dt>	
+								
+								
+								
+								
 								<dl class="form-group col-4 d-inline-block">
+									
+									
+									
 									<dd>
-										<input class="f40" class="" type="text" name="Day" id="" Placeholder="Day"<?= $SizeField ?>>
+										<input class="f40" class="" type="text" name="Day" id="" Placeholder="Day"<?= $SizeField ?><?php if (!empty ($_POST["Day"])) { echo " VALUE=" . $_POST["Day"]; } ?>>
 									</DD>
 								</DL>  
 							
@@ -144,25 +156,25 @@
 									<DD>
 										<select class="f40" class="form-select" name="Month" id="">
 											<option value="">Select month</option>
-											<option value="01">January</option>
-											<option value="02">February</option>
-											<option value="03">March</option>
-											<option value="04">April</option>
-											<option value="05">May</option>
-											<option value="06">June</option>
-											<option value="07">July</option>
-											<option value="08">August</option>
-											<option value="09">September</option>
-											<option value="10">October</option>
-											<option value="11">November</option>
-											<option value="12">December</option>
+											<option value="01"<?php if($_POST["Month"] == "01") { echo " SELECTED"; } ?>>January</option>
+											<option value="02"<?php if($_POST["Month"] == "02") { echo " SELECTED"; } ?>>February</option>
+											<option value="03"<?php if($_POST["Month"] == "03") { echo " SELECTED"; } ?>>March</option>
+											<option value="04"<?php if($_POST["Month"] == "04") { echo " SELECTED"; } ?>>April</option>
+											<option value="05"<?php if($_POST["Month"] == "05") { echo " SELECTED"; } ?>>May</option>
+											<option value="06"<?php if($_POST["Month"] == "06") { echo " SELECTED"; } ?>>June</option>
+											<option value="07"<?php if($_POST["Month"] == "07") { echo " SELECTED"; } ?>>July</option>
+											<option value="08"<?php if($_POST["Month"] == "08") { echo " SELECTED"; } ?>>August</option>
+											<option value="09"<?php if($_POST["Month"] == "09") { echo " SELECTED"; } ?>>September</option>
+											<option value="10"<?php if($_POST["Month"] == "10") { echo " SELECTED"; } ?>>October</option>
+											<option value="11"<?php if($_POST["Month"] == "11") { echo " SELECTED"; } ?>>November</option>
+											<option value="12"<?php if($_POST["Month"] == "12") { echo " SELECTED"; } ?>>December</option>
 										</select>
 									</DD>
 								</DL>  
 			
 								<dl class="form-group col-3  d-inline-block">      
 									<DD>
-										<input class="f40" class="form-control" type="text" Placeholder="Year" name="Year" id=""<?= $SizeField ?>>
+										<input class="f40" class="form-control" type="text" Placeholder="Year" name="Year" id=""<?= $SizeField ?><?php if (!empty ($_POST["Year"])) { echo " VALUE=" . $_POST["Year"]; } ?>>
 									<dd>
 								</dl>
 			
