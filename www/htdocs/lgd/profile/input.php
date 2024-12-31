@@ -12,77 +12,86 @@
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $URIEncryptedString["MenuDescription"] = "District Not Defined";}	
 	$Party = PrintParty($URIEncryptedString["UserParty"]);
 	
-	if ( ! empty ($_POST["Year"]) && ! empty ($_POST["Day"]) && ! empty ($_POST["Month"])) {
-		WriteStderr($_POST, "Input \$_POST");
-
-		// Search in the database.
-		if ( $_POST["Year"] < 100 ) {
-			if ( $_POST["Year"] > 05) { $Year = "19" . trim($_POST["Year"]);
-			} else { $Year = "20" . trim($_POST["Year"]); }
-		} else { $Year = trim($_POST["Year"]); }
-		
-		// We need to put verification on the first and lastname so they don't pass 
-		// bogus data.		
-		$DBFirstName = $_POST["FirstName"];
-		$DBLastName = $_POST["LastName"];
-		$DOB = $Year . "-" .  trim($_POST["Month"]) . "-" .  trim($_POST["Day"]);
-		
-		// Before we go and search the Database, we need to check that the DOB info is right.
-		
-	 	$result = $rmb->SearchVoterDB($DBFirstName, $DBLastName, $DOB, "active");
-		WriteStderr($result, "SearchVoterDB(DBFirstName: $DBFirstName, DBLastName: $DBLastName, DOB: $DOB)");
-		
-		switch(count($result)) {
-			case 0:
-				//echo "Did not find anything\n";
-				$error_msg = "<P class=\"f60\"><FONT COLOR=BROWN><B>We don't have</FONT> $DBFirstName $DBLastName " . 
-											"<FONT COLOR=BROWN>born</FONT> " . PrintShortDate($DOB) . " <FONT COLOR=BROWN>in our database.<BR></B></FONT> " .
-											"It my not be your fault. We get our data from the Board of Election files and sometimes they contain errors. " .
-											"If you believe it's a mistake, check your registration with the local board of election on their website." . 
-											"</P>";
-				break;			
-			
-			case 1:				
-				header("Location: /" .CreateEncoded ( array( 
-								"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-								"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
-								"FirstName" => $URIEncryptedString["FirstName"],
-								"LastName" => $URIEncryptedString["LastName"],
-								"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
-								"UniqNYSVoterID" => $result[0]["Raw_Voter_UniqNYSVoterID"],
-								"UserParty" => $result[0]["Raw_Voter_RegParty"]
-							))  . "/lgd/profile/result");
-				exit();
-			
-			default:
-				if ( ! empty ($result)) {
-					foreach($result as $var) {
-						if ( ! empty ($var)) {
-							$EncryptURL .= "&vi[]=" . $var["VotersIndexes_ID"];
-						}	
-					}
-				}
-				
-				header("Location: /" . CreateEncoded ( array( 
-								"SystemUser_ID" => $resultPass["SystemUser_ID"],
-								"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
-								"FirstName" => $resultPass["SystemUser_FirstName"],
-								"LastName" => $resultPass["SystemUser_LastName"],
-								"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
-								"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
-								"UserParty" => $resultPass["Raw_Voter_RegParty"],
-								"SystemUser_Priv" => $resultPass["SystemUser_Priv"],
-								"vi[]" => $var["VotersIndexes_ID"]
-							))   . "/lgd/profile/select");
-				exit();
-		}		
+	
+	if ( empty(trim($_POST["FirstName"])) && empty (trim($_POST["LastName"]))) {
+		$error_msg = "<P class=\"f60\"><B><FONT COLOR=BROWN>Please enter your full name to locate your voter registration card.</FONT></B>" .
+												"</P>";
+												
 	} else {
-		if (  ! empty ($_POST["Year"]) || ! empty ($_POST["Day"]) || ! empty ($_POST["Month"])) {
-			$error_msg = "<P class=\"f60\"><B><FONT COLOR=BROWN>Please enter your full date of birth to locate your voter registration card.</FONT></B>" .
-											"</P>";
+			
+		if ( ! empty (trim($_POST["Year"])) && ! empty (trim($_POST["Day"])) && ! empty ($_POST["Month"]) && 
+					ctype_digit(trim($_POST["Day"])) && ctype_digit(trim($_POST["Year"])) && trim($_POST["Day"]) < 32) {
+			WriteStderr($_POST, "Input \$_POST");
+	
+			// Search in the database.
+			if ( $_POST["Year"] < 100 ) {
+				if ( $_POST["Year"] > 05) { $Year = "19" . trim($_POST["Year"]);
+				} else { $Year = "20" . trim($_POST["Year"]); }
+			} else { $Year = trim($_POST["Year"]); }
+			
+			// We need to put verification on the first and lastname so they don't pass 
+			// bogus data.		
+			$DBFirstName = $_POST["FirstName"];
+			$DBLastName = $_POST["LastName"];
+			$DOB = $Year . "-" .  trim($_POST["Month"]) . "-" .  trim($_POST["Day"]);
+			
+			// Before we go and search the Database, we need to check that the DOB info is right.
+			
+		 	$result = $rmb->SearchVoterDB($DBFirstName, $DBLastName, $DOB, "active");
+			WriteStderr($result, "SearchVoterDB(DBFirstName: $DBFirstName, DBLastName: $DBLastName, DOB: $DOB)");
+			
+			switch(count($result)) {
+				case 0:
+					//echo "Did not find anything\n";
+					$error_msg = "<P class=\"f60\"><FONT COLOR=BROWN><B>We don't have</FONT> $DBFirstName $DBLastName " . 
+												"<FONT COLOR=BROWN>born</FONT> " . PrintShortDate($DOB) . " <FONT COLOR=BROWN>in our database.<BR></B></FONT> " .
+												"It my not be your fault. We get our data from the Board of Election files and sometimes they contain errors. " .
+												"If you believe it's a mistake, check your registration with the local board of election on their website." . 
+												"</P>";
+					break;			
+				
+				case 1:				
+					header("Location: /" .CreateEncoded ( array( 
+									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+									"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+									"FirstName" => $URIEncryptedString["FirstName"],
+									"LastName" => $URIEncryptedString["LastName"],
+									"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
+									"UniqNYSVoterID" => $result[0]["Raw_Voter_UniqNYSVoterID"],
+									"UserParty" => $result[0]["Raw_Voter_RegParty"]
+								))  . "/lgd/profile/result");
+					exit();
+				
+				default:
+					if ( ! empty ($result)) {
+						foreach($result as $var) {
+							if ( ! empty ($var)) {
+								$EncryptURL .= "&vi[]=" . $var["VotersIndexes_ID"];
+							}	
+						}
+					}
+					
+					header("Location: /" . CreateEncoded ( array( 
+									"SystemUser_ID" => $resultPass["SystemUser_ID"],
+									"Raw_Voter_ID" => $resultPass["Raw_Voter_ID"],
+									"FirstName" => $resultPass["SystemUser_FirstName"],
+									"LastName" => $resultPass["SystemUser_LastName"],
+									"VotersIndexes_ID" => $result[0]["VotersIndexes_ID"],
+									"UniqNYSVoterID" => $resultPass["Raw_Voter_UniqNYSVoterID"],
+									"UserParty" => $resultPass["Raw_Voter_RegParty"],
+									"SystemUser_Priv" => $resultPass["SystemUser_Priv"],
+									"vi[]" => $var["VotersIndexes_ID"]
+								))   . "/lgd/profile/select");
+					exit();
+			}		
+		} else {
+			if (  ! empty ($_POST["Year"]) || ! empty ($_POST["Day"]) || ! empty ($_POST["Month"])) {
+				$error_msg = "<P class=\"f60\"><B><FONT COLOR=BROWN>Please enter your full date of birth to locate your voter registration card.</FONT></B>" .
+												"</P>";
+			}
 		}
 	}
-	
+		
 	// This is because we'll add some logic later.
 	$FirstName = $URIEncryptedString["FirstName"];
 	$LastName = $URIEncryptedString["LastName"];

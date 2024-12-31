@@ -38,11 +38,10 @@
 				?>	
 				<P class="f60">
 						Download a 
+						
 						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/<?= $result[0]["CandidateSet_Random"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/petition">blank petition</A>
 						<A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/<?= $result[0]["CandidateSet_Random"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/petition"><i class="fa fa-download" aria-hidden="true"></i></A> 
-						
-						
-						
+
 						and a
 						
 						<A TARGET="BLANKPETITION2" HREF="<?= $FrontEndPDF ?>/<?= $NewKEncrypt ?>/rmb/voterlist">list of voters</A>
@@ -65,7 +64,7 @@
 
 				<DIV class="videowrapper">
 					<CENTER>
-				 		<iframe src="https://www.youtube.com/embed/XUGFbBCcIS4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				 		<iframe src="https://www.youtube.com/embed/YfGzXMOvRhZjY5_u?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 					</CENTER>
 				</DIV>
 
