@@ -472,7 +472,7 @@ class RepMyBlock extends queries {
 	}
 
 	function ListElectedPositions($StateAbbrev, $StateID = NULL, $PositionID = NULL, $Party = NULL, $PositionCode = NULL) {
-		$sql = "SELECT * FROM  DataState " .
+		$sql = "SELECT * FROM DataState " .
 						"LEFT JOIN ElectionsPosition ON (DataState.DataState_ID = ElectionsPosition.DataState_ID) ";
 						
 		$sql_vars = array();
@@ -798,8 +798,9 @@ class RepMyBlock extends queries {
 		return $this->_return_multiple($sql);
 	}
 	
-	function ListElectionsDates ($limit = 50, $start = 0, $futureonly = false, $StateID = NULL) {
-		$sql = "SELECT DISTINCT DataState.DataState_ID, DataState.DataState_Name, DataState_Abbrev, Elections_Text, Elections_Date, Elections_Type " .
+	function ListElectionsDates ($limit = 50, $start = 0, $futureonly = false, $StateID = NULL, $ElectionID = NULL) {
+		$sql = "SELECT DISTINCT DataState.DataState_ID, DataState.DataState_Name, DataState_Abbrev, Elections_Text, Elections_Date, Elections_Type, " . 
+						"Elections.Elections_ID " .
 						"FROM DataState " . 
 						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.DataState_ID = DataState.DataState_ID) " .
 						"LEFT JOIN CandidateElection ON (ElectionsPosition.ElectionsPosition_ID = CandidateElection.ElectionsPosition_ID) " . 
@@ -812,7 +813,13 @@ class RepMyBlock extends queries {
 		} else {
 			if ( $StateID > 0 ) { $sql .= "WHERE DataState.DataState_ID = :StateID "; }
 		}
-		if ( empty ($StateID)) { $sql .= "WHERE Elections_Date is NOT NULL ";	}
+		
+		if ( ! empty($ElectionID)) { 
+			$sql .= "WHERE Elections.Elections_ID = :ElectionID ";
+			return $this->_return_multiple($sql, array("ElectionID" => $ElectionID));
+		}
+	
+		if ( empty ($StateID)) { $sql .= "WHERE Elections_Date is NOT NULL ";	}	
 		$sql .= "ORDER BY Elections_Date, Elections_Type LIMIT $start, $limit";	
 
 		if ( $StateID > 0) {
@@ -824,8 +831,9 @@ class RepMyBlock extends queries {
 	}
 	
 	function ListStates() {
-		$sql = "SELECT * FROM DataState ORDER BY DataState.DataState_Abbrev";
-		return $this->_return_multiple($sql);
+		return $this->_return_multiple(
+			"SELECT * FROM DataState ORDER BY DataState_Abbrev"
+		);
 	}
 	
 	function CandidateElection($DBTable, $DBTableValue, $FromDate = NULL,  $Party = NULL, $ElectionID = NULL) {

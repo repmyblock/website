@@ -8,6 +8,35 @@ class RMBAdmin extends RepMyBlock {
 		$sql = "SELECT * FROM AdminCode";							
 		return $this->_return_multiple($sql);
 	}
+	
+	function ResetVoterCard ($SystemUserID) {
+		if ( $SystemUserID > 0) {
+			$this->_return_nothing(
+					"UPDATE SystemUser SET Voters_ID = NULL, Voters_UniqStateVoterID = NULL, SystemUser_EDAD = NULL, SystemUser_NumVoters = NULL, " .
+					"SystemUser_StateAbbrev = NULL, SystemUser_Party = NULL " .
+					"WHERE SystemUser_ID = :SystemUserID", array("SystemUserID" => $SystemUserID)
+			);
+			
+			$this->_return_nothing(
+					"DELETE FROM SystemUserSelfDistrict WHERE SystemUser_ID = :SystemUserID", array("SystemUserID" => $SystemUserID)
+			);
+			
+		}		
+	}
+	
+	function UpdateElectionDate($ElectionID, $NewElectionDate = NULL, $NewElectionsText = NULL, $NewStateID = NULL, $NewElectionType = NULL) {
+		if ( $ElectionID > 0) {			
+			$sql = "UPDATE Elections SET ";
+			$comma = "";
+			$sql_vars = array("ElectionsID" => $ElectionID);
+			if ( ! empty ($NewStateID)) { $sql .= "DataState_ID = :DataStateID"; $sql_vars["DataStateID"] = $NewStateID; $comma = ","; }
+			if ( ! empty ($NewElectionsText)) { $sql .= $comma . "Elections_Text = :ElectionText"; $sql_vars["ElectionText"] = $NewElectionsText; $comma = ","; }
+			if ( ! empty ($NewElectionDate)) { $sql .= $comma . "Elections_Date = :ElectionDate" ; $sql_vars["ElectionDate"] = $NewElectionDate; $comma = ","; }
+			if ( ! empty ($NewElectionType)) { $sql .= $comma . "Elections_Type = :ElectionType"; $sql_vars["ElectionType"] = $NewElectionType; $comma = ","; }
+			$sql .= " WHERE Elections_ID = :ElectionsID";
+			if ( ! empty ($comma)) { return $this->_return_nothing($sql, $sql_vars); }
+		}
+	}
 
 	function AddElectionDates($ElectionText, $ElectionDate, $ElectionStateID, $ElectionType) {
 		if (empty($ElectionText) && empty($ElectionDate) && empty($ElectionStateID) && empty($ElectionType) ){
