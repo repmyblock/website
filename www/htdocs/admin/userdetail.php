@@ -31,23 +31,25 @@
 		}
 	}
 	
-	if ( ! empty ($_POST)) {
-		
+	if ( ! empty ($_POST)) {	
 		WriteStderr($_POST, "Setting Up Privleges, Received POST");
 		$TotalPrivs = 0;
 		
 		if ( ! empty ($_POST["Priviledges"])) {
-			foreach ($_POST["Priviledges"] as $var) {
-				if ($var == PERM_SUPERUSER) { $TotalPrivs = $var; }
-				else { $TotalPrivs += $var; }
+			foreach ($_POST["Priviledges"] as $var) {	
+				if ($var == "PERM_RESET") { 
+					$rmb->ResetVoterCard($URIEncryptedString["UserDetail"]);
+				} else {				
+					if ($var == PERM_SUPERUSER) { $TotalPrivs = $var; }
+					else { $TotalPrivs += $var; }
+				}
 			}
-	
 			WriteStderr($URIEncryptedString["UserDetail"], "Total Privs: $TotalPrivs for ");		
 			$rmb->UpdateSystemSetPriv($URIEncryptedString["UserDetail"], $TotalPrivs);
 		} else if ( $result["SystemUser_Priv"] > 0) {
 			$rmb->UpdateSystemSetPriv($URIEncryptedString["UserDetail"], 0);
 		}
-		
+
 		header("Location: /" . $TheNewK . "/admin/userdetail");
 	}
 	

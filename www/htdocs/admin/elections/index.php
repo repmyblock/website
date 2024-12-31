@@ -23,8 +23,8 @@
 	WriteStderr($result, "ListElections");
 	
 	$TopMenus = array ( 						
-		array("k" => $k, "url" => "../admin/setup_elections", "text" => "Elections Dates"),
-		array("k" => $k, "url" => "../admin/setup_dates", "text" => "Election Positions"),
+		array("k" => $k, "url" => "../admin/elections/index", "text" => "Election Positions"),
+		array("k" => $k, "url" => "../admin/elections/datemgmt", "text" => "Elections Dates"),
 		array("k" => $k, "url" => "../admin/setup_candidate", "text" => "Candidate")
 	);
 	
@@ -38,7 +38,7 @@
     
 			  <!-- Public Profile -->
 			  <div class="Subhead mt-0 mb-0">
-			    <h2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</h2>
+			    <h2 id="public-profile-heading" class="Subhead-heading">Election Setups</h2>
 			  </div>
 				
 				<?php	PlurialMenu($k, $TopMenus); ?>    

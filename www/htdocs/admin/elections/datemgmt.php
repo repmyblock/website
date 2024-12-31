@@ -1,15 +1,12 @@
 <?php
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	$Menu = "admin";
-	$BigMenu = "represent";	
-	
-	$State = "NY";
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 
-	if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
+	if ( empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 	$rmb = new repmyblock();	
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
@@ -19,11 +16,10 @@
 	WriteStderr($result, "ListElectedPositions");
 	
 	$TopMenus = array ( 						
-		array("k" => $k, "url" => "../admin/setup_elections", "text" => "Race Type"),
-		array("k" => $k, "url" => "../admin/setup_dates", "text" => "Elections Dates"),
-		array("k" => $k, "url" => "../admin/setup_candidate", "text" => "Candidate Profile")
+		array("k" => $k, "url" => "../admin/elections/index", "text" => "Election Positions"),
+		array("k" => $k, "url" => "../admin/elections/datemgmt", "text" => "Elections Dates"),
+		array("k" => $k, "url" => "../admin/setup_candidate", "text" => "Candidate")
 	);
-	
 			
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
@@ -35,7 +31,7 @@
     
 			  <!-- Public Profile -->
 			  <div class="Subhead mt-0 mb-0">
-			    <h2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</h2>
+			    <h2 id="public-profile-heading" class="Subhead-heading">Elections Dates</h2>
 			  </div>
      
 			<?php	PlurialMenu($k, $TopMenus); ?>    
@@ -58,28 +54,33 @@
 	    
 	   			
 	    
-<?php 			
-			$Counter = 0;
-			if ( ! empty ($result)) {
-				foreach ($result as $var) {
-?>		
-	<div class="flex-items-left">
-	 	<span class="ml-4 flex-items-baseline"><A HREF="/<?= CreateEncoded (
-				array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
-								"Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
-								"Election_Date" => $var["Elections_ID"])); ?>/admin/edit_dates">Select</A></span>
-	  <span class="ml-4"><?= PrintDate($var["Elections_Date"]) ?></span>
-	  <span class="ml-4 ext-gray"><?= $var["Elections_Type"] ?></span>
-	 	<span class="ml-4 user-mention"><?= $var["Elections_Text"] ?></span>
-	</div>
- 
-						
-<?php
-				}
-			} 
-?>
-
-	
+								<?php 			
+											$Counter = 0;
+											if ( ! empty ($result)) {
+												foreach ($result as $var) {
+								?>		
+									<div class="flex-items-left">
+									 	<span class="ml-4 flex-items-baseline"><A HREF="/<?= CreateEncoded (
+												array(	
+													"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],	
+													"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
+													"Elections_ID" => $var["Elections_ID"])
+												);
+										?>/admin/elections/dateedit">Select</A></span>
+										
+										
+									  <span class="ml-4"><?= PrintDate($var["Elections_Date"]) ?></span>
+									  <span class="ml-4 ext-gray"><?= $var["Elections_Type"] ?></span>
+									 	<span class="ml-4 user-mention"><?= $var["Elections_Text"] ?></span>
+									</div>
+								 
+														
+								<?php
+												}
+											} 
+								?>
+								
+									
 
 
 							</div>
