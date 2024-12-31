@@ -28,8 +28,7 @@
 	</DIV>
 </DIV>
 		
-			<DIV class="intro ">
-				
+	<DIV class="intro ">
 		
 		<P class="f40 adpad">
 			The process to run for County Committee is the same as many other positions 
@@ -57,9 +56,7 @@
 			A documentary that explores the County Committee 
 			political machine in New York City, suppression at the local levels of American
 			 democracy, and the activists on the ground seeking to reform the system. 		 	
-		 	<A class="action-runfor" HREF="/<?= $middleuri ?>/register/movie"><B>Watch&nbsp;COUNTY:&nbsp;A&nbsp;Documentary</B></A>
-		
-
+		 	<A class="action-runfor" HREF="https://www.pbs.org/video/county-kigzrj" TARGET="PBSmovie"><B>Watch&nbsp;COUNTY:&nbsp;A&nbsp;Documentary on PBS</B></A>
 		</P>
 	
 	<P>		
