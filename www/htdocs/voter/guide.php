@@ -85,8 +85,8 @@
 			switch ($var["ElectionsPosition_Location"]) {
 				case "table":
 					
-					echo "<PRE>" . print_r($resultzip,1) . "</PRE>";
-					
+					// echo "<PRE>" . print_r($resultzip,1) . "</PRE>";
+					WriteStderr($resultzip, "Result Zip");
 					
 					foreach ($resultzip as $vor) { // This is to check the type of geographical location								
 						$ADEDValue = $vor["DataDistrict_StateAssembly"]  . str_pad($vor["DataDistrict_Electoral"], 3, "0", STR_PAD_LEFT);
