@@ -67,7 +67,7 @@
 						<DIV class="f60"><B><?= $DateDesc ?></B></DIV>
 						<P class="f40" style="text-margin: 0px 0px 0px 0px;">
 							<I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
-							<?php if (! empty ($var["CandidateProfile_Statement"])) { print $var["CandidateProfile_Statement"]; }  ?>
+							<?php if (! empty ($var["CandidateProfile_Statement"])) { print "<UL>" . $var["CandidateProfile_Statement"] . "</UL>"; }  ?>
 						</P>
 						</DIV>	
 		<br style="clear:both">
