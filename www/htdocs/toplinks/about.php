@@ -79,7 +79,7 @@
 
 	
 	<P class="adpad">
-		<P class="center f60"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
+		<P class="center f80"><A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy">Access the video chats</A></P>
 	</P>
 	
 	<P class="f80 center adpad"><A HREF="/<?= $middleuri ?>/register/user">Register on the Rep My Block website</A></P>
@@ -110,6 +110,16 @@
     <B><A TARGET="political" TARGET="political" HREF="https://pp-international.net">Pirates Parties International</A>:</B> United States Pirate Party: <A TARGET="political" HREF="https://uspirates.org">https://uspirates.org</A><BR>
 	</UL>
 	
+	<a name="vendors"></A>
+	<P class="BckGrndElement f80 center">POLITICAL VENDORS</P>
+	
+	<P class="f40 adpad">
+		Political campaigns has vendors that will help you organize your campaign. We provide this list 
+	</P>
+	
+	<P class="adpad">
+		<P class="center f60"><A HREF="/<?= $middleuri ?>/vendors/list">Access the vendor list</A></P>
+	</P>
 	
 	<P class="f40 adpad">
 		The goal of Rep My Block is to suppress the role of money in the political conversation while 
