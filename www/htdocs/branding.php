@@ -6,7 +6,11 @@
  		exit();
  	} else {
  	
-	 	switch($_GET['brand']) {
+		switch($_GET['brand']) {
+		case 'vendors':
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/vendors/list");
+			exit();
+
 	 	case 'login':
 			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/user/login");
 			exit();
