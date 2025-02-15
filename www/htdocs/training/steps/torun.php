@@ -48,7 +48,7 @@
 	
 	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
 	
-	
+	<a name="watch"></A>
 	<P class="BckGrndElement f80 center">Watch the documentary</P>
 	<h2>Watch the documentary</h2>
 	
@@ -82,7 +82,7 @@
 	</P>
 	*/ ?>
 	
-	
+	<a name="decide"></A>
 	<P class="BckGrndElement f80 center">Yes, I want to run</P>
 	<h2>Yes, I want to run</h2>
 	
@@ -106,6 +106,7 @@
 
 	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
 
+	<a name="verify"></A>
 	<P class="BckGrndElement f80 center">Voter Registration Verification</P>
 	<H2>Voter Registration Verification</H2>
 	
@@ -129,6 +130,7 @@
 		
 	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
 	
+	<a name="petition"></A>
 	<P class="BckGrndElement f80 center">Petitioning</P>
 	<H2>Petitioning</H2>
 	
@@ -158,6 +160,9 @@
 	
 	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></H2></CENTER></P>
 	<P class="BckGrndElement f80 center">Prepare for Filing</P>
+
+
+	<a name="preparefiling"></A>
 	<H2>Prepare for Filing</H2>
 	
 	<P class="f40 justify adpad">
@@ -176,6 +181,9 @@
 	
 	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
 		<P class="BckGrndElement f80 center">Local Board of Elections <I>(BoE)</I></P>
+	
+	
+	<a name="file"></A>
 	<H2>Filing with the BoE</H2>
 
 	<P class="f40 justify">
@@ -196,6 +204,8 @@
 	</P>
 
 	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
+	
+	<a name="campaign"></A>
 	<P class="BckGrndElement f80 center">Election Day</P>
 	<H2>Election Day</H2>
 	
@@ -219,6 +229,8 @@
 	</DIV>
 	
 	<P class="f80 center"><A HREF="/<?= $middleuri ?>/register/user">Register to Run</A></P>
+	
+	<a name="represent"></A>
 	<P class="BckGrndElement f80 center">Success!</P>
 	<H2>Success!</H2>
 	
