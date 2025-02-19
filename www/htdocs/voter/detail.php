@@ -53,7 +53,7 @@
 	<DIV>
 		
 			<P>
-						<DIV class="f80"><B><?= $var["CandidateProfile_Alias"] ?></B></DIV>
+						<DIV class="f80"><B><?= ucwords(strtolower($var["CandidateProfile_Alias"])) ?></B></DIV>
 					
 				</P>
 		
@@ -73,14 +73,32 @@
 		<br style="clear:both">
 		<DIV class='container3'>
 
+						<?php 
+								// Clean up the variable.
+								
+								// Fix the Website to make sure.
+								$guide_url = $var["CandidateProfile_Website"];
+								if (!preg_match("~^(?:f|ht)tps?://~i", $guide_url )) {
+								  $guide_hrefurl = "https://" . $guide_url ;
+								} else {
+									$guide_hrefurl = $var["CandidateProfile_Website"];
+								}
+								$guide_url = preg_replace("~^(?:f|ht)tps?://~i", '', $guide_url);
+					
+								$facebook_url = preg_replace("~^(https?://)?(www\.)?facebook\.com/~i", '', $var["CandidateProfile_Facebook"]);
+								
+								
+						?>		
+
+
 						
 						<P class="f60">
-							<?php if (! empty ($var["CandidateProfile_Website"])) { ?><B>Website:</B> <A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?= $var["CandidateProfile_Website"] ?></A><BR><?php } ?> 
+							<?php if (! empty ($var["CandidateProfile_Website"])) { ?><B>Website:</B> <A TARGET="NEW" HREF="<?= $guide_hrefurl ?>"><?= $guide_url ?></A><BR><?php } ?> 
 				      <?php if (! empty ($var["CandidateProfile_BallotPedia"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_BallotPedia"] ?>">Ballotpedia</A><BR><?php } ?>
 				      <?php if (! empty ($var["CandidateProfile_Email"])) { ?><B>Email:</B> <A TARGET="NEW" HREF="mailto:<?= $var["CandidateProfile_Email"] ?>"><?= $var["CandidateProfile_Email"] ?></A><?php } ?>
 				      <?php if (! empty ($var["CandidateProfile_PhoneNumber"])) { print " <B>Telephone:</B> " . $var["CandidateProfile_PhoneNumber"] . "<BR>"; } ?>
 				      <?php if (! empty ($var["CandidateProfile_Twitter"])) { ?>Twitter: <A TARGET="NEW" HREF="https://twitter.com/<?= $var["CandidateProfile_Twitter"] ?>">@<?= $var["CandidateProfile_Twitter"] ?></A><?php } ?> 
-				     	<?php if (! empty ($var["CandidateProfile_Facebook"])) { ?>Facebook: <A TARGET="NEW" HREF="https://facebook.com/<?= $var["CandidateProfile_Facebook"] ?>"><?= $var["CandidateProfile_Facebook"] ?></A><?php } ?> 
+				     	<?php if (! empty ($var["CandidateProfile_Facebook"])) { ?>Facebook: <A TARGET="NEW" HREF="https://facebook.com/<?= $facebook_url ?>"><?= $facebook_url ?></A><?php } ?> 
 				      <?php if (! empty ($var["CandidateProfile_Instagram"])) { ?>Instagram: <A TARGET="NEW" HREF="https://instagram.com/<?= $var["CandidateProfile_Instagram"] ?>">@<?= $var["CandidateProfile_Instagram"] ?></A><?php } ?> 
 				      <?php if (! empty ($var["CandidateProfile_TikTok"])) { print $var["CandidateProfile_TikTok"] . " - "; } ?> 
 				      <?php if (! empty ($var["CandidateProfile_YouTube"])) { ?>YouTube: <A TARGET="YouTubeRMB" HREF="https://youtube.com/<?= $var["CandidateProfile_YouTube"] ?>"><?= $var["CandidateProfile_YouTube"] ?></A><?php } ?> 
