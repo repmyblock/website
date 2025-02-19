@@ -154,9 +154,9 @@
        
     // ADD to the database the following tables.    
     $CandidateProfile = array(
-        "First"   =>  trim($_POST["FirstName"]),
-        "Last"   =>  trim($_POST["LastName"]),
-        "Full"   =>  trim($_POST["FullName"]),
+        "First"   =>  ucwords(strtolower(trim($_POST["FirstName"]))),
+        "Last"   =>  ucwords(strtolower(trim($_POST["LastName"]))),
+        "Full"   =>  ucwords(strtolower(trim($_POST["FullName"]))),
         "Email"   =>  trim($_POST["Email"]),
         "URL"   =>  trim($_POST["URL"]),
         "Phone"   =>  trim($_POST["PhoneNumber"]),
