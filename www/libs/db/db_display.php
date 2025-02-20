@@ -12,8 +12,7 @@ class display extends queries {
   }
   
   function listvendors() {
-		return $this->_return_multiple("SELECT * FROM Vendor ORDER BY Vendor_Order");
+		return $this->_return_multiple("SELECT * FROM Vendor WHERE Vendor_Stage = 'visible' AND Vendor_Visible = 'yes' ORDER BY Vendor_Order");
 	}
-	
 }
 ?>

@@ -133,10 +133,7 @@
 		
 		#print "<PRE>" . print_r($result,1) . "</PRE>";
 		
-		
 	} else {
-		
-		
 		foreach($result as $var) {
 			$ActiveStateWithCandidate[$var["DataState_Abbrev"]] = true;
 		}
@@ -251,8 +248,6 @@ img.flagnonselected {
   <P>
   			
 	<!--Make sure the form has the autocomplete function switched off:-->
-	
-	
 	<DIV>
 		<A HREF="/<?= ($ActiveTeam != 24 ? "T0024" : NULL) . ($ActiveTeam == 24 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Pirate" id="pir" class="imglogo candidate<?= $ActiveTeam != 24 ? $activeccs : NULL ?>" SRC="/shared/teams/pirates/Pirate.png"></A>
 		<A HREF="/<?= ($ActiveTeam != 69 ? "T0069" : NULL) . ($ActiveTeam == 69 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="International People's Party"  id="ipa" class="imglogo candidate<?= $ActiveTeam != 69 ? $activeccs : NULL ?>" SRC="/shared/teams/ipa/ipa.png"></A>
