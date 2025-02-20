@@ -103,11 +103,11 @@
 			<?php if ( ! empty ($var["Team_EmailCode"]) || ! empty ($var["CandidateProfile_Donation"])) { ?>
 				<P class="f40">				
 					<?php if ( ! empty ($var["Team_EmailCode"])) { ?>						
-						To volunteer, email <B><A  HREF="mailto://<?= $var["Team_EmailCode"] ?></A>"><?= $var["Team_EmailCode"] ?></A></B><BR>
+						To volunteer, email <B><A  HREF="mailto:<?= $var["Team_EmailCode"] ?>"><?= $var["Team_EmailCode"] ?></A></B><BR>
 					<?php } ?>
 					
 					<?php if ( ! empty ($var["CandidateProfile_Donation"])) { ?>						
-						<B>Link to donate:</B> <A TARGET="DonationLink" HREF="<?= $var["CandidateProfile_Donation"] ?></A>"><?= $var["CandidateProfile_Donation"] ?></A><BR>
+						<B>Link to donate:</B> <A TARGET="DonationLink" HREF="<?= $var["CandidateProfile_Donation"] ?>"><?= $var["CandidateProfile_Donation"] ?></A><BR>
 					<?php } ?>
 				</P>
 			<?php } ?>					
