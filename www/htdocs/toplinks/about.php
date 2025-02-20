@@ -115,6 +115,7 @@
 	
 	<P class="f40 adpad">
 		Political campaigns has vendors that will help you organize your campaign. We provide this list 
+		as is.
 	</P>
 	
 	<P class="adpad">

@@ -46,6 +46,7 @@
 	        <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DOCU ) { ?><a class="<?php if ( $Menu == "documentary" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/documentary/county">Documentary</a><?php } ?>
 	        <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_MESSAGES ) { ?><a class="<?php if ( $Menu == "messages" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/messages/messages">Messages</a><?php } ?>
 	        <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DOWNLOADS ) { ?><a class="<?php if ( $Menu == "downloads" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/downloads/downloads">Downloads</a><?php } ?>    
+	        <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_VENDORS ) { ?><a class="<?php if ( $Menu == "vendors" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/vendors/update">Vendors</a><?php } ?>    
 	      </NAV>
 
 	      <NAV class="<?= $DivClass2 ?>" aria-label="<?= $DivClass6 ?>">
