@@ -1,9 +1,9 @@
 <?php
 //	$imgtoshow = "/brand/RunWithMe/RunWithMe.png";
 	$HeaderTwitter = 1;
-	$HeaderTwitterPicLink = "https://www.repmyblock.org/images/training/ZoomWithPaperboy.png";
+	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/VendorListCompilation.jpg";
 	$HeaderTwitterDesc = "Vendors.";   
-	$HeaderTwitterTitle = "Find your political vendor.";   
+	$HeaderTwitterTitle = "Compilation of Political Vendors for your campaign.";   
 	
 	$HeaderOGImage = $HeaderTwitterPicLink;
 	$HeaderOGDescription = $HeaderTwitterDesc;
