@@ -97,6 +97,7 @@ class welcome extends queries {
 						"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
 						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) " . 
+						"LEFT JOIN Team ON (CandidateProfile.Team_ID = Team.Team_ID) " . 
 						"WHERE CandidateProfile.CandidateProfile_ID = :CandidateProfileID";
 		
 		return $this->_return_simple($sql, array("CandidateProfileID" => $CandidateProfileID));

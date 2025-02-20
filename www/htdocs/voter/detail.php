@@ -94,9 +94,23 @@
 				      <?php if (! empty ($var["CandidateProfile_FaxNumber"])) { print $var["CandidateProfile_FaxNumber"]; }  ?>
 			      </P>
 					
+					
 			<?php if ( ! empty ($var["CandidateProfile_PDFFileName"])) { ?>						
-				<P class="f40"><A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Download <?= $var["CandidateProfile_Alias"] ?>'s Platform</A></P>
+				<P class="f60"><B><A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Download <?= $var["CandidateProfile_Alias"] ?>'s Platform</A></B></P>
 			<?php } ?>
+			
+			<?php if ( ! empty ($var["Team_EmailCode"]) || ! empty ($var["CandidateProfile_Donation"])) { ?>
+				<P class="f40">				
+					<?php if ( ! empty ($var["Team_EmailCode"])) { ?>						
+						To volunteer, email <B><A  HREF="mailto://<?= $var["Team_EmailCode"] ?></A>"><?= $var["Team_EmailCode"] ?></A></B><BR>
+					<?php } ?>
+					
+					<?php if ( ! empty ($var["CandidateProfile_Donation"])) { ?>						
+						<B>Link to donate:</B> <A TARGET="DonationLink" HREF="<?= $var["CandidateProfile_Donation"] ?></A>"><?= $var["CandidateProfile_Donation"] ?></A><BR>
+					<?php } ?>
+				</P>
+			<?php } ?>					
+			
 		</DIV>
 	</DIV>
 </DIV>
@@ -113,7 +127,6 @@
 	</P>
 </DIV>
 
-<br style="clear:both">
 
 
 <?php if ( empty ($var["SystemUser_ID"])) { ?>
