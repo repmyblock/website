@@ -9,7 +9,7 @@
 	$rmb = new repmyblock();
 		
 	WriteStderr($_POST, " ========== I AM IN POST PETITION ===========");
-	echo "<PRE>" . print_r($_POST, 1) . "</PRE>";
+	
 		
 	if ( ! empty ($_POST)) {
 		if ($_POST["voterreg"] == "Create a petition") {
@@ -63,10 +63,7 @@
 			exit();
 		}
 	}
-	
-	echo "<PRE>"; 
-		print_r($URIEncryptedString);
-		echo "</PRE>";
+
 	
 	if ( empty ($URIEncryptedString["VotersIndexes_ID"] )) {
 		include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
@@ -102,7 +99,7 @@
 	$TopMenus = array ( 
 						array("k" => $k, "url" => "team/index", "text" => "Team Members"),
 						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-						array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
+					//	array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
 					);
 	WriteStderr($TopMenus, "Top Menu");	
 	

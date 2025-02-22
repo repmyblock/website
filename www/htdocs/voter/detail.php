@@ -80,6 +80,9 @@
 								$facebook_url = preg_replace("~^(https?://)?(www\.)?facebook\.com/~i", '', $var["CandidateProfile_Facebook"]);
 								$tictock_url = preg_replace("~^(https?://)?(www\.)?tiktok\.com/~i", '', $var["CandidateProfile_TikTok"]);
 								$youtube_url = preg_replace("~^(https?://)?(www\.)?youtube\.com/~i", '', $var["CandidateProfile_YouTube"]);
+								
+								
+								
 						?>		
 					
 						<P class="f60">

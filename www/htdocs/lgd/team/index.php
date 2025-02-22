@@ -64,7 +64,7 @@
 	$TopMenus = array ( 						
 		array("k" => $k, "url" => "team/index", "text" => "Team Members"),
 		array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-		array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
+		// array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
 	);
 										
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";

@@ -117,7 +117,7 @@
 	$TopMenus = array ( 
 						array("k" => $k, "url" => "team/index", "text" => "Team Members"),
 						array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-						array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
+						// array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
 					);
 							
 	WriteStderr($TopMenus, "Top Menu");					
@@ -148,13 +148,16 @@
 					} ?>
 		
 						
-						
+						<?php /*
 						
 						<P>This is for the lawyers:
 							<A HREF="/<?= $k ?>/lgd/team/petitionbypass">bypass Voter Search to create a petition</A>	
 						</P>
 						
+						*/ ?>
+						
 					  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
+					  	
 							<div>
 								<dl class="form-group col-5 d-inline-block"> 
 									<dt><label for="user_profile_name">First Name</label><DT>
@@ -178,9 +181,7 @@
 										<input class="form-control" type="text" name="Day" id="" Placeholder="Day"<?php if (!empty ($URIEncryptedString["QueryDay"])) { echo " VALUE=\"" . $URIEncryptedString["QueryDay"] . "\""; } ?>>
 									</DD>
 								</DL>  
-								
-								
-							
+															
 								<dl class="f40 col-4 d-inline-block ">      
 									<DD>
 										<select class="f40" name="Month" id="">
@@ -206,6 +207,23 @@
 										<input class="form-control" type="text" Placeholder="Year" name="Year" id=""<?php if (!empty ($URIEncryptedString["QueryYear"])) { echo " VALUE=\"" . $URIEncryptedString["QueryYear"] . "\""; } ?>>
 									<dd>
 								</dl>
+								</DIV>
+								
+								<div>
+								<dl class="form-group col-5 d-inline-block"> 
+									<dt><label for="user_profile_name">County Voter ID</label><DT>
+									<dd>
+										<input class="form-control" type="text" Placeholder="County ID" name="CountyID"<?php if (!empty ($URIEncryptedString["QueryFirstName"])) { echo " VALUE=\"" . $URIEncryptedString["QueryFirstName"] . "\""; } ?> id="user_profile_name">
+									</dd>
+								</dl>
+			
+								<dl class="form-group col-6 d-inline-block"> 
+									<dt><label for="user_profile_name">State Voter ID</label><DT>
+									<dd>
+										<input class="form-control" type="text" Placeholder="State ID" name="StateVoter"<?php if (!empty ($URIEncryptedString["QueryLastName"])) { echo " VALUE=\"" . $URIEncryptedString["QueryLastName"] . "\""; } ?> id="user_profile_name">
+									</dd>
+								</dl>
+							</DIV>
 			
 								<p><button type="submit" class="submitred">Search Voter Registration</button></p>
 			

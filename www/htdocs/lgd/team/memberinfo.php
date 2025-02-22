@@ -303,7 +303,7 @@
 			
 			
 		
-											<PRE><?= print_r($rmbteammember, 1); ?></PRE>
+											<?php /* <PRE><?= print_r($rmbteammember, 1); ?></PRE> */ ?>
 														
 								<A HREF="/<?= MergeEncode ( array( 
 										"VotersIndexes_ID" => $rmbteammember["VotersIndexes_ID"],
