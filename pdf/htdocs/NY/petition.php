@@ -414,7 +414,7 @@ $pdf_NY_petition->CandidateNomination .= " or for election to a party position o
 
 if ( $PageSize == "letter") {
 	$NumberOfLines = 12 - $pdf_NY_petition->NumberOfCandidates;
-	$pdf_NY_petition->BottonPt = 216;
+	$pdf_NY_petition->BottonPt = 214;
 	$Botton =  216.9;
 		
 } else if ( $PageSize = "legal") {
