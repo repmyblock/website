@@ -38,6 +38,10 @@
 		case 'voterguide':
 			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/voter/guide");
 			exit();
+			
+		case 'press':
+			header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/press/list");
+			exit();
 				
 		case 'documentary':
 		case 'docu':
