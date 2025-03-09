@@ -86,8 +86,8 @@
 	
 	$pdf->NumberOfCandidates = $TotalCandidates;
 	$pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
-	$pdf->party = "Social Democratic";
-	$pdf->ElectionDate = "June 8th, 2022";
+	$pdf->party = "Democratic";
+	$pdf->ElectionDate = "June 24th, 2025";
 	
 	if ($pdf->NumberOfCandidates > 1) { 
 		$pdf->PluralCandidates = "s"; 
