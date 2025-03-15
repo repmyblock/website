@@ -14,6 +14,20 @@
 	  	preg_match('/^(\d{3})(\d{3})$/', $cleanString, $matches);
 		}
 	}	
+
+/*	
+	case "AD": $sqlquery .= "DataDistrict_StateAssembly = :AD"; $sql_vars["AD"] = $Search; break;
+  			case "ED": $sqlquery .= "DataDistrict_Electoral = :ED"; $sql_vars["ED"] = $Search; break;
+  			case "CD": $sqlquery .= "CountyCode = :CD"; $sql_vars["CD"] = $Search; break;
+  			case "LG": $sqlquery .= "LegisDistr = :LG"; $sql_vars["LG"] = $Search; break;
+  			case "TW": $sqlquery .= "TownCity = :TW"; $sql_vars["TW"] = $Search; break;
+  			case "WD": $sqlquery .= "Ward = :WD"; $sql_vars["WD"] = $Search; break;
+  			case "CG": $sqlquery .= "CongressDistr = :CG"; $sql_vars["CG"] = $Search; break;
+  			case "SD": $sqlquery .= "SenateDistr = :SD"; $sql_vars["SD"] = $Search; break;
+  			case "PT": $sqlquery .= "Voters_RegParty = :PT"; $sql_vars["PT"] = $Search; break;
+  			case "VI": $sqlquery .= "Voters_ID = :VI"; $sql_vars["VI"] = $Search; break;
+	*/
+	
 	$DataSearch = array("AD" => $matches[1], "ED" => $matches[2]);
 	WriteStderr($DataSearch, "Dataseach");
 	
