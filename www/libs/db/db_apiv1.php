@@ -48,6 +48,7 @@ class api_v1 extends queries {
 						"WHERE (Voters_Status = 'Active' OR Voters_Status = 'Inactive') AND " . 
 						"(CURDATE() >= DataDistrictCycle_CycleStartDate AND CURDATE() <= DataDistrictCycle_CycleEndDate) IS NULL";
 				 	
+		
   	foreach ($DataSearch as $Param => $Search) {
 			$sqlquery .= " AND ";
   		switch ($Param) {
