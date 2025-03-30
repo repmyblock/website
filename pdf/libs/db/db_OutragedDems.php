@@ -198,14 +198,20 @@ class OutragedDems extends queries {
 	}
 	
 	function ListCandidatePetitionFilingID($CandidateID) {
+		
+		
 		$sql = "SELECT * FROM Candidate " .
 						"LEFT JOIN CandidateGroup ON (CandidateGroup.Candidate_ID = Candidate.Candidate_ID) " . 
 						"LEFT JOIN FillingTrack ON (FillingTrack.CandidateSet_ID = CandidateGroup.CandidateSet_ID) " . 
-							"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
+						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
 						"LEFT JOIN Elections ON (CandidateElection.Elections_ID = Elections.Elections_ID) " . 
 						"LEFT JOIN DataCounty ON (Candidate.DataCounty_ID = DataCounty.DataCounty_ID) " . 
 						"LEFT JOIN CandidatePartySymbol ON (CandidatePartySymbol.CandidatePartySymbol_ID = Candidate.CandidatePartySymbol_ID) " .
-						"WHERE Candidate.Candidate_ID = :CandidateID AND FillingTrack_BOEID IS NOT NULL ";
+						"WHERE Candidate.Candidate_ID = :CandidateID"; # AND FillingTrack_BOEID IS NOT NULL ";
+						
+		WriteStderr($sql, "SQL");
+
+						
 		$sql_vars = array("CandidateID" => $CandidateID);
 		return $this->_return_multiple($sql, $sql_vars);
 	}

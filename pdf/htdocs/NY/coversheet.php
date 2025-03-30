@@ -15,6 +15,9 @@
 	$TotalCandidates = 0;
 
 	if ( ! empty ($URIEncryptedString)) {
+		
+		WriteStderr($URIEncryptedString, "URIEncryptedString");
+		
 		if (! empty ($URIEncryptedString["Candidate_ID"])) {
 			$Candidate_ID = $URIEncryptedString["Candidate_ID"];
 			$result = $r->ListCandidatePetitionFilingID($Candidate_ID);	  	
@@ -25,6 +28,8 @@
 			$PetitionData[$var["CanPetitionSet_ID"]]["CandidateName"]	= $var["Candidate_DispName"];
 			$PetitionData[$var["CanPetitionSet_ID"]]["CandidatePositionName"]	= $var["CandidateElection_PetitionText"];
 			$PetitionData[$var["CanPetitionSet_ID"]]["CandidateResidence"] = $var["Candidate_DispResidence"];
+			
+			$PartyName = PrintPartyAdjective($var["CandidateGroup_Party"]);
 			
 			$var["Candidate_Agent"] = "Theo Chino";
 			if ( empty ($var["Candidate_Agent"])) {
@@ -47,7 +52,7 @@
 	
 	if ( ! empty ($result)) {
 		foreach ($result as $var) {
-			if ( ! empty ($var)) {
+			if ( ! empty ($var["FillingTrack_BOEID"])) {
 				$PetitionsSet[$var["CandidateSet_ID"]] = 1;
 				$VolumesID .= $var["FillingTrack_BOEID"] . " ";		
 				$NumbersOfVolumesPetitions++;		
@@ -58,8 +63,14 @@
 			$pdf->PetitionsGroups .= "S" . $var . " ";
 		}
 	}
+	
+	if ($NumbersOfVolumesPetitions == 0) { 
+		$NumbersOfVolumesPetitions = "";
+		$VolumesID = "\n\n\n\n\n\n\n\n\n";
+		$pdf->PetitionsGroups .= "Manual";
+	}
 
-	$pdf->NumbersOfVolumesPetitions = 	$NumbersOfVolumesPetitions;
+	$pdf->NumbersOfVolumesPetitions =	$NumbersOfVolumesPetitions;
   $pdf->VolumesIDs = $VolumesID;
 	
 
@@ -85,9 +96,9 @@
 
 	
 	$pdf->NumberOfCandidates = $TotalCandidates;
-	$pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
-	$pdf->party = "Democratic";
-	$pdf->ElectionDate = "June 24th, 2025";
+	// $pdf->county = "New York" . $var["CandidatePetition_VoterCounty"];
+	$pdf->party = $PartyName;
+	// $pdf->ElectionDate = "June 24th, 2025";
 	
 	if ($pdf->NumberOfCandidates > 1) { 
 		$pdf->PluralCandidates = "s"; 

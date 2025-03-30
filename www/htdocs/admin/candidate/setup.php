@@ -16,7 +16,7 @@
 	
 
 	$result = $rmb->ListCandidates();
-	//WriteStderr($result, "ListCandidates");
+	WriteStderr($result, "ListCandidates");
 			
 					//print "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
 					//print "<PRE>" . print_r($result, 1) . "</PRE>";

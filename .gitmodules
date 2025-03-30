@@ -4,3 +4,9 @@
 [submodule "www/libs/utils/PDFMerger"]
 	path = www/libs/utils/PDFMerger
 	url = https://github.com/theochino/PDFMerger.git
+[submodule "www/libs/utils/www/libs/utils/swiper"]
+	path = www/libs/utils/www/libs/utils/swiper
+	url = https://github.com/theochino/swiper
+[submodule "www/libs/utils/swiper"]
+	path = www/libs/utils/swiper
+	url = https://github.com/theochino/swiper

@@ -985,7 +985,7 @@ class RepMyBlock extends queries {
 						
 		$sql .=	"ORDER BY Elections_Date DESC, CandidateElection.CandidateElection_DBTable, CandidateElection.CandidateElection_DBTableValue";
 		
-		$sql .= " LIMIT 100";
+		$sql .= " LIMIT 500";
 		
 		return $this->_return_multiple($sql);
 	}

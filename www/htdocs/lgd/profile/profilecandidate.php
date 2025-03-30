@@ -116,9 +116,11 @@
 
 							<P class="f40">
                 <B>
-                  <FONT COLOR=BROWN>If you are a candidate for higher office, please send an email to</FONT> 
-                  <A HREF="mailto:candidate@repmyblock.org" TARGET="MoreCandidate">candidate@repmyblock.org</A> 
-                  <FONT COLOR=BROWN>to get the access code for the other positions.</FONT>
+                  <FONT COLOR=BROWN>If you are a candidate for higher office, please 
+                  follow the instructions on</FONT>
+                  	<A TARGET="pdfguide" HREF="<?= $FrontEndStatic ?>/shared/instructions/01-SetupYourCandidateProfile.pdf">this guide
+                  	starting page 9</A>
+                  <FONT COLOR=BROWN>to enable all the codes for the other positions.</FONT>
                 </B>
             	</P>
                          	
