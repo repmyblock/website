@@ -31,8 +31,8 @@
   if ( ! empty ($rmbcandidate)) {
 	  foreach ($rmbcandidate as $var) {
 	  	if (! empty ($var)) {
-		  $PositionRunning[$var["Elections_ID"]][$var["CandidateElection_DBTable"]] = 
-		  				array ("Candidate_ID" => $var["Candidate_ID"], "CandidateProfile_ID" => $var["CandidateProfile_ID"]);
+		  	$PositionRunning[$var["Elections_ID"]][$var["CandidateElection_DBTable"]] = 
+		  		array ("Candidate_ID" => $var["Candidate_ID"], "CandidateProfile_ID" => $var["CandidateProfile_ID"]);
   		}
   	}
   }	
@@ -72,7 +72,7 @@
 						   						"Elections_ID" => $var["Elections_ID"],
 						   						"DBTable" => $var["ElectionsPosition_DBTable"],
 						   						"Order" => $var["ElectionsPosition_Order"]						   						
-						   			);
+				);
 			}
 		}
 		$URLinput = "updatecandidateprofile";
