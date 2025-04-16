@@ -80,8 +80,8 @@
 								$facebook_url = preg_replace("~^(https?://)?(www\.)?facebook\.com/~i", '', $var["CandidateProfile_Facebook"]);
 								$tictock_url = preg_replace("~^(https?://)?(www\.)?tiktok\.com/~i", '', $var["CandidateProfile_TikTok"]);
 								$youtube_url = preg_replace("~^(https?://)?(www\.)?youtube\.com/~i", '', $var["CandidateProfile_YouTube"]);
-0								$instagram_url = preg_replace("~^(https?://)?(www\.)?youtube\.com/~i", '', $var["CandidateProfile_Instagram"]);
-								$twitter_url = preg_replace("~^(https?://)?(www\.)?youtube\.com/~i", '', $var["CandidateProfile_Twitter"]);
+0								$instagram_url = preg_replace("~^(https?://)?(www\.)?instagram\.com/~i", '', $var["CandidateProfile_Instagram"]);
+								$twitter_url = preg_replace("~^(https?://)?(www\.)?twitter\.com/~i", '', $var["CandidateProfile_Twitter"]);
 								
 								
 						?>		
