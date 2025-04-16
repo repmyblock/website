@@ -782,7 +782,7 @@ class RepMyBlock extends queries {
 						"LEFT JOIN ElectionsPartyCall ON (ElectionsPartyCall.ElectionsPosition_ID = ElectionsPosition.ElectionsPosition_ID) "  . 
 						"LEFT JOIN Elections ON (ElectionsPartyCall.Elections_ID = Elections.Elections_ID) ";
 					
-		$sql .= "WHERE ElectionsPartyCall_SignDeadline >= NOW() ";
+		$sql .= "WHERE Elections_Date >= NOW() ";
 						
 		switch ($Type) {	
 			case "ADED":
