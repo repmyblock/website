@@ -48,7 +48,7 @@ class PDF_NY_Petition extends PDF_Code128 {
     								"which a nomination for public office is hereby being made, that my present place of residence " .
     								"is truly stated opposite my signature hereto, and that I do hereby nominate the following " . 
 										"named person as a candidate for election to public office to be voted for at the election " . 
- 									  "to be held on the " . $this->ElectionDate . ", and that I select the name " . $this->party . 
+ 									  "to be held on " . $this->ElectionDate . ", and that I select the name " . $this->party . 
 										" as the name of the independent body making the nomination and the image to the right as " . 
 										"the emblem of such body.");
 		
@@ -70,7 +70,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 				"which a nomination for public office is hereby being made, that my present place of residence " . 
 				"is truly stated opposite my signature hereto, and that I do hereby nominate the following " . 
 				"named person as a candidate for election to public office to be voted for at the election " . 
-				"to be held on the " . $this->ElectionDate . ", and that I select the name " . $this->party . 
+				"to be held on " . $this->ElectionDate . ", and that I select the name " . $this->party . 
 				" as the name of the independent body making the nomination and ");
 				
 			if ( ! empty ($this->EmblemFontType)) {
