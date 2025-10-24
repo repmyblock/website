@@ -14,5 +14,23 @@ class display extends queries {
   function listvendors() {
 		return $this->_return_multiple("SELECT * FROM Vendor WHERE Vendor_Stage = 'visible' AND Vendor_Visible = 'yes' ORDER BY Vendor_Order");
 	}
+	
+	function findbadgeinfo($Code) {
+		return $this->_return_simple(
+			"SELECT BadgeVerif_ID, BadgeVerif_Reason, BadgeVerif_Active, BadgeVerif_ActiveFrom, BadgeVerif_ActiveTo " . 
+			"FROM BadgeVerif WHERE BadgeVerif_Code = :Code", 
+			array("Code" => $Code)
+		);
+	}
+	
+	function findbadgepicture($Code) {
+		return $this->_return_simple(
+			"SELECT BadgeVerif_Picture FROM BadgeVerif WHERE BadgeVerif_Code = :Code", 
+			array("Code" => $Code)
+		);
+	}
+	
+	
+	
 }
 ?>
