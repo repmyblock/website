@@ -183,18 +183,13 @@
 
     <div class="row layout">
       <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-  
       <div class="main">
-        <div class="<?= $Cols ?> float-none" style="background-color: #bbaa55;">
-        
-          <!-- Public Profile -->
-          <div class="Subhead mt-0 mb-0">
-            <h2 id="public-profile-heading" class="Subhead-heading">Personal Profile</h2>
-          </div>
-          
-          <?php PlurialMenu($k, $TopMenus); ?>
-
-          <div class="col-12 f60">
+        <div class="col-full">
+          <div class="Subhead">
+            <h2 class="Subhead-heading">Personal Profile</h2>
+          </div>         
+          <?php  PlurialMenu($k, $TopMenus); ?>
+          <div class="col-full f60">
 <?php if (empty ($TopMenus)) { ?>
             <P class="f60">
               <B>
@@ -214,7 +209,7 @@
                 <div class="form-value"><?= $PersonEmail ?></div>
               </div>            
               
-              <div class="field" style="--field-height: 20px; background-color: #ffaaff;">
+              <div class="field" style="--field-height: 20px;">
                 <input id="firstname" type="text" name="firstname" value="<?= $PersonFirstName ?>" required placeholder=" ">
                 <label for="firstname">First Name</label>
                 <fieldset>
