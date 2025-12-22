@@ -106,9 +106,11 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) {	 $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
 ?>
-<div class="row">
-  <div class="main">
+<div class="row layout">
+  
 		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+		
+		<div class="main">
   		<div class="<?= $Cols ?> float-left">
     
 			  <!-- Public Profile -->

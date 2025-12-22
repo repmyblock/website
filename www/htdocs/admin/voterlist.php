@@ -31,7 +31,7 @@
 		"Address" => $URIEncryptedString["Query_Address"],
 	);
 	
-	WriteStderr($QueryFields, "Query to be sent");
+	WriteStderr($QueryFields, "Query voters \$QueryFields:");
 	$Result = $rmb->AdminSearchVoterDB($QueryFields);
 		
 	WriteStderr($Result, "RESULT to check if empty");

@@ -49,6 +49,8 @@
   		<A HREF="/<?= $k ?>/admin/setup_petitionset" class="mobilemenu">Petition Set Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_positions" class="mobilemenu">Position Maintenance</A><BR>	
   		<A HREF="/<?= $k ?>/admin/setup_petitions" class="mobilemenu">Petition Maintenance</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/elected/list" class="mobilemenu">Elected Maintenance</A><BR>	
+  		<A HREF="/<?= $k ?>/admin/survey/lists" class="mobilemenu">Survey Information</A><BR>	
   		<A HREF="/<?= $k ?>/admin/integrity_verif" class="mobilemenu">Verify Data Integrity</A><BR>	
  	 		<A HREF="/<?= $k ?>/admin/stats" class="mobilemenu">Stats</A><BR>	
  	 	</UL>

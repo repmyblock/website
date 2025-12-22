@@ -4,9 +4,12 @@ global $DB;
 
 class RMBAdmin extends RepMyBlock {
 	
-	function ListAllAdminCodes() {
-		$sql = "SELECT * FROM AdminCode";							
-		return $this->_return_multiple($sql);
+	function ListAllAdminCodes() {					
+		return $this->_return_multiple("SELECT * FROM AdminCode");
+	}
+	
+	function ListSurvey($CandidateID = NULL) {
+		return $this->_return_multiple("SELECT * FROM SurveyPresUser");
 	}
 	
 	function ResetVoterCard ($SystemUserID) {
@@ -22,6 +25,24 @@ class RMBAdmin extends RepMyBlock {
 			);
 			
 		}		
+	}
+	
+	
+	function ListElected($year = "2025") {
+		return $this->_return_multiple("SELECT * FROM ElectResultCandidate " . 
+								"LEFT JOIN CandidateProfile ON (CandidateProfile.CandidateProfile_ID = ElectResultCandidate.CandidateProfile_ID) " . 
+								"LEFT JOIN Candidate ON (Candidate.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " .
+								"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " .
+								"LEFT JOIN Elections ON (CandidateElection.Elections_ID = Elections.Elections_ID) " .
+								"LEFT JOIN DataPACCandidate ON (DataPACCandidate.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " .
+			 					"LEFT JOIN DataPAC ON (DataPAC.DataPAC_ID = DataPACCandidate.DataPAC_ID) " . 
+								"WHERE Candidate.CandidateElection_DBTable IS NOT NULL AND ElectResultCandidate_InOffice = 'yes'");		
+	}
+	
+	function ListSingleElected($CandidateProfileID) {
+		return $this->_return_multiple("SELECT * FROM CandidateProfile " . 
+								"WHERE CandidateProfile_ID = :CandidateProfileID",
+								["CandidateProfileID" => $CandidateProfileID]);	
 	}
 	
 	function UpdateElectionDate($ElectionID, $NewElectionDate = NULL, $NewElectionsText = NULL, $NewStateID = NULL, $NewElectionType = NULL) {
@@ -198,14 +219,13 @@ class RMBAdmin extends RepMyBlock {
 		$sql_vars = array();
 		
 		$sql = "SELECT ";
-		
  		$sql .= "* ";
 		
-//		$sql .= "VotersIndexes.VotersIndexes_ID, VotersIndexes_DOB, DataFirstName_Text, DataMiddleName_Text, DataLastName_Text, " .
-//						"Voters_Gender, Voters_UniqStateVoterID, Voters_RegParty, Voters_ReasonCode, Voters_Status, " .
-//						"Voters_CountyVoterNumber, Voters_RecFirstSeen, Voters_RecLastSeen, DataAddress_HouseNumber " . 
-//						"";
-		
+		//	$sql .= "VotersIndexes.VotersIndexes_ID, VotersIndexes_DOB, DataFirstName_Text, DataMiddleName_Text, DataLastName_Text, " .
+		//					"Voters_Gender, Voters_UniqStateVoterID, Voters_RegParty, Voters_ReasonCode, Voters_Status, " .
+		//					"Voters_CountyVoterNumber, Voters_RecFirstSeen, Voters_RecLastSeen, DataAddress_HouseNumber " . 
+		//					"";
+
 		$sql .= "FROM VotersIndexes " .
 						"LEFT JOIN DataFirstName ON (DataFirstName.DataFirstName_ID = VotersIndexes.DataFirstName_ID ) " . 
 						"LEFT JOIN DataLastName ON (DataLastName.DataLastName_ID = VotersIndexes.DataLastName_ID ) " .
@@ -217,9 +237,9 @@ class RMBAdmin extends RepMyBlock {
 						"LEFT JOIN DataCity ON (DataAddress.DataCity_ID = DataCity.DataCity_ID) " . 
 						"LEFT JOIN DataCounty ON (DataAddress.DataCounty_ID = DataCounty.DataCounty_ID) " . 
 						"LEFT JOIN DataState ON (DataState.DataState_ID = DataCounty.DataState_ID) " . 
-						"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataHouse_ID = DataHouse.DataHouse_ID) " . 
-						"LEFT JOIN DataDistrict ON (DataDistrict.DataDistrict_ID = DataDistrictTemporal.DataDistrict_ID ) " . 
-						"LEFT JOIN DataDistrictTown ON (DataDistrict.DataDistrictTown_ID = DataDistrictTown.DataDistrictTown_ID) " . 
+					//	"LEFT JOIN DataDistrictTemporal ON (DataDistrictTemporal.DataHouse_ID = DataHouse.DataHouse_ID) " . 
+				//		"LEFT JOIN DataDistrict ON (DataDistrict.DataDistrict_ID = DataDistrictTemporal.DataDistrict_ID ) " . 
+				//		"LEFT JOIN DataDistrictTown ON (DataDistrict.DataDistrictTown_ID = DataDistrictTown.DataDistrictTown_ID) " . 
 						"WHERE " ;
 			
 		$and = "";
@@ -275,46 +295,36 @@ class RMBAdmin extends RepMyBlock {
 						$sql .= $and . " DataStreet_Name = :Add";
 						$sql_vars["Add"] = $index;
 						break;
-						
-						
-//					case 'RetReturnCOUNTY':
-//						$sql .= $and . " DataDistrict_Electoral = :ED";
-//						$sql_vars["ED"] = $index;
-//						break;
-					
-					
 
+					//	case 'RetReturnCOUNTY':
+					//		$sql .= $and . " DataDistrict_Electoral = :ED";
+					//		$sql_vars["ED"] = $index;
+					//		break;
 				}
-						
 
+				// VAR: UniqNYSVoterID INDEX:
+				// VAR: FirstName INDEX: Theo
+				// VAR: LastName INDEX: Chino
+				// VAR: ResZip INDEX: 10031
+				// VAR: CountyCode INDEX:
+				// VAR: EnrollPolParty INDEX:
+				// VAR: AssemblyDistr INDEX:
+				// VAR: ElectDistr INDEX:
+				// VAR: CongressDistr INDEX: 
 
-//			VAR: UniqNYSVoterID INDEX:
-//			VAR: FirstName INDEX: Theo
-//			VAR: LastName INDEX: Chino
-//			VAR: ResZip INDEX: 10031
-//			VAR: CountyCode INDEX:
-//			VAR: EnrollPolParty INDEX:
-//			VAR: AssemblyDistr INDEX:
-//			VAR: ElectDistr INDEX:
-//			VAR: CongressDistr INDEX: 
-			
 				$and = " AND ";
 			}
-		}				
-							
-							
-		WriteStderr($sql_vars, "SQL Vars");	
-		if ( empty ($sql_vars)) {
-		
-			return;
 		}
-											
-		WriteStderr($sql, "SQL request");			
-		return $this->_return_multiple($sql, $sql_vars);		
-		
+	
+		$sql .= " ORDER BY Voters_RecLastSeen";
+	
+		WriteStderr($sql_vars, "SQL Vars");	
+		if ( empty ($sql_vars)) { return;	}
+
+		WriteStderr($sql, "SQL request");
+		return $this->_return_multiple($sql, $sql_vars);	
 	}
-	
-	
+
 	function FindPositionsByED($ElectionID, $ADED ) {
 		$sql = "SELECT * FROM ElectionsDistrictsConv " . 
 						"LEFT JOIN ElectionsPosition ON (ElectionsPosition.ElectionsPosition_ID = ElectionsDistrictsConv.ElectionsPosition_ID) " .

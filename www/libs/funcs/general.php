@@ -213,8 +213,8 @@ function PrintVerifMenu($VerifEmail = true, $VerifVoter = true) {
 
 function PlurialMenu($k, $menusarray) {
 	if ( ! empty ($menusarray)) {
-		echo "\n          <!-- Begin Purial Menu --->\n";
-		echo "          <NAV class=\"UnderlineNav pt-1 mb-0\">\n";
+		echo "<!-- Begin Purial Menu --->\n";
+		echo "          <NAV class=\"UnderlineNav\">\n";
 		echo "            <DIV class=\"UnderlineNav-body\">\n";
 		foreach ($menusarray as $var) {		
 			if ( $_SERVER["PHP_SELF"] == "/lgd/" . $var["url"] . ".php" ) { $selected = " selected"; } else { $selected = ""; }			

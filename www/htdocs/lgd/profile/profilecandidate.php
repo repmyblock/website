@@ -96,9 +96,10 @@
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
-  <DIV class="row">
-    <DIV class="main">
+  <DIV class="row layout">
+   
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+     <DIV class="main">
       <DIV class="<?= $Cols ?> float-left">
 
         <!-- Public Profile -->

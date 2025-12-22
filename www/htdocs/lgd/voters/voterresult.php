@@ -55,18 +55,14 @@
 																				
 	} else {
 		
-		if (! empty ($URIEncryptedString["Query_AD"]) || ! empty ($URIEncryptedString["Query_ED"])) {	
-			
+		if (! empty ($URIEncryptedString["Query_AD"]) || ! empty ($URIEncryptedString["Query_ED"])) {				
 			WriteStderr($URIEncryptedString, "URIEncryptedString in the Empty QueryAD and QueryED");
-			
-				header("Location: /lgd/" . $k . "/byad");	
-				exit();
-				
-				
-				
+			header("Location: /lgd/" . $k . "/byad");	
+			exit();	
 		} else {	
 			$ErrorMsg = "There is an error, a field is empty";
 		}
+		
 	} 
 	
 	if ( empty ($Result)) {
@@ -101,18 +97,15 @@
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
-
-<div class="row">
-  <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-			<div class="col-9 float-left">
-				<div class="Subhead">
-			  	<h2 class="Subhead-heading">Voter Lookup Result</h2>
-				</div>
-				
-				<?php
-			 	PlurialMenu($k, $TopMenus);
-			?>
+    <div class="row layout">
+      <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+      <div class="main">
+        <div class="col-full">
+          <div class="Subhead">
+            <h2 class="Subhead-heading">Voter Lookup Result</h2>
+          </div>
+ 
+				<?php	PlurialMenu($k, $TopMenus); ?>
 
 				<form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
 				<div class="list-group-item filtered f60 hundred">
