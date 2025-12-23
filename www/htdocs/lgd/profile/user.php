@@ -187,7 +187,7 @@
         <div class="col-full">
           <div class="Subhead">
             <h2 class="Subhead-heading">Personal Profile</h2>
-          </div>         
+          </div>
           <?php  PlurialMenu($k, $TopMenus); ?>
           <div class="col-full f60">
 <?php if (empty ($TopMenus)) { ?>
@@ -203,7 +203,6 @@
 <?php if ( ! empty ($TopMenus)) { ?>
               <input type="hidden" value="<?= $URIEncryptedString["SystemUser_ID"] ?>" name="UserID">
 <?php } ?>
-
               <div class="">
                 <label class="f40" for="user_profile_name">Email Address</label>
                 <div class="form-value"><?= $PersonEmail ?></div>
