@@ -32,7 +32,6 @@
             WriteStderr($Decrypted_k, "Decrypted_k:");
             $NewKEncrypt = CreateEncoded (array("Candidate_ID" => $result[0]["Candidate_ID"]));
 ?>
-
           <P class="f60">
             Download a 
             <A TARGET="BLANKPETITION1" HREF="<?= $FrontEndPDF ?>/E<?= $result[0]["Candidate_ID"] ?>/<?= $rmbperson["DataState_Abbrev"] ?>/petition">blank petition</A>

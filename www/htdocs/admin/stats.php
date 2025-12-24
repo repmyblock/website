@@ -1,24 +1,24 @@
 <?php
-  if ( ! empty ($k)) { $MenuLogin = "logged";  }  
+  if ( ! empty ($k)) { $MenuLogin = "logged";  }
   $Menu = "admin";
-  // $BigMenu = "represent";  
+  // $BigMenu = "represent";
   
-  require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";  
-  require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";  
-  require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
+  require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
+  require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";
+  require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 
-  if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}  
+  if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}
   $Party = PrintParty($URIEncryptedString["UserParty"]);
 
-  $rmb = new RepMyBlock();  
+  $rmb = new RepMyBlock();
   $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
   $result = $rmb->GetAdminStats();
-      
+  
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ($MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
-  
+
     <div class="row layout">
       <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
       <div class="main">
@@ -26,12 +26,12 @@
           <div class="Subhead">
             <h2 class="Subhead-heading">Statistics</h2>
           </div>
-<?php 
-  if ($VerifEmail == true) { 
+<?php
+  if ($VerifEmail == true) {
     include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
   } else if ($VerifVoter == true) {
     include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_voterinfo.php";
-  } 
+  }
 ?>
 
           <div class="Box">
@@ -41,21 +41,21 @@
               </div>
             </div>
           
-<?php if ( $VerifVoter == true) {  ?>
+<?php if ( $VerifVoter == true) { ?>
             <div class="Box-body text-center py-6 js-collaborated-repos-empty">
-              Before you can organise your voter list, 
+              Before you can organise your voter list,
               <a href=/lgd/profile/voter/?k=<?= $k ?>">you need to verify your voter information</a> so we can figure which list to list.
             </div>
 <?php } ?>
-            <div id="voters" >  
+            <div id="voters" >
               <script type="text/javascript" src="https://www.google.com/jsapi"></script>
               <script type="text/javascript">
                 google.load("visualization", "1", {packages:["corechart"]});
                 google.setOnLoadCallback(drawChart);
-                function drawChart() {      
+                function drawChart() {
                   var data = google.visualization.arrayToDataTable([
-                    ['Dates', 'New Regs', 'Temp Conv', 'Final Conv'], 
-<?php 
+                    ['Dates', 'New Regs', 'Temp Conv', 'Final Conv'],
+<?php
                     if ( ! empty ($result)) {
                       foreach ($result as $var) {
                         if ( ! empty ($var)) {                
@@ -82,22 +82,24 @@
                   var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
                   chart.draw(data, options);
                 }
-              </script> 
+              </script>
               <div id="chart_div" style="width: 100%;"></div>
-
 <?php
           $Counter = 0;
           if ( ! empty ($Electors)) {
             foreach ($Electors as $Address => $Elector) {
-              if ( ! empty ($Address)) { ?>
+              if ( ! empty ($Address)) {
+?>
             <div class="list-group-item filtered f60 hundred">
-              <A class="pad40" HREF="open/?k=<?= $k ?>"><i class="fas fa-folder handle"></i></A>              
-<?php /* INPUT TYPE="checkbox" NAME="SelectAllAddresses" VALUE="<?= $Address ?>">&nbsp;&nbsp;
-                 <button class="accordeonbutton" id="<?= $Counter++ ?>">Open</button>  
-*/ ?>
-              <span><B><?= $Address ?></B></span>                    
+              <A class="pad40" HREF="open/?k=<?= $k ?>"><i class="fas fa-folder handle"></i></A>
+<?php
+/* INPUT TYPE="checkbox" NAME="SelectAllAddresses" VALUE="<?= $Address ?>">&nbsp;&nbsp;
+                 <button class="accordeonbutton" id="<?= $Counter++ ?>">Open</button> */ 
+?>
+              <span><B><?= $Address ?></B></span>
             </div>
-<?php /*              
+<?php
+/*
                    <DIV class="panels">
         <?php        foreach ($Elector as $Elect) {
                        if (! empty ($Elect)) { ?>
@@ -113,17 +115,17 @@
         <?php          }   
                     } ?>
                     </DIV>
-*/ ?>
+*/
+?>
 <?php        }
           }
         } ?>
-           
             </div>
           </div>
         </div>
       </DIV>
     </DIV>
-    <script async type="text/javascript" src="/external/Sortable/Sortable.js"></script>    
+    <script async type="text/javascript" src="/external/Sortable/Sortable.js"></script>
     <script>
       // Default SortableJS
       //import Sortable from 'sortablejs';
@@ -142,7 +144,6 @@
         ghostClass: 'blue-background-class',
         //filter: '.filtered'
       });
-      
       
       console.log("Console ... \n");
     </script>
