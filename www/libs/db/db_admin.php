@@ -41,7 +41,10 @@ class RMBAdmin extends RepMyBlock {
 	
 	function ListSingleElected($CandidateProfileID) {
 		return $this->_return_multiple("SELECT * FROM CandidateProfile " . 
-								"WHERE CandidateProfile_ID = :CandidateProfileID",
+								"LEFT JOIN Candidate ON (CandidateProfile.Candidate_ID = Candidate.Candidate_ID) " . 
+								"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
+								"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " . 
+								"WHERE CandidateProfile.CandidateProfile_ID = :CandidateProfileID",
 								["CandidateProfileID" => $CandidateProfileID]);	
 	}
 	

@@ -54,6 +54,41 @@
                       <div class="table-header-cell">Detail list</div>
                       <div class="table-header-cell">Election Date</div>
                     </div>
+                    
+                    <div id="resp-table-header">
+                      <div class="table-header-cell">
+                      	
+											  <select name="district" id="district" onchange="this.form.submit()">
+											    <input
+												    type="text"
+												    id="districtSearch"
+												    placeholder="Search district (e.g. CACG 11)"
+												    style="width: 40pt; padding: 6px; margin-top: 4px;"
+											  	>
+											  </select>
+                      	
+                      	<script>
+													document.getElementById('districtSearch').addEventListener('keyup', function () {
+													  const filter = this.value.toLowerCase();
+													  const rows = document.querySelectorAll('.resp-table-row');
+
+													  rows.forEach(row => {
+													    const districtCell = row.querySelector('.table-body-cell-left');
+													    if (!districtCell) return;
+
+													    const districtText = districtCell.textContent.toLowerCase();
+													    row.style.display = districtText.includes(filter) ? '' : 'none';
+													  });
+													});
+												</script>
+
+                      </div>
+                      	
+                      <div class="table-header-cell">Elected</div>
+                      <div class="table-header-cell">Detail list</div>
+                      <div class="table-header-cell">Election Date</div>
+                    </div>
+                    
 <?php       
                 $Counter = 0;
                 if ( ! empty ($result)) {

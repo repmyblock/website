@@ -346,7 +346,7 @@ img.flagnonselected {
 					<DIV CLASS="container_picture">
 					<A HREF="<?= $DetailURL ?>"><IMG class="candidate imgcandidate" SRC="<?= $PicturePath ?>"></A>
 					
-				  <div class="centered p40"><?=  ucwords(strtolower($var["CandidateProfile_Alias"]))  ?></div>
+				  <div class="centered p40" style="color: #000;"><?=  ucwords(strtolower($var["CandidateProfile_Alias"]))  ?></div>
 						
 					</DIV>
 				

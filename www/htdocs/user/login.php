@@ -75,45 +75,42 @@
           echo "<P class=\"f60\">" . $error_msg . "</P>";  
         } 
       ?>
-      	
-				<P>
-				  <div class="field" style="--field-height: 20px">
-				    <input id="username" type="text" name="username" required placeholder=" " />
-				    <label for="username">Username</label>
-				    <fieldset>
-				      <legend><span>Username</span></legend>
-				    </fieldset>
-				  </div>
-				</P>      	
 
-				<P>
-				  <div class="field" style="--field-height: 20px">
-				    <input id="password" type="password" name="password" required placeholder=" " />
-				    <label for="password">Password</label>
-				    <fieldset>
-				      <legend><span>Password</span></legend>
-				    </fieldset>
-				  </div>
-				</P>   
-
-        
-
-
-        <P>
+				<DIV>
+	        <div class="field" style="--field-height: 20px">
+	          <input id="username" type="text" name="username" required placeholder=" " />
+	          <label for="username">Username</label>
+	          <fieldset>
+	            <legend><span>Username</span></legend>
+	          </fieldset>`
+	        </div>
+	      </DIV>
+    
+        <DIV>
+	        <div class="field" style="--field-height: 20px">
+	          <input id="password" type="password" name="password" required placeholder=" " />
+	          <label for="password">Password</label>
+	          <fieldset>
+	            <legend><span>Password</span></legend>
+	          </fieldset>
+	        </div>
+        </DIV>
+    
+        <DIV>
           <INPUT CLASS="f60bold" TYPE="Submit" NAME="signin" VALUE="Log In">
-        </P>
+        </DIV>
           
-        <P class="f60">
+        <DIV class="f60">
           <A HREF="/<?= $middleuri ?>/user/forgotpwd">I forgot my password</A>
-        </P>
+        </DIV>
 
-        <P class="f60">
+        <DIV class="f60">
           <A HREF="/<?= $middleuri ?>/user/forgotuser">I forgot my username</A>
-        </P>
+        </DIV>
 
-        <P class="f60">
+        <DIV class="f60">
           <A HREF="/<?= $middleuri ?>/register/user">Register</A>
-        </P>
+        </DIV>
 
       </DIV>
     </FORM>

@@ -175,6 +175,24 @@ a:hover{text-decoration:underline}
 input[type=submit] {background-color: #EE2E62;color: white;padding: 8px 20px;border: none;cursor: pointer;}
 input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 
+.button {
+	background-color: #EE2E62;
+	padding: 8px 20px;
+	border: none;
+	cursor: pointer;
+	
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+}
+
+.button:hover {background-color: #EE2E62;color: #16317D;}
+
 /* This to make the form switch. */
 
 /*

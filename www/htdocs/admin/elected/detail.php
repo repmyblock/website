@@ -12,7 +12,7 @@
   
   $rmb = new RMBAdmin();  
   $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-  $result = $rmb->ListSingleElected($URIEncryptedString["CandidateProfile_ID"]);
+  $result = $rmb->ListSingleElected($URIEncryptedString["CandidateProfile_ID"])[0];
   
   if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
   } else { $TypeEmail = "text"; $TypeUsername = "text"; }
@@ -30,17 +30,18 @@
             <h2 class="Subhead-heading">Elected Maintenance</h2>
           </div>
 
-          <div class="clearfix gutter d-flex flex-shrink-0">
-
-            <div class="Box">
-              <div class="Box-header pl-0">
-                <div class="table-list-filters d-flex">
-                  <div class="table-list-header-toggle states flex-justify-start pl-3"><?= $result[0]["CandidateProfile_Alias"] ?></div>
-                </div>
+          <div class="">
+            <div class="">
+              <div class="">
+                <div class="">
+                  <div class=""><h1><?= $result["Candidate_PetitionNameset"] ?></h1></div>
+                	<DIV class=""><?= $result["CandidateElection_Text"] ?></DIV>
+					    		<DIV class=""><?= $result["Candidate_DispName"] ?></DIV>
+					      </div>
               </div>
                    
-              <div class="clearfix gutter d-flex flex-shrink-0">
-                <div class="col-12">
+              <div class="">
+                <div class="">
 
                   <div id="resp-table">
                     <div id="resp-table-header">
@@ -49,8 +50,183 @@
                       <div class="table-header-cell">Actions</div>
                       <div class="table-header-cell">Election Date</div>
                     </div>
+                    
+                    <FORM>
+                                
+	                    <P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="alias" type="text" name="alias" required placeholder=" " value="<?= $result["CandidateElection_DBTable"] ?>">
+											    <label for="alias">Position Code</label>
+											    <fieldset>
+											      <legend><span>Alias</span></legend>
+											    </fieldset>
+											  </div>
+											</P>      	
+	                    
+	                  	<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="FirstName" required placeholder=" " value="<?= $result["CandidateElection_DBTableValue"] ?>">
+											    <label for="username">District Number</label>
+											    <fieldset>
+											      <legend><span>Last Name</span></legend>
+											    </fieldset>
+											  </div>
+											</P>      	            
+	                                         
+	                  	<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="alias" type="text" name="alias" required placeholder=" " value="<?= $result["CandidateProfile_Alias"] ?>">
+											    <label for="alias">Alias</label>
+											    <fieldset>
+											      <legend><span>Alias</span></legend>
+											    </fieldset>
+											  </div>
+											</P>      	
+	                    
+	                  	<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="FirstName" required placeholder=" " value="<?= $result["CandidateProfile_FirstName"] ?>">
+											    <label for="username">First Name</label>
+											    <fieldset>
+											      <legend><span>Last Name</span></legend>
+											    </fieldset>
+											  </div>
+											</P>      	
 
-                    <DIV class="right f80bold">Voter Guide</DIV>
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_LastName"] ?>">
+											    <label for="username">Last Name</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>   
+											
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_Website"] ?>">
+											    <label for="username">Website</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>   
+											
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_Email"] ?>">
+											    <label for="username">Email Address</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>   
+
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_Twitter"] ?>">
+											    <label for="username">Twitter</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>   
+											
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_Facebook"] ?>">
+											    <label for="username">Facebook</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>   
+
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_Instagram"] ?>">
+											    <label for="username">Instagram</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>   
+											
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_TikTok"] ?>">
+											    <label for="username">TikTok</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>   
+
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_YouTube"] ?>">
+											    <label for="username">YouTube</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>   
+											
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_BallotPedia"] ?>">
+											    <label for="username">BallotPedia</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>   
+
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_PhoneNumber"] ?>">
+											    <label for="username">Phone Number</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>   
+											
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_FaxNumber"] ?>">
+											    <label for="username">Fax Number</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>   
+											
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_Statement"] ?>">
+											    <label for="username">Statement</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>   
+											
+											<P>
+											  <div class="field" style="--field-height: 20px">
+											    <input id="username" type="text" name="LastName" required placeholder=" " value="<?= $result["CandidateProfile_Donation"] ?>">
+											    <label for="username">Donation Link</label>
+											    <fieldset>
+											      <legend><span>Password</span></legend>
+											    </fieldset>
+											  </div>
+											</P>
+											
+											<P>
+												<BUTTON class="button">Log In</BUTTON>
+											</P>
+
                     <DIV class="panels">
 <?php 
     if (! empty ($var)) {
@@ -114,9 +290,14 @@
                     </DIV>
                     <br style="clear:both">
 
+                   
+                   	<DIV><PRE><?= print_r($result, 1) ?></PRE></DIV>
+                   
 <?php if ( empty ($var["SystemUser_ID"])) { ?>
                     <P CLASS="f80"><A HREF="/<?= $var["CandidateProfile_ID"] ?>/voter/claim">Claim this profile</A></P>
 <?php } ?>
+                   
+                  </FORM>
                    
                     <DIV class="right f60">  
                       <A HREF="guide">Return to previous menu</A>

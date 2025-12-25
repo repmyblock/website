@@ -36,40 +36,40 @@
           <?php  PlurialMenu($k, $TopMenus); ?>
           <div class="clearfix gutter d-flex flex-shrink-0">
             
-            <FORM ACTION="" METHOD="POST">
-              <div class="Box">
-                <div class="Box-header pl-0">
-                  <div class="table-list-filters d-flex">
-                    <div class="table-list-header-toggle states flex-justify-start pl-3">List of positions available to run for</div>
-                  </div>
-                </div>
-
-                <div class="Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
-                  We don't know your district <a href="/voter">create one</a>?
-                </div>                  
+          	<FORM ACTION="" METHOD="POST">
+           		<div class="">List of positions available to run for</div>
+                
+	            <TABLE BORDER=1>
+	            	<TH>Election Date</TH>
+								<TH>Type</TH>                               
+								<TH>Election</TH>
+								<TH>&nbsp;</TH>
 
 <?php 
           $Counter = 0;
           if ( ! empty ($result)) {
             foreach ($result as $var) {
 ?>
-                <div class="flex-items-left">
-                  <span class="ml-4 flex-items-baseline"><A HREF="/<?= CreateEncoded (
+                <TR>
+                  <TD><?= PrintDate($var["Elections_Date"]) ?></TD>
+                  <TD><?= $var["Elections_Type"] ?></TD>
+                  <TD><?= $var["Elections_Text"] ?></TD>
+                  <TD><A HREF="/<?= CreateEncoded (
                       array(  
                         "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],  
                         "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
                         "Elections_ID" => $var["Elections_ID"])
                       );
-                  ?>/admin/elections/dateedit">Select</A></span>
-                  <span class="ml-4"><?= PrintDate($var["Elections_Date"]) ?></span>
-                  <span class="ml-4 ext-gray"><?= $var["Elections_Type"] ?></span>
-                  <span class="ml-4 user-mention"><?= $var["Elections_Text"] ?></span>
-                </div>
+                  ?>/admin/elections/dateedit">Select</A></TD>
+                </TR>
+
 <?php
             }
           } 
 ?>
-              </DIV>
+
+							</TABLE>
+              
               <p><button type="submit" class="submitred">Add a new electiondate</button></p>
             </FORM>
           </div>
