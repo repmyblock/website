@@ -72,17 +72,7 @@
             <div class="col-12">
               <form class="" id="" action="" accept-charset="UTF-8" method="post">
               	
-              	
-				        <DIV style="padding: 0px 10px 10px 0px">
-					        <div class="field" style="--field-height: 20px">
-					          <input id="ElectionDate" type="text" name="Election_Date" required placeholder=" ">
-					          <input type="hidden" name="Election_Date_Orig" VALUE="<?= $rmbdate["Elections_Date"] ?>">
-					          <label for="ElectionDate">Election Date</label>
-					          <fieldset>
-					            <legend><span>Election Date</span></legend>
-					          </fieldset>
-					        </div>
-				        </DIV>
+              	  
 				              	
            		  <DIV style="padding: 0px 10px 10px 0px">
 					        <div class="field" style="--field-height: 20px">
@@ -95,6 +85,16 @@
 					        </div>
 				        </DIV>
                
+                 <DIV style="padding: 0px 10px 10px 0px">
+					        <div class="field" style="--field-height: 20px">
+					          <input id="ElectionDate" type="text" name="Election_Date" required placeholder=" ">
+					          <input type="hidden" name="Election_Date_Orig" VALUE="<?= $rmbdate["Elections_Date"] ?>">
+					          <label for="ElectionDate">Election Date</label>
+					          <fieldset>
+					            <legend><span>Election Date</span></legend>
+					          </fieldset>
+					        </div>
+				        </DIV>
 
                    
                 <div style="padding: 0px 10px 10px 0px">
