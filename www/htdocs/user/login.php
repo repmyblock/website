@@ -82,7 +82,7 @@
 	          <label for="username">Username</label>
 	          <fieldset>
 	            <legend><span>Username</span></legend>
-	          </fieldset>`
+	          </fieldset>
 	        </div>
 	      </DIV>
     
@@ -114,5 +114,6 @@
 
       </DIV>
     </FORM>
-
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
+  </BODY> 
+</HTML>

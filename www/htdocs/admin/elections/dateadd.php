@@ -70,29 +70,35 @@
             <B>Edit elections dates</B>
                   
             <div class="col-12">
-              <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
-                <div>
-                  <dl class="form-group col-48 d-inline-block"> 
-                    <dt class="mobilemenu"><label for="user_profile_name">Election Date</label><DT>
-                    <dd>
-                      <input class="form-control" type="text" Placeholder="Election Date" name="Election_Date" VALUE="<?= $rmbdate["Elections_Date"] ?>" id="">
-                      <input type="hidden" name="Election_Date_Orig" VALUE="<?= $rmbdate["Elections_Date"] ?>">
-                    </dd>
-                  </dl>
+              <form class="" id="" action="" accept-charset="UTF-8" method="post">
+              	
+              	
+				        <DIV style="padding: 0px 10px 10px 0px">
+					        <div class="field" style="--field-height: 20px">
+					          <input id="ElectionDate" type="text" name="Election_Date" required placeholder=" ">
+					          <input type="hidden" name="Election_Date_Orig" VALUE="<?= $rmbdate["Elections_Date"] ?>">
+					          <label for="ElectionDate">Election Date</label>
+					          <fieldset>
+					            <legend><span>Election Date</span></legend>
+					          </fieldset>
+					        </div>
+				        </DIV>
+				              	
+           		  <DIV style="padding: 0px 10px 10px 0px">
+					        <div class="field" style="--field-height: 20px">
+					          <input id="ElectionText" type="text" name="Election_Text" required placeholder=" ">
+					          <input type="hidden" name="Election_Text_Orig" VALUE="<?= $rmbdate["Elections_Text"] ?>">
+					          <label for="ElectionText">Election Text Description</label>
+					          <fieldset>
+					            <legend><span>Election Text Description</span></legend>
+					          </fieldset>
+					        </div>
+				        </DIV>
+               
 
-                  <dl class="form-group col-48 d-inline-block"> 
-                    <dt class="mobilemenu"><label for="user_profile_name">Election Text Description</label><DT>
-                    <dd>
-                      <input class="form-control" type="text" Placeholder="Election Text Description" name="Election_Text" VALUE="<?= $rmbdate["Elections_Text"] ?>" id="">
-                      <input type="hidden" name="Election_Text_Orig" VALUE="<?= $rmbdate["Elections_Text"] ?>">
-                    </dd>
-                  </dl>  
-                </div>
-                
-                <div>
-                  <dl class="form-group col-48 d-inline-block"> 
-                    <dt class="mobilemenu"><label for="user_profile_name">Position State</label><DT>
-                    <dd>
+                   
+                <div style="padding: 0px 10px 10px 0px">
+                 <label for="user_profile_name">Position State</label>
                       <SELECT class="" NAME="Election_StateID">
                         <OPTION VALUE="">&nbsp;</OPTION>
 <?php if (! empty ($rmbstates)) {
@@ -104,12 +110,12 @@
       } ?>
                       </SELECT>
                       <input type="hidden" name="Election_StateID_Orig" VALUE="<?= $rmbdate["DataState_ID"] ?>">
-                    </dd>
-                  </dl>
+
+									</DIV>
                             
-                  <dl class="form-group col-48 d-inline-block"> 
-                    <dt class="mobilemenu"><label for="user_profile_name">Election Type</label><DT>
-                    <dd>
+                  <DIV  style="padding: 0px 10px 10px 0px" >
+                    <label for="user_profile_name">Election Type</label>
+                    
                       <SELECT class="" NAME="Election_Type">
                         <OPTION VALUE="">&nbsp;</OPTION>
                         <OPTION VALUE="primary"<?php if ($rmbdate["Elections_Type"] == "primary") { echo " SELECTED"; } ?>>Primary</OPTION>
@@ -119,8 +125,8 @@
                         <OPTION VALUE="other"<?php if ($rmbdate["Elections_Type"] == "other") { echo " SELECTED"; } ?>>Other</OPTION>                  
                       </SELECT>
                       <input type="hidden" name="Election_Type_Orig" VALUE="<?= $rmbdate["Elections_Type"] ?>">
-                    </dd>
-                  </dl>
+                  
+                 
                 </DIV>
                 <p><button type="submit" class="submitred">Update election dates</button></p>
                 

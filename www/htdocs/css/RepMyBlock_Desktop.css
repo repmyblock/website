@@ -228,6 +228,9 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 }
 */
 
+
+
+
 /* ===== Container ===== */
 .field {
   position: relative;
@@ -281,11 +284,12 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
   transition: border-color 0.2s, border-width 0.2s;
 }
 
-/* Focused outline */
+
 .field input:focus ~ fieldset {
   border-color: #3f51b5;
   border-width: 2px;
 }
+
 
 /* ===== Notch ===== */
 .field legend {
@@ -313,6 +317,7 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 .field:hover fieldset {
   border-color: #999;
 }
+
 
 /* Main page */
 .main {
