@@ -820,7 +820,11 @@ class RepMyBlock extends queries {
 		}
 	
 		if ( empty ($StateID)) { $sql .= "WHERE Elections_Date is NOT NULL ";	}	
-		$sql .= "ORDER BY Elections_Date, Elections_Type LIMIT $start, $limit";	
+		$sql .= "ORDER BY Elections_Date, Elections_Type ";		
+		
+		if ( $limit > 0) {
+			$sql .= "LIMIT $start, $limit";	
+		}
 
 		if ( $StateID > 0) {
 			$sql_vars = array("StateID" => $StateID);

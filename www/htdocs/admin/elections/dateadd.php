@@ -12,46 +12,29 @@
   $rmb = new RMBAdmin();  
   $rmbstates = $rmb->ListStates();
   $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-  $rmbdate = $rmb->ListAllDates($URIEncryptedString["Elections_ID"])[0];
+  // $rmbdate = $rmb->ListElectionsDates(NULL, NULL, NULL, NULL, $URIEncryptedString["Elections_ID"])[0];
   
   WriteStderr($rmbdate, "Date Table");
   
   if (! empty($_POST)) {
     // Need to add or update depending.
     
-    print "<PRE>" . print_r($_POST, 1) . "</PRE>";
-    
-    if ($_POST["Election_Date"] != $_POST["Election_Date_Orig"]) {
-      $NewElectionDate = $_POST["Election_Date"];
+    $NewElectionDate = ToMysqlDate(($_POST["Election_Date"] != $_POST["Election_Date_Orig"]) ? $_POST["Election_Date"] : null);
+    $NewElectionsText = ($_POST["Election_Text"] != $_POST["Election_Text_Orig"]) ? $_POST["Election_Text"] : null;
+    $NewStateID = ($_POST["Election_StateID"] != $_POST["Election_StateID_Orig"]) ? $_POST["Election_StateID"] : null;
+    $NewElectionType = ($_POST["Election_Type"] != $_POST["Election_Type_Orig"]) ? $_POST["Election_Type"] : null;
+
+    if ($NewElectionDate == null || $NewElectionsText == null || $NewStateID == null || $NewElectionType == null) {
+      $URIEncryptedString["ErrorMsg"] = "<FONT COLOR=BROWN><B>Missing one date</B></FONT>";
     } else {
-      $NewElectionDate = NULL;
+      $rmb->AddElectionDates($NewElectionsText,  $NewElectionDate, $NewStateID, $NewElectionType);
+      
+      header("Location: /" .  CreateEncoded ( array( 
+                    "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],  
+                    "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"]
+            )) . "/admin/elections/datemgmt");
+      exit();
     }
-    
-    if ($_POST["Election_Text"] != $_POST["Election_Text_Orig"]) {
-      $NewElectionsText = $_POST["Election_Text"];
-    } else {
-      $NewElectionsText = NULL;
-    }
-    
-    if ($_POST["Election_StateID"] != $_POST["Election_StateID_Orig"]) {
-      $NewStateID = $_POST["Election_StateID"];
-    } else {
-      $NewStateID = NULL;
-    }
-    
-    if ($_POST["Election_Type"] != $_POST["Election_Type_Orig"]) {
-      $NewElectionType = $_POST["Election_Type"];
-    } else {
-      $NewElectionType = NULL;
-    }
-    
-    $rmb->UpdateElectionDate($URIEncryptedString["Elections_ID"], $NewElectionDate, $NewElectionsText, $NewStateID, $NewElectionType);
-    
-    header("Location: /" .  CreateEncoded ( array( 
-                  "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],  
-                  "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"]
-          )) . "/admin/elections/datemgmt");
-    exit();
   }
   
   $ButtonText = "Update Date";
@@ -67,13 +50,12 @@
 */
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
-
     <div class="row layout">
       <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
       <div class="main">
         <div class="col-full">
           <div class="Subhead">
-            <h2 class="Subhead-heading">Election Setups</h2>  
+            <h2 class="Subhead-heading">Election Add New Date</h2>  
 <?php 
         if ($VerifEmail == true) { 
           include $_SERVER["DOCUMENT_ROOT"] . "/common/warning_emailverif.php";
@@ -149,3 +131,5 @@
       </div>
     </DIV>
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";  ?>
+  </BODY> 
+</HTML>

@@ -17,18 +17,19 @@ class RMBAdmin extends RepMyBlock {
 			$this->_return_nothing(
 					"UPDATE SystemUser SET Voters_ID = NULL, Voters_UniqStateVoterID = NULL, SystemUser_EDAD = NULL, SystemUser_NumVoters = NULL, " .
 					"SystemUser_StateAbbrev = NULL, SystemUser_Party = NULL " .
-					"WHERE SystemUser_ID = :SystemUserID", array("SystemUserID" => $SystemUserID)
+					"WHERE SystemUser_ID = :SystemUserID", 
+					["SystemUserID" => $SystemUserID]
 			);
 			
 			$this->_return_nothing(
-					"DELETE FROM SystemUserSelfDistrict WHERE SystemUser_ID = :SystemUserID", array("SystemUserID" => $SystemUserID)
+					"DELETE FROM SystemUserSelfDistrict WHERE SystemUser_ID = :SystemUserID", 
+					["SystemUserID" => $SystemUserID]
 			);
 			
 		}		
 	}
 	
-	
-	function ListElected($year = "2025") {
+	function ListElected($year = "2026") {
 		return $this->_return_multiple("SELECT * FROM ElectResultCandidate " . 
 								"LEFT JOIN CandidateProfile ON (CandidateProfile.CandidateProfile_ID = ElectResultCandidate.CandidateProfile_ID) " . 
 								"LEFT JOIN Candidate ON (Candidate.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " .
@@ -63,13 +64,38 @@ class RMBAdmin extends RepMyBlock {
 	}
 
 	function AddElectionDates($ElectionText, $ElectionDate, $ElectionStateID, $ElectionType) {
-		if (empty($ElectionText) && empty($ElectionDate) && empty($ElectionStateID) && empty($ElectionType) ){
+		if ( empty ($this->FindElectionDates($ElectionText, $ElectionDate, $ElectionStateID, $ElectionType))) {
+			return $this->_return_nothing (
+						"INSERT INTO Elections SET DataState_ID = :StateID, Elections_Text = :Text, " . 
+						"Elections_Date = :Date, Elections_Type = :Type", 
+						["Text" => $ElectionText, "Date" => $ElectionDate, "StateID" => $ElectionStateID, "Type" => $ElectionType]
+			);		
+		}
+		return -1;
+	}
+	
+	function FindElectionDates($ElectionText, $ElectionDate, $ElectionStateID, $ElectionType) {
+		if (empty($ElectionText) && empty($ElectionDate) && empty($ElectionStateID) && empty($ElectionType)) {
 			return -1;
 		}
 		
-		$sql = "SELECT * FROM Elections WHERE DataState_ID = :StateID, Elections_Text = :Text, Elections_Date = :Date, Elections_Type = :Type";
-		$sql_vars = array("Text" => $ElectionText, "Date" => $ElectionDate, "StateID" => $ElectionStateID, "Type" => $ElectionType);
-		$ret = $this->_return_multiple($sql, $sql_vars);
+		return $this->_return_simple (
+						"SELECT * FROM Elections WHERE DataState_ID = :StateID AND Elections_Text = :Text AND " . 
+						"Elections_Date = :Date AND Elections_Type = :Type", 
+						["Text" => $ElectionText, "Date" => $ElectionDate, "StateID" => $ElectionStateID, "Type" => $ElectionType]
+		);
+	}
+	
+	function ListAllDates($Election_ID = null) {
+		$sql = "SELECT * FROM Elections " . 
+						"LEFT JOIN DataState ON (Elections.DataState_ID = DataState.DataState_ID)";
+						
+		if ( ! empty ($Election_ID)) {
+			$sql .= " WHERE Elections_ID = :Elections_ID";
+			$sql_var = ["Elections_ID" => $Election_ID];
+		}
+		
+		return $this->_return_multiple ($sql, $sql_var);
 	}
 	
 	function ChangeTeamOwner($TeamID, $NewOwner) {		
@@ -86,12 +112,10 @@ class RMBAdmin extends RepMyBlock {
 	}
 	
 	function ListPositions() {
-		
-		$sql = "SELECT * FROM ElectionsPosition " . 
-						"LEFT JOIN DataState ON (ElectionsPosition.DataState_ID = DataState.DataState_ID)";
-		$sql_vars = array();
-		
-		return $this->_return_multiple($sql, $sql_vars);
+		return $this->_return_multiple(
+						"SELECT * FROM ElectionsPosition " . 
+						"LEFT JOIN DataState ON (ElectionsPosition.DataState_ID = DataState.DataState_ID)"
+		);
 	}
 	
 	function UpdateBulkSystemPriv($PrivModification, $SystemUserID = NULL) {
@@ -210,7 +234,6 @@ class RMBAdmin extends RepMyBlock {
 		if ( ! empty ($Query["email"])) {
 			$sql = "SELECT * FROM SystemUserTemporary WHERE SystemUserTemporary_email LIKE :Email";
 			$sql_vars["Email"] = "%" . $Query["email"] . "%";
-			echo "sql: $sql<BR>";
 			return $this->_return_multiple($sql, $sql_vars);
 		}		
 	}

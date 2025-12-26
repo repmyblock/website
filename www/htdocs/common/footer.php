@@ -1,10 +1,10 @@
 <?php $WebReferer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : NULL; ?> 
-  	<DIV class="Footer">
+    <DIV class="Footer">
       <DIV class="FooterTitle">REP MY BLOCK</DIV>
       <DIV class="FooterInfo">Represent Community By Running For County Committee</DIV>
    
       <DIV class="FooterLinks">
-<?php	if ( $MenuLogin == "logged") { ?>
+<?php  if ( $MenuLogin == "logged") { ?>
         <A<?php if ($BigMenu == "home") { echo " class=\"active\""; } ?> href="/<?= $middleuri ?>/toplinks/about">ABOUT</a>
         <A<?php if ($BigMenu == "represent") { echo " class=\"active\""; } ?> href="/<?= $middleuri ?>/training/steps/torun">REPRESENT</a>
         <A<?php if ($BigMenu == "nominate") { echo " class=\"active\""; } ?> href="/<?= $middleuri ?>/propose/nomination">NOMINATE</a>
@@ -40,9 +40,9 @@
       </DIV>
   
     </DIV>      
-  	<?php require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/GoogleAnalytics.php"; ?>
-  </BODY>  
-</HTML><?php
+    <?php require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/GoogleAnalytics.php"; ?>
+ 
+<?php
   $OverAllMicrotimeEnd = microtime(true);
   WriteStderr($OverAllMicrotimeEnd, " ------------------------------------------------------------ Microtime");
   WriteStderr(($OverAllMicrotimeEnd - $OverAllMicrotimeStart) . "\n\n\n", "Total Process Time");
