@@ -31,7 +31,6 @@ a{
 a:hover{text-decoration:underline}
 
 
-
 .f40 {font-size:16px; font-weight: 400;}
 .f60 {font-size:18px; font-weight: 500;}
 .f80 {font-size:28px; font-weight: 600;}
@@ -175,9 +174,34 @@ a:hover{text-decoration:underline}
 input[type=submit] {background-color: #EE2E62;color: white;padding: 8px 20px;border: none;cursor: pointer;}
 input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 
+
+.submitred {
+    display: inline-block;          /* required */
+    padding: 12px 20px;
+    background-color: #EE2E62;       /* blue */
+    color: #ffffff;
+    text-decoration: none;           /* remove underline */
+    /* border-radius: 6px; */
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    border-style: none;
+}
+
+.submitred:hover {
+    background-color: #EE2E62;
+    color: #16317D;
+    text-decoration: none; 
+}
+
+.submitred:active {
+    transform: translateY(1px);
+}
+
 .button {
 	background-color: #EE2E62;
-	padding: 8px 20px;
+	padding: 12px 20px;
 	border: none;
 	cursor: pointer;
 	
@@ -187,8 +211,9 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  /* margin: 4px 2px; */
   transition-duration: 0.4s;
+  
 }
 
 .button:hover {background-color: #EE2E62;color: #16317D;}
@@ -421,6 +446,24 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 .UnderlineNav-octicon{color:#959da5}
 .UnderlineNav-container{display:flex;justify-content:space-between}
 
+.basic-table {
+  border-collapse: collapse;
+}
+
+.basic-table th,
+.basic-table td {
+  border: 1px solid #333;
+  padding: 4px 10px;
+}
+
+.basic-table td {
+	text-align: left;
+}
+
+.basic-table th {
+	text-align: center;
+  background: #f4f4f4;
+}
 
 
 #resp-table {

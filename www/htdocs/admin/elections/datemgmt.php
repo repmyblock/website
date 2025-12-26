@@ -36,29 +36,26 @@
           <?php  PlurialMenu($k, $TopMenus); ?>
           <div class="clearfix gutter d-flex flex-shrink-0">
             
-            <FORM ACTION="" METHOD="POST">
-               <div class="">List of positions available to run for</div>
-               
-               <A HREF="/<?= CreateEncoded (
-                      [ "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],  
-                        "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"] ]);
-                  ?>/admin/elections/dateadd">Add a new date</A>
-                                                    
-              <table id="dataTable" border="1">
-                <thead>
+            <DIV>
+							<div class="">List of positions available to run for</div>
+                                            
+              <table class= "basic-table" id="dataTable" border="1">
+                <thead id="table-body">
                   <tr>
                     <th><input type="text" placeholder="Search Election Date" onkeyup="filterTable(0, this.value)"></th>
                     <th><input type="text" placeholder="Search State" onkeyup="filterTable(1, this.value)"></th>
                     <th><input type="text" placeholder="Search Type" onkeyup="filterTable(2, this.value)"></th>
                     <th><input type="text" placeholder="Search Election" onkeyup="filterTable(3, this.value)"></th>
-                    <TH>&nbsp;</TH>
+                    <TH ROWSPAN=2><A class="submitred" style="padding: 5px 10px;" HREF="/<?= CreateEncoded (
+                      [ "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],  
+                        "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"] ]);
+                  ?>/admin/elections/dateadd">New Date</A></TH>
                   </tr>
                   <tr>
                     <TH>Election Date</TH>
                     <TH>State</TH>
                     <TH>Type</TH>                               
                     <TH>Election</TH>
-                    <TH>&nbsp;</TH>
                   </tr>
                 </thead>
             
@@ -73,7 +70,7 @@
                     <TD><?= $var["DataState_Name"] ?></TD>
                     <TD><?= $var["Elections_Type"] ?></TD>
                     <TD><?= $var["Elections_Text"] ?></TD>
-                    <TD><A HREF="/<?= CreateEncoded (
+                    <TD style="text-align:center;"><A class="submitred" style="padding: 1px 10px;" HREF="/<?= CreateEncoded (
                         array(  
                           "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],  
                           "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
@@ -89,8 +86,8 @@
                 </tbody>
               </table>
                 
-              <p><button type="submit" class="submitred">Add a new electiondate</button></p>
-            </FORM>
+              
+						</DIV>
           </div>
         </div>
       </div>
