@@ -35,20 +35,17 @@
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
-    <DIV class="row">
-      <DIV class="main">
+
+    <div class="row layout">
       <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-        <DIV class="<?= $Cols ?> float-left">
-        	
-      
-          <!-- Public Profile -->
-          <DIV class="Subhead mt-0 mb-0">
-            <h2 id="public-profile-heading" class="Subhead-heading">Candidate Profile</h2>
-          </DIV>
+      <div class="main">
+        <div class="col-full">
+          <div class="Subhead">
+            <h2 class="Subhead-heading">Candidate Profile</h2>
+          </div>
           <?php  PlurialMenu($k, $TopMenus);  ?>
-          <DIV class="clearfix gutter d-flex flex-sHRink-0">
-            <DIV class="row">
-              <DIV class="main">
+      
+        
               	
 	            	<FORM ACTION="" METHOD="POST" ENCTYPE="multipart/form-data">
               	<INPUT TYPE="HIDDEN" NAME="FixPDF">
