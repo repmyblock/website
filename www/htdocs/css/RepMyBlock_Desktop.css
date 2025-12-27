@@ -365,7 +365,12 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 }
 
 /* Login COLS */
-.row {display: -ms-flexbox; /* IE10 display: flex;*/-ms-flex-wrap: wrap; align-items: stretch; /* THIS is the key *//* IE10 */flex-wrap: wrap;}
+.row { 
+	display: -ms-flexbox; /* IE10 display: flex;*/
+	-ms-flex-wrap: wrap; 
+	align-items: stretch; /* THIS is the key *//* IE10 */
+	flex-wrap: wrap;
+}
 .bg-gray{background-color:#f6f8fa!important}
 .col-1{width:8.33333%}
 .col-2{width:16.66667%}

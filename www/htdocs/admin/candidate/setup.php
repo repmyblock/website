@@ -6,6 +6,7 @@
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
+  require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/js_logic.php";
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}
@@ -38,32 +39,39 @@
                   <div class="table-list-header-toggle states flex-justify-start pl-3">Candidates</div>
                 </div>
               </div>
-                   
-              <div class="clearfix gutter d-flex flex-shrink-0">
-                <div class="col-12">
-                  <div id="resp-table">
-                    <div id="resp-table-header">
-                      <div class="table-header-cell">District</div>
-                      <div class="table-header-cell">Candidate</div>
-                      <div class="table-header-cell">Actions</div>
-                      <div class="table-header-cell">Election Date</div>
-                    </div>
+              
+              
+               <table class= "basic-table" id="dataTable" border="1">
+                <thead id="table-body">
+                  <tr>
+                    <th><input type="text" placeholder="Search Election Date" onkeyup="filterTable(0, this.value)"></th>
+                    <th><input type="text" placeholder="Search State" onkeyup="filterTable(1, this.value)"></th>
+                    <th><input type="text" placeholder="Search Type" onkeyup="filterTable(2, this.value)"></th>
+                    <th><input type="text" placeholder="Search Election" onkeyup="filterTable(3, this.value)"></th>
+                  </tr>
+                  <tr>
+                    <TH>District</TH>
+                    <TH>Candidate</TH>
+                    <TH>Actions</TH>                               
+                    <TH>Election Date</TH>
+                  </tr>
+                </thead>
+            
+                <tbody>
 <?php       
                 $Counter = 0;
                 if ( ! empty ($result)) {
                   foreach ($result as $var) {
                     WriteStderr($var, "Candidates in the Loop");
 ?>    
-                    <div id="resp-table-body">
-                      <div class="resp-table-row">
-                        <div class="table-body-cell-left"><?= $var["CandidateElection_DBTable"] ?> <?= $var["CandidateElection_DBTableValue"] ?></div>  
-                        <div class="table-body-cell-left"><A HREF="/<?= CreateEncoded (
+                     <tr>
+                    	<TD><?= $var["CandidateElection_DBTable"] ?> <?= $var["CandidateElection_DBTableValue"] ?></TD>  
+                      <TD><A HREF="/<?= CreateEncoded (
                             array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],  
                                   "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
                                   "UniqNYSVoterID" => $var["Candidate_UniqStateVoterID"],
-                                  "Candidate_ID" => $var["Candidate_ID"])); ?>/admin/candidate/detail"><?= $var["Candidate_DispName"] ?></A></DIV>
-                        <div class="table-body-cell">
-                          <A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+                                  "Candidate_ID" => $var["Candidate_ID"])); ?>/admin/candidate/detail"><?= $var["Candidate_DispName"] ?></A></TD>  
+                      <TD><A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
                             array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],  
                                   "Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
                                   "SpecialRequest" => $var["FillingDoc_Fld1"],
@@ -108,14 +116,15 @@
                                   "Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
                                   "AmmendCoverSheet" => "yes",
                                   "Candidate_ID" => $var["Candidate_ID"])); ?>/NY/acceptcertif" TARGET=NEW>Accept Cert</A>                  
-                        </div>
-                        <div class="table-body-cell-left"><?= $var["Elections_Date"] ?></div>  
-                      </div>
-                    </DIV>
+                        </TD>  
+                      <TD><?= $var["Elections_Date"] ?></TD>  
+                      </TR>
+                    
 <?php
                     }
                   } 
-?>
+?> </tbody>
+              </table>
 
                   </DIV>
                 </DIV>
@@ -126,3 +135,6 @@
       </DIV>
     </DIV>
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";  ?>
+<?php Search_TDCol(); ?>
+  </BODY> 
+</HTML>

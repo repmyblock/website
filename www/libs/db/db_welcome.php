@@ -35,13 +35,14 @@ class welcome extends queries {
 	}
 
 	function CandidatesForElection($ElectionDateFrom = NULL, $ElectionDateTo = NULL, $ElectionState = NULL, $ActiveTeam = NULL) {
-		$sql = "SELECT *, CandidateProfile.CandidateProfile_ID AS CANDPROFID " .
+		$sql = "SELECT *, PublicProfile.PublicProfile_ID AS CANDPROFID " .
 						" , Candidate.CandidateElection_DBTable AS CANDDTABLE, Candidate.CandidateElection_DBTableValue AS CANDVALUE " .
 						"FROM Elections " .
 						"LEFT JOIN CandidateElection ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN Candidate ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
-						"LEFT JOIN CandidateProfile ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " .
 						"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) " .
+						"LEFT JOIN PublicProfile ON (PublicProfile.Candidate_ID = Candidate.Candidate_ID) " . 
+						"LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " .
 						"LEFT JOIN Team ON (Candidate.Team_ID = Team.Team_ID) " .  
 					 "WHERE CandidateProfile_PublishProfile = \"yes\"";
 		$sql_vars = array();
@@ -91,16 +92,18 @@ class welcome extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	
-	function CandidatesDetailed($CandidateProfileID) {
-		$sql = "SELECT * FROM CandidateProfile " . 
-						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " . 
+	function CandidatesDetailed($PublicProfileID) {
+		$sql = "SELECT * FROM PublicProfile " .
+						"LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " . 
+						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = PublicProfile.Candidate_ID) " . 
 						"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
 						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) " . 
-						"LEFT JOIN Team ON (CandidateProfile.Team_ID = Team.Team_ID) " . 
-						"WHERE CandidateProfile.CandidateProfile_ID = :CandidateProfileID";
+						"LEFT JOIN PublicTeam ON (PublicProfile.PublicProfile_ID = PublicTeam.PublicProfile_ID) " .
+						"LEFT JOIN Team ON (PublicTeam.Team_ID = Team.Team_ID) " . 
+						"WHERE PublicProfile.PublicProfile_ID = :CandidateProfileID";
 		
-		return $this->_return_simple($sql, array("CandidateProfileID" => $CandidateProfileID));
+		return $this->_return_simple($sql, array("CandidateProfileID" => $PublicProfileID));
 	}
 	
 	function ListOnElectionsStates($When = "NOW") {

@@ -974,10 +974,30 @@ class RepMyBlock extends queries {
 		$sql_vars = array('CandidateID' => $CandidateID, 'SystemUserID' => $SystemUserID, 'CandidateElectionID' => $ElectionID);
 		return $this->_return_nothing($sql, $sql_vars);
 	}
+	
+	function FindPublicProfileFromCandidate($Candidate_ID) {
+		return $this->_return_multiple("SELECT * FROM PublicProfile WHERE Candidate_ID = :Candidate",
+					["Candidate" => $Candidate_ID]
+		);
+	}
+	
+	function PublicProfileKey($Candidate_ID, $CandidateProfile_ID, $TypeAdd = null) {
+		$sql_vars = ["CandidateProfile" => $CandidateProfile_ID, "Candidate" => $Candidate_ID];
+		$sql = "PublicProfile SET CandidateProfile_ID = :CandidateProfile, Candidate_ID = :Candidate, CandidateProfile_LastModified = NOW()";
 
-	function ListCandidates($CandidateID = NULL) {
+		if ( $TypeAdd == "ADD") {
+			$sql = "INSERT INTO " . $sql;		
+		} else {
+			$sql = "UPDATE " . $sql .	" WHERE Candidate_ID = :Candidate";
+			#$sql_vars = array_merge($sql_vars, ["CandidateOrig" => $Candidate_ID]);
+		}
+	
+		return $this->_return_nothing($sql, $sql_vars);
+	}
+	
+	function ListCandidates($CandidateID = null) {
 		$sql = "SELECT * FROM Candidate " . 
-						"LEFT JOIN CandidateProfile ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " . 
+					 	"LEFT JOIN CandidateProfile ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " . 
 						"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
 						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN FillingDoc ON (FillingDoc.Candidate_ID = Candidate.Candidate_ID) ";

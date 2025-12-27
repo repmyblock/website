@@ -29,6 +29,23 @@ class RMBAdmin extends RepMyBlock {
 		}		
 	}
 	
+	function ListProfileFromCandidateID($CandidateID) {
+		return $this->_return_multiple(
+					"SELECT * FROM CandidateProfile WHERE Candidate_ID = :Candidate",
+					["Candidate" => $CandidateID]
+		);
+	}
+	
+	function ListOnlyCandidates($CandidateID) {
+		return $this->_return_simple(
+					"SELECT * FROM Candidate " .
+					"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
+					"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " . 
+					"LEFT JOIN DataState ON (Elections.DataState_ID = DataState.DataState_ID) " . 
+					"WHERE Candidate.Candidate_ID = :CandidateID", ["CandidateID" => $CandidateID]
+		);
+	}
+		
 	function ListElected($year = "2026") {
 		return $this->_return_multiple("SELECT * FROM ElectResultCandidate " . 
 								"LEFT JOIN CandidateProfile ON (CandidateProfile.CandidateProfile_ID = ElectResultCandidate.CandidateProfile_ID) " . 

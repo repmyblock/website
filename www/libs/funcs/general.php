@@ -112,7 +112,6 @@ function PrintOnDateTime($Date) {
   }
 }
 
-
 function PrintShortTime($Date) {
   if ( ! empty ($Date)) {
     return date("h:i a", strtotime( $Date ));
