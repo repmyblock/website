@@ -10,3 +10,9 @@
 [submodule "www/libs/utils/External_Swiper"]
 	path = www/libs/utils/External_Swiper
 	url = https://github.com/repmyblock/External_Swiper
+[submodule "www/libs/utils/External_Pell"]
+	path = www/libs/utils/External_Pell
+	url = https://github.com/repmyblock/External_Pell
+[submodule "www/libs/utils/External_Croppie"]
+	path = www/libs/utils/External_Croppie
+	url = https://github.com/repmyblock/External_Croppie
