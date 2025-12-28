@@ -7,9 +7,3 @@
 [submodule "www/libs/utils/swiper"]
 	path = www/libs/utils/swiper
 	url = https://github.com/theochino/swiper
-[submodule "www/www/libs/utils/External_Croppie"]
-	path = www/www/libs/utils/External_Croppie
-	url = https://github.com/repmyblock/External_Croppie.git
-[submodule "www/www/libs/utils/External_Pell"]
-	path = www/www/libs/utils/External_Pell
-	url = https://github.com/repmyblock/External_Pell.git
