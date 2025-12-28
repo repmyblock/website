@@ -18,6 +18,7 @@ const PERM_OPTION_ALLPOS = 16384;
 const PERM_MENU_OBJECTIONS = 32768;
 const PERM_MENU_VENDORS = 65536;
 const PERM_MENU_PRESS = 131072;
+const PERM_MENU_AMBASSADOR = 262144;
 
 function ordinal($number) {
   $ends = array('th','st','nd','rd','th','th','th','th','th','th');
