@@ -729,12 +729,12 @@ class RepMyBlock extends queries {
 	}
 	
 	function ListCandidateInformationByUNIQ($UniqID, $ElectionID = NULL, $CandidateElection_ID = NULL) {
-		$sql = "SELECT * FROM  CandidateProfile " . 
-						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " . 		
+		$sql = "SELECT * FROM PublicProfile " . 
+						"LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " . 
+						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = PublicProfile.Candidate_ID) " . 		
 						"LEFT JOIN CandidateGroup ON (Candidate.Candidate_ID = CandidateGroup.Candidate_ID) " . 
 						"LEFT JOIN CandidateSet ON (CandidateGroup.CandidateSet_ID = CandidateSet.CandidateSet_ID) " .
 						"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " . 
-						"LEFT JOIN Team ON (Candidate.Team_ID = Team.Team_ID) " .
 						"WHERE Candidate.Candidate_UniqStateVoterID = :UniqID";
 		$sql_vars	= array('UniqID' => $UniqID);
 						
@@ -749,6 +749,12 @@ class RepMyBlock extends queries {
 		}
 		
 		$sql .= " ORDER BY CandidateGroup.CandidateSet_ID, CandidateGroup_Order";				
+		
+		echo "$sql<BR>";
+	
+		// Fix the issue as the Candidate PROFILE is tied to the username and not the VOTER ID.
+		
+		
 		return $this->_return_multiple($sql, $sql_vars);
 	}
   

@@ -75,9 +75,15 @@
               	  
 				              	
            		  <DIV style="padding: 0px 10px 10px 0px">
+           		  	
+             
+ 	
 					        <div class="field" style="--field-height: 20px">
+					        	
+         		  	 <input type="hidden" name="Election_Text_Orig" VALUE="<?= $rmbdate["Elections_Text"] ?>">
+           		 
 					          <input id="ElectionText" type="text" name="Election_Text" required placeholder=" ">
-					          <input type="hidden" name="Election_Text_Orig" VALUE="<?= $rmbdate["Elections_Text"] ?>">
+					         
 					          <label for="ElectionText">Election Text Description</label>
 					          <fieldset>
 					            <legend><span>Election Text Description</span></legend>
@@ -86,9 +92,10 @@
 				        </DIV>
                
                  <DIV style="padding: 0px 10px 10px 0px">
+                 	   <input type="hidden" name="Election_Date_Orig" VALUE="<?= $rmbdate["Elections_Date"] ?>">
+					       
 					        <div class="field" style="--field-height: 20px">
 					          <input id="ElectionDate" type="text" name="Election_Date" required placeholder=" ">
-					          <input type="hidden" name="Election_Date_Orig" VALUE="<?= $rmbdate["Elections_Date"] ?>">
 					          <label for="ElectionDate">Election Date</label>
 					          <fieldset>
 					            <legend><span>Election Date</span></legend>

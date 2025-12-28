@@ -320,123 +320,28 @@
                   <DIV>
 
 
-<SCRIPT>
-	
-
-/* ===== Container ===== */
-.field {
-  position: relative;
-  width: 400px;
-  font-family: Arial, sans-serif;
- 	background: none; /* important */
-  --field-height: 30px;
-}
-
-/* ===== Input ===== */
-.field input {
-  width: 93%;
-  padding:  14px 12px 5px;
-  font-size: 20px;
-  border: none;
-  border-radius: 4px;
-  outline: none;
-  background: transparent;
-  height: var(--field-height);
-  line-height: 1.25;
-}
-
-/* ===== Label ===== */
-.field label {
-  position: absolute;
-  left: 12px;
-  top: 16px;
-  font-size: 16px;
-  color: #777;
-  /* background: white; */
-  padding: 0 4px;
-  pointer-events: none;
-  transition: 0.2s ease;
-}
-
-/* Floating label (focus OR value) */
-/* Float label when focused OR value exists */
-.field input:focus + label,
-.field input:not([value=""]) + label {
-  top: -6px;
-  font-size: 12px;
-  color: #3f51b5;
-}
-
-/* Show notch when value exists */
-.field input:not([value=""]) ~ fieldset legend {
-  max-width: 1000px;
-  visibility: visible;
-}
-
-/* ===== Outline ===== */
-.field fieldset {
-  position: absolute;
-  inset: 0;
-  border: 1px solid #c4c4c4;
-  border-radius: 4px;
-  pointer-events: none;
-  transition: border-color 0.2s, border-width 0.2s;
-}
 
 
-.field input:focus ~ fieldset {
-  border-color: #3f51b5;
-  border-width: 2px;
-}
+<H1><?= $ProfileFirstName ?></H1>
+<H1>CandidateProfile: <?= $rmbcandidate[0]["CandidateProfile_ID"] ?></H1>
+
+<div class="field">
+  <input id="FirstName" type="text" name="FirstName" value="<?= htmlspecialchars($ProfileFirstName) ?>" required placeholder=" ">
+  <label for="FirstName">First Name</label>
+  <fieldset>
+    <legend><span>First Name</span></legend>
+  </fieldset>
+</div>          
+
+<div class="field">
+  <input id="LastName" type="text" name="FirstName" value="<?= htmlspecialchars($ProfileLastName) ?>" required placeholder=" ">
+  <label for="LastName">Last Name</label>
+  <fieldset>
+    <legend><span>Last Name</span></legend>
+  </fieldset>
+</div>                
 
 
-/* ===== Notch ===== */
-.field legend {
-  max-width: 0.01px;
-  height: 0;
-  padding: 0;
-  font-size: 12px;
-  visibility: hidden;
-  transition: max-width 0.2s ease;
- 
-}
-
-/* Show notch when active */
-.field input:focus ~ fieldset legend,
-.field input:not(:placeholder-shown) ~ fieldset legend {
-  max-width: 1000px;
-  visibility: visible;
-}
-
-/* Hide legend text (keep width for notch) */
-.field legend span {
-  visibility: hidden;
-}
-
-.field:hover fieldset {
-  border-color: #999;
-}
-
-</SCRIPT>
-
-            
-        <DIV>
-	        <div class="field" style="--field-height: 20px">
-	          <input id="FirstName" type="text" name="FirstName" value="<?= $ProfileFirstName ?>" required>
-	          <label for="FirstName">First Name</label>
-	          <fieldset>
-	            <legend><span>First Name</span></legend>
-	          </fieldset>
-	        </div>
-	      </DIV>
-            
-                    <DL class="f40">       
-                      <DT><LABEL>First Name</LABEL></DT>
-                      <DD>
-                        <INPUT class="form-control" type="text" placeholder="First Name" name="FirstName" value="<?= $ProfileFirstName  ?>">
-                      </DD>
-                    </DL>
-                                     
                     <DL class="f40"> 
                       <DT><LABEL>Last Name</LABEL><DT>
                       <DD>

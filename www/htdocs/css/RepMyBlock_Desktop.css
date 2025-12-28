@@ -227,71 +227,72 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
   box-sizing: border-box;
 }
 */
-
-
-
-
-/* ===== Container ===== */
 .field {
   position: relative;
   width: 400px;
   font-family: Arial, sans-serif;
- 	background: none; /* important */
-  --field-height: 30px;
 }
 
-/* ===== Input ===== */
+/* Input */
 .field input {
-  width: 93%;
-  padding:  14px 12px 5px;
+  width: 100%;
+  height: 56px;
+  padding: 18px 12px 6px;
+
   font-size: 20px;
-  border: none;
-  border-radius: 4px;
-  outline: none;
-  background: transparent;
-  height: var(--field-height);
   line-height: 1.25;
+  color: #000;
+
+  background: transparent;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+
+  position: relative;
+  z-index: 1;
 }
 
-/* ===== Label ===== */
+/* Label */
 .field label {
   position: absolute;
   left: 12px;
-  top: 16px;
+  top: 18px;
+
   font-size: 16px;
   color: #777;
-  /* background: white; */
   padding: 0 4px;
+  background: #fff;
+
   pointer-events: none;
   transition: 0.2s ease;
+  z-index: 2;
 }
 
-/* Floating label (focus OR value) */
-.field input:focus + label,
+/* Float label when focused or has content */
+.field:focus-within label,
 .field input:not(:placeholder-shown) + label {
   top: -6px;
   font-size: 12px;
   color: #3f51b5;
 }
 
-/* ===== Outline ===== */
+/* Outline */
 .field fieldset {
   position: absolute;
   inset: 0;
   border: 1px solid #c4c4c4;
   border-radius: 4px;
   pointer-events: none;
-  transition: border-color 0.2s, border-width 0.2s;
+  transition: 0.2s;
+  z-index: 0;
 }
 
-
-.field input:focus ~ fieldset {
+.field:focus-within fieldset {
   border-color: #3f51b5;
   border-width: 2px;
 }
 
-
-/* ===== Notch ===== */
+/* Notch */
 .field legend {
   max-width: 0.01px;
   height: 0;
@@ -299,50 +300,58 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
   font-size: 12px;
   visibility: hidden;
   transition: max-width 0.2s ease;
- 
 }
 
-/* Show notch when active */
-.field input:focus ~ fieldset legend,
-.field input:not(:placeholder-shown) ~ fieldset legend {
+.field:focus-within legend {
   max-width: 1000px;
   visibility: visible;
 }
 
-/* Hide legend text (keep width for notch) */
 .field legend span {
   visibility: hidden;
 }
 
-.field:hover fieldset {
-  border-color: #999;
-}
+
+
 
 
 /* Main page */
+ 
+.layout {
+  display: flex;
+  flex-wrap: nowrap;        /* NO wrapping */
+  align-items: stretch;
+}
+  
+.row.layout {
+  display: flex;
+  flex-wrap: nowrap !important;
+  align-items: stretch;
+  padding: 20px;
+}
+
+.sidebar-column {
+  flex: 0 0 150px;
+  width: 150px;
+  min-width: 150px;
+}
+
 .main {
-	-ms-flex: 70%; /* IE10 */
-	flex: 70%;
-	background-color: white; 
-	padding: 10px  20px 10px; 
- }
+  flex: 1 1 auto;
+  min-width: 0;
+  background-color: white;
+  padding: 10px  20px 10px; 
+}
+ 
 .main_wopad {-ms-flex: 70%; /* IE10 */flex: 70%;background-color: white;}
+
 .center {text-align:center;}
 .BlueBox{padding: 10px 20px 10px;background-color:#16317D;font-size: 26px;font-weight: 700;}
 .tadpad {padding: 10px 10px 0px 10px;}
 .w3-blue,.w3-hover-blue:hover{color:#fff!important;background-color:#16317D!important;font-weight: 700;font-family: 'Montserrat', sans-serif;}
 .nopad {padding:0px 0px 0px 0px;}
 
-.sidebar-column {
-  width: 150px;        /* FIXED size */
-  min-width: 150px;
-  max-width: 150px;
-    display: flex;
-  flex-direction: column;
-  /* background: #fff; */
-  /* display: flex; */
-  /* align-items: stretch; /* THIS is the key */
-}
+
 
 .sidebar-footer {
   background-image: url("/images/background/BackGround-FFF79D.jpg");
@@ -358,11 +367,6 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
   
 }
 
-.layout {
-  display: flex;
-  align-items: stretch;
-  padding: 20px 10px;
-}
 
 /* Login COLS */
 .row { 

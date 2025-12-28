@@ -52,8 +52,8 @@
               			<P class="f60">
                     	<B>Please adjust the picture for the guide to enable the picture.</B>               
 	                  </P>
-  	            	</DIV>
-              	
+ 	            	</DIV>
+               	
 	              	<P CLASS="f60"><BR>
 	              		
 	              		 <STYLE>

@@ -28,6 +28,11 @@
   $rmbcandidate = $rmb->ListCandidateInformationByUNIQ($rmbperson["Voters_UniqStateVoterID"]);
   WriteStderr($rmbcandidate, "RMBElectoral");
   
+  echo "Count of RMBCandidate: " . count($rmbcandidate) . "<BR>";
+  
+  echo "<PRE>" . print_r($rmbcandidate, 1) . "</PRE>";
+  
+  
   if ( ! empty ($rmbcandidate)) {
 	  foreach ($rmbcandidate as $var) {
 	  	if (! empty ($var)) {
@@ -177,6 +182,9 @@
 															</B>
 															
 															<P><I><?= $Explain ?></I></P>
+															
+															<PRE><?= print_r($PositionRunning, 1) ?></PRE>
+															
 											
 															<?php if (! empty ($ElectProfileID)) { ?>
 																<B><A HREF="/<?= CreateEncoded ( array( 

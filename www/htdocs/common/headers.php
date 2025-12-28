@@ -24,11 +24,13 @@
     if ( ! empty ($BrandLink)) { $logourl = $BrandLink; }
   }  
   
-  $HTMLDesc = "Rep My Block is your starting point to run The starting point on how to run for office with no money by running for District Leader, County Committee and Precinct Officer.";
-  $HTMLTitle = "Rep My Block - The starting point on how to run for office with no money by running for District Leader, County Committee and Precinct Officer.";
+  #$HTMLDesc = "Rep My Block is your starting point to run The starting point on how to run for office with no money by running for District Leader, County Committee and Precinct Officer.";
+  
+  if (empty ($HTMLTitle)) { $HTMLTitle = "Running for Office | Rep My Block, your stating point to Run for Office"; }
+  if (empty ($HTMLDesc)) { $HTMLDesc = "Rep My Block — How to Run for Office Without Being Funded by Big Money"; }
   
   // This is the image
-  if ( empty ($imgtoshow )) {  $imgtoshow = "/images/RepMyBlock.png"; }  
+  if (empty ($imgtoshow )) {  $imgtoshow = "/images/RepMyBlock.png"; }  
 
   if (empty ($HeaderTwitterSite)) {  $HeaderTwitterSite = "@RepMyBlock"; }
   if (empty ($HeaderTwitterCreator)) {  $HeaderTwitterCreator = "@RepMyBlock"; }
@@ -36,7 +38,7 @@
   if (empty ($HeaderTwitter)) {
     $HeaderTwitterTitle = "Rep My Block - Rep My Block";
     $HeaderTwitterPicLink = $FrontEndStatic . "/pics/paste/PoliticalMachineKeepEngagementLow.jpg";
-    $HeaderTwitterDesc = "Registrations for the 2024 Queens, Brooklyn and Bronx Democratic and 2025 Citywide Republican county committee. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; it's their backbone. The &hellip; Continue reading Rep My Block &rarr;";
+    $HeaderTwitterDesc = "Registrations for the 2026 Queens, Brooklyn and Bronx Democratic. Get your nominating petition kit here! The County Committee is the most basic committee of the Democratic and Republican Parties; it's their backbone. The &hellip; Continue reading Rep My Block &rarr;";
   }
 
   if (empty ($HeaderOGTitle)) {  $HeaderOGTitle = "County Committee"; }
@@ -141,7 +143,7 @@
   </style>
   <script LANGUAGE="javascript" src="/javascript/ol/openlayer/ol.js"></script>
 <?php } ?>
-    <TITLE>Rep My Block - The starting point on how to run for office with no money by running for District Leader, County Committee and Precinct Officer.</TITLE>
+    <TITLE><?= $HTMLTitle ?></TITLE>
   </HEAD>
   
   <BODY>

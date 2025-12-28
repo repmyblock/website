@@ -135,18 +135,18 @@
 
           <div class="d-flex flex-column flex-md-row mb-3">
             <div class="col-12 py-3 px-4 col-md-4 mb-md-0 mb-3 mr-md-3 bg-gray rounded-1">
-              <h4 class="f5 text-normal text-gray"><P class="f40"><?= $BoxInDistrict ?></P></h4>
-              <span class="f2 text-bold d-block mt-1 mb-2 pb-1 f60"><?= $NumberOfElectors ?></span>
+              <DIV class="f5 text-normal text-gray" style="text-align: center"><?= $BoxInDistrict ?></DIV>
+              <DIV class="f2 text-bold d-block mt-1 mb-2 pb-1 f60" style="text-align: center"><?= $NumberOfElectors ?></DIV>
             </div>
 
             <div class="col-md-4 mr-md-3 col-12 py-3 px-4 mb-md-0 mb-3 bg-gray rounded-1">
-              <h4 class="f5 text-normal text-gray"><P class="f40">Required Signatures (Progress)</P></h4>
-              <span class="f2 text-bold d-block mt-1 mb-2 pb-1 f60"><?= $BoxSignatures ?></span>
+              <DIV class="f5 text-normal text-gray" style="text-align: center">Required Signatures (Progress)</DIV>
+              <DIV class="f2 text-bold d-block mt-1 mb-2 pb-1 f60" style="text-align: center"><?= $BoxSignatures ?></DIV>
             </div>
 
             <div class="col-md-4 col-12 py-3 px-4 mb-md-0 mb-3 bg-gray rounded-1">
-              <h4 class="f5 text-normal text-gray"><P class="f40">Days to Go</P></h4>
-              <span class="f2 text-bold d-block mt-1 mb-2 pb-1 f60"><?= $DayToGo ?></span>            
+              <DIV class="f5 text-normal text-gray f40" style="text-align: center">Days to Go</DIV>
+              <DIV class="f2 text-bold d-block mt-1 mb-2 pb-1 f60" style="text-align: center"><?= $DayToGo ?></DIV>            
             </div>
           </div>
         

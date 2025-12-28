@@ -2,6 +2,8 @@
 	$BigMenu = "howto";
 	if ( ! empty ($k)) { $MenuLogin = "logged"; }
 	
+	
+	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";	
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 	
 
@@ -41,5 +43,6 @@
 	</DIV>
 </div>
 
-
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
+	</BODY>
+</HTML>
