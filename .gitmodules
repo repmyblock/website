@@ -16,3 +16,6 @@
 [submodule "www/libs/utils/External_Croppie"]
 	path = www/libs/utils/External_Croppie
 	url = https://github.com/repmyblock/External_Croppie
+[submodule "www/libs/utils/External_PDFMerger"]
+	path = www/libs/utils/External_PDFMerger
+	url = https://github.com/repmyblock/External_PDFMerger
