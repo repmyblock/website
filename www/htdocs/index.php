@@ -54,7 +54,7 @@
       
       
       <DIV class="f40 adpad">
-        These candidates are running for office and are looking for volunteers to help them.
+        These candidates are running for office and are seeking volunteers to support their campaigns.
       </DIV></P>
            
       
@@ -158,12 +158,11 @@
       
       
       <DIV class="f60bold adpad">
-        We have build a series of video programs to 
-        <A HREF="/<?= $middleuri ?>/training/steps/torun" class="">describe the problem</A>
-        and what to expect when running
-        <A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy" class="">with Paperboy Love Prince</A>.
-        You can access the <A HREF="/<?= $middleuri ?>/vendors/list">vendor page</A> with 
-        links to electoral consultants.
+      	We have built a series of video programs <A HREF="/<?= $middleuri ?>/problem/description" class="">that explain the 
+      	challenges</A> involved and what to expect when running  
+      	<A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy" class="">with Paperboy Love Prince</A>.
+      	You can also access the <A HREF="/<?= $middleuri ?>/vendors/list">vendor page</A>, 
+      	which includes links to electoral consultants.
       </DIV>
 
     
