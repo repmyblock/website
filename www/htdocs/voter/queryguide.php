@@ -199,16 +199,123 @@ img.flagnonselected {
 
 </style>
 
+
 <form autocomplete="off" method="post" action="">
-	
 <DIV class="main">
 	<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
 	
 	
-
+	<P CLASS="f60">Enter zipcode: 
+		<INPUT TYPE="text" Placeholder="Zipcode" NAME="zipcode"><button type="submit" class="submitred">Search locality</button>
+		</P>
+	
+	<P CLASS="f50"><B><A HREF="/rset/voter/guide">Reset the queries</A></B></P>
+		
+		
+	<DIV class="f60"><B>Political Orientation</B></DIV>
+	
 
 	
+	<?php if ( !empty($result[0]["Team_Name"]) && ! empty($ActiveTeam)) { $activeccs = " nonselected"; ?>
+		<DIV CLASS="f80">Candidates running as <FONT COLOR="BROWN"><?= $result[0]["Team_Name"] ?></FONT></DIV>
+	
+		<?php 
+			switch ($ActiveTeam) {
+				case "0024": echo "<P CLASS=\"f50\"><B><A HREF=\"https://pp-international.net/\">Pirate Parties International:</A></B> USA: United States Pirate Party <I><A HREF=\"https://uspirates.org\" TARGET=\"VotGuide\">https://uspirates.org</A></I></P></P>"; break;
+				case "0069": echo "<P CLASS=\"f50\"><B><A HREF=\"https://ipa-aip.org\">International People's Party:</A></B> USA: Party for Socialism and Liberation <I><A HREF=\"https://pslweb.org\" TARGET=\"VotGuide\">https://pslweb.org</A></I></P>"; break;
+				case "0025": echo "<P CLASS=\"f50\"><B><A HREF=\"https://internationalsocialist.net\">Socialist Alternative:</A></B> USA: Socialist Alternative <I><A HREF=\"https://socialistalternative.org\" TARGET=\"VotGuide\">https://socialistalternative.org</A></I></P>"; break;
+				case "0026": echo "<P CLASS=\"f50\"><B><A HREF=\"http://www.solidnet.org\">Communists:</A></B> USA: Communist Party USA <I><A HREF=\"https://www.cpusa.org\" TARGET=\"VotGuide\">https://www.cpusa.org</A></I></P>"; break;
+				case "0027": echo "<P CLASS=\"f50\"><B><A HREF=\"https://progressive.international\">Progressive International:</A></B> USA: Democrat Socialists of America <I><A HREF=\"https://www.dsausa.org\" TARGET=\"VotGuide\">https://www.dsausa.org</A></I></P>"; break;
+				case "0028": echo "<P CLASS=\"f50\"><B><A HREF=\"https://globalgreens.org\">Global Greens:</A></B> USA: Global Greens USA <I><A HREF=\"https://globalgreens.us\" TARGET=\"VotGuide\">https://globalgreens.us</A></I></P>"; break;
+				case "0029": echo "<P CLASS=\"f50\"><B><A HREF=\"https://www.socialistinternational.org\">Social democrats and Socialists:</A></B> USA: Social Democrats of America <I><A HREF=\"https://socialists.us\" TARGET=\"VotGuide\">https://socialists.us</A></I></P>"; break;
+				case "0030": echo "<P CLASS=\"f50\"><B><A HREF=\"https://progressive-alliance.info\">Progressive Alliance:</A></B> USA: Progressive Democrats of America <I><A HREF=\"https://pdamerica.org\" TARGET=\"VotGuide\">https://pdamerica.org</A></I></P>"; break;
+				case "0031": echo "<P CLASS=\"f50\"><B><A HREF=\"https://liberal-international.org\">Liberals:</A></B> USA: Center for New Liberalism <I><A HREF=\"https://cnliberalism.org\" TARGET=\"VotGuide\">https://cnliberalism.org</A></I></P>"; break;
+				case "0033": echo "<P CLASS=\"f50\"><B><A HREF=\"https://idc-cdi.com\">Christian Democrats:</A></B> USA: Frederick Douglass Foundation <I><A HREF=\"https://fdfnational.org\" TARGET=\"VotGuide\">https://fdfnational.org</A></I></P>"; break;
+				case "0035": echo "<P CLASS=\"f50\"><B><A HREF=\"https://ialp.com\">Libertarians:</A></B> USA: Libertarian <I><A HREF=\"https://www.lp.org\" TARGET=\"VotGuide\">https://www.lp.org</A></I></P>"; break;
+				case "0032": echo "<P CLASS=\"f50\"><B><A HREF=\"https://www.idu.org\">Democrat Union:</A></B> USA: Republican National Committee <I><A HREF=\"https://gop.com\" TARGET=\"VotGuide\">https://gop.com</A></I></P>"; break;
+				case "0034": echo "<P CLASS=\"f50\"><B><A HREF=\"https://www.idgroup.eu\" TARGET=\"VotGuide\">Democrat Union:</A></B> USA: Conservative Party USA <I><A HREF=\"https://conservativepartyusa.org\" TARGET=\"VotGuide\">https://conservativepartyusa.org</A></I></P>"; break;
+		} ?>
+		
+		
+	<?php } 
+		// Special build for the team
+		$BuildURLEnd = (! empty ($ActiveState)) ? "S" . $ActiveState : NULL;
+		// $BuildURLEnd .= (! empty ($ActiveDate)) ? "D" . $ActiveDate : NULL;	
+		$BuildURLEnd .= (! empty ($ActiveZIP)) ? "Z" . $ActiveZIP : NULL;		
+		
+	?>
+	
+  <P>
+  			
+	<!--Make sure the form has the autocomplete function switched off:-->
+	<DIV>
+		<A HREF="/<?= ($ActiveTeam != 24 ? "T0024" : NULL) . ($ActiveTeam == 24 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Pirate" id="pir" class="imglogo candidate<?= $ActiveTeam != 24 ? $activeccs : NULL ?>" SRC="/shared/teams/pirates/Pirate.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 69 ? "T0069" : NULL) . ($ActiveTeam == 69 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="International People's Party"  id="ipa" class="imglogo candidate<?= $ActiveTeam != 69 ? $activeccs : NULL ?>" SRC="/shared/teams/ipa/ipa.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 25 ? "T0025" : NULL) . ($ActiveTeam == 25 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Socialist Alternative"  id="isa" class="imglogo candidate<?= $ActiveTeam != 25 ? $activeccs : NULL ?>" SRC="/shared/teams/socalternative/ISAlternative.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 26 ? "T0026" : NULL) . ($ActiveTeam == 26 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Communists"  id="com" class="imglogo candidate<?= $ActiveTeam != 26 ? $activeccs : NULL ?>" SRC="/shared/teams/communists/solidnet.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 27 ? "T0027" : NULL) . ($ActiveTeam == 27 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Progressive International"  id="pri" class="imglogo candidate<?= $ActiveTeam != 27 ? $activeccs : NULL ?>" SRC="/shared/teams/proginternational/ProgInternational.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 28 ? "T0028" : NULL) . ($ActiveTeam == 28 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Greens"  id="gre" class="candidate imglogo<?= $ActiveTeam != 28 ? $activeccs : NULL ?>" SRC="/shared/teams/greens/Greens.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 29 ? "T0029" : NULL) . ($ActiveTeam == 29 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Socialists"  id="soc" class="candidate imglogo<?= $ActiveTeam != 29 ? $activeccs : NULL ?>" SRC="/shared/teams/socialists/Socialists.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 30 ? "T0030" : NULL) . ($ActiveTeam == 30 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Progressive Alliance"  id="pra" class="candidate imglogo<?= $ActiveTeam != 30 ? $activeccs : NULL ?>" SRC="/shared/teams/progalliance/ProgAlliance.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 31 ? "T0031" : NULL) . ($ActiveTeam == 31 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Liberals"  id="lib" class="candidate imglogo<?= $ActiveTeam != 31 ? $activeccs : NULL ?>" SRC="/shared/teams/liberals/LiberalInternational.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 33 ? "T0033" : NULL) . ($ActiveTeam == 33 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Christian Democrats"  id="cdu" class="candidate imglogo<?= $ActiveTeam != 33 ? $activeccs : NULL ?>" SRC="/shared/teams/christiansdemocrats/IDC.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 35 ? "T0035" : NULL) . ($ActiveTeam == 35 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Libertarians"  id="lbt" class="candidate imglogo<?= $ActiveTeam != 35 ? $activeccs : NULL ?>" SRC="/shared/teams/libertarians/Libertarian.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 32 ? "T0032" : NULL) . ($ActiveTeam == 32 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Democratic Union"  id="idu" class="candidate imglogo<?= $ActiveTeam != 32 ? $activeccs : NULL ?>" SRC="/shared/teams/democrats/IDU.png"></A>
+		<A HREF="/<?= ($ActiveTeam != 34 ? "T0034" : NULL) . ($ActiveTeam == 34 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Indentity and Democracy"  id="con" class="candidate imglogo<?= $ActiveTeam != 34 ? $activeccs : NULL ?>" SRC="/shared/teams/identity/Conservatives.png"></A>
+	</DIV>
+	
+	<DIV class="f60"><B>State</B></DIV>
+	<P>
+	<DIV>
+		<?php
+			// Special build for the Team
+			$BuildURLBeg = (! empty ($ActiveTeam)) ? "T" . $ActiveTeam : NULL;		
+			$BuildURLEnd = (! empty ($ActiveDate)) ? "D" . $ActiveDate : NULL;		
+			$BuildURLEnd .= (! empty ($ActiveZIP)) ? "Z" . $ActiveZIP : NULL;		
+
+			$activeccs = NULL; 
+			foreach ($Statescountries as $CountryName => $CountryFlag) { 
+				if ( ! empty($ActiveState)) { $activeccs = " flagnonselected"; }
+				$activeccs = $ActiveStateWithCandidate[$CountryFlag] ? NULL : " flagnonselected";
+			
+			?><A HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "S" . $CountryFlag : "rset") . $BuildURLEnd ?>/voter/guide" ALT="<?= $CountryName ?>"><IMG SRC="/images/flags/<?= $CountryFlag ?>.png" class="candidate<?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>"></A> <?php 
+		} ?>
+	</DIV>
+</P>
+
+	<?php if ( ! empty ($ActiveState)) { ?>
+	
+	<P CLASS="f60"><B>Election Dates</B></P>
+		<P CLASS="f50">
+		<?php foreach ($SortDates as $var) { 
+			$PrintURL = (! empty ($ActiveTeam)) ? "T" . $ActiveTeam : NULL;
+			$PrintURL .= (! empty ($ActiveState)) ? "S" . $ActiveState : NULL;
+			$PrintURL .= (! empty ($var)) ? "D" . $var : NULL;
+			?><A HREF="/<?= $miduri . $PrintURL ?>/voter/guide"><?= PrintShortDate($var) ?></A> - 
+		<?php } ?>
+	</UL>
+	
+	<?php } ?>
+
+	<?php /*
+	<p>
+	  <div class="autocomplete" style="width:300px;">
+	    <input id="myInput" type="text" name="myCountry" placeholder="Candidate's Name">
+	  </div>
+	  <input type="submit">
+	</P>
+	
+	*/ ?>
+	
+  <?php /* <P CLASS="f60">Zipcode<BR><input id="myInput" type="text" name="ZipCode" placeholder="Zipcode" SIZE=5></P> */ ?>
   
+  <script>
+		var countries = [<?= $ListOfStates ?>];
+	</script>
+	<script src="/js/autocomplete.js"></script>
+	
+	<FONT SIZE=+1><A HREF="/shared/instructions/01-SetupYourCandidateProfile.pdf" TARGET="NewGuide">Guide to setup a candidate profile</A></FONT>
+
  	<DIV class="panels">
 		
 		<?php			
@@ -232,8 +339,8 @@ img.flagnonselected {
 					<?php	if ($PrevDateDesc != $DateDesc) { $PrintDiv = true; } ?>
 					<?php	if ($PrevElectionID != $var["CandidateElection_ID"]) { $PrintDiv = true; } ?>
 					<?php if ($PrintDiv == true) { if ($firsttime == false) { echo "</DIV>"; }} ?>
-					<?php	if ($PrevDateDesc != $DateDesc) { ?><DIV class="f60bold"><?= $DateDesc ?></DIV><?php } ?>
-					<?php	if ($PrevElectionID != $var["CandidateElection_ID"]) { $PrintDiv = true; ?><DIV class="f60"><?= $var["CandidateElection_Text"] ?></DIV><?php } ?>
+					<?php	if ($PrevDateDesc != $DateDesc) { ?><DIV class="f80bold"><B><?= $DateDesc ?></B></DIV><?php } ?>
+					<?php	if ($PrevElectionID != $var["CandidateElection_ID"]) { $PrintDiv = true; ?><DIV class="f80"><B><?= $var["CandidateElection_Text"] ?></B></DIV><?php } ?>
 					<?php if ($PrintDiv == true) { echo "<DIV class='container_bla'>"; } ?>
 
 					<DIV CLASS="container_picture">
@@ -260,6 +367,11 @@ img.flagnonselected {
 
 <br style="clear:both">
 
+<P>
+	<DIV class="right f60">	
+		<A HREF="<?= PrintReferer() ?>">Return to previous menu</A></B>
+	</DIV>
+</P>
 
 <P>
 	<DIV class="right f80">Notice to voters and candidates</DIV>

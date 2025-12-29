@@ -69,34 +69,24 @@
 
     <FORM METHOD="POST" ACTION="">
       <DIV class="main">
-        <DIV class="right f80bold">Login</DIV>
+        <DIV class="right f80bold" style="padding-bottom: 15px;">Login</DIV>
         
         <?php if (! empty ($error_msg)) {
           echo "<P class=\"f60\">" . $error_msg . "</P>";  
         } 
       ?>
+      
+       	<div class="field">
+          <input type="text" id="username"  class="input" name="username" placeholder=" " required>
+          <label for="username">Username</label>
+        </div>
 
-				<DIV>
-	        <div class="field" style="--field-height: 20px">
-	          <input id="username" type="text" name="username" required placeholder=" " />
-	          <label for="username">Username</label>
-	          <fieldset>
-	            <legend><span>Username</span></legend>
-	          </fieldset>
-	        </div>
-	      </DIV>
-    
-        <DIV>
-	        <div class="field" style="--field-height: 20px">
-	          <input id="password" type="password" name="password" required placeholder=" " />
-	          <label for="password">Password</label>
-	          <fieldset>
-	            <legend><span>Password</span></legend>
-	          </fieldset>
-	        </div>
-        </DIV>
-    
-        <DIV>
+        <div class="field">
+          <input type="password" id="password" class="input" name="password" placeholder=" " required>
+          <label for="password">Password</label>
+        </div>
+			
+        <DIV style="padding-bottom: 15px;">
           <INPUT CLASS="f60bold" TYPE="Submit" NAME="signin" VALUE="Log In">
         </DIV>
           

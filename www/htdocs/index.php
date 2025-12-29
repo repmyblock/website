@@ -34,47 +34,38 @@
 
 
     <DIV class="main center">
-      
-      <P>
-        Rep My Block is a free, end-to-end package for candidates running for office who lack 
-        the resources to pay political consultants.
-      </P>
-      
-      <P>
-        We have build a series of video programs to 
-        <A HREF="/<?= $middleuri ?>/training/steps/torun" class="">describe the problem</A>
-        and what to expect when running
-        <A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy" class="">with Paperboy Love Prince</A>
-      </P>
-      
-      
-      <DIV class="tadpad BlueBox w3-blue">
-      	<P class="nopad">
-        	<A HREF="/<?= $middleuri ?>/training/steps/torun" class="w3-blue w3-hover-text-red">Run for County Committee !</a>
-        </P>
-        <P class="nopad">
-        <A HREF="https://pbs.org/show/county" TARGET="PBS"><FONT COLOR="#FFFFFF">As seen on</FONT><IMG SRC="<?= $PBSLogo ?>"></a>  
-        </P>
+
+			<DIV class="f80bold adpad" STYLE="padding-bottom: 15px;">
+				Your Vote. Your Choice. Just the Facts.
+			</DIV>
+			
+			
+
+		 <DIV class="BckGrndElement f80">VOTER GUIDE</DIV>
+
+
+			<DIV class="f60 adpad" STYLE="padding-top: 15px;">
+				The Ultimate Non-Partisan Voter Guide
+			</DIV>
+
+      <DIV class="f80bold adpad" STYLE="padding-top: 0px;">
+        <A HREF="/<?= $middleuri ?>/voter/guide">Download the RepMyBlock Voter Guide</a>
       </DIV>
-
-      <DIV class="BckGrndElement f80">CANDIDATES VOTER & VOLUNTEER GUIDE</DIV>
-
-      <DIV class="f40 adpad">
-        <A HREF="/<?= $middleuri ?>/voter/guide">
-          <H2>Download the RepMyBlock Voter & Volunteer Guide</H2>
-        </a>
-      </DIV>
-
+      
+      
       <DIV class="f40 adpad">
         These candidates are running for office and are looking for volunteers to help them.
-      </DIV>
-
+      </DIV></P>
+           
+      
       <DIV class="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</DIV>
 
+<?php /*
       <DIV class="f60 adpad">
         <A class="action-runfor RunCC" HREF="/<?= $middleuri ?>/register/user"><img class="action-runfor" src="/images/options/RunFor.png" alt="RUN FOR COUNTY COMMITTEE"></A>
         <A class="action-runfor NomCandidate" HREF="/<?= $middleuri ?>/propose/nomination"><img class="action-runfor" src="/images/options/Nominate.png" alt="NOMINATE A CANDIDATE"></A>
       </DIV>
+     */ ?>
       
 <?php $x = "52"; ?>
 
@@ -102,9 +93,7 @@
 								"</svg>";
 ?>
       
-<IMG SRC="data:image/svg+xml;utf8,<?= $RunForCounty ?>">
-
-      
+<A class="action-runfor RunCC" HREF="/<?= $middleuri ?>/training/steps/torun"><IMG SRC="data:image/svg+xml;utf8,<?= $RunForCounty ?>"></?A>
 
 <svg
   width="182" height="100" viewBox="0 0 200 100" 
@@ -112,25 +101,19 @@
   aria-label="Nominate a Candidate">
 
   <!-- Yellow background shape -->
-  <polygon points="89.5,95.4 7.9,95.4 34.8,35.5 99.5,26.8" fill="#ED2B61"/>
+  <polygon points="89.5,95.4 7.9,95.4 34.8,35.5 99.5,26.8" fill="#FCED00"/>
 
   <!-- Text -->
-  <text x="<?= $x ?>" y="54" text-anchor="start"
+  <text x="<?= $x ?>" y="58" text-anchor="start"
     font-family="Montserrat, Arial, sans-serif"
     font-size="14" font-weight="800" font-style="italic" fill="#16317D"
-  >RUN FOR</text>
+  >NOMINATE A</text>
 
-  <text x="<?= $x ?>" y="68" text-anchor="start"
+  <text x="<?= $x ?>" y="74" text-anchor="start"
     font-family="Montserrat, Arial, sans-serif"
     font-size="14" font-weight="800" font-style="italic" fill="#16317D"
-  >COUNTY</text>
-
-  <text x="<?= $x ?>" y="84" text-anchor="start"
-    font-family="Montserrat, Arial, sans-serif"
-    font-size="14" font-weight="800" font-style="italic" fill="#16317D"
-  >COMMITTEE</text>
+  >CANDIDATE</text>
 </svg>
-
 
 <svg
   width="182" height="100" viewBox="0 0 200 100" 
@@ -158,26 +141,36 @@
 </svg>
 
 
-<svg
-  width="182" height="100" viewBox="0 0 200 100" 
-  xmlns="http://www.w3.org/2000/svg" role="img" 
-  aria-label="Nominate a Candidate">
+</A>
 
-  <!-- Yellow background shape -->
-  <polygon points="89.5,95.4 7.9,95.4 34.8,35.5 99.5,26.8" fill="#FCED00"/>
 
-  <!-- Text -->
-  <text x="<?= $x ?>" y="58" text-anchor="start"
-    font-family="Montserrat, Arial, sans-serif"
-    font-size="14" font-weight="800" font-style="italic" fill="#16317D"
-  >NOMINATE A</text>
+			<DIV class="tadpad BlueBox w3-blue" STYLE="padding: 0px 0px 10px 0px;">
+				<DIV >      	
+		     	<A HREF="/<?= $middleuri ?>/training/steps/torun" STYLE="color:#FFFFFF">Run for County Committee !</a>
+		    </DIV>
+		    <DIV>
+		      <A HREF="https://pbs.org/show/county" TARGET="PBS" STYLE="color:#FFFFFF">As seen on<IMG SRC="<?= $PBSLogo ?>"  style="vertical-align: middle;"></a>  
+		    </DIV>
+     	</DIV>
+    
+    <DIV style="padding-top:15px;">
+      <DIV class="BckGrndElement f80">ARE YOU RUNNING FOR OFFICE?</DIV>
+      
+      
+      <DIV class="f60bold adpad">
+        We have build a series of video programs to 
+        <A HREF="/<?= $middleuri ?>/training/steps/torun" class="">describe the problem</A>
+        and what to expect when running
+        <A HREF="/<?= $middleuri ?>/training/zoom/withpaperboy" class="">with Paperboy Love Prince</A>.
+        You can access the <A HREF="/<?= $middleuri ?>/vendors/list">vendor page</A> with 
+        links to electoral consultants.
+      </DIV>
 
-  <text x="<?= $x ?>" y="74" text-anchor="start"
-    font-family="Montserrat, Arial, sans-serif"
-    font-size="14" font-weight="800" font-style="italic" fill="#16317D"
-  >CANDIDATE</text>
-</svg>
+    
+		</DIV>
 
+
+  
 
 
     </div>

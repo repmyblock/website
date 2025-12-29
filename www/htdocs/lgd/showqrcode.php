@@ -19,13 +19,13 @@
 
 ?>
 
-<div class="row">
-  <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-			<div class="col-9 float-left">
-				<div class="Subhead">
-			  	<h2 class="Subhead-heading">Show QR Code</h2>
-				</div>
+    <div class="row layout">
+      <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+      <div class="main">
+        <div class="col-full">
+          <div class="Subhead">
+            <h2 class="Subhead-heading">Show QR Code</h2>
+          </div>
 			
 			 	<DIV class="panels">		
 				<?php
@@ -49,18 +49,17 @@
 ?>
 			
 			<BR>
-			<A HREF="<?= PrintReferer()  ?>">Return to previous menu</A></B>
+			<A HREF="<?= PrintReferer()  ?>">Return to previous menu</A>
 			
 		</div>
 		
 		
 		
 									
-		
-	
-			</DIV>
-		</FORM>
 		</DIV>
-	</DIV>
-</DIV>
+		</DIV>
+			</DIV>
+		
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>
+</BODY>
+</HTML>

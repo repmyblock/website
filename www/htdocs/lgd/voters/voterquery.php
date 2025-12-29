@@ -13,6 +13,9 @@
 
   if (! empty($_POST)) {  
   
+    echo "Je suis dans le post:";
+    print "<PRE>" . print_r($_POST, 1) . "</PRE>";
+    exit();
     // This will be different answer depending
     $finalurl = "voters/voterresult";
     
@@ -38,33 +41,6 @@
 
   $rmb = new RepMyBlock();  
   $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-  
-  // Why I am getting petition for candidates ?
-  //  $result = $rmb->GetPetitionsForCandidate($DatedFiles, 0, $URIEncryptedString["SystemUser_ID"]);
-  /*
-  if ( ! empty ($result)) {
-    foreach ($result as $var) {
-      if ( ! empty ($var)) {
-
-        $MyAddressToUse = $var["Raw_Voter_ResHouseNumber"] . " " . 
-                          $var["Raw_Voter_ResStreetName"];
-
-        if ( empty ($Counter[$MyAddressToUse] )) {
-          $Counter[$MyAddressToUse] = 0;
-        }
-        
-        $Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Petition_ID"] = $var["Candidate_ID"];
-        $Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_ID"] = $var["VotersIndexes_UniqNYSVoterID"];
-        $Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_FullName"] = $var["CandidatePetition_VoterFullName"];
-        $Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Elector_Address"] = "Apt " . $var["Raw_Voter_ResApartment"];
-        $Electors[$MyAddressToUse][$Counter[$MyAddressToUse]]["Full_Elector_Address"] = $var["Raw_Voter_ResHouseNumber"] . " " . $var["Raw_Voter_ResStreetName"];
-      }      
-      
-      $Counter[$MyAddressToUse]++;
-    }  
-  }
-  */
-  
   $TopMenus = array ( 
             array("k" => $k, "url" => "voters/voterlist", "text" => "District Voters"),
             array("k" => $k, "url" => "voters/voterquery", "text" => "Search Voter")
@@ -87,20 +63,43 @@
           <FORM ACTION="" METHOD="POST">  
               
             <div class="clearfix gutter d-flex flex-shrink-0">
+              <div class="list-group-item filtered">
+
+                <div class="field">
+                  <input type="text" id="HouseNumber" class="input" placeholder=" " required VALUE="<?= $HouseNumber ?>">
+                  <label for="HouseNumber">House Number</label>
+                </div>
+                
+                <div class="field">
+				          <input type="text" id="username"  class="input" name="username" required placeholder=" " />
+				          <label for="username">Username</label>
+				        </div>
+
+                <div class="field">
+                  <input type="text" id="StreetName" class="input" placeholder=" " required VALUE="<?= $StreetName ?>">
+                  <label for="StreetName">Street Name</label>
+                </div>
+
+                <div class="field">
+                  <input type="text" id="ZipCode" class="input" placeholder=" " required VALUE="<?= $ZipCode ?>">
+                  <label for="ZipCode">Zip Code</label>
+                </div>
+
+                <div class="field">
+                  <input type="text" id="AD" class="input" placeholder=" " required VALUE="<?= $RepostAD ?>">
+                  <label for="AD">AD</label>
+                </div>
+
+                <div class="field">
+                  <input type="text" id="ED" class="input" placeholder=" " required VALUE="<?= $RepostED ?>">
+                  <label for="ED">ED</label>
+                </div>
+
+         
              
-              <TABLE WIDTH=100%>
-                
-                <TR ALIGN=CENTER>
-                  <TH style="padding:0px 10px;">House Number</TH><TD><INPUT TYPE="INPUT" NAME="HouseNumber" VALUE="<?= $HouseNumber ?>" SIZE=2></TD>        
-                  <TH style="padding:0px 10px;" COLSPAN=4>Street Name</TH><TD><INPUT TYPE="INPUT" NAME="StreetName" VALUE="<?= $StreetName ?>" SIZE=30></TD>
-                </TR>
-                
-                <TR ALIGN=CENTER>
-                  <TH style="padding:0px 10px;">ZipCode</TH><TD><INPUT TYPE="INPUT" NAME="ZipCode" VALUE="<?= $ZipCode ?>" SIZE=5></TD>
-                  <TH style="padding:0px 10px;">AD</TH><TD><INPUT TYPE="INPUT" NAME="AD" VALUE="<?= $RepostAD ?>" SIZE=2></TD>                
-                  <TH style="padding:0px 10px;">ED</TH><TD><INPUT TYPE="INPUT" NAME="ED" VALUE="<?= $RepostED ?>" SIZE=2></TD>
-                  <TH style="padding:0px 10px;">County</TH>
-                  <TD>
+          
+                    County
+                  
                     <SELECT NAME="County_ID">
 <?php                 if ( ! empty ($ListCounties)) {
                         foreach ($ListCounties as $var) {
@@ -113,68 +112,90 @@
                         }
 ?>
                     </SELECT>
-                  </TD>
-                </TR>
-                <TR ALIGN=CENTER>
-                  <TH style="padding:0px 10px;" COLSPAN=3>First Name</TH><TD><INPUT TYPE="INPUT" NAME="FirstName" VALUE="<?= $FirstName ?>" SIZE=20></TD>                
-                  <TH style="padding:0px 10px;">Last Name</TH><TD COLSPAN=3><INPUT TYPE="INPUT" NAME="LastName" VALUE="<?= $LastName ?>" SIZE=20></TD>
-                </TR>
-                
-                <TR ALIGN=CENTER>
-                  <TH style="padding:0px 10px;" COLSPAN=3>County ID</TH><TD><INPUT TYPE="INPUT" NAME="BOECountyID" VALUE="<?= $BOECountyID ?>" SIZE=20></TD>                
-                  <TH style="padding:0px 10px;">State ID</TH><TD COLSPAN=3><INPUT TYPE="INPUT" NAME="BOEStateID" VALUE="<?= $BOEStateID ?>" SIZE=20></TD>
-                </TR>
-                
-                <TR>
-                  <TH COLSPAN=8 style="padding:0px 10px;"><INPUT TYPE="SUBMIT" NAME="SearchBuilding" VALUE="Search buildings" SIZE=2></TH>
-                </TR>    
-              </TABLE>
-            </DIV>
-            
-            <div class="list-group-item filtered">
-              <TABLE BORDER=1>
-                <TR>
-                  <TH style="padding:0px 10px;">House</TH>
-                  <TH style="padding:0px 10px;">Frac</TH>
-                  <TH style="padding:0px 10px;">Pre</TH>
-                  <TH style="padding:0px 10px;">Street Name</TH>
-                  <TH style="padding:0px 10px;">PostStreet</TH>
-                  <TH style="padding:0px 10px;">Zipcode</TH>
-                  <TH style="padding:0px 10px;">&nbsp;</TH>
-                </TR>                        
+                   </DIV>
+                   
+                  <div class="field">
+                    <input type="text" id="FirstName" class="input" placeholder=" " required VALUE="<?= $FirstName ?>">
+                    <label for="FirstName">First Name</label>
+                  </div>
+                 
+                  <div class="field">
+                    <input type="text" id="" class="input" placeholder=" " required VALUE="<?= $LastName ?>">
+                    <label for="LastName">Last Name</label>
+                  </div>
+           
+                  <div class="field">
+                    <input type="text" id="BOECountyID" class="input" placeholder=" " required VALUE="<?= $BOECountyID ?>">
+                    <label for="BOECountyID">BOECountyID</label>
+                  </div>
+                  
+                  <div class="field">
+                    <input type="text" id="BOEStateID" class="input" placeholder=" " required VALUE="<?= $BOEStateID ?>">
+                    <label for="BOEStateID">BOEStateID</label>
+                  </div>
+
+                  <DIV><INPUT TYPE="SUBMIT" NAME="SearchBuilding" VALUE="Search buildings"></DIV>
+              
+              
+           
+              
+                      <div class="list-group-item filtered">
+                       
+                      <TABLE>
+                        <TR>
+                          <TH style="padding:0px 10px;">House</TH>
+                          <TH style="padding:0px 10px;">Frac</TH>
+                          <TH style="padding:0px 10px;">Pre</TH>
+                          <TH style="padding:0px 10px;">Street Name</TH>
+                          <TH style="padding:0px 10px;">PostStreet</TH>
+                          <TH style="padding:0px 10px;">Zipcode</TH>
+                          <TH style="padding:0px 10px;">&nbsp;</TH>
+                        </TR>                  
 <?php 
                 if (! empty ($result)) {
                   foreach ($result as $var) {
                     if (! empty ($var["DataAddress_HouseNumber"] && ! empty($var["DataStreet_Name"]) && ! empty ($var["DataAddress_zipcode"]))) {
 ?>    
       
-                <TR ALIGN=CENTER>
-                  <TD style="padding:0px 10px;"><?= $var["DataAddress_HouseNumber"] ?></TD>
-                  <TD style="padding:0px 10px;"><?= $var["DataAddress_FracAddress"] ?></TD>
-                  <TD style="padding:0px 10px;"><?= $var["DataAddress_PreStreet"] ?></TD>
-                  <TD style="padding:0px 10px;"><?= $var["DataStreet_Name"] ?></TD>
-                  <TD style="padding:0px 10px;"><?= $var["DataAddress_PostStreet"] ?></TD>
-                  <TD style="padding:0px 10px;"><?= $var["DataAddress_zipcode"] ?></TD>
-                  <TD style="padding:0px 10px;"><A HREF="/<?= MergeEncode(array(
-                                        "DataAddress_HouseNumber" => $var["DataAddress_HouseNumber"], 
-                                    "DataAddress_FracAddress" => $var["DataAddress_FracAddress"],
-                                    "DataAddress_PreStreet" => $var["DataAddress_PreStreet"],
-                                    "DataStreet_Name" => $var["DataStreet_Name"],
-                                    "DataAddress_PostStreet" => $var["DataAddress_PostStreet"],
-                                    "DataAddress_zipcode" => $var["DataAddress_zipcode"],
-                                  
-                                  )); 
-                                ?>/lgd/objections/selecthouse"><B>See voters</B></A></TD>
-                </TR>
+                      <TR>
+                            <TD style="padding:0px 10px;"><?= $var["DataAddress_HouseNumber"] ?></TD>
+                            <TD style="padding:0px 10px;"><?= $var["DataAddress_FracAddress"] ?></TD>
+                            <TD style="padding:0px 10px;"><?= $var["DataAddress_PreStreet"] ?></TD>
+                            <TD style="padding:0px 10px;"><?= $var["DataStreet_Name"] ?></TD>
+                            <TD style="padding:0px 10px;"><?= $var["DataAddress_PostStreet"] ?></TD>
+                            <TD style="padding:0px 10px;"><?= $var["DataAddress_zipcode"] ?></TD>
+                            <TD style="padding:0px 10px;"><A HREF="/<?= MergeEncode(array(
+                                                  "DataAddress_HouseNumber" => $var["DataAddress_HouseNumber"], 
+                                              "DataAddress_FracAddress" => $var["DataAddress_FracAddress"],
+                                              "DataAddress_PreStreet" => $var["DataAddress_PreStreet"],
+                                              "DataStreet_Name" => $var["DataStreet_Name"],
+                                              "DataAddress_PostStreet" => $var["DataAddress_PostStreet"],
+                                              "DataAddress_zipcode" => $var["DataAddress_zipcode"],
+                                            
+                                            )); 
+                                          ?>/lgd/objections/selecthouse"><B>See voters</B></A></TD>
+              </TR>
 <?php
                     }
                   }
                 }
 ?>
-              </TABLE>
-            </DIV>
-          </FORM>
-        </DIV>
+                        </TABLE>
+             
+           
+               
+         
+                  
+
+                    </DIV>
+                  </DIV>
+                </DIV>
+              </DIV>
+            </DIV>     
+          </FORM>  
+        </DIV>   
       </DIV>
     </DIV>
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";  ?>
+  </BODY>
+</HTML>
