@@ -34,7 +34,8 @@ class welcome extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
-	function CandidatesForElection($ElectionDateFrom = NULL, $ElectionDateTo = NULL, $ElectionState = NULL, $ActiveTeam = NULL) {
+	function CandidatesForElection($ElectionDateFrom = NULL, $ElectionDateTo = NULL, $ElectionState = NULL, $ActiveTeam = NULL,  
+			$Offset = 0, $Limit = 600) {
 		$sql = "SELECT *, PublicProfile.PublicProfile_ID AS CANDPROFID " .
 						" , Candidate.CandidateElection_DBTable AS CANDDTABLE, Candidate.CandidateElection_DBTableValue AS CANDVALUE " .
 						"FROM Elections " .
@@ -44,7 +45,7 @@ class welcome extends queries {
 						"LEFT JOIN PublicProfile ON (PublicProfile.Candidate_ID = Candidate.Candidate_ID) " . 
 						"LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " .
 						"LEFT JOIN Team ON (Candidate.Team_ID = Team.Team_ID) " .  
-					 "WHERE CandidateProfile_PublishProfile = \"yes\"";
+					 "WHERE CandidateProfile_PublishProfile = \"yes\" AND CandidateElection_Text IS NOT NULL";
 		$sql_vars = array();
 		
 		if ( ! empty ($ElectionState)) {
@@ -66,9 +67,10 @@ class welcome extends queries {
 			$sql_vars["TeamID"] = $ActiveTeam;
 		}
 		
+		if ( empty ($Offset)) $Offset = 0;
 		$sql .= " ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder, " . 
 										"CandidateElection.CandidateElection_DBTable, " . 
-										"LPAD(CandidateElection.CandidateElection_DBTableValue, 6,0) ASC";
+										"LPAD(CandidateElection.CandidateElection_DBTableValue, 6,0) LIMIT $Limit OFFSET $Offset";
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 	

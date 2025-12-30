@@ -158,6 +158,8 @@
   /* box-sizing: border-box; */
 }
 
+
+
 /* the container must be positioned relative: */
 .autocomplete {position: relative;display: inline-block;}
 input {border: 1px solid transparent;background-color: #f1f1f1;padding: 10px;font-size: 16px;}
@@ -202,61 +204,272 @@ img.flagnonselected {
 <form autocomplete="off" method="post" action="">
 	
 <DIV class="main">
-	<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
+
+<STYLE>
+
+.election-batch {
+  margin-bottom: 40px;
+}
+
+/* Frame */
+.candidate-card.frame {
+  position: relative;
+  display: inline-block;
+
+  padding: 6px;
+  background: #fff;
+  border-radius: 6px;
+
+  overflow: hidden; /* 🔑 THIS CLIPS THE RIBBON */
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.18),
+    0 1px 3px rgba(0,0,0,.12);
+}
+
+/* Image */
+.imgcandidate {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* Ribbon */
+.ribbon {
+  position: absolute;
+  top: 5px;
+ 	left: -80px;    /* mostly inside */
+   width: 200px;
+  padding: 6px 0;
+
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.05;
+  text-align: center;
+  color: #fff;
+
+  transform: rotate(-45deg);
+  z-index: 2;
+}
+
+/* Party color */
+.ribbon.dem {background: linear-gradient(135deg, #f7a8b8, #e35d6a);}
+.ribbon.rep {background: linear-gradient(135deg, #00AEEF, #6fd3ff);}
+.ribbon.gre {background: linear-gradient(135deg, #6fdc9c, #00A651);}
+.ribbon.con {background: linear-gradient(135deg, #3a2416, #1f120a);}
+.ribbon.lib {background: linear-gradient(135deg, #f9a03f, #d97706);}
+.ribbon.wfp {background: linear-gradient(135deg, #6b2f85, #3f1a52);}
+.ribbon.com {background: linear-gradient(135deg, #a32020, #5a0f0f);}
+.ribbon small {
+  display: block;
+  font-size: 9px;
+}
+
+.candidate-card.frame {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 6px;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.18),
+    0 1px 3px rgba(0,0,0,.12);
+}
+
+/* 🔒 Image is sacred: never resize */
+.imgcandidate {
+  display: block;
+  width: 200 !important;
+  height: 300 !important;
+  max-width: none !important;   /* ⬅ critical */
+  flex-shrink: 0;               /* ⬅ critical */
+}
+
+/* 🔒 Name is constrained to image width */
+.candidate-name {
+  max-width: 100%;              /* relative to image */
+  margin-top: 6px;
+  padding: 2px 4px;
+
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.candidate-card.frame {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.candidate-card.frame:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.25),
+    0 3px 6px rgba(0,0,0,0.15);
+}
+
+.state-flag-bar {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+}
+
+.election-header {
+  position: sticky;
+  top: var(--flags-h);
+  z-index: 200;
+}
+
+.district-header {
+  position: sticky;
+  top: calc(var(--flags-h) + var(--date-h));
+  z-index: 100;
+}
+
+.state-flag-bar,
+.election-header,
+.district-header {
+  background-color: #ffffff !important;
+  background-clip: padding-box;
+}
+
+.flag-link {
+  position: relative;
+  display: inline-block;
+}
+
+.flag-link::after {
+  content: attr(data-state);
+  position: absolute;
+
+  bottom: 100%;          /* appear above flag */
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  padding: 4px 8px;
+  border-radius: 4px;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 9999;
+}
+
+.flag-link:hover::after {
+  opacity: 1;
+}
+</STYLE>
+
+	<div class="sticky-stack">
+
+  <div class="state-flag-bar">
+  		<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
+			<?php
 	
+			$activeccs = NULL; 
+			foreach ($Statescountries as $CountryName => $CountryFlag) { 
+				if ( ! empty($ActiveState)) { $activeccs = " flagnonselected"; }
+				$activeccs = $ActiveStateWithCandidate[$CountryFlag] ? NULL : " flagnonselected";
+			
+			?><A class="flag-link" data-state="<?= $CountryName ?>" HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "S" . $CountryFlag : "rset") . $BuildURLEnd ?>/voter/guide" ALT="<?= $CountryName ?>"><IMG SRC="/images/flags/<?= $CountryFlag ?>.png" class="candidate<?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>"></A> <?php 
+		} ?>
+	 </div>
 	
 
+<?php 
+	$firsttime = true;
+$PrevDateDesc = null;
+$PrevElectionID = null;
 
-	
-  
- 	<DIV class="panels">
-		
-		<?php			
-			$firsttime = true;
+if (!empty($result)) {
+  foreach ($result as $var) {
 
-			if (! empty ($result)) {
-				foreach($result as $var) {
-					WriteStderr($var, "Voter Guide");
-					if ( ! empty ($var["CandidateProfile_ID"]) && $var["CandidateProfile_NotOnBallot"] != 'yes' &&  $var["CandidateProfile_PublishProfile"] != 'no' ) {
-						$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
-						$PicturePath = "/shared/pics/" .
-															((empty($var["CandidateProfile_PicFileName"])) ?
-															((empty($var["Candidate_Party"]) || $var["Candidate_Party"] == "BLK") ?
-																"0000/NoPicture.jpg" :
-																"0000/" . $var["DataState_Abbrev"] . "/" . $var["Candidate_Party"] . "_NoPic.jpg") :
-																($var["CandidateProfile_PicFileName"] . "?" . $addtopics));
-						$FullAlias = preg_replace('/[^a-zA-Z0-9]+/', '', $var["CandidateProfile_Alias"]);
-						$DetailURL = "/" . $FullAlias . "_" . $var["CANDPROFID"] . "/voter/detail";						
-						?>
+    if (
+      !empty($var["CandidateProfile_ID"]) &&
+      $var["CandidateProfile_NotOnBallot"] != 'yes' &&
+      $var["CandidateProfile_PublishProfile"] != 'no'
+    ) {
 
-					<?php	if ($PrevDateDesc != $DateDesc) { $PrintDiv = true; } ?>
-					<?php	if ($PrevElectionID != $var["CandidateElection_ID"]) { $PrintDiv = true; } ?>
-					<?php if ($PrintDiv == true) { if ($firsttime == false) { echo "</DIV>"; }} ?>
-					<?php	if ($PrevDateDesc != $DateDesc) { ?><DIV class="f60bold"><?= $DateDesc ?></DIV><?php } ?>
-					<?php	if ($PrevElectionID != $var["CandidateElection_ID"]) { $PrintDiv = true; ?><DIV class="f60"><?= $var["CandidateElection_Text"] ?></DIV><?php } ?>
-					<?php if ($PrintDiv == true) { echo "<DIV class='container_bla'>"; } ?>
+      $DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
 
-					<DIV CLASS="container_picture">
-					<A HREF="<?= $DetailURL ?>"><IMG class="candidate imgcandidate" SRC="<?= $PicturePath ?>"></A>
-					
-				  <div class="centered p40" style="color: #000;"><?=  ucwords(strtolower($var["CandidateProfile_Alias"]))  ?></div>
-						
-					</DIV>
-				
-					<?php
-				
-						$PrevDateDesc = $DateDesc;
-						$PrevElectionID = $var["CandidateElection_ID"];
-						$firsttime = false;
-						$PrintDiv = false;
-				}
-			}
-		}
-		
-		if ($firsttime == true) { ?>
-			<H2>The guide is empty at this time.</H2>
-		<?php } ?>
-	</DIV>
+      $PicturePath = "/shared/pics/" . (!empty($var["CandidateProfile_PicFileName"]) ?
+									         $var["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
+
+      $FullAlias = preg_replace('/[^a-zA-Z0-9]+/', '', $var["CandidateProfile_Alias"]);
+      $DetailURL = "/" . $FullAlias . "_" . $var["CANDPROFID"] . "/voter/detail";
+
+      /* 🔑 Detect new batch */
+      $NewBatch =
+        ($PrevDateDesc !== $DateDesc) ||
+        ($PrevElectionID !== $var["CandidateElection_ID"]);
+
+      /* 🔒 Close previous batch */
+      if ($NewBatch && !$firsttime) {
+        echo "</div>"; // .election-batch
+      }
+
+      /* 🔒 Open new batch + print headers */
+      if ($NewBatch) {
+        ?>
+        <div class="election-batch">
+          <div class="election-header f60bold">
+            <?= $DateDesc ?>
+          </div>
+          <div class="district-header" class="f60">
+            <?= $var["CandidateElection_Text"] ?>
+          </div>
+        <?php
+      }
+      ?>
+
+      <!-- Candidate card -->
+      <div class="candidate-card frame">
+        <span class="ribbon <?= strtolower($var["Candidate_Party"]) ?>">
+          <?= $var["Candidate_Party"] ?>
+        </span>
+        <a href="<?= $DetailURL ?>">
+          <img src="<?= $PicturePath ?>" class="imgcandidate">
+        </a>
+        <div class="candidate-name">
+          <?= ucwords(strtolower($var["CandidateProfile_Alias"])) ?>
+        </div>
+      </div>
+
+      <?php
+      $PrevDateDesc = $DateDesc;
+      $PrevElectionID = $var["CandidateElection_ID"];
+      $firsttime = false;
+    }
+  }
+
+  /* 🔒 Close last batch */
+  if (!$firsttime) {
+    echo "</div>";
+  }
+
+} else {
+  ?>
+  <h2>The guide is empty at this time.</h2>
+  <?php
+}
+?>
+		<div id="scroll-sentinel"></div>
+		</DIV>
 
 <br style="clear:both">
 
@@ -292,3 +505,72 @@ img.flagnonselected {
 
 		
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
+<script>
+function updateStickyHeights() {
+  const flags = document.querySelector('.state-flag-bar');
+  const date  = document.querySelector('.election-header');
+
+  if (!flags || !date) return;
+
+  document.documentElement.style.setProperty(
+    '--flags-h',
+    flags.offsetHeight + 'px'
+  );
+
+  document.documentElement.style.setProperty(
+    '--date-h',
+    date.offsetHeight + 'px'
+  );
+}
+
+window.addEventListener('load', updateStickyHeights);
+window.addEventListener('resize', updateStickyHeights);
+</script>
+<script>
+let offset = 600;
+let loading = false;
+let done = false;
+
+const sentinel = document.getElementById('scroll-sentinel');
+
+const observer = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting && !loading && !done) {
+    loadNextBatch();
+  }
+}, {
+  rootMargin: '800px'   // 🔑 preload before bottom
+});
+
+observer.observe(sentinel);
+
+function loadNextBatch() {
+  loading = true;
+
+  const params = new URLSearchParams({
+    offset: offset,
+    state: '<?= $ActiveState ?>',
+    date:  '<?= $ActiveDate ?? "NOW" ?>',
+    team:  '<?= $ActiveTeam ?>'
+  });
+
+  fetch('/' + params.toString() '/voter/load_candidates')
+    .then(res => res.text())
+    .then(html => {
+      if (html.trim() === '') {
+        done = true;
+        observer.disconnect();
+        return;
+      }
+
+      sentinel.insertAdjacentHTML('beforebegin', html);
+      offset += 600;
+      loading = false;
+
+      // 🔑 recalc sticky heights after DOM changes
+      updateStickyHeights();
+    })
+    .catch(() => loading = false);
+}
+</script>
+</BODY>
+</HTML>

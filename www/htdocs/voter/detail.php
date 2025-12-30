@@ -41,12 +41,9 @@
 			print "<br style=\"clear:both\" />";
 			$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
 			$PrevDateDesc = $DateDesc;
-			$PicturePath = "/shared/pics/" . 
-										((empty($var["CandidateProfile_PicFileName"])) ? 
-										((empty($var["Candidate_Party"]) || $var["Candidate_Party"] == "BLK") ? 
-											"0000/NoPicture.jpg" : 														
-											"0000/" . $var["DataState_Abbrev"] . "/" . $var["Candidate_Party"] . "_NoPic.jpg") : 
-											($var["CandidateProfile_PicFileName"] . "?" . $addtopics));
+			$PicturePath = $PicturePath = "/shared/pics/" . (!empty($var["CandidateProfile_PicFileName"]) ?
+									         $var["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
+
 ?>
 						
 <P>
