@@ -343,12 +343,18 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 .auth-form .form-group.errored .error,.auth-form .form-group.errored .warning,.auth-form 
 .form-group.warn .error,.auth-form .form-group.warn .warning{max-width:274px}
 
-.menu{margin-bottom:15px;list-style:none;background-color:#fff;border:1px solid #d1d5da;border-radius:3px}
+
+.mobilemenu {
+	font-size: 3rem;
+}
+
+
+.menu{margin-bottom:15px;list-style:none;background-color:#fff;border:1px solid #d1d5da;border-radius:3px; }
 .menu-heading{display:block;padding:8px 10px;margin-top:0;margin-bottom:0;font-size:13px;font-weight:600;line-height:20px;color:#586069;background-color:#f3f5f8;border-bottom:1px solid #e1e4e8}
 .menu-heading:hover{text-decoration:none}
 .menu-heading:first-child{border-top-left-radius:2px;border-top-right-radius:2px}
 .menu-heading:last-child{border-bottom:0;border-bottom-right-radius:2px;border-bottom-left-radius:2px}
-.menu-item{display:block;padding:8px 10px;border-bottom:1px solid #e1e4e8}
+.menu-item{display:block;padding:8px 10px;border-bottom:1px solid #e1e4e8; }
 .menu-item:first-child{border-top:0;border-top-right-radius:2px}
 .menu-item:first-child,.menu-item:first-child:before{border-top-left-radius:2px}
 .menu-item:last-child{border-bottom:0;border-bottom-right-radius:2px}
