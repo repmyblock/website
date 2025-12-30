@@ -29,12 +29,12 @@ a{
 a:hover{text-decoration:underline}
 
 
-.f40 {font-size:16px; font-weight: 400; font-size: 4rem;}
-.f60 {font-size:18px; font-weight: 500; font-size: 4rem;}
-.f80 {font-size:28px; font-weight: 600; font-size: 4rem;}
+.f40 {font-size:16px; font-weight: 400; font-size: 3rem;}
+.f60 {font-size:18px; font-weight: 500; font-size: 3rem;}
+.f80 {font-size:28px; font-weight: 600; font-size: 3rem;}
 
-.f80bold {font-size:28px; font-weight: 600; font-size: 4rem;}
-.f60bold {font-size:18px; font-weight: 600; font-size: 4rem;}
+.f80bold {font-size:28px; font-weight: 600; font-size: 3rem;}
+.f60bold {font-size:18px; font-weight: 600; font-size: 3rem;}
 
 
 /* Hover effect */
@@ -166,9 +166,9 @@ a:hover{text-decoration:underline}
 
 .FooterStuff {
 	margin-top: 20px;
-	font-size: 2.00rem;
+	font-size: 2.0rem;
 	color: #9ca3af;
-	font-size: 10px;
+	/* font-size: 10px; */
 	font-weight: 400;
 }
 
@@ -258,9 +258,12 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 .main_wopad {-ms-flex: 70%; /* IE10 */flex: 70%;background-color: white;}
 
 .center {text-align:center;}
-.BlueBox{padding: 10px 20px 10px;background-color:#16317D;font-size: 26px;font-weight: 700;	font-size: 4rem;}
-.tadpad {padding: 10px 10px 0px 10px;	font-size: 4rem;}
-.w3-blue,.w3-hover-blue:hover{color:#fff!important;background-color:#16317D!important;font-weight: 700;font-family: 'Montserrat', sans-serif;	font-size: 4rem;}
+.BlueBox{padding: 10px 20px 10px;background-color:#16317D;font-size: 26px;
+	font-weight: 700;	font-size: 2.5rem;}
+.tadpad {padding: 10px 10px 0px 10px;	font-size: 2.5rem;}
+.w3-blue,.w3-hover-blue:hover{color:#fff!important;
+	background-color:#16317D!important;font-weight: 700;
+	font-family: 'Montserrat', sans-serif;	font-size: 2.5rem;}
 .nopad {padding:0px 0px 0px 0px;}
 
 
@@ -338,7 +341,7 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 .text-normal{font-weight:400!important}
 
 .Subhead{display:flex;padding-bottom:8px;margin-bottom:16px;border-bottom:1px solid #e1e4e8;flex-flow:row wrap}
-.Subhead-heading{font-size:28px;font-weight:600;flex:1 1 auto;font-size: 4rem;}
+.Subhead-heading{font-size:28px;font-weight:600;flex:1 1 auto;font-size: 3rem;}
 
 .auth-form .form-group.errored .error,.auth-form .form-group.errored .warning,.auth-form 
 .form-group.warn .error,.auth-form .form-group.warn .warning{max-width:274px}
