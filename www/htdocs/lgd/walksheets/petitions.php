@@ -45,8 +45,12 @@
 <?php /* <OPTION VALUE="CG"<?php if ($_POST["TYPE"] == "CG") { echo " SELECTED"; } ?>>Congressional District</OPTION>  */ ?>
 <?php /* <OPTION VALUE="County">County District</OPTION>  */ ?>
               </SELECT>
+              
+              <div class="field">
+          			<input type="text" id="DistrictNumber"  class="input" name="VALUE" placeholder=" " required  VALUE="<?= $_POST["VALUE"] ?>">
+			          <label for="DistrictNumber">District number</label>
+      			  </div>
                
-              <INPUT class="F40" TYPE="TEXT" NAME="VALUE" SIZE=5 PLACEHOLDER="Enter district number" VALUE="<?= $_POST["VALUE"] ?>">             
               
               <SELECT NAME="PARTY" class="f40 <?= $selCols ?>">
                  <OPTION VALUE="ALL"<?php if ($_POST["PARTY"] == "ALL") { echo " SELECTED"; } ?>>All Parties</OPTION>
