@@ -630,11 +630,14 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 .axis-btn {
   background:#6e6a6a;
   opacity:.35;
+  color: black;
 }
 
 .axis-btn.active {
   opacity:1;
   border:2px solid #000;
+    color: black;
+
 }
 
 /* axis colors (always present, visibility via opacity) */
