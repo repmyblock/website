@@ -128,8 +128,8 @@
 		  
 		  
 		  <div class="button2-group" style="padding-bottom: 15px;">
-		    <button type="button" class="button2 model-btn" data-model="eu" style="padding: 30px 150px 30px 150px">https://europeanmodel.org</button>
-		    <button type="button" class="button2 model-btn" data-model="us" style="padding: 30px 150px  30px 150px"> https://americanmodel.org</button>
+		    <button type="button" class="button2 model-btn" data-model="eu" >https://europeanmodel.org</button>
+		    <button type="button" class="button2 model-btn" data-model="us" > https://americanmodel.org</button>
 		  </div>
 		  
 	
@@ -406,122 +406,7 @@ setAxisEnabled(false);
  	
 
 	
-	 <STYLE>
-							/* =====================================================
-   BUTTON BASE
-   ===================================================== */
-.button2 {
-  border: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 140px;
-  height: 28px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-  transition: opacity .2s, transform .15s;
-}
-
-.button2:hover {
-  transform: scale(1.05);
-}
-
-.button2-group {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-/* =====================================================
-   MODEL BUTTONS
-   ===================================================== */
-.model-btn {
-  opacity: .35;
-}
-
-.model-btn[data-model="eu"] { background:#2b6cff; }
-.model-btn[data-model="us"] { background:#cc0000; }
-
-.model-btn.active {
-  opacity: 1;
-  border: 2px solid #000;
-}
-
-/* =====================================================
-   AXIS BUTTONS
-   ===================================================== */
-.axis-btn {
-  background:#6e6a6a;
-  opacity:.35;
-}
-
-.axis-btn.active {
-  opacity:1;
-  border:2px solid #000;
-}
-
-/* axis colors (always present, visibility via opacity) */
-.axis-left-red   { background:#cc0000; }
-.axis-right-red  { background:#cc0000; }
-.axis-left-blue  { background:#2b6cff; }
-.axis-right-blue { background:#2b6cff; }
-
-/* =====================================================
-   PARTY GRID
-   ===================================================== */
-.party-row {
-  display:flex;
-  gap:16px;
-  margin-bottom:12px;
-}
-
-.candidate {
-  width: 64px;
-  cursor: pointer;
-  opacity: 0.35;
-  transition: opacity .2s, transform .15s, box-shadow .15s;
-}
-
-.candidate.active {
-  opacity: 1;
-  /*   transform:scale(1.05); */
-}
-
-.candidate.selected {
-  opacity: 1;
-  transform: scale(1.1);
-  box-shadow: 0 0 0 3px #000;
-  border-radius: 6px;
-  
-  /*
-   border:3px solid #000;
-  padding:4px;
-  box-sizing:border-box; 
-  */
-}
-
-
-/* =====================================================
-   TOOLTIP
-   ===================================================== */
-#party-tooltip {
-  position:fixed;
-  z-index:9999;
-  background:#111;
-  color:#fff;
-  padding:10px 12px;
-  border-radius:6px;
-  max-width:260px;
-  font-size:13px;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .15s;
-}
-
-		</STYLE>
-    
+	
 	
 	
 	<a name="vendors"></A>

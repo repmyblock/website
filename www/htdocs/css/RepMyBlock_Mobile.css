@@ -49,6 +49,31 @@ a:hover{text-decoration:underline}
 
 }
 
+/* Scale everything */
+  .button2-group {
+    font-size: 1.3em;
+  }
+
+  /* Make URL buttons fit the screen */
+  .model-link {
+    padding: 3.2em 2.5em;
+    white-space: normal;
+    text-align: center;
+  }
+  
+  
+.button2 {
+  font-size: 1.2em;
+  padding: 0.7em 1.2em;
+}
+
+.model-btn {
+  font-size: 1.2em;
+  padding: 1em 3em;   /* replaces 150px */
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .header-logo {
   width: 20%;
   height: auto;
@@ -534,3 +559,122 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
   color: #4f5bd5;
   font-size: 1rem;
 }
+
+
+
+ <STYLE>
+							/* =====================================================
+   BUTTON BASE
+   ===================================================== */
+.button2 {
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 28px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  transition: opacity .2s, transform .15s;
+}
+
+.button2:hover {
+  transform: scale(1.05);
+}
+
+.button2-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* =====================================================
+   MODEL BUTTONS
+   ===================================================== */
+.model-btn {
+  opacity: .35;
+}
+
+.model-btn[data-model="eu"] { background:#2b6cff; }
+.model-btn[data-model="us"] { background:#cc0000; }
+
+.model-btn.active {
+  opacity: 1;
+  border: 2px solid #000;
+}
+
+/* =====================================================
+   AXIS BUTTONS
+   ===================================================== */
+.axis-btn {
+  background:#6e6a6a;
+  opacity:.35;
+}
+
+.axis-btn.active {
+  opacity:1;
+  border:2px solid #000;
+}
+
+/* axis colors (always present, visibility via opacity) */
+.axis-left-red   { background:#cc0000; }
+.axis-right-red  { background:#cc0000; }
+.axis-left-blue  { background:#2b6cff; }
+.axis-right-blue { background:#2b6cff; }
+
+/* =====================================================
+   PARTY GRID
+   ===================================================== */
+.party-row {
+  display:flex;
+  gap:16px;
+  margin-bottom:12px;
+}
+
+.candidate {
+  width: 64px;
+  cursor: pointer;
+  opacity: 0.35;
+  transition: opacity .2s, transform .15s, box-shadow .15s;
+}
+
+.candidate.active {
+  opacity: 1;
+  /*   transform:scale(1.05); */
+}
+
+.candidate.selected {
+  opacity: 1;
+  transform: scale(1.1);
+  box-shadow: 0 0 0 3px #000;
+  border-radius: 6px;
+  
+  /*
+   border:3px solid #000;
+  padding:4px;
+  box-sizing:border-box; 
+  */
+}
+
+
+/* =====================================================
+   TOOLTIP
+   ===================================================== */
+#party-tooltip {
+  position:fixed;
+  z-index:9999;
+  background:#111;
+  color:#fff;
+  padding:10px 12px;
+  border-radius:6px;
+  max-width:260px;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s;
+}
+
+		</STYLE>
+    
