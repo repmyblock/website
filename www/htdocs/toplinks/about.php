@@ -140,8 +140,12 @@
 		  </div>
 		</div>
 		
-
+		
   	<div id="party-container">
+  		
+  	<DIV class="PARTYDESCRIPTION">LEFT PARTIES</DIV>
+	
+  		
 		  <div id="party-top" class="party-row">
 		    <img class="candidate" id="pir" data-party="pir" alt="Pirate" src="/shared/teams/pirates/Pirate.png">
 		    <img class="candidate" id="ipa" data-party="ipa" alt="International People's Party" src="/shared/teams/ipa/ipa.png">
@@ -152,6 +156,10 @@
 		    <img class="candidate" id="soc" data-party="soc" alt="Socialists" src="/shared/teams/socialists/Socialists.png">
 		    <img class="candidate" id="pra" data-party="pra" alt="Progressive Alliance" src="/shared/teams/progalliance/ProgAlliance.png">
 		  </div>
+
+
+  		<DIV class="PARTYDESCRIPTION">RIGHT PARTIES</DIV>
+
 								
 			<div id="party-bottom" class="party-row">
         <IMG class="candidate" ALT="Liberals"  id="lib" class="candidate imglogo" SRC="/shared/teams/liberals/LiberalInternational.png">

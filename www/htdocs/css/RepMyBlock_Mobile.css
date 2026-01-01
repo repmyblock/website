@@ -68,6 +68,14 @@ a:hover{text-decoration:underline}
 }
 
 
+.PARTYDESCRIPTION {
+	 font-size: 3em;
+  display: block;
+  visibility: visible;
+  color:black;
+  font-weight: 800;
+}
+
 .model-btn2 {
   font-size: 1em;
   padding: 1em 3em;   /* replaces 150px */
