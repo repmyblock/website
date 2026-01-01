@@ -750,8 +750,6 @@ class RepMyBlock extends queries {
 		
 		$sql .= " ORDER BY CandidateGroup.CandidateSet_ID, CandidateGroup_Order";				
 		
-		echo "$sql<BR>";
-	
 		// Fix the issue as the Candidate PROFILE is tied to the username and not the VOTER ID.
 		
 		

@@ -1,4 +1,4 @@
- /* html {
+/* html {
 	font-family:sans-serif;
 	-ms-text-size-adjust:100%;
 	-webkit-text-size-adjust:100%;
@@ -21,7 +21,6 @@ body {
 	color:#16317D!important;
 }
 
-
 a{ background-color:initial; }
 a:active,a:hover{outline-width:0}
 a{
@@ -30,14 +29,12 @@ a{
 }
 a:hover{text-decoration:underline}
 
-
 .f40 {font-size:16px; font-weight: 400;}
 .f60 {font-size:18px; font-weight: 500;}
 .f80 {font-size:28px; font-weight: 600;}
 
 .f80bold {font-size:28px; font-weight: 600;}
 .f60bold {font-size:18px; font-weight: 600;}
-
 
 /* Hover effect */
 .header {
@@ -174,7 +171,6 @@ a:hover{text-decoration:underline}
 input[type=submit] {background-color: #EE2E62;color: white;padding: 8px 20px;border: none;cursor: pointer;}
 input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 
-
 .submitred {
     display: inline-block;          /* required */
     padding: 12px 20px;
@@ -212,15 +208,10 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
   display: inline-block;
   font-size: 16px;
   /* margin: 4px 2px; */
-  transition-duration: 0.4s;
-  
+  transition-duration: 0.4s;  
 }
 
 .button:hover {background-color: #EE2E62;color: #16317D;}
-
-
-
-
 /* Main page */
  
 .layout {
@@ -257,8 +248,6 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 .w3-blue,.w3-hover-blue:hover{color:#fff!important;background-color:#16317D!important;font-weight: 700;font-family: 'Montserrat', sans-serif;}
 .nopad {padding:0px 0px 0px 0px;}
 
-
-
 .sidebar-footer {
   background-image: url("/images/background/BackGround-FFF79D.jpg");
   text-align: center;
@@ -272,7 +261,6 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
   flex-direction: column;
   
 }
-
 
 /* Login COLS */
 .row { 
@@ -385,7 +373,6 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
   background: #f4f4f4;
 }
 
-
 #resp-table {
 	width: 100%;
 	display: table;
@@ -394,7 +381,6 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 #resp-table-normal {
 	display: table;
 }
-
 
 #resp-table-caption{
 	display: table-caption;
@@ -424,7 +410,6 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 
 .resp-table-row{
 	display: table-row;
-	
 }
 
 .table-body-cell{
@@ -466,7 +451,6 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 	text-align: justify;
 	border-bottom: 1px solid black;
 }
-
 
 .field {
   position: relative;

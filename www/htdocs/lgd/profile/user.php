@@ -203,25 +203,19 @@
 <?php if ( ! empty ($TopMenus)) { ?>
               <input type="hidden" value="<?= $URIEncryptedString["SystemUser_ID"] ?>" name="UserID">
 <?php } ?>
-              <div class="">
+              <div class="field">
                 <label class="f40" for="user_profile_name">Email Address</label>
-                <div class="form-value"><?= $PersonEmail ?></div>
-              </div>            
+                <div class="form-value" style="padding: 45px 20px"><?= $PersonEmail ?></div>
+              </div>     
               
-              <div class="field" style="--field-height: 20px;">
-                <input id="firstname" type="text" name="firstname" value="<?= $PersonFirstName ?>" required placeholder=" ">
+              <div class="field" style="">
+                <input id="firstname" class="input" type="text" name="firstname" value="<?= $PersonFirstName ?>" required placeholder=" ">
                 <label for="firstname">First Name</label>
-                <fieldset>
-                  <legend><span>First Name</span></legend>
-                </fieldset>
               </div>
             
-              <DIV class="field" style="--field-height: 20px">
-                <input id="lastname" type="text" name="lastname" value="<?= $PersonLastName ?>" required placeholder=" ">
+              <DIV class="field" style="">
+                <input id="lastname" class="input" type="text" name="lastname" value="<?= $PersonLastName ?>" required placeholder=" ">
                 <label for="lastname">Last Name</label>
-                <fieldset>
-                  <legend><span>Last Name</span></legend>
-                </fieldset>
               </div>
               
               <DIV class="">

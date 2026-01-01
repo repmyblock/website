@@ -22,17 +22,16 @@
   }
   WriteStderr($rmbcandidate, "rmbcandidate array");
 
-  
   // Put the POST HERE because we need to reread the data 
   if ( ! empty ($_POST)) {  
-    WriteStderr($_POST, "POST");
-       
+    WriteStderr($_POST, "POST Candidate Profile:");
+     
     if (empty ($CandidateProfileID)) {
-       // Find the CandidateElections in table CandidateElectionID
-       $ElectionsList = $rmb->CandidateElection($URIEncryptedString["DBTable"], 'X', NULL, NULL, $URIEncryptedString["Elections_ID"]);
+      // Find the CandidateElections in table CandidateElectionID
+      $ElectionsList = $rmb->CandidateElection($URIEncryptedString["DBTable"], 'X', NULL, NULL, $URIEncryptedString["Elections_ID"]);
       
       if ( empty ($ElectionsList)) {
-        $DataTable = array(
+        $DataTable = [
           "ElectionID" => $URIEncryptedString["Elections_ID"], 
           "ElectPosID" => $URIEncryptedString["ElectionsPosition_ID"],
           "PosType" => (($URIEncryptedString["Position"] == "office") ? 'electoral' :  $URIEncryptedString["Position"]),
@@ -43,9 +42,8 @@
           "Display" => "no", 
           "Sex" => "both", 
           "DBTable" => $URIEncryptedString["DBTable"],
-          "DBValue" => "X",
-        );
-      
+          "DBValue" => "X"
+        ];
         $CandidateElectionID = $rmb->InsertCandidateElection($DataTable);  
       } else {
         $CandidateElectionID = $ElectionsList[0]["CandidateElection_ID"];
@@ -56,9 +54,10 @@
        
       if ( empty ($CandidateInfo)) {
         // Create the Candidate Stuff
-        $CandidateID = $rmb->InsertCandidate($rmbperson["SystemUser_ID"], $URIEncryptedString["VoterUniqID"], $rmbperson["Voters_ID"], 
-                                NULL, $CandidateElectionID, $rmbperson["SystemUser_Party"], 
-                                trim($_POST["FullName"]), NULL, $URIEncryptedString["DBTable"], NULL,  NULL, 'pending');
+        $CandidateID = $rmb->InsertCandidate($rmbperson["SystemUser_ID"], $URIEncryptedString["VoterUniqID"], 
+        																			$rmbperson["Voters_ID"], NULL, $CandidateElectionID,
+        																			$rmbperson["SystemUser_Party"], trim($_POST["FullName"]), NULL, 
+        																			$URIEncryptedString["DBTable"], NULL,  NULL, 'pending');
       } else {
         $CandidateID = $CandidateInfo[0]["Candidate_ID"];
       }
@@ -104,8 +103,7 @@
           exit();
         } 
         $PictureFile = true;
-        
-                
+                        
       } else {
         $error_msg = "Current file size " . $_FILES["filepicture"]["type"] . " File size need to be smaller than 1 Mb";
       }
@@ -294,250 +292,609 @@
           <?php  PlurialMenu($k, $TopMenus);  ?>
          
                 <FORM ACTION="" METHOD="POST" ENCTYPE="multipart/form-data">
-                                
-                   <P class="f60">
+                	<input type="hidden" name="SelectedParty" id="SelectedParty">   
+                	<textarea name="CandidateProfileBio" id="campaign-html" hidden></textarea>
+                	
+                  <P class="f60">
                     <B>This profile will be presented to every person that visits the Rep My Block website.</B> You 
                     will be able to upload a one-page PDF of your platform that will be used to create a voter 
                     booklet that a voter will download and email.
                   </P>
                                     
-                    <?php if ($rmbcandidate["CandidateProfile_PublishProfile"] != 'yes') { ?>
-                   <P class="f60">
-                    <INPUT TYPE="CHECKBOX" NAME="PrivateRun" VALUE="yes"<?php if ($rmbcandidate["CandidateProfile_PublishProfile"] == 'yes') { echo " CHECKED"; } ?>>&nbsp;Publish the profile on the Rep My Block guide on the website.                    
-                    <BR><FONT COLOR="RED"><B>ATTENTION:</FONT></B> Once you publish the information, this option disappear. Do not select this
-                    option if you do not want your profile to be public.</FONT>
-                    <I>(<B>Note:</B> once the information is on a public website, the information will 
-                      automatically get updated, and this option will disappear.)</I>
-                  </P>
-
-                  <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
+                  <?php if ($rmbcandidate["CandidateProfile_PublishProfile"] != 'yes') { ?>
+                    <P class="f60">
+                      <INPUT TYPE="CHECKBOX" NAME="PrivateRun" VALUE="yes"<?php if ($rmbcandidate["CandidateProfile_PublishProfile"] == 'yes') { echo " CHECKED"; } ?>>&nbsp;Publish the profile on the Rep My Block guide on the website.                    
+                      <BR><FONT COLOR="RED"><B>ATTENTION:</B></FONT> Once you publish the information, this option disappear. Do not select this
+                      option if you do not want your profile to be public.
+                      <I>
+                        (<B>Note:</B> once the information is on a public website, the 
+                        information will automatically get updated, and this 
+                        option will disappear.)
+                      </I>
+                    </P>
+                    <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
                   <?php } ?>
-          
-                  <P class="f80">         
-                    <B><?= $ProfileDisplayName ?></B>
-                  </P>
-         
+
+                  <P class="f80"><B>Biographic Information</B></P>
+
                   <DIV>
 
+                    <div class="field">
+                      <input id="FirstName" type="text" class="input" name="FirstName" value="<?= htmlspecialchars($ProfileFirstName) ?>" required placeholder=" ">
+                      <label for="FirstName">First Name</label>
+                    </div>          
 
+                    <div class="field">
+                      <input id="LastName" type="text" class="input" name="FirstName" value="<?= htmlspecialchars($ProfileLastName) ?>" required placeholder=" ">
+                      <label for="LastName">Last Name</label>
+                    </div>              
 
-
-<H1><?= $ProfileFirstName ?></H1>
-<H1>CandidateProfile: <?= $rmbcandidate[0]["CandidateProfile_ID"] ?></H1>
-
-<div class="field">
-  <input id="FirstName" type="text" name="FirstName" value="<?= htmlspecialchars($ProfileFirstName) ?>" required placeholder=" ">
-  <label for="FirstName">First Name</label>
-  <fieldset>
-    <legend><span>First Name</span></legend>
-  </fieldset>
-</div>          
-
-<div class="field">
-  <input id="LastName" type="text" name="FirstName" value="<?= htmlspecialchars($ProfileLastName) ?>" required placeholder=" ">
-  <label for="LastName">Last Name</label>
-  <fieldset>
-    <legend><span>Last Name</span></legend>
-  </fieldset>
-</div>                
-
-
-                    <DL class="f40"> 
-                      <DT><LABEL>Last Name</LABEL><DT>
-                      <DD>
-                        <INPUT class="form-control" type="text" placeholder="Last Name" name="LastName" value="<?= $ProfileLastName ?>">
-                      </DD>
-                    </DL>
-                      
-                    <DL class="f40">
-                      <DT><LABEL>Public Facing Name</LABEL></DT>
-                      <DD><INPUT class="form-control" type="text" placeholder="Your name to be displayed publicly" name="FullName" value="<?= $ProfileAlias ?>"></DD>
-                    </DL>
+                    <div class="field">
+                      <input id="FullName" type="text" class="input" name="FullName" value="<?= htmlspecialchars($ProfileAlias) ?>" required placeholder=" ">
+                      <label for="FullName">Public Facing Name</label>
+                    </div>                
+  
+                    <DIV><button type="submit" class="submitred"><?= $StatusMessage ?></button></DIV>
                     
-                    <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
-                      
                     <HR>  
                       
-                    <DL class="f40">
-                      <DT><LABEL>Upload your picture</LABEL><BR><I>(make sure it's 200 pixels in width by 300 pixels in height)</I></DT>
-                      
-                    
-                    <?php 
-                        $PicVar = (empty($rmbcandidate["CandidateProfile_PicFileName"])) ? 
-                                      "0000/NoPicture.jpg" : $rmbcandidate["CandidateProfile_PicFileName"];
-                    ?>
-                    
-                
-                      <DT><IMG CLASS="candidate" SRC="/shared/pics/<?= $PicVar ?>?<?= time() ?>"></DT>
-                    </DL>
+                    <P class="f80"><B>Upload your picture</B></P>
+ 									    <?php 
+                          $PicVar = (empty($rmbcandidate["CandidateProfile_PicFileName"])) ? 
+                                        "0000/NoPicture.jpg" : $rmbcandidate["CandidateProfile_PicFileName"];
+                      ?>
+                      <DIV><IMG CLASS="candidate" SRC="/shared/pics/<?= $PicVar ?>?<?= time() ?>"></DIV>
+                    </DIV>
 
-                    <DL class="f40">
-                      <DD>
+                    <DIV class="f40">
+                      <DIV>
                         <INPUT type="file" name="filepicture">
                         <INPUT type="hidden" name="oldfilename" value="<?= $rmbcandidate["CandidateProfile_PicFileName"] ?>">
-                      </DD>
-                      
-                    </DL>
+                      </DIV>
+                    </DIV>
 
                     <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
 
                     <HR>  
-           
-                    <DL class="f40">
-                      <DT><LABEL>Campaign Email</LABEL></DT>
-                      <DD><INPUT class="form-control" type="text" placeholder="Your campaign email to be shared" name="Email" value="<?= $rmbcandidate["CandidateProfile_Email"]; ?>"></DD>
-                    </DL>
-                      
-                    <DL class="f40">
-                      <DT><LABEL>Campaign Website</LABEL></DT>
-                      <DD><INPUT class="form-control" type="text" placeholder="Your campaign website" name="URL" value="<?= $rmbcandidate["CandidateProfile_Website"]; ?>"></DD>
-                    </DL>
-                      
-                    <HR>  
                     
-                    <DL class="f40">
-                      <DT><LABEL>Phone Number</LABEL></DT>
-                      <DD><INPUT class="form-control" type="text" placeholder="Your campaign office phone number" name="PhoneNumber" value="<?= $rmbcandidate["CandidateProfile_PhoneNumber"]; ?>"></DD>
-                    </DL>
-                      
-                    <DL class="f40">
-                      <DT><LABEL>Fax Number</LABEL></DT>
-                      <DD><INPUT class="form-control" type="text" placeholder="Your campaign office fax number" name="FaxNumber" value="<?= $rmbcandidate["CandidateProfile_FaxNumber"]; ?>"></DD>
-                    </DL>
+                     <P class="f80"><B>Campaign Information</B></P>
+                    
+                    <div class="field">
+                      <input id="FullName" type="text" class="input" name="Email" value="<?= htmlspecialchars($rmbcandidate["CandidateProfile_Email"]) ?>" placeholder=" ">
+                      <label for="FullName">Campaign Email</label>
+                    </div>                
+
+
+                    <div class="field">
+                      <input id="FullName" type="text" class="input" name="URL" value="<?= htmlspecialchars($rmbcandidate["CandidateProfile_Website"]) ?>" placeholder=" ">
+                      <label for="FullName">Campaign Website</label>
+                    </div>                
+                           
+                  
+                  
+                    <div class="field">
+                      <input id="FullName" type="text" class="input" name="PhoneNumber" value="<?= htmlspecialchars($rmbcandidate["CandidateProfile_PhoneNumber"]) ?>" placeholder=" ">
+                      <label for="FullName">Campaign Phone Number</label>
+                    </div>     
+                  
+                    <div class="field">
+                      <input id="FullName" type="text" class="input" name="FaxNumber" value="<?= htmlspecialchars($rmbcandidate["CandidateProfile_FaxNumber"]) ?>" placeholder=" ">
+                      <label for="FullName">Campaign Fax Number</label>
+                    </div>       
+                    
+                                         
+                  <div class="field">
+                    <input id="donationlink" type="text" class="input" name="donationlink" value="<?= htmlspecialchars($rmbcandidate["CandidateProfile_Donation"]) ?>" placeholder=" ">
+                    <label for="donationlink">Donation Link</label>
+                  </div>       
+                    
+                  <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
 
                     <HR>  
                       
-                    <DL class="f40">
-                      <DT><LABEL>Campaign Statement.</LABEL></DT>
-                      <DD class="">
-                        
-                        
+                    
+                    	 <P class="f80"><B>Short Campaign Statement</B></P>
+                                           
                         <?php /*
                         <TEXTAREA class="form-control" placeholder="Tell us a little bit about yourself" 
                           name="CandidateProfileBio"></TEXTAREA>
                       */ ?>
-                     
-                
-                <style>
-	                #html-output { white-space: pre-wrap;  }
+                                     
+                       <style>
+                      #html-output { white-space: pre-wrap;  }
 
-	                .content {
-	                  box-sizing: border-box;
-	                  margin: 0 auto;
-	                  max-width: auto;
-	                  padding: 10px;
-	                }
+                      .content {
+                        box-sizing: border-box;
+                        margin: 0 auto;
+                        max-width: auto;
+                        padding: 10px;
+                      }
 
-	                .save-button {
-	                  background-color: #04AA6D;
-	                  color: white;
-	                  padding: 12px 20px;
-	                  border: none;
-	                  border-radius: 4px;
-	                  cursor: pointer;
-	                  /* float: right; */
-	                }
-	                  <?php require $_SERVER["DOCUMENT_ROOT"] . "/../libs/utils/External_Pell/dist/pell.min.css"; ?>
-	                
-                </STYLE>
+                      .save-button {
+                        background-color: #04AA6D;
+                        color: white;
+                        padding: 12px 20px;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        /* float: right; */
+                      }
+                      <?php require $_SERVER["DOCUMENT_ROOT"] . "/../libs/utils/External_Pell/dist/pell.min.css"; ?>
+                       </STYLE>
 
-                     
-  <div class="content">
-    <div id="editor" class="pell"></div>
-    <div style="margin-top:20px;">
-      <h3>Text output:</h3>
-      <div id="text-output"></div>
-    </div>
-    
-    <div style="margin-top:20px;">
-      <h3>HTML output:</h3>
-      <pre id="html-output"></pre>
-    </div>
-  </div>
-
-  
-
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                      </DD>
-                    </DL> 
+                      <div class="content">
+                      <div id="editor" class="pell"></div>
                       
-                    <HR> 
-                    
-                    <DL class="f40">
-                      <DT><LABEL>Upload your PDF platform</LABEL> <I>(Max file size 1 Mb.)</I></DT>
-                      <DD>
-                        <INPUT type="file" name="pdfplatform">
-                         <INPUT type="hidden" name="oldpdfname" value="<?= $rmbcandidate["CandidateProfile_PDFFileName"] ?>">
-                      </DD>
-                    </DL>            
-                    
-                    <?php if (! empty ($rmbcandidate["CandidateProfile_PDFFileName"])) { ?>
-                    <P>
-                                              
-                     <B><A HREF="/shared/platforms/<?= $rmbcandidate["CandidateProfile_PDFFileName"] ?>" TARGET="Platform">Download PDF platform</A></B>
-                                              
+                      <?php 
+                        /*
+                        <div style="margin-top:20px;">
+                          <h3>Text output:</h3>
+                          <div id="text-output"></div>
+                        </div>
+                        
+                        <div style="margin-top:20px;">
+                          <h3>HTML output:</h3>
+                          <pre id="html-output"></pre>
+                        </div>
+                        */ 
+                      ?>
+                    </div>
+                  </DIV>
+                      
+                      <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
+
+                      
+                  <HR> 
+                  
+        <STYLE>
+							/* =====================================================
+   BUTTON BASE
+   ===================================================== */
+.button2 {
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 28px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  transition: opacity .2s, transform .15s;
+}
+
+.button2:hover {
+  transform: scale(1.05);
+}
+
+.button2-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* =====================================================
+   MODEL BUTTONS
+   ===================================================== */
+.model-btn {
+  opacity: .35;
+}
+
+.model-btn[data-model="eu"] { background:#2b6cff; }
+.model-btn[data-model="us"] { background:#cc0000; }
+
+.model-btn.active {
+  opacity: 1;
+  border: 2px solid #000;
+}
+
+/* =====================================================
+   AXIS BUTTONS
+   ===================================================== */
+.axis-btn {
+  background:#6e6a6a;
+  opacity:.35;
+}
+
+.axis-btn.active {
+  opacity:1;
+  border:2px solid #000;
+}
+
+/* axis colors (always present, visibility via opacity) */
+.axis-left-red   { background:#cc0000; }
+.axis-right-red  { background:#cc0000; }
+.axis-left-blue  { background:#2b6cff; }
+.axis-right-blue { background:#2b6cff; }
+
+/* =====================================================
+   PARTY GRID
+   ===================================================== */
+.party-row {
+  display:flex;
+  gap:16px;
+  margin-bottom:12px;
+}
+
+.candidate {
+  width: 64px;
+  cursor: pointer;
+  opacity: 0.35;
+  transition: opacity .2s, transform .15s, box-shadow .15s;
+}
+
+.candidate.active {
+  opacity: 1;
+  /*   transform:scale(1.05); */
+}
+
+.candidate.selected {
+  opacity: 1;
+  transform: scale(1.1);
+  box-shadow: 0 0 0 3px #000;
+  border-radius: 6px;
+  
+  /*
+   border:3px solid #000;
+  padding:4px;
+  box-sizing:border-box; 
+  */
+}
+
+
+/* =====================================================
+   TOOLTIP
+   ===================================================== */
+#party-tooltip {
+  position:fixed;
+  z-index:9999;
+  background:#111;
+  color:#fff;
+  padding:10px 12px;
+  border-radius:6px;
+  max-width:260px;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s;
+}
+
+		</STYLE>
+    
+    <div>
+		 
+		   <P class="f80"><B>Political persuasion</B></P>
+
+		  <div style="padding-bottom: 15px;">
+		    Select the political persuasion that fits your belief system. We will <BR>
+		    <A TARGET="persuation" HREF="/web/toplinks/about">For detailed information about political tendencies</A>.
+		  </div>
+		  
+
+		  <div class="button2-group" style="padding-bottom: 15px;">
+		    <button type="button" class="button2 model-btn" data-model="eu">European Model</button>
+		    <button type="button" class="button2 model-btn" data-model="us">American Model</button>
+		  </div>
+
+		  <div class="button2-group" style="padding-bottom: 15px;">
+				<button type="button" class="button2 axis-btn" data-axis="left">Left</button>
+				<button type="button" class="button2 axis-btn" data-axis="center">Center</button>
+				<button type="button" class="button2 axis-btn" data-axis="right">Right</button>
+		  </div>
+		</div>
+		
+
+  	<div id="party-container">
+		  <div id="party-top" class="party-row">
+		    <img class="candidate" id="pir" data-party="pir" alt="Pirate" src="/shared/teams/pirates/Pirate.png">
+		    <img class="candidate" id="ipa" data-party="ipa" alt="International People's Party" src="/shared/teams/ipa/ipa.png">
+		    <img class="candidate" id="isa" data-party="isa" alt="Socialist Alternative" src="/shared/teams/socalternative/ISAlternative.png">
+		    <img class="candidate" id="com" data-party="com" alt="Communists" src="/shared/teams/communists/solidnet.png">
+		    <img class="candidate" id="pri" data-party="pri" alt="Progressive International" src="/shared/teams/proginternational/ProgInternational.png">
+		    <img class="candidate" id="gre" data-party="gre" alt="Greens" src="/shared/teams/greens/Greens.png">
+		    <img class="candidate" id="soc" data-party="soc" alt="Socialists" src="/shared/teams/socialists/Socialists.png">
+		    <img class="candidate" id="pra" data-party="pra" alt="Progressive Alliance" src="/shared/teams/progalliance/ProgAlliance.png">
+		  </div>
+								
+			<div id="party-bottom" class="party-row">
+        <IMG class="candidate" ALT="Liberals"  id="lib" class="candidate imglogo" SRC="/shared/teams/liberals/LiberalInternational.png">
+        <IMG class="candidate" ALT="Christian Democrats"  id="cdu" class="candidate imglogo" SRC="/shared/teams/christiansdemocrats/IDC.png">
+        <IMG class="candidate" ALT="Libertarians"  id="lbt" class="candidate imglogo" SRC="/shared/teams/libertarians/Libertarian.png">
+        <IMG class="candidate" ALT="Democratic Union"  id="idu" class="candidate imglogo" SRC="/shared/teams/democrats/IDU.png">
+        <IMG class="candidate" ALT="Indentity and Democracy"  id="con" class="candidate imglogo" SRC="/shared/teams/identity/Conservatives.png">
+			</div>
+		</div>						 									   
+               									
+
+<div id="party-tooltip"></div>
+
+<script>
+/* =========================================================
+   DATA
+   ========================================================= */
+
+const MODELS = {
+  eu: {
+    top: ['pir','ipa','isa','com','pri','gre','soc','pra'],
+    bottom: ['lib','cdu','lbt','idu','con']
+  },
+  us: {
+    top: ['pir','ipa','isa','com','pri','gre','soc','pra','lib','cdu'],
+    bottom: ['lbt','idu','con']
+  }
+};
+
+const AXIS = {
+  eu: {
+    left:   ['pir','ipa','isa','com','pri','gre','soc','pra'],
+    center: ['soc','pra','lib'],
+    right:  ['lib','cdu','lbt','idu','con']
+  },
+  us: {
+    left:   ['pir','ipa','isa','com','pri','gre','soc','pra','lib','cdu'],
+    center: ['pra','lib','cdu'],
+    right:  ['lbt','idu','con']
+  }
+};
+
+const PARTY_INFO = {
+  pir:{name:'Pirate Parties',desc:'Digital rights & transparency<BR><B>US:</B> Pirate Party'},
+  ipa:{name:'People’s Party',desc:'International solidarity<BR><B>US:</B> Party for Socialism and Liberation'},
+  isa:{name:'Socialist Alternative',desc:'Revolutionary socialism<BR><B>US:</B> Socialist Alternative'},
+  com:{name:'Communists',desc:'Marxist traditions<BR><B>US:</B> Communist Party, USA'},
+  pri:{name:'Progressive International',desc:'Global progressives<BR><B>US:</B> Democrat Socialists of America'},
+  gre:{name:'Greens',desc:'Ecology & climate justice<BR><B>US:</B> Global Greens USA'},
+  soc:{name:'Socialists',desc:'Social Democratic Socialism<BR><B>US:</B> Social Democrats of America'},
+  pra:{name:'Progressive Alliance',desc:'Progressivism<BR><B>US:</B> Progressive Democrats of America'},
+  lib:{name:'Liberals',desc:'Civil liberties & markets<BR><B>US:</B> Center for New Liberalism'},
+  cdu:{name:'Christian Democrats',desc:'Social market economy<BR><B>US:</B> Frederick Douglass Foundation'},
+  lbt:{name:'Libertarians',desc:'Individual liberty<BR><B>US:</B> Libertarian Party'},
+  idu:{name:'Democratic Union',desc:'Conservative alliance<BR><B>US:</B> Republican National Committee'},
+  con:{name:'Patriots',desc:'National conservatism<BR><B>US:</B> Conservative Party'}
+};
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let currentModel = null;
+let currentAxis  = null;
+
+/* =========================================================
+   DOM
+   ========================================================= */
+
+const topRow   = document.getElementById('party-top');
+const bottomRow= document.getElementById('party-bottom');
+const tooltip  = document.getElementById('party-tooltip');
+
+const modelBtns = document.querySelectorAll('.model-btn');
+const axisBtns  = document.querySelectorAll('.axis-btn');
+const candidates = document.querySelectorAll('.candidate');
+const selectedInput = document.getElementById('SelectedParty');
+
+/* =========================================================
+   PARTY CLICK (POST FIX)
+   ========================================================= */
+
+candidates.forEach(img => {
+  img.addEventListener('click', () => {
+
+    // toggle logic
+    if (img.classList.contains('selected')) {
+      img.classList.remove('selected');
+      selectedInput.value = '';
+      return;
+    }
+
+    // single selection
+    candidates.forEach(c => c.classList.remove('selected'));
+    img.classList.add('selected');
+
+    // 🔑 value sent via POST
+    selectedInput.value = img.dataset.party || img.id;
+  });
+
+  // tooltip
+  img.addEventListener('mouseenter', e => {
+    const p = PARTY_INFO[img.id];
+    if (!p) return;
+    tooltip.innerHTML = `<strong>${p.name}</strong><br>${p.desc}`;
+    tooltip.style.opacity = 1;
+  });
+
+  img.addEventListener('mousemove', e => {
+    tooltip.style.left = e.clientX + 15 + 'px';
+    tooltip.style.top  = e.clientY + 15 + 'px';
+  });
+
+  img.addEventListener('mouseleave', () => {
+    tooltip.style.opacity = 0;
+  });
+});
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function showAll() {
+  candidates.forEach(c => c.classList.add('active'));
+}
+
+function setAxisEnabled(enabled) {
+  axisBtns.forEach(b => {
+    b.style.pointerEvents = enabled ? 'auto' : 'none';
+    b.style.opacity = enabled ? '' : '0.35';
+  });
+}
+
+function updateAxisColors(model) {
+  const L = document.querySelector('[data-axis="left"]');
+  const R = document.querySelector('[data-axis="right"]');
+
+  L.classList.remove('axis-left-red','axis-left-blue');
+  R.classList.remove('axis-right-red','axis-right-blue');
+
+  if (model === 'us') {
+    L.classList.add('axis-left-blue');
+    R.classList.add('axis-right-red');
+  } else {
+    L.classList.add('axis-left-red');
+    R.classList.add('axis-right-blue');
+  }
+}
+
+function applyModel(model) {
+  currentModel = model;
+
+  const topFrag = document.createDocumentFragment();
+  const bottomFrag = document.createDocumentFragment();
+
+  MODELS[model].top.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) topFrag.appendChild(el);
+  });
+
+  MODELS[model].bottom.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) bottomFrag.appendChild(el);
+  });
+
+  // clear rows SAFELY
+  while (topRow.firstChild) topRow.removeChild(topRow.firstChild);
+  while (bottomRow.firstChild) bottomRow.removeChild(bottomRow.firstChild);
+
+  // reattach
+  topRow.appendChild(topFrag);
+  bottomRow.appendChild(bottomFrag);
+
+  updateAxisColors(model);
+
+  if (currentAxis) {
+    applyAxis(currentAxis);
+  } else {
+    showAll();
+  }
+}
+function applyAxis(axis) {
+  if (!currentModel) return;
+  currentAxis = axis;
+
+  const allowed = new Set(AXIS[currentModel][axis]);
+
+  candidates.forEach(c => {
+    c.classList.toggle('active', allowed.has(c.id));
+  });
+}
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
+
+modelBtns.forEach(btn => {
+  btn.onclick = () => {
+    const model = btn.dataset.model;
+
+    if (currentModel === model) {
+      currentModel = null;
+      modelBtns.forEach(b => b.classList.remove('active'));
+      axisBtns.forEach(b => b.classList.remove('active'));
+      setAxisEnabled(false);
+      showAll();
+      return;
+    }
+
+    modelBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    setAxisEnabled(true);
+    applyModel(model);
+  };
+});
+
+axisBtns.forEach(btn => {
+  btn.onclick = () => {
+    axisBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyAxis(btn.dataset.axis);
+  };
+});
+
+/* =========================================================
+   INIT
+   ========================================================= */
+
+showAll();
+setAxisEnabled(false);
+</script>
+
+
+ 									<p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
+
+                  <HR> 
+                  
+                  
+                  <P class="f80"><B>Upload your PDF platform</B></P>
+                  <DIV <I>(Max file size 1 Mb.)</I></DIV>
+                    <DIV>
+                      <INPUT type="file" name="pdfplatform">
+                      <INPUT type="hidden" name="oldpdfname" value="<?= $rmbcandidate["CandidateProfile_PDFFileName"] ?>">
+                    </DIV>
+                        
+                  
+                  <?php if (! empty ($rmbcandidate["CandidateProfile_PDFFileName"])) { ?>
+                  <P>                                       
+                    <B><A HREF="/shared/platforms/<?= $rmbcandidate["CandidateProfile_PDFFileName"] ?>" TARGET="Platform">Download PDF platform</A></B>                       
                     <div id="demo-basic">
                       <embed src="/shared/platforms/<?= $rmbcandidate["CandidateProfile_PDFFileName"] ?>" width="500" height="600" type="application/pdf">
-                    </div>
+                    </div>                  
+                  </P>
+                  <?php } ?>     
+                  
+                  <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
+                                  
+                  <HR> 
+  
+								   <P class="f80"><B>Social Media</B></P>
+  
+                  <div class="field">
+                    <input id="Twitter" type="text" class="input" name="Twitter" value="<?= htmlspecialchars($rmbcandidate["CandidateProfile_Twitter"]) ?>" placeholder=" ">
+                    <label for="Twitter">Twitter</label>
+                  </div>                  
+      
+                  <div class="field">
+                    <input id="Bluesky" type="text" class="input" name="Bluesky" value="<?= htmlspecialchars($rmbcandidate["CandidateProfile_Bluesky"]) ?>" placeholder=" ">
+                    <label for="Bluesky">Bluesky</label>
+                  </div>                         
+                          
+                  <div class="field">
+                    <input id="Instagram" type="text" class="input" name="Instagram" value="<?= htmlspecialchars($rmbcandidate["CandidateProfile_Instagram"]) ?>" placeholder=" ">
+                    <label for="Instagram">Instagram</label>
+                  </div>       
+                          
+                  <div class="field">
+                    <input id="Facebook" type="text" class="input" name="Facebook" value="<?= htmlspecialchars($rmbcandidate["CandidateProfile_Facebook"]) ?>" placeholder=" ">
+                    <label for="Facebook">Facebook</label>
+                  </div>       
                     
-                    </P>
-                    <?php } ?>     
+                  <div class="field">
+                    <input id="YouTube" type="text" class="input" name="YouTube" value="<?= htmlspecialchars($rmbcandidate["CandidateProfile_YouTube"]) ?>" placeholder=" ">
+                    <label for="YouTube">YouTube</label>
+                  </div>       
+                       
+                  <div class="field">
+                    <input id="TikTok" type="text" class="input" name="TikTok" value="<?= htmlspecialchars($rmbcandidate["CandidateProfile_TikTok"]) ?>" placeholder=" ">
+                    <label for="TikTok">Tik Tok</label>
+                  </div>       
+                                 
+                  <div class="field">
+                    <input id="Ballotpedia" type="text" class="input" name="Ballotpedia" value="<?= htmlspecialchars($rmbcandidate["CandidateProfile_BallotPedia"]) ?>" placeholder=" ">
+                    <label for="Ballotpedia">Ballotpedia</label>
+                  </div>       
                     
-                    <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
-                                    
-                    <HR> 
-    
-                    <DL class="f40">
-                      <DT><LABEL>Twitter</LABEL></DT>
-                      <DD><INPUT class="form-control" type="text" placeholder="@" name="Twitter" value="<?= $rmbcandidate["CandidateProfile_Twitter"]; ?>"></DD>
-                    </DL>
-
-                    <DL class="f40">
-                      <DT><LABEL>Instagram</LABEL></DT>
-                      <DD><INPUT class="form-control" type="text" placeholder="@" name="Instagram" value="<?= $rmbcandidate["CandidateProfile_Instagram"]; ?>"></DD>
-                    </DL>
-                      
-                    <DL class="f40">
-                      <DT><LABEL>Facebook</LABEL></DT>
-                      <DD><INPUT class="form-control" type="text" placeholder="https://facebook.org/" name="Facebook" value="<?= $rmbcandidate["CandidateProfile_Facebook"]; ?>"></DD>
-                    </DL>
-                      
-                    <DL class="f40">
-                      <DT><LABEL>YouTube</LABEL></DT>
-                      <DD><INPUT class="form-control" type="text" placeholder="https://youtube.com" name="YouTube" value="<?= $rmbcandidate["CandidateProfile_YouTube"]; ?>"></DD>
-                    </DL>
-
-                    <DL class="f40">
-                      <DT><LABEL>TikTok</LABEL></DT>
-                      <DD><INPUT class="form-control" type="text" placeholder="https://tiktok.com" name="TikTok" value="<?= $rmbcandidate["CandidateProfile_TikTok"]; ?>"></DD>
-                    </DL>
-
-                    <DL class="f40">
-                      <DT><LABEL>Ballotpedia</LABEL></DT>
-                      <DD><INPUT class="form-control" type="text" placeholder="https://ballotpedia.org" name="Ballotpedia" value="<?= $rmbcandidate["CandidateProfile_BallotPedia"]; ?>"></DD>
-                    </DL>
                     
-                    <p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
+                    
+                    <DIV><button type="submit" class="submitred"><?= $StatusMessage ?></button></DIV>
                     
                     <P class="f40">
                       All of the fields on this page are optional and can be deleted at any
@@ -549,10 +906,7 @@
 
                   </DIV>
                 </FORM>
-                
-              </DIV>
-            </DIV>
-          </DIV>
+        
         </DIV>
       </DIV>
     </DIV>
@@ -573,20 +927,35 @@
             'ulist',
             'link',
           ],
-        onChange: function (html) {
-          document.getElementById('text-output').innerHTML = html
-          document.getElementById('html-output').textContent = html
-        }
-      })
+               
+        onChange: html => {
+     		 // 🔑 store HTML for POST
+		      document.getElementById('campaign-html').value = html;
+		    }
+		        
+        	
+       
+        
+      });
+      
+      
   </script>
+  <script>
+  const form = document.querySelector('form');
+  const campaignField = document.getElementById('campaign-html');
+
+  form.addEventListener('submit', e => {
+    if (publishChecked && !campaignField.value.trim()) {
+      alert('Campaign statement required to publish.');
+      e.preventDefault();
+    }
+  });
+</script>
+ 
   <SCRIPT>
   // Populate with HTML
-    /*
-    editor.content.innerHTML = `
-      <h2>Candidate Statement</h2>
-      <p>This is <strong>HTML</strong> coming from the database.</p>
-    `;
-    */
-</SCRIPT>
+  	editor.content.innerHTML = `<?= $rmbcandidate["CandidateProfile_Statement"] ?>`;
+	</SCRIPT>	
+	
   </BODY>
 </HTML>

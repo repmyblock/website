@@ -28,9 +28,6 @@
   $rmbcandidate = $rmb->ListCandidateInformationByUNIQ($rmbperson["Voters_UniqStateVoterID"]);
   WriteStderr($rmbcandidate, "RMBElectoral");
   
-  echo "Count of RMBCandidate: " . count($rmbcandidate) . "<BR>";
-  
-  echo "<PRE>" . print_r($rmbcandidate, 1) . "</PRE>";
   
   
   if ( ! empty ($rmbcandidate)) {
