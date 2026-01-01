@@ -128,8 +128,8 @@
 		  
 		  
 		  <div class="button2-group" style="padding-bottom: 15px;">
-		    <button type="button" class="button2 model-btn" data-model="eu" >https://europeanmodel.org</button>
-		    <button type="button" class="button2 model-btn" data-model="us" > https://americanmodel.org</button>
+		    <button type="button" class="button2 model-btn2" data-model="eu" >https://europeanmodel.org</button>
+		    <button type="button" class="button2 model-btn2" data-model="us" > https://americanmodel.org</button>
 		  </div>
 		  
 	

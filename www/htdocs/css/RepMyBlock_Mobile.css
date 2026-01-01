@@ -63,15 +63,25 @@ a:hover{text-decoration:underline}
   
   
 .button2 {
-  font-size: 1.2em;
+  font-size: 1.7em;
   padding: 0.7em 1.2em;
 }
 
-.model-btn {
-  font-size: 1.2em;
+
+.model-btn2 {
+  font-size: 1em;
   padding: 1em 3em;   /* replaces 150px */
-  font-weight: 600;
+  font-weight: 800;
   white-space: nowrap;
+  color: black;
+}
+
+.model-btn {
+  font-size: 1.6em;
+  padding: 1em 3em;   /* replaces 150px */
+  font-weight: 800;
+  white-space: nowrap;
+  color: black;
 }
 
 .header-logo {
@@ -600,7 +610,16 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 .model-btn[data-model="eu"] { background:#2b6cff; }
 .model-btn[data-model="us"] { background:#cc0000; }
 
+.model-btn2[data-model="eu"] { background:#2b6cff; }
+.model-btn2[data-model="us"] { background:#cc0000; }
+
+
 .model-btn.active {
+  opacity: 1;
+  border: 2px solid #000;
+}
+
+.model-btn2.active {
   opacity: 1;
   border: 2px solid #000;
 }
@@ -675,6 +694,3 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
   pointer-events:none;
   transition:opacity .15s;
 }
-
-		</STYLE>
-    
