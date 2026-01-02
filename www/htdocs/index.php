@@ -50,7 +50,7 @@
 						<P class="BckGrndElement f80">CANDIDATES VOTER & VOLUNTEER GUIDE</P>
 
 							<P class="f40 adpad">
-								<A HREF="/<?= $middleuri ?>/voter/guide">
+								<A HREF="/rset/voter/guide">
 									<H2>Download the RepMyBlock Voter & Volunteer Guide</H2>
 								</a>
 							</P>
