@@ -95,16 +95,16 @@
 
   <UL class="f40 adpad">
   	<IMG SRC="/toplinks/PoliticalTendencies.jpg"><BR>
-  	<B><A TARGET="political" TARGET="political" HREF="https://patriots.eu">Patriots</A>:</B> Conservative Party USA: <A TARGET="political" HREF="https://conservativepartyusa.org">https://conservativepartyusa.org</A><BR>
-    <B><A TARGET="political" TARGET="political" HREF="https://www.idu.org">Democrat Union</A>:</B> Republican National Committee: <A TARGET="political" HREF="https://gop.com">https://gop.com</A><BR>
+  	<B><A TARGET="political" TARGET="political" HREF="https://patriotsforeurope.eu">Patriots</A>:</B> Conservative Party USA: <A TARGET="political" HREF="https://conservativepartyusa.org">https://conservativepartyusa.org</A><BR>
+    <B><A TARGET="political" TARGET="political" HREF="https://idu.org">Democrat Union</A>:</B> Republican National Committee: <A TARGET="political" HREF="https://gop.com">https://gop.com</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://ialp.com">International Alliance of Libertarian Parties</A>:</B> Libertarian: <A TARGET="political" HREF="https://www.lp.org">https://www.lp.org</A><BR>
-    <B><A TARGET="political" TARGET="political" HREF="https://www.idc-cdi.com">Centrist Democrat</A>:</B> Frederick Douglass Freedom Alliance: <A TARGET="political" HREF="https://fdfalliance.org">https://fdfalliance.org</A><BR>
+    <B><A TARGET="political" TARGET="political" HREF="https://idc-cdi.com">Centrist Democrat</A>:</B> Frederick Douglass Freedom Alliance: <A TARGET="political" HREF="https://fdfalliance.org">https://fdfalliance.org</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://liberal-international.org">Liberals and centrists</A>:</B> Center for New Liberalism: <A TARGET="political" HREF="https://cnliberalism.org">https://cnliberalism.org</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://progressive-alliance.info">Progressive Alliance</A>:</B> Progressive Democrats of America: <A TARGET="political" HREF="https://pdamerica.org">https://pdamerica.org</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://socialistinternational.org">Social democrats and Socialists</A>:</B> Social Democrats of America: <A TARGET="political" HREF="https://socialists.us">https://socialists.us</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://globalgreens.org">Greens and regionalists</A>:</B> Global Greens USA: <A TARGET="political" HREF="https://globalgreens.us">https://globalgreens.us</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://progressive.international">Progressive International</A>:</B> Democrat Socialists of America: <A TARGET="political" HREF="https://www.dsausa.org">https://www.dsausa.org</A><BR>
-    <B><A TARGET="political" TARGET="political" HREF="http://www.solidnet.org">Communists and Workers' parties</A>:</B> Communist Party USA: <A TARGET="political" HREF="https://www.cpusa.org">https://www.cpusa.org</A><BR>
+    <B><A TARGET="political" TARGET="political" HREF="https://solidnet.org">Communists and Workers' parties</A>:</B> Communist Party USA: <A TARGET="political" HREF="https://www.cpusa.org">https://www.cpusa.org</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://internationalsocialist.net">Socialists Alternative</A>:</B> Socialist Alternative: <A TARGET="political" HREF="https://socialistalternative.org">https://socialistalternative.org</A><BR>
 		<B><A TARGET="political" TARGET="political" HREF="https://ipa-aip.org">International People's Assembly</A>:</B> Party for Socialism and Liberation: <A TARGET="politital" HREF="https://pslweb.org">https://pslweb.org</A></A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://pp-international.net">Pirates Parties International</A>:</B> United States Pirate Party: <A TARGET="political" HREF="https://uspirates.org">https://uspirates.org</A><BR>
