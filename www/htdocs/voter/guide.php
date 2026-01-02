@@ -288,24 +288,75 @@ img.flagnonselected {
 		<A HREF="/<?= ($ActiveTeam != 34 ? "T0034" : NULL) . ($ActiveTeam == 34 && empty($BuildURLEnd) ? "rset" : $BuildURLEnd) ?>/voter/guide"><IMG ALT="Indentity and Democracy"  id="con" class="candidate imglogo<?= $ActiveTeam != 34 ? $activeccs : NULL ?>" SRC="/shared/teams/identity/Conservatives.png"></A>
 	</DIV>
 	
+	
+	
+	
+<STYLE>
+.state-flag-bar,
+.election-header,
+.district-header {
+  background-color: #ffffff !important;
+  background-clip: padding-box;
+}
+
+.flag-link {
+  position: relative;
+  display: inline-block;
+}
+
+.flag-link::after {
+  content: attr(data-state);
+  position: absolute;
+
+  bottom: 100%;          /* appear above flag */
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  padding: 4px 8px;
+  border-radius: 4px;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 9999;
+}
+
+.flag-link:hover::after {
+  opacity: 1;
+}
+</STYLE>
+	
+	
 	<DIV class="f60"><B>State</B></DIV>
 	<P>
-	<DIV>
-		<?php
-			// Special build for the Team
-			$BuildURLBeg = (! empty ($ActiveTeam)) ? "T" . $ActiveTeam : NULL;		
-			$BuildURLEnd = (! empty ($ActiveDate)) ? "D" . $ActiveDate : NULL;		
-			$BuildURLEnd .= (! empty ($ActiveZIP)) ? "Z" . $ActiveZIP : NULL;		
-
-			$activeccs = NULL; 
-			foreach ($Statescountries as $CountryName => $CountryFlag) { 
-				if ( ! empty($ActiveState)) { $activeccs = " flagnonselected"; }
-				$activeccs = $ActiveStateWithCandidate[$CountryFlag] ? NULL : " flagnonselected";
+		
+	<div class="sticky-stack">
+  	<div class="state-flag-bar">
+  		<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
+			<?php
+				// Special build for the Team
+				$BuildURLBeg = (! empty ($ActiveTeam)) ? "T" . $ActiveTeam : NULL;		
+				$BuildURLEnd = (! empty ($ActiveDate)) ? "D" . $ActiveDate : NULL;		
+				$BuildURLEnd .= (! empty ($ActiveZIP)) ? "Z" . $ActiveZIP : NULL;		
+		
+				$activeccs = NULL; 
+				foreach ($Statescountries as $CountryName => $CountryFlag) { 
+					if ( ! empty($ActiveState)) { $activeccs = " flagnonselected"; }
+					$activeccs = $ActiveStateWithCandidate[$CountryFlag] ? NULL : " flagnonselected";
 			
-			?><A HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "S" . $CountryFlag : "rset") . $BuildURLEnd ?>/voter/guide" ALT="<?= $CountryName ?>"><IMG SRC="/images/flags/<?= $CountryFlag ?>.png" class="candidate<?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>"></A> <?php 
+			?><A class="flag-link" data-state="<?= $CountryName ?>" HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "S" . $CountryFlag : "rset") . $BuildURLEnd ?>/voter/guide" ALT="<?= $CountryName ?>"><IMG SRC="/images/flags/<?= $CountryFlag ?>.png" class="candidate<?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>"></A> <?php 
 		} ?>
+		</div>
 	</DIV>
-</P>
+		
+			
+	</P>
 
 	<?php if ( ! empty ($ActiveState)) { ?>
 	
@@ -357,7 +408,12 @@ img.flagnonselected {
 																"0000/" . $var["DataState_Abbrev"] . "/" . $var["Candidate_Party"] . "_NoPic.jpg") :
 																($var["CandidateProfile_PicFileName"] . "?" . $addtopics));
 						$FullAlias = preg_replace('/[^a-zA-Z0-9]+/', '', $var["CandidateProfile_Alias"]);
-						$DetailURL = "/" . $FullAlias . "_" . $var["CANDPROFID"] . "/voter/detail";						
+						$DetailURL = "/" . $FullAlias . "_" . $var["CANDPROFID"] . "/voter/detail";					
+						
+					
+				    if (! file_exists($_SERVER["DOCUMENT_ROOT"] . $PicturePath)) {
+				      $PicturePath = "/shared/pics/0000/NoPicture.jpg";
+				    }
 						?>
 
 					<?php	if ($PrevDateDesc != $DateDesc) { $PrintDiv = true; } ?>
