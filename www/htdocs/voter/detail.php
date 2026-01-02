@@ -47,6 +47,10 @@
 											"0000/NoPicture.jpg" : 														
 											"0000/" . $var["DataState_Abbrev"] . "/" . $var["Candidate_Party"] . "_NoPic.jpg") : 
 											($var["CandidateProfile_PicFileName"] . "?" . $addtopics));
+											
+											 if (! file_exists($_SERVER["DOCUMENT_ROOT"] . $PicturePath)) {
+				      $PicturePath = "/shared/pics/0000/NoPicture.jpg";
+				    }
 ?>
 						
 <P>
