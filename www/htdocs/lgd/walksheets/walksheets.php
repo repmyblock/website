@@ -60,7 +60,13 @@
                   Enter the name of the person who will use the walk sheet:
                 </P>
       
-                <INPUT TYPE="TEXT" NAME="PetitionFor">
+      					  <div class="field">
+                    <input type="text" id="PetitionFor" name="PetitionFor" class="input" placeholder=" "  VALUE="<?= $Query_BOEID ?>">
+                    <label for="PetitionFor">Name of Petitioner</label>
+                  </div>
+      
+      
+              
                 <INPUT TYPE="submit" class="" value="Prepare the Walk Sheet">
               </FORM>
 	          </div>      

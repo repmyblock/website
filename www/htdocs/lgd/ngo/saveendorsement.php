@@ -1,22 +1,39 @@
 <?php
   if ( ! empty ($k)) { $MenuLogin = "logged";  }  
-  $Menu = "ambassador";
+  $Menu = "ngo";
   
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";  
-  require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
+  require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_ngos.php";  
   
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
-  $rmb = new repmyblock(0);
+  $rmb = new NGOs(0);
   
   if ( ! empty ($_POST)) {
-			echo "Save to database the organization name";
+			
 			echo "<PRE>";
-			print_r($_POST);
+			print_r($_POST, 1);
 			echo "</PRE>";
+			exit();
+			header("Location: /" . MergeEncode(
+					[
+						"NGOID" => $NGOID,
+						"NGOEndID" => $NGOEndID,
+						"NGOEndType" => $endtype,
+						"NGOEndGrade" => $grade,
+						"NGOContactIn" => $contactin,
+						"NGOContactOut" => $contactout
+					]
+			) . "/lgd/ngo/saveendorsement");				
 			exit();
   }  
   
   $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+  
+   $TopMenus = array ( 
+            array("k" => $k, "url" => "voters/voterlist", "text" => "NGO Definition"),
+            array("k" => $k, "url" => "voters/voterquery", "text" => "Endorsements")
+          );      
+  
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; $selCols = "col-12";} else { $Cols = "col-9"; }
 ?>
@@ -26,37 +43,28 @@
       <div class="main">
         <div class="col-full">
           <div class="Subhead">
-            <h2 class="Subhead-heading">Ambassador</h2>
+            <h2 class="Subhead-heading">Non Governmental Organizations</h2>
           </div>
           
-          <DIV class="f40 js-collaborated-repos-empty">
-       		
-       				<P>
-       				<A HREF="page">Page 1</A>
-       				<A HREF="page">Page 2</A>    	
-          		<A HREF="page">Page 3</A>
-                 </P>
+          <FORM ACTION="" METHOD="POST">
+         		<DIV class="f40 js-collaborated-repos-empty">
                         
-              <div class="field">
-          			<input type="text" id="DistrictNumber"  class="input" name="VALUE" placeholder=" " required  VALUE="<?= $_POST["VALUE"] ?>">
-			          <label for="DistrictNumber">Organization Name<SUP>*</SUP></SUP></label>
-      			  </div>
-                 
-              <div class="field">
-          			<input type="text" id="DistrictNumber"  class="input" name="VALUE" placeholder=" " required  VALUE="<?= $_POST["VALUE"] ?>">
-			          <label for="DistrictNumber">NGO IRS Tax Type<SUP>*</SUP></label>
-      			  </div>
-         
-              <div class="field">
-          			<input type="text" id="DistrictNumber"  class="input" name="VALUE" placeholder=" "   VALUE="<?= $_POST["VALUE"] ?>">
-			          <label for="DistrictNumber">IRS EIN Number</label>
-      			  </div>
-                        
-              <div class="field">
-          			<input type="text" id="DistrictNumber"  class="input" name="VALUE" placeholder=" "   VALUE="<?= $_POST["VALUE"] ?>">
-			          <label for="DistrictNumber">NGO Website</label>
-      			  </div>
-               
+             <PRE><?= print_r($URIEncryptedString,1 ) ?></PRE>
+             
+            
+       
+         <div class="field">
+  <select id="orgstatus" name="orgstatus" class="select" required>
+    <option value="" disabled selected hidden></option>
+    <option value="501c3">501(c)(3)</option>
+    <option value="501c4">501(c)(4)</option>
+    <option value="527">527</option>
+    <option value="other">Other</option>
+  </select>
+  <label for="orgstatus">NGO IRS Tax Type<SUP>*</SUP></label>
+</div>
+
+
               <P class="f80">
               	What type of endorsement your organization provide?
               </P>
@@ -72,8 +80,8 @@
 		        	</P>
 		        
               <P>
-              	<INPUT TYPE="radio" name='grade' value="single">A numeral score?<BR>
-             		<INPUT TYPE="radio" name='grade' value="single">A letter?<BR>
+              	<INPUT TYPE="radio" name='grade' value="number">A numeral score?<BR>
+             		<INPUT TYPE="radio" name='grade' value="letter">A letter?<BR>
              	</P>
              	
               <P class="f80">

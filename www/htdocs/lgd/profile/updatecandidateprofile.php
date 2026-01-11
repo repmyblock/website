@@ -831,6 +831,28 @@ setAxisEnabled(false);
 
  									<p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
 
+
+                  <HR> 
+                  
+                  
+                  <P class="f80"><B>Endorsement Screen</B></P>
+
+										
+                    <P class="f60">
+                      <INPUT TYPE="CHECKBOX" NAME="PrivateRun" VALUE="yes"<?php if ($rmbcandidate["CandidateProfile_PublishProfile"] == 'yes') { echo " CHECKED"; } ?>>&nbsp;
+                      <B>Select this option</B> if you are interested in applying for endorsements from organizations that share your values directly through the Rep My Block website.
+
+										</P>
+										
+										<P class="f60">
+											You will be provided with a list of organizations, based on their IRS tax status, whose values you may promote or which may choose to endorse you.
+										</P>
+										
+									
+
+ 									<p><button type="submit" class="submitred"><?= $StatusMessage ?></button></p>
+                             
+
                   <HR> 
                   
                   

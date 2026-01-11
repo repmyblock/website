@@ -35,24 +35,34 @@
           
           <DIV class="f40 js-collaborated-repos-empty">
             <FORM ACTION="" METHOD="POST">       
+            	
+           	
 <?php if ( ! empty ($ErrorMsg)) {
-              echo "              <B><FONT COLOR=BROWN>" . $ErrorMsg . "</FONT></B><BR>";
+							echo "              <DIV CLASS=\"f60\" STYLE=\"padding-bottom: 20px\">\n";
+              echo "              <B><FONT COLOR=BROWN>" . $ErrorMsg . "</FONT></B><BR>\n";
+							echo "              </DIV>\n";
 } ?>  
-              <SELECT class="f40 <?= $selCols ?>" NAME="TYPE" PLACEHOLDER="">
+
+							<div class="field field-select" >
+              <SELECT id="TYPE" class="select" NAME="TYPE" PLACEHOLDER="">
                  <OPTION>Select a district type</OPTION>  
                  <OPTION VALUE="AD"<?php if ($_POST["TYPE"] == "AD") { echo " SELECTED"; } ?>>State Assembly District</OPTION>  
 <?php /* <OPTION VALUE="SN"<?php if ($_POST["TYPE"] == "SN") { echo " SELECTED"; } ?>>State Senatorial District</OPTION>   */ ?>
 <?php /* <OPTION VALUE="CG"<?php if ($_POST["TYPE"] == "CG") { echo " SELECTED"; } ?>>Congressional District</OPTION>  */ ?>
 <?php /* <OPTION VALUE="County">County District</OPTION>  */ ?>
               </SELECT>
-              
+            </DIV>
               <div class="field">
           			<input type="text" id="DistrictNumber"  class="input" name="VALUE" placeholder=" " required  VALUE="<?= $_POST["VALUE"] ?>">
 			          <label for="DistrictNumber">District number</label>
       			  </div>
                
+               
+              <div class="field field-select">
+             			<select id="PARTY" name="PARTY" class="select" >
+    												
               
-              <SELECT NAME="PARTY" class="f40 <?= $selCols ?>">
+            
                  <OPTION VALUE="ALL"<?php if ($_POST["PARTY"] == "ALL") { echo " SELECTED"; } ?>>All Parties</OPTION>
                  <OPTION VALUE="DEM"<?php if ($_POST["PARTY"] == "DEM") { echo " SELECTED"; } ?>>Democratic</OPTION> 
                  <OPTION VALUE="REP"<?php if ($_POST["PARTY"] == "REP") { echo " SELECTED"; } ?>>Republican</OPTION>
@@ -60,13 +70,17 @@
                  <OPTION VALUE="CON"<?php if ($_POST["PARTY"] == "CON") { echo " SELECTED"; } ?>>Conservative</OPTION>
 <?php /*   <OPTION VALUE="County">County District</OPTION>  */ ?>
               </SELECT>
-              <INPUT type="submit" class="" VALUE="Get the list of Walk Sheets">
+              
+            </DIV>
             
+            <DIV>
+              <INPUT type="submit" class="f60" VALUE="Get the list of Walk Sheets">
+            </DIV>
 <?php 
         WriteStderr($result, "ReturnTeamInfo");      
         if ( ! empty ($result)) {
 ?>
-              <DIV class="f60 js-collaborated-repos">
+              <DIV class="f60 js-collaborated-repos" style="padding-top: 20px;">
 <?php
           foreach ($result as $Pet) {
             if (! empty ($Pet)) { 

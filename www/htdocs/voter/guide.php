@@ -180,7 +180,15 @@ input[type=text] {background-color: #f1f1f1;width: 100%;}
 }
 */
 
-img.imgcandidate {height: 150px;max-width: 100%;}
+img.imgcandidate {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+
+
 .container_picture {position: relative;text-align: center;color: white;}
 /* Bottom left text */
 .bottom-left {position: absolute;bottom: 8px;left: 16px;}
@@ -198,6 +206,22 @@ img.flagnonselected {
   /* filter: gray; /* IE6-9 */
   /* filter: grayscale(1); /* W3C */
 }
+
+
+
+
+.flag {
+  height: 24px;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.flag-link:hover .flag {
+  transform: scale(1.15);
+}
+
+
 
 </style>
 
@@ -386,7 +410,7 @@ img.flagnonselected {
 				if ( ! empty($ActiveState)) { $activeccs = " flagnonselected"; }
 				$activeccs = $ActiveStateWithCandidate[$CountryFlag] ? NULL : " flagnonselected";
 			
-			?><A class="flag-link" data-state="<?= $CountryName ?>" HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "S" . $CountryFlag : "rset") . $BuildURLEnd ?>/voter/guide" ALT="<?= $CountryName ?>"><IMG SRC="/images/flags/<?= $CountryFlag ?>.png" class="candidate<?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>"></A> <?php 
+			?><A class="flag-link" data-state="<?= $CountryName ?>" HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "S" . $CountryFlag : "rset") . $BuildURLEnd ?>/voter/guide" ALT="<?= $CountryName ?>"><IMG SRC="/images/flags/<?= $CountryFlag ?>.png" class="flag <?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>"></A> <?php 
 		} ?>
 	 </div>
 	

@@ -9,7 +9,6 @@
   if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}  
 
   if (! empty ($_POST)) {
-    
     header("Location: /" . MergeEncode(array(
                                 "DataAddress_HouseNumber" => $_POST["HouseNumber"], 
                                 "DataStreet_Name" => $_POST["StreetName"],
@@ -17,10 +16,8 @@
                                 "DataCounty_ID" => $_POST["County_ID"],
                                 "LastName" => $_POST["LastName"],
                                 "FirstName" => $_POST["FirstName"],
-                                
                                 "BOECountyID" => $_POST["BOECountyID"],
                                 "BOEStateID" => $_POST["BOEStateID"],
-                                
                               )) 
                              . "/lgd/objections/selecthouse");
     exit();

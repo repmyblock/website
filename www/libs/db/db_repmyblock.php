@@ -1625,6 +1625,10 @@ class RepMyBlock extends queries {
 		
 		
 	function SearchVoterAtAddress($DataHouseArray) {
+		
+		// echo "I must remove this function";
+		// create a silent debug function that notify if the funtion is used for later
+		// removal
 	
 		if (! empty ($DataHouseArray["BOECountyID"]) || ! empty ($DataHouseArray["BOEStateID"])) {	
 	 		$sql = "SELECT * FROM Voters " . 
