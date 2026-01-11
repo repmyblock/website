@@ -44,12 +44,14 @@
 			$PicturePath = $PicturePath = "/shared/pics/" . (!empty($var["CandidateProfile_PicFileName"]) ?
 									         $var["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
 
+		 	$CandidateName = ucwords(strtolower($var["CandidateProfile_Alias"]));
+
 ?>
 						
 <P>
 	<DIV>
 			<P>
-				<DIV class="f80"><B><?= ucwords(strtolower($var["CandidateProfile_Alias"])) ?></B></DIV>	
+				<DIV class="f80"><B><?= $CandidateName ?></B></DIV>	
 			</P>
 		
 	<DIV class='container2'>
@@ -60,9 +62,52 @@
 							<I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
 							<?php if (! empty ($var["CandidateProfile_Statement"])) {
 								print "<UL>" . $var["CandidateProfile_Statement"] . "</UL>"; 
-							} else {
-								print "<UL><B>The Candidate was contacted but has not answered our emails.</B></UL>";
-							} ?>
+							} else { ?>
+								
+				
+								<UL>
+								<P CLASS="f60">
+										<B>We need your help to contact <B><?= $CandidateName ?></B>.</B>
+									</P>
+									
+									
+						<?php 
+								if (($var["CandidateRegAuthority_ID"]) == 1 && ! empty ($var["CandidateProfile_RegID"])) { ?>
+						
+								
+						
+									<P CLASS="f40">
+										After you have cut and paste the information from <B><?= $CandidateName ?></B> FEC form that
+										is found at
+										<A HREF="https://www.fec.gov/data/candidate/<?= $var["CandidateProfile_RegID"] ?>/?tab=about-candidate" TARGET="FECPAGE">https://www.fec.gov/data/candidate/<?= $var["CandidateProfile_RegID"] ?>/?tab=about-candidate</A>
+										email them asking them to update this voter guide at
+										<B><?=  $FrontEndWebsite . $_SERVER['REQUEST_URI'] ?></B>.
+									</P>
+										
+									<P CLASS="f40">
+										You can help us by contacting them directly by 
+										following these instructions.
+									</P>
+						
+									<P CLASS="f40">
+												
+									
+										To find the email, click on this FEC filing and scroll down to the Committees section. 
+										Click on the committee name to open the Committee Registration page. In the side menu, 
+										click on Filings, then look for the PDF under "Statement of Organization".
+									</P>
+									
+										
+								</UL>
+								
+								
+							<?php } ?>
+								
+								
+						<?php	} ?>
+								
+								
+							
 						</P>
 						</DIV>	
 		<br style="clear:both">

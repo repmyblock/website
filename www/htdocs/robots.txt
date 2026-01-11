@@ -2,11 +2,13 @@ User-agent: ia_archiver
 Allow: /
 Disallow: /lgd
 Sitemap: https://repmyblock.org/sitemap.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
 
 User-agent: Googlebot
 Allow: /
 Disallow: /lgd
 Sitemap: https://repmyblock.org/sitemap.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
 
 User-agent: Applebot
 Allow: /
@@ -36,3 +38,4 @@ User-agent: *
 Allow: /
 Disallow: /lgd
 Sitemap: https://repmyblock.org/sitemap.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
