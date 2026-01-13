@@ -52,6 +52,31 @@
 	$ActiveDate = (empty($matches[6][0])) ? NULL : $matches[6][0];
 	$ActiveZIP = (empty($matches[8][0])) ? NULL : $matches[8][0];
 	
+	
+	if (strlen($matches[2][0]) == 3) {
+
+		$MyTCode = strtolower($matches[2][0]);
+		switch ($MyTCode) {
+			case 'pir': $newid = "T0024"; break;
+			case 'ipa': $newid = "T0069"; break;	
+			case 'isa': $newid = "T0025"; break;
+			case 'com': $newid = "T0026"; break;
+			case 'pri': $newid = "T0027"; break;
+			case 'gre': $newid = "T0028"; break;
+			case 'soc': $newid = "T0029"; break;
+			case 'pra': $newid = "T0030"; break;
+			case 'lib': $newid = "T0031"; break;
+			case 'cdu': $newid = "T0033"; break;
+			case 'lbt': $newid = "T0035"; break;
+			case 'idu': $newid = "T0032"; break;
+			case 'con': $newid = "T0034"; break;
+		}
+		if (! empty ($newid)) {
+			header("Location: /" . $newid . "/voter/guide");
+			exit();		
+		}
+	}
+	
 	foreach ($ListState as $var) { 
 		$StateName[$var["DataState_Abbrev"]] = $var["DataState_Name"];
 		$StatesDates[$var["DataState_Name"]][$var["Elections_Date"]] = true;
