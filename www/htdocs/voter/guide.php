@@ -46,15 +46,13 @@
 	$ListState = $r->ListElections();	
 	WriteStderr($ListState, "List Election");
 	
-	preg_match('/^(T)?(\d{4})?(S)?([a-zA-Z]{2})?(D)?(\d{8})?(Z)?(\d{5})?$/', $_GET["k"], $matches, PREG_OFFSET_CAPTURE);	
+	preg_match('/^(T)?(\d{4}|[a-zA-Z]{3})?(S)?([a-zA-Z]{2})?(D)?(\d{8})?(Z)?(\d{5})?$/', $_GET["k"], $matches, PREG_OFFSET_CAPTURE);	
 	$ActiveTeam = (empty($matches[2][0])) ? NULL : $matches[2][0];
 	$ActiveState = $matches[4][0];
 	$ActiveDate = (empty($matches[6][0])) ? NULL : $matches[6][0];
 	$ActiveZIP = (empty($matches[8][0])) ? NULL : $matches[8][0];
-	
-	
-	if (strlen($matches[2][0]) == 3) {
 
+	if (strlen($matches[2][0]) == 3) {
 		$MyTCode = strtolower($matches[2][0]);
 		switch ($MyTCode) {
 			case 'pir': $newid = "T0024"; break;
