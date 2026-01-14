@@ -45,13 +45,19 @@
 		
 	$ListState = $r->ListElections();	
 	WriteStderr($ListState, "List Election");
-	
-	preg_match('/^T(?:(\d{4})|([picpgsp][ipsordb][ramiecbutn]))?S?([A-Za-z]{2})?D?(\d{8})?Z?(\d{5})?$/', $_GET["k"], $matches, PREG_OFFSET_CAPTURE);	
-	$ActiveTeam = substr((empty($matches[0][0])) ? NULL : $matches[0][0] , 1);
-	$ActiveState = $matches[4][0]; 
-	$ActiveDate = (empty($matches[6][0])) ? NULL : $matches[6][0]; 
-	$ActiveZIP = (empty($matches[8][0])) ? NULL : $matches[8][0];
+		
+	preg_match(
+	    '/^T?(?:(\d{4})|([picpgsp][ipsordb][ramiecbutn]))?S?([A-Za-z]{2})?D?(\d{8})?Z?(\d{5})?$/',
+	    $_GET['k'],
+	    $matches,
+	    PREG_OFFSET_CAPTURE
+	);
 
+	$ActiveTeam  = !empty($matches[1][0]) ? $matches[1][0] : (!empty($matches[2][0]) ? $matches[2][0] : null);
+	$ActiveState = !empty($matches[3][0]) ? $matches[3][0] : null;
+	$ActiveDate  = !empty($matches[4][0]) ? $matches[4][0] : null;
+	$ActiveZIP   = !empty($matches[5][0]) ? $matches[5][0] : null;
+		
 	if (strlen($ActiveTeam) == 3) {
 		
 		$MyTCode = strtolower($ActiveTeam);
