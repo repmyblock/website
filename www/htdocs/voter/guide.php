@@ -46,14 +46,15 @@
 	$ListState = $r->ListElections();	
 	WriteStderr($ListState, "List Election");
 	
-	preg_match('/^(T)?(\d{4}|[a-zA-Z]{3})?(S)?([a-zA-Z]{2})?(D)?(\d{8})?(Z)?(\d{5})?$/', $_GET["k"], $matches, PREG_OFFSET_CAPTURE);	
-	$ActiveTeam = (empty($matches[2][0])) ? NULL : $matches[2][0];
-	$ActiveState = $matches[4][0];
-	$ActiveDate = (empty($matches[6][0])) ? NULL : $matches[6][0];
+	preg_match('/^T(?:(\d{4})|([picpgsp][ipsordb][ramiecbutn]))?S?([A-Za-z]{2})?D?(\d{8})?Z?(\d{5})?$/', $_GET["k"], $matches, PREG_OFFSET_CAPTURE);	
+	$ActiveTeam = substr((empty($matches[0][0])) ? NULL : $matches[0][0] , 1);
+	$ActiveState = $matches[4][0]; 
+	$ActiveDate = (empty($matches[6][0])) ? NULL : $matches[6][0]; 
 	$ActiveZIP = (empty($matches[8][0])) ? NULL : $matches[8][0];
 
-	if (strlen($matches[2][0]) == 3) {
-		$MyTCode = strtolower($matches[2][0]);
+	if (strlen($ActiveTeam) == 3) {
+		
+		$MyTCode = strtolower($ActiveTeam);
 		switch ($MyTCode) {
 			case 'pir': $newid = "T0024"; break;
 			case 'ipa': $newid = "T0069"; break;	
