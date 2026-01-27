@@ -53,20 +53,23 @@
         echo "        <BR><BR>";  
 } ?>        
         <div class="clearfix gutter d-flex flex-shrink-0">
-          <div class="col-12">
-            <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
-              <div>
-                <dl class="form-group col-48 d-inline-block"> 
-                  <dt class="mobilemenu"><label for="user_profile_name">Team Name</label><DT>
-                  <dd>
-                    <input class="form-control" type="text" Placeholder="Team Name" name="Team Name" VALUE="<?= $activeteam["Team_Name"] ?>" id="">
-                  </dd>
-                </dl>
-
+          <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">       
+          	      
+         	 	<div class="field">
+		          <input type="<?= $TypeUsername ?>" VALUE="<?= $activeteam["Team_Name"] ?>" id="Team Name" autocorrect="off" class="input" name="Team Name" placeholder=" " required >
+    		      <label for="Team Name">Team Name</label>
+       			</div>
+       			
+       			<div class="field">
+		          <input type="<?= $TypeUsername ?>" VALUE="<?= $activeteam["Team_EmailCode"] ?>" id="Email Code" autocorrect="off" class="input" name="Team Name" placeholder=" ">
+    		      <label for="Email Code">Email Code</label>
+       			</div>
+                  	
+                   
                 <dl class="form-group col-48 d-inline-block">
                   <dt class="mobilemenu"><label for="user_profile_name">Email Code</label><DT>
                   <dd>
-                    <input class="form-control" type="text" Placeholder="Email" name="Email" VALUE="<?= $activeteam["Team_EmailCode"] ?>" id="">
+                    <input class="form-control" type="text" Placeholder="Email" name="Email"  id="">
                   </dd>
                 </dl>
               </DIV>

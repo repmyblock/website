@@ -4,11 +4,12 @@ global $DB;
 
 class stats extends queries {
 
-  function stats ($debug = 0, $DBFile = "DB_OutragedDems") {
-	  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
-	  $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
-	  $DebugInfo["Flag"] = $debug;
-	 	$this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
+  function __construct($debug = 0, $DBFile = "DB_OutragedDems") {
+    require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
+    $DebugInfo["DBFile"] = $DBFile;
+    $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
+    $DebugInfo["Flag"] = $debug;
+    parent::__construct($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
   
 	function CandidatesStats() {

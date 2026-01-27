@@ -77,7 +77,7 @@
                          "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
                          "EDAD" =>  $URIEncryptedString["EDAD"], 
                           "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"]
-                      )); ?>/admin/team_edit"><?= $var["Team_Name"] ?></A></div>
+                      )); ?>/admin/team/team_edit"><?= $var["Team_Name"] ?></A></div>
                     <div class="table-body-cell-left"><?= $var["SystemUser_FirstName"] . " " . $var["SystemUser_LastName"] ?></div>
                     <div class="table-body-cell"><?= $var["Team_Public"] ?></div>
                     <div class="table-body-cell"><?= PrintDateTime($var["Team_Created"]) ?></div>
@@ -94,7 +94,7 @@
                             "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
                              "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
                              "StartAt" => ($URIEncryptedString["StartAt"] - $TotalCount),
-                        )) . "/admin/team_list\">Previous</A>";
+                        )) . "/admin/team/team_list\">Previous</A>";
                   } 
                 
       if ( ($Counter - 1) == $TotalCount ) {
@@ -103,7 +103,7 @@
                              "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
                               "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
                               "StartAt" => ($URIEncryptedString["StartAt"] + $TotalCount),
-                       )) . "/admin/team_list\">Next</A>";
+                       )) . "/admin/team/team_list\">Next</A>";
                   }
 ?></div>
                     <div class="table-body-cell"></div>

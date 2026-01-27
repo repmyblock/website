@@ -42,11 +42,11 @@
 					registered so you can send your username.
 				</P>
 
-				<P class="f80">
-					<DIV class="f80">Email:</DIV> 
-					<DIV><INPUT type="email" autocorrect="off" autocapitalize="none" NAME="email" PLACEHOLDER="you@email.net" VALUE="<?= $EmailAddress ?>"><DIV>
-				</P>
-						
+ 				<div class="field">
+          <input type="<?= $TypeUsername ?>" VALUE="<?= $EmailAddress ?>" id="email" autocorrect="off" class="input" name="username" placeholder=" " required style="max-width: 380px;">
+          <label for="email">Email Address</label>
+        </div>
+									
 				<P>
 					<INPUT TYPE="Submit" NAME="signin" VALUE="Locate my username">
 				</P>

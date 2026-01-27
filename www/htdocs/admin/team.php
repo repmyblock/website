@@ -27,7 +27,7 @@
     ) . "/admin/team");
     exit();
   } else {
-     $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+    $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
     $rmbteam = $rmb->ListsTeams();
     
     $QueryTeamID = 1;
@@ -72,7 +72,6 @@
 
         <?php if ( count ($rmbteam) > 1) { ?>
       
-          
           <P>
             <FORM ACTION="" METHOD="POST">
             <SELECT  class="mobilebig" NAME="Team_ID">

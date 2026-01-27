@@ -3,14 +3,15 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/mysql/queries.php";
 global $DB;
 
 class login extends queries {
-
-  function login ($debug = 0, $DBFile = "DB_OutragedDems") {
-	  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
-	  $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
-	  $DebugInfo["Flag"] = $debug;
-	 	$this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
+	
+	function __construct($debug = 0, $DBFile = "DB_OutragedDems") {
+    require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
+     $DebugInfo["DBFile"] = $DBFile;
+    $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
+    $DebugInfo["Flag"] = $debug;
+    parent::__construct($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
-  
+    
   function RegisterUser($Username, $Email, $Password, $Type, $Refer = NULL, $MailRef = NULL, $VerifEmail = "no") {
   	
   	if ( empty ($Username) || empty ($Email) || empty ($Password)) return 0;

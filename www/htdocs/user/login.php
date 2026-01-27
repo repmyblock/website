@@ -77,12 +77,12 @@
       ?>
       
        	<div class="field">
-          <input type="text" id="username"  class="input" name="username" placeholder=" " required>
+          <input type="<?= $TypeUsername ?>" id="username" autocorrect="off" class="input" name="username" placeholder=" " required style="max-width: 380px;">
           <label for="username">Username</label>
         </div>
 
         <div class="field">
-          <input type="password" id="password" class="input" name="password" placeholder=" " required>
+          <input type="password" id="password" class="input" name="password" placeholder=" " required style="max-width: 380px;">
           <label for="password">Password</label>
         </div>
 			

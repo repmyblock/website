@@ -3,14 +3,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 global $DB;
 
 class press extends RepMyBlock {
-
-  function press ($debug = 0, $DBFile = "DB_OutragedDems") {
-	  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
-	  $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
-	  $DebugInfo["Flag"] = $debug;
-	 	$this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
-  }
-  
+ 
   function listnotifications($SystemUserID) {
 		return $this->_return_multiple(
 							"SELECT * FROM AdminNotif WHERE SystemUser_ID = :SystemUser",

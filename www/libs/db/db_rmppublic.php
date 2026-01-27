@@ -4,13 +4,14 @@ global $DB;
 
 class RMBPublic extends queries {
 
-  function RMBPublic ($debug = 0, $DBFile = "DB_OutragedDems") {
-	  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
-	  $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
-	  $DebugInfo["Flag"] = $debug;
-	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
+  function __construct($debug = 0, $DBFile = "DB_OutragedDems") {
+    require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
+    $DebugInfo["DBFile"] = $DBFile;
+    $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
+    $DebugInfo["Flag"] = $debug;
+    parent::__construct($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
-  
+
   function InsertQuestions($FirstName, $LastName, $ZipCode, $EmailAddress, $Text) {
 		$sql = "INSERT INTO DebateQuestions SET DebateQuestions_FirstName = :FirstName, " .
 							"DebateQuestions_LastName = :LastName, DebateQuestions_ZipCode = :ZipCode, " . 

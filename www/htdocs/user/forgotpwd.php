@@ -47,11 +47,12 @@
 					registered so you can reset your password.
 				</P>
 			
-				<P class="f80">
-					<DIV class="f80">Username:</DIV> 
-					<DIV><INPUT type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>"><DIV>
-				</P>
-
+			 	<div class="field">
+          <input type="<?= $TypeUsername ?>" VALUE="<?= $_POST["username"] ?>" id="username" autocorrect="off" class="input" name="username" placeholder=" " required style="max-width: 380px;">
+          <label for="username">Username</label>
+        </div>
+			
+	
 				<P>
 					<INPUT TYPE="Submit" NAME="signin" VALUE="Reset my password">
 				</P>
