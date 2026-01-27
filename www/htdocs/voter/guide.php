@@ -87,7 +87,7 @@
 		$StatesDates[$var["DataState_Name"]][$var["Elections_Date"]] = true;
  	}
 	foreach ($StatesDates[$StateName[$ActiveState]] as $key => $val) { $SortDates[] = preg_replace('/-/', '', $key); }
-	sort($SortDates);
+	//sort($SortDates);
 	
 	$ListOfStates = "\"";
 	foreach ($StatesDates as $var => $index) {
