@@ -24,10 +24,7 @@ if ( ! empty ($k)) {
 	$Decrypted_k = DecryptURL ( $k );
 	
 	if ( ! empty ($Decrypted_k)) {
-	
 		parse_str ( $Decrypted_k, $URIEncryptedString);
- 		parse_str ( $Decrypted_k );
-
 		$k_raw = $k;
 		$k = rawurlencode($k);
 	}

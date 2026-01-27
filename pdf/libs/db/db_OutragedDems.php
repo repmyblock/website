@@ -4,13 +4,14 @@ global $DB;
 
 class OutragedDems extends queries {
 
-  function OutragedDems ($debug = 0, $DBFile = "DB_OutragedDems") {
-	  require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
-	  $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
-	  $DebugInfo["Flag"] = $debug;
-	  $this->queries($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
+  function __construct($debug = 0, $DBFile = "DB_OutragedDems") {
+    require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
+    $DebugInfo["DBFile"] = $DBFile;
+    $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
+    $DebugInfo["Flag"] = $debug;
+    parent::__construct($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
-  
+ 
   function ListObjectionsInformation($Ojbections_ID) {
  		$sql = "SELECT * FROM ObjectionsDetails " . 
  						"LEFT JOIN Objections ON (Objections.Objections_ID = ObjectionsDetails.Objections_ID) " . 
