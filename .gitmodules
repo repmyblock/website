@@ -4,9 +4,6 @@
 [submodule "www/libs/utils/www/libs/utils/swiper"]
 	path = www/libs/utils/www/libs/utils/swiper
 	url = https://github.com/theochino/swiper
-[submodule "www/libs/utils/swiper"]
-	path = www/libs/utils/swiper
-	url = https://github.com/theochino/swiper
 [submodule "www/libs/utils/External_Swiper"]
 	path = www/libs/utils/External_Swiper
 	url = https://github.com/repmyblock/External_Swiper
