@@ -6,8 +6,9 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 ?>
 <DIV class="main">
-	<DIV class="right f80">Join us on Times Square on February 22, 2026</DIV>
-	<DIV Class="right f60">Run for New York City Political Parties leadership positions</DIV>
+	<DIV class="right f80">Join us on Times Square on February 22, 2026
+	from 8 am to 9 pm</DIV>
+	<DIV Class="right f60bold">Run for New York City Political Parties leadership positions</DIV>
 <BR>
 	
 	<TABLE BORDER=0>
