@@ -7,7 +7,7 @@
 ?>
 <DIV class="main">
 	<DIV class="right f80">Join us on Times Square on February 22, 2026
-	from 8 am to 9 pm</DIV>
+	from 8 am to 7 pm</DIV>
 	<DIV Class="right f60bold">Run for New York City Political Parties leadership positions</DIV>
 <BR>
 	
