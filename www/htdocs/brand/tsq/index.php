@@ -1,10 +1,10 @@
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
 	$HeaderTwitter = true;
-	$HeaderTwitterPicLink = $FrontEndWeb . "/brand/tsq/TSQPetition.png";
+	$HeaderTwitterPicLink = $FrontEndWebsite . "/brand/tsq/TSQPetition.png";
  	$HeaderTwitterTitle = "Rep My Block – Learn the Petition Process in Times Square on 2/22/26";
 	$HeaderTwitterDesc = "Share this invitation with your friends across New York City.";
-	$HeaderOGImage = $FrontEndWeb . "/brand/tsq/TSQPetition.png";
+	$HeaderOGImage = $FrontEndWebsite . "/brand/tsq/TSQPetition.png";
 	$HeaderOGImageWidth = "350";
   $HeaderOGImageHeight = "430";
 	
