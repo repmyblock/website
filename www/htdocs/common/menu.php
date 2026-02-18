@@ -1,6 +1,7 @@
 <!--- Start Menu ---><?php
+  $rmbperson = $rmbperson ?? null;
   WriteStderr($rmbperson, "RMBPerson in /common/menu.php");
-  
+	   
   if (empty ($rmbperson["SystemUser_EDAD"])) { 
     if (empty ($URIEncryptedString["EDAD"])) { 
       $MenuDescription = "District Not Defined";
@@ -28,6 +29,7 @@
     $DivClass6 = "Profile";
     $DivClass7 = "menu-item";
   }
+  
   ?>
 
       <DIV class="<?= $DivClass1 ?>">
@@ -37,7 +39,7 @@
         <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PETITIONS ) { ?><A class="<?php if ( $Menu == "petitions" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/petitions/downloads">Petitions</a><?php echo "\n"; } ?>
         <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_DISTRICT ) { ?><A class="<?php if ( $Menu == "district" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/district/index">District</a><?php echo "\n";} ?>
         <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_WALKSHEET ) { ?><A class="<?php if ( $Menu == "walksheets" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/walksheets/petitions">Walksheets</a><?php echo "\n";} ?>
-        <A class="<?php if ( $Menu == "candidates" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/candidates/list">Candidates</A>
+          <A class="<?php if ( $Menu == "candidates" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/candidates/list">Candidates</A>
         <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_PLEDGES ) { ?><A class="<?php if ( $Menu == "pledge" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/pledges/index">Pledges</a><?php echo "\n";} ?>
         <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_VOTERS ) { ?><a class="<?php if ( $Menu == "voters" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/voters/voterlist">Voters</a><?php echo "\n";} ?>
         <?php if ( $rmbperson["SystemUser_Priv"] & PERM_MENU_TEAM ) { ?><a class="<?php if ( $Menu == "team" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/team/index">Team</a><?php echo "\n";} ?>
@@ -54,7 +56,7 @@
         <NAV class="<?= $DivClass2 ?>" aria-label="<?= $DivClass6 ?>">
           <?php if ($rmbperson["SystemUser_Priv"] & PERM_MENU_PROFILE ) { ?><A class="<?php if ( $Menu == "profile" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/lgd/profile/user">Personal Profile</A><?php echo "\n";} ?>
           <?php if ($rmbperson["SystemUser_Priv"] & PERM_ADMIN_MENU) { ?><A class="<?php if ( $Menu == "admin" ) { echo "selected "; } ?><?= $DivClass5 ?>" href="/<?= $k ?>/admin/index">Admin Profile</A><?php echo "\n";} ?>
-        <?php } ?></NAV>
+<?php } ?></NAV>
       </DIV>
 <?php 
   // Verification email (I might need to remove these variables ...)

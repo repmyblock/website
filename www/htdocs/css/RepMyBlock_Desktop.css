@@ -168,6 +168,61 @@ a:hover{text-decoration:underline}
 	font-weight: 400;
 }
 
+       	
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* hide native checkbox */
+.checkbox-field input {
+  display: none;
+}
+
+/* custom box */
+.checkbox-ui {
+  width: 26px;
+  height: 26px;
+  border: 2px solid #4f5bd5;   /* 🔵 same blue */
+  border-radius: 4px;          /* matches inputs */
+  background: #fff;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* checked state */
+.checkbox-field input:checked + .checkbox-ui::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 3px;
+  width: 7px;
+  height: 13px;
+  border: solid #4f5bd5;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/* focus (keyboard users) */
+.checkbox-field input:focus + .checkbox-ui {
+  outline: 2px solid rgba(79, 91, 213, 0.3);
+  outline-offset: 2px;
+}
+
+input[type=checkbox] {
+  transform: scale(1.8);
+   margin-right: 8px;
+  cursor: pointer;
+  
+}
+        	
+   
+
+
 input[type=submit] {background-color: #EE2E62;color: white;padding: 8px 20px;border: none;cursor: pointer;}
 input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 
@@ -319,7 +374,11 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 .text-gray{color:#586069!important}
 .text-normal{font-weight:400!important}
 
-.Subhead{display:flex;padding-bottom:8px;margin-bottom:16px;border-bottom:1px solid #e1e4e8;flex-flow:row wrap}
+.Subhead{display:flex;
+	/*padding-bottom:8px; */
+	/*margin-bottom:16px;*/
+	border-bottom:1px solid #e1e4e8;
+	flex-flow:row wrap}
 .Subhead-heading{font-size:28px;font-weight:600;flex:1 1 auto}
 
 .auth-form .form-group.errored .error,.auth-form .form-group.errored .warning,.auth-form 
@@ -552,6 +611,9 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 /* =====================================================
    BUTTON BASE
    ===================================================== */
+   
+   
+   
 .button2 {
   border: none;
   cursor: pointer;
@@ -619,6 +681,14 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
   margin-bottom:12px;
 }
 
+
+.caucus-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;   /* optional but recommended */
+}
+
 .candidate {
   width: 64px;
   cursor: pointer;
@@ -645,6 +715,41 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
 }
 
 
+
+/* Persuasion images */
+.persuasion-candidate {
+  width: 64px;
+  cursor: pointer;
+  opacity: 0.35;
+  transition: opacity .2s, transform .15s, box-shadow .15s;
+}
+
+.persuasion-candidate.active {
+  opacity: 1;
+}
+
+/* Caucus images */
+.caucus-candidate {
+  width: 64px;
+  cursor: pointer;
+  opacity: 0.35;
+  transition: opacity .2s, transform .15s, box-shadow .15s;
+}
+
+.caucus-candidate.active {
+  opacity: 1;
+}
+
+/* Selected state */
+.persuasion-candidate.selected,
+.caucus-candidate.selected {
+  opacity: 1;
+  transform: scale(1.1);
+  box-shadow: 0 0 0 3px #000;
+  border-radius: 6px;
+}
+
+
 /* =====================================================
    TOOLTIP
    ===================================================== */
@@ -660,4 +765,163 @@ input[type=submit]:hover {background-color: #EE2E62;color: #16317D;}
   opacity:0;
   pointer-events:none;
   transition:opacity .15s;
+}
+
+
+.autocomplete {
+  position: relative;
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 2px solid #4f5bd5;
+  border-top: none;
+  z-index: 1000;
+}
+
+.suggestions.hidden {
+  display: none;
+}
+
+.suggestions div {
+  padding: 12px;
+  cursor: pointer;
+
+  /* SAME AS INPUT */
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.suggestions div:hover {
+  background: #f0f3ff;
+}
+
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  max-width: 420px;
+  width: 90%;
+  border-radius: 6px;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+}
+
+.modal-content textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 10px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+
+
+/*******************************/
+/* This is for the pell stuff. */
+/*******************************/
+
+.pell-input {
+  min-height: 200px;
+  padding: 18px 12px 12px;
+  font-size: 16px;
+  line-height: 1.5;
+ 
+  border: 2px solid #4f5bd5;
+  border-radius: 4px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+/* Toolbar border match */
+.pell-actionbar {
+  border-bottom: 1px solid #4f5bd5;
+}
+
+/* Focus state */
+.pell-input:focus-within {
+  outline: none;
+  box-shadow: 0 0 0 1px #4f5bd5;
+}
+
+.field-full {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Ensure editor itself fills container */
+.field-full .pell-input {
+  width: 100%;
+}
+
+
+
+
+#html-output { white-space: pre-wrap;  }
+.content {
+	box-sizing: border-box;
+	margin: 0 auto;
+	max-width: auto;
+	padding: 10px;
+}
+
+.save-button {
+	background-color: #04AA6D;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	/* float: right; */                      
+}
+                      
+                      
+
+.caucus-btn {
+  opacity: .35;
+}
+
+.caucus-btn[data-caucus="dem"] {
+  background: #2b6cff;  
+  color: #fff;
+}
+
+.caucus-btn[data-caucus="gop"] {
+  background: #cc0000;   
+  color: #fff;
+}
+
+.caucus-btn[data-caucus="trp"] {
+  background: #f2c300;  
+  color: #000;
+}
+
+.caucus-btn.active {
+  opacity: 1;
+  border: 2px solid #000;
 }

@@ -10,7 +10,14 @@
   
   if (! empty ($_POST)) { 
    	rename($GeneralUploadDir . "/shared/platforms/" . $URIEncryptedString["PDFPath"] . "/TMP_" . $URIEncryptedString["PDFName"], $GeneralUploadDir . "/shared/platforms/" .$URIEncryptedString["PDFPath"]. "/" . $URIEncryptedString["PDFName"]);
-		$rmb->updatecandidateprofile($URIEncryptedString["CandidateProfileID"], array("PDFVerified" => 'yes'));  		
+
+		$CandidateProfileFromPublic = $rmb->FindPublicProfile(null, $URIEncryptedString["CandidateProfileID"]);
+		$rmb->updatecandidateprofile($CandidateProfileFromPublic["CandidateProfile_ID"], [
+			"PDFVerified" => 'yes', 
+			"PDFFile" => $URIEncryptedString["PDFPath"] . "/" . $URIEncryptedString["PDFName"],
+			"CandidateID" => $CandidateProfileFromPublic["Candidate_ID"],
+		]);
+
 		header("Location: updatecandidateprofile");  	
   	exit();
   }
@@ -19,19 +26,14 @@
   WriteStderr($rmbperson, "rmbperson array");
               
   if ($rmbperson["SystemUser_emailverified"] == "both") {                
-    $TopMenus = array (
-            array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
-            array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
-            array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile"),
-            array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
-    );                
+    $TopMenus = [
+          ["k" => $k, "url" => "profile/user", "text" => "Public Profile"],
+          ["k" => $k, "url" => "profile/voter/card", "text" => "Voter Profile"], 
+          ["k" => $k, "url" => "profile/candidate/public", "text" => "Candidate Profile"],
+          ["k" => $k, "url" => "profile/team/section", "text" => "Team Profile"]
+     ];                
   }
-    
- 	print "PDFPath: " .  $URIEncryptedString["PDFPath"]. "<BR>";
- 	print "PDFName: " .  $URIEncryptedString["PDFName"] . "<BR>";								
- 	print "CandidateID: " . $URIEncryptedString["CandidateID"] . "<BR>";
- 	print "CandidateProfileID: " .  $URIEncryptedString["CandidateProfileID"] . "<BR>";
-						      	  										  
+  
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>

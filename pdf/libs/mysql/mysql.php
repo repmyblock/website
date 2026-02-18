@@ -67,19 +67,33 @@ class db {
   }
    
   function ReturnErrorPage($string) {
-    header("Location: /" . CreateEncoded ( array(   
-                              "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
-                              "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
-                              "UserDetail" => $var["SystemUser_ID"],
+    header("Location: /" . CreateEncoded ([
+                              "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"] ?? null,
+                              "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"] ?? null,
+                              "UserDetail" => $var["SystemUser_ID"] ?? null ,
                               "error_msg" => $string
-                )). "/error/dberror");
+               						 ]). "/error/dberror");
     exit();
   }
     
   function query($sql = "", $sql_vars = "", $return = 0, $DebugInfo = "") {     
     unset ($event_rows);
     if ( $DebugInfo["Flag"] > 0 ) {
-      echo "<FONT COLOR=BROWN><I><B>SQL:</B> $sql</I></FONT><BR>";
+      $debug_sql = $sql;
+      foreach ($sql_vars as $key => $value) {
+         if ($value === null) { $replacement = "NULL"; } 
+        elseif (is_numeric($value)) { $replacement = "'" . $value . "'"; } 
+        else { $replacement = "'" . addslashes($value) . "'"; }
+
+        // Replace ONLY :SystemUser (with colon)
+        $debug_sql = preg_replace(
+            '/:' . preg_quote($key, '/') . '(?![A-Za-z0-9_])/',
+            $replacement,
+            $debug_sql
+        );
+      }
+    
+      echo "<font color='brown'><i><b>SQL:</b> $debug_sql</i></font><br>";     
       echo "<FONT COLOR=BLUE><PRE>";
       print_r($sql_vars);
       echo "</PRE></FONT>";

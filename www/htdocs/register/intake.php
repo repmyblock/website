@@ -3,7 +3,7 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_login.php";
 	$r = new login();	
-
+	
 	if (! empty($k) && $k != "web") {
 		
 		preg_match('/ml(.*)/', $k, $matches, PREG_OFFSET_CAPTURE);
@@ -15,8 +15,9 @@
 		}
 
 		$DBInfo = $r->CheckBothSystemUserTable ($result["SystemUserEmail_AddFrom"], "Email");
+				
 		if ( ! empty ($DBInfo)) {
-			header("Location: /" . CreateEncoded (array("Email" => $result["SystemUserEmail_AddFrom"])) . "/register/exist");		
+			header("Location: /" . CreateEncoded (["Email" => $result["SystemUserEmail_AddFrom"]]) . "/register/exist");		
 		}
 		
 	} else {
@@ -30,10 +31,10 @@
 		
 		
 		if ( $_POST["password"] != $_POST["verifypassword"]) {
-			$retreguser["PASSWORDNOTMATCH"] = 1;
+			$retreguser["PASSWORDNOTMATCH"] = true;
 
-		} else if ( strlen($_POST["password"]) < 8) {
-			$retreguser["PASSWORDTOOSHORT"] = 1;
+		} else if ( strlen($_POST["password"]) < 7) {
+			$retreguser["PASSWORDTOOSHORT"] = true;
 						
 		}	else {
 		
@@ -60,10 +61,10 @@
 				#SendWelcomeEmail($retreguser["SystemTemporaryUser_email"], $retreguser["SystemTemporaryUser_emaillinkid"], 
 				#									$retreguser["SystemTemporaryUser_username"], $infoarray = ""); 
 	
-				$VariableToPass = array( 
+				$VariableToPass = [ 
 					"Email" => $retreguser["SystemTemporaryUser_email"],
 					"Username" => $retreguser["SystemTemporaryUser_username"]
-				);
+				];
 	
 				header("Location: /" . CreateEncoded($VariableToPass) . "/register/doneregister");
 				exit();
@@ -120,59 +121,60 @@
 	
 		<?php
 		
-			if ($retreguser["PASSWORDTOOSHORT"] == 1) {
+			if (($retreguser["PASSWORDTOOSHORT"] ?? null) == true) {
 				echo "<P class=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The password is too short. It need at least 8 characters.</FONT></B><BR>";
 				echo "</P>";
 			}
 		
-			if ($retreguser["PASSWORDNOTMATCH"] == 1) {
+			if (($retreguser["PASSWORDNOTMATCH"] ?? null) == true) {
 				echo "<P class=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The password don't match.</FONT></B><BR>";
 				echo "</P>";
 			}
 		
-			if ($retreguser["USERNAME"] == 1) {
+			if (($retreguser["USERNAME"] ?? null) == true) {
 				echo "<P class=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The USERNAME " . $_POST["username"] . " already exist</FONT></B><BR>";
 				echo "</P>";
 			}
 			
-			if ($retreguser["EMAIL"] == 1) {
+			if (($retreguser["EMAIL"] ?? null)== true) {
 				echo "<P class=\"f60\">";
 				echo "<B><FONT COLOR=BROWN>The EMAIL " . $_POST["emailaddress"] . " already exist</FONT></B><BR>";
 				echo "</P>";
 			}
 		?>
 		
-		<P class="f80">
-			<DIV class="f80">Email:</DIV>
-			<DIV class="f60"><?= $result["SystemUserEmail_AddFrom"] ?><DIV>				
-		</P>
+		<DIV class="f80">
+			<DIV class="f60">Your email address: <B><?= $result["SystemUserEmail_AddFrom"] ?></B><DIV>				
+		</DIV>
 			
-		<P class="f80">
-			<DIV class="f80">Username:</DIV>
-			<DIV><INPUT class="" type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE="<?= $_POST["username"] ?>"></DIV>
-		</P>
 		
 		<P class="f40">
 			Choose a username that contains only letters and numbers, or
 			use your email address.
 		</P>
 		
-		<P class="f80">
-			<DIV class="f80">Password:</DIV>
-			<DIV><INPUT class="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE=""><DIV>
-		</P>
+		<div class="field">
+			<input type="<?= $TypeUsername ?>" id="username" name="username" autocorrect="off" class="input" autocapitalize="none" placeholder=" " required style="max-width: 380px;" VALUE="<?= $_POST["username"] ?? null ?>">
+			<label for="username">Username</label>
+		</div>
+
+		<div class="field">
+		  <input type="password" id="password" class="input" name="password" placeholder=" " required style="max-width: 380px;">
+		  <label for="password">Password</label>
+		</div>
+
+		<div class="field">
+		  <input type="password" id="verifypassword" class="input" name="verifypassword" placeholder=" " required style="max-width: 380px;">
+		  <label for="verifypassword">Verify Password</label>
+		</div>
+
+		<DIV style="padding-bottom: 15px;">
+		  <INPUT CLASS="f60bold" TYPE="Submit" VALUE="Register" NAME="SaveInfo">
+		</DIV>		
 		
-		<P class="f80">
-			<DIV class="f80">Verify Password:</DIV>
-			<DIV><INPUT class="" TYPE="password" NAME="verifypassword" PLACEHOLDER=" verify password"  VALUE=""></DIV>
-		</P>
-	
-		<P>
-			<DIV><INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Register"></DIV>
-		</P>
 		
 		<P class="f40">
 			By clicking the "Register" button, you are creating a 
@@ -182,10 +184,11 @@
 		</P>
 
 	</FORM>
-</DIV>
-</DIV>
-</DIV>
-</DIV>
-</DIV>
+	</DIV>
+	</DIV>
+	</DIV>
+
 		
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
+	</BODY>
+</HTML>

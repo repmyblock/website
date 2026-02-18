@@ -7,7 +7,9 @@
   
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   
-  $rmb = new Teams(0);
+  $rmb = new Teams();
+  
+  
   
   if (! empty ($_POST)) {
     WriteStderr($URIEncryptedString, "URIEncryptedString");
@@ -61,11 +63,11 @@
   WriteStderr($URIEncryptedString, "URLInfo AFTER Wipe");
   WriteStderr($rmbteaminfo, "RMB Team Member Info");
   
-  $TopMenus = array (             
-    array("k" => $k, "url" => "team/index", "text" => "Team Members"),
-    array("k" => $k, "url" => "team/teampetitions", "text" => "Manage Petitions"),
-    // array("k" => $k, "url" => "team/teamcandidate", "text" => "Setup Teams")
-  );
+  $TopMenus = [ 
+    ["k" => $k, "url" => "team/index", "text" => "Team Members"],
+    ["k" => $k, "url" => "team/staff/index", "text" => "Staff Members"],
+    ["k" => $k, "url" => "team/petitions/index", "text" => "Manage Petitions"],
+  ];
                     
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) {   $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }

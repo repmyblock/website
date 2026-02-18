@@ -21,6 +21,6 @@
 						    "LastName" => $URIEncryptedString["LastName"],
 						    "UniqNYSVoterID" => $URIEncryptedString["UniqNYSVoterID"],
 						   	"SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"]
-					)) . "/lgd/profile/profilecandidate");
+					)) . "/lgd/profile/candidate/public");
 	exit();
 ?>

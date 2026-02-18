@@ -10,15 +10,23 @@ if ( empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 $Party = PrintParty($URIEncryptedString["UserParty"]);
 
-if ( empty ($URIEncryptedString["Position"])) { 
-	header("Location: /" . $k . "/ldg/profilecandidate");
-	exit();
+echo "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
+
+if ( empty ($URIEncryptedString["PositionID"])) { 
+	header("Location: /" . $k . "/lgd/profile/candidate/public");
 }
+
+header("Location: /" . $k . "/lgd/profile/candidate/updatecandidateprofile");
+
+echo "Why AM I HERE?";
+
+exit();
 
 $rmb = new RepMyBlock();
 //$rmbperson = $rmb->ReturnVoterIndex($URIEncryptedString["VotersIndexes_ID"]);
 $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);	
 $listpositions = $rmb->ListElectedPositions($rmbperson["DataState_Abbrev"]);
+
 
 $DBTable = "ADED";
 if (! empty ($rmbperson["SystemUserSelfDistrict_AD"])) {
@@ -37,15 +45,11 @@ $EDAD = sprintf('%02d%03d', $MyLocalAD, $MyLocalED);
 
 $listelection = $rmb->CandidateElection($DBTable, $EDAD, "2021-12-10", $rmbperson["Voters_RegParty"]);
 WriteStderr($listelection, "List Election");
-
-
 WriteStderr($rmbperson, "List Election");
-
 
 // The addresses will need to be fixed as well.
 $Address1 = $rmbperson["DataAddress_HouseNumber"] . " " . $rmbperson["DataStreet_Name"] . " - Apt " . $rmbperson["DataHouse_Apt"]; 
 $Address2 = $rmbperson["DataCity_Name"] . ", " . $rmbperson["DataState_Abbrev"] . " " . $rmbperson["DataAddress_zipcode"];
-
 
 if ( ! empty ($rmbperson["DataFirstName_Text"])) { $DisplayName = $rmbperson["DataFirstName_Text"] . " "; }
 

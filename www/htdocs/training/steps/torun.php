@@ -15,6 +15,8 @@
   $HeaderOGImageWidth = "450";
   $HeaderOGImageHeight = "265";
   
+  $VideoOnHtml = true;
+  
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";  
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";   

@@ -15,20 +15,22 @@
     if ( ! empty ($_POST["LastName"]) || ! empty ($_POST["FirstName"])) {
     
       // This is where the data in the profile gets updated.
-      $ProfileArray = array (  "bio" => $_POST["profile_bio"], 
-                              "URL"=> $_POST["URL"],
-                              "Location" => $_POST["Location"]);
+      $ProfileArray = [ 
+      									"bio" => $_POST["profile_bio"] ?? null, 
+                        "URL"=> $_POST["URL"] ?? null,
+                        "Location" => $_POST["Location"] ?? null
+                      ];
 
-      if ( $rmbperson["SystemUser_FirstName"] != $_POST["FirstName"] ) {
+      if ( $rmbperson["SystemUser_FirstName"] ?? null != $_POST["FirstName"] ) {
         $ProfileArray["Change"]["SystemUser_FirstName"] = $_POST["FirstName"];
         $FirstName = trim($_POST["FirstName"]);
       } 
         
-      if ( $rmbperson["SystemUser_LastName"] != $_POST["LastName"] ) {
+      if ( $rmbperson["SystemUser_LastName"] ?? null != $_POST["LastName"] ) {
         $ProfileArray["Change"]["SystemUser_LastName"] = $_POST["LastName"];
         $LastName = trim($_POST["LastName"]);
       }
-      if ( $rmbperson["SystemUser_email"] != $_POST["Email"] ) {
+      if ( $rmbperson["SystemUser_email"]  ?? null != $_POST["Email"] ) {
         $ProfileArray["Special"]["SystemUser_email"] = $_POST["Email"];
         $ProfileArray["Special"]["SystemUser_emaillinkid"] = hash("md5", PrintRandomText(40));
       }
@@ -63,7 +65,7 @@
         $URIEncryptedString["SystemUser_Priv"] = $rmbperson["SystemUser_Priv"];
         
       } else {
-        $rmbperson = $rmb->UpdatePersonUserProfile($URIEncryptedString["SystemUser_ID"], $ProfileArray, $rmbperson);
+        $rmbperson = $rmb->UpdatePersonUserProfile($URIEncryptedString["SystemUser_ID"], $ProfileArray, $rmbperson);        
       }
     
         
@@ -89,15 +91,13 @@
     if ( ! empty ($rmbperson)) {
       WriteStderr($mytmp, "MY Temp ID from the If Above");
       
-      $k = CreateEncoded (
-            array( 
-              "SystemUser_ID" => $rmbperson["SystemUser_ID"],  
-              "FirstName" => $PersonFirstName, 
-              "LastName" => $PersonLastName,
-              "SystemUser_email" =>  $rmbperson["SystemUser_email"], 
-              "SystemUser_Priv" => $rmbperson["SystemUser_Priv"],
-            )
-      );
+      $k = CreateEncoded ([
+          "SystemUser_ID" => $rmbperson["SystemUser_ID"],  
+          "FirstName" => $PersonFirstName, 
+          "LastName" => $PersonLastName,
+          "SystemUser_email" =>  $rmbperson["SystemUser_email"], 
+          "SystemUser_Priv" => $rmbperson["SystemUser_Priv"],
+      ]);
 
       if ( ! empty ($_POST)) {
         WriteStderr($_POST, "In the SystemUserID == TEMP Section and in the Header.");
@@ -105,24 +105,7 @@
         exit();  
       }
     }  
-    
-    #$k = CreateEncoded (
-    #      array( 
-    #        "SystemUser_ID" => $rmbperson["SystemUser_ID"],
-    #        "SystemTemporaryEmail" => $rmbperson["SystemTemporaryEmail"],
-    #        "ProfileCreate" => $rmbperson["ProfileCreate"],
-    #        "SystemUser_Priv" => $rmbperson["SystemUser_Priv"]
-    #      )
-    #);  
-    
-    #$k = CreateEncoded (
-    #      array( 
-    #        "SystemUser_ID" => $rmbperson["SystemUser_ID"],  
-    #        "FirstName" => $PersonFirstName, 
-    #        "LastName" => $PersonLastName,
-    #      )
-    #);
-    
+   
   } else {
     WriteStderr($rmbperson, "rmbperson array of the Else of the TMP Section");
     
@@ -133,9 +116,7 @@
     $PersonURL       = $rmbperson["SystemUserProfile_URL"];
     $PersonLocation  = $rmbperson["SystemUserProfile_Location"];
     
-    if (! empty ($_POST)) {
-      $ReloadTheScreen = true;
-    }       
+    if (! empty ($_POST)) { $ReloadTheScreen = true; }       
     
     // This is to catch the user coming back and updating the name.
     $KBuildSystemID = $rmbperson["SystemUser_ID"];
@@ -144,18 +125,16 @@
       $KBuildSystemID = $mytmp["SystemUser_ID"];      
     }
     
-    $k = CreateEncoded (
-          array( 
-            "SystemUser_ID" => $KBuildSystemID,  
-            "FirstName" => $PersonFirstName, 
-            "LastName" => $PersonLastName,
-            "VotersIndexes_ID" =>  $rmbperson["VotersIndexes_ID"], 
-            "UserParty" => $rmbperson["SystemUser_Party"], 
-            "MenuDescription" => $URIEncryptedString["MenuDescription"],
-            "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
-            "EDAD" => $URIEncryptedString["EDAD"]
-          )
-    );
+    $k = CreateEncoded ([ 
+        "SystemUser_ID" => $KBuildSystemID,  
+        "FirstName" => $PersonFirstName, 
+        "LastName" => $PersonLastName,
+        "VotersIndexes_ID" =>  $rmbperson["VotersIndexes_ID"], 
+        "UserParty" => $rmbperson["SystemUser_Party"], 
+        "MenuDescription" => $URIEncryptedString["MenuDescription"],
+        "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
+        "EDAD" => $URIEncryptedString["EDAD"]
+    ]);
     
     if ( $ReloadTheScreen == true) {
       WriteStderr($_POST, "In the Else of the TMP Section and reloading in the header");
@@ -167,12 +146,12 @@
     $Party = PrintParty($UserParty);
     
     if ($rmbperson["SystemUser_emailverified"] == "both") {
-      $TopMenus = array ( 
-                    array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
-                    array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"), 
-                    array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile"),
-                    array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
-                  );
+      $TopMenus = [ 
+	      ["k" => $k, "url" => "profile/user", "text" => "Public Profile"],
+	      ["k" => $k, "url" => "profile/voter/card", "text" => "Voter Profile"], 
+	      ["k" => $k, "url" => "profile/candidate/public", "text" => "Candidate Profile"],
+	      ["k" => $k, "url" => "profile/team/section", "text" => "Team Profile"]
+	    ];
     }              
   }
   
@@ -188,7 +167,7 @@
           <div class="Subhead">
             <h2 class="Subhead-heading">Personal Profile</h2>
           </div>
-          <?php  PlurialMenu($k, $TopMenus); ?>
+          <?php  PlurialMenu($k, $TopMenus ?? null); ?>
           <div class="col-full f60">
 <?php if (empty ($TopMenus)) { ?>
             <P class="f60">
@@ -203,25 +182,35 @@
 <?php if ( ! empty ($TopMenus)) { ?>
               <input type="hidden" value="<?= $URIEncryptedString["SystemUser_ID"] ?>" name="UserID">
 <?php } ?>
-              <div class="field">
-                <label class="f40" for="user_profile_name">Email Address</label>
-                <div class="form-value" style="padding: 45px 20px"><?= $PersonEmail ?></div>
-              </div>     
-              
-              <div class="field" style="">
-                <input id="firstname" class="input" type="text" name="firstname" value="<?= $PersonFirstName ?>" required placeholder=" ">
-                <label for="firstname">First Name</label>
-              </div>
-            
-              <DIV class="field" style="">
-                <input id="lastname" class="input" type="text" name="lastname" value="<?= $PersonLastName ?>" required placeholder=" ">
-                <label for="lastname">Last Name</label>
-              </div>
-              
-              <DIV class="">
-                <INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Update profile">
-              </DIV>
-
+						 	<div class="clearfix gutter d-flex flex-shrink-0">
+						 		<div class="list-group-item filtered">
+						 			
+						 			<div class="voter-form">
+		              <div class="field">
+		                <label class="f40" for="user_profile_name">Email Address</label>
+		                <div class="form-value" style="padding: 45px 20px"><?= $PersonEmail ?></div>
+		              </div>     
+		            </DIV>
+		     
+			            <div class="voter-form">
+			              <div class="field" style="grid-column: span 6;">
+			                <input id="firstname" class="input" type="text" name="FirstName" value="<?= $PersonFirstName  ?? null ?>" required placeholder=" ">
+			                <label for="firstname">First Name</label>
+			              </div>
+			            
+			              <DIV class="field" style="grid-column: span 6;">
+			                <input id="lastname" class="input" type="text" name="LastName" value="<?= $PersonLastName ?? null ?>" required placeholder=" ">
+			                <label for="lastname">Last Name</label>
+			              </div>
+			              
+			            </DIV>
+			              
+		              <DIV class="">
+		                <INPUT class="f60bold" TYPE="Submit" NAME="SaveInfo" VALUE="Update profile">
+		              </DIV>
+		              
+		            </DIV>
+		          </DIV>
             </FORM>    
           </DIV>
         </DIV>

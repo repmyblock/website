@@ -15,7 +15,7 @@
   WriteStderr($rmbperson, "SearchUserVoterCard");
   
   if (empty ($rmbperson["VotersIndexes_ID"]) && empty ($rmbperson["SystemUserSelfDistrict_ID"])) {
-   header("Location: /" . $k . "/lgd/profile/input"); 
+   header("Location: /" . $k . "/lgd/profile/voter/input"); 
    exit(); 
   }
 
@@ -30,11 +30,11 @@
   }  
 
   $TopMenus = array (
-            array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
-            array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
-            array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile"),
-            array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
-          );
+	        array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
+	        array("k" => $k, "url" => "profile/voter/card", "text" => "Voter Profile"), 
+	        array("k" => $k, "url" => "profile/candidate/public", "text" => "Candidate Profile"),
+	        array("k" => $k, "url" => "profile/team/section", "text" => "Team Profile")
+        );
           
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; $Width="64";} else { $Cols = "col-9"; $Width="16"; }

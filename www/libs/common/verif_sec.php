@@ -158,7 +158,40 @@ function DecryptURL ($sealed) {
   return($finaltext);
 }
 
-function WipeURLEncrypted($WhatToKeep = NULL, $WhatToRemove = NULL) {
+function WipeURLEncrypted($WhatToKeep = null, $WhatToRemove = null) {
+
+	global $k, $URIEncryptedString;
+
+	WriteStderr($URIEncryptedString, "Entering Wipe URL");	
+
+	$NewURIEncryptedString = [];
+
+	/* Normalize WhatToRemove */
+	if (!empty($WhatToRemove) && !is_array($WhatToRemove)) {
+		$WhatToRemove = [$WhatToRemove];
+	}
+
+	/* CASE: Remove keys */
+	if (empty($WhatToKeep) && !empty($WhatToRemove)) {
+
+		foreach ($URIEncryptedString as $NewURI => $value) {
+
+			if (in_array($NewURI, $WhatToRemove, true)) {
+				continue;
+			}
+
+			$NewURIEncryptedString[$NewURI] = $value;
+		}
+	}
+
+	$k = CreateEncoded($NewURIEncryptedString);
+	$URIEncryptedString = $NewURIEncryptedString;
+
+	WriteStderr($URIEncryptedString, "exitin Wipe URL");
+}
+
+/*
+function WipeURLEncrypted($WhatToKeep = null, $WhatToRemove = null) {
 	global $k, $URIEncryptedString;
 	
 	WriteStderr($URIEncryptedString, "Entering Wipe URL");	
@@ -184,8 +217,9 @@ function WipeURLEncrypted($WhatToKeep = NULL, $WhatToRemove = NULL) {
 		
 	$k = CreateEncoded ( $NewURIEncryptedString );
 	$URIEncryptedString = $NewURIEncryptedString;
-	WriteStderr($URIEncryptedString, "Entering Wipe URL");	
+	WriteStderr($URIEncryptedString, "exitin Wipe URL");	
 }
+*/
 
 function CreateThePassword ($Password) {
 	// Create a string for the crypt

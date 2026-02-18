@@ -15,10 +15,13 @@ $PDFOptions["WitnessResidence"] = "_____________________________________________
 $PDFOptions["City"] = "____________"; 
 $PDFOptions["County"] = "________"; 
 
+
 if ( ! isset ($RMBBlockInit)) {
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/funcs/NY/petition_class.php';
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/../libs/utils/script88/PDF_Code128.php';
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_OutragedDems.php";
+	
+	
 	
 	$StrPos = strpos($_SERVER['REQUEST_URI'], "?") + 1;
 	if ($StrPos > 1) $Options = explode("/", substr($_SERVER['REQUEST_URI'], $StrPos));
@@ -434,7 +437,7 @@ $pdf_NY_petition->AddPage();
 $Counter = 0;
 
 // Need to calculate the number of empty line.
-$TotalCountName = count($Name);
+$TotalCountName = count($Names ?? []);
 
 $FrameState = "NY";
 $FrameFunc = "version_" . $FrameState . "_" . $PetitionFrameName;

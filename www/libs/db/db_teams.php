@@ -11,7 +11,14 @@ class Teams extends RepMyBlock {
 	 	);
 	}
 
-	function ListSystemUserTeam($SystemUser_ID) {
+	function ListSystemUserTeam($SystemUser_ID, $ElectPost = null) {
+		if ( $ElectPost > 0) {
+			return $this->_return_multiple(
+				"SELECT * FROM Team WHERE Team.SystemUser_ID = :SystemUser AND ElectionsPosition_ID = :ElectPost", 
+				["SystemUser" => $SystemUser_ID, "ElectPost" => $ElectPost]
+			);
+		}
+		
 		return $this->_return_multiple(
 			"SELECT * FROM Team WHERE Team.SystemUser_ID = :SystemUser", 
 			["SystemUser" => $SystemUser_ID]
@@ -41,6 +48,17 @@ class Teams extends RepMyBlock {
 		);
 	}
 	
+	function ListStaffTeam($SystemID, $TeamID = null) {
+		return $this->_return_multiple(
+				"SELECT * FROM Team " . 
+				"LEFT JOIN SystemUserTeamPending on (SystemUserTeamPending.Team_ID = Team.Team_ID) " . 
+				"LEFT JOIN SystemUser ON (SystemUserTeamPending.SystemUserTeamPending_email = SystemUser.SystemUser_email) " .
+				"LEFT JOIN TeamMember ON (TeamMember.SystemUser_ID = SystemUser.SystemUser_ID AND Team.Team_ID = TeamMember.Team_ID ) " . 
+				"WHERE Team.SystemUser_ID = :SystemID",
+				["SystemID" => $SystemID]		
+		);
+	}
+	
 	function SearchUsersForMyTeam($SystemUser_ID) {
 		return $this->_return_multiple(
 				"SELECT *, SystemUser.SystemUser_ID AS SystemIDFromTeam FROM Team " .
@@ -54,6 +72,29 @@ class Teams extends RepMyBlock {
 				"Candidate.Candidate_UniqStateVoterID IS NOT NULL", 
 				["SystemID" => $SystemUser_ID]
 		);
+	}
+	
+	function CheckActiveTeamMember($SystemID, $TeamID, $Removed = null) {
+		return $this->_return_multiple(
+				"SELECT * FROM TeamMember WHERE SystemUser_ID = :SysUserID AND Team_ID = :TeamID " . 
+				"AND TeamMember_RemovedDate IS NULL",
+				["SysUserID" => $SystemID, "TeamID" => $TeamID]
+		);
+	}
+	
+	function AddToTeamMember($TeamID, $SystemID, $Privs, $ApprovedBy, $ActiveType) {
+		return $this->_return_nothing(
+				"INSERT INTO TeamMember SET Team_ID = :TeamID, SystemUser_ID = :SystemID, " . 
+				"TeamMember_Active = :ActiveType, TeamMember_Privs = :Privs, " .
+				"TeamMember_ApprovedBy = :ApprovedBy, TeamMember_ApprovedDate = NOW(), " .
+				"TeamMember_DateRequest = NOW()", 
+				[
+					"TeamID" => $TeamID, "SystemID" => $SystemID, "Privs" => $Privs,
+					"ApprovedBy" => $ApprovedBy, "ActiveType" => $ActiveType
+				]
+		);
+		
+		
 	}
 
 	function ReturnMemberFromTeam($TeamMemberID) {
@@ -149,17 +190,20 @@ class Teams extends RepMyBlock {
 		}
 	}
 	
-	function AddNewTeam($SystemUser_ID, $TypeTeam, $TeamName, $Team_AccessCode, $Team_WebCode, $Team_EmailCode, $Active = 'yes') {
-		return $this->_return_nothing(
+	function AddNewTeam($SystemUser_ID, $TypeTeam, $TeamName, $Team_AccessCode, $Team_WebCode, 
+											$Team_EmailCode, $Active = 'yes', $ElectPos = null) {
+		$this->_return_nothing(
 				"INSERT INTO Team SET SystemUser_ID = :SystemUserID, Team_Name = :TeamName, Team_AccessCode = :Access, " .
 				"Team_WebCode = :WebCode, Team_EmailCode = :EmailCode, Team_Active = :Active, Team_Public = :TypeTeam, " .
-				"Team_Created = NOW()",
+				"ElectionsPosition_ID = :ElectPos, Team_Created = NOW()",
 				[	
 					"SystemUserID" => $SystemUser_ID, "TeamName" => $TeamName, "Access" => $Team_AccessCode, 
-					"WebCode" => $Team_WebCode,
+					"WebCode" => $Team_WebCode, "ElectPos" => $ElectPos,
 					"EmailCode" => $Team_EmailCode, ":Active" => $Active, "TypeTeam" => $TypeTeam
 				]
 		);
+		
+		return $this->_return_simple("SELECT LAST_INSERT_ID() as Team_ID");   
 	}
 	
 	function CheckTeamExist($TeamName, $TeamAccessCode) {

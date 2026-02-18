@@ -1,20 +1,41 @@
 <?php
 
-function WriteStderr($Data, $Message = "") {	
+function WriteStderr($data, $message = null, $stop = false) {
+
 	global $Developping;
-	 
-	// if using NGNIX + FPM, check your
-	// /var/log/php/ftp-error.log file and not web error.log 
-	 
-	// Need to save the information
-	if ( $Developping == 1) {	
-		if ( ! empty ($Message)) {
-			error_log($Message . ": " . print_r($Data, 1));
+	
+	if ($Developping) {
+		$logFile = "/tmp/repmyblock.log";
+		$prefix = date("Y-m-d H:i:s") . "\n";
+
+		if (!empty($message)) {
+		  $prefix .= $message . "\n";
+		}
+
+		if (is_array($data) || is_object($data)) {
+		  $output = print_r($data, true);
 		} else {
-			error_log("Write Std Error: " . print_r($Data, 1));
+		  $output = (string)$data;
+		  $output = preg_replace('/\/AAAA.*3D\//', '/[CRYPTED]/', $output);
+		}
+
+		$final = $prefix . $output . "\n";
+		file_put_contents($logFile, $final, FILE_APPEND | LOCK_EX);
+
+		if ($stop === true) {
+		  exit();
 		}
 	}
 }
+
+function ordinal($number) {
+    $ends = array('th','st','nd','rd','th','th','th','th','th','th');
+    if ((($number % 100) >= 11) && (($number%100) <= 13))
+        return $number. 'th';
+    else
+        return $number. $ends[$number % 10];
+}
+
 function PrintRandomText($length = 9) {
   
   $alpha = "abcdefghijklmnopqrstuvwxyz";
@@ -79,13 +100,6 @@ function Redact ($string) {
 	return $string;
 }
 
-function ordinal($number) {
-    $ends = array('th','st','nd','rd','th','th','th','th','th','th');
-    if ((($number % 100) >= 11) && (($number%100) <= 13))
-        return $number. 'th';
-    else
-        return $number. $ends[$number % 10];
-}
 
 function PrintTown($Alternate, $pdf, $PrintAddress) {
 	$pdf->Ln(6);

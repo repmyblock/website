@@ -11,19 +11,22 @@
   $rmb = new RepMyBlock();
   
   if ( $URIEncryptedString["SystemUser_ID"] != "TMP") {
-    WriteStderr("I am in URI not TMP");
+    WriteStderr("URI Encrypted for SystemUser_ID is not TMP");
     $rmbperson = $rmb->FindPersonUser($URIEncryptedString["SystemUser_ID"]);
-    // $NumberPetitions = $rmb->GetPetitionsSumary($URIEncryptedString["SystemUser_ID"]);  
     WriteStderr($rmbperson, "rmbperson");
-    WriteStderr($NumberPetitions, "NumberPetition");
+    // $NumberPetitions = $rmb->GetPetitionsSumary($URIEncryptedString["SystemUser_ID"]);  
+    #WriteStderr($NumberPetitions, "NumberPetition");
+    WriteStderr("Wrote array rmbperson and number of petitions");
   
     /* Define numbers */
-    preg_match('/([A-Z][A-Z])/', $rmbperson["Voters_UniqStateVoterID"], $matches, PREG_OFFSET_CAPTURE);
-    $VoterState = $matches[1][0];
-    $Party = PrintParty($rmbperson["SystemUser_Party"]);    
-    $NumberOfElectors = $rmbperson["SystemUser_NumVoters"];
-    $NumberOfSignatures = intval($NumberOfElectors * $SigsRequired["NY"]) + 1;
-    $Progress = round ((($NumberPetitions["CandidateSigned"] / $NumberOfElectors) * 100), 2);
+    if ( ! empty ($rmbperson["Voters_UniqStateVoterID"] )) {
+	    preg_match('/([A-Z][A-Z])/', $rmbperson["Voters_UniqStateVoterID"], $matches, PREG_OFFSET_CAPTURE);
+	    $VoterState = $matches[1][0];
+	    $Party = PrintParty($rmbperson["SystemUser_Party"]);    
+	    $NumberOfElectors = $rmbperson["SystemUser_NumVoters"];
+	    $NumberOfSignatures = intval($NumberOfElectors * $SigsRequired["NY"]) + 1;
+	    $Progress = round ((($NumberPetitions["CandidateSigned"] / $NumberOfElectors) * 100), 2);
+    }
     
     $PersonFirstName = $rmbperson["SystemUser_FirstName"];
     $PersonLastName  = $rmbperson["SystemUser_LastName"];
@@ -34,7 +37,7 @@
 
   } else {
     
-    WriteStderr("I am in URI is TMP");
+    WriteStderr("URI Encrypted for SystemUser_ID is TMP");
     $EmailVerifiedType = $URIEncryptedString["EmailVerified"];
     $LinkNameToEmail = $URIEncryptedString["EmailLink"];
     $EmailAddress = $URIEncryptedString["SystemTemporaryEmail"];
@@ -49,6 +52,7 @@
     $BoxInDistrict = "Number of voters";
     $NumberOfElectors = "Not defined";
     $DayToGo = "Not defined";
+    $DateToWait = "the official filling day";
 
   } else {
     $BoxInDistrict = $Party . "s in your district";
@@ -151,7 +155,7 @@
           </div>
         
           <P class="f40">
-            Once you collect the  <?= $NumberOfSignatures ?> signatutes plus a few more, 
+            Once you collect the  <?= $NumberOfSignatures ?? "a few" ?> signatutes plus a few more, 
             you will need to wait until <?= $DateToWait ?> to take them
             to the board of elections. <B>Just follow the 
             <A HREF="/<?= $k ?>/exp/toplinks/howto">instruction posted on the FAQ</A>.</B>

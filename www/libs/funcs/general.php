@@ -29,30 +29,32 @@ function ordinal($number) {
       return $number. $ends[$number % 10];
 }
 
-function WriteStderr($Data, $Message = "") {  
-  global $Developping;
+function WriteStderr($data, $message = null, $stop = false) {
 
-  // if using NGNIX + FPM, check your
-  // /var/log/php/ftp-error.log file and not web error.log
-  // Need to save the information
-  if ( $Developping == 1) {  
-    if ( ! empty ($Message)) {
+	global $Developping;
+	
+	if ($Developping) {
+		$logFile = "/tmp/repmyblock.log";
+		$prefix = date("Y-m-d H:i:s") . "\n";
 
-      if (is_array($Data)) {
-        if ( empty ($Data)) {
-          error_log($Message . ": Empty array");
-        } else {
-          error_log($Message . ": " . print_r($Data, 1));
-        }
-      } else {
-        $Data = preg_replace('/\/AAAA.*3D\//', '/[CRYPTED]/', $Data);
-        error_log($Message . ": " . $Data);
-      }
+		if (!empty($message)) {
+		  $prefix .= $message . "\n";
+		}
 
-    } else {
-      error_log("Write Std Error: " . print_r($Data, 1));
-    }
-  }
+		if (is_array($data) || is_object($data)) {
+		  $output = print_r($data, true);
+		} else {
+		  $output = (string)$data;
+		  $output = preg_replace('/\/AAAA.*3D\//', '/[CRYPTED]/', $output);
+		}
+
+		$final = $prefix . $output . "\n";
+		file_put_contents($logFile, $final, FILE_APPEND | LOCK_EX);
+
+		if ($stop === true) {
+		  exit();
+		}
+	}
 }
 
 function PrintRandomText($length = 9) {
@@ -175,16 +177,33 @@ function MergeEncode($VariableToPass, $VariableToRemove = "LastTimeUser") {
   $URLString = "";
   $VariableToPass = array_replace($URIEncryptedString, $VariableToPass);
 
-  if ( ! empty ($VariableToPass)) {
+  if (!empty($VariableToPass)) {
     foreach ($VariableToPass as $var => $value) {
+
       if ($var != $VariableToRemove) {
-        if ( ! empty ($value)) {
-          if (! empty($URLString)) { $URLString .= "&"; }
-          $URLString .= $var . "=" . $value;
-          if ( $Developping == 1) {  
-            error_log ("Create Encoded Var: $var\tValue: $value");
+        if (is_array($value)) {
+          foreach ($value as $k => $v) {
+
+            if ($v !== '' && $v !== null) {
+              if (!empty($URLString)) { $URLString .= "&"; }
+              $URLString .= $var . "[" . $k . "]=" . $v;
+
+              if ($Developping == 1) {
+                error_log("Create Encoded Var: {$var}[{$k}]\tValue: {$v}");
+              }
+            }
+          }
+        } else {
+          if ($value !== '' && $value !== null) {
+            if (!empty($URLString)) { $URLString .= "&"; }
+            $URLString .= $var . "=" . rawurlencode($value);
+
+            if ($Developping == 1) {
+              error_log("Create Encoded Var: {$var}\tValue: {$value}");
+            }
           }
         }
+
       }
     }
   }
@@ -203,7 +222,7 @@ function CreateEncoded($VariableToPass, $VariableToRemove = "") {
         if (! empty($URLString)) { $URLString .= "&"; }
         $URLString .= $var . "=" . $value;
         if ( $Developping == 1) {
-          error_log ("Create Encoded Var: $var\tValue: $value");  
+          error_log ("Create Encoded Var: $var\tValue: $value\n");  
         }
       }
     }    
@@ -236,35 +255,9 @@ function PlurialMenu($k, $menusarray) {
   }
 }
 
-function DB_ReturnFullName($vor) {
-  $FullName = $vor["Raw_Voter_FirstName"] . " ";
-  if ( ! empty ($vor["Raw_Voter_MiddleName"])) { $FullName .= substr($vor["Raw_Voter_MiddleName"], 0, 1) . ". "; }
-  $FullName .= $vor["Raw_Voter_LastName"] ." ";
-  if ( ! empty ($vor["Raw_Voter_Suffix"])) { $FullName .= $vor["Raw_Voter_Suffix"]; }        
-  $FullName = ucwords(strtolower($FullName));
-  return $FullName;
-}  
-
 function DB_WorkCounty($CountyID) {
   $County = $this->GetCountyFromNYSCodes($CountyID);
   return $County["DataCounty_Name"];  
-}
-
-function DB_ReturnAddressLine1($vor, $apt = 1) {
-  $Address_Line1 = "";
-  if ( ! empty ($vor["Raw_Voter_ResHouseNumber"])) { $Address_Line1 .= $vor["Raw_Voter_ResHouseNumber"] . " "; }    
-  if ( ! empty ($vor["Raw_Voter_ResFracAddress"])) { $Address_Line1 .= $vor["Raw_Voter_ResFracAddress"] . " "; }    
-  if ( ! empty ($vor["Raw_Voter_ResPreStreet"])) { $Address_Line1 .= $vor["Raw_Voter_ResPreStreet"] . " "; }    
-  $Address_Line1 .= $vor["Raw_Voter_ResStreetName"] . " ";
-  if ( ! empty ($vor["Raw_Voter_ResPostStDir"])) { $Address_Line1 .= $vor["Raw_Voter_ResPostStDir"] . " "; }    
-  if ( ! empty ($vor["Raw_Voter_ResApartment"]) && $apt == 1) { $Address_Line1 .= "- Apt. " . $vor["Raw_Voter_ResApartment"]; }
-  $Address_Line1 = preg_replace('!\s+!', ' ', $Address_Line1 );
-  return $Address_Line1;
-}
-
-function DB_ReturnAddressLine2($vor) {
-  $Address_Line2 = $vor["Raw_Voter_ResCity"] . ", NY " . $vor["Raw_Voter_ResZip"];
-  return $Address_Line2;
 }
 
 function PrintReferer($order = 0) {
@@ -290,32 +283,43 @@ function MatchPriviledges($TotalPriv, $PrivToCheck) {
 }
 
 function FormatPhoneNumber($phoneNumber) {
-    $phoneNumber = preg_replace('/[^0-9]/','',$phoneNumber);
+  $phoneNumber = preg_replace('/[^0-9]/','',$phoneNumber);
 
-    if(strlen($phoneNumber) > 10) {
-        $countryCode = substr($phoneNumber, 0, strlen($phoneNumber)-10);
-        $areaCode = substr($phoneNumber, -10, 3);
-        $nextThree = substr($phoneNumber, -7, 3);
-        $lastFour = substr($phoneNumber, -4, 4);
+  if(strlen($phoneNumber) > 10) {
+    
+    $countryCode = substr($phoneNumber, 0, strlen($phoneNumber)-10);
+    $areaCode = substr($phoneNumber, -10, 3);
+    $nextThree = substr($phoneNumber, -7, 3);
+    $lastFour = substr($phoneNumber, -4, 4);
 
-        $phoneNumber = '+'.$countryCode.' ('.$areaCode.') '.$nextThree.'-'.$lastFour;
-    }
-    else if(strlen($phoneNumber) == 10) {
-        $areaCode = substr($phoneNumber, 0, 3);
-        $nextThree = substr($phoneNumber, 3, 3);
-        $lastFour = substr($phoneNumber, 6, 4);
+    $phoneNumber = '+'.$countryCode.' ('.$areaCode.') '.$nextThree.'-'.$lastFour;
+    
+  } else if(strlen($phoneNumber) == 10) {
+   
+    $areaCode = substr($phoneNumber, 0, 3);
+    $nextThree = substr($phoneNumber, 3, 3);
+    $lastFour = substr($phoneNumber, 6, 4);
 
-        $phoneNumber = '('.$areaCode.') '.$nextThree.'-'.$lastFour;
-    }
-    else if(strlen($phoneNumber) == 7) {
-        $nextThree = substr($phoneNumber, 0, 3);
-        $lastFour = substr($phoneNumber, 3, 4);
+    $phoneNumber = '('.$areaCode.') '.$nextThree.'-'.$lastFour;
+    
+  } else if(strlen($phoneNumber) == 7) {
+    
+    $nextThree = substr($phoneNumber, 0, 3);
+    $lastFour = substr($phoneNumber, 3, 4);
 
-        $phoneNumber = $nextThree.'-'.$lastFour;
-    }
+    $phoneNumber = $nextThree.'-'.$lastFour;
+  }
 
-    return $phoneNumber;
+  return $phoneNumber;
 }
+
+function isVerifValidEmail($email) {
+  $email = trim($email);
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { return false; }
+  $domain = substr(strrchr($email, "@"), 1);
+  return checkdnsrr($domain, "MX") || checkdnsrr($domain, "A") || checkdnsrr($domain, "AAAA");
+}
+
 
 #function str_starts_with(string $haystack, string $needle): bool {
 #  return \strncmp($haystack, $needle, \strlen($needle)) === 0;

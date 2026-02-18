@@ -2,6 +2,9 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/mysql/mysql.php";
 class queries {
 
+	public array $DebugInfo = [];
+  public db $DB;
+
   function __construct($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo) {
     if ( $DebugInfo["Flag"] > 0 ) {
       echo "<BR><FONT COLOR=GREEN><I><B>Database: Server:</B> $databaseserver - <B>Name:</B> $databasename</I></FONT><BR>";
@@ -33,7 +36,7 @@ class queries {
     $result = $this->_compress_result($result);
     $LocalMicrotimeEnd = microtime(true);
     WriteStderr(($LocalMicrotimeEnd - $LocalMicrotimeStart), "Time Simple Query: $SQL");
-    return $result[0]; 
+    return $result[0] ?? null; 
   }
   
   function _QuoteString($string) {
@@ -77,7 +80,7 @@ class queries {
     }
         
     unset ($result);
-    return $newresult;
+    return $newresult ?? [];
   }
   
   /*

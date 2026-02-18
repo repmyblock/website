@@ -6,14 +6,16 @@
   WriteStderr(isset($URIEncryptedString["SystemUser_ID"]) ? $URIEncryptedString["SystemUser_ID"] : NULL, "Header SystemID");
   $MenuLogin = isset($MenuLogin) ? $MenuLogin : NULL;
   $BigMenu = isset($BigMenu) ? $BigMenu : NULL;
+  $VideoOnHtml = $VideoOnHtml ?? null;
 
-  if ( ! empty ($k) && ($URIEncryptedString["SystemUser_ID"] > 0 ||
-                        $URIEncryptedString["SystemUser_ID"] == "TMP")) { 
+  if ( ! empty ($k) && (($URIEncryptedString["SystemUser_ID"] ?? null)> 0 ||
+                        ($URIEncryptedString["SystemUser_ID"] ?? null) == "TMP")) { 
     $MenuLogin = "logged"; 
     $logourl = "/" . $k . "/lgd/summary/summary";
     $middleuri = $k;
         
   } else {    
+  	
     if ( empty ($URIEncryptedString) && empty ($middleuri) && ! empty ($k)) {
       $middleuri = $k;
     }
