@@ -24,15 +24,21 @@
 	</TD>
 	<TD>&nbsp;</TD>
 	<TD VALIGN=TOP>
+		
+				<P CLASS="f80bold">
+					<FONT COLOR=BROWN>Due to inclement weather</FONT>, we are meeting inside the Times Square Station by the mural near the Shuttle Track.
+					There is no need to exit the system to find us.
+				</P>
 	
 				<P class="f60">
 					Join us inside the Times Square subway station to learn about petitioning for County Committee.
 				</P>
 				
 				<P class="f60">
-					<B>Meeting point:</B>
-					By the <B>George M. Cohan statue</B><BR>
-					Broadway & West 46th Street<BR>
+					<B>Meeting point:</B><BR>
+					Inside the Times Square Subway station by the Mural located near the Shuttle Tracks.<BR>
+					<del>By the George M. Cohan statue</DEL><BR>
+					<DEL>Broadway & West 46th Street</DEL><BR>
 					<I>If the weather is too cold or if it is raining, we will meet inside the subway by the shuttle tracks.</i></B>
 				</P>
 				
