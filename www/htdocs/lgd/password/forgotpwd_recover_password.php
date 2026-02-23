@@ -77,19 +77,22 @@
 				Choose a password that contains only letters and numbers.
 			</P>
 			
-			<P class="f80">
-				<DIV class="f80">Password:</DIV>
-				<DIV><INPUT class="" TYPE="password" NAME="password" PLACEHOLDER="password" VALUE=""><DIV>
-			</P>
 			
-			<P class="f80">
-				<DIV class="f80">Verify Password:</DIV>
-				<DIV><INPUT class="" TYPE="password" NAME="verifypassword" PLACEHOLDER="verify password"  VALUE=""></DIV>
-			</P>
+      <div class="field">
+        <input type="password" id="password" class="input" name="password" placeholder=" " required style="max-width: 380px;">
+        <label for="password">Password</label>
+      </div>
+        
+        
+      <div class="field">
+        <input type="password" id="verifypassword" class="input" name="verifypassword" placeholder=" " required style="max-width: 380px;">
+        <label for="verifypassword">Verify Password</label>
+      </div>
+			
+		  <DIV style="padding-bottom: 15px;">
+        <INPUT CLASS="f60bold" TYPE="Submit" NAME="SaveInfo" VALUE="Change Password">
+      </DIV>
 		
-			<P>
-				<DIV><INPUT class="" TYPE="Submit" NAME="SaveInfo" VALUE="Change Password"></DIV>
-			</P>
 
 		</FORM>
 	

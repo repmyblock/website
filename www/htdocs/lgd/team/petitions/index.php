@@ -1,8 +1,9 @@
 <?php
+	
+	
   if ( ! empty ($k)) { $MenuLogin = "logged";  }  
   $Menu = "team";
-  // $BigMenu = "represent";  
-  
+ 
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_teams.php";  
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
@@ -13,7 +14,7 @@
   
   $rmb = new Teams();
   $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-  WipeURLEncrypted( array("ActiveTeam", "ActiveTeam_ID") );
+  //WipeURLEncrypted( array("ActiveTeam", "ActiveTeam_ID") );
   
   if (empty ($URIEncryptedString["ActiveTeam_ID"])) {
     print "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
@@ -116,18 +117,18 @@
                       }
                       
                       if ( $CurrentSelectDate != $var) {
-                        echo "                  <B><A HREF=\"/" . CreateEncoded(array(
+                        echo "                  <B><A HREF=\"/" . CreateEncoded([
                                            "CurrentSelectDate" => $var,
                                           "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
                                           "ActiveTeam" => $URIEncryptedString["ActiveTeam"],
                                           "ActiveTeam_ID" => $URIEncryptedString["ActiveTeam_ID"],
-                                        )) . "/lgd/team/teampetitions\">" . PrintDate($var) . "</A></B>&nbsp;";
+                                        ]) . "/lgd/team/teampetitions\">" . PrintDate($var) . "</A></B>&nbsp;";
                       }
                     }
                   }
 ?>
                   <BR>
-                  <A HREF="/<?= $k ?>/lgd/team/target">Create petition</A></P>
+                  <A HREF="/<?= $k ?>/lgd/team/petitions/create">Create petition</A></P>
                                 
                   <DIV class="p40">
                     <div id="resp-table">

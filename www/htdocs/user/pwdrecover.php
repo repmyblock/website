@@ -16,17 +16,15 @@
 		$result = $r->CheckUsername($_POST["username"]);
 				
 		if ($_POST["hashkey"] == $result["SystemUser_emaillinkid"]) {
-			
-			echo "I am here ...<BR>";
 		
 			// The reason for no else is that the code supposed to go away.
-			header("Location: /" . CreateEncoded ( array( 
+			header("Location: /" . CreateEncoded ([
 														"SystemUser_ID" => $result["SystemUser_ID"],
 														"password" => $result["SystemUser_password"],
 														"systemuserid" => $result["SystemUser_ID"],
 														"hashkey" => $_POST["hashkey"],
 														"username" => $_POST["username"],
-										 )) . "/lgd/password/forgotpwd_recover_password");
+										 ]) . "/lgd/password/forgotpwd_recover_password");
 			exit();
 		}
 						
@@ -50,15 +48,16 @@
 				After you type your username you
 				will be able to choose a new password.
 			</P>
-			
-			<P class="f80">
-				<DIV class="f80">Username:</DIV> 
-				<DIV><INPUT class="" type="<?= $TypeUsername ?>" autocorrect="off" autocapitalize="none" NAME="username" PLACEHOLDER="username" VALUE=""><DIV>
-			</P>
-
-			<P>
-				<INPUT TYPE="Submit" NAME="signin" VALUE="Reset my password">
-			</P>
+			        
+     	<div class="field">
+        <input type="text" id="username" autocorrect="off" class="input" name="username" placeholder=" " required style="max-width: 380px;">
+        <label for="username">Username</label>
+      </div>
+				
+      <DIV style="padding-bottom: 15px;">
+        <INPUT CLASS="f60bold" TYPE="Submit" NAME="signin" VALUE="Reset my password">
+      </DIV>
+                  
 		</DIV>
 		
 	</FORM>

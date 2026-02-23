@@ -6,12 +6,12 @@
 		
 	<DIV class="right f80">Forgot Password</DIV>
 
-		<P class="f60">
+		<DIV class="f60bold">
 			The password was changed.
-		</P>
+		</DIV>
 	
 		<p class="f60">
-			<A HREF="/<?= $middleuri ?>/login/user">Click here to the login page.</A>
+			<A HREF="/<?= $middleuri ?>/user/login">Click here to the login page.</A>
 		</P>
 	</DIV>
 	

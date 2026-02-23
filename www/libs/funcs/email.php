@@ -1613,7 +1613,7 @@ function final_send_mail($fullfrom, $from, $emailaddress, $emailsubject, $messag
 	#echo "<pre>";
 	#echo "MAILSENT : \nmail($emailaddress, \n$emailsubject, \n$headers);";
 	#echo "</PRE>";
-	ini_restore(sendmail_from);
+	ini_restore("sendmail_from");
 
 }
 

@@ -9,7 +9,7 @@
 		if ( ! empty ($_POST["username"])) {
 			
 			
-			$hashtable = hash(md5, PrintRandomText(40));
+			$hashtable = hash("md5", PrintRandomText(40));
 			$r->UpdateUsernameHash($_POST["username"], $hashtable);
 
 			require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/email.php";	

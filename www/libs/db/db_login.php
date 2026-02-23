@@ -6,7 +6,7 @@ class login extends queries {
 	
 	function __construct($debug = 0, $DBFile = "DB_OutragedDems") {
     require $_SERVER["DOCUMENT_ROOT"] . "/../statlib/DBsLogins/" . $DBFile . ".php";
-     $DebugInfo["DBFile"] = $DBFile;
+    $DebugInfo["DBFile"] = $DBFile;
     $DebugInfo["DBErrorsFilename"] = $DBErrorsFilename;
     $DebugInfo["Flag"] = $debug;
     parent::__construct($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
@@ -130,9 +130,10 @@ class login extends queries {
 	}
 	
 	function UpdateSystemGoogleMapsApiKey($SystemUser_ID, $apikey) {
-		$sql = "UPDATE SystemUser SET SystemUser_googleapimapid = :apikey WHERE SystemUser_ID = :ID";
-		$sql_vars = array(':apikey' => $apikey, ':ID' => $SystemUser_ID);
-		return $this->_return_nothing($sql,  $sql_vars);
+		return $this->_return_nothing(
+			"UPDATE SystemUser SET SystemUser_googleapimapid = :apikey WHERE SystemUser_ID = :ID",  
+			['apikey' => $apikey, 'ID' => $SystemUser_ID]
+		);
 	}
 	
 	function SearchEmailFromIntake($IntakeID, $TypeID = "MailCode") {
@@ -226,15 +227,17 @@ class login extends queries {
 	
 	function UpdateUsernameHash($SystemUsername, $HashLink) {
 		
-		if ( $HashLink == "null") {
-			$sql = "UPDATE SystemUser SET SystemUser_emaillinkid = null WHERE SystemUser_username = :Username";
-			$sql_vars = array(':Username' => $SystemUsername);
-		} else {
-			$sql = "UPDATE SystemUser SET SystemUser_emaillinkid = :Hash WHERE SystemUser_username = :Username";
-			$sql_vars = array(':Username' => $SystemUsername, ':Hash' => $HashLink);
-		}
+		if ( $HashLink == null) {
+			return $this->_return_nothing(
+				"UPDATE SystemUser SET SystemUser_emaillinkid is null WHERE SystemUser_username = :Username",
+				["Username" => $SystemUsername]
+			);
+		} 
 		
-		return $this->_return_nothing($sql,  $sql_vars);
+		return $this->_return_nothing(
+			"UPDATE SystemUser SET SystemUser_emaillinkid = :Hash WHERE SystemUser_username = :Username",
+			["Username" => $SystemUsername, "Hash" => $HashLink]
+		);
 	}
 	
 	function FindFromEmailHashkey($SystemEmail, $HashLink) {
@@ -264,15 +267,16 @@ class login extends queries {
 	} 
 	
 	function CheckUsernamePassword($Username, $Password) {
-		$sql = "SELECT * FROM SystemUser WHERE SystemUser_username = :Username";	
-		$sql_vars = array("Username" => $Username);
-		$result = $this->_return_simple($sql, $sql_vars);	
+		$result = $this->_return_simple(
+			"SELECT * FROM SystemUser WHERE SystemUser_username = :Username", 
+			["Username" => $Username]
+		);	
 		$ResultPasswordCheck = password_verify ($Password , $result["SystemUser_password"]);
-		
-		
+				
 		if ( $ResultPasswordCheck == 0 ) {
-			$sql = "SELECT * FROM SystemUserTemporary WHERE SystemUserTemporary_username = :Username";
-			$result = $this->_return_simple($sql, $sql_vars);	
+			$result = $this->_return_simple(
+				"SELECT * FROM SystemUserTemporary WHERE SystemUserTemporary_username = :Username", 
+				["Username" => $Username]);	
 			$ResultPasswordCheck = password_verify ($Password , $result["SystemUserTemporary_password"]);
 			$tmpid = true;
 		}
@@ -280,13 +284,16 @@ class login extends queries {
 		if ( $ResultPasswordCheck == 1) {
 			// Update Login Time
 			if ( empty ($tmpid))  {
-				$sql = "INSERT INTO SystemUserLastLogin SET SystemUser_ID = :ID, SystemUserLastLogin  = NOW()";
-				$sql_vars = array("ID" => $result["SystemUser_ID"]);
+				$this->_return_nothing(
+					"INSERT INTO SystemUserLastLogin SET SystemUser_ID = :ID, SystemUserLastLogin  = NOW()",
+					["ID" => $result["SystemUser_ID"]]
+				);
 			} else {
-				$sql = "INSERT INTO SystemUserTemporaryLastLogin SET SystemUserTemporary_ID = :ID, SystemUserTemporaryLastLogin  = NOW()";
-				$sql_vars = array("ID" => $result["SystemUserTemporary_ID"]);
+				$this->_return_nothing(
+					"INSERT INTO SystemUserTemporaryLastLogin SET SystemUserTemporary_ID = :ID, SystemUserTemporaryLastLogin  = NOW()",
+					["ID" => $result["SystemUserTemporary_ID"]]
+				);
 			}
-			$this->_return_nothing($sql, $sql_vars);
 			return $result;
 		}
 		return null;

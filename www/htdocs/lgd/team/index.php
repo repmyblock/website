@@ -8,9 +8,6 @@
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   
   $rmb = new Teams();
-  
-  
-  
   if (! empty ($_POST)) {
     WriteStderr($URIEncryptedString, "URIEncryptedString");
     WriteStderr($_POST, "POST to ... ");
@@ -24,10 +21,10 @@
     ) . "/lgd/team/index");
     exit();
   } else {
-     $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+    $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
     $rmbteam = $rmb->ListMyTeam($URIEncryptedString["SystemUser_ID"]);
     WriteStderr($rmbteam, "RMB Team In the Else from the Post");
-  }
+  }     
   
   if ( ! empty ($rmbteam)) {
     foreach ($rmbteam as $var) {
@@ -58,17 +55,20 @@
   $URIEncryptedString["ActiveTeam"] = $ActiveTeam;
   $URIEncryptedString["ActiveTeam_ID"] = $ActiveTeam_ID;
   
-  WriteStderr($URIEncryptedString, "URLInfo BEFORE Wipe");
-  WipeURLEncrypted( array("SystemUser_ID", "ActiveTeam", "ActiveTeam_ID", "SystemUser_Priv") );
-  WriteStderr($URIEncryptedString, "URLInfo AFTER Wipe");
-  WriteStderr($rmbteaminfo, "RMB Team Member Info");
-  
+  $k = CreateEncoded ($URIEncryptedString);
+
   $TopMenus = [ 
     ["k" => $k, "url" => "team/index", "text" => "Team Members"],
     ["k" => $k, "url" => "team/staff/index", "text" => "Staff Members"],
     ["k" => $k, "url" => "team/petitions/index", "text" => "Manage Petitions"],
   ];
-                    
+              
+  WriteStderr($URIEncryptedString, "URLInfo BEFORE Wipe");
+  WipeURLEncrypted( array("SystemUser_ID", "ActiveTeam", "ActiveTeam_ID", "SystemUser_Priv") );
+  WriteStderr($URIEncryptedString, "URLInfo AFTER Wipe");
+  WriteStderr($rmbteaminfo, "RMB Team Member Info");
+  
+ 
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) {   $Cols = "col-12"; $SizeField = " SIZE=10"; } else { $Cols = "col-9"; }
 ?>
@@ -85,13 +85,14 @@
           <div class="clearfix gutter">
                 
             <DIV class="f40">
-              <B>Current Team:</B> <?= $ActiveTeam ?>
-          
+              <B>Current Team:</B> <?= $ActiveTeam ?>          
+                      
 <?php WriteStderr($ListTeamNames, "List of name inside the code that are not appearing."); ?>
 
 <?php if ( count ($ListTeamNames) > 1) { ?>
               <FORM ACTION="" METHOD="POST">
-                <SELECT  class="mobilebig" NAME="Team_ID">
+              	<div class="field field-select">
+                <SELECT  class="select" NAME="Team_ID">
 <?php 
                 foreach ($ListTeamNames as $var => $index) {                         
                   if (! empty ($var)) { ?>
@@ -102,9 +103,11 @@
 ?>
                 </SELECT>
                 <button type="submit" class="submitred">Change Active Team</button>
+              </DIV>
               </FORM>
 <?php } ?>
             </DIV>
+            
             
             <FORM ACTION="" METHOD="POST">
               <div class="Box">
