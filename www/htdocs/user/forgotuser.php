@@ -6,7 +6,7 @@
 	$r = new login();
 
 	if ( ! empty ($_POST["signin"])) {
-		$hashtable = hash(md5, PrintRandomText(40));
+		$hashtable = hash("md5", PrintRandomText(40));
 		$r->UpdateHash($_POST["email"], $hashtable);
 		$result = $r->CheckEmail($_POST["email"]);		
 		if ( ! empty ($result)) {
