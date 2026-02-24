@@ -392,10 +392,10 @@ class PDF_NY_Petition extends PDF_Code128 {
 				$this->SetXY(80, -12);
 				$this->Cell(40,10, "County:", 0, 'L', 0);
 				
-				$this->SetXY(40, -14 );
+				$this->SetXY(27, -11.9 );
 				$this->SetFont('Arial','B',8);
 				$this->Cell(40, 10, $this->City, 0, 'L', 0);
-				$this->SetXY(69, -14 );
+				$this->SetXY(92, -11.9 );
 				$this->Cell(45, 10, $this->County, 0, 'L', 0);
 				
 			}
