@@ -165,7 +165,7 @@ function version_NY_hano ($pdf, $InfoArray) {
 
 	//$pdf->Line($pdf->Line_Left, $YLocation + 2, $pdf->Line_Right, $YLocation + 2);
 	
-	$pdf->LocationOfFooter = $YLocation + 6.5;
+	$pdf->LocationOfFooter = $YLocation + 3.5;
 	$pdf->BottonPt = $YLocation + 1.9;
 	
 }

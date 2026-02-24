@@ -280,7 +280,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 		$this->SetFont('Arial','B',10);
 		$this->Cell(0,0, "STATEMENT OF WITNESS", 0, 1, 'C');		
 		$this->SetFont('Arial','',10);
-		$this->Ln(1);
+		$this->Ln(1.4);
 		
 		if ($this->PetitionType == "notary") {
 			
@@ -374,14 +374,14 @@ class PDF_NY_Petition extends PDF_Code128 {
 				$this->SetFont('Arial','',8);
 				$this->SetTextColor(0);
 
-				$this->SetY(-15);
+				$this->SetY(-12);
 				$this->SetFont('Arial','B',13);
 				$this->Cell(0,0,	$this->TodayDateText);
-				$this->SetY(-12.5);
+				$this->SetY(-13);
+				#$this->Cell(0,0, "______________________________________", 0, 0, 0);
 				$this->SetFont('Arial','',8);
-				$this->Cell(0,0, "_________________________________________________________", 0, 0, 0);
 				
-				$this->SetXY(20, -14);
+				$this->SetXY(20, -12);
 				
 				if ( $this->TypeOfTown == "Town") {
 					$this->Cell(40,10, "Town/City:", 0, 'L', 0);
@@ -389,7 +389,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 					$this->Cell(40,10, "City:", 0, 'L', 0);
 				}
 
-				$this->SetXY(60, -14);
+				$this->SetXY(80, -12);
 				$this->Cell(40,10, "County:", 0, 'L', 0);
 				
 				$this->SetXY(40, -14 );
@@ -400,7 +400,7 @@ class PDF_NY_Petition extends PDF_Code128 {
 				
 			}
 			
-			$this->SetXY(160, -7 );
+			$this->SetXY(160, -8 );
 			$this->SetFont('Arial','',13);
 			$this->Cell(0, 0,	"SHEET No. ______ ");
 			
