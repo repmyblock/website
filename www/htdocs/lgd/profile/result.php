@@ -12,12 +12,12 @@
 	$rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
 	WriteStderr($rmbperson, "SearchUserVoterCard");
 	
-	$TopMenus = array (
-						array("k" => $k, "url" => "profile/user", "text" => "Public Profile"),
-						array("k" => $k, "url" => "profile/profilevoter", "text" => "Voter Profile"),
-						array("k" => $k, "url" => "profile/profilecandidate", "text" => "Candidate Profile"),
-						array("k" => $k, "url" => "profile/profileteam", "text" => "Team Profile")
-					);
+	$TopMenus = [ 
+	    ["k" => $k, "url" => "profile/user", "text" => "Public Profile"],
+	    ["k" => $k, "url" => "profile/voter/card", "text" => "Voter Profile"], 
+	    ["k" => $k, "url" => "profile/candidate/public", "text" => "Candidate Profile"],
+	    ["k" => $k, "url" => "profile/team/section", "text" => "Team Profile"]
+	  ];
 							
 	if ( ! empty ($_POST)) {
 		WriteStderr($_POST, "Post");
@@ -39,7 +39,7 @@
 									"UniqNYSVoterID" => $_POST["VotersIndexes_UniqStateVoterID"],
 									"EDAD" => $EDAD,
 									"UserParty" => $_POST["Voters_RegParty"]
-						)) . "/lgd/profile/profilevoter");
+						)) . "/lgd/profile/voter/card");
 			exit();
 		} else {
 			header("Location: /" .  CreateEncoded ( array( 
@@ -89,16 +89,14 @@
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 	if ( $MobileDisplay == true) { $Cols = "col-12"; $Width="64";} else { $Cols = "col-9"; $Width="16"; }
 ?>
-<div class="row">
-  <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-  		<div class="<?= $Cols ?> float-left">
-    
-			  <!-- Public Profile -->
-			  <div class="Subhead mt-0 mb-0">
-			    <h2 id="public-profile-heading" class="Subhead-heading">Voter Profile</h2>
-			  </div>
-			    
+		<div class="row layout">
+      <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+      <div class="main">
+        <div class="col-full">
+          <div class="Subhead">
+            <h2 class="Subhead-heading">Voter Profile</h2>
+          </div>
+    	    
 <?php 
 			PlurialMenu($k, $TopMenus);
 ?>
@@ -148,7 +146,7 @@
 					<?= $UniqVoterID ?> Status: <FONT COLOR=BROWN><?= $var["Voters_Status"] ?></FONT>
 				</P>
 					
-					<P>
+					
 									<div id="resp-table">
 										<div id="resp-table-header">
 											<div class="table-header-cell">First</div>
@@ -166,9 +164,7 @@
 											</div>													
 										</div>
 									</div>
-								</P>	
-								
-								<P>
+							
 								
 									<div id="resp-table">
 										<div id="resp-table-header">
@@ -187,9 +183,7 @@
 											</div>													
 										</div>
 									</div>
-								</P>	
-								
-								<P>
+					
 									<div id="resp-table">
 										<div id="resp-table-header">
 											<div class="table-header-cell">Address</div>
@@ -210,9 +204,7 @@
 											</div>													
 										</div>
 									</div>
-								</P>	
-								
-								<P>
+						
 								
 									<div id="resp-table">
 										<div id="resp-table-header">
@@ -232,9 +224,7 @@
 										</div>
 									</div>
 							
-									</P>	
-								
-								<P>
+							
 									
 									
 									<?php
@@ -262,8 +252,7 @@
 											</div>													
 										</div>
 									</div>
-								</P>	
-								
+							
 								<div id="resp-table">
 										<div id="resp-table-header">
 											<div class="table-header-cell">Council</div>
@@ -282,7 +271,7 @@
 										</div>
 									</div>
 								
-								<P>
+								
 									<div id="resp-table">
 										<div id="resp-table-header">
 											<div class="table-header-cell">Board of Election ID #</div>
@@ -295,7 +284,7 @@
 										</div>
 									</div>
 									
-								</P>
+							
 								
 						</div>
 						
@@ -309,21 +298,22 @@
 			?>
 
 						
-					<P class="f60"><CENTER>
+					<DIV class="f60"><CENTER>
 						<INPUT type="submit" class="" name="voterreg" VALUE="This is my voter registration card">
 					&nbsp;
 							<INPUT type="submit" class="" name="voterreg"  VALUE="This is NOT my registration card">
 							<CENTER>
-						</P>
 					
-				</div>
-									</FORM>
-				</DIV>
-				</DIV>
-				</DIV>
-				</DIV>
-			</DIV>
-		</DIV>
-
+					</div>
+								
+	</DIV>
+</DIV>	</DIV>
+</DIV>
+	</DIV>
+</DIV>
+	</FORM>
+		
 	
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>
+	</BODY>
+</HTML>

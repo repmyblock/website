@@ -7,11 +7,12 @@
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/general.php";
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
 
-  if (empty ($SystemUser_ID)) { goto_signoff(); }
+
+  if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 	$rmb = new repmyblock();
 	
 	if ( empty ($MenuDescription)) { $MenuDescription = "District Not Defined";}	
-	$Party = NewYork_PrintParty($UserParty);
+// $Party = NewYork_PrintParty($UserParty);
 	
 	if ( ! empty($_POST)) {
 		
@@ -28,6 +29,15 @@
 		header("Location: ../result/?k=" . EncryptURL($EncryptUrl));
 		exit();
 	}
+
+	$TopMenus = [ 
+                ["k" => $k, "url" => "profile/user", "text" => "Public Profile"],
+                ["k" => $k, "url" => "profile/voter/card", "text" => "Voter Profile"], 
+                ["k" => $k, "url" => "profile/candidate/public", "text" => "Candidate Profile"],
+                ["k" => $k, "url" => "profile/team/section", "text" => "Team Profile"]
+              ];
+
+		
 		
 	if ( ! empty($vi)) {
 		require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
@@ -39,17 +49,14 @@
 	if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
 
-  <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-  		<div class="<?= $Cols ?> float-left">
-    
-			  <form class="edit_user" id="" action="" accept-charset="UTF-8" method="post">
-			
-			    
-			  <!-- Public Profile -->
-			  <div class="Subhead mt-0 mb-0">
-			    <h2 id="public-profile-heading" class="Subhead-heading">Voter Profile</h2>
-			  </div>
+ 	<div class="row layout">
+      <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+      <div class="main">
+        <div class="col-full">
+          <div class="Subhead">
+            <h2 class="Subhead-heading">Voter Profile</h2>
+          </div>
+
   
 <?php 
 				if ($verif_email == true) { 
@@ -59,13 +66,7 @@
 				} 
 ?>
      
-				<nav class="UnderlineNav pt-1 mb-4" aria-label="Billing navigation">
-					<div class="UnderlineNav-body">
-						<a href="/lgd/profile/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item selected">Public Profile</a>
-						<a href="/lgd/profile/voter/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Voter Profile</a>
-						<a href="/lgd/profile/candidate/?k=<?= $k ?>" class="mobilemenu UnderlineNav-item">Candidate Profile</a>
-					</div>
-				</nav>
+			  <?php  PlurialMenu($k, $TopMenus);  ?>
 
 			 <div class="Box">
 			  	<div class="Box-header pl-0">

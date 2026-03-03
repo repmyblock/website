@@ -1,10 +1,12 @@
 <?php
   $Menu = "profile";  
   $BigMenu = "profile";  
-  
+   
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
   include_once $_SERVER["DOCUMENT_ROOT"] . "/../statlib/Config/DeadlineDates.php"; 
+  
+ 
   
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
  
