@@ -6,7 +6,7 @@
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_admin.php";  
 
   // Reset
-  WipeURLEncrypted( array("SystemUser_ID", "MenuDescription", "SystemUser_Priv") );
+  WipeURLEncrypted(["SystemUser_ID", "MenuDescription", "SystemUser_Priv"]);
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   if (empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}  
 

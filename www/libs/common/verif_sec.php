@@ -159,27 +159,39 @@ function DecryptURL ($sealed) {
 }
 
 function WipeURLEncrypted($WhatToKeep = null, $WhatToRemove = null) {
-
 	global $k, $URIEncryptedString;
-
-	WriteStderr($URIEncryptedString, "Entering Wipe URL");	
-
+	WriteStderr($URIEncryptedString, "Entering Wipe URL");
 	$NewURIEncryptedString = [];
 
-	/* Normalize WhatToRemove */
+	/* Normalize */
 	if (!empty($WhatToRemove) && !is_array($WhatToRemove)) {
 		$WhatToRemove = [$WhatToRemove];
+	}
+	
+	if (!empty($WhatToKeep) && !is_array($WhatToKeep)) {
+    $WhatToKeep = [$WhatToKeep];
+	}	
+	
+	/* CASE: Keep only keys */
+	if (!empty($WhatToKeep)) {
+    if (!is_array($WhatToKeep)) {
+	    $WhatToKeep = [$WhatToKeep];
+    }
+
+    foreach ($URIEncryptedString as $NewURI => $value) {
+      if (!in_array($NewURI, $WhatToKeep, true)) {
+	      continue;
+      }
+      $NewURIEncryptedString[$NewURI] = $value;
+    }
 	}
 
 	/* CASE: Remove keys */
 	if (empty($WhatToKeep) && !empty($WhatToRemove)) {
-
 		foreach ($URIEncryptedString as $NewURI => $value) {
-
 			if (in_array($NewURI, $WhatToRemove, true)) {
 				continue;
 			}
-
 			$NewURIEncryptedString[$NewURI] = $value;
 		}
 	}
