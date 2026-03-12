@@ -22,7 +22,12 @@ if ($URIEncryptedString["AD"] > 0 && $URIEncryptedString["ED"] > 0) {
 	##$ReturnDistrictInfo = $db_RMB_voterlist->FindADEDFromDistrict($URIEncryptedString["DataDistrict_ID"]);
 	##WriteStderr($ReturnDistrictInfo, "ReturnDistrictInfo");
 
-	$DataQuery = array("AD" => intval($URIEncryptedString["AD"]), "ED" => intval($URIEncryptedString["ED"]));
+	$DataQuery = [
+			"AD" => intval($URIEncryptedString["AD"]), 
+			"ED" => intval($URIEncryptedString["ED"]),
+			"HN" => $URIEncryptedString["HouseNumber"],
+			"DS" => $URIEncryptedString["DataStreet"],
+	];
 	if ($URIEncryptedString["Party"] != "ALL") { $DataQuery["PT"] = $URIEncryptedString["Party"]; }
 	
 	$voters = $db_RMB_voterlist->SearchVotersFile($DataQuery);										
@@ -76,6 +81,12 @@ $WalkSheet_FileName = "WalkSheet_" . $FileTitle . "_" . $Today . "_" . $WalkShee
 if (! empty ($voters)) {
 	foreach ($voters as $person) {
 		if ( ! empty ($person)) {
+			
+			switch($person["DataCounty_Name"]) {
+					case 'New York': $person["DataDistrictTown_Name"] = "Manhattan"; break;
+			}
+			
+			
 			$FixedAddress = preg_replace('!\s+!', ' ', $person["DataStreet_Name"] );
 			$FixedApt = strtoupper(preg_replace('!\s+!', '', $person["DataHouse_Apt"] ));
 			$Address[$person["DataDistrictTown_Name"]][$FixedAddress][$person["DataAddress_HouseNumber"]]["PrintAddress"] = 

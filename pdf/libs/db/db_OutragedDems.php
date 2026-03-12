@@ -90,6 +90,8 @@ class OutragedDems extends queries {
   			case "SD": $sqlquery .= "SenateDistr = :SD"; $sql_vars["SD"] = $Search; break;
   			case "PT": $sqlquery .= "Voters_RegParty = :PT"; $sql_vars["PT"] = $Search; break;
   			case "VI": $sqlquery .= "Voters_ID = :VI"; $sql_vars["VI"] = $Search; break;
+  			case "HN": $sqlquery .= "DataAddress_HouseNumber = :HN"; $sql_vars["HN"] = $Search; break;
+				case "DS": $sqlquery .= "DataStreet_Name LIKE :DS"; $sql_vars["DS"] = "%" . $Search . "%"; break;
   		}
   	}
   
