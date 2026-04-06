@@ -81,6 +81,20 @@
                                               array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],  
                                                     "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
                                                     "CandidateSet_ID" => $var["CandidateSet_ID"])); ?>/admin/attachid">AttachID</A>                  
+                           <A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+                            array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+                                  "Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
+                                  "Candidate_ID" => $var["Candidate_ID"])); ?>/NY/coversheet" TARGET=NEW>Cvr Shts</A>
+                          <A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+                            array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+                                  "Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
+                                  "Candidate_ID" => $var["Candidate_ID"])); ?>/NY/coversheet" TARGET=NEW>(Nrow)</A>
+                          <A HREF="<?= $FrontEndPDF ?>/<?= CreateEncoded (
+                            array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
+                                  "Raw_Voter_ID" => $URIEncryptedString["SystemUser_Priv"],
+                                  "AmmendCoverSheet" => "yes",
+                                  "Candidate_ID" => $var["Candidate_ID"])); ?>/NY/coversheet" TARGET=NEW>Amend</A>  
+
                           </DIV>
                           <div class="table-body-cell-left"><?= $var["CandidateElection_DBTable"] ?> <?= $var["CandidateElection_DBTableValue"] ?></div>
                           <div class="table-body-cell-left"><?= $var["Candidate_Party"] ?></div>   
@@ -88,6 +102,8 @@
                                               array("SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],  
                                                     "SystemUser_Priv" => $URIEncryptedString["SystemUser_Priv"],
                                                     "UniqNYSVoterID" => $var["Candidate_UniqStateVoterID"])); ?>/admin/voterlist"><?= $var["Candidate_DispName"] ?></A></div>              
+
+
                         </DIV>
                       </DIV>                 
 <?php

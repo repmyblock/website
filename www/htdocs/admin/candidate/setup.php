@@ -13,7 +13,7 @@
 
   $rmb = new repmyblock();
   $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
-  $Party = PrintParty($URIEncryptedString["UserParty"]);
+  // $Party = PrintParty($URIEncryptedString["UserParty"]);
 
   $result = $rmb->ListCandidates();
   WriteStderr($result, "ListCandidates");
