@@ -74,7 +74,7 @@
   $pdf->VolumesIDs = $VolumesID;
 	
 
-	#echo "<PRE>"  . print_r($PetitionData, 1) . "</PRE>";
+	#echo "<PRE>"  . print_r($PetitionData, 1) . "</PRE>"; exit();
 	
 	$i = 0;
 	if ( ! empty ($PetitionData)) {
@@ -148,11 +148,8 @@
   $Counter = 0;
 
 	// Need to calculate the number of empty line.
-	$TotalCountName = count($Name);
-	
 	$Filename = "CoverSheet_" . $pdf->typepetition . $pdf->Candidate[0]  . "_" . $pdf->PetitionsGroups;
 	$Filename = preg_replace('/\s+/', '_', $Filename);
-	
 	$pdf->Output("I", $Filename . ".pdf");
 ?>
 
