@@ -41,16 +41,17 @@
 										
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
+    <div class="row layout">
+      <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+      <div class="main">
+        <div class="col-full">
+          <div class="Subhead">
+            <h2 class="Subhead-heading">Attach ID</h2>
+          </div>
+          <?php  PlurialMenu($k, $TopMenus); ?>
 
+          <div class="clearfix gutter d-flex flex-shrink-0">
 
-<div class="row">
-  <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-			<div class="<?= $DIVCol ?> float-left">
-
-				<div class="Subhead">
-			  	<h2 class="Subhead-heading">Attach ID</h2>
-				</div>
 			
 			
 				<div class="Box">
@@ -76,26 +77,26 @@
 	
 							
 							<div>
-							<dl class="form-group col-6 d-inline-block"> 
-								<dt class="mobilemenu"><label for="user_profile_name">Attach ID</label><DT>
-								<dd>
-									<input class="form-control" type="text" Placeholder="Petition ID" name="AttachID" VALUE="" id="">
-								</dd>
-							</dl>
-
+								<dl class="form-group col-6 d-inline-block"> 
+									<dt class="mobilemenu"><label for="user_profile_name">Attach ID</label><DT>
+									<dd>
+										<input class="form-control" type="text" Placeholder="Petition ID" name="AttachID" VALUE="" id="">
+									</dd>
+								</dl>
+							</DIV>
 						
 							
 			
 							
 					
 
-						<div>						
-							<dl class="form-group col-12 d-inline-block"> 
-								<dd>
-									<button type="submit" class="submitred">Attach</button>
-								</dd>
-							</dl>
-						</div>
+							<div>						
+								<dl class="form-group col-12 d-inline-block"> 
+									<dd>
+										<button type="submit" class="submitred">Attach</button>
+									</dd>
+								</dl>
+							</div>
 					</form> 
 
 
@@ -107,12 +108,8 @@
 
 </DIV>
 </DIV>
-</DIV>
-</DIV>
-
-
-
-
 
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>
+	</BODY>
+</HTML>
