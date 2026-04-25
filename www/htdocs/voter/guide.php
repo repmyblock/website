@@ -465,7 +465,7 @@ if (!empty($result)) {
 									         $var["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
 
       $FullAlias = preg_replace('/[^a-zA-Z0-9]+/', '', $var["CandidateProfile_Alias"]);
-      $DetailURL = "/" . $FullAlias . "_" . $var["CANDPROFID"] . "/voter/detail";
+      $DetailURL = "/" . strtolower($FullAlias) . "_" . $var["CANDPROFID"] . "/voter/detail";
 
       /* 🔑 Detect new batch */
       $NewBatch =

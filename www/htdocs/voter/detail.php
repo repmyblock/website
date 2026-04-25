@@ -178,11 +178,9 @@
 	</P>
 </DIV>
 
-
-
 <?php if ( empty ($var["SystemUser_ID"])) { ?>
-						<P CLASS="f80"><A HREF="/<?= $var["CandidateProfile_ID"] ?>/voter/claim">Claim this profile</A></FONT>
-					<?php } ?>
+	<P CLASS="f80"><A HREF="/claim_<?= $var["CandidateProfile_ID"] ?>/voter/claim">Claim this profile</A></FONT>
+<?php } ?>
 
 <P>
 	<DIV class="right f60">	
