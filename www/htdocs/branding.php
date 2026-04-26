@@ -1,8 +1,5 @@
 <?php 
 
-echo phpinfo();
-				exit();
-
  	/* This directory is to keep track of the branding */ 	
  	if ( empty ($_GET['brand'])) {
  		header("Location: /");
