@@ -35,12 +35,7 @@ echo phpinfo();
 				exit();
 				
 			case 'guide':
-				header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/voter/guide");
-				exit();
-				
 			case 'voterguide':
-				echo phpinfo();
-				exit();
 				header("Location: " . $FrontEndWebsite . "/" . rawurlencode($_GET['brand']) . "/voter/guide");
 				exit();
 				
