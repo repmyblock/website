@@ -179,7 +179,7 @@
 </DIV>
 
 <?php if ( empty ($var["SystemUser_ID"])) { ?>
-	<P CLASS="f80"><A HREF="<?= $FrontEndWebsite ?>/<?= numbertoalpha($var["CandidateProfile_ID"]) ?>/voter/claim">Claim this profile</A></FONT>
+	<P CLASS="f80"><A HREF="<?= $FrontEndWebsite ?>/<?= numbertoalpha($var["PublicProfile_ID"]) ?>/voter/claim">Claim this profile</A></FONT>
 <?php } ?>
 
 <P>
