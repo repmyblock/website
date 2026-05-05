@@ -29,6 +29,50 @@ function ordinal($number) {
       return $number. $ends[$number % 10];
 }
 
+function numbertoalpha($number) {
+    $alphabet = 'G7k2Lm0Zx9aQp1R4yTj8Vw5N6bHc3DSeWUFzXoJtCsYqKduhBfOlIrnMiPEgAv';
+    $base = strlen($alphabet);
+
+    if ($number < 0) {
+        throw new Exception("Number must be non-negative");
+    }
+
+    $result = '';
+
+    if ($number == 0) {
+        $result = $alphabet[0];
+    }
+
+    while ($number > 0) {
+        $remainder = $number % $base;
+        $result = $alphabet[$remainder] . $result;
+        $number = intdiv($number, $base);
+    }
+
+    return $result;
+}
+
+function alphatonumber($alpha) {
+    $alphabet = 'G7k2Lm0Zx9aQp1R4yTj8Vw5N6bHc3DSeWUFzXoJtCsYqKduhBfOlIrnMiPEgAv';
+    $base = strlen($alphabet);
+
+    $number = 0;
+    $length = strlen($alpha);
+
+    for ($i = 0; $i < $length; $i++) {
+        $char = $alpha[$i];
+        $value = strpos($alphabet, $char);
+
+        if ($value === false) {
+            throw new Exception("Invalid character: $char");
+        }
+
+        $number = ($number * $base) + $value;
+    }
+
+    return $number;
+}
+
 function WriteStderr($data, $message = null, $stop = false) {
 
 	global $Developping;
