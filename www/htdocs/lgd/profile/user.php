@@ -45,14 +45,23 @@
           $URIEncryptedString["SystemUser_ID"] = $rmbperson["SystemUser_ID"];
         
           // If the person is part of the team, 
-          if ( ! empty ($mytmp["SystemUserTemporary_reference"])) {
-            
-            // Check that a team exist with that code.
-             $TeamWebCode = $rmb->FindCampaignFromWebCode($mytmp["SystemUserTemporary_reference"]);
-            WriteStderr($TeamWebCode, "WebCode");
-            
-            $rmb->SaveTeamInfo($rmbperson["SystemUser_ID"] , $TeamWebCode["Team_ID"], NULL, 'pending');
-            
+          if ( ! empty ($mytmp["SystemUserTemporary_reference"])) { 
+            // If ONLY Digits, it's a claim for a profile.
+          	if ( ctype_digit($mytmp["SystemUserTemporary_reference"])) {
+							// Add   
+							$CandidateInfo = $rmb->FindPublicProfile(null, $mytmp["SystemUserTemporary_reference"]);
+							
+							if ( ! empty ($CandidateInfo)) {
+								WriteStderr($CandidateInfo, "CandidateInfo"); 	
+								$rmb->UpdateCandidateCounterSystemID( $CandidateInfo["Candidate_ID"],$rmbperson["SystemUser_ID"]);     
+  						}    
+  						 		
+          	} else {
+	            // Check that a team exist with that code.
+  	          $TeamWebCode = $rmb->FindCampaignFromWebCode($mytmp["SystemUserTemporary_reference"]);
+    	        WriteStderr($TeamWebCode, "WebCode");    
+      	      $rmb->SaveTeamInfo($rmbperson["SystemUser_ID"] , $TeamWebCode["Team_ID"], NULL, 'pending');
+            }
           }
           
         } else {

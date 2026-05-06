@@ -783,7 +783,7 @@ class RepMyBlock extends queries {
       "SelfParty" => "CandidateProfile_PolSelfParty", "SelfCaucus" => "CandidateProfile_PolSelfCaucus",
       "CandidateID" => "Candidate_ID",
     ];
-
+    
     if ( $CandidateProfile_ID > 0) {
       $return = $this->ListCandidateProfile(NULL, $CandidateProfile_ID);
       # This is to set the colums that changed.
@@ -793,7 +793,7 @@ class RepMyBlock extends queries {
         }
       }
     }
-
+    
     if ( empty ($return)) {  $sql = "INSERT INTO"; } else { $sql = "UPDATE"; }
     $sql .= " CandidateProfile SET ";
 
@@ -827,7 +827,8 @@ class RepMyBlock extends queries {
     
     return $this->UpdatePublicProfile(
     	$MySpecialCandidate, 
-   		$ProfileArray["CandidateID"]
+   		$ProfileArray["CandidateID"], 
+   		$ProfileArray["Private"]
    	);
   }
 
@@ -1217,12 +1218,13 @@ class RepMyBlock extends queries {
     		['CandidateID' => $CandidateID, 'SystemUserID' => $SystemUserID, 'CandidateElectionID' => $ElectionID]);
   }
   
-  function FindPublicProfileFromCandidate($Candidate_ID) {
-    return $this->_return_multiple("SELECT * FROM PublicProfile WHERE Candidate_ID = :Candidate",
-          ["Candidate" => $Candidate_ID]
-    );
-  }
-  
+	function FindPublicProfileFromCandidate($Candidate_ID) {
+		return $this->_return_multiple(
+			"SELECT * FROM PublicProfile WHERE Candidate_ID = :Candidate",
+			["Candidate" => $Candidate_ID]
+		);
+	}
+    
   function PublicProfileKey($Candidate_ID, $CandidateProfile_ID, $TypeAdd = null) {
     $sql_vars = ["CandidateProfile" => $CandidateProfile_ID, "Candidate" => $Candidate_ID];
     $sql = "PublicProfile SET CandidateProfile_ID = :CandidateProfile, Candidate_ID = :Candidate, CandidateProfile_LastModified = NOW()";
@@ -1322,7 +1324,7 @@ class RepMyBlock extends queries {
             "SystemUserOldEmail_Timestamp = NOW()";
     $sql_vars = array("SystemUserID" => $SystemUserID, "OldEmail" => $OldEmail,
                       "OldStatus" => $OldStatus, "NewEmail" => $NewEmail);
-    
+    $this->_return_nothing($sql, $sql_vars);
   }
   
   function InsertCandidatePetitionSet($System_ID = NULL) {
@@ -1407,13 +1409,14 @@ class RepMyBlock extends queries {
   }
 
   function SearchRawVoterInfo($UniqNYSVoterID) { 
-    $sql = "SELECT * FROM Voters " .  
-            "LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " . 
-            "LEFT JOIN DataAddress ON (DataHouse.DataAddress_ID = DataAddress.DataAddress_ID) " . 
-            "LEFT JOIN DataCounty ON (DataCounty.DataCounty_BOEID = DataAddress.DataCounty_ID) " .                    
-            "WHERE Voters_UniqStateVoterID = :Uniq AND Voters_Status = 'active'";
-    $sql_vars = array("Uniq" => $UniqNYSVoterID);    
-    return $this->_return_multiple($sql, $sql_vars);
+    return $this->_return_multiple(
+    	"SELECT * FROM Voters " .  
+      "LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " . 
+      "LEFT JOIN DataAddress ON (DataHouse.DataAddress_ID = DataAddress.DataAddress_ID) " . 
+      "LEFT JOIN DataCounty ON (DataCounty.DataCounty_BOEID = DataAddress.DataCounty_ID) " .                    
+      "WHERE Voters_UniqStateVoterID = :Uniq AND Voters_Status = 'active'", 
+      ["Uniq" => $UniqNYSVoterID]
+    );
   }
   
   function GetAdminStats() {
@@ -1443,33 +1446,46 @@ class RepMyBlock extends queries {
     return $this->_return_multiple($sql, $sql_vars);
   }
   
+  function UpdateCandidateCounterSystemID($Candidate_ID, $SysID) {
+    return $this->_return_nothing(
+    	"UPDATE Candidate SET SystemUser_ID = :SysID WHERE Candidate_ID = :CandidateID", 
+    	["SysID" => $SysID, "CandidateID" => $Candidate_ID]
+   	);
+  }
+    
   function UpdateCandidateCounterForVoter($Candidate_ID, $Counter) {
-    $sql = "UPDATE Candidate SET Candidate_StatsVoters = :Counter WHERE Candidate_ID = :CandidateID";
-    $sql_vars = array("Counter" => $Counter, "CandidateID" => $Candidate_ID);
-    return $this->_return_nothing($sql, $sql_vars);
+    return $this->_return_nothing(
+    	"UPDATE Candidate SET Candidate_StatsVoters = :Counter WHERE Candidate_ID = :CandidateID", 
+    	["Counter" => $Counter, "CandidateID" => $Candidate_ID]
+   	);
   }
   
   function UpdateElectionCounterForVoter($Election_ID, $Counter) {
-    $sql = "UPDATE CandidateElection SET CandidateElection_CountVoter = :Counter WHERE CandidateElection_ID = :CandidateElection_ID";
-    $sql_vars = array("Counter" => $Counter, "CandidateElection_ID" => $Election_ID);
-    return $this->_return_nothing($sql, $sql_vars);
+    return $this->_return_nothing(
+    	"UPDATE CandidateElection SET CandidateElection_CountVoter = :Counter WHERE CandidateElection_ID = :CandidateElection_ID", 
+    	["Counter" => $Counter, "CandidateElection_ID" => $Election_ID]
+    );
   }    
   
   // This will need to be changed later.
   function GetVotersIndexesIDfromNYSCode($NYSCode) {
-    $sql = "SELECT * FROM VotersIndexes WHERE VotersIndexes_UniqNYSVoterID = :NYSCode ORDER BY VotersIndexes_ID LIMIT 1";
-    $sql_vars = array("NYSCode" => $NYSCode);
-    return $this->_return_simple($sql, $sql_vars);
+    return $this->_return_simple(
+    	"SELECT * FROM VotersIndexes WHERE VotersIndexes_UniqNYSVoterID = :NYSCode ORDER BY VotersIndexes_ID LIMIT 1", 
+    	["NYSCode" => $NYSCode]
+    );
   }
   
   function GetCountyFromState($StateID) {
-    $sql = "SELECT * FROM DataCounty WHERE DataState_ID = :DataState_ID ORDER BY DataCounty_Name";
-    return $this->_return_multiple($sql, array("DataState_ID" => $StateID));
+    return $this->_return_multiple(
+    	"SELECT * FROM DataCounty WHERE DataState_ID = :DataState_ID ORDER BY DataCounty_Name", 
+    	["DataState_ID" => $StateID]
+    );
   }
   
   function GetCountyFromNYSCodes($CountyCode) {
-    $sql = "SELECT * FROM DataCounty WHERE DataCounty_ID = :CountyCode";
-    return $this->_return_simple($sql, array("CountyCode" => $CountyCode));
+    return $this->_return_simple(
+    	"SELECT * FROM DataCounty WHERE DataCounty_ID = :CountyCode", 
+    	["CountyCode" => $CountyCode]);
   }
   
   function DB_WorkCounty($CountyID) {

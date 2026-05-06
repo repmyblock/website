@@ -20,9 +20,7 @@
 	 	}	
 		WipeURLEncrypted(null, "ErrorMessage");
 	} 
-	
-	
-	
+
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   $rmb = new repmyblock();  
   
@@ -43,7 +41,7 @@
     if ( empty ($_POST["positionrunning"]) && empty (trim($_POST["manuposition"]))) { 
       $ErrorMessage[] = "B"; 
     }
-    
+ 
     // This is the common setup that create the candidate as needed
     require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/funcs/candprofile_commonsetup.php";
         
@@ -108,17 +106,10 @@
 		    		break;
 		    }
 		  }
-		  
-		   echo $error_msg . "<BR>";
-       
-      echo "<PRE>" . print_r($_FILES, 1) . "<PRE>";
-       
+
       // This is to deal with the pdf
       $PDFFile = false;
       if (! empty ($_FILES["pdfplatform"]["name"])) {  
-      	
-      	echo "I am in the NAME<BR>";
-      	    
         switch ($_FILES["pdfplatform"]["error"]) {
         	case 0:
 		       	$PDFStructure = $GeneralUploadDir . "/shared/platforms/"; 
@@ -189,8 +180,7 @@
           "SelfParty" => substr($_POST["SelectedCaucusParty"], 0, 3),
 					"SelfCaucus" =>  intval($_POST["SelectedCaucusMask"]),
           "CandidateID" => $Candidate_ID,
-      ];
-     
+      ];   
      
      	if ( ! empty ($_POST["oldfilename"]) && empty ($_FILE["filepicture"]["full_path"])) {
      		$CandidateProfile["PicFile"] = $_POST["oldfilename"];
@@ -223,12 +213,11 @@
       $Result += ($rmbcandidate["CandidateProfile_PolSelfCaucus"] ==  $CandidateProfile["SelfCaucus"]) ? 0 : 1;
       $Result += ($rmbcandidate["CandidateProfile_PicFileName"] == $CandidateProfile["PicFile"]) ? 0 : 1;                                      
       $Result += ($rmbcandidate["CandidateProfile_PDFFileName"] == $CandidateProfile["PDFFile"]) ? 0 : 1;
-      
- 
+
       if ( $Result > 0 ) {
         $CandidateProfileID = $rmb->updatecandidateprofile($CandidateProfileID, $CandidateProfile);
       }
-            
+                  
       if ( $PictureFile == true || $PDFFile == true) {
         if ($PictureFile == true) {    
           
@@ -257,7 +246,9 @@
         }       
       }
       
-      if ( $_POST["PrivateRun"] == 'yes') {
+     
+      
+      if ( $_POST["PrivateRun"] == 'yes' && $CandidateProfile["Private"] != 'yes') {
         header("Location: profilewarning");
         exit();
       }
@@ -268,8 +259,6 @@
    
   }
   
-  	
-
   WriteStderr($rmbcandidate, "RMBCandidate");
   $StatusMessage = "Save profile";
   
@@ -280,6 +269,10 @@
     if ( ! empty ($PublicProfile = $rmb->PublicProfileInfo($URIEncryptedString["PublicProfileID"]))) {   
     	// This is done to make sure the DB Stuff is correct.
     	
+    	$rmbcandidate["CandidateProfile_FirstName"] = $PublicProfile["CandidateProfile_FirstName"];
+	    $rmbcandidate["CandidateProfile_LastName"] = $PublicProfile["CandidateProfile_LastName"];
+	    $rmbcandidate["Candidate_DispName"] = $PublicProfile["CandidateProfile_FirstName"] . " " . $PublicProfile["CandidateProfile_LastName"];
+	    $rmbcandidate["CandidateProfile_Alias"] = $PublicProfile["CandidateProfile_Alias"];
     	$rmbcandidate["CandidateProfile_ID"] = $PublicProfile["CandidateProfile_ID"];      
      	$rmbcandidate["CandidateProfile_Email"] = $PublicProfile["CandidateProfile_Email"];
 	    $rmbcandidate["CandidateProfile_Website"]  = $PublicProfile["CandidateProfile_Website"];
@@ -311,10 +304,10 @@
  	
  	// This is to build the list of positions.
  	$rmbpositions = $rmb->ListDBTablesFromPositions($URIEncryptedString["PositionID"]);
-	
+ 	
 	// This is to update the minimum profile if empty.
   if ( ! empty  ($rmbcandidate["Candidate_DispName"])) {
-    $ProfileAlias = $rmbcandidate["CandidateProfile_Alias"];
+    $ProfileAlias = $rmbcandidate["Candidate_DispName"];
     $ProfileDisplayName= $rmbcandidate["Candidate_DispName"]; 
     $ProfileFirstName = $rmbcandidate["CandidateProfile_FirstName"];    
     $ProfileLastName = $rmbcandidate["CandidateProfile_LastName"];
@@ -391,6 +384,8 @@
                 </DIV>
                 <DIV><button type="submit" class="submitred"><?= $StatusMessage ?></button></DIV>
                 <HR>  
+              <?php } else { ?>              	
+              	<INPUT TYPE="hidden" NAME="PrivateRun" VALUE="yes">
               <?php } ?>
                 
 
