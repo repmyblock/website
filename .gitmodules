@@ -16,6 +16,3 @@
 [submodule "www/libs/utils/External_PDFMerger"]
 	path = www/libs/utils/External_PDFMerger
 	url = https://github.com/repmyblock/External_PDFMerger
-[submodule "www/libs/utils/External_Leaflet"]
-	path = www/libs/utils/External_Leaflet
-	url = https://github.com/Leaflet/Leaflet.git
