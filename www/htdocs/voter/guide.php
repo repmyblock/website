@@ -255,6 +255,7 @@ img.flagnonselected {
 
 </style>
 
+
 <form autocomplete="off" method="post" action="">
 	
 <DIV class="main">
@@ -433,6 +434,58 @@ img.flagnonselected {
 
   <div class="state-flag-bar">
   		<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
+  		
+  		<DIV>
+				<input id="placeSearch" list="places" placeholder="Search location..." />
+  				<datalist id="places"></datalist>
+			</DIV>
+			
+			<script>
+let selectedAddresses = [];
+
+const input = document.getElementById("placeSearch");
+const datalist = document.getElementById("places");
+
+input.addEventListener("input", async function () {
+  const q = this.value.trim();
+
+  if (q.length < 3) {
+    datalist.innerHTML = "";
+    return;
+  }
+
+  const response = await fetch("/" + encodeURIComponent(q) + "/voter/autocomplete_address");
+  selectedAddresses = await response.json();
+
+  datalist.innerHTML = "";
+
+  selectedAddresses.forEach(address => {
+    const option = document.createElement("option");
+    option.value = address.label;
+    datalist.appendChild(option);
+  });
+});
+
+input.addEventListener("change", function () {
+  const selected = selectedAddresses.find(
+    address => address.label.toLowerCase() === this.value.toLowerCase()
+  );
+
+  if (!selected) return;
+
+  console.log("Selected address:", selected);
+
+  if (typeof map !== "undefined") {
+    map.setView([selected.lat, selected.lon], 16);
+
+    L.popup()
+      .setLatLng([selected.lat, selected.lon])
+      .setContent(selected.label)
+      .openOn(map);
+  }
+});
+</script>
+  		
 			<?php
 	
 			$activeccs = NULL; 
