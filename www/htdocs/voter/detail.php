@@ -41,7 +41,7 @@
 			print "<br style=\"clear:both\" />";
 			$DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
 			$PrevDateDesc = $DateDesc;
-			$PicturePath = $PicturePath = "/shared/pics/" . (!empty($var["CandidateProfile_PicFileName"]) ?
+			$PicturePath = "/shared/pics/" . (!empty($var["CandidateProfile_PicFileName"]) ?
 									         $var["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
 
 		 	$CandidateName = ucwords(strtolower($var["CandidateProfile_Alias"]));
@@ -56,13 +56,15 @@
 		
 	<DIV class='container2'>
 		<DIV>
-			<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?><IMG class="candidate" style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $PicturePath ?>" class='iconDetails'><?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
+			<?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?><IMG class="candidateprofile" style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $PicturePath ?>"><?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
 						<DIV class="f60"><B><?= $DateDesc ?></B></DIV>
 						<P class="f40" style="text-margin: 0px 0px 0px 0px;">
 							<I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
 							<?php if (! empty ($var["CandidateProfile_Statement"])) {
 								print "<UL>" . $var["CandidateProfile_Statement"] . "</UL>"; 
-							} else { ?>
+							} else {
+								if ( empty ($var["SystemUser_ID"])) {
+								 ?>
 								
 				
 								<UL>
@@ -72,6 +74,9 @@
 									
 									
 						<?php 
+								}
+						
+						
 								if (($var["CandidateRegAuthority_ID"]) == 1 && ! empty ($var["CandidateProfile_RegID"])) { ?>
 						
 								
