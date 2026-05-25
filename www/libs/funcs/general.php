@@ -21,12 +21,56 @@ const PERM_MENU_PRESS = 131072;
 const PERM_MENU_AMBASSADOR = 262144;
 const PERM_MENU_NGO = 524288;
 
+const PERSON_DATABASE = [
+	"SystemUser_ID", "SystemUser_Priv", "SystemUser_FirstName", "SystemUser_LastName", "SystemUser_EDAD",
+	"SystemUser_email", "SystemUser_emailverified"
+];
+
+/*
+    [SystemUser_ID] => 1
+    [SystemUserProfile_ID] =>
+    [Voters_ID] => 9505078
+
+    [SystemUser_NumVoters] => 1070
+    [SystemUser_StateAbbrev] => NY
+    [SystemUser_Party] => DEM
+    [SystemUser_ComplexMenu] => no
+    [SystemUser_email] => theo@repmyblock.org
+    [SystemUser_emailverified] => both
+    
+    [SystemUser_Priv] => 4294967295
+  
+    [SystemUserProfile_bio] =>
+    [SystemUserProfile_URL] =>
+    [SystemUserProfile_Location] =>
+    [VotersIndexes_ID] => 5435965
+    [DataHouse_ID] => 6654276
+    [Voters_Gender] => male
+    [DataState_ID] => 1
+ 
+*/
+
 function ordinal($number) {
   $ends = array('th','st','nd','rd','th','th','th','th','th','th');
   if ((($number % 100) >= 11) && (($number%100) <= 13))
       return $number. 'th';
   else
       return $number. $ends[$number % 10];
+}
+
+function sqltablestoshow($table) {
+	$stringtoreturn = "";
+	if (! empty ($table)) {
+  	foreach ($table as $var) {
+  		if (! empty ($var)) {
+  			if ($var == "debugsql") { return "*"; }
+	  		if (! empty ($stringtoreturn)) { $stringtoreturn .= ","; }
+  			$stringtoreturn .= $var;
+  		}
+  	}
+  	return $stringtoreturn;
+  }
+ 	return "*";
 }
 
 function numbertoalpha($number) {

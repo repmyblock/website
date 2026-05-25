@@ -11,6 +11,29 @@ class welcome extends queries {
     $DebugInfo["Flag"] = $debug;
     parent::__construct($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
+   
+  function ReturnOpenAddress($search, $limit = 10, $SQLTables = null) {
+		return $this->_return_multiple(
+			"SELECT OpenAddresses_ID AS id, OpenAddresses_FullAddress AS label, OpenAddresses_Lat AS lat, " .
+			"OpenAddresses_Lon AS lon FROM OpenAddresses WHERE MATCH(OpenAddresses_FullAddress) " .
+			"AGAINST(:search IN BOOLEAN MODE) LIMIT $limit",
+     ["search" => $search]
+		);
+  }
+  
+  function ReturnCandidatesNames($search, $limit = 10, $SQLTables = null) {
+  	echo "Search: " .  $seach . "<BR>";
+  	
+		return $this->_return_multiple(
+		  "SELECT " . sqltablestoshow($SQLTables)  . " FROM CandidateProfile " . 
+      "WHERE CandidateProfile_Alias IS NOT NULL " . 
+      "AND CandidateProfile_Alias != '' " . 
+      "AND MATCH(CandidateProfile_Alias) AGAINST (:search IN BOOLEAN MODE) " . 
+      "ORDER BY CandidateProfile_Alias " . 
+      "LIMIT $limit",
+     ["search" => $search]
+		);
+  }
   
   function CandidatesInfo($CandidateID = NULL) {
 		$sql = "SELECT * FROM CandidateProfile ";
@@ -34,10 +57,13 @@ class welcome extends queries {
 		return $this->_return_multiple($sql, $sql_vars);
 	}
 
-	function CandidatesForElection($ElectionDateFrom = NULL, $ElectionDateTo = NULL, $ElectionState = NULL, $ActiveTeam = NULL,  
-			$Offset = 0, $Limit = 600) {
-		$sql = "SELECT *, PublicProfile.PublicProfile_ID AS CANDPROFID " .
-						" , Candidate.CandidateElection_DBTable AS CANDDTABLE, Candidate.CandidateElection_DBTableValue AS CANDVALUE " .
+	// Function use 8.1 format - Don't change var names
+	function CandidatesForElection($ElectionDateFrom = null, $ElectionDateTo = null, $ElectionState = null, 
+																	$ActiveTeam = null, $CandidateElectionID = null, 
+																	$Offset = 0, $Limit = 600, $SQLTables = null) {
+		$sql = "SELECT " . sqltablestoshow($SQLTables) . ", PublicProfile.PublicProfile_ID AS CANDPROFID, " .
+						"Candidate.CandidateElection_DBTable AS CANDDTABLE, " . 
+						"Candidate.CandidateElection_DBTableValue AS CANDVALUE " .
 						"FROM Elections " .
 						"LEFT JOIN CandidateElection ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 						"LEFT JOIN Candidate ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
@@ -51,6 +77,12 @@ class welcome extends queries {
 		if ( ! empty ($ElectionState)) {
 			$sql .= " AND DataState_Abbrev = :Abbrev";
 			$sql_vars["Abbrev"] = $ElectionState;
+		}
+		
+		
+		if ( ! empty($CandidateElectionID)) {
+			$sql .= " AND CandidateElection.CandidateElection_ID = :CandidateElectionID";
+			$sql_vars["CandidateElectionID"] = $CandidateElectionID;
 		}
 		
 		if ( ! empty ($ElectionDateFrom)) {			
@@ -75,37 +107,40 @@ class welcome extends queries {
 	}
 	
 	function ListDistrictsForZip($ActiveZipcode) {
-		$sql = "SELECT * FROM DataDistrict " . 
-							"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = DataDistrict.DataCounty_ID) " .
-							"LEFT JOIN DataState ON (DataCounty.DataState_ID = DataState.DataState_ID) " . 
-							"WHERE DataDistrict_ZipCode = :ZipCode";
-		$sql_vars = array("ZipCode" => $ActiveZipcode);
-		return $this->_return_multiple($sql, $sql_vars);
+		return $this->_return_multiple(
+			"SELECT * FROM DataDistrict " . 
+			"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = DataDistrict.DataCounty_ID) " .
+			"LEFT JOIN DataState ON (DataCounty.DataState_ID = DataState.DataState_ID) " . 
+			"WHERE DataDistrict_ZipCode = :ZipCode",
+			["ZipCode" => $ActiveZipcode]
+		);
 	}
 	
 	function ListDistrictsAndTablesForZip($ActiveZipcode, $When = "NOW") {
-		$sql = "SELECT * FROM DataDistrict " . 
-							"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = DataDistrict.DataCounty_ID) " .
-							"LEFT JOIN DataState ON (DataCounty.DataState_ID = DataState.DataState_ID) " . 
-							"LEFT JOIN ElectionsPartyCall ON (ElectionsPartyCall.ElectionsPartyCall_DBTable = DataDistrict.DataDistrict_DBTable AND ElectionsPartyCall.ElectionsPartyCall_DBTableValue = DataDistrict.DataDistrict_DBTableValue) " . 
-							"LEFT JOIN ElectionsPosition ON (ElectionsPosition.ElectionsPosition_ID = ElectionsPartyCall.ElectionsPosition_ID) " . 
-							"WHERE DataDistrict_ZipCode = :ZipCode"; //  AND ElectionsPosition_Location = 'partycall'";
-		$sql_vars = array("ZipCode" => $ActiveZipcode);
-		return $this->_return_multiple($sql, $sql_vars);
+		return $this->_return_multiple(
+			"SELECT * FROM DataDistrict " . 
+			"LEFT JOIN DataCounty ON (DataCounty.DataCounty_ID = DataDistrict.DataCounty_ID) " .
+			"LEFT JOIN DataState ON (DataCounty.DataState_ID = DataState.DataState_ID) " . 
+			"LEFT JOIN ElectionsPartyCall ON (ElectionsPartyCall.ElectionsPartyCall_DBTable = DataDistrict.DataDistrict_DBTable AND ElectionsPartyCall.ElectionsPartyCall_DBTableValue = DataDistrict.DataDistrict_DBTableValue) " . 
+			"LEFT JOIN ElectionsPosition ON (ElectionsPosition.ElectionsPosition_ID = ElectionsPartyCall.ElectionsPosition_ID) " . 
+			"WHERE DataDistrict_ZipCode = :ZipCode", //  AND ElectionsPosition_Location = 'partycall'";
+			["ZipCode" => $ActiveZipcode]
+		);
 	}
 	
-	function CandidatesDetailed($PublicProfileID) {
-		$sql = "SELECT * FROM PublicProfile " .
-						"LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " . 
-						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = PublicProfile.Candidate_ID) " . 
-						"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
-						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
-						"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) " . 
-						"LEFT JOIN PublicTeam ON (PublicProfile.PublicProfile_ID = PublicTeam.PublicProfile_ID) " .
-						"LEFT JOIN Team ON (PublicTeam.Team_ID = Team.Team_ID) " . 
-						"WHERE PublicProfile.PublicProfile_ID = :CandidateProfileID";
-		
-		return $this->_return_simple($sql, array("CandidateProfileID" => $PublicProfileID));
+	function CandidatesDetailed($PublicProfileID, $SQLTables = null) {		
+		return $this->_return_simple(
+			"SELECT " . sqltablestoshow($SQLTables)  . " FROM PublicProfile " .
+			"LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " . 
+			"LEFT JOIN Candidate ON (Candidate.Candidate_ID = PublicProfile.Candidate_ID) " . 
+			"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
+			"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+			"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) " . 
+			"LEFT JOIN PublicTeam ON (PublicProfile.PublicProfile_ID = PublicTeam.PublicProfile_ID) " .
+			"LEFT JOIN Team ON (PublicTeam.Team_ID = Team.Team_ID) " . 
+			"WHERE PublicProfile.PublicProfile_ID = :CandidateProfileID", 
+			["CandidateProfileID" => $PublicProfileID]
+		);
 	}
 	
 	function ListOnElectionsStates($When = "NOW") {
@@ -129,41 +164,44 @@ class welcome extends queries {
 	}
 	
   function FindCandidate($CandidateID) {  	
-		$sql = "SELECT * FROM Candidate " . 
-						"WHERE Candidate_ID = :CandidateID";
-		$sql_vars = array("CandidateID" => $CandidateID);
-		return $this->_return_simple($sql, $sql_vars);	
+		return $this->_return_simple(
+			"SELECT * FROM Candidate WHERE Candidate_ID = :CandidateID",
+			["CandidateID" => $CandidateID]
+		);	
 	} 
 	
 	function ListElectionPositions($StateID) {
-		$sql = "SELECT * FROM RepMyBlock.ElectionsPosition " . 
-						"WHERE DataState_ID = :StateID";
-		$sql_vars = array("StateID" => $StateID);
-		return $this->_return_multiple($sql, $sql_vars);	
+		return $this->_return_multiple(
+			"SELECT * FROM RepMyBlock.ElectionsPosition WHERE DataState_ID = :StateID", 
+			["StateID" => $StateID]
+		);	
 	}
 	
 	function FindVoter($VoterID, $DateFile) {  	
-		$sql = "SELECT * FROM Raw_Voter_" . $DateFile . " " . 
-						"WHERE Raw_Voter_UniqNYSVoterID = :VoterID";
-		$sql_vars = array("VoterID" => $VoterID);
-		return $this->_return_simple($sql, $sql_vars);	
+		return $this->_return_simple(
+			"SELECT * FROM Raw_Voter_" . $DateFile . " WHERE Raw_Voter_UniqNYSVoterID = :VoterID",
+			["VoterID" => $VoterID]
+		);	
 	} 
 	
 	function FindVolunteer($SystemID) {  	
-		$sql = "SELECT * FROM SystemUser " .  
-						"WHERE SystemUser_ID = :SystemUser_ID";
-		$sql_vars = array("SystemUser_ID" => $SystemID);
-		return $this->_return_simple($sql, $sql_vars);	
+		return $this->_return_simple(
+			"SELECT * FROM SystemUser WHERE SystemUser_ID = :SystemUser_ID", 
+			["SystemUser_ID" => $SystemID]
+		);	
 	} 
 	
 	function SaveVolunteer($Email, $VoterID, $SystemID, $CandidateID ) {
-		$sql = "INSERT INTO VoterCustomInfo SET " .
-						"Raw_Voter_UniqNYSVoterID = :VoterID, " .
-						"SystemUser_ID = :SystemUserID, " .
-						"Candidate_ID = :CandidateID, " .
-						"VoterCustomInfo_Email = :Email, VoterCustomInfo_CreateTime = NOW()";
-		$sql_vars = array("VoterID" => $VoterID, "SystemUserID" => $SystemID, "CandidateID" => $CandidateID, "Email" => $Email);
-		return $this->_return_nothing($sql, $sql_vars);			
+		return $this->_return_nothing(
+			"INSERT INTO VoterCustomInfo SET " .
+			"Raw_Voter_UniqNYSVoterID = :VoterID, " .
+			"SystemUser_ID = :SystemUserID, " .
+			"Candidate_ID = :CandidateID, " .
+			"VoterCustomInfo_Email = :Email, VoterCustomInfo_CreateTime = NOW()",
+			[ 
+				"VoterID" => $VoterID, "SystemUserID" => $SystemID, "CandidateID" => $CandidateID, "Email" => $Email
+			]
+		);			
 	}
 	
 	function SaveReferral($Email, $CellPhone) {
@@ -195,7 +233,6 @@ class welcome extends queries {
 			$sql_vars["electdate"] = $date;
 		}
 
-	
 		$sql .= " ORDER BY DataState_Abbrev";
 		return $this->_return_multiple($sql, $sql_vars);
 	}

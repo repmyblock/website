@@ -31,7 +31,7 @@ class queries {
   }
   
   function _return_simple($SQL, $SQL_Vars = null) {
-     $LocalMicrotimeStart = microtime(true);
+    $LocalMicrotimeStart = microtime(true);
     $result = $this->DB->query($SQL, $SQL_Vars, 1, $this->DebugInfo);
     $result = $this->_compress_result($result);
     $LocalMicrotimeEnd = microtime(true);

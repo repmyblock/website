@@ -18,26 +18,26 @@ class RepMyBlock extends queries {
   // These function are from DB_TEAMS but it's being used by user.php so back in main.
   function FindCampaignFromWebCode ($TeamWebCode) {
     return $this->_return_simple(
-    	"SELECT * FROM Team WHERE Team_WebCode = :TeamWebCode",
-    	["TeamWebCode" => $TeamWebCode]
+      "SELECT * FROM Team WHERE Team_WebCode = :TeamWebCode",
+      ["TeamWebCode" => $TeamWebCode]
     );
   }
   
   function ListElectionDate($StateID, $DateElection) {
-  	return $this->_return_simple(
-  		"SELECT * FROM Elections WHERE DataState_ID = :StateID AND Elections_Date = :ElectDate",
-  		["StateID" => $StateID, "ElectDate" => $DateElection]
-  	);
+    return $this->_return_simple(
+      "SELECT * FROM Elections WHERE DataState_ID = :StateID AND Elections_Date = :ElectDate",
+      ["StateID" => $StateID, "ElectDate" => $DateElection]
+    );
   }
   
   function AddElectionDate($StateID, $DateElection, $Election_Text = null, $ElectType = "toverify") {
-  	$this->_return_nothing(
-  		"INSERT INTO Elections SET DataState_ID = :StateID, Elections_Date = :ElectDate, " .
-  		"Elections_Text = :Text, Elections_Type = :ElectType", 
-  		["StateID" => $StateID, "ElectDate" => $DateElection, "Text" => $Election_Text, "ElectType" => $ElectType]
-  	);
-  	  	
- 	 	return $this->_return_simple("SELECT LAST_INSERT_ID() as Elections_ID");   
+    $this->_return_nothing(
+      "INSERT INTO Elections SET DataState_ID = :StateID, Elections_Date = :ElectDate, " .
+      "Elections_Text = :Text, Elections_Type = :ElectType", 
+      ["StateID" => $StateID, "ElectDate" => $DateElection, "Text" => $Election_Text, "ElectType" => $ElectType]
+    );
+        
+      return $this->_return_simple("SELECT LAST_INSERT_ID() as Elections_ID");   
   }
   
   
@@ -56,21 +56,21 @@ class RepMyBlock extends queries {
     }
   }
  
- 	function ListAllPositions($ElectPost = null) {
-		if ( $ElectPost > 0) {		
-	 		return $this->_return_simple(
-	 			"SELECT * FROM ElectionsPosition WHERE ElectionsPosition_ID = :ElectPost",
-	 			["ElectPost" => $ElectPost]
-	 		);
-		}
+   function ListAllPositions($ElectPost = null) {
+    if ( $ElectPost > 0) {    
+       return $this->_return_simple(
+         "SELECT * FROM ElectionsPosition WHERE ElectionsPosition_ID = :ElectPost",
+         ["ElectPost" => $ElectPost]
+       );
+    }
 
- 		return $this->_return_multiple("SELECT * FROM ElectionsPosition");
- 	}
+     return $this->_return_multiple("SELECT * FROM ElectionsPosition");
+   }
   
   function ListCCPartyCall($Party, $ADED, $ElectionsID) {
     // Need to add piece for NULL ELECTION ID.
     return $this->_return_multiple(
-    		"SELECT * FROM ElectionsPartyCall " .
+        "SELECT * FROM ElectionsPartyCall " .
         "LEFT JOIN ElectionsPosition ON (ElectionsPosition.ElectionsPosition_ID = ElectionsPartyCall.ElectionsPosition_ID) " .
         "WHERE ElectionsPosition_Party = :Party AND ElectionsPartyCall_DBTableValue = :Value AND " . 
         "ElectionsPosition_DBTable = :Type AND " .
@@ -130,33 +130,33 @@ class RepMyBlock extends queries {
   
   function ListPartyCall($Election_ID) {
     return $this->_return_multiple(
-    	"SELECT * FROM ElectionsPartyCall WHERE Elections_ID = :ElectionID",
-   		["ElectionID" => $Election_ID]
+      "SELECT * FROM ElectionsPartyCall WHERE Elections_ID = :ElectionID",
+       ["ElectionID" => $Election_ID]
     );
   }
   
   function ListDBTablesFromPositions($ElectionsPosition_ID) {
-  	return $this->_return_multiple(
-  		#"SELECT DISTINCT ElectionsPosition_ID, CandidateElection_DBTable, CandidateElection_DBTableValue, CandidateElection_Text " . 
-  		#"FROM RepMyBlock.CandidateElection WHERE ElectionsPosition_ID = :ElectionsPositionsID " . 
-  		#"ORDER BY CandidateElection_DBTableValue ASC",
-  		
-  		"SELECT DISTINCT ElectionsPosition_ID, CandidateElection_DBTable, " .
-  		"NormalizedValue AS CandidateElection_DBTableValue, CandidateElection_Text, " .
+    return $this->_return_multiple(
+      #"SELECT DISTINCT ElectionsPosition_ID, CandidateElection_DBTable, CandidateElection_DBTableValue, CandidateElection_Text " . 
+      #"FROM RepMyBlock.CandidateElection WHERE ElectionsPosition_ID = :ElectionsPositionsID " . 
+      #"ORDER BY CandidateElection_DBTableValue ASC",
+      
+      "SELECT DISTINCT ElectionsPosition_ID, CandidateElection_DBTable, " .
+      "NormalizedValue AS CandidateElection_DBTableValue, CandidateElection_Text, " .
       "SortGroup, NumericSort FROM ( " .
-		  "SELECT ElectionsPosition_ID, CandidateElection_DBTable, CandidateElection_Text, " .
+      "SELECT ElectionsPosition_ID, CandidateElection_DBTable, CandidateElection_Text, " .
       "CandidateElection_DBTableValue, " .
       "CASE WHEN CandidateElection_DBTableValue REGEXP '^[0-9]+$' " .
       "THEN CAST(CandidateElection_DBTableValue AS UNSIGNED) ELSE CandidateElection_DBTableValue " .
       "END AS NormalizedValue, CASE WHEN CandidateElection_DBTableValue REGEXP '^[0-9]+$' THEN 0 " .
       "ELSE 1 END AS SortGroup, CASE WHEN CandidateElection_DBTableValue REGEXP '^[0-9]+$' " .
-			"THEN CAST(CandidateElection_DBTableValue AS UNSIGNED) " .
-			"ELSE NULL END AS NumericSort FROM RepMyBlock.CandidateElection " .
-    	"WHERE ElectionsPosition_ID = :ElectionsPositionsID ) t ORDER BY SortGroup, NumericSort, " .
+      "THEN CAST(CandidateElection_DBTableValue AS UNSIGNED) " .
+      "ELSE NULL END AS NumericSort FROM RepMyBlock.CandidateElection " .
+      "WHERE ElectionsPosition_ID = :ElectionsPositionsID ) t ORDER BY SortGroup, NumericSort, " .
       "NormalizedValue",
-  		
-  		["ElectionsPositionsID" => $ElectionsPosition_ID]
-  	);
+      
+      ["ElectionsPositionsID" => $ElectionsPosition_ID]
+    );
   }
   
   function ListPartyCallForPositions($Election_ID, $ElectionPosition = NULL) {
@@ -180,9 +180,9 @@ class RepMyBlock extends queries {
   
   function ReturnTeamInfo($SystemUser_ID, $Team_ID, $Active = 'yes') {
     return $this->_return_simple(
-    		"SELECT * FROM TeamMember WHERE SystemUser_ID = :SystemUser AND " . 
-    		"Team_ID = :TeamID AND TeamMember_Active = :Active",
-    		["SystemUser" => $SystemUser_ID, "TeamID" => $Team_ID, "Active" => $Active]
+        "SELECT * FROM TeamMember WHERE SystemUser_ID = :SystemUser AND " . 
+        "Team_ID = :TeamID AND TeamMember_Active = :Active",
+        ["SystemUser" => $SystemUser_ID, "TeamID" => $Team_ID, "Active" => $Active]
     );
   }
   
@@ -202,7 +202,7 @@ class RepMyBlock extends queries {
   }
 
    function database_showtables() {
-   	return $this->_return_multiple("SHOW TABLES");
+     return $this->_return_multiple("SHOW TABLES");
    }
    
    function database_showcolums($Tables) {
@@ -237,13 +237,14 @@ class RepMyBlock extends queries {
     return $this->_return_simple($sql,  $sql_vars);
   }
   
-  function FindPersonUserProfile($SystemUserID) {
-    $sql = "SELECT * FROM SystemUser " . 
-            "LEFT JOIN SystemUserProfile ON (SystemUser.SystemUserProfile_ID = SystemUserProfile.SystemUserProfile_ID) " . 
-            "LEFT JOIN Voters ON (SystemUser.Voters_ID = Voters.Voters_ID) " . 
-            "WHERE SystemUser_ID = :ID";  
-    $sql_vars = array(':ID' => $SystemUserID);                      
-    return $this->_return_simple($sql,  $sql_vars);    
+  function FindPersonUserProfile($SystemUserID, $SQLTables = PERSON_DATABASE) {
+    return $this->_return_simple(
+        "SELECT " . sqltablestoshow($SQLTables) . " FROM SystemUser " .
+        "LEFT JOIN SystemUserProfile ON (SystemUser.SystemUserProfile_ID = SystemUserProfile.SystemUserProfile_ID) " . 
+        "LEFT JOIN Voters ON (SystemUser.Voters_ID = Voters.Voters_ID) " . 
+        "WHERE SystemUser_ID = :ID",  
+        [':ID' => $SystemUserID]
+     );    
   }
   
   function InsertEmail($email) {
@@ -254,64 +255,64 @@ class RepMyBlock extends queries {
   
   function CheckRegisterEmail ($email) {             
     return $this->_return_simple(
-    	"SELECT * FROM SystemUser WHERE SystemUser_email = :Email",
-    	['Email' => $email]
+      "SELECT * FROM SystemUser WHERE SystemUser_email = :Email",
+      ['Email' => $email]
     );
   }
  
- 	function CheckForDelegationPrivs($email) {
- 		return $this->_return_multiple(
- 			"SELECT * FROM SystemUserTeamPending WHERE SystemUserTeamPending_email = :Email",
- 			["Email" => $email]
- 		);
- 	}
- 
- 	function CheckRegisterEmailForTeamAdmin($email, $SysIDGiv, $Team_ID) {
- 		 return $this->_return_simple(
-    	"SELECT * FROM SystemUserTeamPending LEFT JOIN SystemUser ON " .
-    		"(SystemUser.SystemUser_email = SystemUserTeamPending.SystemUserTeamPending_email) " . 
-    		"WHERE SystemUserTeamPending_GivenSysUsr " . (($SysIDGiv === null) ? "is" : "=") . " :SysID AND SystemUserTeamPending_Valid = 'yes' " .
-    		"AND SystemUserTeamPending_email = :Email AND Team_ID = :TeamID",
-    	["Email" => $email, "SysID" => $SysIDGiv, "TeamID" => $Team_ID]
-    ); 		
- 	}
- 	
- 	function InsertTempTeam($Email, $TeamID,  $SysIDGiv, $FullAdmin = 'no', $AdminCode = null) {
- 		return $this->_return_nothing(
- 			"INSERT INTO SystemUserTeamPending SET Team_ID = :TeamID, " . 
- 				"SystemUserTeamPending_email = :Email, SystemUserTeamPending_FullAdmin = :FullAdmin, " .
- 				"SystemUserTeamPending_GivenSysUsr = :SysID, SystemUserTeamPending_Valid = 'yes', " . 
- 				"SystemUserTeamPending_AdminCode = :AdminCode, SystemUserTeamPending_Given = NOW()",
- 			[	
- 				"Email" => $Email, 'SysID' => $SysIDGiv, "FullAdmin" => $FullAdmin, 
- 				"TeamID" => $TeamID, "AdminCode" => $AdminCode
- 			]
- 		);
- 	}
+  function CheckForDelegationPrivs($email) {
+    return $this->_return_multiple(
+      "SELECT * FROM SystemUserTeamPending WHERE SystemUserTeamPending_email = :Email",
+      ["Email" => $email]
+    );
+  }
+
+  function CheckRegisterEmailForTeamAdmin($email, $SysIDGiv, $Team_ID) {
+    return $this->_return_simple(
+      "SELECT * FROM SystemUserTeamPending LEFT JOIN SystemUser ON " .
+        "(SystemUser.SystemUser_email = SystemUserTeamPending.SystemUserTeamPending_email) " . 
+        "WHERE SystemUserTeamPending_GivenSysUsr " . (($SysIDGiv === null) ? "is" : "=") . " :SysID AND SystemUserTeamPending_Valid = 'yes' " .
+        "AND SystemUserTeamPending_email = :Email AND Team_ID = :TeamID",
+      ["Email" => $email, "SysID" => $SysIDGiv, "TeamID" => $Team_ID]
+    );
+  }
+
+  function InsertTempTeam($Email, $TeamID,  $SysIDGiv, $FullAdmin = 'no', $AdminCode = null) {
+    return $this->_return_nothing(
+      "INSERT INTO SystemUserTeamPending SET Team_ID = :TeamID, " . 
+       "SystemUserTeamPending_email = :Email, SystemUserTeamPending_FullAdmin = :FullAdmin, " .
+       "SystemUserTeamPending_GivenSysUsr = :SysID, SystemUserTeamPending_Valid = 'yes', " . 
+       "SystemUserTeamPending_AdminCode = :AdminCode, SystemUserTeamPending_Given = NOW()",
+      [  
+       "Email" => $Email, 'SysID' => $SysIDGiv, "FullAdmin" => $FullAdmin, 
+       "TeamID" => $TeamID, "AdminCode" => $AdminCode
+      ]
+    );
+  }
     
   function FindGeoDiscID($GeoDescAbbrev) {
     return $this->_return_simple(
-    	"SELECT * FROM GeoDesc WHERE GeoGroup_ID = '3' AND GeoDesc_Abbrev = :Abbrev", 
-    	["Abbrev" => $GeoDescAbbrev]
+      "SELECT * FROM GeoDesc WHERE GeoGroup_ID = '3' AND GeoDesc_Abbrev = :Abbrev", 
+      ["Abbrev" => $GeoDescAbbrev]
     );
   }
 
   function SaveVoterRequest($FirstName, $LastName, $DateOfBirth, $DatedFilesID, $Email, $Contact, 
-  													$UniqNYSVoterID, $IP, $Branding = null) {
+                            $UniqNYSVoterID, $IP, $Branding = null) {
     $this->_return_nothing(
-    				"INSERT INTO SystemUserQuery SET SystemUserQuery_FirstName = :FirstName, " .
+            "INSERT INTO SystemUserQuery SET SystemUserQuery_FirstName = :FirstName, " .
             "SystemUserQuery_LastName = :LastName, SystemUserQuery_DateOfBirth = :DateOfBirth, " .
             "SystemUserQuery_DatedFileID = :DatedFilesID, SystemUserQuery_Email = :Email, " .
             "SystemUserQuery_UniqNYSVoterID = :UniqNYSVoterID, SystemUserQuery_BrandingGroup = :Branding, " .
             "SystemUserQuery_IP = :IP, SystemUserQuery_Contact = :Contact, SystemUserQuery_Date = NOW()", 
-          	[
-	    				"FirstName" => $FirstName, "LastName" => $LastName, 
+            [
+              "FirstName" => $FirstName, "LastName" => $LastName, 
               "DateOfBirth" => $DateOfBirth, "DatedFilesID" => $DatedFilesID,
               "Email" => $Email, "UniqNYSVoterID" => $UniqNYSVoterID,
-  	          "Branding" => $Branding, "Contact" => $Contact,
+              "Branding" => $Branding, "Contact" => $Contact,
               "IP" => $IP
             ]
-   	);
+     );
     
     return $this->_return_simple("SELECT LAST_INSERT_ID() as SystemUserQuery_ID");   
   }
@@ -438,43 +439,43 @@ class RepMyBlock extends queries {
   
   function FindElectionType($ElectionID, $RegParty, $TypeElection, $TypeValue) {
     return $this->_return_multiple(
-    		"SELECT * FROM CandidateElection WHERE Elections_ID = :ElectionID AND " .
+        "SELECT * FROM CandidateElection WHERE Elections_ID = :ElectionID AND " .
         "CandidateElection_Party = :Party AND CandidateElection_DBTable = :DBTable AND " .
         "CandidateElection_DBTableValue = :DBValue",
         [
-        	"ElectionID" => $ElectionID, "Party" => $RegParty, 
-        	"DBTable" => $TypeElection, "DBValue" => $TypeValue
-       	]    
+          "ElectionID" => $ElectionID, "Party" => $RegParty, 
+          "DBTable" => $TypeElection, "DBValue" => $TypeValue
+         ]    
     );
   }
   
   function FindElectionFromPositionID($ElectionID, $PositionID, $TypeElection, $TypeValue) {
     return $this->_return_multiple(
-  		"SELECT * FROM CandidateElection " .  
+      "SELECT * FROM CandidateElection " .  
       "LEFT JOIN ElectionsPosition ON " . 
       "(ElectionsPosition.ElectionsPosition_ID = CandidateElection.ElectionsPosition_ID) " . 
       "WHERE " .
- 			"Elections_ID " . (($ElectionID === null) ? "is" : "=") . " :ElectionID AND " .
-			"CandidateElection.ElectionsPosition_ID " . (($PositionID === null) ? "is" : "=") . " :PositionID AND " .
-			"CandidateElection_DBTable " . (($TypeElection === null) ? "is" : "=") . " :DBTable AND " .
-  		"CandidateElection_DBTableValue " . (($TypeValue === null) ? "is" : "=") . " :DBValue",
+       "Elections_ID " . (($ElectionID === null) ? "is" : "=") . " :ElectionID AND " .
+      "CandidateElection.ElectionsPosition_ID " . (($PositionID === null) ? "is" : "=") . " :PositionID AND " .
+      "CandidateElection_DBTable " . (($TypeElection === null) ? "is" : "=") . " :DBTable AND " .
+      "CandidateElection_DBTableValue " . (($TypeValue === null) ? "is" : "=") . " :DBValue",
       [
-  			"ElectionID" => $ElectionID, "PositionID" => $PositionID, 
-  			"DBTable" => $TypeElection, "DBValue" => $TypeValue
-  		]
+        "ElectionID" => $ElectionID, "PositionID" => $PositionID, 
+        "DBTable" => $TypeElection, "DBValue" => $TypeValue
+      ]
     );
   }
   
   function FindInPartyCall($ElectionID, $County, $Party, $DBTable, $DBValue) {
     return $this->_return_simple(
-    		"SELECT * FROM ElectionsPartyCall WHERE " .
+        "SELECT * FROM ElectionsPartyCall WHERE " .
         "Elections_ID = :ElectionID AND DataCounty_ID = :County AND " .
         "ElectionsPartyCall_Party = :Party AND ElectionsPartyCall_DBTable = :DBTable AND " . 
         "ElectionsPartyCall_DBTableValue = :DBValue",
-    		[
-    			"ElectionID" => $ElectionID, "County" => $County,  "Party" => $Party, 
-    			"DBTable" => $DBTable, "DBValue" => $DBValue
-    		]           
+        [
+          "ElectionID" => $ElectionID, "County" => $County,  "Party" => $Party, 
+          "DBTable" => $DBTable, "DBValue" => $DBValue
+        ]           
     );
   }
   
@@ -633,7 +634,7 @@ class RepMyBlock extends queries {
 
   function DisplayElectionPositions($ID) {
     return $this->_return_simple(
-    	"SELECT * FROM ElectionsPosition " . 
+      "SELECT * FROM ElectionsPosition " . 
       "WHERE ElectionsPosition_ID = :ID ",
       ['ID' => $ID]
     );
@@ -641,10 +642,31 @@ class RepMyBlock extends queries {
   
    function DisplayElectionDate($ID) {
     return $this->_return_simple(
-    		"SELECT * FROM ElectionsPosition WHERE Elections_Date >= NOW()"
+        "SELECT * FROM ElectionsPosition WHERE Elections_Date >= NOW()"
     );
   }
   
+  function ListElectionPositionsForEDAD($DBTableValue, $State) {
+    return $this->_return_multiple(
+       "SELECT * FROM DataState " . 
+      "LEFT JOIN Elections ON (Elections.DataState_ID = DataState.DataState_ID) " . 
+      "LEFT JOIN ElectionsPartyCall ON (ElectionsPartyCall.Elections_ID = Elections.Elections_ID) " . 
+      "LEFT JOIN ElectionsPosition ON (" . 
+      "ElectionsPosition.ElectionsPosition_ID = ElectionsPartyCall.ElectionsPosition_ID) " . 
+      "LEFT JOIN CandidateElection ON " . 
+      "(CandidateElection.Elections_ID = Elections.Elections_ID AND " . 
+      "CandidateElection.CandidateElection_DBTableValue = ElectionsPartyCall_ConversionValue ) " . 
+      "LEFT JOIN Candidate ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " . 
+      "LEFT JOIN PublicProfile ON (PublicProfile.Candidate_ID = Candidate.Candidate_ID) " . 
+      "LEFT JOIN CandidateProfile ON (CandidateProfile.CandidateProfile_ID = PublicProfile.CandidateProfile_ID) " . 
+      "WHERE DataState_Abbrev = :State AND Elections_Date >= NOW() " . 
+       "AND ElectionsPartyCall_DBTableValue = :DBTableValue " .
+       "AND PublicProfile_PublishProfile = 'yes' " .
+       "ORDER BY Elections_Date, ElectionsPartyCall.ElectionsPosition_ID", 
+       ["DBTableValue" => $DBTableValue, "State" => $State]
+     );
+  }
+    
   function ListElectionPositionsForStateID($StateID) {
     $sql = "SELECT * FROM CandidateProfile " . 
             "LEFT JOIN Candidate ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " . 
@@ -670,16 +692,16 @@ class RepMyBlock extends queries {
     return $this->_return_multiple($sql);
   }
   
-  function ListProfilesForCandidates($SystemID, $TeamID = null) {
-  	return $this->_return_multiple(
-  			"SELECT * FROM Candidate " .
-				"LEFT JOIN PublicProfile ON (PublicProfile.Candidate_ID = Candidate.Candidate_ID) " .
-				"LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " .
-				"LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
-				"LEFT JOIN Elections on (Elections.Elections_ID = CandidateElection.Elections_ID) " .
-				"WHERE Candidate.SystemUser_ID = :SysID",
-				["SysID" => $SystemID]
-  	);
+  function ListProfilesForCandidates($SystemID, $TeamID = null, $SQLTables = null) {
+    return $this->_return_multiple(
+        "SELECT " . sqltablestoshow($SQLTables) . " FROM Candidate " .
+        "LEFT JOIN PublicProfile ON (PublicProfile.Candidate_ID = Candidate.Candidate_ID) " .
+        "LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " .
+        "LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
+        "LEFT JOIN Elections on (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+        "WHERE Candidate.SystemUser_ID = :SysID ORDER BY Elections.Elections_Date DESC, Elections.DataState_ID",
+        ["SysID" => $SystemID]
+    );
   }
   
   
@@ -734,46 +756,46 @@ class RepMyBlock extends queries {
   }
   
   function findelectionbystatedate($StateID, $Date) {
-  	return $this->_return_simple(
-			"SELECT * FROM Elections WHERE Elections_Date = :Date AND DataState_ID = StateID",
-			["Date" => $Date, "StateID" => $StateID]
-  	);
+    return $this->_return_simple(
+      "SELECT * FROM Elections WHERE Elections_Date = :Date AND DataState_ID = StateID",
+      ["Date" => $Date, "StateID" => $StateID]
+    );
   }
   
   function FindCandidateElection($StateID, $PositionID) {
-  	return $this->_return_multiple(
-			"SELECT * FROM CandidateElection " .
-			"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
-			"WHERE ElectionsPosition_ID = :PositionID AND DataState_ID = :StateID ORDER BY Elections_Date ASC",
-			["PositionID" => $PositionID, "StateID" => $StateID]
-  	);
+    return $this->_return_multiple(
+      "SELECT * FROM CandidateElection " .
+      "LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+      "WHERE ElectionsPosition_ID = :PositionID AND DataState_ID = :StateID ORDER BY Elections_Date ASC",
+      ["PositionID" => $PositionID, "StateID" => $StateID]
+    );
   }
   
   function PublicProfileToggle($PublicProfileID, $flag) {
-  	return $this->_return_nothing(
-  		"UPDATE PublicProfile SET PublicProfile_PublishProfile = :toggled WHERE PublicProfile_ID = :PublicProfileID",
-  		["toggled" => $flag, "PublicProfileID" => $PublicProfileID]
-  	);
+    return $this->_return_nothing(
+      "UPDATE PublicProfile SET PublicProfile_PublishProfile = :toggled WHERE PublicProfile_ID = :PublicProfileID",
+      ["toggled" => $flag, "PublicProfileID" => $PublicProfileID]
+    );
   }
   
   
   function updatecandidateprofile($CandidateProfile_ID, $ProfileArray) {
-  	
-  	// This is where we'll put the logic to normalize all the LINKS to various place depending
-  	// how the candidates input their links.
-  	WriteStderr($CandidateProfile_ID, "Inside updatecandidateprofile DB");
-  	
-  	if ( ! empty ($ProfileArray["Phone"])) { $ProfileArray["Phone"] = FormatPhoneNumber($ProfileArray["Phone"]); }
- 		if ( ! empty ($ProfileArray["Fax"])) { $ProfileArray["Fax"] = FormatPhoneNumber($ProfileArray["Fax"]); }
+    
+    // This is where we'll put the logic to normalize all the LINKS to various place depending
+    // how the candidates input their links.
+    WriteStderr($CandidateProfile_ID, "Inside updatecandidateprofile DB");
+    
+    if ( ! empty ($ProfileArray["Phone"])) { $ProfileArray["Phone"] = FormatPhoneNumber($ProfileArray["Phone"]); }
+     if ( ! empty ($ProfileArray["Fax"])) { $ProfileArray["Fax"] = FormatPhoneNumber($ProfileArray["Fax"]); }
 
     $MatchTableName = [
-      "PicFile" => "CandidateProfile_PicFileName", 		"PDFFile" => "CandidateProfile_PDFFileName",
-      "First"   =>  "CandidateProfile_FirstName",  		"Last"   => "CandidateProfile_LastName",
-      "Full"   =>  "CandidateProfile_Alias",       		"URL"   =>  "CandidateProfile_Website",
-      "Email"   => "CandidateProfile_Email",       		"Twitter"   => "CandidateProfile_Twitter",
-      "BlueSky" => "CandidateProfile_BlueSky",     		"Facebook"   => "CandidateProfile_Facebook",
-      "LinkedIn" => "CandidateProfile_LinkedIn",  	 	"Instagram"   => "CandidateProfile_Instagram",
-      "TikTok"   => "CandidateProfile_TikTok",    	 	"YouTube"   => "CandidateProfile_YouTube", 
+      "PicFile" => "CandidateProfile_PicFileName",     "PDFFile" => "CandidateProfile_PDFFileName",
+      "First"   =>  "CandidateProfile_FirstName",      "Last"   => "CandidateProfile_LastName",
+      "Full"   =>  "CandidateProfile_Alias",           "URL"   =>  "CandidateProfile_Website",
+      "Email"   => "CandidateProfile_Email",           "Twitter"   => "CandidateProfile_Twitter",
+      "BlueSky" => "CandidateProfile_BlueSky",         "Facebook"   => "CandidateProfile_Facebook",
+      "LinkedIn" => "CandidateProfile_LinkedIn",       "Instagram"   => "CandidateProfile_Instagram",
+      "TikTok"   => "CandidateProfile_TikTok",         "YouTube"   => "CandidateProfile_YouTube", 
       "Ballotpedia"   => "CandidateProfile_BallotPedia", "Phone"   => "CandidateProfile_PhoneNumber",
       "Fax"   => "CandidateProfile_FaxNumber",      "Platform"   => "CandidateProfile_Statement",
       "Quarantine" => "CanddiateProfile_Quarantine", "Private"  => "CandidateProfile_PublishPetition", 
@@ -799,15 +821,15 @@ class RepMyBlock extends queries {
 
     $firsttime = false;
     foreach ($ProfileArray as $index => $var) {
-		  if ($firsttime) { $sql .= ", "; }
-		  if ($var !== null && $var !== '') {
-		    $sql .= $MatchTableName[$index] . " = :" . $index;
-		    $sql_vars[$index] = $var;
-		  } else {
-		    $sql .= $MatchTableName[$index] . " = NULL";
-		  }
-	    $firsttime = true;    
-		}
+      if ($firsttime) { $sql .= ", "; }
+      if ($var !== null && $var !== '') {
+        $sql .= $MatchTableName[$index] . " = :" . $index;
+        $sql_vars[$index] = $var;
+      } else {
+        $sql .= $MatchTableName[$index] . " = NULL";
+      }
+      $firsttime = true;    
+    }
 
     $sql .= $firsttime ? "," : NULL;
     $sql .= " CandidateProfile_LastModified = NOW()";
@@ -820,73 +842,73 @@ class RepMyBlock extends queries {
     $this->_return_nothing($sql, $sql_vars);   
     
     $MySpecialCandidate = (!empty($return)) ? 
-    		$CandidateProfile_ID : 
-    		$this->_return_simple("SELECT LAST_INSERT_ID() as CandidateProfileID")["CandidateProfileID"];    
-    		
+        $CandidateProfile_ID : 
+        $this->_return_simple("SELECT LAST_INSERT_ID() as CandidateProfileID")["CandidateProfileID"];    
+        
     WriteStderr( $MySpecialCandidate, "RETURNING CandidateProfile_ID: $CandidateProfile_ID"); 
     
     return $this->UpdatePublicProfile(
-    	$MySpecialCandidate, 
-   		$ProfileArray["CandidateID"], 
-   		$ProfileArray["Private"]
-   	);
+      $MySpecialCandidate, 
+       $ProfileArray["CandidateID"], 
+       $ProfileArray["Private"]
+     );
   }
 
-	function UpdatePublicProfile($CandidateProfile_ID, $Candidate_ID, $PublicProfile = 'no') {
-		
-		WriteStderr( $PublicProfileID, "DB UpdatePublicProfile($CandidateProfile_ID, $Canddiate_ID, $PublicProfile)");
-		$PublicProfileID = $this->FindPublicProfile($Candidate_ID);
-		
-		if (empty ($PublicProfileID)) {
-			// When Insering, Publish Profile is always 'no' - Only on update it can be 'yes'
-			$this->_return_nothing(
-				"INSERT INTO PublicProfile SET CandidateProfile_ID = :CandidateProfileID, " .
-				"Candidate_ID = :CandidateID, PublicProfile_PublishProfile = 'no', " . 
-				"PublicProfile_LastModified = NOW()",
-				["CandidateID" => $Candidate_ID, "CandidateProfileID" => $CandidateProfile_ID]
-			);
-			return $this->_return_simple("SELECT LAST_INSERT_ID() as PublicProfileID")["PublicProfileID"];
-		}
+  function UpdatePublicProfile($CandidateProfile_ID, $Candidate_ID, $PublicProfile = 'no') {
+    
+    WriteStderr( $PublicProfileID, "DB UpdatePublicProfile($CandidateProfile_ID, $Canddiate_ID, $PublicProfile)");
+    $PublicProfileID = $this->FindPublicProfile($Candidate_ID);
+    
+    if (empty ($PublicProfileID)) {
+      // When Insering, Publish Profile is always 'no' - Only on update it can be 'yes'
+      $this->_return_nothing(
+        "INSERT INTO PublicProfile SET CandidateProfile_ID = :CandidateProfileID, " .
+        "Candidate_ID = :CandidateID, PublicProfile_PublishProfile = 'no', " . 
+        "PublicProfile_LastModified = NOW()",
+        ["CandidateID" => $Candidate_ID, "CandidateProfileID" => $CandidateProfile_ID]
+      );
+      return $this->_return_simple("SELECT LAST_INSERT_ID() as PublicProfileID")["PublicProfileID"];
+    }
 
-		$this->_return_nothing(
-			"UPDATE PublicProfile SET CandidateProfile_ID = :CandidateProfileID, " .
-			"Candidate_ID = :CandidateID, PublicProfile_PublishProfile = :Publish, " .
-			"PublicProfile_LastModified = NOW() WHERE " .
-			"PublicProfile_ID = :PublicProfile",
-			[
-				"PublicProfile" => $PublicProfileID["PublicProfile_ID"], "CandidateID" => $Candidate_ID, 
-				"CandidateProfileID" => $CandidateProfile_ID, "Publish" => $PublicProfile
-			]
-		);
-			
-		return $PublicProfileID["PublicProfile_ID"];
-	}
+    $this->_return_nothing(
+      "UPDATE PublicProfile SET CandidateProfile_ID = :CandidateProfileID, " .
+      "Candidate_ID = :CandidateID, PublicProfile_PublishProfile = :Publish, " .
+      "PublicProfile_LastModified = NOW() WHERE " .
+      "PublicProfile_ID = :PublicProfile",
+      [
+        "PublicProfile" => $PublicProfileID["PublicProfile_ID"], "CandidateID" => $Candidate_ID, 
+        "CandidateProfileID" => $CandidateProfile_ID, "Publish" => $PublicProfile
+      ]
+    );
+      
+    return $PublicProfileID["PublicProfile_ID"];
+  }
 
-	function FindPublicProfile($Candidate_ID, $PublicProfileID = null) {
+  function FindPublicProfile($Candidate_ID, $PublicProfileID = null) {
 
-		if ( empty ($PublicProfileID)) {
-			return $this->_return_simple(
-				"SELECT * FROM PublicProfile WHERE Candidate_ID = :CandidateID",
-				["CandidateID" => $Candidate_ID]
-			);
-		}
+    if ( empty ($PublicProfileID)) {
+      return $this->_return_simple(
+        "SELECT * FROM PublicProfile WHERE Candidate_ID = :CandidateID",
+        ["CandidateID" => $Candidate_ID]
+      );
+    }
 
-		return $this->_return_simple(
-			"SELECT * FROM PublicProfile WHERE PublicProfile_ID = :PublicProfileID",
-			["PublicProfileID" => $PublicProfileID]
-		);
-	}
-	
-	function PublicProfileInfo($PublicProfileID) {
-		return $this->_return_simple(
-			"SELECT * FROM PublicProfile " . 
-			"LEFT JOIN Candidate ON (PublicProfile.Candidate_ID = Candidate.Candidate_ID) " . 
-			"LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " .
-			"WHERE PublicProfile_ID = :PublicProfileID",
-			["PublicProfileID" => $PublicProfileID]
-		);
-	}
-	
+    return $this->_return_simple(
+      "SELECT * FROM PublicProfile WHERE PublicProfile_ID = :PublicProfileID",
+      ["PublicProfileID" => $PublicProfileID]
+    );
+  }
+  
+  function PublicProfileInfo($PublicProfileID) {
+    return $this->_return_simple(
+      "SELECT * FROM PublicProfile " . 
+      "LEFT JOIN Candidate ON (PublicProfile.Candidate_ID = Candidate.Candidate_ID) " . 
+      "LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " .
+      "WHERE PublicProfile_ID = :PublicProfileID",
+      ["PublicProfileID" => $PublicProfileID]
+    );
+  }
+  
   function CheckCandidateGroups ($CandidatesIDs) {
     $sql = "SELECT * FROM CandidateGroup WHERE "; 
     
@@ -1037,13 +1059,13 @@ class RepMyBlock extends queries {
   }
   
   function ListStates($DataStateID = null) {
-  	if ( $DataStateID > 0) {
-  		return $this->_return_simple(
-  			"SELECT * FROM DataState WHERE DataState_ID = :ID",
-  			["ID" => $DataStateID]
-  		);
-  	}
-  	
+    if ( $DataStateID > 0) {
+      return $this->_return_simple(
+        "SELECT * FROM DataState WHERE DataState_ID = :ID",
+        ["ID" => $DataStateID]
+      );
+    }
+    
     return $this->_return_multiple(
       "SELECT * FROM DataState ORDER BY DataState_Abbrev"
     );
@@ -1154,59 +1176,59 @@ class RepMyBlock extends queries {
   }
 
   function SearchPetitionCandidate($SystemUserID, $UniqNYSVoterID, $RawVoterID, $DataCountyID, 
-  																	$CandidateElectionID, $Party, $DisplayName,  $Address, 
-  																	$DBTable, $DBValue, $Status, $TeamID = NULL) {
+                                    $CandidateElectionID, $Party, $DisplayName,  $Address, 
+                                    $DBTable, $DBValue, $Status, $TeamID = NULL) {
                                                             
     $sql = "SELECT * FROM Candidate WHERE ";
-		$and = "";
-		$sql_vars = [];
+    $and = "";
+    $sql_vars = [];
     
     if ( ! empty ($SystemUserID)) {
-    	$sql .= $and . "SystemUser_ID = :SystemUserID"; $and = " AND ";	$sql_vars["SystemUserID"] = $SystemUserID;
+      $sql .= $and . "SystemUser_ID = :SystemUserID"; $and = " AND ";  $sql_vars["SystemUserID"] = $SystemUserID;
     }
     
     if ( ! empty ($UniqNYSVoterID)) {
-    	$sql .= $and . "Candidate_UniqStateVoterID = :UniqNYSVoterID"; $and = " AND ";	$sql_vars["UniqNYSVoterID"] = $UniqNYSVoterID;
+      $sql .= $and . "Candidate_UniqStateVoterID = :UniqNYSVoterID"; $and = " AND ";  $sql_vars["UniqNYSVoterID"] = $UniqNYSVoterID;
     }
     
-	  if ( ! empty ($RawVoterID)) {
-    	$sql .= $and . "Voters_ID = :RawVoterID"; $and = " AND ";	$sql_vars["RawVoterID"] = $RawVoterID;
+    if ( ! empty ($RawVoterID)) {
+      $sql .= $and . "Voters_ID = :RawVoterID"; $and = " AND ";  $sql_vars["RawVoterID"] = $RawVoterID;
     }
   
     if ( ! empty ($DataCountyID)) {
-    	$sql .= $and . "DataCounty_ID = :DataCountyID"; $and = " AND ";	$sql_vars["DataCountyID"] = $DataCountyID;
+      $sql .= $and . "DataCounty_ID = :DataCountyID"; $and = " AND ";  $sql_vars["DataCountyID"] = $DataCountyID;
     }
     
-	  if ( ! empty ($CandidateElectionID)) {
-    	$sql .= $and . "CandidateElection_ID = :CandidateElectionID"; $and = " AND ";	$sql_vars["CandidateElectionID"] = $CandidateElectionID;
+    if ( ! empty ($CandidateElectionID)) {
+      $sql .= $and . "CandidateElection_ID = :CandidateElectionID"; $and = " AND ";  $sql_vars["CandidateElectionID"] = $CandidateElectionID;
     }
     
     if ( ! empty ($Party)) {
-    	$sql .= $and . "Candidate_Party = :Party"; $and = " AND ";	$sql_vars["Party"] = $SysPartytemUserID;
+      $sql .= $and . "Candidate_Party = :Party"; $and = " AND ";  $sql_vars["Party"] = $SysPartytemUserID;
     }
     
-	  if ( ! empty ($DisplayName)) {
-    	$sql .= $and . "Candidate_DispName = :DisplayName"; $and = " AND ";	$sql_vars["DisplayName"] = $DisplayName;
+    if ( ! empty ($DisplayName)) {
+      $sql .= $and . "Candidate_DispName = :DisplayName"; $and = " AND ";  $sql_vars["DisplayName"] = $DisplayName;
     }
     
     if ( ! empty ($Address)) {
-    	$sql .= $and . "Candidate_DispResidence = :Address"; $and = " AND ";	$sql_vars["Address"] = $Address;
+      $sql .= $and . "Candidate_DispResidence = :Address"; $and = " AND ";  $sql_vars["Address"] = $Address;
     }
     
     if ( ! empty ($DBTable)) {
-    	$sql .= $and . "CandidateElection_DBTable = :DBTable"; $and = " AND ";	$sql_vars["DBTable"] = $DBTable;
+      $sql .= $and . "CandidateElection_DBTable = :DBTable"; $and = " AND ";  $sql_vars["DBTable"] = $DBTable;
     }
     
     if ( ! empty ($DBValue)) {
-    	$sql .= $and . "CandidateElection_DBTableValue = :DBValue"; $and = " AND ";	$sql_vars["DBValue"] = $DBValue;
+      $sql .= $and . "CandidateElection_DBTableValue = :DBValue"; $and = " AND ";  $sql_vars["DBValue"] = $DBValue;
     }
     
     if ( ! empty ($Status)) {
-    	$sql .= $and . "Candidate_Status = :Status"; $and = " AND ";	$sql_vars["Status"] = $Status;
+      $sql .= $and . "Candidate_Status = :Status"; $and = " AND ";  $sql_vars["Status"] = $Status;
     }
     
     if ( ! empty ($TeamID)) {
-    	$sql .= $and . "Team_ID = :TeamID"; $and = " AND ";	$sql_vars["TeamID"] = $TeamID;
+      $sql .= $and . "Team_ID = :TeamID"; $and = " AND ";  $sql_vars["TeamID"] = $TeamID;
     }
         
     return $this->_return_multiple($sql, $sql_vars);
@@ -1214,16 +1236,16 @@ class RepMyBlock extends queries {
 
   function CandidateNomination($SystemUserID, $ElectionID, $CandidateID) {
     return $this->_return_nothing(
-    		"INSERT INTO CanNomination SET Candidate_ID = :CandidateID, SystemUser_ID = :SystemUserID, CandidateElection_ID = :CandidateElectionID", 
-    		['CandidateID' => $CandidateID, 'SystemUserID' => $SystemUserID, 'CandidateElectionID' => $ElectionID]);
+        "INSERT INTO CanNomination SET Candidate_ID = :CandidateID, SystemUser_ID = :SystemUserID, CandidateElection_ID = :CandidateElectionID", 
+        ['CandidateID' => $CandidateID, 'SystemUserID' => $SystemUserID, 'CandidateElectionID' => $ElectionID]);
   }
   
-	function FindPublicProfileFromCandidate($Candidate_ID) {
-		return $this->_return_multiple(
-			"SELECT * FROM PublicProfile WHERE Candidate_ID = :Candidate",
-			["Candidate" => $Candidate_ID]
-		);
-	}
+  function FindPublicProfileFromCandidate($Candidate_ID) {
+    return $this->_return_multiple(
+      "SELECT * FROM PublicProfile WHERE Candidate_ID = :Candidate",
+      ["Candidate" => $Candidate_ID]
+    );
+  }
     
   function PublicProfileKey($Candidate_ID, $CandidateProfile_ID, $TypeAdd = null) {
     $sql_vars = ["CandidateProfile" => $CandidateProfile_ID, "Candidate" => $Candidate_ID];
@@ -1410,7 +1432,7 @@ class RepMyBlock extends queries {
 
   function SearchRawVoterInfo($UniqNYSVoterID) { 
     return $this->_return_multiple(
-    	"SELECT * FROM Voters " .  
+      "SELECT * FROM Voters " .  
       "LEFT JOIN DataHouse ON (Voters.DataHouse_ID = DataHouse.DataHouse_ID) " . 
       "LEFT JOIN DataAddress ON (DataHouse.DataAddress_ID = DataAddress.DataAddress_ID) " . 
       "LEFT JOIN DataCounty ON (DataCounty.DataCounty_BOEID = DataAddress.DataCounty_ID) " .                    
@@ -1448,44 +1470,44 @@ class RepMyBlock extends queries {
   
   function UpdateCandidateCounterSystemID($Candidate_ID, $SysID) {
     return $this->_return_nothing(
-    	"UPDATE Candidate SET SystemUser_ID = :SysID WHERE Candidate_ID = :CandidateID", 
-    	["SysID" => $SysID, "CandidateID" => $Candidate_ID]
-   	);
+      "UPDATE Candidate SET SystemUser_ID = :SysID WHERE Candidate_ID = :CandidateID", 
+      ["SysID" => $SysID, "CandidateID" => $Candidate_ID]
+     );
   }
     
   function UpdateCandidateCounterForVoter($Candidate_ID, $Counter) {
     return $this->_return_nothing(
-    	"UPDATE Candidate SET Candidate_StatsVoters = :Counter WHERE Candidate_ID = :CandidateID", 
-    	["Counter" => $Counter, "CandidateID" => $Candidate_ID]
-   	);
+      "UPDATE Candidate SET Candidate_StatsVoters = :Counter WHERE Candidate_ID = :CandidateID", 
+      ["Counter" => $Counter, "CandidateID" => $Candidate_ID]
+     );
   }
   
   function UpdateElectionCounterForVoter($Election_ID, $Counter) {
     return $this->_return_nothing(
-    	"UPDATE CandidateElection SET CandidateElection_CountVoter = :Counter WHERE CandidateElection_ID = :CandidateElection_ID", 
-    	["Counter" => $Counter, "CandidateElection_ID" => $Election_ID]
+      "UPDATE CandidateElection SET CandidateElection_CountVoter = :Counter WHERE CandidateElection_ID = :CandidateElection_ID", 
+      ["Counter" => $Counter, "CandidateElection_ID" => $Election_ID]
     );
   }    
   
   // This will need to be changed later.
   function GetVotersIndexesIDfromNYSCode($NYSCode) {
     return $this->_return_simple(
-    	"SELECT * FROM VotersIndexes WHERE VotersIndexes_UniqNYSVoterID = :NYSCode ORDER BY VotersIndexes_ID LIMIT 1", 
-    	["NYSCode" => $NYSCode]
+      "SELECT * FROM VotersIndexes WHERE VotersIndexes_UniqNYSVoterID = :NYSCode ORDER BY VotersIndexes_ID LIMIT 1", 
+      ["NYSCode" => $NYSCode]
     );
   }
   
   function GetCountyFromState($StateID) {
     return $this->_return_multiple(
-    	"SELECT * FROM DataCounty WHERE DataState_ID = :DataState_ID ORDER BY DataCounty_Name", 
-    	["DataState_ID" => $StateID]
+      "SELECT * FROM DataCounty WHERE DataState_ID = :DataState_ID ORDER BY DataCounty_Name", 
+      ["DataState_ID" => $StateID]
     );
   }
   
   function GetCountyFromNYSCodes($CountyCode) {
     return $this->_return_simple(
-    	"SELECT * FROM DataCounty WHERE DataCounty_ID = :CountyCode", 
-    	["CountyCode" => $CountyCode]);
+      "SELECT * FROM DataCounty WHERE DataCounty_ID = :CountyCode", 
+      ["CountyCode" => $CountyCode]);
   }
   
   function DB_WorkCounty($CountyID) {

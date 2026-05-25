@@ -46,15 +46,14 @@ if ( $_SERVER["HTTP_HOST"] != $_SERVER["SERVER_NAME"] ) {
 			exit();
 		}	
 	}
-
 }
 
 $k = (! empty ($_GET["k"])) ? ((! empty ($_POST["k"])) ? $_POST["k"] : $_GET["k"]) : NULL;
 $id = (! empty ($_GET["id"])) ? ((! empty ($_POST["id"])) ? $_POST["id"] : $_GET["id"]) : NULL;
 
 $OverAllMicrotimeStart = microtime(true);
-WriteStderr($OverAllMicrotimeStart, $_SERVER['DOCUMENT_URI'] . " ------------------------------------------------------------ Microtime");
-WriteStderr($k, $_SERVER['DOCUMENT_URI'] . " Received K");
+WriteStderr($OverAllMicrotimeStart, "\n------------------------------------------------------------\n|Script Name: ". $_SERVER['DOCUMENT_URI'] . "\n------------------------------------------------------------\nMicrotime");
+#WriteStderr($k, $_SERVER['DOCUMENT_URI'] . " Received K");
 
 if ( ! empty ($k)) {
 	$Decrypted_k = DecryptURL ( $k );
@@ -64,7 +63,6 @@ if ( ! empty ($k)) {
 	WriteStderr($Decrypted_k, $_SERVER['DOCUMENT_URI'] . " Decrypted K");
 	WriteStderr($URIEncryptedString, $_SERVER['DOCUMENT_URI'] . " URIEncryptedString");
 }
-
 
 $LastTimeUser = (isset($URIEncryptedString["LastTimeUser"])) ? $URIEncryptedString["LastTimeUser"] : NULL ;
 
