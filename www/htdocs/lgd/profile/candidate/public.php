@@ -6,12 +6,24 @@
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
+  
 
   if ( ! empty ($_POST)) {  
+  	WriteStderr($_POST, "Post in ProfileCandidate.php");
+  		
+  	if ( ! empty ($_POST["DefinedProfile_ID"])) {
+  		header("Location: /" . CreateEncoded ([
+        "PublicProfileID" => $_POST["DefinedProfile_ID"],
+        "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
+        "FirstName" => $URIEncryptedString["FirstName"], 
+        "LastName" => $URIEncryptedString["LastName"],
+      ]) . "/lgd/profile/candidate/updatecandidateprofile");
+  		exit();  		
+  	}
+                     	
     if ( empty ($_POST["DataState_ID"]) || empty ($_POST["ElectionsPosition_ID"])) {
       $error_msg = "You must chose a state and a position";
     } else { 
-      WriteStderr($_POST, "Post in ProfileCandidate.php");
       header("Location: /" . CreateEncoded ([
         "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
         "FirstName" => $URIEncryptedString["FirstName"], 
@@ -26,11 +38,15 @@
 
   $rmb = new repmyblock();
   if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}
-  $Party = PrintPartyAdjective($URIEncryptedString["UserParty"]);
 
   $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
-  $rmbcandprof = $rmb->ListProfilesForCandidates($URIEncryptedString["SystemUser_ID"]);
+  $rmbcandprof = $rmb->ListProfilesForCandidates($URIEncryptedString["SystemUser_ID"], null, [
+  												"Candidate.Candidate_ID", "Candidate_DispName", "Elections_Date", 
+  												"PublicProfile_ID", "Elections_Text", "CandidateElection_Text"
+  							]);
+  							  											
   WriteStderr($rmbperson, "RMBPerson");
+  WriteStderr($rmbcandprof, "rmbcandprof");
    
 	$rmbelectdates = $rmb->ListAllElectionsDates(true);
 	$rmbpositions = $rmb->ListAllPositions();
@@ -66,28 +82,24 @@
               <DIV class="main">
                 
                 <DIV class="f60">
-                  <B>Current defined profiles:</B>
-                  <UL>
-<?php                if (! empty ($rmbcandprof)) {
-                    foreach ($rmbcandprof as $var) {
-                      if (! empty ($var)) { 
-?>
-									
-
-                    <LI>
-                      <A HREF="/<?= MergeEncode([	                                  
-	                                       "PublicProfileID" => $var["PublicProfile_ID"]
-	                              ]) ?>/lgd/profile/candidate/updatecandidateprofile"><?= $var["Elections_Text"]  . " - " . $var["CandidateElection_Text"] ?></A>
-                      Team ID: <?= $var["Team_ID"] ?> <?php /*<PRE><?= print_r($var) ?></PRE> */ ?>
-                      
-                    </LI>
-<?php                 }
-                    }              
-                  } 
-?>
-                  </UL>        
-                </DIV>
-              
+                	<DIV STYLE="padding-bottom: 10px">
+	                  <B>Current defined profiles:</B>
+  								</DIV>
+  								                
+	                <div class="voter-form">
+	                  <div class="field autocomplete">
+	                    <input id="DefinedProfile" class="input" type="text" name="DefinedProfile" placeholder=" " autocomplete="off">
+	                    <label for="DefinedProfile">Select profile</label>
+	                    <div id="ProfileSuggestions" class="suggestions hidden"></div>
+	                  </div>
+	                  
+	                  <DIV class="">
+	                    <INPUT class="f60bold" TYPE="Submit" NAME="SaveInfo" VALUE="Pull the profile">
+	                  </DIV>
+	                 	      
+	                </DIV>
+	              </DIV>
+	              
                 <P class="f40">
                   <B>
                     <FONT COLOR=BROWN>If you are a candidate for higher office, please 
@@ -141,6 +153,7 @@
 
                   <input type="hidden" id="DataState_ID" name="DataState_ID">
                   <input type="hidden" id="ElectionsPosition_ID" name="ElectionsPosition_ID">
+                  <input type="hidden" id="DefinedProfile_ID" name="DefinedProfile_ID">
                 </DIV>
               </DIV>
             </DIV>
@@ -153,6 +166,7 @@
     <script>
       const rmbelectdates = <?php echo json_encode($rmbelectdates, JSON_UNESCAPED_UNICODE); ?>;
       const rmbpositions  = <?php echo json_encode($rmbpositions, JSON_UNESCAPED_UNICODE); ?>;
+      const rmbdefined = <?php echo json_encode($rmbcandprof, JSON_UNESCAPED_UNICODE); ?>;
       <?php include $_SERVER["DOCUMENT_ROOT"] . "/js/candidateselection.js";  ?>
     </script>
   </body>

@@ -272,7 +272,7 @@ if (!empty($result)) {
           <div class="election-header f60bold">
             <?= $DateDesc ?>
           </div>
-          <div class="district-header" class="f60">
+          <div class="district-header f60">
             <?= $var["CandidateElection_Text"] ?>
           </div>
         <?php
@@ -388,14 +388,16 @@ observer.observe(sentinel);
 function loadNextBatch() {
   loading = true;
 
-  const params = new URLSearchParams({
-    offset: offset,
-    state: '<?= $ActiveState ?>',
-    date:  '<?= $ActiveDate ?? "NOW" ?>',
-    team:  '<?= $ActiveTeam ?>'
-  });
+	const params = new URLSearchParams({
+	  offset: offset,
+	  state: '<?= $ActiveState ?>',
+	  date: '<?= $ActiveDate ?? "NOW" ?>',
+	  team: '<?= $ActiveTeam ?>'
+	});
 
-  fetch('/' + params.toString() '/voter/load_candidates')
+	const encoded = btoa(params.toString());
+
+  fetch('/' + encodeURIComponent(encoded) + '/voter/load_candidates')
     .then(res => res.text())
     .then(html => {
       if (html.trim() === '') {
@@ -460,39 +462,71 @@ input.addEventListener("change", function () {
   }
 });
 
-const candidateSearch = document.getElementById('candidateSearch');
-const candidatesList  = document.getElementById('candidates');
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("candidateSearch");
+  const datalist = document.getElementById("candidates");
+  const container = document.querySelector(".sticky-stack");
 
-candidateSearch.addEventListener('input', async function () {
+  let timer = null;
+  let controller = null;
 
-  const value = this.value.trim();
+  input.addEventListener("input", () => {
+    const q = input.value.trim();
 
-  if (value.length < 3) {
-    candidatesList.innerHTML = '';
-    return;
-  }
+    clearTimeout(timer);
 
-  try {
-		const response = await fetch("/" + encodeURIComponent(q) + "/voter/autocomplete_candidates");
-	  const data = await response.json();
-	  candidatesList.innerHTML = '';
-	
-	  data.forEach(name => {
-	    const option = document.createElement('option');
-	    option.value = name;
-	    option.textContent = name;
-	    candidatesList.appendChild(option);
-	  });
-	
-	} catch (err) {
-	   console.error(err);
-	}
-}
-);
+    if (q.length < 3) {
+      datalist.innerHTML = "";
+      return;
+    }
+
+    timer = setTimeout(async () => {
+      try {
+        if (controller) controller.abort();
+        controller = new AbortController();
+
+        const response = await fetch(
+          "/" + encodeURIComponent(q) + "/voter/autocomplete_candidates",
+          { signal: controller.signal }
+        );
+
+        const data = await response.json();
+        datalist.innerHTML = "";
+
+        data.forEach(row => {
+          const option = document.createElement("option");
+          option.value = row.CandidateProfile_Alias || row.name || row;
+          datalist.appendChild(option);
+        });
+
+      } catch (err) {
+        if (err.name !== "AbortError") console.error(err);
+      }
+    }, 250);
+  });
+
+  input.addEventListener("change", async () => {
+    const q = input.value.trim();
+
+    if (q.length < 3) return;
+
+    const response = await fetch(
+      "/" + encodeURIComponent(q) + "/voter/candidate_cards"
+    );
+
+    const html = await response.text();
+
+    document.querySelectorAll(".election-batch").forEach(el => el.remove());
+
+    const sentinel = document.getElementById("scroll-sentinel");
+    sentinel.insertAdjacentHTML("beforebegin", html);
+
+    if (typeof updateStickyHeights === "function") {
+      updateStickyHeights();
+    }
+  });
+});
 </script>
-
-
-
 
 </BODY>
 </HTML>

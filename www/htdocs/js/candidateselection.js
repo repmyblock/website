@@ -2,12 +2,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const stateInput = document.getElementById("StateName");
   const stateBox = document.getElementById("stateSuggestions");
-
+ 
   const positionInput = document.getElementById("Position");
   const positionBox = document.getElementById("positionSuggestions");
 
+	const profileInput = document.getElementById("DefinedProfile");
+	const profileBox = document.getElementById("ProfileSuggestions");
+
   const stateIdField = document.getElementById("DataState_ID");
   const positionIdField = document.getElementById("ElectionsPosition_ID");
+	const profileIdField = document.getElementById("DefinedProfile_ID");
 
   const electionDateField = document.getElementById("ElectionDate");
 
@@ -19,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function closeAll() {
     stateBox.classList.add("hidden");
     positionBox.classList.add("hidden");
+    profileBox.classList.add("hidden");
   }
 
   /* ===============================
@@ -160,6 +165,55 @@ document.addEventListener("DOMContentLoaded", function () {
   positionInput.addEventListener("input", function () {
     renderPositions(stateIdField.value, positionInput.value);
   });
+  
+  function profileLabel(p) {
+	  const election = p.Elections_Text || "";
+	  const date = p.Elections_Date || "";
+	  const position = p.CandidateElection_Text || "";
+	  const name = p.Candidate_DispName || "";
+
+	  return `${election} - ${date} - ${position} - ${name}`.replace(/\s+-\s+$/g, "").trim();
+	}
+
+	function profileId(p) {
+  	return p.CandidateProfile_ID || p.Candidate_ID || "";
+	}
+
+	function renderProfiles(value = "") {
+	  profileBox.innerHTML = "";
+
+	  const v = value.toLowerCase();
+
+	  rmbdefined
+	    .filter(p => {
+	      const label = profileLabel(p);
+	      return label && (!v || label.toLowerCase().includes(v));
+	    })
+	    .sort((b, a) => profileLabel(a).localeCompare(profileLabel(b)))
+	    .forEach(p => {
+	      const div = document.createElement("div");
+	      div.textContent = profileLabel(p);
+
+	      div.addEventListener("mousedown", function () {
+	        profileInput.value = profileLabel(p);
+	        profileIdField.value = profileId(p);
+	        closeAll();
+	      });
+
+	      profileBox.appendChild(div);
+	    });
+
+	  profileBox.classList.toggle("hidden", !profileBox.children.length);
+	}
+
+	profileInput.addEventListener("focus", function () {
+	  renderProfiles(profileInput.value);
+	});
+
+	profileInput.addEventListener("input", function () {
+	  profileIdField.value = "";
+	  renderProfiles(profileInput.value);
+	});
 
   /* ===============================
      CLICK OUTSIDE CLOSE

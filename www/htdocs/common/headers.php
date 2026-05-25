@@ -28,7 +28,7 @@
   
   #$HTMLDesc = "Rep My Block is your starting point to run The starting point on how to run for office with no money by running for District Leader, County Committee and Precinct Officer.";
   
-  if (empty ($HTMLTitle)) { $HTMLTitle = "Running for Office | Rep My Block, your stating point to Run for Office"; }
+  if (empty ($HTMLTitle)) { $HTMLTitle = "Running for Office | Rep My Block, your starting point to Run for Office"; }
   if (empty ($HTMLDesc)) { $HTMLDesc = "Rep My Block — How to Run for Office Without Being Funded by Big Money"; }
   
   // This is the image

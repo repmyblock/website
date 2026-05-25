@@ -22,8 +22,6 @@ class welcome extends queries {
   }
   
   function ReturnCandidatesNames($search, $limit = 10, $SQLTables = null) {
-  	echo "Search: " .  $seach . "<BR>";
-  	
 		return $this->_return_multiple(
 		  "SELECT " . sqltablestoshow($SQLTables)  . " FROM CandidateProfile " . 
       "WHERE CandidateProfile_Alias IS NOT NULL " . 
@@ -99,7 +97,7 @@ class welcome extends queries {
 			$sql_vars["TeamID"] = $ActiveTeam;
 		}
 		
-		if ( empty ($Offset)) $Offset = 0;
+		// if (! empty ($Offset)) $Offset = 0;
 		$sql .= " ORDER BY Elections_Date, CandidateElection_Party, CandidateElection_DisplayOrder, " . 
 										"CandidateElection.CandidateElection_DBTable, " . 
 										"LPAD(CandidateElection.CandidateElection_DBTableValue, 6,0) LIMIT $Limit OFFSET $Offset";

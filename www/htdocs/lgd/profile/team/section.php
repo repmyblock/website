@@ -91,7 +91,7 @@
             <h2 class="Subhead-heading">Team Profile</h2>
           </div>
 
-          <?php  PlurialMenu($k, $TopMenus);  ?>  
+          <?php PlurialMenu($k, $TopMenus);  ?>  
           
           <div class="f60" STYLE="padding: 10px 0px;">
             <B><FONT COLOR=BROWN>If you are part of a team, your team leader will supply you a code</FONT></B>

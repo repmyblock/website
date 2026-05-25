@@ -27,11 +27,15 @@
   $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
   WriteStderr($rmbperson, "rmbperson array");
   
+  //// WHY IS THIS CODE HERE ????? ////
   // That means candidate profile is empty
   if ( ! empty($URIEncryptedString["CandidateProfileID"])) {
     $rmbcandidate = $rmb->ListCandidateProfile($CandidateID, $URIEncryptedString["CandidateProfileID"]);
   }
   WriteStderr($rmbcandidate, "rmbcandidate array");
+  //// END OF THE QUESTION ABOUT THE CODE
+  
+  
 
   // Put the POST HERE because we need to reread the data 
   if ( ! empty ($_POST)) {  
