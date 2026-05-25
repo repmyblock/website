@@ -287,6 +287,8 @@ if (!empty($result)) {
 				}
 			}
 	
+	<BR>
+	
 			if (! empty ($endorsement["local"])) {
 				foreach ($endorsement["local"] as $index => $var) {
 					if ( ! empty ($var)) {
