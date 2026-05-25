@@ -285,9 +285,9 @@ if (!empty($result)) {
 						<?php
 					}
 				}
+				
+				echo "<BR>";
 			}
-	
-	echo "<BR>";
 	
 			if (! empty ($endorsement["local"])) {
 				foreach ($endorsement["local"] as $index => $var) {
