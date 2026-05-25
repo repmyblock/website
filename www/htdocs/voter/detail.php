@@ -183,6 +183,9 @@
   <P CLASS="f80"><A HREF="<?= $FrontEndWebsite ?>/<?= numbertoalpha($var["PublicProfile_ID"]) ?>/voter/claim">Claim this profile</A></P>
 <?php } ?>
 
+	<h2>Endorsements</h2>
+	
+	<BR>
 
   <h2>This candidate is running against</h2>
 
