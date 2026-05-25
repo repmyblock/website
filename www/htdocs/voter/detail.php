@@ -291,7 +291,7 @@ if (!empty($result)) {
 				foreach ($endorsement["local"] as $index => $var) {
 					if ( ! empty ($var)) {
 						?>
-							<A HREF="/<?= "NGO" . $index ?>/voter/guide"><IMG SRC="/shared/logos/<?= $var["LogoPath"] ?>"></A>							
+							<A HREF="/<?= "NGO" . $index ?>/voter/guide"><IMG SRC="/shared/<?= $var["LogoPath"] ?>"></A>							
 						<?php
 					}
 				}
