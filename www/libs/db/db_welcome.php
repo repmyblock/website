@@ -127,7 +127,7 @@ class welcome extends queries {
 	}
 	
 	function CandidatesDetailed($PublicProfileID, $SQLTables = null) {		
-		return $this->_return_simple(
+		return $this->_return_multiple(
 			"SELECT " . sqltablestoshow($SQLTables)  . " FROM PublicProfile " .
 			"LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " . 
 			"LEFT JOIN Candidate ON (Candidate.Candidate_ID = PublicProfile.Candidate_ID) " . 
@@ -135,6 +135,10 @@ class welcome extends queries {
 			"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
 			"LEFT JOIN DataState ON (DataState.DataState_ID = Elections.DataState_ID) " . 
 			"LEFT JOIN PublicTeam ON (PublicProfile.PublicProfile_ID = PublicTeam.PublicProfile_ID) " .
+			
+			"LEFT JOIN TeamNGOPublic ON (PublicProfile.PublicProfile_ID = TeamNGOPublic.PublicProfile_ID) " .
+			"LEFT JOIN TeamNGOEnd ON (TeamNGOPublic.TeamNGOEnd_ID = TeamNGOEnd.TeamNGOEnd_ID) " .
+			
 			"LEFT JOIN Team ON (PublicTeam.Team_ID = Team.Team_ID) " . 
 			"WHERE PublicProfile.PublicProfile_ID = :CandidateProfileID", 
 			["CandidateProfileID" => $PublicProfileID]

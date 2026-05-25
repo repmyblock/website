@@ -7,8 +7,8 @@
   $CandidateProfileID = preg_replace('/[^0-9.]+/', '', alphatonumber($matches[1][0]));
   $addtopics = time();
   
-  $r = new welcome(0);  
-  $var = $r->CandidatesDetailed($CandidateProfileID, [ "debugsql",
+  $r = new welcome();  
+  $resultcandidates = $r->CandidatesDetailed($CandidateProfileID, [ "debugsql",
       "PublicProfile.PublicProfile_ID", 
       "CandidateProfile.CandidateProfile_ID", "Candidate.Candidate_ID",
       "CandidateElection_Text", "CandidateElection_PetitionText",
@@ -16,10 +16,20 @@
   ]);
   
   $result = $r->CandidatesForElection(
-    CandidateElectionID: $var["CandidateElection_ID"], SQLTables: ["debugsql"]
+    CandidateElectionID: $resultcandidates[0]["CandidateElection_ID"], SQLTables: ["debugsql"]
   );
   
-    
+  
+  // To classify the endorsments
+  if (! empty ($resultcandidates)) { 	
+  	foreach ($resultcandidates as $var) {
+  		if ( ! empty ($var["TeamNGOPublic_ID"])) {  			
+  			$endorsement[$var["TeamNGOEnd_Major"]][$var["TeamNGOPublic_ID"]]["LogoPath"] = $var["TeamNGOEnd_LogoPath"];
+  		}
+  	}
+  }
+  
+  
   $HeaderTwitter = "yes";
   $HeaderTwitterTitle = "Rep My Block - Universal Voter Guide";
   $HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/UniversalVoterGuide.jpg";
@@ -33,7 +43,8 @@
   if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
   } else { $TypeEmail = "text"; $TypeUsername = "text"; }
   
-  WriteStderr($result, "Voter Guide");
+  
+  $CandidateToDisplay = $resultcandidates[0];
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
@@ -43,15 +54,15 @@
         <DIV class="panels">    
      
 <?php 
-    if (! empty ($var)) {
-      WriteStderr($var, "Voter Guide");
+    if (! empty ($CandidateToDisplay)) {
+      WriteStderr($CandidateToDisplay, "Voter Guide");
       print "          <br style=\"clear:both\">";
-      $DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
+      $DateDesc = PrintShortDate($CandidateToDisplay["Elections_Date"]) . " - " . $CandidateToDisplay["Elections_Text"];
       $PrevDateDesc = $DateDesc;
-      $PicturePath = "/shared/pics/" . (!empty($var["CandidateProfile_PicFileName"]) ?
-                           $var["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
-      $CandidateName = ucwords(strtolower($var["CandidateProfile_Alias"]));
-      $CandidatePublicID = $var["PublicProfile_ID"];
+      $PicturePath = "/shared/pics/" . (!empty($CandidateToDisplay["CandidateProfile_PicFileName"]) ?
+                           $CandidateToDisplay["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
+      $CandidateName = ucwords(strtolower($CandidateToDisplay["CandidateProfile_Alias"]));
+      $CandidatePublicID = $CandidateToDisplay["PublicProfile_ID"];
 ?>  
           <DIV class="f60"><B><?= $DateDesc ?></B></DIV>
           <I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
@@ -61,12 +72,12 @@
             
             <DIV class='container2'>
               <DIV>
-                <?php if (! empty ($var["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_Website"] ?>"><?php } ?><IMG class="candidateprofile" style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $PicturePath ?>"><?php if (! empty ($var["CandidateProfile_Website"])) { ?></A><?php } ?>
+                <?php if (! empty ($CandidateToDisplay["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $CandidateToDisplay["CandidateProfile_Website"] ?>"><?php } ?><IMG class="candidateprofile" style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $PicturePath ?>"><?php if (! empty ($CandidateToDisplay["CandidateProfile_Website"])) { ?></A><?php } ?>
                       <P class="f40" style="text-margin: 0px 0px 0px 0px;">
-                        <?php if (! empty ($var["CandidateProfile_Statement"])) {
-                          print "<UL>" . $var["CandidateProfile_Statement"] . "</UL>"; 
+                        <?php if (! empty ($CandidateToDisplay["CandidateProfile_Statement"])) {
+                          print "<UL>" . $CandidateToDisplay["CandidateProfile_Statement"] . "</UL>"; 
                         } else {
-                          if ( empty ($var["SystemUser_ID"])) {
+                          if ( empty ($CandidateToDisplay["SystemUser_ID"])) {
                            ?>
                           
                   
@@ -79,7 +90,7 @@
             <?php 
                 }
                         
-                if (($var["CandidateRegAuthority_ID"]) == 1 && ! empty ($var["CandidateProfile_RegID"])) { ?>
+                if (($CandidateToDisplay["CandidateRegAuthority_ID"]) == 1 && ! empty ($CandidateToDisplay["CandidateProfile_RegID"])) { ?>
 
                   <P CLASS="f40">
                     After you have cut and paste the information from <B><?= $CandidateName ?></B> FEC form that
@@ -119,46 +130,46 @@
             <?php 
                 // Clean up the variable.
                 // Fix the Website to make sure.
-                $guide_url = $var["CandidateProfile_Website"];
+                $guide_url = $CandidateToDisplay["CandidateProfile_Website"];
                 if (!preg_match("~^(?:f|ht)tps?://~i", $guide_url )) {
                   $guide_hrefurl = "https://" . $guide_url ;
                 } else {
-                  $guide_hrefurl = $var["CandidateProfile_Website"];
+                  $guide_hrefurl = $CandidateToDisplay["CandidateProfile_Website"];
                 }
                 $guide_url = preg_replace("~^(?:f|ht)tps?://~i", '', $guide_url);
-                $facebook_url = preg_replace("~^(https?://)?(www\.)?facebook\.com/~i", '', $var["CandidateProfile_Facebook"]);
-                $tictock_url = preg_replace("~^(https?://)?(www\.)?tiktok\.com/~i", '', $var["CandidateProfile_TikTok"]);
-                $youtube_url = preg_replace("~^(https?://)?(www\.)?youtube\.com/~i", '', $var["CandidateProfile_YouTube"]);
-                $instagram_url = preg_replace("~^(https?://)?(www\.)?instagram\.com/~i", '', $var["CandidateProfile_Instagram"]);
-                $twitter_url = preg_replace("~^(https?://)?(www\.)?twitter\.com/~i", '', $var["CandidateProfile_Twitter"]);
+                $facebook_url = preg_replace("~^(https?://)?(www\.)?facebook\.com/~i", '', $CandidateToDisplay["CandidateProfile_Facebook"]);
+                $tictock_url = preg_replace("~^(https?://)?(www\.)?tiktok\.com/~i", '', $CandidateToDisplay["CandidateProfile_TikTok"]);
+                $youtube_url = preg_replace("~^(https?://)?(www\.)?youtube\.com/~i", '', $CandidateToDisplay["CandidateProfile_YouTube"]);
+                $instagram_url = preg_replace("~^(https?://)?(www\.)?instagram\.com/~i", '', $CandidateToDisplay["CandidateProfile_Instagram"]);
+                $twitter_url = preg_replace("~^(https?://)?(www\.)?twitter\.com/~i", '', $CandidateToDisplay["CandidateProfile_Twitter"]);
             ?>    
           
             <P class="f60">
-              <?php if (! empty ($var["CandidateProfile_Website"])) { ?><B>Website:</B> <A TARGET="NEW" HREF="<?= $guide_hrefurl ?>"><?= $guide_url ?></A><BR><?php } ?> 
-              <?php if (! empty ($var["CandidateProfile_BallotPedia"])) { ?><A TARGET="NEW" HREF="<?= $var["CandidateProfile_BallotPedia"] ?>">Ballotpedia</A><BR><?php } ?>
-              <?php if (! empty ($var["CandidateProfile_Email"])) { ?><B>Email:</B> <A TARGET="NEW" HREF="mailto:<?= $var["CandidateProfile_Email"] ?>"><?= $var["CandidateProfile_Email"] ?></A><?php } ?>
-              <?php if (! empty ($var["CandidateProfile_PhoneNumber"])) { print " <B>Telephone:</B> " . $var["CandidateProfile_PhoneNumber"] . "<BR>"; } ?>
-              <?php if (! empty ($var["CandidateProfile_Twitter"])) { ?>Twitter: <A TARGET="NEW" HREF="https://twitter.com/<?= $twitter_url ?>"><?= $twitter_url ?></A><?php } ?> 
-              <?php if (! empty ($var["CandidateProfile_Facebook"])) { ?>Facebook: <A TARGET="NEW" HREF="https://facebook.com/<?= $facebook_url ?>"><?= $facebook_url ?></A><?php } ?> 
-              <?php if (! empty ($var["CandidateProfile_Instagram"])) { ?>Instagram: <A TARGET="NEW" HREF="https://instagram.com/<?= $instagram_url ?>">@<?= $instagram_url ?></A><?php } ?> 
-              <?php if (! empty ($var["CandidateProfile_TikTok"])) { ?>Tik Tok: <A TARGET="NEW" HREF="https://www.tiktok.com/<?= $tictock_url ?>"><?= $tictock_url ?></A><?php } ?> 
-              <?php if (! empty ($var["CandidateProfile_YouTube"])) { ?>YouTube: <A TARGET="YouTubeRMB" HREF="https://youtube.com/<?= $youtube_url ?>"><?= $youtube_url ?></A><?php } ?> 
-              <?php if (! empty ($var["CandidateProfile_FaxNumber"])) { print $var["CandidateProfile_FaxNumber"]; }  ?>
+              <?php if (! empty ($CandidateToDisplay["CandidateProfile_Website"])) { ?><B>Website:</B> <A TARGET="NEW" HREF="<?= $guide_hrefurl ?>"><?= $guide_url ?></A><BR><?php } ?> 
+              <?php if (! empty ($CandidateToDisplay["CandidateProfile_BallotPedia"])) { ?><A TARGET="NEW" HREF="<?= $CandidateToDisplay["CandidateProfile_BallotPedia"] ?>">Ballotpedia</A><BR><?php } ?>
+              <?php if (! empty ($CandidateToDisplay["CandidateProfile_Email"])) { ?><B>Email:</B> <A TARGET="NEW" HREF="mailto:<?= $CandidateToDisplay["CandidateProfile_Email"] ?>"><?= $CandidateToDisplay["CandidateProfile_Email"] ?></A><?php } ?>
+              <?php if (! empty ($CandidateToDisplay["CandidateProfile_PhoneNumber"])) { print " <B>Telephone:</B> " . $CandidateToDisplay["CandidateProfile_PhoneNumber"] . "<BR>"; } ?>
+              <?php if (! empty ($CandidateToDisplay["CandidateProfile_Twitter"])) { ?>Twitter: <A TARGET="NEW" HREF="https://twitter.com/<?= $twitter_url ?>"><?= $twitter_url ?></A><?php } ?> 
+              <?php if (! empty ($CandidateToDisplay["CandidateProfile_Facebook"])) { ?>Facebook: <A TARGET="NEW" HREF="https://facebook.com/<?= $facebook_url ?>"><?= $facebook_url ?></A><?php } ?> 
+              <?php if (! empty ($CandidateToDisplay["CandidateProfile_Instagram"])) { ?>Instagram: <A TARGET="NEW" HREF="https://instagram.com/<?= $instagram_url ?>">@<?= $instagram_url ?></A><?php } ?> 
+              <?php if (! empty ($CandidateToDisplay["CandidateProfile_TikTok"])) { ?>Tik Tok: <A TARGET="NEW" HREF="https://www.tiktok.com/<?= $tictock_url ?>"><?= $tictock_url ?></A><?php } ?> 
+              <?php if (! empty ($CandidateToDisplay["CandidateProfile_YouTube"])) { ?>YouTube: <A TARGET="YouTubeRMB" HREF="https://youtube.com/<?= $youtube_url ?>"><?= $youtube_url ?></A><?php } ?> 
+              <?php if (! empty ($CandidateToDisplay["CandidateProfile_FaxNumber"])) { print $CandidateToDisplay["CandidateProfile_FaxNumber"]; }  ?>
             </P>
           
           
-      <?php if ( ! empty ($var["CandidateProfile_PDFFileName"])) { ?>            
-        <P class="f60"><B><A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $var["CandidateProfile_PDFFileName"] ?>">Download <?= $var["CandidateProfile_Alias"] ?>'s Platform</A></B></P>
+      <?php if ( ! empty ($CandidateToDisplay["CandidateProfile_PDFFileName"])) { ?>            
+        <P class="f60"><B><A TARGET="PDFCandidate" HREF="<?= $FrontEndStatic ?>/shared/platforms/<?= $CandidateToDisplay["CandidateProfile_PDFFileName"] ?>">Download <?= $CandidateToDisplay["CandidateProfile_Alias"] ?>'s Platform</A></B></P>
       <?php } ?>
       
-      <?php if ( ! empty ($var["Team_EmailCode"]) || ! empty ($var["CandidateProfile_Donation"])) { ?>
+      <?php if ( ! empty ($CandidateToDisplay["Team_EmailCode"]) || ! empty ($CandidateToDisplay["CandidateProfile_Donation"])) { ?>
         <P class="f40">        
-          <?php if ( ! empty ($var["Team_EmailCode"])) { ?>            
-            To volunteer, email <B><A  HREF="mailto:<?= $var["Team_EmailCode"] ?>"><?= $var["Team_EmailCode"] ?></A></B><BR>
+          <?php if ( ! empty ($vCandidateToDisplayar["Team_EmailCode"])) { ?>            
+            To volunteer, email <B><A  HREF="mailto:<?= $CandidateToDisplay["Team_EmailCode"] ?>"><?= $CandidateToDisplay["Team_EmailCode"] ?></A></B><BR>
           <?php } ?>
           
-          <?php if ( ! empty ($var["CandidateProfile_Donation"])) { ?>            
-            <B>Link to donate:</B> <A TARGET="DonationLink" HREF="<?= $var["CandidateProfile_Donation"] ?>"><?= $var["CandidateProfile_Donation"] ?></A><BR>
+          <?php if ( ! empty ($CandidateToDisplay["CandidateProfile_Donation"])) { ?>            
+            <B>Link to donate:</B> <A TARGET="DonationLink" HREF="<?= $CandidateToDisplay["CandidateProfile_Donation"] ?>"><?= $CandidateToDisplay["CandidateProfile_Donation"] ?></A><BR>
           <?php } ?>
         </P>
       <?php } ?>          
@@ -179,9 +190,23 @@
 
 </DIV>
 
-<?php if ( empty ($var["SystemUser_ID"])) { ?>
-  <P CLASS="f80"><A HREF="<?= $FrontEndWebsite ?>/<?= numbertoalpha($var["PublicProfile_ID"]) ?>/voter/claim">Claim this profile</A></P>
+<?php if ( empty ($CandidateToDisplay["SystemUser_ID"])) { ?>
+  <P CLASS="f80"><A HREF="<?= $FrontEndWebsite ?>/<?= numbertoalpha($CandidateToDisplay["PublicProfile_ID"]) ?>/voter/claim">Claim this profile</A></P>
 <?php } ?>
+
+	<h2>Tendencies political endorsement</h2>
+<?php
+			if (! empty ($endorsement["major"])) {
+				foreach ($endorsement["major"] as $index => $var) {
+					if ( ! empty ($var)) {
+						?>
+							<A HREF="/<?= "T" . $index ?>/voter/guide"><IMG SRC="/shared/<?= $var["LogoPath"] ?>"></A>							
+						<?php
+					}
+				}
+			}
+?>
+
 
 
   <h2>This candidate is running against</h2>
@@ -247,14 +272,33 @@ if (!empty($result)) {
 }
 ?>
 
-
-	
 	<BR>
 
 	<h2>Endorsements</h2>
 	<BR>
-
-       <h2><A HREF="guide">Other races in the district</A></H2>
+		<?php
+			if (! empty ($endorsement["minor"])) {
+				foreach ($endorsement["minor"] as $index => $var) {
+					if ( ! empty ($var)) {
+						?>
+							<A HREF="/<?= "NGO" . $index ?>/voter/guide"><IMG SRC="/shared/<?= $var["LogoPath"] ?>"></A>							
+						<?php
+					}
+				}
+			}
+	
+			if (! empty ($endorsement["local"])) {
+				foreach ($endorsement["local"] as $index => $var) {
+					if ( ! empty ($var)) {
+						?>
+							<A HREF="/<?= "NGO" . $index ?>/voter/guide"><IMG SRC="/shared/logos/<?= $var["LogoPath"] ?>"></A>							
+						<?php
+					}
+				}
+			}
+		?>
+		
+    <h2><A HREF="/<?= "somethingsomethign" ?>/voter/guide">Other races in the district</A></H2>
 
  </DIV>
   <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php"; ?>
