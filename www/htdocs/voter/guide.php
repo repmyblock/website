@@ -35,14 +35,16 @@
 		exit();
 	}
 	
+	
+	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";
 	
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
-	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
+	
 	$r = new welcome(0);	
-		
+	
 	$ListState = $r->ListElections();	
 	WriteStderr($ListState, "List Election");
 		
@@ -57,7 +59,7 @@
 	$ActiveState = !empty($matches[3][0]) ? $matches[3][0] : null;
 	$ActiveDate  = !empty($matches[4][0]) ? $matches[4][0] : null;
 	$ActiveZIP   = !empty($matches[5][0]) ? $matches[5][0] : null;
-		
+	
 	if (strlen($ActiveTeam) == 3) {
 		
 		$MyTCode = strtolower($ActiveTeam);
@@ -86,6 +88,7 @@
 		$StateName[$var["DataState_Abbrev"]] = $var["DataState_Name"];
 		$StatesDates[$var["DataState_Name"]][$var["Elections_Date"]] = true;
  	}
+ 	
 	foreach ($StatesDates[$StateName[$ActiveState]] as $key => $val) { $SortDates[] = preg_replace('/-/', '', $key); }
 	// sort($SortDates);
 	
@@ -109,7 +112,9 @@
 		}
 		
 		$resultpositions = $r->ListElectionPositions( $StateID["state"]);	
-		$result = $r->CandidatesForElection((empty ($ActiveDate) ? "NOW" : $ActiveDate), NULL, $StateID["statename"], $ActiveTeam, NULL);
+		$result = $r->CandidatesForElection((empty ($ActiveDate) ? "NOW" : $ActiveDate), null, 
+																					$StateID["statename"], $ActiveTeam, null, null, 	
+																					null);
 		
 		foreach ($resultpositions as $var) {		
 			switch ($var["ElectionsPosition_Location"]) {
@@ -168,7 +173,18 @@
 			$ActiveStateWithCandidate[$var["DataState_Abbrev"]] = true;
 		}
 		
-		$result = $r->CandidatesForElection((empty ($ActiveDate) ? "NOW" : $ActiveDate), NULL, $ActiveState, $ActiveTeam, $ActiveZIP);
+		$result = $r->CandidatesForElection(
+			ElectionDateFrom: (empty ($ActiveDate) ? "NOW" : $ActiveDate), 
+			ElectionState: $ActiveState,
+			ActiveTeam: $ActiveTeam, 
+			SQLTables: [
+				"Candidate_DispName", "CandidateProfile.CandidateProfile_ID", "CandidateProfile_NotOnBallot", 
+				"CandidateProfile_PublishProfile", "Elections_Date", "Elections_Text", 
+				"CandidateProfile_PicFileName", "CandidateProfile_Alias", 
+				"CandidateElection_Text", "Candidate_Party", "CandidateProfile_Alias",
+	     	"CandidateElection.CandidateElection_ID"
+     	]
+		);
 		WriteStderr($result, "Candidate List");
 	}
 	
@@ -182,310 +198,29 @@
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
-
-<style>
-* {
-  /* box-sizing: border-box; */
-}
-
-
-
-/* the container must be positioned relative: */
-.autocomplete {position: relative;display: inline-block;}
-input {border: 1px solid transparent;background-color: #f1f1f1;padding: 10px;font-size: 16px;}
-input[type=text] {background-color: #f1f1f1;width: 100%;}
-.autocomplete-items {position: absolute;border: 1px solid #d4d4d4;border-bottom: none;border-top: none;z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
-  top: 100%;left: 0;right: 0;}
-.autocomplete-items div {padding: 10px;cursor: pointer;background-color: #fff;border-bottom: 1px solid #d4d4d4;}
-/*when hovering an item:*/
-.autocomplete-items div:hover {background-color: #e9e9e9;}
-
-/*when navigating through the items using the arrow keys:*/
-.autocomplete-active {background-color: DodgerBlue !important;color: #ffffff;}
-.container_bla {display: grid;grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));font-family: Helvetica;font-size: 1.4em;color: black;text-align: center;display: grid;}
-/*
-.container_bla div:nth-child(n) {
-  background-color: #B8336A;
-}
-*/
-
-img.imgcandidate {
-  width: 200px;
-  height: 300px;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-
-
-.container_picture {position: relative;text-align: center;color: white;}
-/* Bottom left text */
-.bottom-left {position: absolute;bottom: 8px;left: 16px;}
-img.imglogo {height: 50px;max-width: 100%;}
-img.nonselected {opacity: 0.65;filter: alpha(opacity=65); /* msie */
-  -webkit-filter: grayscale(1); /* Webkit */
-  filter: gray; /* IE6-9 */
-  filter: grayscale(1); /* W3C */
-}
-
-img.flagnonselected {
-  opacity: 0.25;
-  filter: alpha(opacity=25); /* msie */
-  /* -webkit-filter: grayscale(1); /* Webkit */
-  /* filter: gray; /* IE6-9 */
-  /* filter: grayscale(1); /* W3C */
-}
-
-
-
-
-.flag {
-  height: 24px;
-  width: auto;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.flag-link:hover .flag {
-  transform: scale(1.15);
-}
-
-
-
-</style>
+<link rel="stylesheet" type="text/css" href="/css/guide.css">
 
 
 <form autocomplete="off" method="post" action="">
 	
 <DIV class="main">
 
-<STYLE>
 
-.election-batch {
-  margin-bottom: 40px;
-}
-
-/* Frame */
-.candidate-card.frame {
-  position: relative;
-  display: inline-block;
-
-  padding: 6px;
-  background: #fff;
-  border-radius: 6px;
-
-  overflow: hidden; /* 🔑 THIS CLIPS THE RIBBON */
-
-  box-shadow:
-    0 4px 10px rgba(0,0,0,.18),
-    0 1px 3px rgba(0,0,0,.12);
-}
-
-/* Image */
-.imgcandidate {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-
-/* Ribbon */
-.ribbon {
-  position: absolute;
-  top: 5px;
- 	left: -80px;    /* mostly inside */
-   width: 200px;
-  padding: 6px 0;
-
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.05;
-  text-align: center;
-  color: #fff;
-
-  transform: rotate(-45deg);
-  z-index: 2;
-}
-
-/* Party color */
-.ribbon.dem {background: linear-gradient(135deg, #f7a8b8, #e35d6a);}
-.ribbon.rep {background: linear-gradient(135deg, #00AEEF, #6fd3ff);}
-.ribbon.gre {background: linear-gradient(135deg, #6fdc9c, #00A651);}
-.ribbon.con {background: linear-gradient(135deg, #3a2416, #1f120a);}
-.ribbon.lib {background: linear-gradient(135deg, #f9a03f, #d97706);}
-.ribbon.wfp {background: linear-gradient(135deg, #6b2f85, #3f1a52);}
-.ribbon.com {background: linear-gradient(135deg, #a32020, #5a0f0f);}
-.ribbon small {
-  display: block;
-  font-size: 9px;
-}
-
-.candidate-card.frame {
-  position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-
-  padding: 6px;
-  background: #fff;
-  border-radius: 6px;
-  overflow: hidden;
-
-  box-shadow:
-    0 4px 10px rgba(0,0,0,.18),
-    0 1px 3px rgba(0,0,0,.12);
-}
-
-/* 🔒 Image is sacred: never resize */
-.imgcandidate {
-  display: block;
-  width: 200 !important;
-  height: 300 !important;
-  max-width: none !important;   /* ⬅ critical */
-  flex-shrink: 0;               /* ⬅ critical */
-}
-
-/* 🔒 Name is constrained to image width */
-.candidate-name {
-  max-width: 100%;              /* relative to image */
-  margin-top: 6px;
-  padding: 2px 4px;
-
-  text-align: center;
-  font-size: 14px;
-  font-weight: 600;
-
-  white-space: normal;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-
-.candidate-card.frame {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.candidate-card.frame:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 8px 18px rgba(0,0,0,0.25),
-    0 3px 6px rgba(0,0,0,0.15);
-}
-
-.state-flag-bar {
-  position: sticky;
-  top: 0;
-  z-index: 300;
-}
-
-.election-header {
-  position: sticky;
-  top: var(--flags-h);
-  z-index: 200;
-}
-
-.district-header {
-  position: sticky;
-  top: calc(var(--flags-h) + var(--date-h));
-  z-index: 100;
-}
-
-.state-flag-bar,
-.election-header,
-.district-header {
-  background-color: #ffffff !important;
-  background-clip: padding-box;
-}
-
-.flag-link {
-  position: relative;
-  display: inline-block;
-}
-
-.flag-link::after {
-  content: attr(data-state);
-  position: absolute;
-
-  bottom: 100%;          /* appear above flag */
-  left: 50%;
-  transform: translateX(-50%) translateY(-6px);
-
-  background: #000;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-
-  padding: 4px 8px;
-  border-radius: 4px;
-
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
-  z-index: 9999;
-}
-
-.flag-link:hover::after {
-  opacity: 1;
-}
-</STYLE>
 
 	<div class="sticky-stack">
 
   <div class="state-flag-bar">
   		<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
   		
-  		<DIV>
+  		<DIV style="padding: 10px 0px 10px 0px;">
 				<input id="placeSearch" list="places" placeholder="Search location..." />
-  				<datalist id="places"></datalist>
+  			<datalist id="places"></datalist>
+		
+				<input id="candidateSearch" list="candidates" placeholder="Candidate name..." />
+  			<datalist id="candidates"></datalist>				
+				
 			</DIV>
-			
-			<script>
-let selectedAddresses = [];
-
-const input = document.getElementById("placeSearch");
-const datalist = document.getElementById("places");
-
-input.addEventListener("input", async function () {
-  const q = this.value.trim();
-
-  if (q.length < 3) {
-    datalist.innerHTML = "";
-    return;
-  }
-
-  const response = await fetch("/" + encodeURIComponent(q) + "/voter/autocomplete_address");
-  selectedAddresses = await response.json();
-
-  datalist.innerHTML = "";
-
-  selectedAddresses.forEach(address => {
-    const option = document.createElement("option");
-    option.value = address.label;
-    datalist.appendChild(option);
-  });
-});
-
-input.addEventListener("change", function () {
-  const selected = selectedAddresses.find(
-    address => address.label.toLowerCase() === this.value.toLowerCase()
-  );
-
-  if (!selected) return;
-
-  console.log("Selected address:", selected);
-
-  if (typeof map !== "undefined") {
-    map.setView([selected.lat, selected.lon], 16);
-
-    L.popup()
-      .setLatLng([selected.lat, selected.lon])
-      .setContent(selected.label)
-      .openOn(map);
-  }
-});
-</script>
-  		
+				
 			<?php
 	
 			$activeccs = NULL; 
@@ -518,7 +253,7 @@ if (!empty($result)) {
 									         $var["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
 
       $FullAlias = preg_replace('/[^a-zA-Z0-9]+/', '', $var["CandidateProfile_Alias"]);
-      $DetailURL = "/" . strtolower($FullAlias) . "_" . $var["CANDPROFID"] . "/voter/detail";
+      $DetailURL = "/" . numbertoalpha($var["CANDPROFID"]) . "_" . strtolower($FullAlias) . "/voter/detail";
 
       /* 🔑 Detect new batch */
       $NewBatch =
@@ -679,5 +414,85 @@ function loadNextBatch() {
     .catch(() => loading = false);
 }
 </script>
+
+		<script>
+let selectedAddresses = [];
+
+const input = document.getElementById("placeSearch");
+const datalist = document.getElementById("places");
+
+input.addEventListener("input", async function () {
+  const q = this.value.trim();
+
+  if (q.length < 3) {
+    datalist.innerHTML = "";
+    return;
+  }
+
+  const response = await fetch("/" + encodeURIComponent(q) + "/voter/autocomplete_address");
+  selectedAddresses = await response.json();
+
+  datalist.innerHTML = "";
+
+  selectedAddresses.forEach(address => {
+    const option = document.createElement("option");
+    option.value = address.label;
+    datalist.appendChild(option);
+  });
+});
+
+input.addEventListener("change", function () {
+  const selected = selectedAddresses.find(
+    address => address.label.toLowerCase() === this.value.toLowerCase()
+  );
+
+  if (!selected) return;
+
+  console.log("Selected address:", selected);
+
+  if (typeof map !== "undefined") {
+    map.setView([selected.lat, selected.lon], 16);
+
+    L.popup()
+      .setLatLng([selected.lat, selected.lon])
+      .setContent(selected.label)
+      .openOn(map);
+  }
+});
+
+const candidateSearch = document.getElementById('candidateSearch');
+const candidatesList  = document.getElementById('candidates');
+
+candidateSearch.addEventListener('input', async function () {
+
+  const value = this.value.trim();
+
+  if (value.length < 3) {
+    candidatesList.innerHTML = '';
+    return;
+  }
+
+  try {
+		const response = await fetch("/" + encodeURIComponent(q) + "/voter/autocomplete_candidates");
+	  const data = await response.json();
+	  candidatesList.innerHTML = '';
+	
+	  data.forEach(name => {
+	    const option = document.createElement('option');
+	    option.value = name;
+	    option.textContent = name;
+	    candidatesList.appendChild(option);
+	  });
+	
+	} catch (err) {
+	   console.error(err);
+	}
+}
+);
+</script>
+
+
+
+
 </BODY>
 </HTML>
