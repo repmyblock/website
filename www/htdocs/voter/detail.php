@@ -202,10 +202,10 @@
 ?>
 
 <?php
-			if (! empty ($endorsement["other"])) {
+			if (! empty ($endorsement["support"])) {
 				echo "<h2>This candidate supports</h2>\n";
 
-				foreach ($endorsement["other"] as $index => $var) {
+				foreach ($endorsement["support"] as $index => $var) {
 					if ( ! empty ($var)) {
 						$newparams = array_merge($passparams, ["t" => numbertoalpha($index)]);
 						?>
