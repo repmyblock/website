@@ -16,7 +16,9 @@
   ]);
   
   $result = $r->CandidatesForElection(
-    CandidateElectionID: $resultcandidates[0]["CandidateElection_ID"], SQLTables: ["debugsql"]
+    CandidateElectionID: $resultcandidates[0]["CandidateElection_ID"], 
+    NotOnBallot: 'no',
+    SQLTables: ["debugsql"]
   );
   
   

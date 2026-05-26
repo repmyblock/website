@@ -35,8 +35,6 @@
 		exit();
 	}
 	
-	
-	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";
 	
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
@@ -177,12 +175,12 @@
 			ElectionDateFrom: (empty ($ActiveDate) ? "NOW" : $ActiveDate), 
 			ElectionState: $ActiveState,
 			ActiveTeam: $ActiveTeam, 
+			NotOnBallot: 'no',
 			SQLTables: [
-				"Candidate_DispName", "CandidateProfile.CandidateProfile_ID", "CandidateProfile_NotOnBallot", 
-				"CandidateProfile_PublishProfile", "Elections_Date", "Elections_Text", 
-				"CandidateProfile_PicFileName", "CandidateProfile_Alias", 
-				"CandidateElection_Text", "Candidate_Party", "CandidateProfile_Alias",
-	     	"CandidateElection.CandidateElection_ID"
+				"Candidate_DispName", "CandidateProfile.CandidateProfile_ID", "PublicProfile_NotOnBallot", 
+				"PublicProfile_PublishProfile", "PublicProfile_Elected", "Elections_Date", "Elections_Text", 
+				"CandidateProfile_PicFileName", "CandidateProfile_Alias", "CandidateElection_Text", 
+				"Candidate_Party", "CandidateElection.CandidateElection_ID"
      	]
 		);
 		WriteStderr($result, "Candidate List");

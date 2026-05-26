@@ -58,6 +58,7 @@ class welcome extends queries {
 	// Function use 8.1 format - Don't change var names
 	function CandidatesForElection($ElectionDateFrom = null, $ElectionDateTo = null, $ElectionState = null, 
 																	$ActiveTeam = null, $CandidateElectionID = null, 
+																	$NotOnBallot = null,
 																	$Offset = 0, $Limit = 600, $SQLTables = null) {
 		$sql = "SELECT " . sqltablestoshow($SQLTables) . ", PublicProfile.PublicProfile_ID AS CANDPROFID, " .
 						"Candidate.CandidateElection_DBTable AS CANDDTABLE, " . 
@@ -69,12 +70,17 @@ class welcome extends queries {
 						"LEFT JOIN PublicProfile ON (PublicProfile.Candidate_ID = Candidate.Candidate_ID) " . 
 						"LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " .
 						"LEFT JOIN Team ON (Candidate.Team_ID = Team.Team_ID) " .  
-					 "WHERE CandidateProfile_PublishProfile = \"yes\" AND CandidateElection_Text IS NOT NULL";
+					 "WHERE PublicProfile_PublishProfile = \"yes\" AND CandidateElection_Text IS NOT NULL";
 		$sql_vars = array();
 		
 		if ( ! empty ($ElectionState)) {
 			$sql .= " AND DataState_Abbrev = :Abbrev";
 			$sql_vars["Abbrev"] = $ElectionState;
+		}
+		
+		
+		if ( $NotOnBallot === 'no') {
+			$sql .= " AND (PublicProfile_NotOnBallot IS NULL Or PublicProfile_NotOnBallot = 'no') ";
 		}
 		
 		
