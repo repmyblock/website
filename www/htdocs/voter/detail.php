@@ -21,6 +21,7 @@
     SQLTables: ["debugsql"]
   );
   
+  $passparams = [];
   
   // To classify the endorsments
   if (! empty ($resultcandidates)) { 	
@@ -30,7 +31,6 @@
   		}
   	}
   }
-  
   
   $HeaderTwitter = "yes";
   $HeaderTwitterTitle = "Rep My Block - Universal Voter Guide";
@@ -81,8 +81,6 @@
                         } else {
                           if ( empty ($CandidateToDisplay["SystemUser_ID"])) {
                            ?>
-                          
-                  
                           <UL>
                           <P CLASS="f60">
                               <B>We need your help to contact <B><?= $CandidateName ?></B>.</B>
@@ -108,23 +106,14 @@
                   </P>
             
                   <P CLASS="f40">
-                        
-                  
                     To find the email, click on this FEC filing and scroll down to the Committees section. 
                     Click on the committee name to open the Committee Registration page. In the side menu, 
                     click on Filings, then look for the PDF under "Statement of Organization".
                   </P>
-                  
-                    
                 </UL>
-                
-                
               <?php } ?>
-                
-                
             <?php  } ?>
-                
-         
+
             </DIV>  
     <br style="clear:both">
     <DIV class='container3'>
@@ -201,18 +190,33 @@
 			if (! empty ($endorsement["major"])) {
 				foreach ($endorsement["major"] as $index => $var) {
 					if ( ! empty ($var)) {
+						$newparams = array_merge($passparams, ["t" => numbertoalpha($index)]);
 						?>
-							<A HREF="/<?= "T" . $index ?>/voter/guide"><IMG SRC="/shared/<?= $var["LogoPath"] ?>"></A>							
+							<A HREF="/<?= "b:" . base64_encode(http_build_query($newparams)) ?>/voter/guide"><IMG SRC="/shared/<?= $var["LogoPath"] ?>"></A>							
+						<?php
+					}
+				}
+			} else {
+				echo "<BR><UL><FONT SIZE=+2>None</FONT></UL><BR>";
+			}
+?>
+
+<?php
+			if (! empty ($endorsement["other"])) {
+				echo "<h2>This candidate supports</h2>\n";
+
+				foreach ($endorsement["other"] as $index => $var) {
+					if ( ! empty ($var)) {
+						$newparams = array_merge($passparams, ["t" => numbertoalpha($index)]);
+						?>
+							<A HREF="/<?= "b:" . base64_encode(http_build_query($newparams)) ?>/voter/guide"><IMG SRC="/shared/<?= $var["LogoPath"] ?>"></A>							
 						<?php
 					}
 				}
 			}
 ?>
 
-
-
-  <h2>This candidate is running against</h2>
-
+  
 <?php 
 
 $firsttime = true;
@@ -220,6 +224,7 @@ $PrevDateDesc = null;
 $PrevElectionID = null;
 
 if (!empty($result)) {
+	echo "<h2>This candidate is running against</h2>\n";
   foreach ($result as $var) {
 
     if (
@@ -237,18 +242,17 @@ if (!empty($result)) {
       $FullAlias = preg_replace('/[^a-zA-Z0-9]+/', '', $var["CandidateProfile_Alias"]);
       $DetailURL = "/" . numbertoalpha($var["CANDPROFID"]) . "_" . strtolower($FullAlias) . "/voter/detail";
 
-      /* 🔑 Detect new batch */
+      /* Detect new batch */
       $NewBatch =
         ($PrevDateDesc !== $DateDesc) ||
         ($PrevElectionID !== $var["CandidateElection_ID"]);
 
-      /* 🔒 Close previous batch */
+      /* Close previous batch */
       if ($NewBatch && !$firsttime) {
         echo "</div>"; // .election-batch
       }
 
-      /* 🔒 Open new batch + print headers */
-    
+      /* Open new batch + print headers */
       ?>
 
       <!-- Candidate card -->
@@ -270,7 +274,6 @@ if (!empty($result)) {
       $firsttime = false;
     }
   }
-
 }
 ?>
 
@@ -279,27 +282,36 @@ if (!empty($result)) {
 	<h2>Endorsements</h2>
 	<BR>
 		<?php
+		
+		if ( ! empty ($endorsement["minor"]) && ! empty ($endorsement["local"]) ) {
+		
 			if (! empty ($endorsement["minor"])) {
 				foreach ($endorsement["minor"] as $index => $var) {
 					if ( ! empty ($var)) {
+						$newparams = array_merge($passparams, ["n" => numbertoalpha($index)]);
 						?>
-							<A HREF="/<?= "NGO" . $index ?>/voter/guide"><IMG SRC="/shared/<?= $var["LogoPath"] ?>"></A>							
+							<A HREF="/<?= "b:" . base64_encode(http_build_query($newparams)) ?>/voter/guide"><IMG SRC="/shared/<?= $var["LogoPath"] ?>"></A>							
 						<?php
 					}
 				}
-				
 				echo "<BR>";
 			}
 	
 			if (! empty ($endorsement["local"])) {
 				foreach ($endorsement["local"] as $index => $var) {
 					if ( ! empty ($var)) {
+						$newparams = array_merge($passparams, ["n" => numbertoalpha($index)]);
 						?>
-							<A HREF="/<?= "NGO" . $index ?>/voter/guide"><IMG SRC="/shared/<?= $var["LogoPath"] ?>"></A>							
+							<A HREF="/<?= "b:" . base64_encode(http_build_query($newparams)) ?>/voter/guide"><IMG SRC="/shared/<?= $var["LogoPath"] ?>"></A>							
 						<?php
 					}
 				}
 			}
+			
+			
+		} else {
+			echo "<UL><FONT SIZE=+2>None</FONT></UL>";
+		}
 		?>
 		
     <h2><A HREF="/<?= "somethingsomethign" ?>/voter/guide">Other races in the district</A></H2>
