@@ -44,8 +44,6 @@
   $SocialMediaPicsPath = "/socialimg/" . $resultcandidates[0]["CandidateProfile_SocialImgPath"];
  	$HeaderFile = $SharedPath . $SocialMediaPicsPath . "/voteheader.png";
 	
-	echo $SocialMediaPicsPath . "<BR>";
-	
 	if (
     !is_dir($SharedPath . $SocialMediaPicsPath) ||
     !file_exists($headerPath) ||
