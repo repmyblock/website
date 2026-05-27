@@ -180,6 +180,12 @@ function PrintShortDate($Date) {
   }
 }
 
+function PrintShortDateNoOrd($Date) {
+  if ( ! empty ($Date)) {
+    return date("F j, Y", strtotime( $Date ));
+  }
+}
+
 function PrintDate($Date) {
   if ( ! empty ($Date)) {
     return date("m.d.Y", strtotime( $Date ));
@@ -416,5 +422,38 @@ function isVerifValidEmail($email) {
 #function str_ends_with(string $haystack, string $needle): bool {
 #  return $needle === '' || $needle === \substr($haystack, - \strlen($needle));
 #}
+
+function drawOutlinedText(Imagick $image, string $text, int $x,
+  												  int $y,int $fontSize, string $fill, 
+  												  string $stroke = "white", string $shadow = "rgba(0,0,0,0.35)") {
+    // Shadow
+    $draw = new ImagickDraw();
+    $draw->setFont("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf");
+    $draw->setFontSize($fontSize);
+    $draw->setFillColor($shadow);
+    $draw->setStrokeColor($shadow);
+    $draw->setStrokeWidth(6);
+    $image->annotateImage($draw, $x + 5, $y + 5, 0, $text);
+
+    // White outline
+    $draw = new ImagickDraw();
+    $draw->setFont("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf");
+    $draw->setFontSize($fontSize);
+    $draw->setFillColor($fill);
+    $draw->setStrokeColor($stroke);
+    $draw->setStrokeWidth(7);
+    $draw->setStrokeLineJoin(Imagick::LINEJOIN_ROUND);
+    $image->annotateImage($draw, $x, $y, 0, $text);
+
+    // Colored fill, no stroke
+    $draw = new ImagickDraw();
+    $draw->setFont("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf");
+    $draw->setFontSize($fontSize);
+    $draw->setFillColor($fill);
+    $draw->setStrokeColor("transparent");
+    $draw->setStrokeWidth(0);
+    $image->annotateImage($draw, $x, $y, 0, $text);
+	}
+
 
 ?>

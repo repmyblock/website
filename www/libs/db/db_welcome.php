@@ -12,6 +12,13 @@ class welcome extends queries {
     parent::__construct($databasename, $databaseserver, $databaseport, $databaseuser, $databasepassword, $sslkeys, $DebugInfo);
   }
    
+  function UpdateSocialMediaPath($CandidateProfileID, $path) {
+  	return $this->_return_nothing(
+  		"UPDATE CandidateProfile SET CandidateProfile_SocialImgPath = :Path WHERE CandidateProfile_ID = :ID",
+  		["ID" => $CandidateProfileID, "Path" => $path]
+  	);
+  }
+   
   function ReturnOpenAddress($search, $limit = 10, $SQLTables = null) {
 		return $this->_return_multiple(
 			"SELECT OpenAddresses_ID AS id, OpenAddresses_FullAddress AS label, OpenAddresses_Lat AS lat, " .
