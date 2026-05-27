@@ -6,13 +6,15 @@
   preg_match('/^([A-Za-z0-9]+)_(.*)$/', $middleuri, $matches, PREG_OFFSET_CAPTURE);
   $CandidateProfileID = preg_replace('/[^0-9.]+/', '', alphatonumber($matches[1][0]));
   $addtopics = time();
-  
+ 
   $r = new welcome();  
   $resultcandidates = $r->CandidatesDetailed($CandidateProfileID, [ "debugsql",
       "PublicProfile.PublicProfile_ID", 
       "CandidateProfile.CandidateProfile_ID", "Candidate.Candidate_ID",
       "CandidateElection_Text", "CandidateElection_PetitionText",
-      "Elections_Text", "CandidateElection.CandidateElection_ID"
+      "Elections_Text", "CandidateElection.CandidateElection_ID",
+      "TeamNGOEnd.TeamNGO_ID", "TeamNGOEnd_Major", 
+      "CandidateProfile_PicFileName", "CandidateProfile_SocialImgPath"
   ]);
   
   $result = $r->CandidatesForElection(
@@ -20,27 +22,172 @@
     NotOnBallot: 'no',
     SQLTables: ["debugsql"]
   );
-  
+ 
   $passparams = [];
   
   // To classify the endorsments
   if (! empty ($resultcandidates)) { 	
   	foreach ($resultcandidates as $var) {
   		if ( ! empty ($var["TeamNGOPublic_ID"])) {  			
-  			$endorsement[$var["TeamNGOEnd_Major"]][$var["TeamNGOPublic_ID"]]["LogoPath"] = $var["TeamNGOEnd_LogoPath"];
+  			$endorsement[$var["TeamNGOEnd_Major"]][$var["TeamNGO_ID"]]["LogoPath"] = $var["TeamNGOEnd_LogoPath"];
   		}
   	}
   }
   
-  $HeaderTwitter = "yes";
+  if ( empty ($resultcandidates[0]["CandidateProfile_SocialImgPath"])) {
+  	$hash = md5(random_bytes(32));
+  	$resultpath = substr($hash, 0, 4) . "/" . substr($hash, 4, 4) . "/" . substr($hash, 8, 4);
+  	$r->UpdateSocialMediaPath($resultcandidates[0]["CandidateProfile_ID"], $resultpath);
+  	$resultcandidates[0]["CandidateProfile_SocialImgPath"] = $resultpath;
+  }
+ 
+  $SocialMediaPicsPath = "/socialimg/" . $resultcandidates[0]["CandidateProfile_SocialImgPath"];
+ 	$HeaderFile = $SharedPath . $SocialMediaPicsPath . "/voteheader.png";
+	
+	echo $SocialMediaPicsPath . "<BR>";
+	
+	if (
+    !is_dir($SharedPath . $SocialMediaPicsPath) ||
+    !file_exists($headerPath) ||
+    (time() - filemtime($headerPath)) > (3 * 60 * 60)
+	) {
+
+
+		$CandidateImg = "/pics/" . (!empty($resultcandidates[0]["CandidateProfile_PicFileName"]) ?	
+                           $resultcandidates[0]["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
+		
+		if ( !is_dir($SharedPath . $SocialMediaPicsPath . $dir) ) { mkdir($SharedPath . $SocialMediaPicsPath . $dir, 0755, true); }
+
+		$HeaderFile = $SocialMediaPicsPath . "/voteheader.png";
+
+		$image = new Imagick();
+		$image->newImage(1200, 630, new ImagickPixel("white"));
+		$image->setImageFormat("png");
+	
+		// Title
+		$draw = new ImagickDraw();
+		$draw->setFillColor("black");
+		
+		$draw->setGravity(Imagick::GRAVITY_NORTH);
+
+		$draw->setFontSize(80);
+		drawOutlinedText($image, ucwords(strtolower($resultcandidates[0]["CandidateProfile_Alias"])), 230, 210, 80, "#000000");
+		
+		$draw->setFontSize(26);
+		$image->annotateImage($draw, 60, 230, 0, $resultcandidates[0]["CandidateElection_PetitionText"]);
+		
+		// Subtitle
+		drawOutlinedText($image, "The", 20, 50, 50, "#ee2e62");
+		drawOutlinedText($image, "Represent My Block", 145, 50, 50, "#16317D");
+		drawOutlinedText($image, "Voter Guide", 20, 110, 60, "#ee2e62");
+		
+		drawOutlinedText($image, "VOTE!", 500, 380, 120, "#16317D");
+		drawOutlinedText($image, PrintShortDateNoOrd($resultcandidates[0]["Elections_Date"]), 500, 460, 70, "#000000");
+		
+		// RepMyBlock Logo
+		$svgPath = $_SERVER["DOCUMENT_ROOT"] . "/images/RepMyBlock.svg";
+		if (!is_readable($svgPath)) {
+    	error_log("SVG not readable: " . $svgPath);
+		} else {
+			
+			$drawBox = new ImagickDraw();
+
+			$drawBox->setFillColor("#FCED00"); // yellow
+			//$drawBox->setStrokeColor("#C9A400");
+			$drawBox->setStrokeWidth(4);
+			$drawBox->rectangle(1020, 0, 1180, 120);
+			$image->drawImage($drawBox);
+			
+	    $svg = file_get_contents($svgPath);
+
+	    $img2 = new Imagick();
+	    $img2->setResolution(200, 200);
+	    $img2->setBackgroundColor(new ImagickPixel("transparent"));
+
+	    $img2->readImageBlob($svg);
+	    $img2->setImageFormat("png");
+	    $img2->resizeImage(150, 0, Imagick::FILTER_LANCZOS, 1);
+
+	    $image->compositeImage($img2, Imagick::COMPOSITE_OVER, 1030, 00);
+
+	    $img2->clear();
+	    $img2->destroy();
+		}
+	
+		$img = new Imagick($SharedPath . $CandidateImg);
+		//$img->resizeImage(200, 300, Imagick::FILTER_LANCZOS, 1);
+
+		// Bottom-left logo placement
+		$image->compositeImage($img, Imagick::COMPOSITE_OVER, 20, 150);
+		
+		// Endorsement
+	
+		$start_x = -100;
+		
+		if (! empty ($endorsement["minor"])) {
+			foreach ($endorsement["minor"] as $var) {
+				if ( ! empty ($var)) {
+					$img2 = new Imagick($SharedPath . "/" . $var["LogoPath"]);
+					$image->compositeImage($img2, Imagick::COMPOSITE_OVER, $start_x += 120 , 500);
+					$img2->clear();
+					$img2->destroy();
+
+				}
+			}
+		}
+
+		if (! empty ($endorsement["local"])) {
+			foreach ($endorsement["local"] as $var) {
+				if ( ! empty ($var)) {
+					$img2 = new Imagick($SharedPath . "/" . $var["LogoPath"]);
+					$image->compositeImage($img2, Imagick::COMPOSITE_OVER, $start_x += 120, 500);
+					$img2->clear();
+					$img2->destroy();
+				}
+			}
+		}
+		
+		if (! empty ($endorsement["major"])) {
+		 	$start_x = 1020;
+			foreach ($endorsement["major"] as $var) {
+				if ( ! empty ($var)) {
+					$img2 = new Imagick($SharedPath . "/" . $var["LogoPath"]);
+					$image->compositeImage($img2, Imagick::COMPOSITE_OVER, $start_x -= 60, 30);
+					$img2->clear();
+					$img2->destroy();
+				}
+			}
+		} 
+
+		// Save final image
+		$image->writeImage($SharedPath . $HeaderFile);
+		$image->clear();
+		$image->destroy();
+
+		$img->clear();
+		$img->destroy();
+		
+		$HeaderFile = "shared" . $HeaderFile;
+	} else {
+		if ( file_exists($SharedPath . $SocialMediaPicsPath . "/voteheader.png")) {
+			$HeaderFile = "shared" . $SocialMediaPicsPath . "/voteheader.png";
+		} else {
+			$HeaderFile = "pics/paste/UniversalVoterGuide.jpg";
+		}
+	}
+	
+	$HeaderTwitter = "yes";
   $HeaderTwitterTitle = "Rep My Block - Universal Voter Guide";
-  $HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/UniversalVoterGuide.jpg";
+  $HeaderTwitterPicLink = "https://static.repmyblock.org/" . $HeaderFile;
   $HeaderTwitterDesc = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
   $HeaderOGTitle = "Rep My Block Voter Guide.";
   $HeaderOGDescription = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
-  $HeaderOGImage = "https://static.repmyblock.org/pics/paste/UniversalVoterGuide.jpg"; 
+  $HeaderOGImage = "https://static.repmyblock.org/" . $HeaderFile;
   $HeaderOGImageWidth = "921";
   $HeaderOGImageHeight = "477";
+	  
+  
+ 
   
   if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
   } else { $TypeEmail = "text"; $TypeUsername = "text"; }
@@ -50,10 +197,16 @@
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
 
+
     <link rel="stylesheet" type="text/css" href="/css/guide.css">
     <DIV class="main">    
       <DIV class="right f80bold">Voter Guide</DIV>
         <DIV class="panels">    
+
+<?php /*
+	<?= $HeaderFile ?>
+	<TABLE BORDER=1><TR><TD><CENTER><IMG SRC="https://dev-frontend-web.repmyblock.org/<?= $HeaderFile ?> "></CENTER></TD></TR></TABLE>
+*/ ?>
      
 <?php 
     if (! empty ($CandidateToDisplay)) {
@@ -67,7 +220,7 @@
       $CandidatePublicID = $CandidateToDisplay["PublicProfile_ID"];
 ?>  
           <DIV class="f60"><B><?= $DateDesc ?></B></DIV>
-          <I>Running for <?= $var["CandidateElection_PetitionText"] ?></I>
+          <I>Running for <?= $CandidateToDisplay["CandidateElection_PetitionText"] ?></I>
 
           <DIV>
             <DIV class="f80"><B><?= $CandidateName ?></B></DIV>  
