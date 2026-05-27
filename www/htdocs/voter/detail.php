@@ -34,6 +34,8 @@
   	}
   }
   
+  $CandidateName = ucwords(strtolower($resultcandidates[0]["CandidateProfile_Alias"]));
+  
   if ( empty ($resultcandidates[0]["CandidateProfile_SocialImgPath"])) {
   	$hash = md5(random_bytes(32));
   	$resultpath = substr($hash, 0, 4) . "/" . substr($hash, 4, 4) . "/" . substr($hash, 8, 4);
@@ -43,7 +45,7 @@
  
   $SocialMediaPicsPath = "/socialimg/" . $resultcandidates[0]["CandidateProfile_SocialImgPath"];
  	$HeaderFile = $SharedPath . $SocialMediaPicsPath . "/voteheader.png";
-	
+		
 	if (
     !is_dir($SharedPath . $SocialMediaPicsPath) ||
     !file_exists($headerPath) ||
@@ -69,7 +71,7 @@
 		$draw->setGravity(Imagick::GRAVITY_NORTH);
 
 		$draw->setFontSize(80);
-		drawOutlinedText($image, ucwords(strtolower($resultcandidates[0]["CandidateProfile_Alias"])), 230, 210, 80, "#000000");
+		drawOutlinedText($image, $CandidateName, 230, 210, 80, "#000000");
 		
 		$draw->setFontSize(26);
 		$image->annotateImage($draw, 60, 230, 0, $resultcandidates[0]["CandidateElection_PetitionText"]);
@@ -177,16 +179,13 @@
 	$HeaderTwitter = "yes";
   $HeaderTwitterTitle = "Rep My Block - Universal Voter Guide";
   $HeaderTwitterPicLink = "https://static.repmyblock.org/" . $HeaderFile;
-  $HeaderTwitterDesc = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
+  $HeaderTwitterDesc = $CandidateName . " information.";
   $HeaderOGTitle = "Rep My Block Voter Guide.";
-  $HeaderOGDescription = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
+  $HeaderOGDescription = $CandidateName . " information.";;
   $HeaderOGImage = "https://static.repmyblock.org/" . $HeaderFile;
   $HeaderOGImageWidth = "921";
   $HeaderOGImageHeight = "477";
 	  
-  
- 
-  
   if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
   } else { $TypeEmail = "text"; $TypeUsername = "text"; }
   
