@@ -2,7 +2,10 @@
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
   
-  $middleuri = $_GET["k"];
+  if ( ! empty ($_GET["k"])) {
+	  $middleuri = $_GET["k"];
+  }
+  
   preg_match('/^([A-Za-z0-9]+)_(.*)$/', $middleuri, $matches, PREG_OFFSET_CAPTURE);
   $CandidateProfileID = preg_replace('/[^0-9.]+/', '', alphatonumber($matches[1][0]));
   $addtopics = time();
@@ -40,149 +43,19 @@
   	$hash = md5(random_bytes(32));
   	$resultpath = substr($hash, 0, 4) . "/" . substr($hash, 4, 4) . "/" . substr($hash, 8, 4);
   	$r->UpdateSocialMediaPath($resultcandidates[0]["CandidateProfile_ID"], $resultpath);
-  	$resultcandidates[0]["CandidateProfile_SocialImgPath"] = $resultpath;
   }
  
-  $SocialMediaPicsPath = "/socialimg/" . $resultcandidates[0]["CandidateProfile_SocialImgPath"];
- 	$HeaderFile = $SharedPath . $SocialMediaPicsPath . "/voteheader.png";
+ 
+  $SocialMediaPicsPath = "/" . str_replace('/', '', $resultcandidates[0]["CandidateProfile_SocialImgPath"]) . 
+  												numbertoalpha($resultcandidates[0]["PublicProfile_ID"]) .  "/voter/socialimage";
 		
-	if (
-    !is_dir($SharedPath . $SocialMediaPicsPath) ||
-    !file_exists($headerPath) ||
-    (time() - filemtime($headerPath)) > (3 * 60 * 60)
-	) {
-
-
-		$CandidateImg = "/pics/" . (!empty($resultcandidates[0]["CandidateProfile_PicFileName"]) ?	
-                           $resultcandidates[0]["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
-		
-		if ( !is_dir($SharedPath . $SocialMediaPicsPath . $dir) ) { mkdir($SharedPath . $SocialMediaPicsPath . $dir, 0755, true); }
-
-		$HeaderFile = $SocialMediaPicsPath . "/voteheader.png";
-
-		$image = new Imagick();
-		$image->newImage(1200, 630, new ImagickPixel("white"));
-		$image->setImageFormat("png");
-	
-		// Title
-		$draw = new ImagickDraw();
-		$draw->setFillColor("black");
-		
-		$draw->setGravity(Imagick::GRAVITY_NORTH);
-
-		$draw->setFontSize(80);
-		drawOutlinedText($image, $CandidateName, 230, 210, 80, "#000000");
-		
-		$draw->setFontSize(26);
-		$image->annotateImage($draw, 60, 230, 0, $resultcandidates[0]["CandidateElection_PetitionText"]);
-		
-		// Subtitle
-		drawOutlinedText($image, "The", 20, 50, 50, "#ee2e62");
-		drawOutlinedText($image, "Represent My Block", 145, 50, 50, "#16317D");
-		drawOutlinedText($image, "Voter Guide", 20, 110, 60, "#ee2e62");
-		
-		drawOutlinedText($image, "VOTE!", 500, 380, 120, "#16317D");
-		drawOutlinedText($image, PrintShortDateNoOrd($resultcandidates[0]["Elections_Date"]), 500, 460, 70, "#000000");
-		
-		// RepMyBlock Logo
-		$svgPath = $_SERVER["DOCUMENT_ROOT"] . "/images/RepMyBlock.svg";
-		if (!is_readable($svgPath)) {
-    	error_log("SVG not readable: " . $svgPath);
-		} else {
-			
-			$drawBox = new ImagickDraw();
-
-			$drawBox->setFillColor("#FCED00"); // yellow
-			//$drawBox->setStrokeColor("#C9A400");
-			$drawBox->setStrokeWidth(4);
-			$drawBox->rectangle(1020, 0, 1180, 120);
-			$image->drawImage($drawBox);
-			
-	    $svg = file_get_contents($svgPath);
-
-	    $img2 = new Imagick();
-	    $img2->setResolution(200, 200);
-	    $img2->setBackgroundColor(new ImagickPixel("transparent"));
-
-	    $img2->readImageBlob($svg);
-	    $img2->setImageFormat("png");
-	    $img2->resizeImage(150, 0, Imagick::FILTER_LANCZOS, 1);
-
-	    $image->compositeImage($img2, Imagick::COMPOSITE_OVER, 1030, 00);
-
-	    $img2->clear();
-	    $img2->destroy();
-		}
-	
-		$img = new Imagick($SharedPath . $CandidateImg);
-		//$img->resizeImage(200, 300, Imagick::FILTER_LANCZOS, 1);
-
-		// Bottom-left logo placement
-		$image->compositeImage($img, Imagick::COMPOSITE_OVER, 20, 150);
-		
-		// Endorsement
-	
-		$start_x = -100;
-		
-		if (! empty ($endorsement["minor"])) {
-			foreach ($endorsement["minor"] as $var) {
-				if ( ! empty ($var)) {
-					$img2 = new Imagick($SharedPath . "/" . $var["LogoPath"]);
-					$image->compositeImage($img2, Imagick::COMPOSITE_OVER, $start_x += 120 , 500);
-					$img2->clear();
-					$img2->destroy();
-
-				}
-			}
-		}
-
-		if (! empty ($endorsement["local"])) {
-			foreach ($endorsement["local"] as $var) {
-				if ( ! empty ($var)) {
-					$img2 = new Imagick($SharedPath . "/" . $var["LogoPath"]);
-					$image->compositeImage($img2, Imagick::COMPOSITE_OVER, $start_x += 120, 500);
-					$img2->clear();
-					$img2->destroy();
-				}
-			}
-		}
-		
-		if (! empty ($endorsement["major"])) {
-		 	$start_x = 1020;
-			foreach ($endorsement["major"] as $var) {
-				if ( ! empty ($var)) {
-					$img2 = new Imagick($SharedPath . "/" . $var["LogoPath"]);
-					$image->compositeImage($img2, Imagick::COMPOSITE_OVER, $start_x -= 60, 30);
-					$img2->clear();
-					$img2->destroy();
-				}
-			}
-		} 
-
-		// Save final image
-		$image->writeImage($SharedPath . $HeaderFile);
-		$image->clear();
-		$image->destroy();
-
-		$img->clear();
-		$img->destroy();
-		
-		$HeaderFile = "shared" . $HeaderFile;
-	} else {
-		if ( file_exists($SharedPath . $SocialMediaPicsPath . "/voteheader.png")) {
-			$HeaderFile = "shared" . $SocialMediaPicsPath . "/voteheader.png";
-		} else {
-			$HeaderFile = "pics/paste/UniversalVoterGuide.jpg";
-		}
-	}
-	
 	$HeaderTwitter = "yes";
   $HeaderTwitterTitle = "Rep My Block - Universal Voter Guide";
-  $HeaderTwitterPicLink = "https://static.repmyblock.org/" . $HeaderFile;
+  $HeaderTwitterPicLink = $FrontEndWebsite . $SocialMediaPicsPath;
   $HeaderTwitterDesc = $CandidateName . " information.";
   $HeaderOGTitle = "Rep My Block Voter Guide.";
   $HeaderOGDescription = $CandidateName . " information.";;
-  $HeaderOGImage = "https://static.repmyblock.org/" . $HeaderFile;
+  $HeaderOGImage = $FrontEndWebsite . $SocialMediaPicsPath;
   $HeaderOGImageWidth = "921";
   $HeaderOGImageHeight = "477";
 	  
@@ -390,7 +263,7 @@ if (!empty($result)) {
                            $var["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
 
       $FullAlias = preg_replace('/[^a-zA-Z0-9]+/', '', $var["CandidateProfile_Alias"]);
-      $DetailURL = "/" . numbertoalpha($var["CANDPROFID"]) . "_" . strtolower($FullAlias) . "/voter/detail";
+      $DetailURL = "/" . numbertoalpha($var["CANDPROFID"]) . "_" . strtolower($FullAlias); # . "/voter/detail";
 
       /* Detect new batch */
       $NewBatch =
