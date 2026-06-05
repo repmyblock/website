@@ -1,10 +1,10 @@
 <?php
 header('Content-Type: application/json');
 
-require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
 
-$r = new welcome(0);	
+$r = new welcome();	
 $q = strtoupper(trim($_GET['k'] ?? ''));
 
 if (strlen($q) < 3) {

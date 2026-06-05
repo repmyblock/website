@@ -1,16 +1,8 @@
 <?php
-/* Required external variables:
-   $var
-   &$PrevDateDesc
-   &$PrevElectionID
-   &$firsttime
-*/
-
-if (
-  empty($var["CandidateProfile_ID"]) ||
-  $var["CandidateProfile_NotOnBallot"] === 'yes' ||
-  $var["CandidateProfile_PublishProfile"] === 'no'
-) {
+      
+if (!	empty($var["CandidateProfile_ID"]) &&
+      $var["CandidateProfile_NotOnBallot"] != 'yes' &&
+      $var["CandidateProfile_PublishProfile"] != 'no') {
   return;
 }
 

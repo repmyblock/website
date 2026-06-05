@@ -10,30 +10,28 @@
 	$HeaderOGImageHeight = "477";
 	
 	$Statescountries = array (
-			"Alabama" => "AL", "Alaska" => "AK", "American Samoa" => "AS", "Arizona" => "AZ", "Arkansas" => "AR", "Austria" => "AT",
-			"Belgium" => "BE", "Bulgaria" => "BG", "California" => "CA", "Colorado" => "CO", "Connecticut" => "CT", "Croatia" => "HR",
-			"Cyprus" => "CY", "Czech Republic" => "CZ", "Delaware" => "DE", "Denmark" => "DK", "District of Columbia" => "DC", 
-			"Dominican Republic" => "DO", "Estonia" => "EE",
-			"Finland" => "FI", "Florida" => "FL", "France" => "FR", "Georgia" => "GA", "Germany" => "GE", "Greece" => "GR", "Guam" => "GU",
-			"Haiti" => "HT", "Hawaii" => "HI", "Hungary" => "HU", "Idaho" => "ID", "Illinois" => "IL", "Indiana" => "IN", "Iowa" => "IA", "Ireland" => "IE", 
-			"Italy" => "IT", "Kansas" => "KS", "Kentucky" => "KY", "Latvia" => "LV", "Lithuania" => "LT", "Louisiana" => "LA", 
-			"Luxembourg" => "LU",
-			"Maine" => "ME", "Malta" => "ML", "Maryland" => "MD", "Massachusetts" => "MA", "Mexico" => "MX", "Michigan" => "MI", "Minnesota" => "MN", 
-			"Mississippi" => "MS",
-			"Missouri" => "MO", "Montana" => "MT", "Nebraska" => "NE", "Netherlands" => "NL", "Nevada" => "NV", "New Hampshire" => "NH", "New Jersey" => "NJ",
-			"New Mexico" => "NM", "New York" => "NY", "North Carolina" => "NC", "North Dakota" => "ND", "Northern Mariana Islands" => "MP", "Ohio" => "OH",
-			"Oklahoma" => "OK", "Oregon" => "OR", "Pennsylvania" => "PA", "Poland" => "PL", "Portugal" => "PT", "Puerto Rico" => "PR", "Rhode Island" => "RI",
-			"Romania" => "RO", "Slovakia" => "SK", "Slovenia" => "SI", "South Carolina" => "SC", "South Dakota" => "SD", "Spain" => "ES", "Sweden" => "SE",
-			"Tennessee" => "TN", "Texas" => "TX", "U.S. Virgin Islands" => "VI", "Utah" => "UT", "Vermont" => "VT", "Virginia" => "VA", "Washington" => "WA",
-			"West Virginia" => "WV", "Wisconsin" => "WI", "Wyoming" => "WY"
-	);	
+			"Alabama" => "AL", "Alaska" => "AK", "American Samoa" => "AS", "Arizona" => "AZ", "Arkansas" => "AR", 
+			"Austria" => "AT", "Belgium" => "BE", "Bulgaria" => "BG", "California" => "CA", "Colorado" => "CO", 
+			"Connecticut" => "CT", "Croatia" => "HR",	"Cyprus" => "CY", "Czech Republic" => "CZ", "Delaware" => "DE", 
+			"Denmark" => "DK", "District of Columbia" => "DC", "Dominican Republic" => "DO", "Estonia" => "EE", 
+			"Finland" => "FI", "Florida" => "FL", "France" => "FR", "Georgia" => "GA", "Germany" => "GE", 
+			"Greece" => "GR", "Guam" => "GU",	"Haiti" => "HT", "Hawaii" => "HI", "Hungary" => "HU", "Idaho" => "ID", 
+			"Illinois" => "IL", "Indiana" => "IN", "Iowa" => "IA", "Ireland" => "IE", "Italy" => "IT", "Kansas" => "KS", 
+			"Kentucky" => "KY", "Latvia" => "LV", "Lithuania" => "LT", "Louisiana" => "LA", "Luxembourg" => "LU", 
+			"Maine" => "ME", "Malta" => "ML", "Maryland" => "MD", "Massachusetts" => "MA", "Mexico" => "MX", 
+			"Michigan" => "MI", "Minnesota" => "MN", "Mississippi" => "MS",	"Missouri" => "MO", "Montana" => "MT", 
+			"Nebraska" => "NE", "Netherlands" => "NL", "Nevada" => "NV", "New Hampshire" => "NH", "New Jersey" => "NJ",
+			"New Mexico" => "NM", "New York" => "NY", "North Carolina" => "NC", "North Dakota" => "ND",
+			"Northern Mariana Islands" => "MP", "Ohio" => "OH", "Oklahoma" => "OK", "Oregon" => "OR", 
+			"Pennsylvania" => "PA", "Poland" => "PL", "Portugal" => "PT", "Puerto Rico" => "PR", "Rhode Island" => "RI",
+			"Romania" => "RO", "Slovakia" => "SK", "Slovenia" => "SI", "South Carolina" => "SC", "South Dakota" => "SD", 
+			"Spain" => "ES", "Sweden" => "SE", "Tennessee" => "TN", "Texas" => "TX", "U.S. Virgin Islands" => "VI", 
+			"Utah" => "UT", "Vermont" => "VT", "Virginia" => "VA", "Washington" => "WA", "West Virginia" => "WV", 
+			"Wisconsin" => "WI", "Wyoming" => "WY"
+	);
+
 	$activeccs = NULL;
 	$addtopics = date("ymd",time());
-	
-	if (! empty ($_POST)) {
-		header("Location: /Z" . $_POST["zipcode"] . "/voter/guide");
-		exit();
-	}
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";
 	
@@ -45,21 +43,48 @@
 	
 	$ListState = $r->ListElections();	
 	WriteStderr($ListState, "List Election");
-		
-	preg_match(
-	    '/^T?(?:(\d{4})|([picpgsp][ipsordb][ramiecbutn]))?S?([A-Za-z]{2})?D?(\d{8})?Z?(\d{5})?$/',
-	    $_GET['k'],
-	    $matches,
-	    PREG_OFFSET_CAPTURE
-	);
-
-	$ActiveTeam  = !empty($matches[1][0]) ? $matches[1][0] : (!empty($matches[2][0]) ? $matches[2][0] : null);
-	$ActiveState = !empty($matches[3][0]) ? $matches[3][0] : null;
-	$ActiveDate  = !empty($matches[4][0]) ? $matches[4][0] : null;
-	$ActiveZIP   = !empty($matches[5][0]) ? $matches[5][0] : null;
 	
-	if (strlen($ActiveTeam) == 3) {
+	$ActiveStateWithElection = [];
+
+	foreach ($ListState as $var) {
+	    if (!empty($var["DataState_Abbrev"])) {
+	        $ActiveStateWithElection[$var["DataState_Abbrev"]] = true;
+	    }
+
+	    $StateName[$var["DataState_Abbrev"]] = $var["DataState_Name"];
+	    $StatesDates[$var["DataState_Name"]][$var["Elections_Date"]] = true;
+	}
+	
+	$passparams = [];
+	$code = $_GET["k"];
+
+	if (preg_match('/b:([A-Za-z0-9+\/=]+)/', $code, $m)) {
+    if ($decoded = base64_decode($m[1], true)) {
+    	parse_str($decoded, $passparams);
+    }
+	}
 		
+	if (preg_match('/T(?:(\d{4})|([picpgsp][ipsordb][ramiecbutn]))/i', $code, $m)) {
+		$passparams['team'] = $m[1] ?: $m[2];
+	}
+	if (preg_match('/S([A-Za-z]{2})/i', $code, $m)) { $passparams['state'] = strtoupper($m[1]); }
+	if (preg_match('/D(\d{8})/i', $code, $m)) { $passparams['district'] = $m[1]; }
+	if (preg_match('/Z(\d{5})/i', $code, $m)) { $passparams['zipcode'] = $m[1];	}	
+	
+	/*
+	$ActiveTeam  = 
+	$ActiveState = 
+	$ActiveDate  = 
+	$ActiveZIP   = 
+	*/
+	/*	
+	if ($passparams['n'] > 0) {
+		$MyTCode = $passparams['n'];
+		if ($MyTCode == 7) { $MyTCode = "soc";$ActiveTeam = "SOC"; }			
+		echo "Active Team: $MyTCode<BR>";
+	}
+		
+	if (strlen($ActiveTeam) == 3) {
 		$MyTCode = strtolower($ActiveTeam);
 		switch ($MyTCode) {
 			case 'pir': $newid = "T0024"; break;
@@ -76,16 +101,10 @@
 			case 'idu': $newid = "T0032"; break;
 			case 'con': $newid = "T0034"; break;
 		}
-		if (! empty ($newid)) {
-			header("Location: /" . $newid . "/voter/guide");
-			exit();		
-		}
 	}
 	
-	foreach ($ListState as $var) { 
-		$StateName[$var["DataState_Abbrev"]] = $var["DataState_Name"];
-		$StatesDates[$var["DataState_Name"]][$var["Elections_Date"]] = true;
- 	}
+	*/
+	
  	
 	foreach ($StatesDates[$StateName[$ActiveState]] as $key => $val) { $SortDates[] = preg_replace('/-/', '', $key); }
 	// sort($SortDates);
@@ -109,10 +128,12 @@
 			$StateID["statename"] = $var["DataState_Abbrev"];
 		}
 		
-		$resultpositions = $r->ListElectionPositions( $StateID["state"]);	
-		$result = $r->CandidatesForElection((empty ($ActiveDate) ? "NOW" : $ActiveDate), null, 
-																					$StateID["statename"], $ActiveTeam, null, null, 	
-																					null);
+		$resultpositions = $r->ListElectionPositions($StateID["state"]);	
+		$result = $r->CandidatesForElection(ElectionDateFrom: (empty ($ActiveDate) ? "NOW" : $ActiveDate), 
+																				ElectionState: $StateID["statename"],
+																				ActiveTeam: $ActiveTeam);
+								
+		WriteStderr($result, "CandidateForElections DatabaseQuery");
 		
 		foreach ($resultpositions as $var) {		
 			switch ($var["ElectionsPosition_Location"]) {
@@ -144,7 +165,6 @@
 				break;
 				
 				case "state":
-				
 					foreach($result as $vor) {
 						if ( $var["ElectionsPosition_DBTable"] == $vor["CANDDTABLE"]) {
 							$ListCandidate[$vor["Elections_Date"]][$vor["CANDPROFID"]] = $vor;	
@@ -167,6 +187,7 @@
 		#print "<PRE>" . print_r($result,1) . "</PRE>";
 		
 	} else {
+			
 		foreach($result as $var) {
 			$ActiveStateWithCandidate[$var["DataState_Abbrev"]] = true;
 		}
@@ -183,7 +204,7 @@
 				"Candidate_Party", "CandidateElection.CandidateElection_ID"
      	]
 		);
-		WriteStderr($result, "Candidate List");
+		// WriteStderr($result, "Candidate List");
 	}
 	
 	foreach($result as $var) {
@@ -209,27 +230,39 @@
 
   <div class="state-flag-bar">
   		<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
-  		
-  		<DIV style="padding: 10px 0px 10px 0px;">
-				<input id="placeSearch" list="places" placeholder="Search location..." />
-  			<datalist id="places"></datalist>
-		
-				<input id="candidateSearch" list="candidates" placeholder="Candidate name..." />
-  			<datalist id="candidates"></datalist>				
-				
-			</DIV>
-				
-			<?php
-	
-			$activeccs = NULL; 
-			foreach ($Statescountries as $CountryName => $CountryFlag) { 
-				if ( ! empty($ActiveState)) { $activeccs = " flagnonselected"; }
-				$activeccs = $ActiveStateWithCandidate[$CountryFlag] ? NULL : " flagnonselected";
-			
-			?><A class="flag-link" data-state="<?= $CountryName ?>" HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "S" . $CountryFlag : "rset") . $BuildURLEnd ?>/voter/guide" ALT="<?= $CountryName ?>"><IMG SRC="/images/flags/<?= $CountryFlag ?>.png" class="flag <?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>"></A> <?php 
-		} ?>
+ 			
+		<?php
+		foreach ($Statescountries as $CountryName => $CountryFlag) {
+    	$activeccs = !empty($ActiveStateWithElection[$CountryFlag])? NULL : " flagnonselected";
+		?>
+    <A class="flag-link"
+       data-state="<?= htmlspecialchars($CountryName) ?>"
+       HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "S" . $CountryFlag : "rset") . $BuildURLEnd ?>/voter/guide"
+       ALT="<?= htmlspecialchars($CountryName) ?>">
+       <IMG SRC="/images/flags/<?= htmlspecialchars($CountryFlag) ?>.png" class="flag <?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>">
+    </A>
+		<?php } ?>
 	 </div>
 	
+<DIV style="padding-bottom: 15px;">
+          
+        </DIV>
+ 		
+  		<DIV class="field">
+        <input type="text" id="placeSearch" list="places" autocorrect="off" class="input" name="address" placeholder=" " style="max-width: 380px;">
+         <label for="placeSearch">Enter Address</label>
+				<INPUT CLASS="f60bold" TYPE="Submit" NAME="signin" VALUE="Search Address">
+  			<datalist id="places"></datalist>
+			</DIV>
+				
+				
+			<DIV class="field">
+        <input type="text" id="candidateSearch" list="candidates" autocorrect="off" class="input" name="candidatename" placeholder=" " style="max-width: 380px;">
+  			<label for="candidateSearch">Enter Candidate's Name</label>	
+  			<INPUT CLASS="f60bold" TYPE="Submit" NAME="SarachCandidate" VALUE="Search Candidate">
+			</DIV>
+	
+<BR>
 
 <?php 
 	$firsttime = true;
@@ -251,7 +284,7 @@ if (!empty($result)) {
 									         $var["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
 
       $FullAlias = preg_replace('/[^a-zA-Z0-9]+/', '', $var["CandidateProfile_Alias"]);
-      $DetailURL = "/" . numbertoalpha($var["CANDPROFID"]) . "_" . strtolower($FullAlias) . "/voter/detail";
+      $DetailURL = "/" . numbertoalpha($var["CANDPROFID"]) . "_" . strtolower($FullAlias); #. "/voter/detail";
 
       /* 🔑 Detect new batch */
       $NewBatch =
@@ -461,68 +494,79 @@ input.addEventListener("change", function () {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("candidateSearch");
-  const datalist = document.getElementById("candidates");
-  const container = document.querySelector(".sticky-stack");
+    const search = document.getElementById("candidateSearch");
+    const datalist = document.getElementById("candidates");
 
-  let timer = null;
-  let controller = null;
+    let timer = null;
+    let controller = null;
 
-  input.addEventListener("input", () => {
-    const q = input.value.trim();
+    search.addEventListener("input", function () {
+        const q = this.value.toLowerCase().trim();
 
-    clearTimeout(timer);
+        clearTimeout(timer);
 
-    if (q.length < 3) {
-      datalist.innerHTML = "";
-      return;
-    }
+        let visibleCount = 0;
 
-    timer = setTimeout(async () => {
-      try {
-        if (controller) controller.abort();
-        controller = new AbortController();
+        document.querySelectorAll(".candidate-card").forEach(card => {
+            const name = card.querySelector(".candidate-name")
+                .textContent
+                .toLowerCase();
 
-        const response = await fetch(
-          "/" + encodeURIComponent(q) + "/voter/autocomplete_candidates",
-          { signal: controller.signal }
-        );
+            const match = q === "" || name.includes(q);
 
-        const data = await response.json();
-        datalist.innerHTML = "";
+            card.style.display = match ? "" : "none";
 
-        data.forEach(row => {
-          const option = document.createElement("option");
-          option.value = row.CandidateProfile_Alias || row.name || row;
-          datalist.appendChild(option);
+            if (match && q !== "") {
+                visibleCount++;
+            }
         });
 
-      } catch (err) {
-        if (err.name !== "AbortError") console.error(err);
-      }
-    }, 250);
-  });
+        document.querySelectorAll(".election-batch").forEach(batch => {
+            const visible = batch.querySelectorAll(
+                '.candidate-card:not([style*="display: none"])'
+            ).length;
 
-  input.addEventListener("change", async () => {
-    const q = input.value.trim();
+            batch.style.display = visible > 0 ? "" : "none";
+        });
 
-    if (q.length < 3) return;
+        if (q.length < 3 || visibleCount > 0) {
+            datalist.innerHTML = "";
+            return;
+        }
 
-    const response = await fetch(
-      "/" + encodeURIComponent(q) + "/voter/candidate_cards"
-    );
+        timer = setTimeout(async () => {
+            try {
+                if (controller) controller.abort();
+                controller = new AbortController();
 
-    const html = await response.text();
+                const response = await fetch(
+                    "/voter/autocomplete_candidates?q=" + encodeURIComponent(q),
+                    { signal: controller.signal }
+                );
 
-    document.querySelectorAll(".election-batch").forEach(el => el.remove());
+                const data = await response.json();
 
-    const sentinel = document.getElementById("scroll-sentinel");
-    sentinel.insertAdjacentHTML("beforebegin", html);
+                datalist.innerHTML = "";
 
-    if (typeof updateStickyHeights === "function") {
-      updateStickyHeights();
-    }
-  });
+                data.forEach(row => {
+                    const option = document.createElement("option");
+
+                    option.value =
+                        row.CandidateProfile_Alias ||
+                        row.Candidate_DispName ||
+                        row.name ||
+                        row;
+
+                    datalist.appendChild(option);
+                });
+
+            } catch (err) {
+                if (err.name !== "AbortError") {
+                    console.error(err);
+                }
+            }
+        }, 250);
+    });
 });
 </script>
 

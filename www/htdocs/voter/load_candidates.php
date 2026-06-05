@@ -3,7 +3,7 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
 
-$r = new welcome(0);
+$r = new welcome();
 
 $decoded = base64_decode($_GET['k'] ?? '');
 parse_str($decoded, $params);
