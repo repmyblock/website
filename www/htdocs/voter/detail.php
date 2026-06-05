@@ -47,7 +47,7 @@
  
  
   $SocialMediaPicsPath = "/" . str_replace('/', '', $resultcandidates[0]["CandidateProfile_SocialImgPath"]) . 
-  												numbertoalpha($resultcandidates[0]["PublicProfile_ID"]) .  "/voter/socialimage";
+  												numbertoalpha($resultcandidates[0]["PublicProfile_ID"]) .  "/voter/socialimage.png";
 		
 	$HeaderTwitter = "yes";
   $HeaderTwitterTitle = "Rep My Block - Universal Voter Guide";
