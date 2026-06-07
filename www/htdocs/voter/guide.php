@@ -35,6 +35,9 @@
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";
 	
+	
+	
+	
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
@@ -259,7 +262,7 @@
 			<DIV class="field">
         <input type="text" id="candidateSearch" list="candidates" autocorrect="off" class="input" name="candidatename" placeholder=" " style="max-width: 380px;">
   			<label for="candidateSearch">Enter Candidate's Name</label>	
-  			<INPUT CLASS="f60bold" TYPE="Submit" NAME="SarachCandidate" VALUE="Search Candidate">
+  			<input class="f60bold" type="submit" id="searchCandidateBtn" value="Search Candidate">
 			</DIV>
 	
 <BR>
@@ -540,7 +543,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 controller = new AbortController();
 
                 const response = await fetch(
-                    "/voter/autocomplete_candidates?q=" + encodeURIComponent(q),
+                    "/" + encodeURIComponent(q) + "voter/autocomplete_candidates",
                     { signal: controller.signal }
                 );
 
@@ -567,6 +570,57 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }, 250);
     });
+});
+</script>
+
+
+<script>
+document.getElementById('searchCandidateBtn').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const q = document.getElementById('candidateSearch').value.trim();
+
+	fetch('/' + encodeURIComponent(q) + '/voter/search_candidate', {
+    method: 'GET'
+	})
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+
+    // Example: do something with returned candidates
+    if (data.ok) {
+    	document.querySelectorAll('.election-batch').forEach(el => {
+      	el.remove();
+    	});
+
+	    const container = document.querySelector('.sticky-stack');
+
+	    data.candidates.forEach(row => {
+
+	        const html = `
+	            <div class="candidate-card frame">
+	                <span class="ribbon ${row.Candidate_Party.toLowerCase()}">
+	                    ${row.Candidate_Party}
+	                </span>
+
+	                <a href="${row.DetailURL}">
+	                    <img src="${row.PicturePath}" class="imgcandidate">
+	                </a>
+
+	                <div class="candidate-name">
+	                    ${row.CandidateProfile_Alias}
+	                </div>
+	            </div>
+	        `;
+
+	        container.insertAdjacentHTML('beforeend', html);
+	        
+	    });
+	  }
+	})
+	.catch(err => {
+	    console.error('AJAX error:', err);
+  });
 });
 </script>
 
