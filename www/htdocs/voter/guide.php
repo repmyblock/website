@@ -543,7 +543,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 controller = new AbortController();
 
                 const response = await fetch(
-                    "/" + encodeURIComponent(q) + "voter/autocomplete_candidates",
+                    "/" + encodeURIComponent(q) + "/voter/autocomplete_candidates",
                     { signal: controller.signal }
                 );
 
