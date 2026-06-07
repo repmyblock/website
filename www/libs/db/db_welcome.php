@@ -61,12 +61,43 @@ class welcome extends queries {
 		}
 		return $this->_return_multiple($sql, $sql_vars);
 	}
-
+	
 	// Function use 8.1 format - Don't change var names
+	function SearchForCandidateName($ElectionDateFrom = null, $ElectionDateTo = null, $ElectionState = null, 
+																	$ActiveTeam = null, $CandidateElectionID = null, 
+																	$NotOnBallot = null,
+																	$Offset = 0, $Limit = null,  $CandidateName = null, 
+																	$SQLTables = ["Candidate.Candidate_ID", "PublicProfile.CandidateProfile_ID", 
+																							    "CandidateProfile_Alias", "Candidate_DispName",
+																							    "CandidateProfile_PicFileName","Candidate_Party", "PublicProfile.PublicProfile_ID",
+																							    "Elections_Date"]) {
+		$sql = "SELECT " . sqltablestoshow($SQLTables) .
+						",PublicProfile.PublicProfile_ID AS CANDPROFID, " .
+						"Candidate.CandidateElection_DBTable AS CANDDTABLE, " . 
+						"Candidate.CandidateElection_DBTableValue AS CANDVALUE " .
+						"FROM SearchCandidates " . 
+						"LEFT JOIN Candidate ON (Candidate.Candidate_ID = SearchCandidates.Candidate_ID) " . 
+						"LEFT JOIN PublicProfile ON (PublicProfile.PublicProfile_ID = SearchCandidates.PublicProfile_ID) " . 
+						"LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " . 
+						"LEFT JOIN CandidateElection ON (CandidateElection.CandidateElection_ID = Candidate.CandidateElection_ID) " . 
+						"LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
+					
+						"WHERE MATCH(SearchCandidates_NameClean) AGAINST (:CandidateName IN BOOLEAN MODE) " . 
+						"AND PublicProfile_PublishProfile = \"yes\" AND Elections_Date >= NOW() - INTERVAL 1 DAY " .
+						"ORDER BY Elections_Date " . 
+						"LIMIT 1000" ; 
+											
+		$sql_vars = ["CandidateName" => $CandidateName];
+						
+		return $this->_return_multiple($sql, $sql_vars);
+	}
+	
+	// Function use 8.1 format - Don't change var names
+	// CandidateName has not been entered yet.
 	function CandidatesForElection($ElectionDateFrom = null, $ElectionDateTo = null, $ElectionState = null, 
 																	$ActiveTeam = null, $CandidateElectionID = null, 
 																	$NotOnBallot = null,
-																	$Offset = 0, $Limit = 600, $SQLTables = null) {
+																	$Offset = 0, $Limit = 600, $SQLTables = null, $CandidateName = null) {
 		$sql = "SELECT " . sqltablestoshow($SQLTables) . ", PublicProfile.PublicProfile_ID AS CANDPROFID, " .
 						"Candidate.CandidateElection_DBTable AS CANDDTABLE, " . 
 						"Candidate.CandidateElection_DBTableValue AS CANDVALUE " .
@@ -77,7 +108,7 @@ class welcome extends queries {
 						"LEFT JOIN PublicProfile ON (PublicProfile.Candidate_ID = Candidate.Candidate_ID) " . 
 						"LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " .
 						"LEFT JOIN Team ON (Candidate.Team_ID = Team.Team_ID) " .  
-					 "WHERE PublicProfile_PublishProfile = \"yes\" AND CandidateElection_Text IS NOT NULL";
+					 "WHERE PublicProfile_PublishProfile = \"yes\" AND CandidateElection_Text IS NOT NULL ";
 		$sql_vars = array();
 		
 		if ( ! empty ($ElectionState)) {
@@ -85,11 +116,9 @@ class welcome extends queries {
 			$sql_vars["Abbrev"] = $ElectionState;
 		}
 		
-		
 		if ( $NotOnBallot === 'no') {
 			$sql .= " AND (PublicProfile_NotOnBallot IS NULL Or PublicProfile_NotOnBallot = 'no') ";
 		}
-		
 		
 		if ( ! empty($CandidateElectionID)) {
 			$sql .= " AND CandidateElection.CandidateElection_ID = :CandidateElectionID";
