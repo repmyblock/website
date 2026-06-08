@@ -247,14 +247,14 @@
 <DIV style="padding-bottom: 15px;">
           
         </DIV>
- 		
+ 		<?php /*
   		<DIV class="field">
         <input type="text" id="placeSearch" list="places" autocorrect="off" class="input" name="address" placeholder=" " style="max-width: 380px;">
          <label for="placeSearch">Enter Address</label>
 				<INPUT CLASS="f60bold" TYPE="Submit" NAME="signin" VALUE="Search Address">
   			<datalist id="places"></datalist>
 			</DIV>
-				
+				*/ ?>
 				
 			<DIV class="field">
         <input type="text" id="candidateSearch" list="candidates" autocorrect="off" class="input" name="candidatename" placeholder=" " style="max-width: 380px;">
