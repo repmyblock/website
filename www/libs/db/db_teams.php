@@ -224,6 +224,7 @@ class Teams extends RepMyBlock {
 		}
 	}	
 	
+	/*
 	function ListPetitionGroup($CandidateSet = null, $Status = NULL) {
 		return $this->_return_multiple(
 				"SELECT * FROM CandidateSet " .
@@ -240,6 +241,7 @@ class Teams extends RepMyBlock {
 				["CandidateSet" => $CandidateSet]
 		);
 	}
+	*/
 	
 	function CheckCandidates($VotersID, $Party, $DBTable, $DBValue, $Team_ID = NULL ) {
 		$sql = "SELECT * FROM Candidate WHERE Voters_ID = :VoterID AND " .
@@ -319,6 +321,7 @@ class Teams extends RepMyBlock {
 		);
   }
   
+  /*
   function CheckCandidateGroups ($CandidatesIDs) {
   	$sql = "SELECT * FROM CandidateGroup WHERE "; 
   	
@@ -331,6 +334,7 @@ class Teams extends RepMyBlock {
   	
   	return $this->_return_multiple($sql);
   }
+  */
   
 }
 ?>

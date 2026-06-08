@@ -704,11 +704,13 @@ class RepMyBlock extends queries {
         "LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
         "LEFT JOIN Elections on (Elections.Elections_ID = CandidateElection.Elections_ID) " .
         "WHERE " . $SQLVar . " = :VarID " .
+        
+      	"AND Elections.Elections_Date >= NOW() " .
+    	
         "ORDER BY Elections.Elections_Date DESC, Elections.DataState_ID",
         ["VarID" => $VarValue]
     );
   }
-  
   
   function ListCandidateProfile($CandidateID = NULL, $CandidateProfileID = NULL, $SQLTables = null) {
     $sql = "SELECT " . sqltablestoshow($SQLTables) . " FROM CandidateProfile ";
@@ -785,19 +787,18 @@ class RepMyBlock extends queries {
 
 	    return $this->_return_nothing(
   	    "UPDATE PublicProfile SET PublicProfile_PublishProfile = :flag " . 
-  	    	"WHERE $Table = :Var",
+  	    "WHERE $Table = :Var",
     	  ["flag" => $flag, "Var" => $var]
     	);
     }
   }
   
   // Function use 8.1 format - Don't change var names
-  function UpdateCandidateProfileByFields($CandidateProfile_ID, 
-  	$Quarantine = null, $PicFileName = null, 
+  function UpdateCandidateProfileByFields($CandidateProfile_ID,	$Quarantine = null, $PicFileName = null, 
   	$TmpPicFileName = null, $PicVerif = null, $PDFFileName = null, $TmpPDFFileName = null, 
   	$PDFVerif = null, $PDFPetition = null, $PDFPetitionState = null, $Team_ID = null, 
   	$PolSelfParty = null, $PolSelfCaucus = null, $PolSelfAss = null, $FirstName = null, $LastName = null, 
-  	$Alias = null, $CandidateRegAuthority_ID = null, $RegID = null, $DataConference_ID = null, $Website, 
+  	$Alias = null, $CandidateRegAuthority_ID = null, $RegID = null, $DataConference_ID = null, $Website = null, 
   	$Email = null, $SocialImgPath = null, $Twitter = null, $BlueSky = null, $Truth = null, $Facebook = null, 
   	$LinkedIn = null, $Instagram = null, $TikTok = null, 	$YouTube = null, $BallotPedia = null, $PhoneNumber = null, 
   	$FaxNumber = null, $Statement = null, $Donation = null, $PublishPetition = null, $Complain = null, 
