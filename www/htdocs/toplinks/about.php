@@ -84,7 +84,7 @@
 	
 	<P class="f80 center adpad"><A HREF="/<?= $middleuri ?>/register/user">Register on the Rep My Block website</A></P>
 	
-	<a name="tendencies"></A>
+	<a id="tendencies" name="tendencies"></A>
 	<P class="BckGrndElement f80 center">THE MAJOR POLITICAL TENDENCIES</P>
 	
 	<P class="f40 adpad">

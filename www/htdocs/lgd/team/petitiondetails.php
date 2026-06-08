@@ -80,7 +80,7 @@
 
 		WriteStderr($return, "Return of InsertCandidate()");
 
-		$profile_candidate = $rmb->updatecandidateprofile($return["Candidate_ID"], $MatchTableName);	
+		$profile_candidate = $rmb->UpdateCandidateProfileAutoCycle($return["Candidate_ID"], $MatchTableName);	
 		WriteStderr($profile_candidate, "profile_candidate\n");		
 		$rmb->addcandidateprofileid($return["Candidate_ID"], $profile_candidate["CandidateProfile_ID"]);
 	

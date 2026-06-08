@@ -9,13 +9,9 @@
   if (! empty ($_POST)) {
     
     if ( $_POST["unhidde"] == 'yes') {
-      echo "I am here";
-      echo "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
-      echo "Candidate: " . $URIEncryptedString["PublicProfileID"] . "<BR>";
-      $rmb->PublicProfileToggle($URIEncryptedString["PublicProfileID"], 'yes');    
+      $rmb->PublicProfileToggle(CandidateID: $URIEncryptedString["Candidate_ID"], flag: 'yes');      
     }
-    
-    exit();
+   
     header("Location: updatecandidateprofile");
   }
   

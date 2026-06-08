@@ -50,9 +50,9 @@ if ( $_SERVER["HTTP_HOST"] != $_SERVER["SERVER_NAME"] ) {
 
 $k = (! empty ($_GET["k"])) ? ((! empty ($_POST["k"])) ? $_POST["k"] : $_GET["k"]) : NULL;
 $id = (! empty ($_GET["id"])) ? ((! empty ($_POST["id"])) ? $_POST["id"] : $_GET["id"]) : NULL;
-
+	
 $OverAllMicrotimeStart = microtime(true);
-WriteStderr($OverAllMicrotimeStart, "\n------------------------------------------------------------\n|Script Name: ". $_SERVER['DOCUMENT_URI'] . "\n------------------------------------------------------------\nMicrotime");
+WriteStderr("Microtime: $OverAllMicrotimeStart", "\033[33m\033[1m\033[7mScript Name: ". $_SERVER['DOCUMENT_URI'] . "\033[0m");
 #WriteStderr($k, $_SERVER['DOCUMENT_URI'] . " Received K");
 
 if ( ! empty ($k)) {

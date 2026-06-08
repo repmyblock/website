@@ -44,6 +44,6 @@
  
 <?php
   $OverAllMicrotimeEnd = microtime(true);
-  WriteStderr($OverAllMicrotimeEnd, " ------------------------------------------------------------ Microtime");
-  WriteStderr(($OverAllMicrotimeEnd - $OverAllMicrotimeStart) . "\n\n\n", "Total Process Time");
+  WriteStderr(null, "Microtime: " . $OverAllMicrotimeEnd);
+  WriteStderr("\033[33m\033[1m\033[7mTotal Process Time: " . ($OverAllMicrotimeEnd - $OverAllMicrotimeStart) . "\033[0m\n\n\n", "");
 ?>

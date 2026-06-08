@@ -1,11 +1,16 @@
 <?php
   $Menu = "profile";  
   $BigMenu = "profile";
-   
+     
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";  
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
+  
+  WriteStderr($_POST, "\033[7;35m\033[1;35mENTERING THE FIXPICTURE NORMAL\033[0m\n\n");
       
   if (! empty ($_POST)) {
+  	
+		WriteStderr($_POST, "\033[7;35m\033[1;35mENTERING THE FIXPICTURE POST\033[0m\n\n");
+  	
     if ( empty ($URIEncryptedString["PDFFilePath"])) {
       header("Location: updatecandidateprofile");
       exit();
@@ -21,12 +26,12 @@
   $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
   WriteStderr($rmbperson, "rmbperson array");
                 
-  if ($rmbperson["SystemUser_emailverified"] == "both") {                
+  if ($rmbperson["SystemUser_emailverified"] == "both") {            
    $TopMenus = [
-          ["k" => $k, "url" => "profile/user", "text" => "Public Profile"],
-          ["k" => $k, "url" => "profile/voter/card", "text" => "Voter Profile"], 
-          ["k" => $k, "url" => "profile/candidate/public", "text" => "Candidate Profile"],
-          ["k" => $k, "url" => "profile/team/section", "text" => "Team Profile"]
+          ["url" => "profile/user", "text" => "Public Profile"],
+          ["url" => "profile/voter/card", "text" => "Voter Profile"], 
+          ["url" => "profile/candidate/public", "text" => "Candidate Profile"],
+          ["url" => "profile/team/section", "text" => "Team Profile"]
      ];                
   }              
 
@@ -37,6 +42,15 @@
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
   
   $PicturePath = "/shared/pics/" . $URIEncryptedString["PicPath"] . "/TMP_" . $URIEncryptedString["PicName"];
+  
+  // Save the picture in the data
+  WriteStderr($URIEncryptedString, "Updating Candidate Profile By Fields");
+  $rmb->UpdateCandidateProfileByFields(
+					CandidateProfile_ID: $URIEncryptedString["CandidateProfileID"], 
+					TmpPicFileName: $URIEncryptedString["PicPath"] . "/TMP_" . $URIEncryptedString["PicName"]
+ 				);
+
+  WriteStderr(null, "Updating done Updating the fields: " . $URIEncryptedString["PicPath"] . "/TMP_" . $URIEncryptedString["PicName"]);  
 ?>
 
     <div class="row layout">
@@ -77,6 +91,7 @@
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";  ?>
     <SCRIPT>
       <?php require $_SERVER["DOCUMENT_ROOT"] . "/../libs/utils/External_Croppie/croppie.min.js"; ?>
+      <?php /* This need to be loaded by PHP and not the browser because there is custom PHP code in the JS */ ?>
       <?php require $_SERVER["DOCUMENT_ROOT"] . "/js/croppie.js"; ?>
     </SCRIPT>
   </BODY>

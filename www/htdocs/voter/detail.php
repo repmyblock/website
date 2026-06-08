@@ -11,19 +11,19 @@
   $addtopics = time();
  
   $r = new welcome();  
-  $resultcandidates = $r->CandidatesDetailed($CandidateProfileID, [ "debugsql",
+  $resultcandidates = $r->CandidatesDetailed($CandidateProfileID, [ 
       "PublicProfile.PublicProfile_ID", 
       "CandidateProfile.CandidateProfile_ID", "Candidate.Candidate_ID",
       "CandidateElection_Text", "CandidateElection_PetitionText",
       "Elections_Text", "CandidateElection.CandidateElection_ID",
       "TeamNGOEnd.TeamNGO_ID", "TeamNGOEnd_Major", 
-      "CandidateProfile_PicFileName", "CandidateProfile_SocialImgPath"
+      "CandidateProfile_PicFileName", "CandidateProfile_SocialImgPath", "debugsql"
   ]);
   
   $result = $r->CandidatesForElection(
     CandidateElectionID: $resultcandidates[0]["CandidateElection_ID"], 
     NotOnBallot: 'no',
-    SQLTables: ["debugsql"]
+    // SQLTables: ["debugsql"]
   );
  
   $passparams = [];

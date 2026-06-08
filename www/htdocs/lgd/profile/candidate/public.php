@@ -7,13 +7,12 @@
 
   if (empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
   
-
   if ( ! empty ($_POST)) {  
   	WriteStderr($_POST, "Post in ProfileCandidate.php");
   		
   	if ( ! empty ($_POST["DefinedProfile_ID"])) {
   		header("Location: /" . CreateEncoded ([
-        "PublicProfileID" => $_POST["DefinedProfile_ID"],
+        "Candidate_ID" => $_POST["DefinedProfile_ID"],
         "SystemUser_ID" => $URIEncryptedString["SystemUser_ID"],
         "FirstName" => $URIEncryptedString["FirstName"], 
         "LastName" => $URIEncryptedString["LastName"],
@@ -40,10 +39,13 @@
   if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}
 
   $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
-  $rmbcandprof = $rmb->ListProfilesForCandidates($URIEncryptedString["SystemUser_ID"], null, [
-  												"Candidate.Candidate_ID", "Candidate_DispName", "Elections_Date", 
-  												"PublicProfile_ID", "Elections_Text", "CandidateElection_Text"
-  							]);
+  $rmbcandprof = $rmb->ListProfilesForCandidates(
+  												SystemID: $URIEncryptedString["SystemUser_ID"], 
+  												SQLTables: [
+  														"Candidate.Candidate_ID", "Candidate_DispName", "Elections_Date", 
+  														"PublicProfile_ID", "Elections_Text", "CandidateElection_Text"
+  												]
+  										); 
   							  											
   WriteStderr($rmbperson, "RMBPerson");
   WriteStderr($rmbcandprof, "rmbcandprof");
@@ -53,10 +55,10 @@
 
   WriteStderr($Position, "Positions order");
   $TopMenus = [
-          ["k" => $k, "url" => "profile/user", "text" => "Public Profile"],
-          ["k" => $k, "url" => "profile/voter/card", "text" => "Voter Profile"], 
-          ["k" => $k, "url" => "profile/candidate/public", "text" => "Candidate Profile"],
-          ["k" => $k, "url" => "profile/team/section", "text" => "Team Profile"]
+          ["url" => "profile/user", "text" => "Public Profile"],
+          ["url" => "profile/voter/card", "text" => "Voter Profile"], 
+          ["url" => "profile/candidate/public", "text" => "Candidate Profile"],
+          ["url" => "profile/team/section", "text" => "Team Profile"]
        ];
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }

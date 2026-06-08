@@ -54,23 +54,31 @@ $image = imagecreatefrompng($tmp_name);
 imagepng($image, $image_path);
 fclose($tmp_handle);
 imagedestroy($image);
-
 $old = $GeneralUploadDir . "/shared/pics/" . $URIEncryptedString["PicPath"] . "/TMP_" . $URIEncryptedString["PicName"];
-$new = $GeneralUploadDir . "/shared/pics/" . $URIEncryptedString["PicPath"] . "/" . $URIEncryptedString["PicName"];
+$new = $GeneralUploadDir . "/shared/pics/" . $URIEncryptedString["PicPath"] . "/CRP_" . $URIEncryptedString["PicName"];
 
 rename(
 	$GeneralUploadDir . "/shared/pics/" . $URIEncryptedString["PicPath"] . "/TMP_" . $URIEncryptedString["PicName"], 
-	$GeneralUploadDir . "/shared/pics/" . $URIEncryptedString["PicPath"] . "/" . $URIEncryptedString["PicName"]
+	$GeneralUploadDir . "/shared/pics/" . $URIEncryptedString["PicPath"] . "/CRP_" . $URIEncryptedString["PicName"]
 );
 
-$CandidateProfileFromPublic = $rmb->FindPublicProfile(null, $URIEncryptedString["CandidateProfileID"]);
-WriteStderr($CandidateProfileFromPublic, "Inside AJAX CandidateFromPublic");
 
-$rmb->updatecandidateprofile($CandidateProfileFromPublic["CandidateProfile_ID"], [
+WriteStderr(null, "Inside AJAX URIEncryptedString OLD: " . $old );
+WriteStderr(null, "Inside AJAX URIEncryptedString NEW: " . $new );
+
+
+
+WriteStderr($URIEncryptedString, "Inside AJAX URIEncryptedString");
+$CandidateProfileFromPublic = $rmb->FindPublicProfile(Candidate_ID: $URIEncryptedString["Candidate_ID"]);
+WriteStderr($CandidateProfileFromPublic, "Inside AJAX CandidateProfileFromPublic");
+
+$rmb->UpdateCandidateProfileAutoCycle($CandidateProfileFromPublic["CandidateProfile_ID"], $URIEncryptedString["Candidate_ID"],[
 	"PicVerified" => 'yes', 
-	"PicFile" => $URIEncryptedString["PicPath"] . "/" . $URIEncryptedString["PicName"],
-	"CandidateID" => $CandidateProfileFromPublic["Candidate_ID"],
+	"MakePublic" => $CandidateProfileFromPublic["PublicProfile_PublishProfile"], 
+	"TmpPicFile" => $URIEncryptedString["PicPath"] . "/CRP_" . $URIEncryptedString["PicName"]
 ]);
+
+WriteStderr(null, "Finished the UpdateCandidateProfileAutoCycle");
 	
 echo_data_exit(['result' => 'OK'], 200);
 

@@ -898,6 +898,7 @@ class RepMyBlock extends queries {
       "PublishPetition" => "CandidateProfile_PublishPetition", "SelfAss" => "CandidateProfile_PolSelfAss",
       "SelfParty" => "CandidateProfile_PolSelfParty", "SelfCaucus" => "CandidateProfile_PolSelfCaucus",
       "Truth" => "CandidateProfile_Truth", "TmpPicFile" => "CandidateProfile_TmpPicFileName",
+      "PicFile" => "CandidateProfile_PicFileName"
     ];
     
     WriteStderr($MatchTableName, "The Match Table");

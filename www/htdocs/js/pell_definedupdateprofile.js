@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  var preload = <?= json_encode($rmbcandidate["Statement"] ?? "") ?>;
+  var preload = <?= json_encode($rmbcandidate["CandidateProfile_Statement"] ?? "") ?>;
 
   if (preload) {
     editor.content.innerHTML = preload;

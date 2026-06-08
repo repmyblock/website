@@ -12,7 +12,7 @@
    	rename($GeneralUploadDir . "/shared/platforms/" . $URIEncryptedString["PDFPath"] . "/TMP_" . $URIEncryptedString["PDFName"], $GeneralUploadDir . "/shared/platforms/" .$URIEncryptedString["PDFPath"]. "/" . $URIEncryptedString["PDFName"]);
 
 		$CandidateProfileFromPublic = $rmb->FindPublicProfile(null, $URIEncryptedString["CandidateProfileID"]);
-		$rmb->updatecandidateprofile($CandidateProfileFromPublic["CandidateProfile_ID"], [
+		$rmb->UpdateCandidateProfileAutoCycle($CandidateProfileFromPublic["CandidateProfile_ID"], [
 			"PDFVerified" => 'yes', 
 			"PDFFile" => $URIEncryptedString["PDFPath"] . "/" . $URIEncryptedString["PDFName"],
 			"CandidateID" => $CandidateProfileFromPublic["Candidate_ID"],

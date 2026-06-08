@@ -60,40 +60,50 @@ function ordinal($number) {
 
 function sqltablestoshow($table) {
 	$stringtoreturn = "";
+	$debug = false;
 	if (! empty ($table)) {
   	foreach ($table as $var) {
   		if (! empty ($var)) {
-  			if ($var == "debugsql") { return "*"; }
-	  		if (! empty ($stringtoreturn)) { $stringtoreturn .= ","; }
-  			$stringtoreturn .= $var;
+  			if ($var == "debugsql") { $debug = true; } 
+	  		else {
+	  			if (! empty ($stringtoreturn)) { $stringtoreturn .= ","; }
+  				$stringtoreturn .= $var;
+  			}
   		}
   	}
+  	if ($debug == true) { return "*, " . $stringtoreturn; }
   	return $stringtoreturn;
   }
  	return "*";
 }
 
+function NormalizeDataField($v) {
+  return ctype_digit($v)
+      ? (string)(int)$v   // 001 -> 1
+      : strtoupper(trim($v));
+}
+
 function numbertoalpha($number) {
-    $alphabet = 'G7k2Lm0Zx9aQp1R4yTj8Vw5N6bHc3DSeWUFzXoJtCsYqKduhBfOlIrnMiPEgAv';
-    $base = strlen($alphabet);
+  $alphabet = 'G7k2Lm0Zx9aQp1R4yTj8Vw5N6bHc3DSeWUFzXoJtCsYqKduhBfOlIrnMiPEgAv';
+  $base = strlen($alphabet);
 
-    if ($number < 0) {
-        throw new Exception("Number must be non-negative");
-    }
+  if ($number < 0) {
+    throw new Exception("Number must be non-negative");
+  }
 
-    $result = '';
+  $result = '';
 
-    if ($number == 0) {
-        $result = $alphabet[0];
-    }
+  if ($number == 0) {
+    $result = $alphabet[0];
+  }
 
-    while ($number > 0) {
-        $remainder = $number % $base;
-        $result = $alphabet[$remainder] . $result;
-        $number = intdiv($number, $base);
-    }
+  while ($number > 0) {
+    $remainder = $number % $base;
+    $result = $alphabet[$remainder] . $result;
+    $number = intdiv($number, $base);
+  }
 
-    return $result;
+  return $result;
 }
 
 function alphatonumber($alpha) {
@@ -120,10 +130,28 @@ function alphatonumber($alpha) {
 function WriteStderr($data, $message = null, $stop = false) {
 
 	global $Developping;
-	
+
+  /*
+	  $red    = "\033[31m";
+		$green  = "\033[32m";
+		$yellow = "\033[33m";
+		$blue   = "\033[34m";
+		$purple = "\033[35m";
+		$cyan   = "\033[36m";
+		$white  = "\033[37m";
+		$reset  = "\033[0m";
+		
+		$bold      = "\033[1m";
+		$dim       = "\033[2m";
+		$underline = "\033[4m";
+		$blink     = "\033[5m"; // not widely supported
+		$reverse   = "\033[7m";
+		$reset     = "\033[0m";
+	*/
+
 	if ($Developping) {
 		$logFile = "/tmp/repmyblock.log";
-		$prefix = date("Y-m-d H:i:s") . "\n";
+		$prefix = "\033[7;36m" . date("Y-m-d H:i:s") . "\033[0m" . ": ";
 
 		if (!empty($message)) {
 		  $prefix .= $message . "\n";
@@ -334,19 +362,35 @@ function PrintVerifMenu($VerifEmail = true, $VerifVoter = true) {
   }
 }
 
-function PlurialMenu($k, $menusarray) {
+function PlurialMenu($k, $menusarray = null, $reset = true) {
+	global $URIEncryptedString;
+	
+	if ( $reset = true) {
+		$menuk = CreateEncoded([
+									"SystemUser_ID" => $URIEncryptedString["SystemUser_ID"], 
+									"FirstName" => $URIEncryptedString["FirstName"], 
+									"LastName" => $URIEncryptedString["LastName"]
+		]);
+	}	else {
+		$menuk = $k;
+	}
+	
   if ( ! empty ($menusarray)) {
     echo "<!-- Begin Purial Menu --->\n";
     echo "          <NAV class=\"UnderlineNav\">\n";
     echo "            <DIV class=\"UnderlineNav-body\">\n";
-    foreach ($menusarray as $var) {    
+    foreach ($menusarray as $var) {
+    	if (! empty ($var["k"]) && $reset == false) { $mylocalk = $var["k"];	} 
+    	else { $mylocalk = $menuk; }
+    	
       if ( $_SERVER["PHP_SELF"] == "/lgd/" . $var["url"] . ".php" ) { $selected = " selected"; } else { $selected = ""; }      
-      echo "              <A class=\"mobilemenu UnderlineNav-item" .  $selected . "\" href=\"/" . $var["k"] . "/lgd/" . $var["url"] . "\">" . $var["text"] . "</a>\n";
+      echo "              <A class=\"mobilemenu UnderlineNav-item" .  $selected . "\" href=\"/" . $mylocalk . "/lgd/" . $var["url"] . "\">" . $var["text"] . "</a>\n";
     }
     echo "            </DIV>\n";
     echo "          </NAV>\n";
     echo "          <!-- End Purial Menu --->\n";
   }
+  
 }
 
 function DB_WorkCounty($CountyID) {

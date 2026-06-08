@@ -43,7 +43,7 @@
 				"Full"	 =>  $URIEncryptedString["FullName"], 
 				"Email"	 => $URIEncryptedString["ContactInfo"], 
 			);
-			$CandidateProfile = $rmb->updatecandidateprofile("force", $MatchTableName);	
+			$CandidateProfile = $rmb->UpdateCandidateProfileAutoCycle("force", $MatchTableName);	
 	}
 	
 	if (empty ($result)) {

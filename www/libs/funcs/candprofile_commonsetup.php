@@ -1,5 +1,22 @@
 <?php
 // This the common piece to both Delegate.php and UpdateCandidateProfile
+WriteStderr($URIEncryptedString, "\033[7;35m\033[1;35mENTERING THE CANDPROFILE COMMON\033[0m\n\n");
+
+/*    	
+	Update of the Profile. I am leaving it here for time being because I typed everything by hand.
+  $rmb->UpdateCandidateProfileByFields(
+		Quarantine: 'yes', PicFileName: 'picfilename test', TmpPicFileName: 'pictmpfilename', PicVerif: 'yes', 
+		PDFFileName: 'pdffilename', TmpPDFFileName: 'pdftmpfilename', PDFVerif: 'yes', PDFPetition: 'yes', 
+		PDFPetitionState: 30, Team_ID: 10000, PolSelfParty: 20, PolSelfCaucus: 30, PolSelfAss: '40', 
+		FirstName: 'testfirstname', LastName: 'test last name', Alias: 'the alias', CandidateRegAuthority_ID: 2000,
+		RegID: 'reg fec id', DataConference_ID: 3000, Website: 'website', Email: 'email', SocialImgPath: 'socimgpath',
+		Twitter: 'twitter', BlueSky: 'bluesky', Truth: 'truft', Facebook: 'facebook', LinkedIn: 'linkedin', 
+		Instagram: 'insta', TikTok: 'tiktok', YouTube: 'youtube', BallotPedia: 'ballotpedia', PhoneNumber: 'phononumbero',
+		FaxNumber: 'faxo', Statement: 'statement', Donation: "doneation line", PublishPetition: 'yes', 
+		Complain: 'yes', LastModified: 'today', CandidateProfile_ID: $CandidateProfileID
+	);
+*/
+        	
 if ( empty ($ErrorMessage)) {	
 	$parts = explode('-', $_POST['positionrunning'], 2);
 	$DBTable = $parts[0] ?? null;
@@ -7,7 +24,8 @@ if ( empty ($ErrorMessage)) {
 	
 	// Check the date first.
 	$DateElection = $rmb->ListElectionDate($URIEncryptedString["DataStateID"], $URIEncryptedString["DateElection"]);
-		
+	WriteStderr($DateElection, "Checking the date first");	
+
 	if (empty($DateElection)) {
 		$rmbStateName = $rmb->ListStates($URIEncryptedString["DataStateID"]);
 		$DateElection = $rmb->AddElectionDate(
@@ -20,10 +38,12 @@ if ( empty ($ErrorMessage)) {
 	if ( ! empty(trim($_POST["manuposition"]))) {		
 		// Find the ElectionsPositions from the ElectionsPositionTable.
 		$rmbPosition = $rmb->ListAllPositions($URIEncryptedString["PositionID"]);
-						
+		WriteStderr($rmbPosition, "In MANUEL Positions");	
+
 		$rmbCandidateElection = $rmb->FindElectionFromPositionID(
 		 				$DateElection["Elections_ID"], $URIEncryptedString["PositionID"], 
-		 				$rmbPosition["ElectionsPosition_DBTable"], null);
+		 				$_POST["manuposition"], null);
+		
 
 		if ( ! empty ($rmbCandidateElection)) {
 			$CandidateElection_ID = $rmbCandidateElection[0]["CandidateElection_ID"];
@@ -31,30 +51,58 @@ if ( empty ($ErrorMessage)) {
 			$CandidateElection_ID = $rmb->CreatePositionEntry([
 				"Elections_ID" => $DateElection["Elections_ID"],
 				"CandidateElection_PositionType" => "tobedetermined",
-				"CandidateElection_Text" => $rmbPosition["ElectionsPosition_Name"],
+				"CandidateElection_Text" => $rmbPosition["ElectionsPosition_Name"] . " - " . $_POST["manuposition"],
 				"CandidateElection_PetitionText" => $rmbPosition["ElectionsPosition_Explanation"],
 				"CandidateElection_DBTable" => $rmbPosition["ElectionsPosition_DBTable"],		
+				"CandidateElection_DBTableValue" => $_POST["manuposition"],
 				"ElectionsPosition_ID" => $rmbPosition["ElectionsPosition_ID"],		
 			]);
 		}				
+		
+		WriteStderr($rmbCandidateElection, "In MANUEL Positions with final CandidateElection_ID: $CandidateElection_ID");	
+		
 
 		// If the entry is already in the list.	
 	} else {
 				
 	 	$ElectCandidate = $rmb->FindCandidateElection($URIEncryptedString["DataStateID"], $URIEncryptedString["PositionID"]);	
-	 			 			 
+	 	
+				 
  		if (! empty ($ElectCandidate)) {
 	 		foreach ($ElectCandidate as $var) {
 				if ( ! empty ($var)) {
-					if ($var["CandidateElection_DBTable"] == $DBTable && $var["CandidateElection_DBTableValue"] == $DBValue ) {
+					if ($var["CandidateElection_DBTable"] == $DBTable && NormalizeDataField($var["CandidateElection_DBTableValue"]) === NormalizeDataField($DBValue)) {
 						if ( $var["Elections_Date"] == $URIEncryptedString["DateElection"]) {
         			$CandidateElection_ID = $var["CandidateElection_ID"];
+        			WriteStderr(null, $var["CandidateElection_DBTable"] . " == " . $DBTable . " && " . 
+														$var["CandidateElection_DBTableValue"] . " == " . $DBValue . 
+														" Next check: " . $var["Elections_Date"] . " == " . $URIEncryptedString["DateElection"]);	
+							break;
         		}
         		$LatestElectCandidate = $var;
 					}
 				}		
 			} 			
  		}
+ 		
+ 	/*
+	  $red   		= "\033[31m";
+		$green  = "\033[32m";
+		$yellow = "\033[33m";
+		$blue   = "\033[34m";
+		$purple = "\033[35m";
+		$cyan   = "\033[36m";
+		$white  = "\033[37m";
+		$reset  = "\033[0m";
+		$bold      = "\033[1m";
+		$dim       = "\033[2m";
+		$underline = "\033[4m";
+		$blink     = "\033[5m"; // not widely supported
+		$reverse   = "\033[7m";
+		$reset     = "\033[0m";
+	*/
+ 		
+ 		WriteStderr(null, "\033[1;31mCandidateElection_ID => $CandidateElection_ID\033[0m");
  		
  		if ( empty ($CandidateElection_ID)) {
  			// This means that the entry is not there for the Election_ID.
@@ -75,6 +123,18 @@ if ( empty ($ErrorMessage)) {
 			]);
  		}		 		
 	}	 
+
+	WriteStderr($CandidateElection_ID, "Candidate Election ID at end of loop: $CandidateElection_ID");	
+	
+	// Update the Candidate information about the district.
+	if ($URIEncryptedString["CanElectID"] != $CandidateElection_ID) {
+		
+		WriteStderr(null, "Changing the Candidate information with the new district Information.");	
+		$rmb->UpdateCandidate(Candidate_ID: $URIEncryptedString["Candidate_ID"], 
+													CandidateElection_ID: $CandidateElection_ID,
+													DBTableValue: $DBValue);
+	}
+	
 
 	$CandidatesName = trim($URIEncryptedString["FirstName"]) . " " . trim($URIEncryptedString["LastName"]);
     
@@ -139,11 +199,13 @@ if ( empty ($ErrorMessage)) {
 		$DBValue = null;
 	} 
 	
+	/// WE ARE HERE and we must change the election_ID
  	if (empty ($_POST["CandidateProfile_ID"])) {
  		// Check if that username has a candidate setup for the position
  		$canresult = $rmb->SearchPetitionCandidate(
- 					$URIEncryptedString["SystemUser_ID"], null, null, null, 
-					null, null, null,  null, $DBTable, $DBValue, null, $teamresult["Team_ID"]
+ 					SystemUserID: $URIEncryptedString["SystemUser_ID"],
+ 					DBTable: $DBTable, DBValue: $DBValue, 
+ 					TeamID: $teamresult["Team_ID"]
 		);
 		
   	// We need to create a Candidate
@@ -152,13 +214,20 @@ if ( empty ($ErrorMessage)) {
 				$DBValue = "Manual entry: " . trim($_POST["manuposition"]);
 			}
 			
-			$Candidate_ID = $rmb->InsertCandidate(
-				$URIEncryptedString["SystemUser_ID"], null, null, null, $CandidateElection_ID, null, 
-				$CandidatesName, null, $DBTable, $DBValue, null, 'pending' , $teamresult["Team_ID"]
+			$Candidate_ID = $rmb->InsertCandidate(			
+						SystemUserID: $URIEncryptedString["SystemUser_ID"], 
+			  		CandidateElectionID: $CandidateElection_ID, 
+			  		DisplayName: $CandidatesName,
+			  		DBTable: $DBTable, DBValue: $DBValue,
+			  		Status: 'pending',
+						TeamID:$teamresult["Team_ID"]                    
 			);	
 		} else {
 			$Candidate_ID = $canresult[0]["Candidate_ID"];
 		}
 	}        
 }
+
+WriteStderr($URIEncryptedString, "\033[1;7;35mEXITING THE CANDPROFILE COMMON\033[0m\n\n\n");
+
 ?>

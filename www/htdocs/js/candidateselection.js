@@ -176,7 +176,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	function profileId(p) {
-  	return p.CandidateProfile_ID || p.Candidate_ID || "";
+  	// return p.CandidateProfile_ID || 
+  	return p.Candidate_ID || "";
 	}
 
 	function renderProfiles(value = "") {

@@ -19,6 +19,7 @@
       // bind an image to croppie
       c.bind({
           url: "<?= $PicturePath ?>"
+          <?php WriteStderr($null, "INSIDE Croppie.js -> $PicturePath"); ?>
       });
 
       // set the zoom programatically. Restricted to the min/max values of the slider
