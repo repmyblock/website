@@ -569,6 +569,9 @@ $LoadedPicVar = empty($rmbcandidate["CandidateProfile_TmpPicFileName"])
 
 <div class="f80"><b>Upload your picture</b></div>
 
+<DIV class="f60">To make your picture visible to the public, select the "<B>Loaded</B>" image and and click the 
+	<B>"Save Profile"</B> button.</DIV>
+
 <div class="picture-select">
     <div class="picture-box">
         <div style="padding: 0px 10px 30px 10px;font-weight: bold;font-size: 24px">Current</div>
