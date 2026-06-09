@@ -10,16 +10,11 @@ if ( empty ($URIEncryptedString["SystemUser_ID"])) { goto_signoff(); }
 if ( empty ($URIEncryptedString["MenuDescription"])) { $MenuDescription = "District Not Defined";}	
 $Party = PrintParty($URIEncryptedString["UserParty"]);
 
-echo "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
-
 if ( empty ($URIEncryptedString["PositionID"])) { 
 	header("Location: /" . $k . "/lgd/profile/candidate/public");
 }
 
 header("Location: /" . $k . "/lgd/profile/candidate/updatecandidateprofile");
-
-echo "Why AM I HERE?";
-
 exit();
 
 $rmb = new RepMyBlock();

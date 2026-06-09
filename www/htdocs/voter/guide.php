@@ -34,12 +34,11 @@
 	$addtopics = date("ymd",time());
 	
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_nolog.php";
-
 	if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
 	
-	$r = new welcome(0);	
+	$r = new welcome();	
 	
 	$ListState = $r->ListElections();	
 	WriteStderr($ListState, "List Election");
@@ -47,12 +46,12 @@
 	$ActiveStateWithElection = [];
 
 	foreach ($ListState as $var) {
-	    if (!empty($var["DataState_Abbrev"])) {
-	        $ActiveStateWithElection[$var["DataState_Abbrev"]] = true;
-	    }
+    if (!empty($var["DataState_Abbrev"])) {
+      $ActiveStateWithElection[$var["DataState_Abbrev"]] = true;
+    }
 
-	    $StateName[$var["DataState_Abbrev"]] = $var["DataState_Name"];
-	    $StatesDates[$var["DataState_Name"]][$var["Elections_Date"]] = true;
+    $StateName[$var["DataState_Abbrev"]] = $var["DataState_Name"];
+    $StatesDates[$var["DataState_Name"]][$var["Elections_Date"]] = true;
 	}
 	
 	$passparams = [];
@@ -224,19 +223,15 @@
 	
 <DIV class="main">
 
-
-
 	<div class="sticky-stack">
-
   <div class="state-flag-bar">
-  		<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
+  	<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
  			
 		<?php
-		foreach ($Statescountries as $CountryName => $CountryFlag) {
-    	$activeccs = !empty($ActiveStateWithElection[$CountryFlag])? NULL : " flagnonselected";
+			foreach ($Statescountries as $CountryName => $CountryFlag) {
+    		$activeccs = !empty($ActiveStateWithElection[$CountryFlag])? NULL : " flagnonselected";
 		?>
-    <A class="flag-link"
-       data-state="<?= htmlspecialchars($CountryName) ?>"
+    <A class="flag-link" data-state="<?= htmlspecialchars($CountryName) ?>"
        HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "S" . $CountryFlag : "rset") . $BuildURLEnd ?>/voter/guide"
        ALT="<?= htmlspecialchars($CountryName) ?>">
        <IMG SRC="/images/flags/<?= htmlspecialchars($CountryFlag) ?>.png" class="flag <?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>">

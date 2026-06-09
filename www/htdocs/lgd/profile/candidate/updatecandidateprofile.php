@@ -8,8 +8,6 @@
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/common/verif_sec.php";  
   require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_repmyblock.php";  
   
-  WriteStderr($_POST, "POST in UPDATECANDIDATEPROFILE after loading VERIF and DBFunctions:");
-  
   // Process error message
   if (is_array($URIEncryptedString["ErrorMessage"])) {
     switch($URIEncryptedString["ErrorMessage"]) {  
@@ -27,18 +25,19 @@
   $rmb = new repmyblock(0);  
   
   $rmbperson = $rmb->FindPersonUserProfile($URIEncryptedString["SystemUser_ID"]);
-  WriteStderr($rmbperson, "rmbperson array");
+  WriteStderr($rmbperson, "Line 28: RMBPerson after FindPersonUserProfile: " . $URIEncryptedString["SystemUser_ID"]);
     
-  $rmbcandidate = $rmb->ListProfilesForCandidates(
+  if (! empty ($URIEncryptedString["Candidate_ID"])) {
+  	$rmbcandidate = $rmb->ListProfilesForCandidates(
   													CandidateID: $URIEncryptedString["Candidate_ID"],
    													SQLTables: ["CandidateElection.CandidateElection_DBTableValue AS CanProfDBTableVal", "debugsql"]
   													)[0];
-  WriteStderr($rmbcandidate, "rmbcandidate array");
- 
+	}
+  WriteStderr($rmbcandidate, "Line 34: RMBCandidate with ListProfilesForCandidates CandidateID: " .  $URIEncryptedString["Candidate_ID"]);
 
   // Put the POST HERE because we need to reread the data 
   if ( ! empty ($_POST)) {  
-    WriteStderr($_POST, "POST Update Candidate Profile:");
+    WriteStderr($_POST, "Line 38: Entering the \$_POST");
     $PicStructure = $GeneralUploadDir . "/shared/pics/";
     $PDFStructure = $GeneralUploadDir . "/shared/platforms/"; 
       
