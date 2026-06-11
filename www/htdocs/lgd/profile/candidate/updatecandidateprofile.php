@@ -409,6 +409,17 @@
                 booklet that a voter will download and email.
               </DIV>
 
+							 <?php if ($rmbcandidate["PublicProfile_PublishProfile"] == 'yes') {               
+              	$urlguide = $FrontEndWebsite . "/" . 	numbertoalpha($rmbcandidate["PublicProfile_ID"]) . "_voterguide";
+              ?>                
+              	<DIV class="f60" style="padding: 15px 0px 15px 0px">
+              		<B>Your profile is available at:</B> 
+              		<A HREF="<?= $urlguide ?>" TARGET="<?= numbertoalpha($rmbcandidate["PublicProfile_ID"]) ?>"><?= $urlguide ?></A>.
+              		
+              		
+              	</DIV>
+              <?php } ?>
+
 
               <?php if (! empty ($IntErrorMsg)) { ?>
                 <TABLE BGCOLOR=YELLOW BORDER=1 WIDTH=100%>
@@ -444,7 +455,7 @@
                 </DIV>
                 <DIV><button type="submit" class="submitred"><?= $StatusMessage ?></button></DIV>
                 <HR>  
-              <?php } else { ?>                
+              <?php } else { ?>
                 <INPUT TYPE="hidden" NAME="MakePublic" VALUE="yes">
               <?php } ?>
                 

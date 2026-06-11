@@ -66,6 +66,43 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_trac.php";
 	$Referer = $_SERVER['HTTP_REFERER'];
 	preg_match('/.*\.repmyblock\.org\/([^\/]*)\/([^\/]*)\/(.*)/', $_SERVER['HTTP_REFERER'], $matches, PREG_OFFSET_CAPTURE);
 	
+	/*
+	// GitHUb RepoDate
+	$owner = "RepMyBlock";
+	$repo  = "repmyblock";
+
+	$url = "https://api.github.com/repos/$owner/$repo";
+
+	$ch = curl_init($url);
+	curl_setopt_array($ch, [
+	    CURLOPT_RETURNTRANSFER => true,
+	    CURLOPT_HTTPHEADER => [
+	        "Accept: application/vnd.github+json",
+	        "User-Agent: TheoScript"
+	        // "Authorization: Bearer YOUR_GITHUB_TOKEN" // needed for private repos
+	    ],
+	]);
+
+	$response = curl_exec($ch);
+	$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	curl_close($ch);
+
+	if ($httpCode !== 200) {
+	    die("GitHub API error: HTTP $httpCode\n$response\n");
+	}
+
+	$data = json_decode($response, true);
+
+	// Last Git push to the repository
+	$lastModified = $data["pushed_at"] ?? null;
+
+	// Last metadata update to the repository record
+	$repoUpdated = $data["updated_at"] ?? null;
+
+	echo "Last code push: $lastModified\n";
+	echo "Repo metadata updated: $repoUpdated\n";
+		
+	*/
 	
 	
 	$URLRef = "/" . $matches[1][0] . "/" . $matches[3][0];

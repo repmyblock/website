@@ -31,7 +31,9 @@ class RMBAdmin extends RepMyBlock {
 	
 	function ListProfileFromCandidateID($CandidateID) {
 		return $this->_return_multiple(
-					"SELECT * FROM CandidateProfile WHERE Candidate_ID = :Candidate",
+					"SELECT * FROM PublicProfile " . 
+					"LEFT JOIN Candidate ON (Candidate.Candidate_ID = PublicProfile.Candidate_ID) " . 
+					"WHERE PublicaProfile.Candidate_ID = :Candidate",
 					["Candidate" => $CandidateID]
 		);
 	}
@@ -206,9 +208,9 @@ class RMBAdmin extends RepMyBlock {
 		return $this->_return_multiple($sql);
 	}
 	
-	function SearchUsers($Query = NULL) {
+	function SearchUsers($Query = null, $SQLTables = null) {
 		if (! is_array($Query) || empty ($Query)) {
-			return parent::SearchUsers($Query);
+			return parent::SearchUsers($Query, $SQLTables);
 		}
 	
 		// echo "<PRE>" . print_r($Query,1) . "</PRE>";
@@ -243,9 +245,9 @@ class RMBAdmin extends RepMyBlock {
 		}
 	}
 	
-	function SearchTempUsers($Query = NULL) {
+	function SearchTempUsers($Query = null, $SQLTables = null) {
 		if (! is_array($Query) || empty ($Query)) {
-			return parent::SearchTempUsers($Query);
+			return parent::SearchTempUsers($Query, $SQLTables);
 		}
 		
 		if ( ! empty ($Query["email"])) {

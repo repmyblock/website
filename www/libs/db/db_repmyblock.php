@@ -1362,7 +1362,8 @@ class RepMyBlock extends queries {
   
   function ListCandidates($CandidateID = null, $Limit = 500, $SQLTables = null) {
     $sql = "SELECT " . sqltablestoshow($SQLTables) . " FROM Candidate " . 
-            "LEFT JOIN CandidateProfile ON (Candidate.Candidate_ID = CandidateProfile.Candidate_ID) " . 
+    				"LEFT JOIN PublicProfile ON (Candidate.Candidate_ID = PublicProfile.Candidate_ID) " .
+            "LEFT JOIN CandidateProfile ON (PublicProfile.CandidateProfile_ID = CandidateProfile.CandidateProfile_ID) " . 
             "LEFT JOIN CandidateElection ON (Candidate.CandidateElection_ID = CandidateElection.CandidateElection_ID) " .
             "LEFT JOIN Elections ON (Elections.Elections_ID = CandidateElection.Elections_ID) " .
             "LEFT JOIN FillingDoc ON (FillingDoc.Candidate_ID = Candidate.Candidate_ID) ";

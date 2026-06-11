@@ -15,10 +15,16 @@
   $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
   // $Party = PrintParty($URIEncryptedString["UserParty"]);
 
-  $result = $rmb->ListCandidates();
+  $result = $rmb->ListCandidates(SQLTables:[
+  																"Candidate_UniqStateVoterID", "Candidate.Candidate_ID", "Candidate_DispName",
+																	"Elections_Date", "FillingDoc_Fld1", "FillingDoc_Fld2", "FillingDoc_Fld3", "FillingDoc_Fld4",
+																	"FillingDoc_Fld5", "FillingDoc_Fld6", "FillingDoc_Fld7", "FillingDoc_Fld8", "FillingDoc_Fld9",
+																	"FillingDoc_Fld10","FillingDoc_Fld11","FillingDoc_Fld12","FillingDoc_Fld13","FillingDoc_Fld14",
+																	"FillingDoc_Fld15",	"FillingDoc_Fld16","FillingDoc_Fld17",
+																	"Candidate.CandidateElection_DBTable", "Candidate.CandidateElection_DBTableValue"
+                                 ]);
   WriteStderr($result, "ListCandidates");
-  //print "<PRE>" . print_r($URIEncryptedString, 1) . "</PRE>";
-  //print "<PRE>" . print_r($result, 1) . "</PRE>";
+  
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
