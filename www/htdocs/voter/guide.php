@@ -1,13 +1,5 @@
 <?php
-	$HeaderTwitter = "yes";
-	$HeaderTwitterTitle = "Rep My Block - Universal Voter Guide";
-	$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/UniversalVoterGuide.jpg";
-	$HeaderTwitterDesc = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
-	$HeaderOGTitle = "Rep My Block Voter Guide.";
-	$HeaderOGDescription = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
-	$HeaderOGImage = "https://static.repmyblock.org/pics/paste/UniversalVoterGuide.jpg"; 
-	$HeaderOGImageWidth = "921";
-	$HeaderOGImageHeight = "477";
+
 	
 	$Statescountries = array (
 			"Alabama" => "AL", "Alaska" => "AK", "American Samoa" => "AS", "Arizona" => "AZ", "Arkansas" => "AR", 
@@ -38,8 +30,15 @@
 	} else { $TypeEmail = "text"; $TypeUsername = "text"; }
 	require_once $_SERVER["DOCUMENT_ROOT"] . "/../libs/db/db_welcome.php";
 	
-	$r = new welcome();	
+	if ( ! empty ($_GET["k"])) {
+	  $middleuri = $_GET["k"];
+  }
+  
+  preg_match('/^([A-Za-z0-9]+)-(.*)$/', $middleuri, $matches, PREG_OFFSET_CAPTURE);
+  $CandidateElection_ID = preg_replace('/[^0-9.]+/', '', alphatonumber($matches[1][0]));
+  $addtopics = time();
 	
+	$r = new welcome();	
 	$ListState = $r->ListElections();	
 	WriteStderr($ListState, "List Election");
 	
@@ -54,147 +53,179 @@
     $StatesDates[$var["DataState_Name"]][$var["Elections_Date"]] = true;
 	}
 	
-	$passparams = [];
-	$code = $_GET["k"];
 
-	if (preg_match('/b:([A-Za-z0-9+\/=]+)/', $code, $m)) {
-    if ($decoded = base64_decode($m[1], true)) {
-    	parse_str($decoded, $passparams);
-    }
-	}
+	if ( empty ($CandidateElection_ID)) {
+		// That mean I can jump all this.
 		
-	if (preg_match('/T(?:(\d{4})|([picpgsp][ipsordb][ramiecbutn]))/i', $code, $m)) {
-		$passparams['team'] = $m[1] ?: $m[2];
-	}
-	if (preg_match('/S([A-Za-z]{2})/i', $code, $m)) { $passparams['state'] = strtoupper($m[1]); }
-	if (preg_match('/D(\d{8})/i', $code, $m)) { $passparams['district'] = $m[1]; }
-	if (preg_match('/Z(\d{5})/i', $code, $m)) { $passparams['zipcode'] = $m[1];	}	
-	
-	/*
-	$ActiveTeam  = 
-	$ActiveState = 
-	$ActiveDate  = 
-	$ActiveZIP   = 
-	*/
-	/*	
-	if ($passparams['n'] > 0) {
-		$MyTCode = $passparams['n'];
-		if ($MyTCode == 7) { $MyTCode = "soc";$ActiveTeam = "SOC"; }			
-		echo "Active Team: $MyTCode<BR>";
-	}
-		
-	if (strlen($ActiveTeam) == 3) {
-		$MyTCode = strtolower($ActiveTeam);
-		switch ($MyTCode) {
-			case 'pir': $newid = "T0024"; break;
-			case 'ipa': $newid = "T0069"; break;	
-			case 'isa': $newid = "T0025"; break;
-			case 'com': $newid = "T0026"; break;
-			case 'pri': $newid = "T0027"; break;
-			case 'gre': $newid = "T0028"; break;
-			case 'soc': $newid = "T0029"; break;
-			case 'pra': $newid = "T0030"; break;
-			case 'lib': $newid = "T0031"; break;
-			case 'cdu': $newid = "T0033"; break;
-			case 'lbt': $newid = "T0035"; break;
-			case 'idu': $newid = "T0032"; break;
-			case 'con': $newid = "T0034"; break;
-		}
-	}
-	
-	*/
-	
- 	
-	foreach ($StatesDates[$StateName[$ActiveState]] as $key => $val) { $SortDates[] = preg_replace('/-/', '', $key); }
-	// sort($SortDates);
-	
-	$ListOfStates = "\"";
-	foreach ($StatesDates as $var => $index) {
-		$ListOfStates .= $commas . $var; $commas = "\", \"";		
-	}
-	$ListOfStates .= "\"";
-	
-	WriteStderr($ListOfStates, "List Election");
-	WriteStderr($Dates, "Dates");
-	WriteStderr($StatesDates, "States Dates");
+		$passparams = [];
+		$code = $_GET["k"];
 
-	if ( ! empty ($ActiveZIP)) {
-		// Get the Table for that zip
-		$resultzip = $r->ListDistrictsAndTablesForZip($ActiveZIP);
-		
-		foreach ($resultzip as $var) {
-			$StateID["state"] = $var["DataState_ID"];
-			$StateID["statename"] = $var["DataState_Abbrev"];
+		if (preg_match('/b:([A-Za-z0-9+\/=]+)/', $code, $m)) {
+	    if ($decoded = base64_decode($m[1], true)) {
+	    	parse_str($decoded, $passparams);
+	    }
 		}
+			
+		if (preg_match('/T(?:(\d{4})|([picpgsp][ipsordb][ramiecbutn]))/i', $code, $m)) {
+			$passparams['team'] = $m[1] ?: $m[2];
+		}
+		if (preg_match('/S([A-Za-z]{2})/i', $code, $m)) { $passparams['state'] = strtoupper($m[1]); }
+		if (preg_match('/D(\d{8})/i', $code, $m)) { $passparams['district'] = $m[1]; }
+		if (preg_match('/Z(\d{5})/i', $code, $m)) { $passparams['zipcode'] = $m[1];	}	
 		
-		$resultpositions = $r->ListElectionPositions($StateID["state"]);	
-		$result = $r->CandidatesForElection(ElectionDateFrom: (empty ($ActiveDate) ? "NOW" : $ActiveDate), 
-																				ElectionState: $StateID["statename"],
-																				ActiveTeam: $ActiveTeam);
-								
-		WriteStderr($result, "CandidateForElections DatabaseQuery");
-		
-		foreach ($resultpositions as $var) {		
-			switch ($var["ElectionsPosition_Location"]) {
-				case "table":
-					
-					// echo "<PRE>" . print_r($resultzip,1) . "</PRE>";
-					WriteStderr($resultzip, "Result Zip");
-					
-					foreach ($resultzip as $vor) { // This is to check the type of geographical location								
-						$ADEDValue = $vor["DataDistrict_StateAssembly"]  . str_pad($vor["DataDistrict_Electoral"], 3, "0", STR_PAD_LEFT);
-						foreach($result as $vir) {  // Does the candidate fall into the geographical area?
-							if ( $vir[$vor["ElectionsPosition_DBTableName"]] == "ADED" && $vir["CANDVALUE"] == $ADEDValue) {
-								$ListCandidate[$vir["Elections_Date"]][$vir["CANDPROFID"]] = $vir;
-							}
-						}
-					}
-					
-				break;
-				
-				case "partycall":
-					foreach ($resultzip as $vor) { // This is to check the type of geographical location				
-						foreach($result as $vir) {  // Does the candidate fall into the geographical area?
-							if ( $vir["CANDDTABLE"] == $vor["ElectionsPosition_DBTable"] && $vir["CANDVALUE"] == $vor["ElectionsPartyCall_ConversionValue"]) {
-								$ListCandidate[$vir["Elections_Date"]][$vir["CANDPROFID"]] = $vir;
-							}
-						}
-					}
-					
-				break;
-				
-				case "state":
-					foreach($result as $vor) {
-						if ( $var["ElectionsPosition_DBTable"] == $vor["CANDDTABLE"]) {
-							$ListCandidate[$vor["Elections_Date"]][$vor["CANDPROFID"]] = $vor;	
-						}
-					}
-				break;
+		/*
+		$ActiveTeam  = 
+		$ActiveState = 
+		$ActiveDate  = 
+		$ActiveZIP   = 
+		*/
+		/*	
+		if ($passparams['n'] > 0) {
+			$MyTCode = $passparams['n'];
+			if ($MyTCode == 7) { $MyTCode = "soc";$ActiveTeam = "SOC"; }			
+			echo "Active Team: $MyTCode<BR>";
+		}
+			
+		if (strlen($ActiveTeam) == 3) {
+			$MyTCode = strtolower($ActiveTeam);
+			switch ($MyTCode) {
+				case 'pir': $newid = "T0024"; break;
+				case 'ipa': $newid = "T0069"; break;	
+				case 'isa': $newid = "T0025"; break;
+				case 'com': $newid = "T0026"; break;
+				case 'pri': $newid = "T0027"; break;
+				case 'gre': $newid = "T0028"; break;
+				case 'soc': $newid = "T0029"; break;
+				case 'pra': $newid = "T0030"; break;
+				case 'lib': $newid = "T0031"; break;
+				case 'cdu': $newid = "T0033"; break;
+				case 'lbt': $newid = "T0035"; break;
+				case 'idu': $newid = "T0032"; break;
+				case 'con': $newid = "T0034"; break;
 			}
 		}
 		
-		ksort($ListCandidate);
-		$result = array();
-		if (! empty ($ListCandidate)) {
-			foreach ($ListCandidate as $var => $index) {
-				foreach ($index as $vor => $newindex) {
-					$result[] = $newindex;
+		*/
+		
+	 	
+		foreach ($StatesDates[$StateName[$ActiveState]] as $key => $val) { $SortDates[] = preg_replace('/-/', '', $key); }
+		// sort($SortDates);
+		
+		$ListOfStates = "\"";
+		foreach ($StatesDates as $var => $index) {
+			$ListOfStates .= $commas . $var; $commas = "\", \"";		
+		}
+		$ListOfStates .= "\"";
+		
+		WriteStderr($ListOfStates, "List Election");
+		WriteStderr($Dates, "Dates");
+		WriteStderr($StatesDates, "States Dates");
+
+		if ( ! empty ($ActiveZIP)) {
+			// Get the Table for that zip
+			$resultzip = $r->ListDistrictsAndTablesForZip($ActiveZIP);
+			
+			foreach ($resultzip as $var) {
+				$StateID["state"] = $var["DataState_ID"];
+				$StateID["statename"] = $var["DataState_Abbrev"];
+			}
+			
+			$resultpositions = $r->ListElectionPositions($StateID["state"]);	
+			$result = $r->CandidatesForElection(ElectionDateFrom: (empty ($ActiveDate) ? "NOW" : $ActiveDate), 
+																					ElectionState: $StateID["statename"],
+																					ActiveTeam: $ActiveTeam);
+									
+			WriteStderr($result, "CandidateForElections DatabaseQuery");
+			
+			foreach ($resultpositions as $var) {		
+				switch ($var["ElectionsPosition_Location"]) {
+					case "table":
+						
+						// echo "<PRE>" . print_r($resultzip,1) . "</PRE>";
+						WriteStderr($resultzip, "Result Zip");
+						
+						foreach ($resultzip as $vor) { // This is to check the type of geographical location								
+							$ADEDValue = $vor["DataDistrict_StateAssembly"]  . str_pad($vor["DataDistrict_Electoral"], 3, "0", STR_PAD_LEFT);
+							foreach($result as $vir) {  // Does the candidate fall into the geographical area?
+								if ( $vir[$vor["ElectionsPosition_DBTableName"]] == "ADED" && $vir["CANDVALUE"] == $ADEDValue) {
+									$ListCandidate[$vir["Elections_Date"]][$vir["CANDPROFID"]] = $vir;
+								}
+							}
+						}
+						
+					break;
+					
+					case "partycall":
+						foreach ($resultzip as $vor) { // This is to check the type of geographical location				
+							foreach($result as $vir) {  // Does the candidate fall into the geographical area?
+								if ( $vir["CANDDTABLE"] == $vor["ElectionsPosition_DBTable"] && $vir["CANDVALUE"] == $vor["ElectionsPartyCall_ConversionValue"]) {
+									$ListCandidate[$vir["Elections_Date"]][$vir["CANDPROFID"]] = $vir;
+								}
+							}
+						}
+						
+					break;
+					
+					case "state":
+						foreach($result as $vor) {
+							if ( $var["ElectionsPosition_DBTable"] == $vor["CANDDTABLE"]) {
+								$ListCandidate[$vor["Elections_Date"]][$vor["CANDPROFID"]] = $vor;	
+							}
+						}
+					break;
 				}
 			}
-		}
-		
-		#print "<PRE>" . print_r($result,1) . "</PRE>";
-		
-	} else {
 			
-		foreach($result as $var) {
-			$ActiveStateWithCandidate[$var["DataState_Abbrev"]] = true;
+			ksort($ListCandidate);
+			$result = array();
+			if (! empty ($ListCandidate)) {
+				foreach ($ListCandidate as $var => $index) {
+					foreach ($index as $vor => $newindex) {
+						$result[] = $newindex;
+					}
+				}
+			}
+			
+			#print "<PRE>" . print_r($result,1) . "</PRE>";
+			
+		} else {
+				
+			foreach($result as $var) {
+				$ActiveStateWithCandidate[$var["DataState_Abbrev"]] = true;
+			}
+			
+			$result = $r->CandidatesForElection(
+				ElectionDateFrom: (empty ($ActiveDate) ? "NOW" : $ActiveDate), 
+				ElectionState: $ActiveState,
+				ActiveTeam: $ActiveTeam, 
+				NotOnBallot: 'no',
+				SQLTables: [
+					"Candidate_DispName", "CandidateProfile.CandidateProfile_ID", "PublicProfile_NotOnBallot", 
+					"PublicProfile_PublishProfile", "PublicProfile_Elected", "Elections_Date", "Elections_Text", 
+					"CandidateProfile_PicFileName", "CandidateProfile_Alias", "CandidateElection_Text", 
+					"Candidate_Party", "CandidateElection.CandidateElection_ID"
+	     	]
+			);
+			// WriteStderr($result, "Candidate List");
 		}
+		
+		
+		$HeaderTwitter = "yes";
+		$HeaderTwitterTitle = "Rep My Block - Universal Voter Guide";
+		$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/UniversalVoterGuide.jpg";
+		$HeaderTwitterDesc = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
+		$HeaderOGTitle = "Rep My Block Voter Guide.";
+		$HeaderOGDescription = "Rep My Block Voter Guide, the only voter guide that don't restrict the candidate.";
+		$HeaderOGImage = "https://static.repmyblock.org/pics/paste/UniversalVoterGuide.jpg"; 
+		$HeaderOGImageWidth = "921";
+		$HeaderOGImageHeight = "477";
+	
+	} else {
+
+		// This is to search one single election.
 		
 		$result = $r->CandidatesForElection(
-			ElectionDateFrom: (empty ($ActiveDate) ? "NOW" : $ActiveDate), 
-			ElectionState: $ActiveState,
-			ActiveTeam: $ActiveTeam, 
+			CandidateElectionID: $CandidateElection_ID,
 			NotOnBallot: 'no',
 			SQLTables: [
 				"Candidate_DispName", "CandidateProfile.CandidateProfile_ID", "PublicProfile_NotOnBallot", 
@@ -203,9 +234,21 @@
 				"Candidate_Party", "CandidateElection.CandidateElection_ID"
      	]
 		);
-		// WriteStderr($result, "Candidate List");
+		
+		WriteStderr($result, "CandidateELECTIONID");
+		
+		$HeaderTwitter = "yes";
+		$HeaderTwitterTitle = "Rep My Block - Universal Voter Guide";
+		$HeaderTwitterPicLink = "https://static.repmyblock.org/pics/paste/UniversalVoterGuide.jpg";
+		$HeaderTwitterDesc = PrintShortDate($result[0]["Elections_Date"]) . " - " . $result[0]["Elections_Text"] . " - " . $result[0]["CandidateElection_Text"]; 
+		$HeaderOGTitle = "Rep My Block Voter Guide.";
+		$HeaderOGDescription = $HeaderTwitterDesc;
+		$HeaderOGImage = "https://static.repmyblock.org/pics/paste/UniversalVoterGuide.jpg"; 
+		$HeaderOGImageWidth = "921";
+		$HeaderOGImageHeight = "477";
+		
 	}
-	
+
 	foreach($result as $var) {
 		$ActiveStateWithCandidate[$var["DataState_Abbrev"]] = true;
 	}
@@ -213,6 +256,10 @@
 	if (empty($result) && ! empty ($ActiveTeam)) {
 		$result = $r->GetTeamInfo($ActiveTeam);
 	}
+	
+	
+ 	
+  
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
@@ -265,6 +312,9 @@ $PrevDateDesc = null;
 $PrevElectionID = null;
 
 if (!empty($result)) {
+	
+	
+	
   foreach ($result as $var) {
 
     if (
@@ -274,13 +324,11 @@ if (!empty($result)) {
     ) {
 
       $DateDesc = PrintShortDate($var["Elections_Date"]) . " - " . $var["Elections_Text"];
-
       $PicturePath = "/shared/pics/" . (!empty($var["CandidateProfile_PicFileName"]) ?
 									         $var["CandidateProfile_PicFileName"] : "0000/NoPicture.jpg");
-
       $FullAlias = preg_replace('/[^a-zA-Z0-9]+/', '', $var["CandidateProfile_Alias"]);
       $DetailURL = "/" . numbertoalpha($var["CANDPROFID"]) . "_" . strtolower($FullAlias); #. "/voter/detail";
-
+     
       /* 🔑 Detect new batch */
       $NewBatch =
         ($PrevDateDesc !== $DateDesc) ||
@@ -293,13 +341,16 @@ if (!empty($result)) {
 
       /* 🔒 Open new batch + print headers */
       if ($NewBatch) {
+      	WriteStderr($var, "Var for Date");
+      	$URLElection = "/" . numbertoalpha($var["CandidateElection_ID"]) . "-" . 
+      			PrintURLDate($var["Elections_Date"]) . "-" . $var["CANDDTABLE"] . "-" . $var["CANDVALUE"];
         ?>
         <div class="election-batch">
           <div class="election-header f60bold">
             <?= $DateDesc ?>
           </div>
           <div class="district-header f60">
-            <?= $var["CandidateElection_Text"] ?>
+            <A HREF="<?= $URLElection ?>"><?= $var["CandidateElection_Text"] ?></A>
           </div>
         <?php
       }

@@ -6,4 +6,7 @@
   <sitemap>
     <loc>https://www.repmyblock.org/shared/sitemaps/candidates.xml</loc>
   </sitemap>
+  <sitemap>
+    <loc>https://www.repmyblock.org/shared/sitemaps/positions.xml</loc>
+  </sitemap>
 </sitemapindex>

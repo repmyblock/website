@@ -220,6 +220,12 @@ function PrintDate($Date) {
   }
 }
 
+function PrintURLDate($Date) {
+	if ( ! empty ($Date)) {
+    return date("Ymd", strtotime( $Date ));
+  }
+}
+
 function PrintNormalDate($Date) {
   if ( ! empty ($Date)) {
     return date("m / d / Y", strtotime( $Date ));

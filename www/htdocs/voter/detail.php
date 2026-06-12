@@ -25,6 +25,8 @@
     NotOnBallot: 'no',
     // SQLTables: ["debugsql"]
   );
+  
+  WriteStderr($result, "CandidatesForElection");
  
   $passparams = [];
   
