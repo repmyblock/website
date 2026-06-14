@@ -91,18 +91,19 @@
       $CandidateName = ucwords(strtolower($CandidateToDisplay["CandidateProfile_Alias"]));
       $CandidatePublicID = $CandidateToDisplay["PublicProfile_ID"];
 ?>  
+           <DIV class="f80bold"><?= $CandidateName ?></DIV>  
+
+          <DIV CLASS="f40"><I>Running for <?= $CandidateToDisplay["CandidateElection_PetitionText"] ?></I></DIV>
           <DIV class="f60"><B><?= $DateDesc ?></B></DIV>
-          <I>Running for <?= $CandidateToDisplay["CandidateElection_PetitionText"] ?></I>
 
           <DIV>
-            <DIV class="f80"><B><?= $CandidateName ?></B></DIV>  
             
             <DIV class='container2'>
-              <DIV>
+              <DIV class="f40">
                 <?php if (! empty ($CandidateToDisplay["CandidateProfile_Website"])) { ?><A TARGET="NEW" HREF="<?= $CandidateToDisplay["CandidateProfile_Website"] ?>"><?php } ?><IMG class="candidateprofile" style="float: left; margin: 0px 15px 0px 15px;" SRC="<?= $PicturePath ?>"><?php if (! empty ($CandidateToDisplay["CandidateProfile_Website"])) { ?></A><?php } ?>
-                      <P class="f40" style="text-margin: 0px 0px 0px 0px;">
+                      <P style="text-margin: 0px 0px 0px 0px;">
                         <?php if (! empty ($CandidateToDisplay["CandidateProfile_Statement"])) {
-                          print "<UL>" . $CandidateToDisplay["CandidateProfile_Statement"] . "</UL>"; 
+                          print $CandidateToDisplay["CandidateProfile_Statement"]; 
                         } else {
                           if ( empty ($CandidateToDisplay["SystemUser_ID"])) {
                            ?>
@@ -210,7 +211,7 @@
   <P CLASS="f80"><A HREF="<?= $FrontEndWebsite ?>/<?= numbertoalpha($CandidateToDisplay["PublicProfile_ID"]) ?>/voter/claim">Claim this profile</A></P>
 <?php } ?>
 
-	<h2>Tendencies political endorsement</h2>
+	<h2 CLASS="f80">Tendencies political endorsement</h2>
 <?php
 			if (! empty ($endorsement["major"])) {
 				foreach ($endorsement["major"] as $index => $var) {
@@ -228,7 +229,7 @@
 
 <?php
 			if (! empty ($endorsement["support"])) {
-				echo "<h2>This candidate supports</h2>\n";
+				echo "<h2 CLASS=\"f80\">This candidate supports</h2>\n";
 
 				foreach ($endorsement["support"] as $index => $var) {
 					if ( ! empty ($var)) {
@@ -249,7 +250,7 @@ $PrevDateDesc = null;
 $PrevElectionID = null;
 
 if (!empty($result)) {
-	echo "<h2>This candidate is running against</h2>\n";
+	echo "<h2 CLASS=\"f80\">This candidate is running against</h2>\n";
   foreach ($result as $var) {
 
     if (
@@ -304,7 +305,7 @@ if (!empty($result)) {
 
 	<BR>
 
-	<h2>Endorsements</h2>
+	<h2  CLASS="f80">Endorsements</h2>
 	<BR>
 		<?php
 		

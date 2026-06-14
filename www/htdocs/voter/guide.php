@@ -271,7 +271,6 @@
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
-<link rel="stylesheet" type="text/css" href="/css/guide.css">
 
 
 <form autocomplete="off" method="post" action="">
@@ -305,7 +304,7 @@
 				*/ ?>
 				
 			<DIV class="field" style="display:flex; align-items:stretch;">
-        <input type="text" id="candidateSearch" list="candidates" autocorrect="off" class="input" name="candidatename" placeholder=" " style="max-width: 380px;">
+        <input type="text" id="candidateSearch" list="candidates" autocorrect="off" class="input" name="candidatename" placeholder=" " style="max-width: 500px;">
   			<label for="candidateSearch">Enter Candidate's Name</label>	
   			<input style="margin-left: 10px;" class="f80" type="submit" id="searchCandidateBtn" value="Search Candidate">
   		</DIV>
@@ -507,45 +506,48 @@ let selectedAddresses = [];
 const input = document.getElementById("placeSearch");
 const datalist = document.getElementById("places");
 
-input.addEventListener("input", async function () {
-  const q = this.value.trim();
 
-  if (q.length < 3) {
-    datalist.innerHTML = "";
-    return;
-  }
+if (input && datalist) {
 
-  const response = await fetch("/" + encodeURIComponent(q) + "/voter/autocomplete_address");
-  selectedAddresses = await response.json();
+	input.addEventListener("input", async function () {
+	  const q = this.value.trim();
 
-  datalist.innerHTML = "";
+	  if (q.length < 3) {
+	    datalist.innerHTML = "";
+	    return;
+	  }
 
-  selectedAddresses.forEach(address => {
-    const option = document.createElement("option");
-    option.value = address.label;
-    datalist.appendChild(option);
-  });
-});
+	  const response = await fetch("/" + encodeURIComponent(q) + "/voter/autocomplete_address");
+	  selectedAddresses = await response.json();
 
-input.addEventListener("change", function () {
-  const selected = selectedAddresses.find(
-    address => address.label.toLowerCase() === this.value.toLowerCase()
-  );
+	  datalist.innerHTML = "";
 
-  if (!selected) return;
+	  selectedAddresses.forEach(address => {
+	    const option = document.createElement("option");
+	    option.value = address.label;
+	    datalist.appendChild(option);
+	  });
+	});
 
-  console.log("Selected address:", selected);
+	input.addEventListener("change", function () {
+	  const selected = selectedAddresses.find(
+	    address => address.label.toLowerCase() === this.value.toLowerCase()
+	  );
 
-  if (typeof map !== "undefined") {
-    map.setView([selected.lat, selected.lon], 16);
+	  if (!selected) return;
 
-    L.popup()
-      .setLatLng([selected.lat, selected.lon])
-      .setContent(selected.label)
-      .openOn(map);
-  }
-});
+	  console.log("Selected address:", selected);
 
+	  if (typeof map !== "undefined") {
+	    map.setView([selected.lat, selected.lon], 16);
+
+	    L.popup()
+	      .setLatLng([selected.lat, selected.lon])
+	      .setContent(selected.label)
+	      .openOn(map);
+	  }
+	});
+}
 document.addEventListener("DOMContentLoaded", () => {
     const search = document.getElementById("candidateSearch");
     const datalist = document.getElementById("candidates");
