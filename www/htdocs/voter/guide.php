@@ -40,7 +40,7 @@
 	
 	$r = new welcome();	
 	$ListState = $r->ListElections();	
-	WriteStderr($ListState, "List Election");
+	# WriteStderr($ListState, "List Election");
 	
 	$ActiveStateWithElection = [];
 
@@ -53,25 +53,30 @@
     $StatesDates[$var["DataState_Name"]][$var["Elections_Date"]] = true;
 	}
 	
-
+	WriteStderr(null, "CandidateElection_ID: $CandidateElection_ID (loop if empty)");
 	if ( empty ($CandidateElection_ID)) {
 		// That mean I can jump all this.
 		
 		$passparams = [];
-		$code = $_GET["k"];
+		$code = $_GET["beg"] . ":" . $_GET["end"];
+		
+		WriteStderr(null, "Code as code: " . $code);
 
 		if (preg_match('/b:([A-Za-z0-9+\/=]+)/', $code, $m)) {
 	    if ($decoded = base64_decode($m[1], true)) {
+	    	echo "I am here ....";
 	    	parse_str($decoded, $passparams);
 	    }
 		}
 			
-		if (preg_match('/T(?:(\d{4})|([picpgsp][ipsordb][ramiecbutn]))/i', $code, $m)) {
+		if (preg_match('/t(?:(\d{4})|([picpgsp][ipsordb][ramiecbutn]))/i', $code, $m)) {
 			$passparams['team'] = $m[1] ?: $m[2];
 		}
-		if (preg_match('/S([A-Za-z]{2})/i', $code, $m)) { $passparams['state'] = strtoupper($m[1]); }
-		if (preg_match('/D(\d{8})/i', $code, $m)) { $passparams['district'] = $m[1]; }
-		if (preg_match('/Z(\d{5})/i', $code, $m)) { $passparams['zipcode'] = $m[1];	}	
+		if (preg_match('/s:([A-Za-z]{2})/i', $code, $m)) { $passparams['state'] = strtoupper($m[1]); }
+		if (preg_match('/d(\d{8})/i', $code, $m)) { $passparams['district'] = $m[1]; }
+		if (preg_match('/z(\d{5})/i', $code, $m)) { $passparams['zipcode'] = $m[1];	}	
+		
+		WriteStderr($passparams, "Passed Params");
 		
 		/*
 		$ActiveTeam  = 
@@ -107,7 +112,6 @@
 		
 		*/
 		
-	 	
 		foreach ($StatesDates[$StateName[$ActiveState]] as $key => $val) { $SortDates[] = preg_replace('/-/', '', $key); }
 		// sort($SortDates);
 		
@@ -118,12 +122,13 @@
 		$ListOfStates .= "\"";
 		
 		WriteStderr($ListOfStates, "List Election");
-		WriteStderr($Dates, "Dates");
-		WriteStderr($StatesDates, "States Dates");
-
+		#WriteStderr($Dates, "Dates");
+		#WriteStderr($StatesDates, "States Dates");
+		
 		if ( ! empty ($ActiveZIP)) {
-			// Get the Table for that zip
-			$resultzip = $r->ListDistrictsAndTablesForZip($ActiveZIP);
+				// Get the Table for that zip
+				$resultzip = $r->ListDistrictsAndTablesForZip($ActiveZIP);
+		
 			
 			foreach ($resultzip as $var) {
 				$StateID["state"] = $var["DataState_ID"];
@@ -190,13 +195,18 @@
 			
 		} else {
 				
-			foreach($result as $var) {
-				$ActiveStateWithCandidate[$var["DataState_Abbrev"]] = true;
+			WriteStderr($passparams, "Result before over Active");
+			/*	
+			foreach($passparams as $var) {
+				$ActiveStateWithCandidate[$var] = true;
 			}
+			*/
+			
+			WriteStderr($ActiveStateWithCandidate, "Going over Active");
 			
 			$result = $r->CandidatesForElection(
 				ElectionDateFrom: (empty ($ActiveDate) ? "NOW" : $ActiveDate), 
-				ElectionState: $ActiveState,
+				ElectionState: $passparams["state"],
 				ActiveTeam: $ActiveTeam, 
 				NotOnBallot: 'no',
 				SQLTables: [
@@ -249,17 +259,15 @@
 		
 	}
 
-	foreach($result as $var) {
-		$ActiveStateWithCandidate[$var["DataState_Abbrev"]] = true;
+/*
+	foreach($passparams as $var) {
+		$ActiveStateWithCandidate[$var] = true;
 	}
-	
+	*/
+			
 	if (empty($result) && ! empty ($ActiveTeam)) {
 		$result = $r->GetTeamInfo($ActiveTeam);
 	}
-	
-	
- 	
-  
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php"; 
 ?>
@@ -279,10 +287,8 @@
     		$activeccs = !empty($ActiveStateWithElection[$CountryFlag])? NULL : " flagnonselected";
 		?>
     <A class="flag-link" data-state="<?= htmlspecialchars($CountryName) ?>"
-       HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "S" . $CountryFlag : "rset") . $BuildURLEnd ?>/voter/guide"
-       ALT="<?= htmlspecialchars($CountryName) ?>">
-       <IMG SRC="/images/flags/<?= htmlspecialchars($CountryFlag) ?>.png" class="flag <?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>">
-    </A>
+       HREF="/<?= $BuildURLBeg . (($ActiveState != $CountryFlag) ? "s:" . strtolower($CountryFlag) : "rset") . $BuildURLEnd ?>"
+       ALT="<?= htmlspecialchars($CountryName) ?>"><IMG SRC="/images/flags/<?= htmlspecialchars($CountryFlag) ?>.png" class="flag <?= $ActiveState != $CountryFlag ? $activeccs : NULL ?>"></A>
 		<?php } ?>
 	 </div>
 	
@@ -298,11 +304,16 @@
 			</DIV>
 				*/ ?>
 				
-			<DIV class="field">
+			<DIV class="field" style="display:flex; align-items:stretch;">
         <input type="text" id="candidateSearch" list="candidates" autocorrect="off" class="input" name="candidatename" placeholder=" " style="max-width: 380px;">
   			<label for="candidateSearch">Enter Candidate's Name</label>	
-  			<input class="f60bold" type="submit" id="searchCandidateBtn" value="Search Candidate">
-			</DIV>
+  			<input style="margin-left: 10px;" class="f80" type="submit" id="searchCandidateBtn" value="Search Candidate">
+  		</DIV>
+  			<div>
+    <a href="/<?= $middleuri ?>/user/contact">
+        If you don't see a candidate or race listed, please contact us.
+    </a>
+</div>
 	
 <BR>
 
@@ -312,14 +323,10 @@ $PrevDateDesc = null;
 $PrevElectionID = null;
 
 if (!empty($result)) {
-	
-	
-	
   foreach ($result as $var) {
 
     if (
-      !empty($var["CandidateProfile_ID"]) &&
-      $var["CandidateProfile_NotOnBallot"] != 'yes' &&
+      ! empty($var["CandidateProfile_ID"]) && $var["CandidateProfile_NotOnBallot"] != 'yes' && 
       $var["CandidateProfile_PublishProfile"] != 'no'
     ) {
 
@@ -341,7 +348,7 @@ if (!empty($result)) {
 
       /* 🔒 Open new batch + print headers */
       if ($NewBatch) {
-      	WriteStderr($var, "Var for Date");
+      	#WriteStderr($var, "Var for Date");
       	$URLElection = "/" . numbertoalpha($var["CandidateElection_ID"]) . "-" . 
       			PrintURLDate($var["Elections_Date"]) . "-" . $var["CANDDTABLE"] . "-" . $var["CANDVALUE"];
         ?>

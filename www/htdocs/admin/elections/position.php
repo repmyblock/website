@@ -53,15 +53,14 @@
 
 	include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
 ?>
-
-<div class="row">
-  <div class="main">
-		<?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
-			<div class="<?= $DIVCol ?> float-left">
-
-				<div class="Subhead">
-			  	<h2 class="Subhead-heading">Political Positions</h2>
-				</div>
+    <div class="row layout">
+      <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
+      <div class="main">
+        <div class="col-full">
+          <div class="Subhead">
+            <h2 class="Subhead-heading">Political Positions</h2>
+          </div>
+          <?php  PlurialMenu($k, $TopMenus); ?>
 			
 			<?php 
 				if ($VerifEmail == true) { 
@@ -167,10 +166,5 @@
 </DIV>
 </DIV>
 </DIV>
-
-
-
-
-
-
+</DIV>
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/footer.php";	?>

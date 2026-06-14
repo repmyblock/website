@@ -1,14 +1,19 @@
 User-agent: ia_archiver
 Allow: /
 Disallow: /lgd
-Sitemap: https://repmyblock.org/sitemap.xml
+Sitemap: https://www.repmyblock.org/sitemap.xml
 Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/positions.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/static.xml
+
 
 User-agent: Googlebot
 Allow: /
 Disallow: /lgd
-Sitemap: https://repmyblock.org/sitemap.xml
+Sitemap: https://www.repmyblock.org/sitemap.xml
 Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/positions.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/static.xml
 
 User-agent: Applebot
 Allow: /
@@ -37,5 +42,7 @@ Disallow: /lgd
 User-agent: *
 Allow: /
 Disallow: /lgd
-Sitemap: https://repmyblock.org/sitemap.xml
+Sitemap: https://www.repmyblock.org/sitemap.xml
 Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/positions.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/static.xml

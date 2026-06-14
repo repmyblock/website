@@ -12,9 +12,12 @@
   
   $rmb = new RMBAdmin();  
   $rmbperson = $rmb->SearchUserVoterCard($URIEncryptedString["SystemUser_ID"]);
+   WriteStderr($rmbperson, "rmbperson");
   $result = $rmb->ListOnlyCandidates($URIEncryptedString["Candidate_ID"]);
+   WriteStderr($result, "result");
 	$resultprofile = $rmb->ListProfileFromCandidateID($URIEncryptedString["Candidate_ID"]);
-  
+   WriteStderr($resultprofile, "resultprofile");
+   
   if ( $MobileDisplay == true ) { $TypeEmail = "email"; $TypeUsername = "username";
   } else { $TypeEmail = "text"; $TypeUsername = "text"; }
   

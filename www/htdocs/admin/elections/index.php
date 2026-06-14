@@ -23,16 +23,14 @@
   WriteStderr($result, "ListElections");
   
   $TopMenus = array (             
-    array("k" => $k, "url" => "../admin/elections/index", "text" => "Election Positions"),
-    array("k" => $k, "url" => "../admin/elections/datemgmt", "text" => "Elections Dates"),
-    array("k" => $k, "url" => "../admin/setup_candidate", "text" => "Candidate")
+    ["url" => "../admin/elections/index", "text" => "Election Positions"],
+    ["url" => "../admin/elections/datemgmt", "text" => "Elections Dates"],
+    ["url" => "../admin/setup_candidate", "text" => "Candidate"]
   );
   
   include $_SERVER["DOCUMENT_ROOT"] . "/common/headers.php";
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
-
-
     <div class="row layout">
       <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
       <div class="main">

@@ -29,11 +29,11 @@ class RMBAdmin extends RepMyBlock {
 		}		
 	}
 	
-	function ListProfileFromCandidateID($CandidateID) {
+	function ListProfileFromCandidateID($CandidateID, $SQLTables = null) {
 		return $this->_return_multiple(
-					"SELECT * FROM PublicProfile " . 
+					"SELECT " . sqltablestoshow($SQLTables) . " FROM PublicProfile " . 
 					"LEFT JOIN Candidate ON (Candidate.Candidate_ID = PublicProfile.Candidate_ID) " . 
-					"WHERE PublicaProfile.Candidate_ID = :Candidate",
+					"WHERE PublicProfile.Candidate_ID = :Candidate",
 					["Candidate" => $CandidateID]
 		);
 	}

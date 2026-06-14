@@ -19,12 +19,25 @@
 		<P class="BckGrndElement f80 center">CONTACT</P>
 		
 		<P class="f40 adpad">
-			<B>Please email 	<B><A HREF="mailto:infos@repmyblock.org">infos@repmyblock.org</A></B> for general inquiries.</B>
+			Please email 	<B><A HREF="mailto:infos@repmyblock.org">infos@repmyblock.org</A></B> for general inquiries.
 		</P>
 		
+
 		
+		<P class="BckGrndElement f80 center">MISSING RACES OR CANDIDATES</P>
+		
+		<P class="f40 adpad">
+			Please email us at <B><A HREF="mailto:voterguide@repmyblock.org">voterguide@repmyblock.org</A></B> with any information you have, such as a copy of the ballot, 
+			a link to your local Board of Elections, or other relevant election resources.
+		</P>
+		<P class="f40 adpad">
+			
+			We rely on data collected by volunteers. If you would like to help as a local contact, please complete the 
+			<A HREF="https://voterfiles.org">Volunteer Survey</A> for the  <A HREF="https://voterfiles.org">National Voter File</A> Project.
 
-
+		
+		</P>
+		
 
 			<P class="BckGrndElement f80 center">VOLUNTEER TO MAKE REPMYBLOCK BETTER</P>
 
