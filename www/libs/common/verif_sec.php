@@ -109,13 +109,13 @@ function EncryptURL($string = "") {
   if (( $SizeMessage % $BlockSize ) == 0 ) {
   	$blockct--;
   }  
-  
+   
   for ($loop = 0; $loop < $blockct; $loop++) {
     $blocktext = substr($MyString, $loop * $BlockSize, $BlockSize);    
     if ( ! openssl_public_encrypt($blocktext, $encblocktext, $PubKey)) {
-    	while ($msg = openssl_error_string()) {
-    		echo $msg . "<br />\n";
-    	}
+    	WriteStderr(null, openssl_error_string() . " Encrypted String");
+			header("Location: /error/?crd=" . openssl_error_string());
+			exit();
     }
     $encpayload .= $encblocktext;
   }
@@ -144,10 +144,8 @@ function DecryptURL ($sealed) {
     $blocktext = substr($encpayload, $loop * $BlockSize,  $BlockSize);
     
     if ( openssl_private_decrypt($blocktext, $decblocktext, $PrivKey) != 1) {
-    	while ($msg = openssl_error_string()) {
-    		echo $msg . "<br />\n";
-    	}
-			//header("Location: /error/?crd=1");
+     	WriteStderr(null, openssl_error_string() . " Encrypted String");
+			header("Location: /error/?crd=" . openssl_error_string());
 			exit();
     }
     $finaltext .= $decblocktext;

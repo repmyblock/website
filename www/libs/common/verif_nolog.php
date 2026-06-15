@@ -116,10 +116,8 @@ function DecryptURL ( $sealed ) {
     $blocktext = substr($encpayload, $loop * $BlockSize,  $BlockSize);
     
     if ( openssl_private_decrypt($blocktext, $decblocktext, $PrivKey) != 1) {
-    	while ($msg = openssl_error_string()) {
-    		echo $msg . "<br />\n";
-    	}
-			header("Location: /error/?crd=$msg");
+    	WriteStderr(null, openssl_error_string() . " Encrypted String");
+			header("Location: /error/?crd=$msg" . openssl_error_string());
 			exit();
     }
     $finaltext .= $decblocktext;
