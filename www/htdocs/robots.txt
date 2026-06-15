@@ -1,5 +1,6 @@
 User-agent: ia_archiver
 Allow: /$
+Allow: /css/
 Allow: /web/
 Allow: /images/
 Allow: /shared/
@@ -14,9 +15,9 @@ Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
 Sitemap: https://www.repmyblock.org/shared/sitemaps/positions.xml
 Sitemap: https://www.repmyblock.org/shared/sitemaps/static.xml
 
-
 User-agent: Googlebot
 Allow: /$
+Allow: /css/
 Allow: /web/
 Allow: /images/
 Allow: /shared/
@@ -33,6 +34,7 @@ Sitemap: https://www.repmyblock.org/shared/sitemaps/static.xml
 
 User-agent: Applebot
 Allow: /$
+Allow: /css/
 Allow: /web/
 Allow: /images/
 Allow: /shared/
@@ -45,6 +47,7 @@ Disallow: /
 
 User-agent: LinkedInBot
 Allow: /$
+Allow: /css/
 Allow: /web/
 Allow: /images/
 Allow: /shared/
@@ -57,6 +60,7 @@ Disallow: /
 
 User-agent: facebookexternalhit
 Allow: /$
+Allow: /css/
 Allow: /web/
 Allow: /images/
 Allow: /shared/
@@ -69,6 +73,7 @@ Disallow: /
 
 User-agent: TelegramBot
 Allow: /$
+Allow: /css/
 Allow: /web/
 Allow: /images/
 Allow: /shared/
@@ -81,6 +86,7 @@ Disallow: /
 
 User-agent: Twitterbot
 Allow: /$
+Allow: /css/
 Allow: /web/
 Allow: /images/
 Allow: /shared/
@@ -93,6 +99,7 @@ Disallow: /
 
 User-agent: Discordbot
 Allow: /$
+Allow: /css/
 Allow: /web/
 Allow: /images/
 Allow: /shared/
@@ -105,6 +112,7 @@ Disallow: /
 
 User-agent: *
 Allow: /$
+Allow: /css/
 Allow: /web/
 Allow: /images/
 Allow: /shared/
