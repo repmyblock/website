@@ -2,6 +2,7 @@ User-agent: ia_archiver
 Allow: /$
 Allow: /web/
 Allow: /images/
+Allow: /shared/pics
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
@@ -20,6 +21,7 @@ User-agent: Googlebot
 Allow: /$
 Allow: /web/
 Allow: /images/
+Allow: /shared/pics
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
@@ -37,6 +39,7 @@ User-agent: Applebot
 Allow: /$
 Allow: /web/
 Allow: /images/
+Allow: /shared/pics
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
@@ -50,6 +53,7 @@ User-agent: LinkedInBot
 Allow: /$
 Allow: /web/
 Allow: /images/
+Allow: /shared/pics
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
@@ -63,6 +67,7 @@ User-agent: facebookexternalhit
 Allow: /$
 Allow: /web/
 Allow: /images/
+Allow: /shared/pics
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
@@ -76,6 +81,7 @@ User-agent: TelegramBot
 Allow: /$
 Allow: /web/
 Allow: /images/
+Allow: /shared/pics
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
@@ -89,6 +95,7 @@ User-agent: Twitterbot
 Allow: /$
 Allow: /web/
 Allow: /images/
+Allow: /shared/pics
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
@@ -102,6 +109,7 @@ User-agent: Discordbot
 Allow: /$
 Allow: /web/
 Allow: /images/
+Allow: /shared/pics
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
@@ -115,6 +123,7 @@ User-agent: *
 Allow: /$
 Allow: /web/
 Allow: /images/
+Allow: /shared/pics
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
