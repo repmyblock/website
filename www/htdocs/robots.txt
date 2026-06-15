@@ -4,6 +4,10 @@ Allow: /web/
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
+Allow: /*_*
+Allow: /*-*
+Allow: /*:*
+Disallow: /*/*
 Disallow: /
 Sitemap: https://www.repmyblock.org/sitemap.xml
 Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
@@ -17,6 +21,10 @@ Allow: /web/
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
+Allow: /*_*
+Allow: /*-*
+Allow: /*:*
+Disallow: /*/*
 Disallow: /
 Sitemap: https://www.repmyblock.org/sitemap.xml
 Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
@@ -29,6 +37,10 @@ Allow: /web/
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
+Allow: /*_*
+Allow: /*-*
+Allow: /*:*
+Disallow: /*/*
 Disallow: /
 
 User-agent: LinkedInBot
@@ -37,6 +49,10 @@ Allow: /web/
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
+Allow: /*_*
+Allow: /*-*
+Allow: /*:*
+Disallow: /*/*
 Disallow: /
 
 User-agent: facebookexternalhit
@@ -45,6 +61,10 @@ Allow: /web/
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
+Allow: /*_*
+Allow: /*-*
+Allow: /*:*
+Disallow: /*/*
 Disallow: /
 
 User-agent: TelegramBot
@@ -53,6 +73,10 @@ Allow: /web/
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
+Allow: /*_*
+Allow: /*-*
+Allow: /*:*
+Disallow: /*/*
 Disallow: /
 
 User-agent: Twitterbot
@@ -61,6 +85,10 @@ Allow: /web/
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
+Allow: /*_*
+Allow: /*-*
+Allow: /*:*
+Disallow: /*/*
 Disallow: /
 
 User-agent: Discordbot
@@ -69,6 +97,10 @@ Allow: /web/
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
+Allow: /*_*
+Allow: /*-*
+Allow: /*:*
+Disallow: /*/*
 Disallow: /
 
 User-agent: *
@@ -77,6 +109,10 @@ Allow: /web/
 Allow: /shared/sitemaps/
 Allow: /shared/instructions/
 Allow: /sitemap.xml
+Allow: /*_*
+Allow: /*-*
+Allow: /*:*
+Disallow: /*/*
 Disallow: /
 
 Sitemap: https://www.repmyblock.org/sitemap.xml
