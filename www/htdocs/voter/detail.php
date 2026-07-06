@@ -211,9 +211,12 @@
   <P CLASS="f80"><A HREF="<?= $FrontEndWebsite ?>/<?= numbertoalpha($CandidateToDisplay["PublicProfile_ID"]) ?>/voter/claim">Claim this profile</A></P>
 <?php } ?>
 
-	<h2 CLASS="f80">Tendencies political endorsement</h2>
+	
 <?php
 			if (! empty ($endorsement["major"])) {
+				
+				echo "<h2 CLASS=\"f80\">Tendencies political endorsement</h2>\n";
+				
 				foreach ($endorsement["major"] as $index => $var) {
 					if ( ! empty ($var)) {
 						$newparams = array_merge($passparams, ["t" => numbertoalpha($index)]);
@@ -222,8 +225,6 @@
 						<?php
 					}
 				}
-			} else {
-				echo "<BR><UL><FONT SIZE=+2>None</FONT></UL><BR>";
 			}
 ?>
 
@@ -305,11 +306,13 @@ if (!empty($result)) {
 
 	<BR>
 
-	<h2  CLASS="f80">Endorsements</h2>
+	
 	<BR>
 		<?php
 		
 		if ( ! empty ($endorsement["minor"]) && ! empty ($endorsement["local"]) ) {
+			
+			echo "<h2 CLASS=\"f80\">Endorsements</h2>";
 		
 			if (! empty ($endorsement["minor"])) {
 				foreach ($endorsement["minor"] as $index => $var) {
@@ -333,11 +336,7 @@ if (!empty($result)) {
 					}
 				}
 			}
-			
-			
-		} else {
-			echo "<UL><FONT SIZE=+2>None</FONT></UL>";
-		}
+		} 
 		?>
 		
     <h2><A HREF="/<?= "somethingsomethign" ?>/voter/guide">Other races in the district</A></H2>
