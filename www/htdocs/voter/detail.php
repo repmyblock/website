@@ -225,6 +225,11 @@
 						<?php
 					}
 				}
+			} else {
+				if ( empty ($CandidateToDisplay["SystemUser_ID"])) {
+					echo "<h2 CLASS=\"f80\">Tendencies political endorsement</h2>\n";
+					echo "<UL><FONT SIZE=+2>None</FONT></UL>";
+				}
 			}
 ?>
 
@@ -336,7 +341,14 @@ if (!empty($result)) {
 					}
 				}
 			}
-		} 
+			
+			
+		} else {
+			if ( empty ($CandidateToDisplay["SystemUser_ID"])) {
+				echo "<h2 CLASS=\"f80\">Endorsements</h2>";
+				echo "<UL><FONT SIZE=+2>None</FONT></UL>";
+			}
+		}
 		?>
 		
     <h2><A HREF="/<?= "somethingsomethign" ?>/voter/guide">Other races in the district</A></H2>
