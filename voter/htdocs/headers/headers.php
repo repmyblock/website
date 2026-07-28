@@ -40,7 +40,7 @@
         <a href="/activistsurvey/">Volunteer Survey</a>
       </li>
       <li>
-        <a href="https://trello.com/b/IlZkwYc0/national-voter-file-states-pipeline">State pipeline</a>
+        <a href="/statepipeline/">State pipeline</a>
       </li>
       <li>
         <a href="https://github.com/getmovement/national-voter-file/graphs/contributors">Contributors</a>
