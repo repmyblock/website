@@ -1,0 +1,186 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+/* line 6, _reset.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+/* line 27, _reset.scss */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+/* line 31, _reset.scss */
+body {
+  line-height: 1; }
+
+/* line 34, _reset.scss */
+ol, ul {
+  list-style: none; }
+
+/* line 37, _reset.scss */
+blockquote, q {
+  quotes: none; }
+
+/* line 40, _reset.scss */
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+/* line 45, _reset.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* line 5, nvf.css.scss */
+a {
+  color: inherit; }
+
+/* line 7, nvf.css.scss */
+.clear {
+  clear: both; }
+
+/* line 9, nvf.css.scss */
+html {
+  font-size: 62.5%; }
+
+/* line 13, nvf.css.scss */
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.8em;
+  line-height: 27px;
+  color: #636363;
+  padding: 60px; }
+
+/* line 21, nvf.css.scss */
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  overflow: hidden; }
+
+/* line 27, nvf.css.scss */
+header {
+  width: 200px;
+  float: left; }
+  /* line 31, nvf.css.scss */
+  header img {
+    max-width: 68px;
+    margin-bottom: 5px; }
+
+/* line 37, nvf.css.scss */
+section {
+  width: 500px;
+  float: right; }
+
+/* line 42, nvf.css.scss */
+h1 {
+  margin: 0;
+  font-size: 36px;
+  line-height: 32px;
+  color: #333; }
+
+/* line 49, nvf.css.scss */
+p {
+  margin-top: 20px; }
+  /* line 52, nvf.css.scss */
+  p a {
+    color: #222; }
+
+/* line 57, nvf.css.scss */
+label {
+  color: #2980B9;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 13px;
+  font-family: "Lucida Grande"; }
+
+/* line 65, nvf.css.scss */
+li {
+  list-style: none;
+  margin-top: 10px;
+  display: block; }
+  /* line 70, nvf.css.scss */
+  li a {
+    color: #C0392B; }
+
+/* line 75, nvf.css.scss */
+.stately {
+  width: 500px;
+  font-size: 500px;
+  color: #f0f0f0;
+  margin-top: 20px;
+  position: relative;
+  left: -10px; }
+
+/* line 84, nvf.css.scss */
+.stately .co,
+.stately .fl,
+.stately .mi,
+.stately .nc,
+.stately .ny,
+.stately .oh,
+.stately .ok,
+.stately .pa,
+.stately .wa {
+  color: #2980B9; }
+
+/* line 96, nvf.css.scss */
+.progress-bar {
+  margin-top: 20px;
+  border-radius: 99px;
+  background: #f0f0f0;
+  color: #666;
+  text-transform: uppercase;
+  overflow: hidden;
+  font-size: 11px; }
+  /* line 105, nvf.css.scss */
+  .progress-bar span {
+    float: left;
+    display: block;
+    padding: 0 8px;
+    box-sizing: border-box;
+    text-align: center; }
+  /* line 113, nvf.css.scss */
+  .progress-bar .done {
+    color: white;
+    background: #2980B9; }
+  /* line 118, nvf.css.scss */
+  .progress-bar .to-go {
+    text-align: center; }
+
+@media (max-width: 840px) {
+  /* line 124, nvf.css.scss */
+  body {
+    padding: 15px; }
+
+  /* line 128, nvf.css.scss */
+  header, section {
+    float: none; }
+
+  /* line 132, nvf.css.scss */
+  header li {
+    display: none; }
+
+  /* line 136, nvf.css.scss */
+  section {
+    margin-top: 15px; } }

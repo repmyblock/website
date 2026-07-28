@@ -1,0 +1,42 @@
+/** Stately setup
+*************************************/
+@font-face {
+  font-family: 'stately-webfont';
+  src: url("../fonts/stately-webfont.eot");
+  src: url("../fonts/stately-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/stately-webfont.woff") format("woff"), url("../fonts/stately-webfont.ttf") format("truetype"), url("../fonts/stately-webfont.svg#testfontRegular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+/* line 13, _setup.scss */
+.stately {
+  font: normal normal 500px "stately-webfont";
+  line-height: 100%;
+  font-size-adjust: none;
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  -ms-text-rendering: optimizeLegibility;
+  -o-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+  -moz-font-feature-settings: "liga=1";
+  -ms-font-feature-settings: "liga" 1;
+  -ms-font-feature-settings: "liga", "dlig";
+  overflow: hidden;
+  width: 500px;
+  display: block;
+  padding: 0;
+  list-style: none;
+  background: #ffffff;
+  border-radius: 0; }
+  /* line 33, _setup.scss */
+  .stately li {
+    float: left;
+    margin: -20% 0 0 -100%;
+    position: relative;
+    left: 101%;
+    width: 100%;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
