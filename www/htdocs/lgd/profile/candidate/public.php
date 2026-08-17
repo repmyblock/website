@@ -64,8 +64,6 @@
   if ( $MobileDisplay == true) { $Cols = "col-12"; } else { $Cols = "col-9"; }
 ?>
 
-
-
   <div class="row layout">
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/common/menu.php"; ?>
       <div class="main">
@@ -112,13 +110,10 @@
                   </B>
                 </P>
                              
-                 
                 <DIV class="f40 Box-body text-center py-6 js-collaborated-repos-empty" hidden="">
                   We don't know your district <a href="/voter">create one</a>?
                 </DIV>
               
-           
-
                 <div class="voter-form">
                   <div class="field autocomplete">
                     <input id="StateName" class="input" type="text" name="StateName" placeholder=" " autocomplete="off">

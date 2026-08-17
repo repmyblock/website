@@ -30,23 +30,23 @@ const CAUCUS_BITS = {
 
 const MODELS = {
   eu:{
-    top:['pir','ipa','isa','com','pri','gre','soc','pra'],
+    top:['pir','ipa', 'sov', 'isa','com','pri','gre','soc','pra'],
     bottom:['lib','cdu','lbt','idu','con']
   },
   us:{
-    top:['pir','ipa','isa','com','pri','gre','soc','pra','lib','cdu'],
+    top:['pir','ipa', 'sov', 'isa','com','pri','gre','soc','pra','lib','cdu'],
     bottom:['lbt','idu','con']
   }
 };
 
 const AXIS = {
   eu:{
-    left:['pir','ipa','isa','com','pri','gre','soc','pra'],
+    left:['pir','ipa', 'sov', 'isa','com','pri','gre','soc','pra'],
     center:['soc','pra','lib'],
     right:['lib','cdu','lbt','idu','con']
   },
   us:{
-    left:['pir','ipa','isa','com','pri','gre','soc','pra','lib','cdu'],
+    left:['pir','ipa','sov', 'isa','com','pri','gre','soc','pra','lib','cdu'],
     center:['pra','lib','cdu'],
     right:['lbt','idu','con']
   }
@@ -55,6 +55,7 @@ const AXIS = {
 const PARTY_INFO = {
   pir:{name:'Pirate Parties',desc:'Digital rights & transparency'},
   ipa:{name:'People’s Party',desc:'International solidarity'},
+  sov:{name:'Soviet International',desc:'MAGA Communism'},
   isa:{name:'Socialist Alternative',desc:'Revolutionary socialism'},
   com:{name:'Communists',desc:'Marxist traditions'},
   pri:{name:'Progressive International',desc:'Global progressives'},

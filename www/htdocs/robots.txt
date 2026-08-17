@@ -2,6 +2,8 @@ User-agent: ia_archiver
 Allow: /$
 Allow: /css/
 Allow: /web/
+Allow: /about
+Allow: /documentary
 Allow: /images/
 Allow: /shared/
 Allow: /sitemap.xml
@@ -19,6 +21,8 @@ User-agent: Googlebot
 Allow: /$
 Allow: /css/
 Allow: /web/
+Allow: /about
+Allow: /documentary
 Allow: /images/
 Allow: /shared/
 Allow: /sitemap.xml
@@ -36,6 +40,8 @@ User-agent: Applebot
 Allow: /$
 Allow: /css/
 Allow: /web/
+Allow: /about
+Allow: /documentary
 Allow: /images/
 Allow: /shared/
 Allow: /sitemap.xml
@@ -44,11 +50,18 @@ Allow: /*-*
 Allow: /*:*
 Disallow: /*/*
 Disallow: /
+Sitemap: https://www.repmyblock.org/sitemap.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/positions.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/static.xml
+
 
 User-agent: LinkedInBot
 Allow: /$
 Allow: /css/
 Allow: /web/
+Allow: /about
+Allow: /documentary
 Allow: /images/
 Allow: /shared/
 Allow: /sitemap.xml
@@ -57,11 +70,18 @@ Allow: /*-*
 Allow: /*:*
 Disallow: /*/*
 Disallow: /
+Sitemap: https://www.repmyblock.org/sitemap.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/positions.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/static.xml
+
 
 User-agent: facebookexternalhit
 Allow: /$
 Allow: /css/
 Allow: /web/
+Allow: /about
+Allow: /documentary
 Allow: /images/
 Allow: /shared/
 Allow: /sitemap.xml
@@ -70,11 +90,18 @@ Allow: /*-*
 Allow: /*:*
 Disallow: /*/*
 Disallow: /
+Sitemap: https://www.repmyblock.org/sitemap.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/positions.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/static.xml
+
 
 User-agent: TelegramBot
 Allow: /$
 Allow: /css/
 Allow: /web/
+Allow: /about
+Allow: /documentary
 Allow: /images/
 Allow: /shared/
 Allow: /sitemap.xml
@@ -83,11 +110,18 @@ Allow: /*-*
 Allow: /*:*
 Disallow: /*/*
 Disallow: /
+Sitemap: https://www.repmyblock.org/sitemap.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/positions.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/static.xml
+
 
 User-agent: Twitterbot
 Allow: /$
 Allow: /css/
 Allow: /web/
+Allow: /about
+Allow: /documentary
 Allow: /images/
 Allow: /shared/
 Allow: /sitemap.xml
@@ -96,11 +130,18 @@ Allow: /*-*
 Allow: /*:*
 Disallow: /*/*
 Disallow: /
+Sitemap: https://www.repmyblock.org/sitemap.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/positions.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/static.xml
+
 
 User-agent: Discordbot
 Allow: /$
 Allow: /css/
 Allow: /web/
+Allow: /about
+Allow: /documentary
 Allow: /images/
 Allow: /shared/
 Allow: /sitemap.xml
@@ -109,11 +150,18 @@ Allow: /*-*
 Allow: /*:*
 Disallow: /*/*
 Disallow: /
+Sitemap: https://www.repmyblock.org/sitemap.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/positions.xml
+Sitemap: https://www.repmyblock.org/shared/sitemaps/static.xml
+
 
 User-agent: *
 Allow: /$
 Allow: /css/
 Allow: /web/
+Allow: /about
+Allow: /documentary
 Allow: /images/
 Allow: /shared/
 Allow: /sitemap.xml
@@ -122,7 +170,6 @@ Allow: /*-*
 Allow: /*:*
 Disallow: /*/*
 Disallow: /
-
 Sitemap: https://www.repmyblock.org/sitemap.xml
 Sitemap: https://www.repmyblock.org/shared/sitemaps/candidates.xml
 Sitemap: https://www.repmyblock.org/shared/sitemaps/positions.xml

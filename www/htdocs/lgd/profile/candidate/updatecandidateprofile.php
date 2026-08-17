@@ -793,6 +793,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div id="party-top" class="party-row">
                   <img class="persuasion-candidate" id="pir" data-party="pir" alt="Pirate" src="/shared/teams/pirates/Pirate.png">
                   <img class="persuasion-candidate" id="ipa" data-party="ipa" alt="International People's Party" src="/shared/teams/ipa/ipa.png">
+                  <img class="persuasion-candidate" id="sov" data-party="sov" alt="Soviet International" src="/shared/teams/sovietinternational/sovint.png">
                   <img class="persuasion-candidate" id="isa" data-party="isa" alt="Socialist Alternative" src="/shared/teams/socalternative/ISAlternative.png">
                   <img class="persuasion-candidate" id="com" data-party="com" alt="Communists" src="/shared/teams/communists/solidnet.png">
                   <img class="persuasion-candidate" id="pri" data-party="pri" alt="Progressive International" src="/shared/teams/proginternational/ProgInternational.png">

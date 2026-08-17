@@ -149,6 +149,7 @@
 		  <div id="party-top" class="party-row">
 		    <img class="candidate" id="pir" data-party="pir" alt="Pirate" src="/shared/teams/pirates/Pirate.png">
 		    <img class="candidate" id="ipa" data-party="ipa" alt="International People's Party" src="/shared/teams/ipa/ipa.png">
+		    <img class="candidate" id="sov" data-party="sov" alt="Soviet International" src="/shared/teams/sovietinternational/sovint.png">
 		    <img class="candidate" id="isa" data-party="isa" alt="Socialist Alternative" src="/shared/teams/socalternative/ISAlternative.png">
 		    <img class="candidate" id="com" data-party="com" alt="Communists" src="/shared/teams/communists/solidnet.png">
 		    <img class="candidate" id="pri" data-party="pri" alt="Progressive International" src="/shared/teams/proginternational/ProgInternational.png">
@@ -186,6 +187,7 @@
     <B><A TARGET="political" TARGET="political" HREF="https://progressivecaucus.us">Progressive International</A>:</B> Democrat Socialists of America: <A TARGET="political" HREF="https://www.dsausa.org">https://www.dsausa.org</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://communistcaucus.us">Communists and Workers' parties</A>:</B> Communist Party USA: <A TARGET="political" HREF="https://www.cpusa.org">https://www.cpusa.org</A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://revolutionarycaucus.us">Socialists Alternative</A>:</B> Socialist Alternative: <A TARGET="political" HREF="https://socialistalternative.org">https://socialistalternative.org</A><BR>
+    <B><A TARGET="political" TARGET="political" HREF="https://communistcaucus.us">Soviet International</A>:</B> American Communist Party: <A TARGET="political" HREF="https://acp.us">https://acp.us</A><BR>
 		<B><A TARGET="political" TARGET="political" HREF="https://revolutionarycaucus.us">International People's Assembly</A>:</B> Party for Socialism and Liberation: <A TARGET="politital" HREF="https://pslweb.org">https://pslweb.org</A></A><BR>
     <B><A TARGET="political" TARGET="political" HREF="https://anarchistcaucus.us">Pirates Parties International</A>:</B> United States Pirate Party: <A TARGET="political" HREF="https://uspirates.org">https://uspirates.org</A><BR>
 	</UL>
@@ -198,23 +200,23 @@
 
 const MODELS = {
   eu: {
-    top: ['pir','ipa','isa','com','pri','gre','soc','pra'],
+    top: ['pir','ipa', 'sov', 'isa','com','pri','gre','soc','pra'],
     bottom: ['lib','cdu','lbt','idu','con']
   },
   us: {
-    top: ['pir','ipa','isa','com','pri','gre','soc','pra','lib','cdu'],
+    top: ['pir','ipa', 'sov', 'isa','com','pri','gre','soc','pra','lib','cdu'],
     bottom: ['lbt','idu','con']
   }
 };
 
 const AXIS = {
   eu: {
-    left:   ['pir','ipa','isa','com','pri','gre','soc','pra'],
+    left:   ['pir','ipa','sov','isa','com','pri','gre','soc','pra'],
     center: ['soc','pra','lib'],
     right:  ['lib','cdu','lbt','idu','con']
   },
   us: {
-    left:   ['pir','ipa','isa','com','pri','gre','soc','pra','lib','cdu'],
+    left:   ['pir','ipa','sov', 'isa','com','pri','gre','soc','pra','lib','cdu'],
     center: ['pra','lib','cdu'],
     right:  ['lbt','idu','con']
   }
@@ -223,6 +225,7 @@ const AXIS = {
 const PARTY_INFO = {
   pir:{name:'Pirate Parties',desc:'Digital rights & transparency<BR><B>US:</B> Pirate Party'},
   ipa:{name:'People’s Party',desc:'International solidarity<BR><B>US:</B> Party for Socialism and Liberation'},
+  sov:{name:'Soviet International',desc:'MAGA Communism<BR><B>US:</B> American Communist Party'},
   isa:{name:'Socialist Alternative',desc:'Revolutionary socialism<BR><B>US:</B> Socialist Alternative'},
   com:{name:'Communists',desc:'Marxist traditions<BR><B>US:</B> Communist Party, USA'},
   pri:{name:'Progressive International',desc:'Global progressives<BR><B>US:</B> Democrat Socialists of America'},
@@ -410,13 +413,6 @@ showAll();
 setAxisEnabled(false);
 </script>
 
-
- 	
-
-	
-	
-	
-	
 	<a name="vendors"></A>
 	<P class="BckGrndElement f80 center">POLITICAL VENDORS</P>
 	
