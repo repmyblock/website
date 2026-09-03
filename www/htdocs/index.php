@@ -52,10 +52,16 @@
         <A HREF="/<?= $middleuri ?>/voter/guide">Download the RepMyBlock Voter Guide</a>
       </DIV>
       
-      
       <DIV class="f40 adpad">
         These candidates are running for office and are seeking volunteers to support their campaigns.
-      </DIV></P>
+      </DIV>
+      
+      <DIV class="f60bold adpad" STYLE="padding-top: 0px;">
+        The information in this guide follows the <A HREF="https://politicalcenter.org">Political Center</a> ideological guidelines.
+      </DIV>
+      
+      
+      </P>
            
       
       <DIV class="BckGrndElement f80">REPRESENT YOUR BLOCK AT YOUR PARTY COMMITTEE</DIV>

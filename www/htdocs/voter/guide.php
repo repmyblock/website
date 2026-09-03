@@ -280,7 +280,8 @@
 	<div class="sticky-stack">
   <div class="state-flag-bar">
   	<DIV class="right f80bold">Voter Guide<?= (empty (!$StateName[$ActiveState]) ? " for " . $StateName[$ActiveState] : NULL) ?></DIV>
- 			
+ 		<DIV class="right f60">The information in this guide follows the <B><A HREF="https://politicalcenter.org">Political Center</a></B> ideological guidelines.</DIV>
+ 		
 		<?php
 			foreach ($Statescountries as $CountryName => $CountryFlag) {
     		$activeccs = !empty($ActiveStateWithElection[$CountryFlag])? NULL : " flagnonselected";
